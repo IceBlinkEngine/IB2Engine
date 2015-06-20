@@ -1,0 +1,1101 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "As you approach the bend in this road, <FirstName> hears voices calling out, and then sees some men waving their arms in distress, near a broken down wagon.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Continue",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Hail! Have you time to stop and help us? We were on our way to Khyn when our cart hit a snag in the road. The wheel is damaged. I'm afraid we cannot leave our goods behind lest robbers descend to prey upon the merchandise. But we need to get our cargo to the city.  ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I am sorry, but we must leave you to your fate.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 9,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "ptr_p_trees1.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 10,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "It's none of our business. Let's keep moving.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                  "a_parameter_1": "Wagon",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": "false",
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "WagonFate",
+                                  "a_parameter_2": "1",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 11,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I think we should go back to investigate.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 12,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "ptr_assassinpic.png",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 13,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 14,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "ptr_knifethrowerpic.png",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Looks like this will be an even better haul!",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 15,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Goblins attack!",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Wagon",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "true",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "WagonSave",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 5,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We are from Hearkenwold. Let us guard your caravan, while you continue to the city to find assistance.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 17,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "That is most kind and noble of you! To have such Knights of Astaria be watchful of our wares. In fact, we too were just on our route leaving from the Castle. It will not be very long before we return with help from Khyn. Again, I thank you!",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 18,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 20,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "ptr_p_trees1.png",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "The merchants turn to leave and follow the road to Khyn on foot. After some time has passed, you hear a distinct sound of rustling, movement, coming from beyond the forest. Dark figures emerge from out of the shadows of the trees, accompanied by guttural laughter.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 21,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 22,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "ptr_knifethrowerpic.png",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Looks like this will be an even better haul!",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 24,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Goblins attack!",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Wagon",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "true",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "WagonGuard",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 6,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Of course we will help you. Perhaps we can go to Khyn and find the tools you need or even replace the wheel.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 19,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Well... if you think that is a good idea, a wise course of action. I must trust your judgment. Certainly we will wait here. But please hurry, there are no doubt robbers on the prowl. If night falls and they find us stranded out here, no telling what might happen.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 25,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 26,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "ptr_p_trees1.png",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Turning from the stranded merchants, you prepare to continue your journey. There is a distinct rustling sound coming from beyond the forest.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 27,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "We have to get to the city and find a new wheel. Let's keep moving.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Wagon",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "WagonFate",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 28,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I think we should go back to investigate.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 29,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "ptr_assassinpic.png",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Returning to the broken-down wagon, dark figures emerge from out of the shadows of the trees. Guttural laughter is followed by words croaked out in the common tongue.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 30,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 31,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "ptr_knifethrowerpic.png",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "Looks like this will be an even better haul!",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 32,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Goblins attack!",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                          "a_parameter_1": "Wagon",
+                                                          "a_parameter_2": "2",
+                                                          "a_parameter_3": "true",
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "WagonSave",
+                                                          "a_parameter_2": "1",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsClassLevel.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "cleric",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 7,
+                      "orderNum": 3,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "What kind of goods are you carrying?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 33,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Expecting silver and gold, my friend? Ah don't worry, I can see the gleam in your eye. But our cargo is perhaps more valuable. You see, we are transporting books and rare tomes, to the library of Khyn. I'm sure these would not be of much interest to robbers. But it won't matter if they discover our treasure after they attack. Will you help?",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 34,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 4,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I am sorry, but we must leave you to your fate.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 35,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 5,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "We are from Hearkenwold. Let us guard your caravan, while you continue to the city to find assistance.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 36,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 6,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Of course we will help you. Perhaps we can go to Khyn and find the tools you need or even replace the wheel.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsClassLevel.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "thief",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 8,
+                      "orderNum": 4,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Has there been trouble with robbers along the King's Road?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 37,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Indeed, it is terrible. This used to be a very safe fareway. Of course there were always tribes of goblins in the distant Khrystos Caves. However, between the might of the Castle and the guardian of the southern realm, Fortess Relmfur, none would approach this road so boldly. Merchants could secure safe passage by sticking to the paved path. Now, some trouble is stirring.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 38,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 6,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Of course we will help you. Perhaps we can go to Khyn and find the tools you need or even replace the wheel.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 39,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 5,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "We are from Hearkenwold. Let us guard your caravan, while you continue to the city to find assistance.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 49,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 4,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I am sorry, but we must leave you to your fate.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckAttribute.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "int",
+                          "c_parameter_3": ">",
+                          "c_parameter_4": "15"
+                        }
+                      ],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 16,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Oh, thank the stars above you came back! Those goblins were lying in wait, for the right moment to strike I am sure. No telling what would have happened had you not returned. We are still a bit shaken up. Now I realize, it is not safe for us to remain out here in the open.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 50,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "And what do you suggest?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 51,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "There is a cave nearby. Close enough that we can push our wagon to the entrance, and perhaps devise of cover of leaves and branches. That should provide a measure of safety. If you can manage to get to Khyn and bring a wagon wheel back to us, we can take care of the rest. You will be compensated for your troubles.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 52,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "All right, we will see what we can do.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaEnableDisableTrigger.cs",
+                          "a_parameter_1": "Wagon",
+                          "a_parameter_2": "false",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaEnableDisableTrigger.cs",
+                          "a_parameter_1": "WagonSaveTrig",
+                          "a_parameter_2": "true",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "WagonSave",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 56,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "ptr_merchantfound.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Some more time has passed. After half a day goes by, you hear the sound of the merchants returning up the road. As they approach, the man in front is rolling along a new wheel. He greets you with a broad smile.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 57,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Continue",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 58,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "ptr_merchantfound.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Excellent! So glad to still find you here. The blacksmith of Khyn was able to help us out. And as for you, well, we had not planned a budget for a caravan guard... but I think you deserve something for your troubles. Please, take this purse and then we are off again to the city library.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 59,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "And you be more vigilant on the road you travel. Farewell.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaGiveGold.cs",
+                          "a_parameter_1": "250",
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaGiveXP.cs",
+                          "a_parameter_1": "120",
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaEnableDisableTrigger.cs",
+                          "a_parameter_1": "Wagon",
+                          "a_parameter_2": "false",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "WagonGuard",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 53,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "ptr_p_trees1.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "In this spot, you find shattered wood and bent scraps of iron. A whistle of wind passes forlornly through the treerops.This is all that is left of a wagon that has been destroyed. There is no sign of the cargo, however, and as for the merchants, it is as if they have disappeared without a trace.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 54,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We cannot stand for such abduction on the King's Road.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_parameter_1": "Wagon",
+                  "a_parameter_2": "false",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 55,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I see tracks, leading toward the northeast.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_parameter_1": "Wagon",
+                  "a_parameter_2": "false",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "elf",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "WagonFate",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Wagon",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_wagon.png",
+  "DefaultNpcName": "Merchants",
+  "NextIdNum": 59
+}

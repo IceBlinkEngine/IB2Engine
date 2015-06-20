@@ -1,0 +1,111 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "This underground stream flows beneath a wall of rock. It looks like a tight fit, but human or smaller-sized creatures should be able to make it through. Will you search the other side?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, follow the water.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "CaveExit",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "CaveExit",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, remain here.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "CaveExit",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "CaveExit",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "CaveExit",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_cavestream.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 4
+}

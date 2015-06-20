@@ -1,0 +1,557 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello, would you like to sample some of my rare vintage? It has aged five hundred years, coming from the Serion Forest where the elves now sleep.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No thank you, I'm not interested.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 6,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I understand. However, you do look like the sort of person who would be interested in an exciting venture, yes? I am planning to establish a trade route between Khyn and the Serion Forest. The elves are rumored to lay dormant. But their mystic vineyards remain fertile, for an enterprising team to tap into.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 11,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I will think about it an get back to you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 16,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 4,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Not all of us sleep. I will judge your elven wine. ",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 17,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 5,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Are you selling illegal liquor?",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, that sounds tasty. And it's free, right?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 7,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Ha, ha, yes the sample is free. But I assure you, a full bottle of this... even a glass... would be very expensive. It might be worth your while to explore a joint venture with me, to establish a trade route between Khyn and the Serion Forest. The elves are said to be dormant, but their vineyards are ripe for the picking.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 12,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 11,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I will think about it an get back to you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 18,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 4,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Not all of us sleep. I will judge your elven wine. ",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 19,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 5,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Are you selling illegal liquor?",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 4,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Not all of us sleep. I will judge your elven wine. ",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 8,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "<FirstName> tastes the sample from the bottle, while the man watches on with pale features. His fingers twitch nervously, and the merchant begins to sweat.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 9,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Quite good. This indeed is from my elven homeland.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 13,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "What a relief! I mean, you see! I told you that was authentic elven wine. And I must tell you, it is an honor to have you sample this centuries-old vintage. I mean no disrespect in traveling to your distant wood. But if it is true your people are under an enchanted sleep, I see no reason others cannot tend the land until they wake.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 14,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 11,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I will think about it an get back to you.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsRace.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "elf",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "elf",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 5,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Are you selling illegal liquor?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 10,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Heavens no, of course not! I have my proper commerce license all in order. It is true, they do not like me selling my own wine in the tavern. But standing out here on the street, that is not exactly inside the tavern, now is it? I am seeking others to join me in a venture to establish a legal trade route between Khyn and the Serion Forest.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 27,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I will think about it an get back to you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "Jasper",
+                          "a_parameter_2": "1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Delphos",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 20,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Ah, my friends, good to see you around again. By the way, my name is Jasper. When the time is right, do let me know if you have considered us going into business together. Then I can explain the details. ",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 21,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Some other time. Farewell.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Jasper",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 22,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Ah, my friends, good to see you around again. By the way, my name is Jasper. When the time is right, do let me know if you have considered us going into business together. Then I can explain the details.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 23,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Are you selling illegal liquor?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 24,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Heavens no, of course not! I have my proper commerce license all in order. It is true, they do not like me selling my own wine in the tavern. But standing out here on the street, that is not exactly inside the tavern, now is it? I am seeking others to join me in a venture to establish a legal trade route between Khyn and the Serion Forest.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 28,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I will think about it an get back to you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "Jasper",
+                          "a_parameter_2": "1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Delphos",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 26,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 21,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Some other time. Farewell.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "WineMerchant",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_winemerchantkhyn.png",
+  "DefaultNpcName": "Jasper",
+  "NextIdNum": 28
+}

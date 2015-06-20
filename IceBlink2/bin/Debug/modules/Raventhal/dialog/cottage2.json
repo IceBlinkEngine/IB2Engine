@@ -1,0 +1,406 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 12,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The door to the cottage has been smashed in, and hangs limply on one hinge. You could easily enter the cottage if you wanted.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 13,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Enter the cottage.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "cottagedoor",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 14,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Leave the cottage.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "cottagedoor",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "spokerani1",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "rani.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "\"Wait a minute!\" Rani is looking thoughtful. \"You know, I think there must be another way into the wizard's hole. I don't think he'd cage himself in there without an escape route, do you?\"",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 5,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "\"Any ideas where it might be?\"",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 6,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "rani.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Rani chews her lip. \"I think I saw him use it once - I saw him climbing out of a hidden door in the earth. I can't remember exactly where it is, but to the north of us is the great lake, Asan, and I think it was east of there somewhere\". ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 7,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "\"OK, thanks Rani.\"",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                          "a_parameter_1": "cottagedoor",
+                          "a_parameter_2": "2",
+                          "a_parameter_3": "false",
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaSetGlobalInt.cs",
+                      "a_parameter_1": "spokerani1",
+                      "a_parameter_2": "1",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    },
+                    {
+                      "a_script": "gaAddJournalEntryByTag.cs",
+                      "a_parameter_1": "raventhal",
+                      "a_parameter_2": "rav3",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Rani",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Vinazl",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 8,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "ezzbel.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "\"Hold on!\" Says Ezzbel, flapping nervously around your head. \"I've been thinking. If I was scared, and hiding, I wouldn't just seal myself in a hole. I'd make sure there was an escape route.\"",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 9,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "\"You think there's another way in to the wiazard's hole?\"",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 10,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "ezzbel.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Ezzbel nods. \"I think so. I used to hear rumours that the wizard was often seen moving through the woods to the north east of the great lake, Asan. If we head north, then east, we may be lucky.\"",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 11,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "\"OK, thanks Ezzbel. That's useful.\"",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                          "a_parameter_1": "cottagedoor",
+                          "a_parameter_2": "2",
+                          "a_parameter_3": "false",
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaSetGlobalInt.cs",
+                      "a_parameter_1": "spokerani1",
+                      "a_parameter_2": "1",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    },
+                    {
+                      "a_script": "gaAddJournalEntryByTag.cs",
+                      "a_parameter_1": "raventhal",
+                      "a_parameter_2": "rav4",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Vinazl",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Ezzbel",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The door to the cottage has been smashed in, and hangs limply on one hinge. You could easily enter the cottage if you wanted.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Enter the cottage.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "cottagedoor",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Leave the cottage for now.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "cottagedoor",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "cottage2",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "standard.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 0
+}

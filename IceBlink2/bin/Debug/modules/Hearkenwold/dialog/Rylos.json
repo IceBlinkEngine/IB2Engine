@@ -1,0 +1,1071 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I have watched and appraised you from afar, climbing through rocks, field and fountain. So then, have you traversed this steep path just to find me? I wonder if you seek some hilltop wisdom, or merely wish to keep an old man company. Perhaps you would like to hear a tale?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I beg your pardon, but who are you?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 12,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I am Rylos, a fool parted from his daughter.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 13,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Perhaps we can help.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 14,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Can you? There is not much to be done. I wonder, though, if you have heard of the Cave of Venture. You see, I had a precious artifact stolen from me, it is the only momento I have of her. An alabaster statue, carved in her image. I believe it has been hidden in that dreaded Cave.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 15,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "What do you mean by hilltop wisdom?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 8,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Some examples, you seek. Very well, consider these words. No shadow comes, without the light making a way. And yet you only miss the light when it begins to burn low. Hear me now, you will one day come to hate the road when you are missing home. And Hearkendale is not your home.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 9,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 10,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Hilltop wisdom you inquire about. My young friend, you will never know the clarity and insight gained from standing on high, unless you have been to places low. Just as you will only know you love her when you let her go. And I... I let her go.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 11,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Your last words are tinged with sadness.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 16,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Yes, very perceptive of you. It's my daughter. I let her go, and now the only memento I had of her, was stolen from me. An alabaster statue made in her likeness. I believe it has been hidden in the dreaded Caves of Venture.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 17,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckAttribute.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "wis",
+                  "c_parameter_3": ">",
+                  "c_parameter_4": "15"
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 4,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "That looks like a comfortable cottage.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 18,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Thank you, little halfling. It is small, but cozy. I'm sure you can appreciate that. However, my home has grown more cold and lonely, since I lost my daughter. And the only momento I had, an alabaster statue carved in her image, has been stolen from me. I believe it has been hidden in the Cave of Venture.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 19,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "halfling",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 5,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I would hear your tale, if there is something of value to be learned.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 20,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave. You may seek treasure or glory, or a chance to bring a small joy back to an old man.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 21,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckAttribute.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "int",
+                  "c_parameter_3": ">",
+                  "c_parameter_4": "15"
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 6,
+              "orderNum": 4,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Of course, it would be a privilege to pass some time with one who has been through much in this world.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 22,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You are most kind. Tell me, have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 23,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckHasTrait.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "diplomacy",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 7,
+              "orderNum": 5,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "A story sounds delightful. Say on!",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 24,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "One of the Fair Folk, on my very doorstep! The perhaps you will appreciate this song of sadness. Have you heard of the Cave of Venture? You see, I had a precious artifact stoeln from me, it is the only momento I have of my daughter. An alabaster statue, carved in her image. I lost her a long time ago. But I believe it has been hidden in that dreaded Cave.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 25,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Say no more. We will recover this item for you, Rylos.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "elf",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 45,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Find Alexandros and consult with him about this issue. He may remember better than I, the last whereabouts of the lich, and the arcane rituals involved. This is a dangerous mission, but you have already proved yourselves in braving the Caves of Venture.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 46,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "You want us to track down a lich? So much for hilltop wisdom. Fare well.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 100,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Come, use my cottage to rest, if you wish.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 101,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We will take you up on your hospitality, thank you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaForceRest.cs",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 102,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Not at this time, we must keep moving.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Rylos",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 26,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello again, my wayward friends, orphans of Hearkenwold.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 27,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Greetings, Rylos. We will not keep you long. Fare well.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 97,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Come, use my cottage to rest, if you wish.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 98,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We will take you up on your hospitality, thank you.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaForceRest.cs",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 99,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Not at this time, we must keep moving.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 28,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We found this white statue in yonder caves.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 29,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Eh, what's that? Let me see... why... you have done what I dared not dream could be accomplished! This is marvelous! I cannot thank you enough, adventurers. But I can at least tell you the full story.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 30,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 31,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Once long ago, I was an explorer, a wizard honing his craft and skills through adventure, not so unlike you. My companion was another wizard named Alexandros.  We were rivals of sorts, but also good friends. One fateful day, we had a nasty encounter with a lich named Basil. After a horrific battle, we thought it defeated. But that was not so.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 32,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 33,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "The lich came back, and took its revenge on me! I would have gladly surrendered my own life, but that would not have sated the foul undead's vengeance. This was many years later, after I had married and raised a daughter. Basil came back and trapped her lifeforce in this statue, then stole her away from me.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 34,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "You mean like some sort of curse... That statue is your daughter?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 35,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "ptr_statuebig.png",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "In reply, the old sage begins to mutter cryptic words, and weave gestures with his hands around the alabaster statue placed on the ground. In a shimmering flash of light, the statue cracks and breaks... and standing there, is a young woman with dark hair. ",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 36,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 37,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "ptr_daughter.png",
+                                                  "NodeNpcName": "Alerdene",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "Father... father, you fool... what have you done! Have you forgotten after all these years, why I was imprisoned in this carved and sculpted form?",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 38,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Continue",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 39,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "Alerdene, my daughter, is it truly you? I have you back! I have you back, and that is all that matters!",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 40,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Rylos, she does not seem too pleased.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 41,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "ptr_daughter.png",
+                                                                  "NodeNpcName": "Alerdene",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "No, father. You should not have broken the spell. The lich Basil was banished because it was agreed, all three of us... you, me, Alexandros... I sacrificed my spirit in this statute so that the lich would be contained in a distant phylactery. But... but the statue is shattered. That means a most dreadful undead now stalks the land!",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 42,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "That's not good.",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 43,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "No, no it is not. It has been so long... I hardly remember the details of the events surrounding this desparate crusade. The lich, and my friend Alexandros... I could have sworn the fiend's magic was what trapped my daughter. But what's done is done. I can only suggest we try to contact Alexandros in the Wizards Realm.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 44,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "This really isn't our problem, Rylos. If we come across your friend, or the lich, we will let you know. Fare well.",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [
+                                                                                {
+                                                                                  "a_script": "gaSetGlobalInt.cs",
+                                                                                  "a_parameter_1": "Rylos",
+                                                                                  "a_parameter_2": "1",
+                                                                                  "a_parameter_3": null,
+                                                                                  "a_parameter_4": null
+                                                                                }
+                                                                              ],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaTakeItem.cs",
+                                                  "a_parameter_1": "RylosD",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [
+                                            {
+                                              "a_script": "gaTakeItem.cs",
+                                              "a_parameter_1": "RylosD",
+                                              "a_parameter_2": "1",
+                                              "a_parameter_3": null,
+                                              "a_parameter_4": null
+                                            }
+                                          ],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckForItem.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "RylosD",
+                  "c_parameter_2": "1",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Rylos",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_rylos.png",
+  "DefaultNpcName": "Rylos",
+  "NextIdNum": 102
+}

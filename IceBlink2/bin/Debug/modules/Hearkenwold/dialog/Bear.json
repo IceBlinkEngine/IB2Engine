@@ -1,0 +1,110 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "A solitary carnivore has wandered down from the north. Will you hunt the bear for food?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, its hide and claws could be useful as well.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Bear",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Bear",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, we will let the animal pass.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Bear",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Bear",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Bear",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "ptr_bearwoods.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 3
+}

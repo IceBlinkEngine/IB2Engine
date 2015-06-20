@@ -1,0 +1,1062 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 46,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "Campsite.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "There is nothing left but a deserted campsite, the embers of a fire still burning low. It appears the band of goblins have now vanished, with no other trace.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 47,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "Campsite.png",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Well what do you know, they buggered off.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "Madrigal",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "3",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Rorn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "2",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 40,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You find a band of goblins here busying themselves in the construction of a make-shift camp. One larger than the others goes about giving orders. They are content to ignore you, but consistently defer to their leader who they call Rorn the Black.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 41,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Just watch yourself and don't try to pull anything. Carry on.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 42,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "On second thought, you goblins are threat that will have to be eliminated sooner or later. Prepare for battle!",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": "true",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                  "a_parameter_1": "Rorn",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": "false",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "RornDead",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 43,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 12,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I have heard that name, Rorn the Black. We were informed you stole some bard instruments.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Rorn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Crashing through the forest path, a brutish goblinoid creature with a sloped brow leads a band of others in its wake. An open mouth filled with crooked teeth snarls a bellicose challenge.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Continue.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Out of the way!",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I beg your pardon, but who are you to order me about?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 7,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "I am Rorn the Black. And we are on important merchant business, looking to make camp as we pass through this wood. If you just step aside, we can settle down in this spot. Not wanting any trouble.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 10,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Well, if your intentions are peaceful, then carry on. But we will keep an eye on you.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 13,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "We are not staying long. A short rest before moving on to our next destination. Do not mistake us for having anything to do with the Daggerford Goblins. I am involved with more freelance work, offering services for the right price. Our paths need not cross each other.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 21,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Then let us part company without bloodshed. Farewell.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 22,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "You know what, I don't like the sound of that. I've got more questions for you. ",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 33,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Enough talk. You have tested my patience far enough. And now you will understand why I am called Rorn the Black!",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 34,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Goblins Attack!",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "true",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": "false",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "RornDead",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 11,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I am not comfortable with goblins living so close to the Castle.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 14,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Do not think we are the same as the Daggerford Goblins. And we are not wanting to settle near the Castle, if that is your concern. I travel between towns and villages, offering services for a price. This is just a short stop along the way.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 23,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Fair enough. We will go our separate ways. Farewell.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 49,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Any goblin roaming about is a threat, I say. You'll go no further.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": "true",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "RornDead",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 12,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I have heard that name, Rorn the Black. We were informed you stole some bard instruments.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 15,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Stolen instruments… is that what she told you? The woman can spin a fine tale. I'll have you know, these instruments belong to me.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 25,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "You... play musical instruments?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 27,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Maybe I do! Maybe I can sing like an angel. All that matters is that these instruments are my property. If you don't believe me, go back to that bard and tell her what I said.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 36,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "It seems there are two sides to this coin. Very well, we will return after speaking to Lady Madrigal.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Madrigal",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "false",
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 37,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "I have heard enough. Hand over those instruments, scoundrel, else we shall take them by force.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Madrigal",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": "true",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                  "a_parameter_1": "Rorn",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": "false",
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "RornDead",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 26,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I don't believe you.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 28,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "And I don't care if you doubt my claim. But you are being manipulated by that bard, just like she does to everyone else. Go ahead, confront her with this information. We will wait here.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 38,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 36,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "It seems there are two sides to this coin. Very well, we will return after speaking to Lady Madrigal.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": true
+                                            },
+                                            {
+                                              "idNum": 39,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 37,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "I have heard enough. Hand over those instruments, scoundrel, else we shall take them by force.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": true
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckGlobalInt.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "Madrigal",
+                                  "c_parameter_2": "=",
+                                  "c_parameter_3": "1",
+                                  "c_parameter_4": null
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 5,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "You can walk around us, I’m not moving.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 8,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Look, we are only trying to set up camp! Have we done anything to disturb you? This would make a fine location. Now best be on your way, else you will learn why I am called Rorn the Black.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 17,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 10,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Well, if your intentions are peaceful, then carry on. But we will keep an eye on you.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 18,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Are you threatening me?",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 29,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "What is wrong with you people! Do you think every goblin you meet is from the Daggerford tribe? We have no quarrel with the Kingdom. It might interest you to learn that I have had dealings with merchants from the Castle. So i'm just saying, you had best watch your backs.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 30,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Then let us part company without bloodshed. Farewell.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaEnableDisableTriggerEvent.cs",
+                                          "a_parameter_1": "Rorn",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": "false",
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 31,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "You know what, I don't like the sound of that. I've got more questions for you. ",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 35,
+                                          "orderNum": 0,
+                                          "pcNode": true,
+                                          "linkTo": 33,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Enough talk. You have tested my patience far enough. And now you will understand why I am called Rorn the Black!",
+                                          "IsExpanded": true,
+                                          "subNodes": [],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": true
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 44,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 12,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I have heard that name, Rorn the Black. We were informed you stole some bard instruments.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 6,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "What’s going on here?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 9,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "The only thing that’s not going on here is us setting up our camp. I am Rorn... Rorn the Black, and we travel to take care of some business matters. The sooner you get your nose out of our business, the better.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 19,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 10,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Well, if your intentions are peaceful, then carry on. But we will keep an eye on you.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 20,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Is that a threat?",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 32,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 29,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "What is wrong with you people! Do you think every goblin you meet is from the Daggerford tribe? We have no quarrel with the Kingdom. It might interest you to learn that I have had dealings with merchants from the Castle. So i'm just saying, you had best watch your backs.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 45,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 12,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I have heard that name, Rorn the Black. We were informed you stole some bard instruments.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Rorn",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_rorn.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 49
+}

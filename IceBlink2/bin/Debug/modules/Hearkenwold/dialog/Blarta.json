@@ -1,0 +1,138 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hey, mates, you work for the Castle, right? My boss has been looking for some people to help us out, people like you. He wants to, how do you call it, arrange a meeting… in the grove of trees just north, at the end of the road.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I'm not sure this is a good idea.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_parameter_1": "AvemBlade",
+                  "a_parameter_2": "true",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "osSetPropLocation.cs",
+                  "a_parameter_1": "blarto",
+                  "a_parameter_2": "6",
+                  "a_parameter_3": "10",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "osSetPropIsMover.cs",
+                  "a_parameter_1": "blarto",
+                  "a_parameter_2": "true",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaShowFloatyTextOnMainMap.cs",
+                  "a_parameter_1": "This way",
+                  "a_parameter_2": "white",
+                  "a_parameter_3": "6",
+                  "a_parameter_4": "10"
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "You seem like a friendly fellow. Lead on!",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaEnableDisableTrigger.cs",
+                  "a_parameter_1": "AvemBlade",
+                  "a_parameter_2": "true",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "osSetPropLocation.cs",
+                  "a_parameter_1": "blarto",
+                  "a_parameter_2": "6",
+                  "a_parameter_3": "10",
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "osSetPropIsMover.cs",
+                  "a_parameter_1": "blarto",
+                  "a_parameter_2": "true",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaShowFloatyTextOnMainMap.cs",
+                  "a_parameter_1": "This way",
+                  "a_parameter_2": "white",
+                  "a_parameter_3": "6",
+                  "a_parameter_4": "10"
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Blarta",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "ptr_blarto.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 3
+}

@@ -1,0 +1,282 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 9,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">A little bird has landed on the blind master's shoulder, chirping happily. Time seems liquid here.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 10,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "[You leave]",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "SpokenNugoro",
+              "c_parameter_2": "=",
+              "c_parameter_3": "2",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 7,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">Without a word he bows deeply before you. Then - so quickly that you fail to see from where actually - he picks up a sleek katana in a scabbard and hands it to you.</font> \"May your enemies fall like the leafs in autumn.\" ",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 8,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<font color = \"grey\">He returns to the exact same position in which you found him the first time. It is as nothing had happened in the meantime.</font> [You leave.]",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaGiveItem.cs",
+                  "a_parameter_1": "bladeofautumn",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "SpokenNugoro",
+                  "a_parameter_2": "2",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaGiveXP.cs",
+                  "a_parameter_1": "1200",
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaAddJournalEntryByTag.cs",
+                  "a_parameter_1": "Quest5_0",
+                  "a_parameter_2": "Quest5_2",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckForItem.cs",
+              "c_btnAndOr": null,
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "brawlerteeth",
+              "c_parameter_2": "3",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 5,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">A little bird has landed on the blind master's shoulder, chirping happily. Time seems liquid here.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 6,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "[You leave]",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "SpokenNugoro",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">In the middle of the Pagoda a very old Nehitozumi is meditating, humming silently. He's wearing a blindfold.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<font color = \"grey\">He doesn't seem to react to you talking to him, being fully absorbed in his inner world. After several tries you're about to leave...</font>",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "\"He who helps the innocent amidst a sea of madness shall be worthy of the Blade of Autumn. Go, help Druda and Elja in the Firestew Inn.\"",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "<font color = \"grey\">Then he seems to have forgotten your presence again.</font> [You leave.]",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "SpokenNugoro",
+                          "a_parameter_2": "1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaAddJournalEntryByTag.cs",
+                          "a_parameter_1": "Quest5_0",
+                          "a_parameter_2": "Quest5_1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "MeetingNugoro",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "nugoro.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 2
+}

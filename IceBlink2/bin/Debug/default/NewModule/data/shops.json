@@ -1,0 +1,162 @@
+[
+  {
+    "shopTag": "rolandShop",
+    "shopName": "Roland's Fine Wares",
+    "shopItemRefs": [
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_1602",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_1603",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_1604",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_1605",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "robes",
+        "tag": "robes_1606",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_1607",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1608",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1609",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_1610",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_1611",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_1612",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "crossbow",
+        "tag": "crossbow_1613",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_1614",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireDagger",
+        "tag": "fireDagger_1615",
+        "name": "Fire Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "handaxe",
+        "tag": "handaxe_1616",
+        "name": "Hand Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_1617",
+        "name": "Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace",
+        "tag": "mace_1618",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_1619",
+        "name": "Short Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_1620",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_1621",
+        "name": "Long Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sling",
+        "tag": "sling_1622",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spear",
+        "tag": "spear_1623",
+        "name": "Spear",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }  
+]

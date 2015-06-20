@@ -1,0 +1,892 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "A man here sells musical instruments. He plucks at the strings of a harp, wearing a pensive expression. As you enter the shop and approach, he turns to <FirstName>.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 3,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Continue",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 4,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "There is an air of discord about this place. The notes are out of tune.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 5,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "What seems to be the problem?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 8,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Hmm, oh, I don't mean to burden you. My mood is not as cheerful as it once was. Hard to put a finger upon the reason. I suppose a more immediate disturbance is that I recently had a prized set of masterwork instruments taken from me. Right here, in Khyn, the safest city in the land, or so I've been told. That bothers me more than the loss of the items. The sense of violation, and having one's illusions shattered.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 10,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Such injustice everywhere.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaMovePartyToLastLocation.cs",
+                                  "a_parameter_1": null,
+                                  "a_parameter_2": null,
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 16,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I don't suppose those instruments would happen to be inscribed with a rune in the shape of the letter M.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 17,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Why, yes. The family name is Maestro and that was the signature mark of my grandfather who made these items. The gold lyre was one of his finest creations. Along with a silver flute and mahogany fiddle. It is possible if you found an instrument engraved so, it might be from the ones I lost.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 18,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "There is a bard near Castle Hearkenwold who bought them off the black market.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 20,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I see. Then it seems there might be a short journey in my future. Thank you for this information. At least, I can perhaps bring the matter to conclusion.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 21,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Glad to help out, and good luck finding a resolution.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Maestro",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaMovePartyToLastLocation.cs",
+                                                  "a_parameter_1": null,
+                                                  "a_parameter_2": null,
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 22,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "I can talk to the bard about paying you, or else return your property.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 23,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "That will not be necessary. This is my business. I sell musical instruments. And, it appears we have located an interested customer. I will make arrangements between my shop and this bard.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 24,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Very well. Do what you think is best.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Maestro",
+                                                          "a_parameter_2": "1",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaMovePartyToLastLocation.cs",
+                                                          "a_parameter_1": null,
+                                                          "a_parameter_2": null,
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 19,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "How much are they worth to you, at full value?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 25,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I am an excellent judge when it comes to appraising instruments, my friend. Even with the sentimental attachment I have to these pieces, I would not accept less than one thousand gold for the complete set.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 26,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "No wonder she was tempted to buy them from Rorn. Fare well.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Maestro",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaMovePartyToLastLocation.cs",
+                                                  "a_parameter_1": null,
+                                                  "a_parameter_2": null,
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 27,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 22,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "I can talk to the bard about paying you, or else return your property.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": true
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [
+                                        {
+                                          "c_script": "gcCheckIsClassLevel.cs",
+                                          "c_btnAndOr": "and",
+                                          "c_and": true,
+                                          "c_not": false,
+                                          "c_parameter_1": "-1",
+                                          "c_parameter_2": "thief",
+                                          "c_parameter_3": "1",
+                                          "c_parameter_4": null
+                                        }
+                                      ],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckGlobalInt.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "Madrigal",
+                                  "c_parameter_2": "=",
+                                  "c_parameter_3": "3",
+                                  "c_parameter_4": null
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 6,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Perhaps we can help you make more merry music.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 9,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Ah, one of the Fair Folk! Behold, do my eyes deceive me? Now this is a wonder, I must say. Yes... I am certain your music would transcend anything that might be heard in our city. Alas, I have no instruments worthy for an elf to play. In fact, my most prized masterwork set was recently taken from me. Right here, on the streets of Khyn. I still cannot fathom this mystery.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 28,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 10,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Such injustice everywhere.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 41,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 16,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I don't suppose those instruments would happen to be inscribed with a rune in the shape of the letter M.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 42,
+                              "orderNum": 2,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "It is no mystery. The bandit Rorn the Black stole your instruments and sold them to a bard.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 43,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "That is terrible, then. However, I see I must prepare a short journey to Hearkenwold to address this grievance. I thank you for your information. At least, I can perhaps bring the matter to conclusion.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 44,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Glad to help out, and good luck finding a resolution.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Maestro",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaMovePartyToLastLocation.cs",
+                                          "a_parameter_1": null,
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 45,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I can talk to the bard about paying you, or else return your property.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 46,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "That will not be necessary. This is my business. I sell musical instruments. And, it appears we have located an interested customer. I will make arrangements between my shop and this bard.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 47,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Very well. Do what you think is best.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Maestro",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaMovePartyToLastLocation.cs",
+                                                  "a_parameter_1": null,
+                                                  "a_parameter_2": null,
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckGlobalInt.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "Madrigal",
+                                  "c_parameter_2": "=",
+                                  "c_parameter_3": "3",
+                                  "c_parameter_4": null
+                                },
+                                {
+                                  "c_script": "gcCheckAttribute.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "-1",
+                                  "c_parameter_2": "int",
+                                  "c_parameter_3": ">",
+                                  "c_parameter_4": "15"
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsRace.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "elf",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 7,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I think I am starting to sense the fairness of this city is but a facade.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 12,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Maybe you are on to something, preacher. Maybe we need to start a revival. You see, the Abbot of the Monastery is very much concerned with the letter of the Law. But I feel he somehow fails the grasp the spirit, yes? And that is a cloud, which starts to descend, and may well smother the city. ",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 13,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 14,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Be that is it may, I'm afraid I would not be able to bring much joy to the population. I have recently had a set of my most prized masterwork instruments taken from me. That kind of thing is not supposed to happen in Khyn. It troubles me greatly. Is there no where safe in the land anymore? ",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 50,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 10,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Such injustice everywhere.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": true
+                                    },
+                                    {
+                                      "idNum": 51,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 16,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I don't suppose those instruments would happen to be inscribed with a rune in the shape of the letter M.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": true
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsClassLevel.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "cleric",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 55,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello again, my friend. Together we might bring back the music.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 56,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, well, we will do our best. Farewell.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaMovePartyToLastLocation.cs",
+                  "a_parameter_1": null,
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Maestro",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 52,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You know, I once met a girl who sang a sad song, and I asked her if she knew a tune more happy. She just smiled and turned away.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 53,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Try not to be so melancholy.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaMovePartyToLastLocation.cs",
+                  "a_parameter_1": null,
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 54,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 16,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I don't suppose those instruments would happen to be inscribed with a rune in the shape of the letter M.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "KhynMusic",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_khynmusicshop.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 56
+}

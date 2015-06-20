@@ -1,0 +1,393 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 19,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "fergun_dead.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">The man lies face down in his blood.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 20,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "PortraitFergunDead.png",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<font color = \"grey\">You leave him to the crows.. or worse.</font>",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "FergunKilled",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 21,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "fergun_bloody.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">He dances in the dark, blood covering his face and soaking his woolen shirt.</font>",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 22,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<font color = \"grey\">With a very uneasy feeling you leave him for now.</font>",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "SpokenFergun",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<font color = \"grey\">The man's eyes show naked panic .</font> \n\"Run, turn around, get help!\"",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 17,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "\"Will you keep your distance, fool? Or I shall have your head.\" [you leave].",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 18,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<font color = \"grey\">Cut him down with one silent move of your blade. Was killing always this easy on your soul?</font>",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "FergunKilled",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 2,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "\"Wait, calm down. What's going on here?\" <font color = \"grey\">It costs resolve to remain friendly.</font>",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "fergun_bloody.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "<font color = \"grey\">He's shaking while blood begins to trickle from his eyes down his cheeks.</font> \"Madness and blood - it's the Red Carnival!\"",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "\"Uh oh - not good. Red Carnival? Your eyes...\"",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 8,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "fergun_bloody.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "<font color = \"grey\">He begins to sway slowly to the strange music you hear from the village centre.</font> \"Search help before you enter the village.. the half-blood... look for him in the north...\"",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 9,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "\"Who is this \"half-blood\"? What awaits me in the village?\"",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 10,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "fergun_bloody.png",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "<font color = \"grey\">He does not seem to hear you anymore while he slowly takes turns and bows, following the distant rhythm.</font>",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 11,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "<font color = \"grey\">You leave him as there seems to be nothing you can do for him right now.</font>",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "SpokenFergun",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaGiveXP.cs",
+                                          "a_parameter_1": "20",
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 12,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "<font color = \"grey\">You carefully keep your distance - he might be contagious.</font>",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "SpokenFergun",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaGiveXP.cs",
+                                          "a_parameter_1": "20",
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 14,
+                                      "orderNum": 2,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "PortraitFergunBloodyEyes.png",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "<font color = \"grey\">Put him to the blade, ending his existence. Strange, you feel just empty afterwards.</font>",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "FergunKilled",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaGiveXP.cs",
+                                          "a_parameter_1": "5",
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "gaSetGlobalInt.cs",
+              "a_parameter_1": "nofirst",
+              "a_parameter_2": "1",
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "FergunIntro",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "fergun.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 4
+}

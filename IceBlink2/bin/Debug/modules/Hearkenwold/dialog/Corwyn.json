@@ -1,0 +1,2762 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 41,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Excellent, young knights, come in and hear what I have to say. The journal you brought back to us from the goblinoid cave has yielded some valuable intelligence. Because of this, I am sending a small team to the ruins of Kelton Manor to further investigate. But for you, I have other plans.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 42,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I'm listening.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 48,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "There was an individual mentioned in the journal, Wrathack. That name, it turns out, is familiar to certain members of the Castle clergy. Further inquiry has led us to believe this person frequents a tavern far to the east. We would like to question this Wrathack, but first we must confirm his whereabouts.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 53,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 54,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Travel east of the Castle, past the Steading of Witchlight. When you reach the edge of the foothills, go no further, but turn south. You will be on the border of the Hills of Morlo, on the precipice of the dreaded Wizards Land. This will put you in a dangerous zone beyond the dominion of the King. I am confident in your survival instincts.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 55,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 56,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Heading south, you should pick up a trail that will lead you to a worn-down, disreputable establishment. It is a known gathering place for thieves, ruffians, and mercenaries. Again, not within the boundaries of the Kingdom, so we have been unable to do anything about it. And there, you will likely find Wrathack.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 57,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Go on. What is it you want us to do?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 61,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Your mission is twofold. First, you are to determine if Wrathack is actually at the tavern. If so, engage him carefully, and only to learn how he was involved with the destruction of Kelton Manor. This is a powerful being, a ranger, I believe. So do not go looking for a fight. If Wrathack is not at the tavern, try to discover more about his actions.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 67,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Understood. We will start out there and report back with our findings.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 83,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "One other situation I want to tell you about. It seems our blacksmith, Barham, has indeed gone missing. I'm not sure what this means, or if there is any foul play involved. But if you hear any news or find some trace of his disappearance, you should let me know. ",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 84,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "I will keep an eye out. Fare well.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins3",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 58,
+                                      "orderNum": 1,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "What do you mean by dreaded Wizards?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 62,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "No offense meant. It is just that the mages beyond the hills are powerful, and wild. But we need not concern ourselves with them. Your mission is to track down this Wrathack for questioning. If he is not at the tavern, then see what you can learn about his movements. And by all means, if this character is there, do not try to fight him!",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 71,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Understood. We will start out there and report back with our findings.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 85,
+                                                  "orderNum": 0,
+                                                  "pcNode": true,
+                                                  "linkTo": 83,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "One other situation I want to tell you about. It seems our blacksmith, Barham, has indeed gone missing. I'm not sure what this means, or if there is any foul play involved. But if you hear any news or find some trace of his disappearance, you should let me know. ",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins3",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [
+                                        {
+                                          "c_script": "gcCheckIsClassLevel.cs",
+                                          "c_btnAndOr": "and",
+                                          "c_and": true,
+                                          "c_not": false,
+                                          "c_parameter_1": "-1",
+                                          "c_parameter_2": "wizard",
+                                          "c_parameter_3": "1",
+                                          "c_parameter_4": null
+                                        }
+                                      ],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 59,
+                                      "orderNum": 2,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "This tavern, sounds like I would fit right in.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 63,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Now listen here, rogue. You are not going to the tavern to have a good time. I expect you to carry yourself with dignity as a knight of the Castle... even if you are not to reveal yourself as such. All right, I see your point. Yes, you will blend in nicely with that crowd. Just remember your purpose is to learn more about Wrathack.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 72,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Understood. We will start out there and report back with our findings.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 86,
+                                                  "orderNum": 0,
+                                                  "pcNode": true,
+                                                  "linkTo": 83,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "One other situation I want to tell you about. It seems our blacksmith, Barham, has indeed gone missing. I'm not sure what this means, or if there is any foul play involved. But if you hear any news or find some trace of his disappearance, you should let me know. ",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins3",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [
+                                        {
+                                          "c_script": "gcCheckIsClassLevel.cs",
+                                          "c_btnAndOr": "and",
+                                          "c_and": true,
+                                          "c_not": false,
+                                          "c_parameter_1": "-1",
+                                          "c_parameter_2": "thief",
+                                          "c_parameter_3": "1",
+                                          "c_parameter_4": null
+                                        }
+                                      ],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 60,
+                                      "orderNum": 3,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I believe I can set up a sniper position to take out Wrathack when he emerges from the tavern. ",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 64,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "What? No, this is not an assassination mission! Put your bow away, archer. My reason for sending you to the tavern is to gather information. I want you to question Wrathack directly, but not engage in combat. If he is not there, then sniff around and see what leads you can uncover about his recent actions.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 73,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Understood. We will start out there and report back with our findings.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 87,
+                                                  "orderNum": 0,
+                                                  "pcNode": true,
+                                                  "linkTo": 83,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "One other situation I want to tell you about. It seems our blacksmith, Barham, has indeed gone missing. I'm not sure what this means, or if there is any foul play involved. But if you hear any news or find some trace of his disappearance, you should let me know. ",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins3",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [
+                                        {
+                                          "c_script": "gcCheckIsClassLevel.cs",
+                                          "c_btnAndOr": "and",
+                                          "c_and": true,
+                                          "c_not": false,
+                                          "c_parameter_1": "-1",
+                                          "c_parameter_2": "ranger",
+                                          "c_parameter_3": "1",
+                                          "c_parameter_4": null
+                                        }
+                                      ],
+                                      "isLink": false
+                                    },
+                                    {
+                                      "idNum": 65,
+                                      "orderNum": 4,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Are you sending us on an inquisition?",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 66,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I would not characterize it as such, that is not my sort of area. This is more of a criminal investigation and following up leads. We have a name Wrathack, which matches the description of a dangerous individual who frequents the tavern. You are to confirm if and what he had to do with Kelton Manor.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 74,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Understood. We will start out there and report back with our findings.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 88,
+                                                  "orderNum": 0,
+                                                  "pcNode": true,
+                                                  "linkTo": 83,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "One other situation I want to tell you about. It seems our blacksmith, Barham, has indeed gone missing. I'm not sure what this means, or if there is any foul play involved. But if you hear any news or find some trace of his disappearance, you should let me know. ",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins3",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [
+                                        {
+                                          "c_script": "gcCheckIsClassLevel.cs",
+                                          "c_btnAndOr": "and",
+                                          "c_and": true,
+                                          "c_not": false,
+                                          "c_parameter_1": "-1",
+                                          "c_parameter_2": "cleric",
+                                          "c_parameter_3": "1",
+                                          "c_parameter_4": null
+                                        }
+                                      ],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 43,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "How may we be of service?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 49,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "This might interest you, cleric. The priests of this Castle talk about a wicked individual named Wrathack. The same name as appears in the journal you recovered. From a distant tavern, reports have come in that this person might be found there. We are looking for more information through questioning. ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 75,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 89,
+                          "orderNum": 0,
+                          "pcNode": true,
+                          "linkTo": 54,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Travel east of the Castle, past the Steading of Witchlight. When you reach the edge of the foothills, go no further, but turn south. You will be on the border of the Hills of Morlo, on the precipice of the dreaded Wizards Land. This will put you in a dangerous zone beyond the dominion of the King. I am confident in your survival instincts.",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "cleric",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 44,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I would like to go back to Kelton Manor and see the ruins for myself.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 50,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I understand your desire. It is precisely because of this emotion that I am not sending you to Kelton Manor. You are too close to the investigation. However, your efforts can help us in another way. That journal you found mentioned the name Wrathack. We have learned that he often stays in a tavern to the east.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 77,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 90,
+                          "orderNum": 0,
+                          "pcNode": true,
+                          "linkTo": 54,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Travel east of the Castle, past the Steading of Witchlight. When you reach the edge of the foothills, go no further, but turn south. You will be on the border of the Hills of Morlo, on the precipice of the dreaded Wizards Land. This will put you in a dangerous zone beyond the dominion of the King. I am confident in your survival instincts.",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "fighter",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 45,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Intelligence is my specialty.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 51,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Indeed. Then we shall put your wits to the test, mage. This assignment requires careful planning and perhaps some subtlety. In a tavern east of here is said to be found one called Wrathack. The same name as appears in that journal. We are counting on someone to ask intelligent questions, to gather more information.  ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 79,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 91,
+                          "orderNum": 0,
+                          "pcNode": true,
+                          "linkTo": 54,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Travel east of the Castle, past the Steading of Witchlight. When you reach the edge of the foothills, go no further, but turn south. You will be on the border of the Hills of Morlo, on the precipice of the dreaded Wizards Land. This will put you in a dangerous zone beyond the dominion of the King. I am confident in your survival instincts.",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "wizard",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 47,
+              "orderNum": 4,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Would this be like a covert mission? I'm going to be a spy!",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 52,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Very much so. I hope we can count on you to take this matter seriously. Discreet movements and a cautious tongue will be helpful skills for this assignment. You are not to reveal you are from Castle Hearkenwold, or have any connection to Kelton Manor. Like a shadow, you are tracking the one referenced in the journal as Wrathack. ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 81,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 92,
+                          "orderNum": 0,
+                          "pcNode": true,
+                          "linkTo": 54,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Travel east of the Castle, past the Steading of Witchlight. When you reach the edge of the foothills, go no further, but turn south. You will be on the border of the Hills of Morlo, on the precipice of the dreaded Wizards Land. This will put you in a dangerous zone beyond the dominion of the King. I am confident in your survival instincts.",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "thief",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Wrathack",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 39,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I have nothing further for you at the moment, young knights. Return to me at a later time. Meanwhile, you had best get some rest.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 40,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Until we meet again.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 93,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We have been to the Slaughtered Lamb, and bring with us some information.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 95,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I see. That was a grim task I had given you, <FirstName>. A foul and teacherous hideout, that tavern. On any given night, dreams of malice are born in darkness. All sorts of twisted individuals frequent there, from the lowly to the powerful. What did you learn of Wrathack?",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 99,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "It seems this Wrathack is a woman.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 100,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Interesting.  We never considered the person behind the name might be a female. Not that it matters much. Did you actually meet? The fact that you stand before me as we speak, suggests you were not so fortunate. What else did you find out?",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 112,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 103,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Wrathack had some business dealings in this region, and is now living in Skardale. ",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckGlobalInt.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "WrathackShe",
+                          "c_parameter_2": "=",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 103,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Wrathack had some business dealings in this region, and is now living in Skardale. ",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 104,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Skardale? Skardale?! What would Wrathack be doing there? That city is much further south. Indeed, this warrants further investigation. I'm also convinced now these business dealings had to do with the destruction of Kelton Manor. Good work, <FirstName>.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 106,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 107,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "And on that note, I have some grim tellings of my own. The force I sent to the ruins of Kelton Manor has not returned. There has been no message, no word, and I fear for them. Trouble is brewing and I can't quite put my finger on it. I believe there are answers in the ruins, and that's where I'm sending you next.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 109,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 110,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I realize your flight to Castle Hearkenwold was a little disorientating. Your deeds since then have been nothing less than an expression of strength and courage. Now I am asking you to take the road south, past the city of Khyn, before you once more find yourself on the lands of the Manor. I believe you can handle it.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 111,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Yes, Commander. I am ready to return to Kelton Manor.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Wrathack",
+                                                  "a_parameter_2": "4",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "WrathackShe",
+                                                  "a_parameter_2": "2",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                                  "a_parameter_1": "Knights",
+                                                  "a_parameter_2": "Goblins4",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                },
+                                                {
+                                                  "a_script": "gaSendTrackingPartyInfo.cs",
+                                                  "a_parameter_1": "CompletedTavernQuest",
+                                                  "a_parameter_2": null,
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 127,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Are you insane? The others have gone missing, and now you would cast us into the same fire!",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 128,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "I do not enjoy putting men and women in harm’s way, <FullName>. Their deaths will haunt me each night. Believe me, I am not in the business of feeding the meat grinder. But there are some things that need to be done. I trust now in your competence to travel back to the ruins, and with your past connection to Kelton Manor, returning there might serve both our interests. Other properties of the Kingdom, from estates to villages, could be in danger.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 129,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Very well, we wil consider going back, and should we find anything useful, report to you.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Wrathack",
+                                                          "a_parameter_2": "4",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "WrathackShe",
+                                                          "a_parameter_2": "2",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaAddJournalEntryByTag.cs",
+                                                          "a_parameter_1": "Knights",
+                                                          "a_parameter_2": "Goblins4",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSendTrackingPartyInfo.cs",
+                                                          "a_parameter_1": "CompletedTavernQuest",
+                                                          "a_parameter_2": null,
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Wrathack",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "3",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 94,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Wrathack is a woman!",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 96,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "What are you going on about? Ah, yes, Wrathack. There is growing interest in this person, but we never considered she might be a female. Not that it matters much. Did you actually meet? The fact that you stand before me, suggests you were not so fortunate. What did you find out?",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 97,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We were told she is deadly and had a tragic past that left her scarred.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 101,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "All very fascinating. But the thing we need to know is what are her movements, where is she going? Unless you have more information, I'm afraid you will need to keep digging. Retrace your steps, talk to more people. How was Wrathack involved in the destruction of Kelton Manor.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 105,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I understand. Motivation is not enough, we need to place her at the scene.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 122,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "In the meantime, I have some grim tellings of my own. The force I sent to the ruins of Kelton Manor has not returned. There has been no message, no word, and I fear for them. Trouble is brewing and I can't quite put my finger on it. I believe there are answers in the ruins, and that's where I'm sending you next.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 123,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 124,
+                                          "orderNum": 0,
+                                          "pcNode": true,
+                                          "linkTo": 118,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I realize your flight to Castle Hearkenwold was a little disorientating. Your deeds since then have been nothing less than an expression of strength and courage. Now I am asking you to take the road south, past the city of Khyn, before you once more find yourself on the lands of the Manor. I believe you can handle it.",
+                                          "IsExpanded": true,
+                                          "subNodes": [],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": true
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 113,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Wrathack had some business dealings in this region, and is now living in Skardale. ",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 114,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Skardale? Skardale?! What would Wrathack be doing there? That city is much further south. Indeed, this warrants further investigation. I'm also convinced now these business dealings had to do with the destruction of Kelton Manor. Good work, <FirstName>.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 115,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 116,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "And on that note, I have some grim tellings of my own. The force I sent to the ruins of Kelton Manor has not returned. There has been no message, no word, and I fear for them. Trouble is brewing and I can't quite put my finger on it. I believe there are answers in the ruins, and that's where I'm sending you next.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 117,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 118,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "I realize your flight to Castle Hearkenwold was a little disorientating. Your deeds since then have been nothing less than an expression of strength and courage. Now I am asking you to take the road south, past the city of Khyn, before you once more find yourself on the lands of the Manor. I believe you can handle it.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 126,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Yes, Commander. I am ready to return to Kelton Manor.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Wrathack",
+                                                          "a_parameter_2": "4",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "WrathackShe",
+                                                          "a_parameter_2": "2",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaAddJournalEntryByTag.cs",
+                                                          "a_parameter_1": "Knights",
+                                                          "a_parameter_2": "Goblins4",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSendTrackingPartyInfo.cs",
+                                                          "a_parameter_1": "CompletedTavernQuest",
+                                                          "a_parameter_2": null,
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 130,
+                                                      "orderNum": 1,
+                                                      "pcNode": true,
+                                                      "linkTo": 127,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Are you insane? The others have gone missing, and now you would cast us into the same fire!",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": true
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckGlobalInt.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "WrathackSkar",
+                                  "c_parameter_2": "=",
+                                  "c_parameter_3": "1",
+                                  "c_parameter_4": null
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 98,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "And also, she doesn't like clerics.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 102,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Yes, that makes sense. The priests here at the Castle, when making reference to Wrathack, mutter the words hunter and predator. What I am interested in knowing is where she has been, and where she is going. Unless you have more information, you will need to keep digging.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 121,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I understand. Motivation is not enough, we need to place her at the scene.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 125,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 122,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "In the meantime, I have some grim tellings of my own. The force I sent to the ruins of Kelton Manor has not returned. There has been no message, no word, and I fear for them. Trouble is brewing and I can't quite put my finger on it. I believe there are answers in the ruins, and that's where I'm sending you next.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 120,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 113,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Wrathack had some business dealings in this region, and is now living in Skardale. ",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsClassLevel.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "cleric",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "WrathackShe",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                },
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Wrathack",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "2",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 131,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We have been to Khyn, and Barham the blacksmith is working there.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 132,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Blazes! So that's where he is. It seems Abbot Wordsmith got his hooks into old Barham afterall. Well, there's nothing to be done at this point. I do not have the authority to force him to come back. It is not that he was the only smith at the castle, but he is as skilled a metallurgist I've ever seen.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 133,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 134,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "This doesn't bode well, if the King should have to marshal his forces for war. Alas, the men will need make their arms and armor last a little longer. Barham was not only gifted at the forge, but efficient, too.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 135,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Hopefully this won't turn into a crisis.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "barham",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 136,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "High praise, for a human.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "barham",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckIsRace.cs",
+                                  "c_btnAndOr": "and",
+                                  "c_and": true,
+                                  "c_not": false,
+                                  "c_parameter_1": "-1",
+                                  "c_parameter_2": "dwarf",
+                                  "c_parameter_3": null,
+                                  "c_parameter_4": null
+                                }
+                              ],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "barham",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Goblins",
+              "c_parameter_2": "=",
+              "c_parameter_3": "3",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 26,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "What tidings do you bring, squires?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 27,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Nothing of interest, at the moment.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 28,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We found these pages from a book in a cave inhabited by goblins.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 29,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You don't say! Let me have a look at what you've got there...",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 30,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 31,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "This is all very disturbing. The reference to the ruins of a manor, and the presence of goblin activity so close to the castle. You actually killed a tribal chief? I will have to give this matter some thought. ",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 32,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 33,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Well done, <FirstName>. Very well done, indeed. I shall have to consider you now as full knights in training, no longer just squires. You have performed a valuable service to the Crown. Return to me later, and I might have some more tasks for you.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 34,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Thank you, Commander Khas. We will await our next assignment.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaGiveXP.cs",
+                                          "a_parameter_1": "300",
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Goblins",
+                                          "a_parameter_2": "3",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaAddJournalEntryByTag.cs",
+                                          "a_parameter_1": "Knights",
+                                          "a_parameter_2": "Goblins2",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaEnableDisableTrigger.cs",
+                                          "a_parameter_1": "Wrathack1",
+                                          "a_parameter_2": "true",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaSendTrackingPartyInfo.cs",
+                                          "a_parameter_1": "CompletedGoblinQuest",
+                                          "a_parameter_2": null,
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Goblins",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "GoblinBook",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 18,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "What tidings do you bring, squires?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 19,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Nothing of interest, at the moment.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 20,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "The blacksmith was not at the forge.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 21,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "What? Now that's a hell of a thing. There is no reason Barham wouldn't be at his station at this hour. I will have to track him down and see what this is all about.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 22,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 23,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "In the meantime, did you at least search the forge for some spare weapons and armor to take?",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 24,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Yes. There were some blades and leathers and a few other items.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 35,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "I am pleased that you still had the common sense to arm yourselves. Shows initiative. You have your orders, carry on then.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 36,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "We will head out and report back to you.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Forge",
+                                          "a_parameter_2": "2",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 25,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "No, I thought that might be stealing.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 37,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Show some initiative, will you? I gave you the authority to go to the blacksmith and gather some equipment. Now go back and arm yourselves, and carry out your assignment.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 38,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 36,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "We will head out and report back to you.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": true
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Goblins",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Forge",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 15,
+          "orderNum": 4,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "What tidings do you bring, squires?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 16,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Nothing of interest, at the moment.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Goblins",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 9,
+          "orderNum": 5,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "We meet again, squires.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 10,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I would like to hear what assignment you have for me.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 13,
+                  "orderNum": 0,
+                  "pcNode": true,
+                  "linkTo": 5,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Very good, squires. There is nothing gained by hiding behind the protection of these walls, it is time to contribute to the defense of the realm. Now listen carefully. I want you to patrol the road east of the Castle. There have been sightings of goblins, they must be establishing a forward base of operations.",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 14,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Sorry to bother you, Commander Khas.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Corwyn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 6,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I greet you into the service of Castle Hearkenwold. I am in command of the knight recruits, and others who swear allegiance to the King. My name is Corwyn Khas. If you think yourself prepared, I might have some tasks for you. Nothing too dangerous. But speak with me again when you wish to be of use to the Crown.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I will keep that in mind.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "Corwyn",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "It is a pleasure to meet you. We will return to hear your assignment.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "Corwyn",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 4,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I am ready to prove myself!",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 5,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Very good, squires. There is nothing gained by hiding behind the protection of these walls, it is time to contribute to the defense of the realm. Now listen carefully. I want you to patrol the road east of the Castle. There have been sightings of goblins, they must be establishing a forward base of operations.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 6,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 7,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "I do not expect you to take them all out, just a show of force, that the Knights of Astaria still maintain a presence in the region. We cannot allow the Daggerford goblins to grow into a threat.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 8,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 11,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Now go see the blacksmith. He should be able to outfit you with some proper equipment.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 12,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "We will head out and report back to you.",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "gaSetGlobalInt.cs",
+                                          "a_parameter_1": "Goblins",
+                                          "a_parameter_2": "1",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "gaAddJournalEntryByTag.cs",
+                                          "a_parameter_1": "Knights",
+                                          "a_parameter_2": "Goblins",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Corwyn",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "ptr_corwin.png",
+  "DefaultNpcName": "Corwyn Khas",
+  "NextIdNum": 136
+}

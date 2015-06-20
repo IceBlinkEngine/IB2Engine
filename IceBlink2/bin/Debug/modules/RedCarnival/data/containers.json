@@ -1,0 +1,213 @@
+[
+  {
+    "containerTag": "incense",
+    "containerItemRefs": [
+      {
+        "resref": "recovery",
+        "tag": "recovery_11713",
+        "name": "Rare Incense of Recovery",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_11714",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13915",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "glacierCrusher",
+    "containerItemRefs": [
+      {
+        "resref": "glaciercrusher",
+        "tag": "glaciercrusher_11715",
+        "name": "Glacier Crusher",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_11716",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13916",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "blackDeath",
+    "containerItemRefs": [
+      {
+        "resref": "recovery",
+        "tag": "recovery_11717",
+        "name": "Rare Incense of Recovery",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "blackdeath",
+        "tag": "blackdeath_11718",
+        "name": "Black Death",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13007",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "smithy",
+    "containerItemRefs": [
+      {
+        "resref": "frostarmor",
+        "tag": "frostarmor_11719",
+        "name": "Frost Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13917",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "silken",
+    "containerItemRefs": [
+      {
+        "resref": "recovery",
+        "tag": "recovery_11720",
+        "name": "Rare Incense of Recovery",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_11721",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13919",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "ring",
+    "containerItemRefs": [
+      {
+        "resref": "lakering",
+        "tag": "lakering_11722",
+        "name": "Ring from the Lake",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13920",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "wyrm",
+    "containerItemRefs": [
+      {
+        "resref": "wyrmplate",
+        "tag": "wyrmplate_11723",
+        "name": "Wyrm Plate",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "grave1",
+    "containerItemRefs": [
+      {
+        "resref": "silverfeathers",
+        "tag": "silverfeathers_11724",
+        "name": "Silver Feathers",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_11725",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "grave2",
+    "containerItemRefs": [
+      {
+        "resref": "recovery",
+        "tag": "recovery_11726",
+        "name": "Rare Incense of Recovery",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_11727",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "silverFeathers",
+    "containerItemRefs": [
+      {
+        "resref": "silverfeathers",
+        "tag": "silverfeathers_11728",
+        "name": "Silver Feathers",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13918",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  }
+]

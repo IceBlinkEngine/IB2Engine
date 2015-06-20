@@ -1,0 +1,1141 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": true,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Who are you? Where did you come from... you're not carrying the plague, are you?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We have traveled from Castle Hearkenwold.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 8,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "So you are sent by the King. I did not think he was aware, no less concerned, with our troubles. If you come for tribute, you'll find none here. The people of this steading slolwy die, our livestock have nearly perished. There are no more swine and poultry to breed.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 13,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "You misunderstand, we are not here to collect taxes from the village. But tell us how how we can help.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 19,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Is that so? It's been some time since the Castle has offered any aid. There are a number of problems that need to be dealt with. For starters, there's this plague that has descended upon us. I'm not sure what you know about curing sickness, although maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 20,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 21,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 22,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 23,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Finally, since you asked, there is a more immediate problem in the cornfields. Some crows have taken an interest in our crops. Nasty vultures, if you ask me. I've tried to shoo them away, but they keep coming back. We have a scarecrow, but it doesn't seem to be doing its job. If you could drive off the crows for good, I'd be right grateful for that.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 24,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "That is a lot, but we will see what we can do. Farewell.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaSetGlobalInt.cs",
+                                                  "a_parameter_1": "Harisko",
+                                                  "a_parameter_2": "1",
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 44,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "We met a farmer named Garidan in Castle Hearkenwold.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 45,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "I wonder if he could help to resettle the surrounding area, once this dark cloud has passed. What you can ask him is if he knows a good place to bid on livestock. Soon, I'll be able to trade crops with him as well. Could probably use an extra hand, if he is inclined to travel here.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 46,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "It's worth mentioning, next time we see him. Farewell.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Harisko",
+                                                          "a_parameter_2": "1",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        },
+                                                        {
+                                                          "a_script": "gaSetGlobalInt.cs",
+                                                          "a_parameter_1": "Garidan",
+                                                          "a_parameter_2": "2",
+                                                          "a_parameter_3": null,
+                                                          "a_parameter_4": null
+                                                        }
+                                                      ],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [
+                                                {
+                                                  "c_script": "gcCheckGlobalInt.cs",
+                                                  "c_btnAndOr": "and",
+                                                  "c_and": true,
+                                                  "c_not": false,
+                                                  "c_parameter_1": "Garidan",
+                                                  "c_parameter_2": "=",
+                                                  "c_parameter_3": "1",
+                                                  "c_parameter_4": null
+                                                }
+                                              ],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 14,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I'll take two hens, a sack of grain, and a bucket of eggs.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 25,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Did you not hear what I said? There is hardly anything left to give! Now listen, if you truly want to be of service to the King, there are any number of problems that need to be dealt with. For starters, this plague that has descended upon us. I'm not sure what you know about curing sickness, maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 26,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 27,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 21,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckIsClassLevel.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "-1",
+                          "c_parameter_2": "thief",
+                          "c_parameter_3": "1",
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 4,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "You ask many questions. I have a few, myself.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 9,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "It should not be a surpise I express caution. If you knew what's been going on around here, you would understand. We have not had any outsiders pass through for a ten-day, and then suddenly you strangers show up, which is troubling. You have an air of magic about you, making it doubly so.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 15,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We mean no harm. Tell us what happened.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 28,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "These days, one must be careful who to trust, so much has befallen us. There are a number of problems that need to be dealt with. For starters, there's this plague that has descended upon us. I'm not sure what you know about curing sickness, although maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 29,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 30,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 21,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "wizard",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 5,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "What plague do you speak of? Perhaps I can help.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 10,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Fancy yourself a healer, do you? If you have passed through the Witchlight steading already then you should know there is a sickness upon us. At least, it seems to be constrained to the village only. I'm staying out here, living in the barn for ten days now, in order to escape the affliction. My animals were not so lucky.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 16,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "What can be done about this situation?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 31,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Do you truly think you can help?  If you truly want to be of service to the King, there are any number of problems that need to be dealt with. For starters, this plague that has descended upon us. I'm not sure what you know about curing sickness, maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 32,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 33,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 21,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsClassLevel.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "cleric",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 6,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I am <FirstName> the elf. Originally, I hail from the forest.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 11,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "That would explain much. I too have some Elven heritage. Yet I found myself drawn to the steading of Witchlight, and have been tending the farm animals for some years now. Terrible what has happened. We are fortunate to resist the plague, but I believe it is only a matter of time before it expands beyond the village borders. ",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 17,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "You have mentioned this plague twice now. What is going on here?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 34,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "There are a number of problems that need to be dealt with, friend. For starters, there's this plague that has descended upon us. I'm not sure what you know about curing sickness, although maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 35,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 36,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 21,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "elf",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 7,
+              "orderNum": 4,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I'm a dwarf, can't you see? I was raised in the mountains, but more recenltly, come from Hearkenwold.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 12,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Yes, I can see that. I trust you do not mind the stench of our barnyard animals. I'm afraid we have lost much of our swine and poultry to a sickness that spreads through the village. The people of Witchlight themselves are dying. If you are truly sent from the Castle, bearded one, then perhaps you can help.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 18,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "In truth, we were not sent to you, but we will inform the Castle about your plight. How else can we be of service?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 37,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Bear then these grim tidings. But, If you want to be of service to the King, there are any number of problems that need to be dealt with. For starters, this plague that has descended upon us. I'm not sure what you know about curing sickness, maybe you could talk to some of the more important priests of Astaria.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 38,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 39,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 21,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Also, as I mentioned, the chickens and pigs have all been wiped out. I'm not suggesting we bring in new animals at the moment, but I am at a loss of what to do once this affliction has passed. If I knew of a farmer to trade with, that would be helpful, indeed.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckIsRace.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "dwarf",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 40,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello, again. I'd leave this place, but I cannot abandon the farm animals that remain.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 41,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "A noble sentiment, I suppose. Farewell.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 47,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We met a farmer named Garidan in Castle Hearkenwold.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 48,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I wonder if he could help to resettle the surrounding area, once this dark cloud has passed. What you can ask him is if he knows a good place to bid on livestock. Soon, I'll be able to trade crops with him as well. Could probably use an extra hand, if he is inclined to travel here.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 49,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "It's worth mentioning, next time we see him. Farewell.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "Harisko",
+                          "a_parameter_2": "1",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaSetGlobalInt.cs",
+                          "a_parameter_1": "Garidan",
+                          "a_parameter_2": "2",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        }
+                      ],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Garidan",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 42,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Vultures? Those crows nearly killed us! But it looks like some more will keep returning.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 50,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You see! That's what I'm talking about. There must be some way to scare them off, permanently. Now don't go and get yourselves killed. But if you have any luck figuring this out, let me know.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 51,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "All right, we will think on this some more.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckForItem.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "BFeathers",
+                  "c_parameter_2": "1",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 43,
+              "orderNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I don't think you will have trouble with crows, at least for a while. This is a strange place.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 52,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Ah ha! You did it! Strange days, indeed, most peculiar. But I think I understand now. The feathers from the storm crows used on the scarecrow have given them pause. There is magic weaved into its lifeless form, some fell witchcraft that keeps the lightning at bay. Good fortune for us, it seems.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 53,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 54,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "But let me do this for you. I don't have much in the way of gold or material rewards. However, I have something that has sustained me during this evil hour. It is a specially prepared dish, chicken breast wrapped  in bacon. It's quite nourishing, and at least now I can go back to growing corn.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 55,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "You've been holding out on us, Harisko.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaGiveItem.cs",
+                                  "a_parameter_1": "Bacon01",
+                                  "a_parameter_2": "1",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "Crows",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gcCheckGlobalInt.cs",
+                  "c_btnAndOr": "and",
+                  "c_and": true,
+                  "c_not": false,
+                  "c_parameter_1": "Crows",
+                  "c_parameter_2": "=",
+                  "c_parameter_3": "1",
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Harisko",
+  "Narration": false,
+  "PartyChat": true,
+  "NpcPortraitBitmap": "ptr_hariskoport.png",
+  "DefaultNpcName": "Harisko",
+  "NextIdNum": 55
+}

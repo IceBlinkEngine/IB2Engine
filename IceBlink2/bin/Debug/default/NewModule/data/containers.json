@@ -1,0 +1,14 @@
+[
+  {
+    "containerTag": "HomeUS1",
+    "containerItemRefs": [
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_1565",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

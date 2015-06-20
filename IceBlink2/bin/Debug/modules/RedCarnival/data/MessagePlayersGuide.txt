@@ -1,0 +1,179 @@
+<big><b>PLAYER'S GUIDE</b></big><br>
+<br>
+<u><b>Table of Contents</b></u><br>
+1. General Information<br>
+2. Race Information<br>
+2. Class Information<br>
+3. XP Tables<br>
+4. BAB Table<br>
+5. Items Allowed by Class<br>
+6. Spells by Class<br>
+<br>
+<b><u>1. GENERAL INFORMATION</u></b><br>
+<br>
+a) Spell points (SP) may regenerate slowly on their own if the module author allows. Potions can also be used to replenish SP.<br>
+<br>
+b) If a player's hit points (HP) drop below 1 HP they are unconscious. They will bleed one HP per round until they reach -20 HP and then they are DEAD! Bring them back above 0 HP to stop the bleeding.<br>
+<br>
+c) Use healing potions sparingly, there is a limited amount of them in the game to be found. Having a cleric, ranger, or wizard with healing spells may be useful.<br>
+<br>
+d) Using ranged weapons with an enemy in an adjacent square lowers your attack chances by 4 points.<br>
+<br>
+e) If you are mostly interested in playing through the story and want to skip through combat, turn on the setting called 'debugmode' found in the settings panel (rusty gear button). This adds a 'KILL' button to the combat screen that lets you defeat all enemies.<br>
+<br>
+f) The story plays out differently depending on who and how many are in your party so choose wisely :-)<br>
+<br>
+g) Tapping on the main map may reveal information about different items, props, NPCs, etc.<br>
+<br>
+<b><u>2. RACE INFORMATION</u></b><br>
+<br>
+<u>Cormondorian</u><br>
+Humans stemming from Northern Cormondor, the First Kingdom of Men, with its strong legions and an iron grip of dominance. They are weathered people, with harsh manners and a free will.<br>
+<br>
+<u>Athletainian</u><br>
+Inhabitants of noble Athletain, the Second Kingdom of Men, with its valiant knights and wise sages. These people are much more cultivated than their Cormondorian brethren, yet intrigue and treason often find their way into the daily affairs of the Athletainians.<br>
+<br>
+<u>Morner</u><br>
+Citizens of shadowed Morne, the Third Kingdom of Men, with its twin mining cities of Morgrad and Morgrim who are connected by a labyrinthine sprawl of tunnels. The Shadow Cult dominates the lives of these underground dwelling people, who are renown for the Shadow Steel they wretch from the depths under the Shadowridge Mountains.<br>
+<br>
+<u>Nehitozumi</u><br>
+Ratling/Skaven like people from the Jaden Empire, or Teikoko Kogyoku in their tongue. The Jaden Empire is almost as large as the Five Kingdoms of Men combined, dominating a large part of Grahir's south.<br>
+<br>
+<u>Isnoun Halfblood</u><br>
+Human half-bloods originating from Isnoun, the ferocious three and a half meters high frost giants of the north, all white fur, paws, fangs and four crystal blue eyes.<br>
+<br>
+<b><u>3. CLASS INFORMATION</u></b><br>
+<br>
+<u>Barbarian</u><br>
+Barbarians represent raw, untamed ferocity. From the moment they were born, they had to fight to survive in the hostile environment of the cold north, clawing for anything they could get to eat. They stem from tribes outside the Kingdoms of Men, living in the lawless borderlands between Cormondor and the horror that the realms of the Isnoun are. Untypical for fighters, they are only allowed rather light/medium armors, but make up for that with the largest reservoir of hit points of all classes. In addition to that, they're quite stubborn when it comes to dying, often resisting the final killing blow, and even regenerating life back over the course of a battle. Gains the Hard to Kill and Regeneration trait at level 1.<br>
+<br>
+<u>Shugyosha</u><br>
+The Shugyosha - much like the Knight-Errant - has decided to leave his home province in the Jaden Empire or in Kara-Valor in order to travel the lands to pursue goals that are only his own. All Shugyosha are - like landed samurai serving their liege lord - masters in the art of sword fighting (well, at least once they are experienced enough). Their dedication goes so far that mastery of the sword resembles less a way of fighting, but actually a way of living for them. The speed and precision of their sword attacks is unmatched. Their power rests within them, coming from inner strength that is fueled by adhering to a strict code of honor. Don't mistake them as good in nature by default though - mercy or kindness are not necessarily part of this particular ethical code. It's much more about willingness to kill and willingness to die, both without hesitation. Above all it's about control of emotion. Shugyosha appear very distanced and stiff typically, often expressing themselves through formalized, sometimes poetic language. It's this distance that allows them the full focus on the art of sword mastery, especially their famous Blade Whirl attack which harms all enemies surrounding them. As the Shugyosha uses actually the movements of the enemies to make them harm each other or shield him form blows coming from other attackers, this attack gets more powerful the more enemies surround the Shugyosha. Now, all these character traits will of course differ from individual to individual, as Shugyoshas are no clones, but once you've met a few of them you will recognize a certain pattern. Less experienced Shugyosha often struggle with this code and its emotional isolation, becoming drunkards or aggressive bullies or worse. Concerning game play, Shugyosha as martial experts are allowed to wear most armors and to use most weapons. They really shine though when valiantly jumping amidst a horde of enemies in a fury of steel. Gains the Cleave trait at level 2 and two attacks per round at level 4.<br>
+<br>
+<u>Ranger</u><br>
+Rangers are excellent archers and trappers. They usually have profound knowledge of the wilds of Grahir, allowing them to discover what is normally hidden to most. They are the only class that can use long bows. They gain the Point Blank Shot trait at level 2.<br>
+<br>
+<u>Council Wizard</u><br>
+Council Wizard is a short form for all Wizards belonging the 'High Council of Wizards'. The High Council of Wizards (or short 'Council') is the only officially tolerated magical order within the five Kingdoms of Men. In each of the five capitol cities the Council operates a single tower, each of magnificient size. The towers are known as The Sentinels. The First Sentinel (and also the seat of the Inner Circle, the small group around the Archwizard, that leads the Council) can be found in Corvalon (Cormondor), the Second Sentinel in Gladilium (Athletain), the Third Sentinel in Morgard (Morne), the Fourth Sentinel in Tokame (Kara-Valor) and finally the Fifth Sentinel in Uthor (Zho 0). The Council Wizards use small gems of various colours called Orlaps/Orlapsi to support and to structure and stabilize their casting immensely. The Orlapsi are embedded into the palms of a Council Wizard's hands, with their number indicating the rank in the Council and their colour combination the specialization of a Council wizard in the various forms of magic. During casting the Council Wizard can make the Orlapsi rise from his palms to an orbit around his head. All Council Wizards have eyes of an unnatural brightness, often with non-natural colors.<br>
+<br>
+<u>Thief</u><br>
+Thieves are average in melee combat, but they have unique skills for finding and disabling traps, picking locks, stealth, sneak attacks, evasion, and critical strikes.<br>
+<br>
+<b><u>3. XP TABLES</u></b><br>
+<br>
+<u>Barbarian</u><br>
+<tt><u>LVL___XP</u><br>
+1......0<br>
+2....200<br>
+3....400<br>
+4....800<br>
+5...1600<br>
+6...3200<br>
+7...6500<br>
+8..12500<br>
+9..25000<br>
+10.50000<br>
+<br>
+<u>Shugyosha</u><br>
+<tt><u>LVL___XP</u><br>
+1......0<br>
+2....200<br>
+3....400<br>
+4....800<br>
+5...1600<br>
+6...3200<br>
+7...6500<br>
+8..12500<br>
+9..25000<br>
+10.50000<br>
+<br>
+<u>Ranger</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....225<br>
+3....450<br>
+4....900<br>
+5...1800<br>
+6...3600<br>
+7...7500<br>
+8..15000<br>
+9..30000<br>
+10.45000<br>
+<br>
+<u>Thief</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....125<br>
+3....250<br>
+4....500<br>
+5...1000<br>
+6...2000<br>
+7...4000<br>
+8...7000<br>
+9..11000<br>
+10.16000<br>
+<br>
+<u>Wizard</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....250<br>
+3....500<br>
+4...1000<br>
+5...2000<br>
+6...4000<br>
+7...6000<br>
+8...9000<br>
+9..13500<br>
+10.20000<br>
+<br></tt>
+<br>
+<b><u>4. BAB TABLE</u></b><br>
+<br>
+<tt><small><u>Class____1_2_3_4_5</u><br>
+Barbarian.1 2 3 4 5<br>
+Shugyosha.1 2 3 4 5<br>
+Ranger....1 2 3 4 5<br>
+Thief.....0 1 2 3 3<br>
+Wizard....0 1 1 2 2</small></tt><br>
+<br>
+<br>
+<b><u>5. ITEMS ALLOWED</u></b><br>
+<br>
+<u>Barbarian</u><br>
+most all weapons<br>
+light to medium armor<br>
+<br>
+<u>Shugyosha</u><br>
+most all weapons<br>
+most all armor<br>
+<br>
+<u>Ranger</u><br>
+most all weapons<br>
+only class that can use long bow<br>
+light armor<br>
+<br>
+<u>Thief</u><br>
+simple weapons<br>
+light armor<br>
+<br>
+<u>Wizard</u><br>
+dagger<br>
+sling<br>
+robes<br>
+<br>
+<b><u>6. SPELLS</u></b><br>
+<small>(#) level at which spell is available</small><br>
+<br>
+<u>Ranger</u><br>
+(3)   Minor Healing<br>
+(3)   Mage Bolt<br>
+(4)   Web<br>
+<br>
+<u>Wizard</u><br>
+(1)   Mage Bolt<br>
+(1)   Mage Armor<br>
+(1)   Sleep<br>
+(3)   Web<br>
+(3)   Ice Storm<br>
+(3)   Minor Regeneration<br>
+(5)   Fireball

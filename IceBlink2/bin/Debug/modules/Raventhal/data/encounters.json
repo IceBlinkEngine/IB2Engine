@@ -1,0 +1,5851 @@
+[
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_black_tile",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10123",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10124",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10125",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10126",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10127",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10128",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10129",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 5
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 4,
+        "Y": 2
+      },
+      {
+        "X": 5,
+        "Y": 2
+      },
+      {
+        "X": 4,
+        "Y": 3
+      },
+      {
+        "X": 3,
+        "Y": 3
+      },
+      {
+        "X": 2,
+        "Y": 3
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fightrat",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10130",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10131",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10132",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10133",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10134",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 5
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 1,
+        "Y": 3
+      },
+      {
+        "X": 1,
+        "Y": 4
+      },
+      {
+        "X": 0,
+        "Y": 3
+      },
+      {
+        "X": 0,
+        "Y": 4
+      },
+      {
+        "X": 0,
+        "Y": 2
+      },
+      {
+        "X": 0,
+        "Y": 5
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fight1",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10135",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10136",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10137",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10138",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10139",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "rancidSquirrelBrute",
+        "creatureTag": "rancidSquirrelBrute_10140",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 2
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "goldenClaws",
+        "tag": "goldenClaws_10214",
+        "name": "Golden Claws",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 2,
+        "Y": 5
+      },
+      {
+        "X": 3,
+        "Y": 6
+      },
+      {
+        "X": 2,
+        "Y": 6
+      },
+      {
+        "X": 4,
+        "Y": 6
+      },
+      {
+        "X": 1,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fight2",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10143",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10144",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10145",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10146",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "rancidSquirrel",
+        "creatureTag": "rancidSquirrel_10147",
+        "creatureStartLocationX": 6,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "giantRancidSquirrel",
+        "creatureTag": "giantRancidSquirrel_10148",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 3
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "stoneArmour",
+        "tag": "stoneArmour_10215",
+        "name": "Stone Armour",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "rustykey",
+        "tag": "rustykey_10216",
+        "name": "A rusty key",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 2,
+        "Y": 5
+      },
+      {
+        "X": 3,
+        "Y": 6
+      },
+      {
+        "X": 2,
+        "Y": 6
+      },
+      {
+        "X": 4,
+        "Y": 6
+      },
+      {
+        "X": 5,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fight3",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10149",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10150",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10151",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 4
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 2,
+        "Y": 5
+      },
+      {
+        "X": 3,
+        "Y": 5
+      },
+      {
+        "X": 3,
+        "Y": 6
+      },
+      {
+        "X": 2,
+        "Y": 6
+      },
+      {
+        "X": 1,
+        "Y": 6
+      },
+      {
+        "X": 5,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fight4",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "g",
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_wall",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_wall",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_wall",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_wall",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_wall",
+        "Layer2Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10164",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10165",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10166",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10167",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10168",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10169",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10170",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10171",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 2
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 3,
+        "Y": 5
+      },
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 3,
+        "Y": 6
+      },
+      {
+        "X": 4,
+        "Y": 6
+      },
+      {
+        "X": 2,
+        "Y": 6
+      },
+      {
+        "X": 5,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "fight5",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_black_tile",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_black_tile",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_black_tile",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_stone_floor",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10174",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10175",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10176",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "undeadMage",
+        "creatureTag": "undeadMage_10177",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10178",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10179",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10180",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10181",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10182",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10183",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 1
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 5,
+        "Y": 5
+      },
+      {
+        "X": 6,
+        "Y": 5
+      },
+      {
+        "X": 4,
+        "Y": 6
+      },
+      {
+        "X": 5,
+        "Y": 6
+      },
+      {
+        "X": 6,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "tombfight1",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "undeadMage",
+        "creatureTag": "undeadMage_10184",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 0
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10185",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10186",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10187",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10188",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10189",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "giantRat",
+        "creatureTag": "giantRat_10190",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10191",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10192",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10193",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 1
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 3,
+        "Y": 4
+      },
+      {
+        "X": 4,
+        "Y": 4
+      },
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 4,
+        "Y": 6
+      },
+      {
+        "X": 5,
+        "Y": 6
+      },
+      {
+        "X": 6,
+        "Y": 6
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "tombfight2",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_mountain03",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_rock02",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mud",
+        "Layer2Filename": "t_stone_wall",
+        "Walkable": false,
+        "LoSBlocked": true
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10449",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10450",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10451",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "undeadMage",
+        "creatureTag": "undeadMage_10452",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10453",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10454",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 6
+      },
+      {
+        "creatureResRef": "kaven",
+        "creatureTag": "kaven_10455",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 5
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 3,
+        "Y": 2
+      },
+      {
+        "X": 4,
+        "Y": 2
+      },
+      {
+        "X": 3,
+        "Y": 1
+      },
+      {
+        "X": 4,
+        "Y": 1
+      },
+      {
+        "X": 2,
+        "Y": 1
+      },
+      {
+        "X": 5,
+        "Y": 1
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "Vanekfight",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "SendFullPartyInfo",
+    "OnEndCombatParms": "DefeatedKaven"
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10194",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10195",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10196",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10197",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "ghoul",
+        "creatureTag": "ghoul_10198",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10199",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10200",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "corGhoul",
+        "creatureTag": "corGhoul_10201",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "giantRancidSquirrel",
+        "creatureTag": "giantRancidSquirrel_10202",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "giantRancidSquirrel",
+        "creatureTag": "giantRancidSquirrel_10203",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "giantRancidSquirrel",
+        "creatureTag": "giantRancidSquirrel_10204",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 2
+      },
+      {
+        "creatureResRef": "kolgoth",
+        "creatureTag": "kolgoth_10205",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 1
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 3,
+        "Y": 4
+      },
+      {
+        "X": 4,
+        "Y": 4
+      },
+      {
+        "X": 3,
+        "Y": 5
+      },
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 5,
+        "Y": 5
+      },
+      {
+        "X": 2,
+        "Y": 5
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "Finale",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "SendFullPartyInfo",
+    "OnEndCombatParms": "DefeatedKolgoth"
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10206",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10207",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10208",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10209",
+        "creatureStartLocationX": 1,
+        "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "diseasedCrow",
+        "creatureTag": "diseasedCrow_10210",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 5
+      },
+      {
+        "creatureResRef": "onko",
+        "creatureTag": "onko_10211",
+        "creatureStartLocationX": 0,
+        "creatureStartLocationY": 2
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "blesslong",
+        "tag": "blesslong_10217",
+        "name": "Banric Blade",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_10218",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_10219",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_10220",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 4,
+        "Y": 2
+      },
+      {
+        "X": 4,
+        "Y": 3
+      },
+      {
+        "X": 5,
+        "Y": 2
+      },
+      {
+        "X": 5,
+        "Y": 3
+      },
+      {
+        "X": 6,
+        "Y": 2
+      },
+      {
+        "X": 6,
+        "Y": 3
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "onkfight",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "SendFullPartyInfo",
+    "OnEndCombatParms": "DefeatedOnko"
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g",
+        "\u0000",
+        "g",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "torkal",
+        "creatureTag": "torkal_10212",
+        "creatureStartLocationX": 5,
+        "creatureStartLocationY": 3
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_10221",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "trollLarmour",
+        "tag": "trollLarmour_10222",
+        "name": "Trollhide Leather Armour",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "trollClub",
+        "tag": "trollClub_10223",
+        "name": "Troll Club",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 1,
+        "Y": 3
+      },
+      {
+        "X": 1,
+        "Y": 2
+      },
+      {
+        "X": 1,
+        "Y": 1
+      },
+      {
+        "X": 0,
+        "Y": 4
+      },
+      {
+        "X": 1,
+        "Y": 0
+      },
+      {
+        "X": 0,
+        "Y": 5
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "trollfight",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "SendFullPartyInfo",
+    "OnEndCombatParms": "DefeatedTorkal"
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "g",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "g"
+      ],
+      [
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g",
+        "g"
+      ]
+    ],
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_grass",
+        "Layer2Filename": "t_tree2",
+        "Walkable": false,
+        "LoSBlocked": true
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "bathak",
+        "creatureTag": "bathak_10213",
+        "creatureStartLocationX": 4,
+        "creatureStartLocationY": 1
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [],
+    "encounterPcStartLocations": [
+      {
+        "X": 3,
+        "Y": 4
+      },
+      {
+        "X": 4,
+        "Y": 4
+      },
+      {
+        "X": 3,
+        "Y": 5
+      },
+      {
+        "X": 4,
+        "Y": 5
+      },
+      {
+        "X": 2,
+        "Y": 5
+      },
+      {
+        "X": 5,
+        "Y": 5
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "Bathend",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": true,
+    "AreaMusic": "battle",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": ""
+  }
+]

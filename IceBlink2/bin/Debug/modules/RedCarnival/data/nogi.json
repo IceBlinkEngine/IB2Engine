@@ -1,0 +1,111 @@
+{
+  "tokenFilename": "nogi2",
+  "combatFacingLeft": true,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "knownSpellsTags": [],
+  "knownSpellsList": [],
+  "knownTraitsTags": [
+    "intimidate"
+  ],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 0,
+  "will": 0,
+  "reflex": 0,
+  "strength": 14,
+  "dexterity": 16,
+  "intelligence": 10,
+  "charisma": 12,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 22,
+  "hpMax": 22,
+  "sp": 10,
+  "spMax": 10,
+  "XPNeeded": 200,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "larmor1",
+    "tag": "larmor1_13449",
+    "name": "Leather Armor",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "lsword01",
+    "tag": "lsword01_13459",
+    "name": "Long Sword",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Nogi",
+  "tag": "nogi",
+  "nonRemoveablePc": true,
+  "raceTag": "nehitozumi",
+  "classTag": "shugyosha",
+  "classLevel": 1,
+  "isMale": true,
+  "baseFortitude": 0,
+  "baseWill": 0,
+  "baseReflex": 0,
+  "baseStr": 15,
+  "baseDex": 14,
+  "baseInt": 10,
+  "baseCha": 12,
+  "ACBase": 10,
+  "XP": 100
+}

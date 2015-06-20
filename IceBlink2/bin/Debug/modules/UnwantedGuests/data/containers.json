@@ -1,0 +1,71 @@
+[
+  {
+    "containerTag": "HomeUS1",
+    "containerItemRefs": [
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_1565",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1566",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "inn1",
+    "containerItemRefs": [
+      {
+        "resref": "maceofstunning",
+        "tag": "maceofstunning_8194",
+        "name": "Mace of Stunning",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_8671",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "inn2",
+    "containerItemRefs": [
+      {
+        "resref": "thsworddefender",
+        "tag": "thsworddefender_8668",
+        "name": "Two Handed Sword of the Defender",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_8672",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "inn3",
+    "containerItemRefs": [
+      {
+        "resref": "lilyringofpower",
+        "tag": "lilyringofpower_8196",
+        "name": "Ring of Power",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

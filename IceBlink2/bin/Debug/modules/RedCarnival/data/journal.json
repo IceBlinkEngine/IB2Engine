@@ -1,0 +1,122 @@
+[
+  {
+    "Name": "Reach Broken Antler",
+    "Tag": "Quest1_0",
+    "Entries": [
+      {
+        "EntryTitle": "Lights ahead",
+        "EntryText": "After a long journey through the cold and merciless wild, the eastern entrance to the village of Broken Antler lies only a few footsteps ahead...[recommend going north first]",
+        "Tag": "Quest1_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Madness and Music",
+        "EntryText": "You reached the eastern village entrance, only to find that something macabre and evil is going in Broken Antler. The safe haven you hoped for seems farther away than you thought...",
+        "Tag": "Quest1_2",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Ornogg's Armor",
+    "Tag": "Quest2_0",
+    "Entries": [
+      {
+        "EntryTitle": "To the Smithy",
+        "EntryText": "The half-blood Isnoun Ornogg has joined your party. It might be a good idea to help him find his armor, which he had to leave in a hurry in Mattis' smithy at the centre of the village.",
+        "Tag": "Quest2_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Lost... and found!",
+        "EntryText": "You were able to reach the smithy and recover Ornogg's armor. That's one happy half-blood giant you have there.",
+        "Tag": "Quest2_2",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Wizard and Wand",
+    "Tag": "Quest3_0",
+    "Entries": [
+      {
+        "EntryTitle": "Worried Priest",
+        "EntryText": "The priest has told you about a wizard trapped in the watery depths under the graveyard. He also hinted at a mystic ring hidden at the bottom of the small lake in Broken Antler that could be very helpful when trying to dive in the dark depths of the burial tunnels.",
+        "Tag": "Quest3_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Stuck!",
+        "EntryText": "A wizard is trapped by a stone mouth deep unerneath the earth. The only way to free her seems to get a religious verse from the local priest in Broken Antler. If all runs well, reciting that verse should make the mouth open itself again.",
+        "Tag": "Quest3_2",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Words to leave mouths open",
+        "EntryText": "You have received the verse. Now it's time for getting back to the trapped wizard... keeping fingers crossed that this works out.",
+        "Tag": "Quest3_3",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Finally free",
+        "EntryText": "It worked! The mouth has opened and released Samire. She has gladly joined your party.",
+        "Tag": "Quest3_4",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Weird.. and yellow",
+    "Tag": "Quest4_0",
+    "Entries": [
+      {
+        "EntryTitle": "It's not chicken she needs...",
+        "EntryText": "This very peculiar herbalist is looking for spider eggs - get her those from the cellars under a ruined house in the north eastern corner of Broken Antler. With those eggs she claims to be able to fully heal and rest your party...",
+        "Tag": "Quest4_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Tastes like chicken... not",
+        "EntryText": "The taste is even worse than the looks of her brewings... but it will rest the party every time you talk to Ryxxna.",
+        "Tag": "Quest4_2",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Liquid time",
+    "Tag": "Quest5_0",
+    "Entries": [
+      {
+        "EntryTitle": "Help Druda and Elja",
+        "EntryText": "Nugoro-sama has asked you to help Druda and Elja over at the Firestew Inn. Free their tavern from intruders (and bring some evidence).",
+        "Tag": "Quest5_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Reaper",
+        "EntryText": "Nugora-sama has given you the mighty Autmun Blade. Time for some serious reaping...",
+        "Tag": "Quest5_2",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Last Song",
+    "Tag": "Quest6_0",
+    "Entries": [
+      {
+        "EntryTitle": "The Stranger",
+        "EntryText": "A strange man, dressed in exotic clothes, introduced himself as Nathan de Corbiere and claims to be able to destroy the doomed piano from which the enthralling music originates. He asks for a special amulet, supposedly to be found somewhere on the other side of a large, fire breathing lizard. Well...",
+        "Tag": "Quest6_1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Congratulations!",
+        "EntryText": "You made it - Broken Antler is safe for now, Red Carnival is over! Many thanks again for playing and I hope to see you soon in a further, much larger campaign!",
+        "Tag": "Quest6_2",
+        "EndPoint": false
+      }
+    ]
+  }
+]

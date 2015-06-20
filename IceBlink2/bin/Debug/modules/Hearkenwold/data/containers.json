@@ -1,0 +1,278 @@
+[
+  {
+    "containerTag": "cabinet",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_6629",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_6630",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Forge",
+    "containerItemRefs": [
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6665",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6666",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6667",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6668",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6669",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_6670",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6671",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6672",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6673",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6674",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6675",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_6676",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_6677",
+        "name": "Long Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace",
+        "tag": "mace_6678",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_6893",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_6931",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_6932",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_8132",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "2FCabinet",
+    "containerItemRefs": [
+      {
+        "resref": "p_sly",
+        "tag": "p_sly_7651",
+        "name": "Parchment",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "GoblinChest",
+    "containerItemRefs": [
+      {
+        "resref": "gjournal01",
+        "tag": "gjournal01_6798",
+        "name": "Goblin Journal",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_6799",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ishield01",
+        "tag": "ishield01_6800",
+        "name": "Iron Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_8133",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_8134",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_8135",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "ToolShed",
+    "containerItemRefs": [
+      {
+        "resref": "Spade01",
+        "tag": "Spade01_7275",
+        "name": "Common Shovel",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_8136",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "TrollChest",
+    "containerItemRefs": [
+      {
+        "resref": "TrollHammer",
+        "tag": "TrollHammer_7317",
+        "name": "Troll Hammer",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BugbearChest",
+    "containerItemRefs": [
+      {
+        "resref": "s_chainm",
+        "tag": "s_chainm_8659",
+        "name": "Silver Chainmail",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "DirtMound",
+    "containerItemRefs": [
+      {
+        "resref": "watch_01",
+        "tag": "watch_01_9462",
+        "name": "The Watchman's Torch",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "CrawlerTreasure",
+    "containerItemRefs": [
+      {
+        "resref": "BootsM",
+        "tag": "BootsM_9463",
+        "name": "Boots of Might",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

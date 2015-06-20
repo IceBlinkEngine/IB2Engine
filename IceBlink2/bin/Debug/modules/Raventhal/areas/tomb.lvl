@@ -1,0 +1,2331 @@
+{
+  "Filename": "tomb",
+  "IsWorldMap": false,
+  "UseMiniMapFogOfWar": false,
+  "areaDark": false,
+  "UseDayNightCycle": false,
+  "TimePerSquare": 6,
+  "ImageFileName": "tomb.jpg",
+  "MapSizeX": 16,
+  "MapSizeY": 16,
+  "Tiles": [
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer1Filename": "t_grass",
+      "Layer2Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    }
+  ],
+  "Props": [],
+  "Triggers": [
+    {
+      "TriggerTag": "newTrigger_102",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 15,
+          "Y": 5
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "transition",
+      "Event1FilenameOrTag": "wm_forest",
+      "Event1TransPointX": 24,
+      "Event1TransPointY": 8,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_104",
+      "Enabled": true,
+      "DoOnceOnly": true,
+      "TriggerSquaresList": [
+        {
+          "X": 14,
+          "Y": 5
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "tombentry",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_105",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 13,
+          "Y": 4
+        }
+      ],
+      "DoOnceOnlyEvent1": true,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "tombcombat",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "encounter",
+      "Event2FilenameOrTag": "tombfight1",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_106",
+      "Enabled": true,
+      "DoOnceOnly": true,
+      "TriggerSquaresList": [
+        {
+          "X": 13,
+          "Y": 2
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "antechamber",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_107",
+      "Enabled": true,
+      "DoOnceOnly": true,
+      "TriggerSquaresList": [
+        {
+          "X": 11,
+          "Y": 4
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "bigtempleroom",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_108",
+      "Enabled": true,
+      "DoOnceOnly": true,
+      "TriggerSquaresList": [
+        {
+          "X": 7,
+          "Y": 5
+        },
+        {
+          "X": 8,
+          "Y": 5
+        },
+        {
+          "X": 8,
+          "Y": 6
+        },
+        {
+          "X": 8,
+          "Y": 7
+        },
+        {
+          "X": 8,
+          "Y": 8
+        },
+        {
+          "X": 7,
+          "Y": 8
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "altar",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_109",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 5,
+          "Y": 1
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "container",
+      "Event1FilenameOrTag": "Temple1",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_110",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 1,
+          "Y": 9
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "container",
+      "Event1FilenameOrTag": "Temple2",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_111",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 1,
+          "Y": 5
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "empty chest",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_112",
+      "Enabled": true,
+      "DoOnceOnly": true,
+      "TriggerSquaresList": [
+        {
+          "X": 5,
+          "Y": 12
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "behindthealtar",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "newTrigger_113",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 4,
+          "Y": 10
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "encounter",
+      "Event1FilenameOrTag": "tombfight2",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": true,
+      "Event2Type": "none",
+      "Event2FilenameOrTag": "none",
+      "Event2TransPointX": 0,
+      "Event2TransPointY": 0,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    },
+    {
+      "TriggerTag": "lowertemple",
+      "Enabled": true,
+      "DoOnceOnly": false,
+      "TriggerSquaresList": [
+        {
+          "X": 1,
+          "Y": 0
+        }
+      ],
+      "DoOnceOnlyEvent1": false,
+      "EnabledEvent1": true,
+      "Event1Type": "conversation",
+      "Event1FilenameOrTag": "doortoinnertemple",
+      "Event1TransPointX": 0,
+      "Event1TransPointY": 0,
+      "Event1Parm1": "none",
+      "Event1Parm2": "none",
+      "Event1Parm3": "none",
+      "Event1Parm4": "none",
+      "DoOnceOnlyEvent2": false,
+      "EnabledEvent2": false,
+      "Event2Type": "transition",
+      "Event2FilenameOrTag": "rootsmanoever",
+      "Event2TransPointX": 13,
+      "Event2TransPointY": 2,
+      "Event2Parm1": "none",
+      "Event2Parm2": "none",
+      "Event2Parm3": "none",
+      "Event2Parm4": "none",
+      "DoOnceOnlyEvent3": false,
+      "EnabledEvent3": true,
+      "Event3Type": "none",
+      "Event3FilenameOrTag": "none",
+      "Event3TransPointX": 0,
+      "Event3TransPointY": 0,
+      "Event3Parm1": "none",
+      "Event3Parm2": "none",
+      "Event3Parm3": "none",
+      "Event3Parm4": "none"
+    }
+  ],
+  "AreaMusic": "none",
+  "AreaMusicDelay": 0,
+  "AreaMusicDelayRandomAdder": 0,
+  "AreaSounds": "none",
+  "AreaSoundsDelay": 0,
+  "AreaSoundsDelayRandomAdder": 0,
+  "NextIdNumber": 128,
+  "OnHeartBeatLogicTree": "none",
+  "OnHeartBeatParms": "",
+  "AreaLocalInts": [],
+  "AreaLocalStrings": []
+}

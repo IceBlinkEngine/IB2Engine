@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Knights in Training Quests",
+    "Tag": "Knights",
+    "Entries": [
+      {
+        "EntryTitle": "Goblinkin on the Move",
+        "EntryText": "Commander Corwyn Khas of Castle Hearkenwold has given you your first assignment. Patrol the road to the east and keep watch for any goblin activity.",
+        "Tag": "Goblins",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Aznek is Down",
+        "EntryText": "You have infiltrated a small cave close to the Castle, and brought down a tribal chieftain named Aznek. Impressed, Commander Khas no longer considers you squires.",
+        "Tag": "Goblins2",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Wrathack",
+        "EntryText": "Commander Khas has requested that you visit a shady tavern east of Castle Hearkenwold, on the border of hill country. It is there he suspects the one called Wrathack might be found, as mentioned in the Goblin journal. \n\nYou are to question directly or indirectly to find out more about Wrathack's dealings and involvement with the destruction of Kelton Manor.",
+        "Tag": "Goblins3",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Kelton Manor",
+        "EntryText": "Convinced now that Wrathack was instrumental in a plot to burn down Kelton Manor, the Knight Commander is determined to find answers in the ashes and ruins. The party he initially sent has not returned, nor have there been any runners to bear tidings.\n\nThe time has come to send you to back to the Manor, to learn what happened to the first team and any other information about the enemy responsible for this attack.",
+        "Tag": "Goblins4",
+        "EndPoint": false
+      }
+    ]
+  }
+]

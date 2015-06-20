@@ -1,0 +1,4985 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace IceBlink2
+{
+    public class ScreenCombat 
+    {
+	    public Module mod;
+	    public GameView gv;
+	
+	    //COMBAT STUFF
+	    private bool isPlayerTurn = true;
+	    public bool canMove = true;
+	    public int currentPlayerIndex = 0;
+	    private int currentCreatureIndex = 0;
+	    public string currentCombatMode = "info"; //info, move, cast, attack
+	    private Coordinate targetHighlightCenterLocation = new Coordinate();
+	    public Coordinate creatureTargetLocation = new Coordinate();
+	    private int encounterXP = 0;
+	    private Creature creatureToAnimate = null;
+	    private Player playerToAnimate = null;
+	    private bool drawHitAnimation = false;
+	    private bool drawMissAnimation = false;
+	    private Coordinate hitAnimationLocation = new Coordinate();
+	    public int spellSelectorIndex = 0;
+	    public List<String> spellSelectorSpellTagList = new List<String>();
+	    private bool drawProjectileAnimation = false;
+	    private Coordinate projectileAnimationLocation = new Coordinate();
+	    private bool drawEndingAnimation = false;
+	    private Coordinate endingAnimationLocation = new Coordinate();
+	    private int animationFrameIndex = 0;
+	    public PathFinder pf;
+	    public bool floatyTextOn = false;
+	    public AnimationState animationState = AnimationState.None;
+	    private Bitmap projectile;
+	    private Bitmap ending_fx;
+	    public int creatureIndex = 0;
+	    private Bitmap mapBitmap;
+
+        public int totalStartingHp = 0;
+        public int totalStartingSp = 0;
+
+	    private IbbButton btnSelect = null;
+	    private IbbButton btnMove = null;
+	    private IbbButton btnAttack = null;
+	    private IbbButton btnCast = null;
+	    private IbbButton btnSkipTurn = null;
+	    private IbbButton btnSwitchWeapon = null;
+	    public IbbToggleButton tglHP = null;
+	    public IbbToggleButton tglSP = null;
+	    public IbbToggleButton tglSpeed = null;
+	    public IbbToggleButton tglSoundFx = null;
+	    public IbbToggleButton tglKill = null;
+	    public IbbToggleButton tglHelp = null;
+	    public IbbToggleButton tglGrid = null;
+	
+	    public ScreenCombat(Module m, GameView g)
+	    {
+		    mod = m;
+		    gv = g;
+		    setControlsStart();
+		    setToggleButtonsStart();
+	    }
+	
+	    public void setControlsStart()
+	    {		
+		    int pW = (int)((float)gv.screenWidth / 100.0f);
+		    int pH = (int)((float)gv.screenHeight / 100.0f);
+		    int padW = gv.squareSize/6;
+		    //int shift = squareSize / 2;
+		
+		
+		    if (btnSelect == null)
+		    {
+			    btnSelect = new IbbButton(gv, 0.8f);	
+			    btnSelect.Text = "SELECT";
+			    btnSelect.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnSelect.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnSelect.X = 10 * gv.squareSize;
+			    btnSelect.Y = 9 * gv.squareSize + pH * 2;
+			    btnSelect.Height = (int)(50 * gv.screenDensity);
+			    btnSelect.Width = (int)(50 * gv.screenDensity);
+		    }			
+		    if (btnMove == null)
+		    {
+			    btnMove = new IbbButton(gv, 0.8f);
+			    btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnMove.Text = "MOVE";
+			    btnMove.X = 3 * gv.squareSize + padW * 4 + gv.oXshift;
+			    btnMove.Y = 7 * gv.squareSize + pH;
+			    btnMove.Height = (int)(50 * gv.screenDensity);
+			    btnMove.Width = (int)(50 * gv.screenDensity);			
+		    }
+		    if (btnAttack == null)
+		    {
+			    btnAttack = new IbbButton(gv, 0.8f);
+			    btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnAttack.Text = "ATTACK";
+			    btnAttack.X = 4 * gv.squareSize + padW * 5 + gv.oXshift;
+			    btnAttack.Y = 7 * gv.squareSize + pH;
+			    btnAttack.Height = (int)(50 * gv.screenDensity);
+			    btnAttack.Width = (int)(50 * gv.screenDensity);			
+		    }
+		    if (btnCast == null)
+		    {
+			    btnCast = new IbbButton(gv, 0.8f);
+			    btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnCast.Text = "CAST";
+			    btnCast.X = 5 * gv.squareSize + padW * 6 + gv.oXshift;
+			    btnCast.Y = 7 * gv.squareSize + pH;
+			    btnCast.Height = (int)(50 * gv.screenDensity);
+			    btnCast.Width = (int)(50 * gv.screenDensity);			
+		    }
+		    if (btnSkipTurn == null)
+		    {
+			    btnSkipTurn = new IbbButton(gv, 0.8f);
+			    btnSkipTurn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnSkipTurn.Text = "SKIP";
+			    btnSkipTurn.X = 2 * gv.squareSize + padW * 3 + gv.oXshift;
+			    btnSkipTurn.Y = 7 * gv.squareSize + pH;
+			    btnSkipTurn.Height = (int)(50 * gv.screenDensity);
+			    btnSkipTurn.Width = (int)(50 * gv.screenDensity);			
+		    }
+		    if (btnSwitchWeapon == null)
+		    {
+			    btnSwitchWeapon = new IbbButton(gv, 1.0f);
+			    btnSwitchWeapon.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnSwitchWeapon.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
+			    btnSwitchWeapon.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnSwitchWeapon.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
+			    btnSwitchWeapon.Y = 7 * gv.squareSize + pH;
+			    btnSwitchWeapon.Height = (int)(50 * gv.screenDensity);
+			    btnSwitchWeapon.Width = (int)(50 * gv.screenDensity);			
+					
+		    }
+	    }
+	    public void setToggleButtonsStart()
+        {
+    	    int pW = (int)((float)gv.screenWidth / 100.0f);
+		    int pH = (int)((float)gv.screenHeight / 100.0f);
+		    int padW = gv.squareSize/6;
+			
+		    if (tglGrid == null)
+		    {
+			    tglGrid = new IbbToggleButton(gv);
+			    tglGrid.ImgOn = gv.cc.LoadBitmap("tgl_grid_on");
+			    tglGrid.ImgOff = gv.cc.LoadBitmap("tgl_grid_off");
+			    tglGrid.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglGrid.Y = 0 * (gv.squareSize) + (gv.squareSize/2);
+			    tglGrid.Height = (int)(25 * gv.screenDensity);
+			    tglGrid.Width = (int)(25 * gv.screenDensity);
+			    tglGrid.toggleOn = true;
+		    }
+		    if (tglHP == null)
+		    {
+			    tglHP = new IbbToggleButton(gv);
+			    tglHP.ImgOn = gv.cc.LoadBitmap("tgl_hp_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_hp_on);
+			    tglHP.ImgOff = gv.cc.LoadBitmap("tgl_hp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_hp_off);
+			    tglHP.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglHP.Y = 2 * gv.squareSize + (gv.squareSize/2);
+			    tglHP.Height = (int)(25 * gv.screenDensity);
+			    tglHP.Width = (int)(25 * gv.screenDensity);
+		    }
+		    if (tglSP == null)
+		    {
+			    tglSP = new IbbToggleButton(gv);
+			    tglSP.ImgOn = gv.cc.LoadBitmap("tgl_sp_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+			    tglSP.ImgOff = gv.cc.LoadBitmap("tgl_sp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+			    tglSP.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglSP.Y = 3 * gv.squareSize + (gv.squareSize/2);
+			    tglSP.Height = (int)(25 * gv.screenDensity);
+			    tglSP.Width = (int)(25 * gv.screenDensity);
+		    }
+		    if (tglSpeed == null)
+		    {
+			    tglSpeed = new IbbToggleButton(gv);
+			    tglSpeed.ImgOn = gv.cc.LoadBitmap("tgl_speed_1"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+			    tglSpeed.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglSpeed.Y = 4 * gv.squareSize + (gv.squareSize/2);
+			    tglSpeed.Height = (int)(25 * gv.screenDensity);
+			    tglSpeed.Width = (int)(25 * gv.screenDensity);
+		    }
+		    if (tglSoundFx == null)
+		    {
+			    tglSoundFx = new IbbToggleButton(gv);
+			    tglSoundFx.ImgOn = gv.cc.LoadBitmap("tgl_sound_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+			    tglSoundFx.ImgOff = gv.cc.LoadBitmap("tgl_sound_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+			    tglSoundFx.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglSoundFx.Y = 5 * gv.squareSize + (gv.squareSize/2);
+			    tglSoundFx.Height = (int)(25 * gv.screenDensity);
+			    tglSoundFx.Width = (int)(25 * gv.screenDensity);
+		    }
+		    if (tglHelp == null)
+		    {
+			    tglHelp = new IbbToggleButton(gv);
+			    tglHelp.ImgOn = gv.cc.LoadBitmap("tgl_help_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+			    tglHelp.ImgOff = gv.cc.LoadBitmap("tgl_help_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+			    tglHelp.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglHelp.Y = 6 * gv.squareSize + (gv.squareSize/4);
+			    tglHelp.Height = (int)(25 * gv.screenDensity);
+			    tglHelp.Width = (int)(25 * gv.screenDensity);
+		    }
+		    if (tglKill == null)
+		    {
+			    tglKill = new IbbToggleButton(gv);
+			    tglKill.ImgOn = gv.cc.LoadBitmap("tgl_kill_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+			    tglKill.ImgOff = gv.cc.LoadBitmap("tgl_kill_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+			    tglKill.X = gv.oXshift;
+			    tglKill.Y = 6 * gv.squareSize + (gv.squareSize/4);
+			    tglKill.Height = (int)(25 * gv.screenDensity);
+			    tglKill.Width = (int)(25 * gv.screenDensity);
+		    }
+        }
+	
+	    public void tutorialMessageCombat(bool helpCall)
+        {
+    	    if ((mod.showTutorialCombat) || (helpCall))
+		    {
+			    gv.sf.MessageBoxHtml(
+					    "<big><b>COMBAT</b></big><br><br>" +
+			
+					    "<b>1. Player's Turn:</b> Each player takes a turn. The current player will be highlighted with a" +
+					    " light blue box. You can Move one square (or stay put) and make one additional action such" + 
+					    " as ATTACK, CAST, use item, or end turn (SKIP button).<br><br>" +
+					
+					    "<b>2. Info Mode:</b> Info mode is the default mode. In this mode you can tap on a token (player or enemy image) to show" + 
+					    " some of their stats (HP, SP, etc.). If none of the buttons are highlighted, then you are in 'Info' mode. If you are" +
+					    " in 'move' mode and want to return to 'info' mode, tap on the move button to unselect it and return to 'info' mode. Same" +
+					    " concept works for 'attack' mode back to 'info' mode.<br><br>" +
+					
+					    "<b>3. Move:</b> After pressing move, you may move one square and then do one more action or press 'SKIP' to end this Player's" +
+					    " turn. You move by pressing one of the arrow direction buttons or tapping on a square adjacent to the PC.<br><br>" +
+					
+					    "<b>3. Attack:</b> After pressing attack, move the target selection square by pressing the arrow keys or tapping on any map square." + 
+					    " Once you have selected a valid target (box will be green), press the 'TARGET' button or tap on the targeted map square (green box)" +
+					    " again to complete the action.<br><br>" +
+					
+					    "<b>4. Cast:</b> After pressing cast and selecting a spell from the spell selection screen, move the target selection square by" +
+					    " pressing the arrow keys or tapping on any map square. Once you have selected a valid target (box will be green), press the" + 
+					    " 'TARGET' button or tap on the targeted map square (green box) again to complete the action.<br><br>" +
+					
+					    "<b>5. Skip:</b> The 'SKIP' button will end the current player's turn.<br><br>" +
+					
+					    "<b>6. Use Item:</b> press the inventory button (image of a bag) to show the party inventory screen. Only the current Player" +
+					    " may use an item from this screen during combat.<br><br>" +
+					
+					    "<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>"
+					    );
+			    mod.showTutorialCombat = false;
+		    }
+        }
+	    public void doOnHitScriptBasedOnFilename(String filename, Creature crt, Player pc)
+        {
+            if (!filename.Equals("none"))
+            {
+                try
+                {
+            	    if (filename.Equals("onHitBeetleFire.cs"))
+            	    {
+            		    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+            		    float damage = (1 * gv.sf.RandInt(2)) + 0;
+                        int fireDam = (int)(damage * resist);
+                    
+            		    if (mod.debugMode)
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage 
+                    				    + " fireDam = " + fireDam + "</font>" +
+                    				    "<BR>");
+                        }
+            		    gv.cc.addLogText("<font color='aqua'>" +	pc.name + "</font>" +
+                			    "<font color='white'>" + " is burned for " + "</font>" +
+                			    "<font color='red'>" +	fireDam + "</font>" +
+                			    "<font color='white'>" + " hit point(s)" + "</font>" +
+                			    "<BR>");
+            		    pc.hp -= fireDam;
+            	    }
+
+                    else if (filename.Equals("onHitMaceOfStunning.cs"))
+                    {
+                        int tryHold = gv.sf.RandInt(100);
+                        if (tryHold > 50)
+                        {
+                            //attempt to hold PC
+                            int saveChkRoll = gv.sf.RandInt(20);
+                            int saveChk = saveChkRoll + crt.fortitude;
+                            int DC = 15;
+                            if (saveChk >= DC) //passed save check
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.fortitude + " >= " + DC + ")</font><BR>");
+                            }
+                            else
+                            {
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
+                                crt.cr_status = "Held";
+                                Effect ef = mod.getEffectByTag("hold");
+                                crt.AddEffectByObject(ef, mod.WorldTime);
+                            }
+                        }
+                    }
+                    else if (filename.Equals("onHitBeetleAcid.cs"))
+                    {
+                        float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f));
+                        float damage = (1 * gv.sf.RandInt(2)) + 0;
+                        int acidDam = (int)(damage * resist);
+
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                                    + " acidDam = " + acidDam + "</font>" +
+                                    "<BR>");
+                        }
+                        gv.cc.addLogText("<font color='aqua'>" +	pc.name + "</font>" +
+                                "<font color='white'>" + " is burned for " + "</font>" +
+                                "<font color='lime'>" +	acidDam + "</font>" +
+                                "<font color='white'>" + " hit point(s)" + "</font>" +
+                                "<BR>");
+                        pc.hp -= acidDam;
+
+                        //attempt to hold PC
+                        int saveChkRoll = gv.sf.RandInt(20);
+                        //int saveChk = saveChkRoll + target.Will;
+                        int saveChk = saveChkRoll + pc.fortitude;
+                        int DC = 10;
+                        if (saveChk >= DC) //passed save check
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the acid stun (" + saveChkRoll + " + " + pc.fortitude + " >= " + DC + ")</font><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
+                            pc.charStatus = "Held";
+                            Effect ef = mod.getEffectByTag("hold");
+                            pc.AddEffectByObject(ef, mod.WorldTime);
+                        }
+                    }
+            	    else if (filename.Equals("onHitOneFire.cs"))
+            	    {
+            		    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+            		    float damage = 1.0f;
+                        int fireDam = (int)(damage * resist);
+                    
+            		    if (mod.debugMode)
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage 
+                    				    + " fireDam = " + fireDam + "</font>" +
+                    				    "<BR>");
+                        }
+            		    gv.cc.addLogText("<font color='aqua'>" +	crt.cr_name + "</font>" +
+                			    "<font color='white'>" + " is burned for " + "</font>" +
+                			    "<font color='red'>" +	fireDam + "</font>" +
+                			    "<font color='white'>" + " hit point(s)" + "</font>" +
+                			    "<BR>");
+            		    crt.hp -= fireDam;
+            	    }
+            	    else if (filename.Equals("onHitOneTwoFire.cs"))
+            	    {
+            		    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+            		    float damage = (1 * gv.sf.RandInt(2)) + 0;
+                        int fireDam = (int)(damage * resist);
+                    
+            		    if (mod.debugMode)
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage 
+                    				    + " fireDam = " + fireDam + "</font>" +
+                    				    "<BR>");
+                        }
+            		    gv.cc.addLogText("<font color='aqua'>" +	crt.cr_name + "</font>" +
+                			    "<font color='white'>" + " is burned for " + "</font>" +
+                			    "<font color='red'>" +	fireDam + "</font>" +
+                			    "<font color='white'>" + " hit point(s)" + "</font>" +
+                			    "<BR>");
+            		    crt.hp -= fireDam;
+            	    }
+            	    else if (filename.Equals("onHitTwoThreeFire.cs"))
+            	    {
+            		    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+            		    float damage = (1 * gv.sf.RandInt(2)) + 1;
+                        int fireDam = (int)(damage * resist);
+                    
+            		    if (mod.debugMode)
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage 
+                    				    + " fireDam = " + fireDam + "</font>" +
+                    				    "<BR>");
+                        }
+            		    gv.cc.addLogText("<font color='aqua'>" +	crt.cr_name + "</font>" +
+                			    "<font color='white'>" + " is burned for " + "</font>" +
+                			    "<font color='red'>" +	fireDam + "</font>" +
+                			    "<font color='white'>" + " hit point(s)" + "</font>" +
+                			    "<BR>");
+            		    crt.hp -= fireDam;
+            	    }
+            	    else if (filename.Equals("onHitPcPoisonedLight.cs"))
+            	    {
+            		    int saveChkRoll = gv.sf.RandInt(20);
+                        int saveChk = saveChkRoll + pc.reflex;
+                        int DC = 13;
+                        if (saveChk >= DC) //passed save check
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
+                    			    "<BR>");
+                    	    if (mod.debugMode)
+                            {
+                        	    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
+                        				    "<BR>");
+                            }                            
+                        }
+                        else //failed check
+                        {
+                    	    gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");  
+                            Effect ef = mod.getEffectByTag("poisonedLight");
+                            pc.AddEffectByObject(ef, mod.WorldTime);                            
+                        }
+            	    }
+            	    else if (filename.Equals("onHitPcPoisonedMedium.cs"))
+            	    {
+            		    int saveChkRoll = gv.sf.RandInt(20);
+                        int saveChk = saveChkRoll + pc.reflex;
+                        int DC = 16;
+                        if (saveChk >= DC) //passed save check
+                        {
+                    	    gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
+                    			    "<BR>");
+                    	    if (mod.debugMode)
+                            {
+                        	    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
+                        				    "<BR>");
+                            }                            
+                        }
+                        else //failed check
+                        {
+                    	    gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");  
+                            Effect ef = mod.getEffectByTag("poisonedMedium");
+                            pc.AddEffectByObject(ef, mod.WorldTime);                            
+                        }
+            	    }
+                }
+                catch (Exception ex)
+                {
+                    //IBMessageBox.Show(game, "failed to run script");
+                }
+            }
+        }
+	
+	    //COMBAT	
+        //PC Combat Stuff	
+	    public void decrementAmmo(Player pc)
+	    {
+		    if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")) 
+        		    && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+		    {
+			    ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+	            if (itr != null)
+	            {
+	        	    //decrement by one
+	        	    itr.quantity--;
+	        	    if (gv.sf.hasTrait(pc, "rapidshot"))
+		    	    {
+	        		    itr.quantity--;
+		    	    }
+		    	    if (gv.sf.hasTrait(pc, "rapidshot2"))
+		    	    {
+		    		    itr.quantity--;
+		    	    }
+	        	    //if equal to zero, remove from party inventory and from all PCs ammo slot
+	        	    if (itr.quantity < 1)
+	        	    {
+	        		    foreach (Player p in mod.playerList)
+	        		    {
+	        			    if (p.AmmoRefs.resref.Equals(itr.resref))
+	        			    {
+	        				    p.AmmoRefs = new ItemRefs();
+	        			    }
+	        		    }
+	        		    mod.partyInventoryRefsList.Remove(itr);
+	        	    }
+	            }
+		    }
+	    }
+	    public void doCombatSetup()
+	    {
+		    if (mod.playMusic)
+		    {
+			    gv.stopMusic();
+			    gv.stopAmbient();
+			    gv.startCombatMusic();
+		    }
+		    gv.screenType = "combat";
+		    resetToggleButtons();
+		    //Load map if used
+		    if (mod.currentEncounter.UseMapImage)
+		    {
+			    mapBitmap = gv.cc.LoadBitmap(mod.currentEncounter.MapImage);
+		    }
+		    //Load up all creature stuff
+		    foreach (CreatureRefs crf in mod.currentEncounter.encounterCreatureRefsList)
+		    {
+			    //find this creatureRef in mod creature list
+			    foreach (Creature c in gv.mod.moduleCreaturesList)
+			    {
+				    if (crf.creatureResRef.Equals(c.cr_resref))
+				    {
+					    //copy it and add to encounters creature object list
+					    try 
+					    {
+						    Creature copy = c.DeepCopy();
+						    copy.cr_tag = crf.creatureTag;
+						    copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+						    copy.combatLocX = crf.creatureStartLocationX;
+						    copy.combatLocY = crf.creatureStartLocationY;
+						    mod.currentEncounter.encounterCreatureList.Add(copy);
+					    } 
+					    catch (Exception e1) 
+					    {
+						    //e1.printStackTrace();
+					    }
+				    }
+			    }				
+		    }
+		
+    	    for (int index = 0; index < mod.playerList.Count; index++)
+    	    {
+    		    mod.playerList[index].combatLocX = mod.currentEncounter.encounterPcStartLocations[index].X;
+    		    mod.playerList[index].combatLocY = mod.currentEncounter.encounterPcStartLocations[index].Y;
+    	    }
+    	    isPlayerTurn = true;
+    	    currentPlayerIndex = 0;
+    	    currentCreatureIndex = 0;
+    	    currentCombatMode = "info";
+    	    encounterXP = 0;
+    	    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            {
+                encounterXP += crtr.cr_XP;
+            }
+    	    pf = new PathFinder(mod);
+            tutorialMessageCombat(false);
+    	    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+    	    startPcTurn();
+	    }
+	    public void resetToggleButtons()
+	    {
+		    if (mod.combatAnimationSpeed == 100)
+		    {
+			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
+		    }
+		    else if (mod.combatAnimationSpeed == 50)
+		    {
+			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
+		    }	
+		    else if (mod.combatAnimationSpeed == 25)
+		    {
+			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
+		    }
+		    else if (mod.combatAnimationSpeed == 10)
+		    {
+			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
+		    }
+		
+		    if (mod.playMusic)
+		    {
+			    gv.cc.tglSound.toggleOn = true;
+		    }
+		    else
+		    {
+			    gv.cc.tglSound.toggleOn = false;
+		    }
+	
+		    if (mod.playSoundFx)
+		    {
+			    tglSoundFx.toggleOn = true;
+		    }
+		    else
+		    {
+			    tglSoundFx.toggleOn = false;
+		    }
+	    }
+	    public void startPcTurn()
+	    {
+		    isPlayerTurn = true;
+		    gv.touchEnabled = true;
+		    //gv.cc.logScrollOffset = 0;
+		    Player pc = mod.playerList[currentPlayerIndex];
+		    gv.sf.UpdateStats(pc);
+		    //do onTurn LT
+		    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
+		
+		    if ((pc.charStatus.Equals("Held")) || (pc.charStatus.Equals("Dead")))
+		    {
+			    endPcTurn(false);
+		    }
+	    }
+	    public void doCombatAttack(Player pc)
+	    {
+		    if (isInRange(pc))
+		    {
+			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    {
+				    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+				    {
+			    	    int attResult = 0; //0=missed, 1=hit, 2=killed
+			    	    int numAtt = 1;
+			    	    //boolean hasCleave = false;
+			    	    int crtLocX = crt.combatLocX;
+			    	    int crtLocY = crt.combatLocY;
+			    	
+			    	    if ((gv.sf.hasTrait(pc, "twoAttack")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+			    	    {
+			    		    numAtt = 2;
+			    	    }
+			    	    if ((gv.sf.hasTrait(pc, "rapidshot")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+			    	    {
+			    		    numAtt = 2;
+			    	    }
+			    	    if ((gv.sf.hasTrait(pc, "rapidshot2")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
+			    	    {
+			    		    numAtt = 3;
+			    	    }
+			    	    for (int i = 0; i < numAtt; i++)
+			            {
+			                if ((gv.sf.hasTrait(pc, "cleave")) && (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
+	                        {
+			            	    attResult = doActualCombatAttack(pc, crt, i);
+			            	    if (attResult == 2) //2=killed, 1=hit, 0=missed
+	                            {
+	                                Creature crt2 = GetNextAdjacentCreature(pc);
+	                                if (crt2 != null)
+	                                {
+	                            	    crtLocX = crt2.combatLocX;
+	            			    	    crtLocY = crt2.combatLocY;
+	                            	    floatyTextOn = true;
+	            	            	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+	            	            	    gv.postDelayed("doFloatyText", 100);
+	            	            	    attResult = doActualCombatAttack(pc, crt2, i);
+	                                }
+	                                break; //do not try and attack same creature that was just killed
+	                            }                        
+	                        }
+	                        else
+	                        {
+	                    	    attResult = doActualCombatAttack(pc, crt, i);
+	                    	    if (attResult == 2) //2=killed, 1=hit, 0=missed
+	                            {
+	                                break; //do not try and attack same creature that was just killed
+	                            }
+	                        }
+			            
+			            }
+			    	    if (attResult > 0) //2=killed, 1=hit, 0=missed
+			    	    {
+			    		    drawHitAnimation = true;
+			        	    hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
+			        	    gv.Invalidate();
+			        	    animationState = AnimationState.CreatureHitAnimation;
+			        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
+			    	    }
+			    	    else
+			    	    {
+			    		    drawMissAnimation = true;
+			        	    hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
+			        	    gv.Invalidate();
+			        	    animationState = AnimationState.CreatureMissedAnimation;
+			        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);    
+			    	    }
+			    	    return;
+				    }
+			    }
+		    }
+	    }
+	    public int doActualCombatAttack(Player pc, Creature crt, int attackNumber)
+	    {
+		    //always decrement ammo by one whether a hit or miss
+		    this.decrementAmmo(pc);
+		
+		    int attackRoll = gv.sf.RandInt(20);
+            int attackMod = CalcPcAttackModifier(pc);
+            int attack = attackRoll + attackMod;
+            int defense = CalcCreatureDefense(crt);
+            int damage = CalcPcDamageToCreature(pc, crt);		            
+            //natural 20 always hits
+            if ((attack >= defense) || (attackRoll == 20)) //HIT
+            {
+        	    crt.hp = crt.hp - damage;		                
+        	    gv.cc.addLogText("<font color='aqua'>" +	pc.name + "</font>" +
+        			    "<font color='white'>" + " attacks " + "</font>" +
+        			    "<font color='silver'>" + crt.cr_name + "</font>" +		            			
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
+        			    "<font color='lime'>" +	damage + "</font>" +
+        			    "<font color='white'>" + " damage)" + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
+        			    "<BR>");
+        	
+        	    //#region onScoringHit script of creature
+        	    doOnHitScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).onScoringHit,crt,pc);
+                //#endregion 
+        	    Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                if (it != null)
+                {
+            	    doOnHitScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).onScoringHit,crt,pc);
+                }
+        	
+        	    //play attack sound for melee (not ranged)
+        	    if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+        	    {
+        		    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+        	    }
+        	
+        	    //Draw floaty text showing damage above PC
+        	    
+                int txtH = (int)gv.drawFontReg.Height;
+        	    int shiftUp = 0 - (attackNumber * txtH);
+        	    floatyTextOn = true;
+        	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
+        	    gv.postDelayed("doFloatyText", 100);                
+        	
+        	    if (crt.hp <= 0)
+                {
+        		    gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
+        		    try
+        		    {
+        			    for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+                        {
+                    	    if (mod.currentEncounter.encounterCreatureList[x] == crt)
+                    	    {
+        	            	    try
+        	        		    {
+                                    //do OnDeath LOGIC TREE
+                                    gv.cc.doLogicTreeBasedOnTag(crt.onDeathLogicTree, crt.onDeathParms);
+        	        			    mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+        	        			    mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+        	        		    }
+        	        		    catch (Exception e)
+        	        		    {
+        	        			    //e.printStackTrace();
+        	        		    }
+                    	    }
+                        }
+        			    //mod.currentEncounter.encounterCreatureList.remove(crt);
+        		    }
+        		    catch (Exception e)
+        		    {
+        			    //e.printStackTrace();
+        		    }
+        		    return 2; //killed
+                }
+        	    else
+        	    {
+        		    return 1; //hit
+        	    }
+            }
+            else //MISSED
+            {
+        	    //play attack sound for melee (not ranged)
+        	    if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+        	    {
+        		    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+        	    }
+        	    gv.cc.addLogText("<font color='aqua'>" +	pc.name + "</font>" +
+        			    "<font color='white'>" + " attacks " + "</font>" +
+        			    "<font color='gray'>" +	crt.cr_name + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font>" +
+        			    "<BR>");     	
+        	    return 0; //missed
+            }
+	    }
+	
+	    public void doCombatCast(Player pc)
+	    {		
+		    //Toast.makeText(gameContext, "do Combat Cast stuff here", Toast.LENGTH_SHORT).show();
+		    Object target = getCastTarget(pc);
+		    gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
+		    /*if (currentSelectedSpell.tag.equals("mageBolt"))
+		    {
+			    sf.spMageBolt(pc, target);			
+			    checkEndEncounter();
+			    endPcTurn();
+                return;
+		    }
+		    if (currentSelectedSpell.tag.equals("hold"))
+		    {
+			    sf.spHold(pc, target);			
+			    checkEndEncounter();
+			    endPcTurn();
+                return;
+		    }*/
+		    checkEndEncounter();
+		    endPcTurn(true);
+	    }
+	
+	    public void doAnimationController()
+	    {
+		    if (animationState == AnimationState.None)
+		    {
+			    return;
+		    }
+		    else if (animationState == AnimationState.PcMeleeAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Player pc = mod.playerList[currentPlayerIndex];
+	    	    doCombatAttack(pc);
+		    }
+		    else if (animationState == AnimationState.CreatureHitAnimation)
+		    {
+			    drawHitAnimation = false;
+        	    hitAnimationLocation = new Coordinate();
+        	    gv.Invalidate();
+	    	    //check for end of encounter
+                checkEndEncounter();
+			    //end PC's turn
+                gv.touchEnabled = true;
+                animationState = AnimationState.None;
+                endPcTurn(true);            
+		    }
+		    else if (animationState == AnimationState.CreatureMissedAnimation)
+		    {
+			    drawMissAnimation = false;
+        	    hitAnimationLocation = new Coordinate();
+        	    gv.Invalidate();
+	    	    //check for end of encounter
+                checkEndEncounter();
+                gv.touchEnabled = true;
+                animationState = AnimationState.None;
+			    //end PC's turn
+                endPcTurn(true);            
+		    }
+		    else if (animationState == AnimationState.CreatureMeleeAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    doStandardCreatureAttack();
+		    }
+		    else if (animationState == AnimationState.PcHitAnimation)
+		    {
+			    drawHitAnimation = false;
+        	    hitAnimationLocation = new Coordinate();
+        	    gv.Invalidate();
+	    	    animationState = AnimationState.None;
+	    	    endCreatureTurn();
+		    }
+		    else if (animationState == AnimationState.PcMissedAnimation)
+		    {
+			    drawMissAnimation = false;
+        	    hitAnimationLocation = new Coordinate();
+        	    gv.Invalidate();
+	    	    animationState = AnimationState.None;
+	    	    endCreatureTurn();
+		    }
+		    else if (animationState == AnimationState.PcRangedAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Player pc = mod.playerList[currentPlayerIndex];
+	    	    //do projectile next
+	    	    drawProjectileAnimation = true;
+        	    projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+	    	    //load projectile image
+	    	    projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
+	    	    if (pc.combatLocY < targetHighlightCenterLocation.Y)
+			    {
+	    		    projectile = gv.cc.FlipHorz(projectile);
+			    }
+	    	    //reset animation frame counter
+	    	    animationFrameIndex = 0;
+	    	    gv.Invalidate();
+	    	    animationState = AnimationState.PcRangedProjectileAnimation;
+	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+		    }
+		    else if (animationState == AnimationState.PcRangedProjectileAnimation)
+		    {
+			    Player pc = mod.playerList[currentPlayerIndex];
+			    //if at target, do ending
+			    if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+			    {
+				    drawProjectileAnimation = false;
+	        	    projectileAnimationLocation = new Coordinate();
+	        	    drawEndingAnimation = true;
+	        	    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+		    	    animationFrameIndex = 0;
+		    	    ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
+		    	    gv.Invalidate();
+		    	    animationState = AnimationState.PcRangedEndingAnimation;
+		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    //if frame is last, reset
+				    animationFrameIndex++;
+				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
+		    	    //get next coordinate
+				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
+				    gv.Invalidate();
+				    animationState = AnimationState.PcRangedProjectileAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+		    }
+		    else if (animationState == AnimationState.PcRangedEndingAnimation)
+		    {
+			    Player pc = mod.playerList[currentPlayerIndex];
+			    if ((animationFrameIndex < 3) && (!mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spriteEndingFilename.Equals("none")))
+			    {
+				    animationFrameIndex++;
+				    gv.Invalidate();
+				    animationState = AnimationState.PcRangedEndingAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    drawEndingAnimation = false;
+	        	    endingAnimationLocation = new Coordinate();
+	        	    animationFrameIndex = 0;
+	        	    //loop through 4 times
+	        	    gv.Invalidate();
+		    	    animationState = AnimationState.None;
+		    	    gv.touchEnabled = true;
+		    	    //Player pc = mod.playerList.get(currentPlayerIndex);
+		    	    doCombatAttack(pc);
+			    }
+		    }
+		    else if (animationState == AnimationState.PcCastAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Player pc = mod.playerList[currentPlayerIndex];
+	    	    //do projectile next
+	    	    drawProjectileAnimation = true;
+        	    projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+	    	    //load projectile image
+	    	    projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
+	    	    if (pc.combatLocY < targetHighlightCenterLocation.Y)
+			    {
+	    		    projectile = gv.cc.FlipHorz(projectile);
+			    }
+	    	    //reset animation frame counter
+	    	    animationFrameIndex = 0;
+	    	    gv.Invalidate();
+	    	    animationState = AnimationState.PcCastProjectileAnimation;
+	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+	    	    //play cast projectile sound
+	    	    gv.PlaySound(gv.cc.currentSelectedSpell.spellStartSound);
+		    }
+		    else if (animationState == AnimationState.PcCastProjectileAnimation)
+		    {
+			    Player pc = mod.playerList[currentPlayerIndex];
+			    //if at target, do ending
+			    if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+			    {
+				    drawProjectileAnimation = false;
+	        	    projectileAnimationLocation = new Coordinate();
+	        	    drawEndingAnimation = true;
+	        	    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+		    	    animationFrameIndex = 0;
+		    	    ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);		    	
+		    	    gv.Invalidate();
+		    	    animationState = AnimationState.PcCastEndingAnimation;
+		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+		    	    //play cast ending sound
+		    	    gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    //if frame is last, reset
+				    animationFrameIndex++;
+				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
+		    	    //get next coordinate
+				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
+				    gv.Invalidate();
+				    animationState = AnimationState.PcCastProjectileAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+		    }
+		    else if (animationState == AnimationState.PcCastEndingAnimation)
+		    {
+			    if (animationFrameIndex < 3)
+			    {
+				    animationFrameIndex++;
+				    gv.Invalidate();
+				    animationState = AnimationState.PcCastEndingAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    drawEndingAnimation = false;
+	        	    endingAnimationLocation = new Coordinate();
+	        	    animationFrameIndex = 0;
+	        	    //loop through 4 times
+	        	    gv.Invalidate();
+		    	    animationState = AnimationState.None;
+		    	    gv.touchEnabled = true;
+		    	    Player pc = mod.playerList[currentPlayerIndex];
+		    	    doCombatCast(pc);
+			    }
+		    }
+		    else if (animationState == AnimationState.CreatureRangedAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+	    	    //do projectile next
+	    	    drawProjectileAnimation = true;
+        	    projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+	    	    //load projectile image
+	    	    projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
+	    	    if (crt.combatLocY < creatureTargetLocation.Y)
+			    {
+	    		    projectile = gv.cc.FlipHorz(projectile);
+			    }
+	    	    //reset animation frame counter
+	    	    animationFrameIndex = 0;
+	    	    gv.Invalidate();
+	    	    animationState = AnimationState.CreatureRangedProjectileAnimation;
+	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+		    }
+		    else if (animationState == AnimationState.CreatureRangedProjectileAnimation)
+		    {
+			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+			    //if at target, do ending
+			    if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+			    {
+				    drawProjectileAnimation = false;
+	        	    projectileAnimationLocation = new Coordinate();
+	        	    drawEndingAnimation = true;
+	        	    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+		    	    animationFrameIndex = 0;
+		    	    ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
+		    	    gv.Invalidate();
+		    	    animationState = AnimationState.CreatureRangedEndingAnimation;
+		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    //if frame is last, reset
+				    animationFrameIndex++;
+				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
+		    	    //get next coordinate
+				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
+				    gv.Invalidate();
+				    animationState = AnimationState.CreatureRangedProjectileAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+		    }
+		    else if (animationState == AnimationState.CreatureRangedEndingAnimation)
+		    {
+			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+			    if ((animationFrameIndex < 3) && (!crt.cr_spriteEndingFilename.Equals("none")))
+			    {
+				    animationFrameIndex++;
+				    gv.Invalidate();
+				    animationState = AnimationState.CreatureRangedEndingAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    drawEndingAnimation = false;
+	        	    endingAnimationLocation = new Coordinate();
+	        	    animationFrameIndex = 0;
+	        	    //loop through 4 times
+	        	    gv.Invalidate();
+		    	    animationState = AnimationState.None;
+		    	    //touchEnabled = true;
+		    	    doStandardCreatureAttack();
+			    }
+		    }
+		    else if (animationState == AnimationState.CreatureCastAttackAnimation)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+	    	    //do projectile next
+	    	    drawProjectileAnimation = true;
+        	    projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+	    	    //load projectile image
+	    	    projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
+	    	    if (crt.combatLocY < creatureTargetLocation.Y)
+			    {
+	    		    projectile = gv.cc.FlipHorz(projectile);
+			    }
+	    	    //reset animation frame counter
+	    	    animationFrameIndex = 0;
+	    	    gv.Invalidate();
+	    	    animationState = AnimationState.CreatureCastProjectileAnimation;
+	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+	    	    //play cast start sound
+	    	    gv.PlaySound(gv.sf.SpellToCast.spellStartSound);
+		    }
+		    else if (animationState == AnimationState.CreatureCastProjectileAnimation)
+		    {
+			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+			    //if at target, do ending
+			    if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+			    {
+				    drawProjectileAnimation = false;
+	        	    projectileAnimationLocation = new Coordinate();
+	        	    drawEndingAnimation = true;
+	        	    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+		    	    animationFrameIndex = 0;
+		    	    ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);		    	
+		    	    gv.Invalidate();
+		    	    animationState = AnimationState.CreatureCastEndingAnimation;
+		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+		    	    //play cast ending sound
+		    	    gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    //if frame is last, reset
+				    animationFrameIndex++;
+				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
+		    	    //get next coordinate
+				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
+				    gv.Invalidate();
+				    animationState = AnimationState.CreatureCastProjectileAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+		    }
+		    else if (animationState == AnimationState.CreatureCastEndingAnimation)
+		    {
+			    if (animationFrameIndex < 3)
+			    {
+				    animationFrameIndex++;
+				    gv.Invalidate();
+				    animationState = AnimationState.CreatureCastEndingAnimation;
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+			    }
+			    else //if not at target, get new coordinate and keep going
+			    {
+				    drawEndingAnimation = false;
+	        	    endingAnimationLocation = new Coordinate();
+	        	    animationFrameIndex = 0;
+	        	    //loop through 4 times
+	        	    gv.Invalidate();
+		    	    animationState = AnimationState.None;
+		    	    //touchEnabled = true;
+		    	    doCreatureSpell();
+			    }
+		    }
+		    else if (animationState == AnimationState.CreatureThink)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    doCreatureTurnAfterDelay();
+		    }
+		    else if (animationState == AnimationState.CreatureMove)
+		    {
+			    creatureToAnimate = null;
+	    	    playerToAnimate = null;
+	    	    gv.Invalidate();
+	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+	    	    CreatureDoesAttack(crt);
+	    	    //endCreatureTurn();
+		    }		
+	    }	
+	
+        /*public Runnable doAnimation = new Runnable()
+	    {
+		    @Override
+		    public void run()
+		    {
+			    gv.invalidate();
+	    	    doAnimationController();
+		    }
+	    };*/
+		
+	
+	    /*public Runnable doFloatyText = new Runnable()
+	    {
+		    @Override
+		    public void run()
+		    {
+			    gv.invalidate();
+			    int pH = (int)((float)gv.screenHeight / 200.0f);
+	    	    //move all floaty text up one %pixel
+			    if (gv.cc.floatyTextCounter < 10)
+			    {
+				    for (FloatyText ft : gv.cc.floatyTextList)
+				    {
+					    ft.location.Y -= pH;
+				    }
+				    //call again until counter hits 10
+				    gv.cc.floatyTextCounter++;
+				    doFloatyTextLoop();
+			    }
+			    else
+			    {
+				    gv.cc.floatyTextCounter = 0;
+				    floatyTextOn = false;
+				    gv.cc.floatyTextList.clear();
+			    }
+		    }
+	    };*/
+	
+	    public void doFloatyTextLoop()
+	    {
+		    gv.postDelayed("doFloatyText", 200);
+	    }
+	
+	    //Creature Combat Stuff
+	
+	    public void doCreatureTurn()
+	    {
+		    canMove = true;
+		    //gv.cc.logScrollOffset = 0;
+		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+		    //do onTurn LT
+		    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
+		    if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+            {
+			    creatureToAnimate = null;
+	            playerToAnimate = null;
+	            gv.Invalidate();
+	            animationState = AnimationState.CreatureThink;
+	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+            }
+		    else
+		    {
+			    endCreatureTurn();		
+		    }
+	    }
+	    public void doCreatureTurnAfterDelay()
+	    {
+		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+		
+		    gv.sf.ActionToTake = null;
+		    gv.sf.SpellToCast = null;
+        
+            //determine the action to take
+            doCreatureAI(crt);
+
+            //do the action (melee/ranged, cast spell, use trait, etc.)
+            if (gv.sf.ActionToTake == null)
+            {
+        	    endCreatureTurn();
+            }
+            if (gv.sf.ActionToTake.Equals("Attack"))
+            {
+        	    Player pc = targetClosestPC(crt);
+        	    gv.sf.CombatTarget = pc;	                
+                CreatureDoesAttack(crt);
+            }
+            else if (gv.sf.ActionToTake.Equals("Move"))
+            {
+                CreatureMoves();
+            }
+            else if (gv.sf.ActionToTake.Equals("Cast"))
+            {
+                if ((gv.sf.SpellToCast != null) && (gv.sf.CombatTarget != null))
+                {
+                    CreatureCastsSpell(crt);
+                }
+            }
+	    }
+	    public void CreatureMoves()
+	    {
+		    if (canMove)
+		    {
+			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+			    Player pc = targetClosestPC(crt);
+			    //run pathFinder to get new location
+			    if (pc != null)
+			    {
+				    pf.resetGrid();
+				    Coordinate newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+				    if ((newCoor.X == -1) && (newCoor.Y == -1))
+				    {
+					    //didn't find a path, don't move
+					    gv.Invalidate();
+			    	    endCreatureTurn();
+					    return;
+				    }
+				    if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+				    {
+					    crt.token= gv.cc.flip(crt.token);
+					    crt.combatFacingLeft = true;
+				    }
+				    else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+				    {
+					    crt.token= gv.cc.flip(crt.token);
+					    crt.combatFacingLeft = false;
+				    }
+				    crt.combatLocX = newCoor.X;
+				    crt.combatLocY = newCoor.Y;
+				    canMove = false;
+				    animationState = AnimationState.CreatureMove;
+				    gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+			    }
+			    else //no target found
+			    {
+				    gv.Invalidate();
+		    	    endCreatureTurn();
+				    return;
+			    }
+		    }
+		    else
+		    {
+			    gv.Invalidate();
+	    	    endCreatureTurn();
+			    return;
+		    }
+	    }
+	    public void CreatureDoesAttack(Creature crt)
+        {
+            if (gv.sf.CombatTarget != null)
+            {
+	            Player pc = (Player)gv.sf.CombatTarget;
+	            int endX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+			    int endY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+			    int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+			    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+	            // determine if ranged or melee
+	            if ((crt.cr_category.Equals("Ranged")) 
+	        		    && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
+	        		    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+	            {
+	                //Point starting = new Point((crt_pt.CombatLocation.X * gm._squareSize) + (gm._squareSize / 2), (crt_pt.CombatLocation.Y * gm._squareSize) + (gm._squareSize / 2));
+	                //Point ending = new Point((char_pt.CombatLocation.X * gm._squareSize) + (gm._squareSize / 2), (char_pt.CombatLocation.Y * gm._squareSize) + (gm._squareSize / 2));
+	                //frm.currentCombat.playCreatureAttackSound(crt_pt);
+	        	    //play attack sound for ranged
+	        	    gv.PlaySound(crt.cr_attackSound);
+	                //frm.currentCombat.drawProjectile(starting, ending, crt_pt.ProjectileSpriteFilename);
+	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+        		    {
+        			    crt.token= gv.cc.flip(crt.token);
+        			    crt.combatFacingLeft = true;
+        		    }
+        		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+        		    {
+        			    crt.token= gv.cc.flip(crt.token);
+        			    crt.combatFacingLeft = false;
+        		    }
+	                if (crt.hp > 0)
+	                {
+	            	    //doStandardCreatureAttack(crt, pc);
+	            	    creatureToAnimate = crt;
+	    	            playerToAnimate = null;
+	    	            gv.Invalidate();
+	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
+	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
+	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+	                }
+	                else
+	                {
+	                    //skip this guys turn
+	                }
+	            }
+	            else if ((crt.cr_category.Equals("Melee")) 
+	        		    && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
+	            {
+	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+        		    {
+        			    crt.token= gv.cc.flip(crt.token);
+        			    crt.combatFacingLeft = true;
+        		    }
+        		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+        		    {
+        			    crt.token= gv.cc.flip(crt.token);
+        			    crt.combatFacingLeft = false;
+        		    }
+	                if (crt.hp > 0)
+	                {
+	            	    //doStandardCreatureAttack(crt, pc);	            	
+	            	    creatureToAnimate = crt;
+	    	            playerToAnimate = null;
+	    	            gv.Invalidate();
+	    	            animationState = AnimationState.CreatureMeleeAttackAnimation;
+	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+	            	    //creatureTurnState = "attackAnim";
+	                }
+	                else
+	                {
+	                    //skip this guys turn
+	                }
+	            }
+	            else //not in range for attack so MOVE
+	            {
+	        	    CreatureMoves();
+	            }
+            }
+            else //no target so move instead
+            {
+        	    CreatureMoves();
+            }
+        }
+        public void CreatureCastsSpell(Creature crt)
+        {
+            Coordinate pnt = new Coordinate();
+            if (gv.sf.CombatTarget is Player)
+            {
+                Player pc = (Player)gv.sf.CombatTarget;
+                pnt = new Coordinate(pc.combatLocX, pc.combatLocY);
+            }
+            else if (gv.sf.CombatTarget is Creature)
+            {
+                Creature crtTarget = (Creature)gv.sf.CombatTarget;
+                pnt = new Coordinate(crtTarget.combatLocX, crtTarget.combatLocY);
+            }
+            else if (gv.sf.CombatTarget is Coordinate)
+            {
+                pnt = (Coordinate)gv.sf.CombatTarget;
+            }
+            else //do not understand, what is the target
+            {
+        	    //Toast.makeText(gv.gameContext, "can't figure out target.", Toast.LENGTH_SHORT).show();
+        	    return;
+            }
+            int endX = pnt.X * gv.squareSize + (gv.squareSize / 2);
+		    int endY = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+		    int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+		    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+            if ((getDistance(pnt, new Coordinate(crt.combatLocX, crt.combatLocY)) <= gv.sf.SpellToCast.range) 
+        		    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+            {
+                if ((pnt.X < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+    		    {
+    			    crt.token= gv.cc.flip(crt.token);
+    			    crt.combatFacingLeft = true;
+    		    }
+    		    else if ((pnt.X > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+    		    {
+    			    crt.token= gv.cc.flip(crt.token);
+    			    crt.combatFacingLeft = false;
+    		    }
+        	    creatureTargetLocation = pnt;
+        	    //touchEnabled = false;
+			    creatureToAnimate = crt;
+	            playerToAnimate = null;
+	            gv.Invalidate();
+	            animationState = AnimationState.CreatureCastAttackAnimation;
+	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+	                    
+            }
+            else
+            {
+                //#region Do a Melee or Ranged Attack
+                Player pc = targetClosestPC(crt);
+                gv.sf.CombatTarget = pc;	                
+                CreatureDoesAttack(crt);
+            }
+        }
+        public void doCreatureSpell()
+        {
+    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+    	    gv.cc.doSpellBasedOnTag(gv.sf.SpellToCast.tag, crt, gv.sf.CombatTarget);
+    	    endCreatureTurn();
+        }
+	    public void doCreatureAI(Creature crt)
+	    {
+		    //These are the current generic AI types
+            //BasicAttacker:          basic attack (ranged or melee)
+            //Healer:                 heal Friend(s) until out of SP
+            //BattleHealer:           heal Friend(s) and/or attack
+            //DamageCaster:           cast damage spells
+            //BattleDamageCaster:     cast damage spells and/or attack
+            //DebuffCaster:           cast debuff spells
+            //BattleDebuffCaster:     cast debuff spells and/or attack
+            //GeneralCaster:          cast any of their known spells by random
+            //BattleGeneralCaster:    cast any of their known spells by random and/or attack
+
+            if (crt.cr_ai.Equals("BasicAttacker"))
+            {
+                /*if (sf.frm.debugMode)
+                {
+                    c.logText(crt.Name, Color.LightGray);
+                    c.logText(" is a BasicAttacker", Color.Black);
+                    c.logText(Environment.NewLine, Color.Black);
+                }*/
+                BasicAttacker(crt);
+            }        
+            else if (crt.cr_ai.Equals("GeneralCaster"))
+            {
+                /*if (sf.frm.debugMode)
+                {
+                    c.logText(crt.Name, Color.LightGray);
+                    c.logText(" is a GeneralCaster", Color.Black);
+                    c.logText(Environment.NewLine, Color.Black);                    
+                }*/
+                GeneralCaster(crt);
+            }        
+            else
+            {
+                /*if (sf.frm.debugMode)
+                {
+                    c.logText(crt.Name, Color.LightGray);
+                    c.logText(" is a BasicAttacker", Color.Black);
+                    c.logText(Environment.NewLine, Color.Black);                    
+                }*/
+                BasicAttacker(crt);
+            }
+	    }
+	    public void BasicAttacker(Creature crt)
+        {
+            Player pc = targetClosestPC(crt);
+            gv.sf.CombatTarget = pc;
+            gv.sf.ActionToTake = "Attack";
+        }
+        public void GeneralCaster(Creature crt)
+        {
+    	    gv.sf.SpellToCast = null;
+            //just pick a random spell from KnownSpells
+            //try a few times to pick a random spell that has enough SP
+            for (int i = 0; i < 10; i++)
+            {
+                int rnd = gv.sf.RandInt(crt.knownSpellsTags.Count);
+                Spell sp = mod.getSpellByTag(crt.knownSpellsTags[rnd-1]);
+                if (sp != null)
+                {
+                    /*if (sf.frm.debugMode)
+                    {
+                        c.logText("KnownSpell: " + sp.SpellName, Color.Black);
+                        c.logText(Environment.NewLine, Color.Black);
+                    }*/
+                    if (sp.costSP <= crt.sp)
+                    {
+                	    gv.sf.SpellToCast = sp;
+                        /*if (sf.frm.debugMode)
+                        {
+                            c.logText("SpellToCast: " + sf.SpellToCast.SpellName, Color.Black);
+                            c.logText(Environment.NewLine, Color.Black);
+                        }*/
+
+                        if (gv.sf.SpellToCast.spellTargetType.Equals("Enemy"))
+                        {
+                            Player pc = targetClosestPC(crt);
+                            gv.sf.CombatTarget = pc;
+                            gv.sf.ActionToTake = "Cast";
+                            break;
+                        }
+                        else if (gv.sf.SpellToCast.spellTargetType.Equals("PointLocation"))
+                        {
+                    	    //Player pc = targetClosestPC(crt);
+                    	    //gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY); //we are using a Coordinate type because the selected spell is looking for a Coordinate type (square location)
+                    	    Coordinate bestLoc = targetBestPointLocation(crt);
+                    	    if (bestLoc == new Coordinate(-1,-1))
+                    	    {
+                    		    //didn't find a target so use closest PC
+                    		    Player pc = targetClosestPC(crt);
+                        	    gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY);
+                    	    }
+                    	    else
+                    	    {
+                    		    gv.sf.CombatTarget = targetBestPointLocation(crt);
+                    	    }                    	
+                    	    gv.sf.ActionToTake = "Cast";
+                            break;
+                        }
+                        else if (gv.sf.SpellToCast.spellTargetType.Equals("Friend"))
+                        {
+                            //target is another creature (currently assumed that spell is a heal spell)
+                            Creature targetCrt = GetCreatureWithMostDamaged();
+                            if (targetCrt != null)
+                            {
+                        	    gv.sf.CombatTarget = targetCrt;
+                        	    gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                            else //didn't find a target that needs HP
+                            {
+                        	    gv.sf.SpellToCast = null;
+                        	    continue;
+                            }
+                        }
+                        else if (gv.sf.SpellToCast.spellTargetType.Equals("Self"))
+                        {
+                            //target is self (currently assumed that spell is a heal spell)
+                            Creature targetCrt = crt;
+                            if (targetCrt != null)
+                            {
+                        	    gv.sf.CombatTarget = targetCrt;
+                        	    gv.sf.ActionToTake = "Cast";
+                                break;
+                            }
+                        }
+                        else //didn't find a target so set to null so that will use attack instead
+                        {
+                    	    gv.sf.SpellToCast = null;
+                        }
+                    }
+                }
+            }
+            if (gv.sf.SpellToCast == null) //didn't find a spell that matched the criteria so use attack instead
+            {
+        	    Player pc = targetClosestPC(crt);
+        	    gv.sf.CombatTarget = pc;
+        	    gv.sf.ActionToTake = "Attack";
+            }
+        }
+
+        public void startNextRoundStuff()
+        {
+    	    gv.sf.dsWorldTime();
+            doHardToKillTrait();
+            doBattleRegenTrait();
+            foreach (Player pc in mod.playerList)
+            {
+                RunAllItemCombatRegenerations(pc);
+            }
+    	    applyEffectsCombat();
+    	    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+    	    startPcTurn();
+        }
+
+        public void doBattleRegenTrait()
+        {
+            foreach (Player pc in mod.playerList)
+            {
+                if (gv.sf.hasTrait(pc, "battleregen"))
+                {
+                    if (pc.hp <= -20)
+                    {
+                        //MessageBox("Can't heal a dead character!");
+                        gv.cc.addLogText("<font color='red'>" + "BattleRegen off for dead character!" + "</font>" +
+                                "<BR>");
+                    }
+                    else
+                    {
+                        pc.hp += 1;
+                        if (pc.hp > pc.hpMax)
+                        {
+                            pc.hp = pc.hpMax;
+                        }
+                        if ((pc.hp > 0) && (pc.charStatus.Equals("Dead")))
+                        {
+                            pc.charStatus = "Alive";
+                        }
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains 1 HPs (BattleRegen Trait)" + "</font><BR>");
+                    }
+                }
+            }
+        }
+        public void doHardToKillTrait()
+        {
+            foreach (Player pc in mod.playerList)
+            {
+                if (gv.sf.hasTrait(pc, "hardtokill"))
+                {
+                    //hard to kill
+                    if (pc.hp < 0)
+                    {
+                        //50% chance to jump back up to 1/4 hpMax
+                        int roll = gv.sf.RandInt(100);
+                        if (roll > 50)
+                        {
+                            pc.charStatus = "Alive";
+                            pc.hp = pc.hpMax / 10;
+                            //do damage to all
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " jumps back up (Hard to Kill trait).</font><br>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " > 50)</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " stays down (Hard to Kill trait).</font><br>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " < 51)</font><BR>");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void RunAllItemCombatRegenerations(Player pc)
+        {
+            try
+            {
+                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.BodyRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.MainHandRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.OffHandRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.RingRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.HeadRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.NeckRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.FeetRefs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.Ring2Refs.resref).hpRegenPerRoundInCombat);
+                }
+
+                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat > 0)
+                {
+                    doRegenSp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spRegenPerRoundInCombat);
+                }
+                if (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat > 0)
+                {
+                    doRegenHp(pc, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).hpRegenPerRoundInCombat);
+                }
+            }
+            catch (Exception ex)
+            {
+                //IBMessageBox.Show(sf.gm, "failed running OnWhileEquipped scripts during UpdateStats()... see debug.txt");
+                //sf.gm.errorLog(ex.ToString());
+            }
+        }
+        public void doRegenSp(Player pc, int increment)
+        {
+            pc.sp += increment;
+            if (pc.sp > pc.spMax) {pc.sp = pc.spMax;}
+            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens "+ increment + "sp</font><br>");
+
+        }
+        public void doRegenHp(Player pc, int increment)
+        {
+            pc.hp += increment;
+            if (pc.hp > pc.hpMax) {pc.hp = pc.hpMax;}
+            gv.cc.addLogText("<font color='lime'>" + pc.name + " regens "+ increment + "hp</font><br>");
+        }
+
+        public void applyEffectsCombat()
+        {
+    	    try
+            {
+                //maybe reorder all based on their order property            
+                foreach (Player pc in mod.playerList)
+                {
+                    foreach (Effect ef in pc.effectsList)
+                    {
+                        //increment duration of all
+                        ef.currentDurationInUnits = mod.WorldTime - ef.startingTimeInUnits;
+                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        {                            
+                            //do script for each effect
+                            //sf.CombatSource = pc;
+                    	    //String parm1 = ef.currentDurationInUnits + "";
+                    	    //String parm2 = ef.durationInUnits + "";
+                            //doScriptBasedOnFilename(ef.effectScript, parm1, parm2, "none", "none");
+                    	    gv.cc.doEffectScript(pc, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                        }
+                    }
+                }
+                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                {
+                    foreach (Effect ef in crtr.cr_effectsList)
+                    {
+                        //increment duration of all
+                        ef.currentDurationInUnits = mod.WorldTime - ef.startingTimeInUnits;
+                        if (!ef.usedForUpdateStats) //not used for stat updates
+                        {                            
+                            //do script for each effect
+                    	    //sf.CombatSource = crtr;
+                            //String parm1 = ef.currentDurationInUnits + "";
+                    	    //String parm2 = ef.durationInUnits + "";
+                            //doScriptBasedOnFilename(ef.effectScript, parm1, parm2, "none", "none");
+                    	    gv.cc.doEffectScript(crtr, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                        }
+                    }
+                }
+                //if duration equals ending or greater, remove from list
+                foreach (Player pc in mod.playerList)
+                {
+                    for (int i = pc.effectsList.Count; i > 0; i--)
+                    {
+                        if (pc.effectsList[i-1].currentDurationInUnits >= pc.effectsList[i - 1].durationInUnits)
+                        {
+                            pc.effectsList.RemoveAt(i - 1);
+                        }
+                    }
+                }
+                foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+                {
+                    for (int i = crtr.cr_effectsList.Count; i > 0; i--)
+                    {
+                        if (crtr.cr_effectsList[i - 1].currentDurationInUnits >= crtr.cr_effectsList[i - 1].durationInUnits)
+                        {
+                            crtr.cr_effectsList.RemoveAt(i - 1);
+                        }
+                    }
+                }            
+            }
+            catch (Exception ex)
+            {
+        	    //IBMessageBox().Show(com_game, ex.ToString());
+            }
+    	    checkEndEncounter();
+        }
+    
+	    public void endCreatureTurn()
+	    {
+		    canMove = true;
+		    gv.sf.ActionToTake = null;
+		    gv.sf.SpellToCast = null;
+            if (checkEndEncounter()) 
+            { 
+        	    return;
+            } 
+		    creatureIndex++;
+		    if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
+		    {
+			    //touchEnabled = true;
+			    creatureIndex = 0;
+			    startNextRoundStuff();
+		    }
+		    else
+		    {
+			    doCreatureTurn();		
+		    }
+	    }
+        public void doStandardCreatureAttack()
+        {
+    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+    	    Player pc = (Player)gv.sf.CombatTarget;
+        
+    	    bool hit = false;
+    	    for (int i = 0; i < crt.cr_numberOfAttacks; i++)
+            {
+                //this reduces the to hit bonus for each further creature attack by an additional -5
+                //creatureMultAttackPenalty = 5 * i;            
+                bool hitreturn = doActualCreatureAttack(pc, crt, i);
+                if (hitreturn) { hit = true; }
+                if (pc.hp <= 0)
+                {
+                    break; //do not try and attack same PC that was just killed
+                }
+            }
+    	
+    	    //play attack sound for melee
+    	    if (!crt.cr_category.Equals("Ranged")) 
+    	    {
+    		    gv.PlaySound(crt.cr_attackSound);
+    	    }
+    	    	
+    	    if (hit)
+    	    {
+    		    drawHitAnimation = true;
+        	    hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+        	    gv.Invalidate();
+        	    animationState = AnimationState.PcHitAnimation;
+        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
+    	    }
+    	    else
+    	    {
+    		    drawMissAnimation = true;
+        	    hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+        	    gv.Invalidate();
+        	    animationState = AnimationState.PcMissedAnimation;
+        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
+    	    }    	
+        }
+        public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
+        {
+    	    int attackRoll = gv.sf.RandInt(20);
+            int attackMod = CalcCreatureAttackModifier(crt);
+            int defense = CalcPcDefense(pc, crt);
+            int damage = CalcCreatureDamageToPc(pc, crt);
+            int attack = attackRoll + attackMod;
+        
+            if ((attack >= defense) || (attackRoll == 20))
+            {
+        	    pc.hp = pc.hp - damage;
+        	    gv.cc.addLogText("<font color='silver'>" +	crt.cr_name + "</font>" +
+        			    "<font color='white'>" + " attacks " + "</font>" +
+        			    "<font color='aqua'>" +	pc.name + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
+        			    "<font color='red'>" +	damage + "</font>" +
+        			    "<font color='white'>" + " damage)" + "</font>" +
+        			    "<BR>");        	
+        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
+        			    "<BR>");
+        	
+        	    //#region onScoringHit script of creature
+        	    doOnHitScriptBasedOnFilename(crt.onScoringHit,crt,pc);
+                //#endregion                    	
+        	
+        	    //Draw floaty text showing damage above PC
+                
+        	    int txtH = (int)gv.drawFontReg.Height;
+        	    int shiftUp = 0 - (attackNumber * txtH);
+        	    floatyTextOn = true;
+        	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
+        	    gv.postDelayed("doFloatyText", 100);
+                
+        	    if (pc.hp <= 0)
+                {
+        		    gv.cc.addLogText("<font color='red'>" +	pc.name + " drops down unconsciously!" + "</font>" +
+            			    "<BR>");
+                    pc.charStatus = "Dead";
+                }
+        	    return true;
+            }
+            else
+            {        	
+        	    gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
+        			    "<font color='white'>" + " attacks " + "</font>" +
+        			    "<font color='aqua'>" +	pc.name + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font>" +
+        			    "<BR>");        	
+        	    return false;
+            }
+        }
+    
+        //Combat Draw and Touch        
+        public void redrawCombat()
+        {
+    	    if (mod.com_showGrid)
+            {
+        	    tglGrid.toggleOn = true;
+            }
+            else
+            {
+        	    tglGrid.toggleOn = false;
+            }
+    	    gv.drawLog();
+    	    //gv.cc.drawBlackMap();
+		    drawCombatMap();
+		    //gv.drawBackground();
+            drawCombatCreatures();
+            drawCombatPlayers();
+            DrawHitAnimation();
+            DrawMissAnimation();
+            DrawProjectileAnimation();
+            DrawEndingAnimation();
+            if (mod.currentEncounter.UseDayNightCycle)
+            {
+                drawOverlayTints();
+            }
+            drawTargetHighlight();
+            if ((!drawProjectileAnimation) && (!drawEndingAnimation) && (!drawHitAnimation) && (!drawMissAnimation))
+            {
+        	    drawLosTrail();
+            }
+            drawFloatyText();
+            drawHPText();
+            drawSPText();
+            drawFloatyTextList();
+            drawCombatControls();        
+        }    
+	    public void drawCombatControls()
+	    {
+		    gv.cc.ctrlUpArrow.Draw();
+		    gv.cc.ctrlDownArrow.Draw();
+		    gv.cc.ctrlLeftArrow.Draw();
+		    gv.cc.ctrlRightArrow.Draw();
+		    gv.cc.ctrlUpRightArrow.Draw();
+		    gv.cc.ctrlDownLeftArrow.Draw();
+		    gv.cc.ctrlUpLeftArrow.Draw();
+		    gv.cc.ctrlDownRightArrow.Draw();
+		    tglHP.Draw();
+		    tglSP.Draw();
+		    tglSpeed.Draw();
+		    tglSoundFx.Draw();
+		    tglHelp.Draw();
+		    tglGrid.Draw();
+		    if (mod.debugMode)
+            {
+			    tglKill.Draw();
+            }
+		    gv.cc.tglSound.Draw();		
+		    btnSwitchWeapon.Draw();
+		
+		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+		    {
+			    btnSelect.Text = "TARGET";
+		    }
+		    else
+		    {
+			    btnSelect.Text = "SELECT";
+		    }
+		    btnSelect.Draw();
+		
+		    if (canMove)
+		    {
+			    if (currentCombatMode.Equals("move"))
+			    {
+				    btnMove.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+			    }
+			    else
+			    {
+				    btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    }
+		    }
+		    else
+		    {
+			    btnMove.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_off);
+		    }
+		    btnMove.Draw();
+		    gv.cc.btnInventory.Draw();
+		    if (currentCombatMode.Equals("attack"))
+		    {
+			    btnAttack.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+		    }
+		    else
+		    {
+			    btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+		    }
+		    btnAttack.Draw();
+		    if (currentCombatMode.Equals("cast"))
+		    {
+			    btnCast.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+		    }
+		    else
+		    {
+			    btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+		    }
+		    btnCast.Draw();
+		    btnSkipTurn.Draw();
+		
+	    }
+	    public void drawCombatMap()
+	    {
+		    //row = y
+		    //col = x
+		    if (mod.currentEncounter.UseMapImage)
+		    {
+			    IbRect src = new IbRect(0, 0, mapBitmap.Width, mapBitmap.Height);
+	            IbRect dst = new IbRect(0 + gv.oXshift, 0, gv.squareSize * 7 + gv.oXshift, gv.squareSize * 7);
+	            gv.DrawBitmap(mapBitmap, src, dst);
+	            //draw grid
+	            if (mod.com_showGrid)
+                {
+		            src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
+		            dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);        
+		            for (int x = 0; x < 7; x++)
+		            {
+		                for (int y = 0; y < 7; y++)
+		                {
+		            	    dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize); 
+		            	    if (mod.currentEncounter.encounterTiles[y * 7 + x].LoSBlocked)
+		                    {
+		                	    gv.DrawBitmap(gv.cc.losBlocked, src, dst);
+		                    }
+		                    if (mod.currentEncounter.encounterTiles[y * 7 + x].Walkable != true)
+		                    {
+                                gv.DrawBitmap(gv.cc.walkBlocked, src, dst);
+		                    }
+		                    else
+		                    {
+                                gv.DrawBitmap(gv.cc.walkPass, src, dst);
+		                    } 		                
+		                }
+		            }
+                }
+		    }
+		    else //using tiles
+		    {
+			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
+	            IbRect dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);        
+	            for (int x = 0; x < 7; x++)
+	            {
+	                for (int y = 0; y < 7; y++)
+	                {
+	            	    TileEnc tile = mod.currentEncounter.encounterTiles[y * 7 + x];
+	            	    dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize); 
+	            	    //draw layer 1
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
+	            	    //draw layer 2            	
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
+	            	    if (mod.com_showGrid)
+	                    {
+		            	    if (mod.currentEncounter.encounterTiles[y * 7 + x].LoSBlocked)
+		                    {
+                                gv.DrawBitmap(gv.cc.losBlocked, src, dst);
+		                    }
+		                    if (mod.currentEncounter.encounterTiles[y * 7 + x].Walkable != true)
+		                    {
+                                gv.DrawBitmap(gv.cc.walkBlocked, src, dst);
+		                    }
+		                    else
+		                    {
+                                gv.DrawBitmap(gv.cc.walkPass, src, dst);
+		                    } 
+	                    }
+	                }
+	            }
+		    }
+	    }
+	    public void drawCombatPlayers()
+	    {
+		    Player p = mod.playerList[currentPlayerIndex];
+            IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Width);
+            IbRect dst = new IbRect(p.combatLocX * gv.squareSize + gv.oXshift, p.combatLocY * gv.squareSize, gv.squareSize, gv.squareSize); 
+		    if (isPlayerTurn)
+		    {
+			    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+		    }
+		    foreach (Player pc in mod.playerList)
+		    {
+			    int x = pc.combatLocX * gv.squareSize;
+			    int y = pc.combatLocY * gv.squareSize;
+			    src = new IbRect(0, 0, p.token.Width, p.token.Width);
+			    //check if drawing animation of player
+			    if ((playerToAnimate != null) && (playerToAnimate == pc))
+			    {
+				    src = new IbRect(0, p.token.Width, p.token.Width, p.token.Width);
+			    }
+			    dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize); 
+			    gv.DrawBitmap(pc.token, src, dst);
+			    //canvas.drawBitmap(pc.token, x, y, null);
+			    src = new IbRect(0, 0, p.token.Width, p.token.Width);
+			    foreach (Effect ef in pc.effectsList)
+			    {
+				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                    src = new IbRect(0, 0, fx.Width, fx.Width);
+				    gv.DrawBitmap(fx, src, dst);
+			    }
+			    if ((pc.charStatus.Equals("Dead")) || (pc.hp < 0))
+			    {
+                    src = new IbRect(0, 0, gv.cc.pc_dead.Width, gv.cc.pc_dead.Width);
+				    gv.DrawBitmap(gv.cc.pc_dead, src, dst);
+			    }
+			    if (pc.steathModeOn)
+			    {
+                    src = new IbRect(0, 0, gv.cc.pc_stealth.Width, gv.cc.pc_stealth.Width);
+				    gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
+			    }
+		    }
+	    }
+	    public void DrawHitAnimation()
+	    {
+		    if (drawHitAnimation)
+		    {
+			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
+                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+			    gv.DrawBitmap(gv.cc.hitSymbol, src, dst);							
+		    }
+	    }
+	    public void DrawMissAnimation()
+	    {
+		    if (drawMissAnimation)
+		    {
+                IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
+                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+			    gv.DrawBitmap(gv.cc.missSymbol, src, dst);							
+		    }
+	    }
+	    public void DrawProjectileAnimation()
+	    {
+		    if (drawProjectileAnimation)
+		    {
+                IbRect src = new IbRect(animationFrameIndex * gv.squareSize, 0, gv.squareSize, gv.squareSize);
+                IbRect dst = new IbRect(projectileAnimationLocation.X + gv.oXshift, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+			    gv.DrawBitmap(projectile, src, dst);		
+		    }
+	    }
+	    public void DrawEndingAnimation()
+	    {
+		    if ((drawEndingAnimation) && (ending_fx != null))
+		    {
+			    int height = ending_fx.Height;
+                IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
+                IbRect dst = new IbRect(endingAnimationLocation.X + gv.oXshift, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
+			    if (height > 50)
+			    {
+                    dst = new IbRect(endingAnimationLocation.X + gv.oXshift - gv.squareSize, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
+			    }
+			    gv.DrawBitmap(ending_fx, src, dst);							
+		    }
+	    }
+	    public void drawLosTrail()
+	    {
+		    Player p = mod.playerList[currentPlayerIndex];
+		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+		    {
+			    int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+			    int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2) + gv.oYshift;
+			    int startX = p.combatLocX * gv.squareSize + (gv.squareSize / 2);
+			    int startY = p.combatLocY * gv.squareSize + (gv.squareSize / 2) + gv.oYshift;
+			    
+                //check if target is within attack distance, use green if true, red if false
+			    if (isVisibleLineOfSight(new Coordinate(endX,endY), new Coordinate(startX,startY))) 
+                {
+                    drawVisibleLineOfSightTrail(new Coordinate(endX,endY), new Coordinate(startX,startY), Color.Lime, 2);                    
+                }
+			    else 
+                {
+                    drawVisibleLineOfSightTrail(new Coordinate(endX, endY), new Coordinate(startX, startY), Color.Red, 2); 
+                }
+			    
+			    
+		    }
+	    }
+	    public void drawCombatCreatures()
+	    {
+		    if (mod.currentEncounter.encounterCreatureList.Count > 0)
+		    {
+			    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];	
+			    int x = cr.combatLocX * gv.squareSize;
+			    int y = cr.combatLocY * gv.squareSize;
+			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
+	            IbRect dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize); 
+			    if (!isPlayerTurn)
+			    {
+				    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
+			    }
+		    }
+		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    {
+			    int x = crt.combatLocX * gv.squareSize;
+			    int y = crt.combatLocY * gv.squareSize;
+			    IbRect src = new IbRect(0, 0, crt.token.Width, crt.token.Width);
+			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
+			    {
+				    src = new IbRect(0, crt.token.Width, crt.token.Width, crt.token.Width);
+			    }
+	            IbRect dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize);
+	            if (crt.token.Width > 100)
+			    {
+	        	    dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+			    }
+			    gv.DrawBitmap(crt.token, src, dst);
+			    foreach (Effect ef in crt.cr_effectsList)
+			    {
+				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                    src = new IbRect(0, 0, fx.Width, fx.Width);
+				    gv.DrawBitmap(fx, src, dst);
+			    }
+		    }
+	    }
+	    public void drawTargetHighlight()
+	    {
+		    Player pc = mod.playerList[currentPlayerIndex];
+		    if (currentCombatMode.Equals("attack"))
+		    {
+                Color colr = Color.Lime;
+			    //check if target is within attack distance, use green if true, red if false
+			    if (isValidAttackTarget(pc)) {colr = Color.Lime;}
+			    else {colr = Color.Red;}
+			    int cornerRadius = gv.squareSize / 10;
+			    int x = targetHighlightCenterLocation.X * gv.squareSize;
+			    int y = targetHighlightCenterLocation.Y * gv.squareSize;
+                int penWidth = 3;
+			    //canvas.drawRect(new Rect(x + oXshift, y, x + squareSize + oXshift, y + squareSize), pnt);			
+			    gv.DrawRoundRectangle(new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
+		    }
+		    else if (currentCombatMode.Equals("cast"))
+		    {
+                Color colr = Color.Lime;
+			    int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+			    int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+			    int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+			    int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))) { colr = Color.Lime; }
+                else { colr = Color.Red; }
+			    int spellAoEinPixels = 0;
+			    if (gv.cc.currentSelectedSpell != null)
+			    {
+				    spellAoEinPixels = gv.cc.currentSelectedSpell.aoeRadius * gv.squareSize;
+			    }
+                int cornerRadius = gv.squareSize / 5;
+                int penWidth = 3;
+			    int x = (targetHighlightCenterLocation.X * gv.squareSize) - spellAoEinPixels;
+			    int y = (targetHighlightCenterLocation.Y * gv.squareSize) - spellAoEinPixels;
+			    gv.DrawRoundRectangle(new IbRect(x + gv.oXshift, y, gv.squareSize + (2 * spellAoEinPixels), gv.squareSize + (2 * spellAoEinPixels)), cornerRadius, colr, penWidth);
+		    }
+	    }	            
+        public void drawFloatyText()
+	    {            
+		    int txtH = (int)gv.drawFontReg.Height;
+		
+		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+		    //gv.floatyTextPaint.setColor(Color.BLACK);
+		    for (int x = -2; x <= 2; x++)
+		    {
+			    for (int y = -2; y <= 2; y++)
+			    {
+                    gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift + x, gv.cc.floatyTextLoc.Y + txtH + y, 1.0f, Color.Black);
+                    gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + gv.oXshift + x, gv.cc.floatyTextLoc.Y + (txtH * 2) + y, 1.0f, Color.Black);
+                    gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + gv.oXshift + x, gv.cc.floatyTextLoc.Y + (txtH * 3) + y, 1.0f, Color.Black);	
+			    }
+		    }		
+		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+		    //gv.floatyTextPaint.setColor(Color.YELLOW);
+            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Yellow);
+            gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.Yellow);
+            gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.Yellow);            
+	    }
+	    public void drawHPText()
+	    {		
+		    if (tglHP.toggleOn)
+		    {
+			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    {
+				    drawText(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize, crt.hp + "/" + crt.hpMax, Color.Red);			
+			    }
+			    foreach (Player pc in mod.playerList)
+			    {
+                    drawText(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize, pc.hp + "/" + pc.hpMax, Color.Red);
+			    }
+		    }
+	    }
+	    public void drawSPText()
+	    {		
+		    if (tglSP.toggleOn)
+		    {
+			    int txtH = (int)gv.drawFontReg.Height;
+			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    {
+                    drawText(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize + txtH, "sp: " + crt.sp, Color.Yellow);			
+			    }
+			    foreach (Player pc in mod.playerList)
+			    {
+                    drawText(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize + txtH, pc.sp + "/" + pc.spMax, Color.Yellow);
+			    }
+		    }
+	    }
+	    public void drawText(int xLoc, int yLoc, string text, Color colr)
+	    {
+		    int txtH = (int)gv.drawFontReg.Height;
+		
+		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+		    //gv.floatyTextPaint.setColor(Color.BLACK);
+		    for (int x = -2; x <= 2; x++)
+		    {
+			    for (int y = -2; y <= 2; y++)
+			    {
+				    gv.DrawText(text, xLoc + gv.oXshift + x, yLoc + txtH + y, 1.0f, Color.Black);
+			    }
+		    }		
+		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+		    //gv.floatyTextPaint.setColor(Color.WHITE);
+		    gv.DrawText(text, xLoc + gv.oXshift, yLoc + txtH, 1.0f, colr);
+	    }
+	    public void drawFloatyTextList()
+	    {
+		    if (floatyTextOn)
+		    {
+                int txtH = (int)gv.drawFontReg.Height;
+					
+			    foreach (FloatyText ft in gv.cc.floatyTextList)
+			    {
+				    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+				    //gv.floatyTextPaint.setColor(Color.BLACK);
+				    for (int x = -2; x <= 2; x++)
+				    {
+					    for (int y = -2; y <= 2; y++)
+					    {
+                            gv.DrawText(ft.value, ft.location.X + x, ft.location.Y + y, 1.0f, Color.Black);
+					    }
+				    }
+                    Color colr = Color.Yellow;
+				    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
+				    if (ft.color.Equals("yellow"))
+				    {				
+					    colr = Color.Yellow;
+				    }
+				    else if (ft.color.Equals("blue"))
+				    {
+                        colr = Color.Blue;
+				    }
+				    else if (ft.color.Equals("green"))
+				    {
+                        colr = Color.Lime;
+				    }
+				    else
+				    {
+                        colr = Color.Red;
+				    }
+                    gv.DrawText(ft.value, ft.location.X, ft.location.Y, 1.0f, colr);
+			    }
+		    }
+	    }
+        public void drawOverlayTints()
+        {
+            IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.Width, gv.cc.tint_sunset.Height);
+            IbRect dst = new IbRect(gv.oXshift, 0, gv.squareSize * 7, gv.squareSize * 7);
+            int dawn = 5 * 60;
+            int sunrise = 6 * 60;
+            int day = 7 * 60;
+            int sunset = 17 * 60;
+            int dusk = 18 * 60;
+            int night = 20 * 60;
+            int time = gv.mod.WorldTime % 1440;
+            if ((time >= dawn) && (time < sunrise))
+            {
+                gv.DrawBitmap(gv.cc.tint_dawn, src, dst);
+            }
+            else if ((time >= sunrise) && (time < day))
+            {
+                gv.DrawBitmap(gv.cc.tint_sunrise, src, dst);
+            }
+            else if ((time >= day) && (time < sunset))
+            {
+                //no tint for day
+            }
+            else if ((time >= sunset) && (time < dusk))
+            {
+                gv.DrawBitmap(gv.cc.tint_sunset, src, dst);
+            }
+            else if ((time >= dusk) && (time < night))
+            {
+                gv.DrawBitmap(gv.cc.tint_dusk, src, dst);
+            }
+            else if ((time >= night) || (time < dawn))
+            {
+                gv.DrawBitmap(gv.cc.tint_night, src, dst);
+            }
+
+        }
+
+        public void onKeyUp(Keys keyData)
+        {
+            if (currentCombatMode.Equals("move"))
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if (keyData == Keys.NumPad7) 
+                {
+                    MoveUpLeft(pc);
+                }
+                else if (keyData == Keys.NumPad8)
+                {
+                    MoveUp(pc);
+                }
+                else if (keyData == Keys.NumPad9)
+                {
+                    MoveUpRight(pc);
+                }
+                else if (keyData == Keys.NumPad4)
+                {
+                    MoveLeft(pc);
+                }
+                else if (keyData == Keys.NumPad6)
+                {
+                    MoveRight(pc);
+                }
+                else if (keyData == Keys.NumPad1)
+                {
+                    MoveDownLeft(pc);
+                }
+                else if (keyData == Keys.NumPad2)
+                {
+                    MoveDown(pc);
+                }
+                else if (keyData == Keys.NumPad3)
+                {
+                    MoveDownRight(pc);
+                }
+            }
+        }
+        public void MoveUp(Player pc)
+        {
+            if (pc.combatLocY > 0)
+            {
+                if (isWalkable(pc.combatLocX, pc.combatLocY - 1))
+                {
+                    pc.combatLocY--;
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                }
+            }
+        }
+        public void MoveUpRight(Player pc)
+        {
+            if ((pc.combatLocX < 6) && (pc.combatLocY > 0))
+            {
+                if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
+                {
+                    pc.combatLocX++;
+                    pc.combatLocY--;
+                    if (pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = false;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveUpLeft(Player pc)
+        {
+            if ((pc.combatLocX > 0) && (pc.combatLocY > 0))
+            {
+                if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
+                {
+                    pc.combatLocX--;
+                    pc.combatLocY--;
+                    if (!pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = true;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveDown(Player pc)
+        {
+            if (pc.combatLocY < 6)
+            {
+                if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
+                {
+                    pc.combatLocY++;
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveDownRight(Player pc)
+        {
+            if ((pc.combatLocX < 6) && (pc.combatLocY < 6))
+            {
+                if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
+                {
+                    pc.combatLocX++;
+                    pc.combatLocY++;
+                    if (pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = false;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveDownLeft(Player pc)
+        {
+            if ((pc.combatLocX > 0) && (pc.combatLocY < 6))
+            {
+                if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
+                {
+                    pc.combatLocX--;
+                    pc.combatLocY++;
+                    if (!pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = true;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveRight(Player pc)
+        {
+            if (pc.combatLocX < 6)
+            {
+                if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
+                {
+                    pc.combatLocX++;
+                    if (pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = false;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        public void MoveLeft(Player pc)
+        {
+            if (pc.combatLocX > 0)
+            {
+                if (isWalkable(pc.combatLocX - 1, pc.combatLocY))
+                {
+                    pc.combatLocX--;
+                    if (!pc.combatFacingLeft)
+                    {
+                        pc.token= gv.cc.flip(pc.token);
+                        pc.combatFacingLeft = true;
+                    }
+                    canMove = false;
+                    currentCombatMode = "attack";
+                    setTargetHighlightStartLocation(pc);
+                    //endPcTurn();
+                }
+            }
+        }
+        
+	    public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
+	    {
+    	    //TODOgv.cc.onTouchLog();
+
+            switch (eventType)
+		    {
+		    case MouseEventType.EventType.MouseDown:
+			    int x = (int) e.X;
+			    int y = (int) e.Y;
+			    //int gridx = (int) e.X / gv.squareSize;
+			    //int gridy = (int) e.Y / gv.squareSize;
+                int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    gv.cc.floatyText = "";
+			    gv.cc.floatyText2 = "";
+			    gv.cc.floatyText3 = "";
+			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+			    {
+				    if ((crt.combatLocX == gridx) && (crt.combatLocY == gridy))
+				    {
+					    gv.cc.floatyText = crt.cr_name;
+					    gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+					    gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+					    gv.cc.floatyTextLoc = new Coordinate((crt.combatLocX) * gv.squareSize, (crt.combatLocY) * gv.squareSize);					
+				    }
+			    }
+			    foreach (Player pc in mod.playerList)
+			    {
+				    if ((pc.combatLocX == gridx) && (pc.combatLocY == gridy))
+				    {
+					    String am = "";
+					    ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
+					    if (itr != null)
+					    {
+						    am = itr.quantity + "";			
+					    }
+					    else
+					    {
+						    am = "";
+					    }
+					
+					    gv.cc.floatyText = pc.name;
+					    gv.cc.floatyText2 = "AC:" + pc.AC + " " + pc.charStatus;
+					    gv.cc.floatyText3 = "Ammo: " + am;
+					    gv.cc.floatyTextLoc = new Coordinate((pc.combatLocX) * gv.squareSize, (pc.combatLocY) * gv.squareSize);
+					
+				    }
+			    }
+			    if (tglHP.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (tglHP.toggleOn)
+				    {
+					    tglHP.toggleOn = false;
+				    }
+				    else
+				    {
+					    tglHP.toggleOn = true;
+				    }
+			    }
+			    if (tglSP.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (tglSP.toggleOn)
+				    {
+					    tglSP.toggleOn = false;
+				    }
+				    else
+				    {
+					    tglSP.toggleOn = true;
+				    }
+			    }
+			    if (tglSpeed.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (mod.combatAnimationSpeed == 100)
+				    {
+					    mod.combatAnimationSpeed = 50;
+					    gv.cc.addLogText("lime","combat speed: 2x");
+					    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
+				    }
+				    else if (mod.combatAnimationSpeed == 50)
+				    {
+					    mod.combatAnimationSpeed = 25;
+					    gv.cc.addLogText("lime","combat speed: 4x");
+					    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
+				    }	
+				    else if (mod.combatAnimationSpeed == 25)
+				    {
+					    mod.combatAnimationSpeed = 10;
+					    gv.cc.addLogText("lime","combat speed: 10x");
+					    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
+				    }
+				    else if (mod.combatAnimationSpeed == 10)
+				    {
+					    mod.combatAnimationSpeed = 100;
+					    gv.cc.addLogText("lime","combat speed: 1x");
+					    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
+				    }
+			    }
+			    if (gv.cc.tglSound.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (gv.cc.tglSound.toggleOn)
+				    {
+					    gv.cc.tglSound.toggleOn = false;
+					    mod.playMusic = false;
+					    gv.stopCombatMusic();
+					    //addLogText("lime","Music Off");
+				    }
+				    else
+				    {
+					    gv.cc.tglSound.toggleOn = true;
+					    mod.playMusic = true;
+					    gv.startCombatMusic();
+                	    //addLogText("lime","Music On");
+				    }
+			    }
+			    if (tglSoundFx.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (tglSoundFx.toggleOn)
+				    {
+					    tglSoundFx.toggleOn = false;
+					    mod.playSoundFx = false;
+					    //gv.stopCombatMusic();
+					    //addLogText("lime","Music Off");
+				    }
+				    else
+				    {
+					    tglSoundFx.toggleOn = true;
+					    mod.playSoundFx = true;
+					    //gv.startCombatMusic();
+                	    //addLogText("lime","Music On");
+				    }
+			    }
+			    if (tglGrid.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (tglGrid.toggleOn)
+				    {
+					    tglGrid.toggleOn = false;
+					    mod.com_showGrid = false;					
+				    }
+				    else
+				    {
+					    tglGrid.toggleOn = true;
+					    mod.com_showGrid = true;
+				    }
+			    }
+			    if (tglHelp.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    tutorialMessageCombat(true);
+			    }
+			    if ((tglKill.getImpact(x, y)) && (mod.debugMode))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    mod.currentEncounter.encounterCreatureList.Clear();
+				    mod.currentEncounter.encounterCreatureRefsList.Clear();
+				    checkEndEncounter();
+			    }
+			    if (btnSwitchWeapon.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				
+				    if (currentPlayerIndex > mod.playerList.Count - 1)
+				    {
+					    return;
+				    }
+				
+				    gv.cc.partyScreenPcIndex = currentPlayerIndex;
+				    int cntPCs = 0;
+				    foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
+				    {
+					    if (cntPCs < mod.playerList.Count)
+					    {
+						    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+					    }
+					    cntPCs++;
+				    }								
+				    gv.screenType = "combatParty";
+			    }
+			    break;		
+		    }
+		    //if MoveMode(move), AttackMode(attack), CastMode(cast), or InfoMode(info)
+		    if (currentCombatMode.Equals("info"))
+		    {
+			    onTouchCombatInfo(e, eventType);
+		    }
+		    else if (currentCombatMode.Equals("move"))
+		    {
+                onTouchCombatMove(e, eventType);
+		    }	
+		    else if (currentCombatMode.Equals("attack"))
+		    {
+                onTouchCombatAttack(e, eventType);
+		    }
+		    else if (currentCombatMode.Equals("castSelector"))
+		    {
+			    //onTouchCombatCastSelector(event);
+		    }
+		    else if (currentCombatMode.Equals("cast"))
+		    {
+                onTouchCombatCast(e, eventType);
+		    }
+		    else
+		    {
+			    //info mode
+		    }
+	    }        
+	    public void onTouchCombatInfo(MouseEventArgs e, MouseEventType.EventType eventType)
+	    {
+		    //TODOgv.cc.onTouchLog();
+		    Player pc = mod.playerList[currentPlayerIndex];	
+		
+		    btnMove.glowOn = false;
+		    gv.cc.btnInventory.glowOn = false;
+		    btnAttack.glowOn = false;
+		    btnCast.glowOn = false;
+		    btnSkipTurn.glowOn = false;							
+		    //btnKill.glowOn = false;
+		    //btnCombatHelp.glowOn = false;
+		
+		    //int eventAction = event.getAction();
+            switch (eventType)
+		    {
+		    case MouseEventType.EventType.MouseDown:
+		    case MouseEventType.EventType.MouseMove:
+			    int x = (int) e.X;
+			    int y = (int) e.Y;
+			    if (btnMove.getImpact(x, y))
+			    {
+				    btnMove.glowOn = true;
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    gv.cc.btnInventory.glowOn = true;
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    btnAttack.glowOn = true;
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    btnCast.glowOn = true;
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    btnSkipTurn.glowOn = true;							
+			    }
+			    break;		
+		
+		    case MouseEventType.EventType.MouseUp:
+			    x = (int) e.X;
+			    y = (int) e.Y;
+			
+			    btnMove.glowOn = false;
+			    gv.cc.btnInventory.glowOn = false;
+			    btnAttack.glowOn = false;
+			    btnCast.glowOn = false;
+			    btnSkipTurn.glowOn = false;
+			
+			    //BUTTONS			
+			    if (btnMove.getImpact(x, y))
+			    {
+				    if (canMove)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "move";
+					    gv.screenType = "combat";
+				    }
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combatInventory";
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    currentCombatMode = "attack";
+				    gv.screenType = "combat";
+				    setTargetHighlightStartLocation(pc);
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    if (pc.knownSpellsTags.Count > 0)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "castSelector";
+					    gv.screenType = "combatCast";
+					    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex; 
+					    spellSelectorIndex = 0;
+					    setTargetHighlightStartLocation(pc);
+				    }
+				    else
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+				    }
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combat";
+				    endPcTurn(false);								
+			    }
+			    break;	
+		    }
+	    }
+        public void onTouchCombatMove(MouseEventArgs e, MouseEventType.EventType eventType)
+	    {
+		    //gv.cc.onTouchLog();
+		    Player pc = mod.playerList[currentPlayerIndex];	
+		
+		    gv.cc.ctrlUpArrow.glowOn = false;
+		    gv.cc.ctrlDownArrow.glowOn = false;
+		    gv.cc.ctrlLeftArrow.glowOn = false;
+		    gv.cc.ctrlRightArrow.glowOn = false;
+		    gv.cc.ctrlUpRightArrow.glowOn = false;
+		    gv.cc.ctrlDownRightArrow.glowOn = false;
+		    gv.cc.ctrlUpLeftArrow.glowOn = false;
+		    gv.cc.ctrlDownLeftArrow.glowOn = false;
+		    btnMove.glowOn = false;
+		    gv.cc.btnInventory.glowOn = false;
+		    btnAttack.glowOn = false;
+		    btnCast.glowOn = false;
+		    btnSkipTurn.glowOn = false;
+		
+		    //int eventAction = event.getAction();
+            switch (eventType)
+		    {
+		    case MouseEventType.EventType.MouseDown:
+		    case MouseEventType.EventType.MouseMove:
+			    int x = (int) e.X;
+			    int y = (int) e.Y;
+			    if (gv.cc.ctrlUpArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlRightArrow.glowOn = true;
+			    }	
+			    else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownLeftArrow.glowOn = true;
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    btnMove.glowOn = true;
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    gv.cc.btnInventory.glowOn = true;
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    btnAttack.glowOn = true;
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    btnCast.glowOn = true;
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    btnSkipTurn.glowOn = true;							
+			    }
+			    break;		
+		
+		    case MouseEventType.EventType.MouseUp:
+			    x = (int) e.X;
+			    y = (int) e.Y;
+			
+			    gv.cc.ctrlUpArrow.glowOn = false;
+			    gv.cc.ctrlDownArrow.glowOn = false;
+			    gv.cc.ctrlLeftArrow.glowOn = false;
+			    gv.cc.ctrlRightArrow.glowOn = false;
+			    gv.cc.ctrlUpRightArrow.glowOn = false;
+			    gv.cc.ctrlDownRightArrow.glowOn = false;
+			    gv.cc.ctrlUpLeftArrow.glowOn = false;
+			    gv.cc.ctrlDownLeftArrow.glowOn = false;
+			    btnMove.glowOn = false;
+			    gv.cc.btnInventory.glowOn = false;
+			    btnAttack.glowOn = false;
+			    btnCast.glowOn = false;
+			    btnSkipTurn.glowOn = false;
+			
+			    //TOUCH ON MAP AREA
+			    int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    if (gridy < 7)
+			    {
+				    gv.cc.floatyText = "";
+				    gv.cc.floatyText2 = "";
+				    gv.cc.floatyText3 = "";
+				    //Check for second tap so TARGET
+				
+			    }
+			
+			    //BUTTONS
+			    if ((gv.cc.ctrlUpArrow.getImpact(x, y)) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY - 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveUp(pc);
+			    }
+			    else if ((gv.cc.ctrlDownArrow.getImpact(x, y)) || ((gridx == pc.combatLocX) && (gridy == pc.combatLocY + 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveDown(pc);
+			    }
+			    else if ((gv.cc.ctrlLeftArrow.getImpact(x, y)) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveLeft(pc);
+			    }
+			    else if ((gv.cc.ctrlRightArrow.getImpact(x, y)) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveRight(pc);
+			    }	
+			    else if ((gv.cc.ctrlUpRightArrow.getImpact(x, y)) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY - 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveUpRight(pc);
+			    }
+			    else if ((gv.cc.ctrlDownRightArrow.getImpact(x, y)) || ((gridx == pc.combatLocX + 1) && (gridy == pc.combatLocY + 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveDownRight(pc);
+			    }
+			    else if ((gv.cc.ctrlUpLeftArrow.getImpact(x, y)) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY - 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveUpLeft(pc);
+			    }
+			    else if ((gv.cc.ctrlDownLeftArrow.getImpact(x, y)) || ((gridx == pc.combatLocX - 1) && (gridy == pc.combatLocY + 1)))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    MoveDownLeft(pc);
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    if (canMove)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "info";
+					    gv.screenType = "combat";
+					    //Toast.makeText(gameContext, "Move Mode", Toast.LENGTH_SHORT).show();
+				    }
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combatInventory";
+				    //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    currentCombatMode = "attack";
+				    gv.screenType = "combat";
+				    setTargetHighlightStartLocation(pc);
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    if (pc.knownSpellsTags.Count > 0)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "castSelector";
+					    gv.screenType = "combatCast";
+					    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex; 
+					    spellSelectorIndex = 0;
+					    setTargetHighlightStartLocation(pc);
+				    }
+				    else
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+				    }
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combat";
+				    endPcTurn(false);								
+			    }
+			    break;	
+		    }
+	    }
+        public void onTouchCombatAttack(MouseEventArgs e, MouseEventType.EventType eventType)
+	    {
+		    //gv.cc.onTouchLog();
+		    Player pc = mod.playerList[currentPlayerIndex];	
+		
+		    gv.cc.ctrlUpArrow.glowOn = false;
+		    gv.cc.ctrlDownArrow.glowOn = false;
+		    gv.cc.ctrlLeftArrow.glowOn = false;
+		    gv.cc.ctrlRightArrow.glowOn = false;
+		    gv.cc.ctrlUpRightArrow.glowOn = false;
+		    gv.cc.ctrlDownRightArrow.glowOn = false;
+		    gv.cc.ctrlUpLeftArrow.glowOn = false;
+		    gv.cc.ctrlDownLeftArrow.glowOn = false;
+		    btnSelect.glowOn = false;
+		    btnMove.glowOn = false;
+		    gv.cc.btnInventory.glowOn = false;
+		    btnAttack.glowOn = false;
+		    btnCast.glowOn = false;				
+		    btnSkipTurn.glowOn = false;
+		
+		    //int eventAction = event.getAction();
+            switch (eventType)
+		    {
+		    case MouseEventType.EventType.MouseDown:
+		    case MouseEventType.EventType.MouseMove:
+			    int x = (int) e.X;
+			    int y = (int) e.Y;
+			    if (gv.cc.ctrlUpArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownLeftArrow.glowOn = true;
+			    }
+			    else if (btnSelect.getImpact(x, y))
+			    {
+				    btnSelect.glowOn = true;
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    btnMove.glowOn = true;
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    gv.cc.btnInventory.glowOn = true;
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    btnAttack.glowOn = true;
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    btnCast.glowOn = true;				
+			    }	
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    btnSkipTurn.glowOn = true;								
+			    }
+			    break;		
+			
+		    case MouseEventType.EventType.MouseUp:
+			    x = (int) e.X;
+			    y = (int) e.Y;
+			
+			    gv.cc.ctrlUpArrow.glowOn = false;
+			    gv.cc.ctrlDownArrow.glowOn = false;
+			    gv.cc.ctrlLeftArrow.glowOn = false;
+			    gv.cc.ctrlRightArrow.glowOn = false;
+			    gv.cc.ctrlUpRightArrow.glowOn = false;
+			    gv.cc.ctrlDownRightArrow.glowOn = false;
+			    gv.cc.ctrlUpLeftArrow.glowOn = false;
+			    gv.cc.ctrlDownLeftArrow.glowOn = false;
+			    btnSelect.glowOn = false;
+			    btnMove.glowOn = false;
+			    gv.cc.btnInventory.glowOn = false;
+			    btnAttack.glowOn = false;
+			    btnCast.glowOn = false;				
+			    btnSkipTurn.glowOn = false;
+			
+			    //TOUCH ON MAP AREA
+			    int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    if (gridy < 7)
+			    {
+				    gv.cc.floatyText = "";
+				    gv.cc.floatyText2 = "";
+				    gv.cc.floatyText3 = "";
+				    //Check for second tap so TARGET
+				    if ((gridx == targetHighlightCenterLocation.X) && (gridy == targetHighlightCenterLocation.Y))
+				    {
+					    if (isValidAttackTarget(pc))
+					    {
+						    if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+			    		    {
+			    			    pc.token= gv.cc.flip(pc.token);
+			    			    pc.combatFacingLeft = true;
+			    		    }
+			    		    else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+			    		    {
+			    			    pc.token= gv.cc.flip(pc.token);
+			    			    pc.combatFacingLeft = false;
+			    		    }
+						    //doCombatAttack(pc);
+						    gv.touchEnabled = false;
+						    creatureToAnimate = null;
+		    	            playerToAnimate = pc;
+		    	            gv.Invalidate();
+		    	            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
+		    	        		    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+		    	        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+		    	            {
+		    	        	    animationState = AnimationState.PcMeleeAttackAnimation;
+		    	            }
+		    	            else
+		    	            {
+		    	        	    //play attack sound for ranged
+		    	        	    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+		    	        	    animationState = AnimationState.PcRangedAttackAnimation;
+		    	            }
+		    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+					    }
+				    }
+				    targetHighlightCenterLocation.Y = gridy;
+				    targetHighlightCenterLocation.X = gridx;
+			    }
+						
+			    //BUTTONS
+			    if (gv.cc.ctrlUpArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.Y > 0)
+				    {
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.Y < 6)
+				    {
+					    targetHighlightCenterLocation.Y++;					
+				    }
+			    }
+			    else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.X > 0)
+				    {
+					    targetHighlightCenterLocation.X--;					
+				    }
+			    }
+			    else if (gv.cc.ctrlRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.X < 6)
+				    {
+					    targetHighlightCenterLocation.X++;	
+				    }
+			    }
+			    else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y > 0))
+				    {
+					    targetHighlightCenterLocation.X++;	
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y < 6))
+				    {
+					    targetHighlightCenterLocation.X++;	
+					    targetHighlightCenterLocation.Y++;
+				    }
+			    }
+			    else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y > 0))
+				    {
+					    targetHighlightCenterLocation.X--;	
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < 6))
+				    {
+					    targetHighlightCenterLocation.X--;	
+					    targetHighlightCenterLocation.Y++;
+				    }
+			    }
+			    else if (btnSelect.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (isValidAttackTarget(pc))
+				    {
+					    if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+		    		    {
+		    			    pc.token= gv.cc.flip(pc.token);
+		    			    pc.combatFacingLeft = true;
+		    		    }
+		    		    else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+		    		    {
+		    			    pc.token= gv.cc.flip(pc.token);
+		    			    pc.combatFacingLeft = false;
+		    		    }
+					    gv.touchEnabled = false;
+					    creatureToAnimate = null;
+	    	            playerToAnimate = pc;
+	    	            gv.Invalidate();
+	    	            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
+	    	        		    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none")) 
+	    	        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+	    	            {
+	    	        	    animationState = AnimationState.PcMeleeAttackAnimation;
+	    	            }
+	    	            else
+	    	            {
+	    	        	    animationState = AnimationState.PcRangedAttackAnimation;
+	    	            }
+	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+				    }
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    if (canMove)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "move";
+					    gv.screenType = "combat";
+				    }
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combatInventory";
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    currentCombatMode = "info";
+				    gv.screenType = "combat";
+				    setTargetHighlightStartLocation(pc);
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    if (pc.knownSpellsTags.Count > 0)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "castSelector";
+					    gv.screenType = "combatCast";
+					    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex; 
+					    spellSelectorIndex = 0;
+					    setTargetHighlightStartLocation(pc);
+				    }
+				    else
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+				    }				
+			    }	
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    endPcTurn(false);								
+			    }
+			    break;		
+		    }
+	    }
+        public void onTouchCombatCast(MouseEventArgs e, MouseEventType.EventType eventType)
+	    {
+		    //gv.cc.onTouchLog();
+		    Player pc = mod.playerList[currentPlayerIndex];		
+		
+		    gv.cc.ctrlUpArrow.glowOn = false;
+		    gv.cc.ctrlDownArrow.glowOn = false;
+		    gv.cc.ctrlLeftArrow.glowOn = false;
+		    gv.cc.ctrlRightArrow.glowOn = false;
+		    gv.cc.ctrlUpRightArrow.glowOn = false;
+		    gv.cc.ctrlDownRightArrow.glowOn = false;
+		    gv.cc.ctrlUpLeftArrow.glowOn = false;
+		    gv.cc.ctrlDownLeftArrow.glowOn = false;
+		    btnSelect.glowOn = false;
+		    btnMove.glowOn = false;
+		    gv.cc.btnInventory.glowOn = false;
+		    btnAttack.glowOn = false;
+		    btnCast.glowOn = false;
+		    btnSkipTurn.glowOn = false;
+		
+		    //int eventAction = event.getAction();
+            switch (eventType)
+		    {
+		    case MouseEventType.EventType.MouseDown:
+		    case MouseEventType.EventType.MouseMove:
+			    int x = (int) e.X;
+			    int y = (int) e.Y;
+			    if (gv.cc.ctrlUpArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownRightArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlUpLeftArrow.glowOn = true;
+			    }
+			    else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
+			    {
+				    gv.cc.ctrlDownLeftArrow.glowOn = true;
+			    }
+			    else if (btnSelect.getImpact(x, y))
+			    {
+				    btnSelect.glowOn = true;
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    btnMove.glowOn = true;
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    gv.cc.btnInventory.glowOn = true;
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    btnAttack.glowOn = true;
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    btnCast.glowOn = true;
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    btnSkipTurn.glowOn = true;								
+			    }
+			    break;	
+			
+		    case MouseEventType.EventType.MouseUp:
+			    x = (int) e.X;
+			    y = (int) e.Y;
+			
+			    gv.cc.ctrlUpArrow.glowOn = false;
+			    gv.cc.ctrlDownArrow.glowOn = false;
+			    gv.cc.ctrlLeftArrow.glowOn = false;
+			    gv.cc.ctrlRightArrow.glowOn = false;
+			    gv.cc.ctrlUpRightArrow.glowOn = false;
+			    gv.cc.ctrlDownRightArrow.glowOn = false;
+			    gv.cc.ctrlUpLeftArrow.glowOn = false;
+			    gv.cc.ctrlDownLeftArrow.glowOn = false;
+			    btnSelect.glowOn = false;
+			    btnMove.glowOn = false;
+			    gv.cc.btnInventory.glowOn = false;
+			    btnAttack.glowOn = false;
+			    btnCast.glowOn = false;
+			    btnSkipTurn.glowOn = false;
+			
+			    //TOUCH ON MAP AREA
+			    int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    if (gridy < 7)
+			    {
+				    gv.cc.floatyText = "";
+				    gv.cc.floatyText2 = "";
+				    gv.cc.floatyText3 = "";
+				    //Check for second tap so TARGET
+				    if ((gridx == targetHighlightCenterLocation.X) && (gridy == targetHighlightCenterLocation.Y))
+				    {
+					    int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+					    int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+					    int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+					    int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+					
+					    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+					    {
+						    if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+			    		    {
+			    			    pc.token= gv.cc.flip(pc.token);
+			    			    pc.combatFacingLeft = true;
+			    		    }
+			    		    else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+			    		    {
+			    			    pc.token= gv.cc.flip(pc.token);
+			    			    pc.combatFacingLeft = false;
+			    		    }
+						    //doCombatCast(pc);
+						    gv.touchEnabled = false;
+						    creatureToAnimate = null;
+		    	            playerToAnimate = pc;
+		    	            gv.Invalidate();
+		    	            animationState = AnimationState.PcCastAttackAnimation;
+		    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+					    }
+				    }
+				    targetHighlightCenterLocation.Y = gridy;
+				    targetHighlightCenterLocation.X = gridx;
+			    }
+			
+			    //BUTTONS
+			    if (gv.cc.ctrlUpArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.Y > 0)
+				    {
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.Y < 6)
+				    {
+					    targetHighlightCenterLocation.Y++;					
+				    }
+			    }
+			    else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.X > 0)
+				    {
+					    targetHighlightCenterLocation.X--;					
+				    }
+			    }
+			    else if (gv.cc.ctrlRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if (targetHighlightCenterLocation.X < 6)
+				    {
+					    targetHighlightCenterLocation.X++;	
+				    }
+			    }
+			    else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y > 0))
+				    {
+					    targetHighlightCenterLocation.X++;	
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y < 6))
+				    {
+					    targetHighlightCenterLocation.X++;	
+					    targetHighlightCenterLocation.Y++;
+				    }
+			    }
+			    else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y > 0))
+				    {
+					    targetHighlightCenterLocation.X--;	
+					    targetHighlightCenterLocation.Y--;
+				    }
+			    }
+			    else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < 6))
+				    {
+					    targetHighlightCenterLocation.X--;	
+					    targetHighlightCenterLocation.Y++;
+				    }
+			    }
+			    else if (btnSelect.getImpact(x, y))
+			    {
+				    int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+				    int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+				    int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+				    int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+				    //if (isValidCastTarget(pc))
+				    {
+					    if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+		    		    {
+		    			    pc.token= gv.cc.flip(pc.token);
+		    			    pc.combatFacingLeft = true;
+		    		    }
+		    		    else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+		    		    {
+		    			    pc.token= gv.cc.flip(pc.token);
+		    			    pc.combatFacingLeft = false;
+		    		    }
+					    //doCombatCast(pc);
+					    gv.touchEnabled = false;
+					    creatureToAnimate = null;
+	    	            playerToAnimate = pc;
+	    	            gv.Invalidate();
+	    	            animationState = AnimationState.PcCastAttackAnimation;
+	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+				    }
+				    //Toast.makeText(gameContext, "Selected", Toast.LENGTH_SHORT).show();
+			    }
+			    else if (btnMove.getImpact(x, y))
+			    {
+				    if (canMove)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "move";
+					    gv.screenType = "combat";
+					    //Toast.makeText(gameContext, "Move Mode", Toast.LENGTH_SHORT).show();
+				    }
+			    }
+			    else if (gv.cc.btnInventory.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    gv.screenType = "combatInventory";
+				    //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
+			    }
+			    else if (btnAttack.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    currentCombatMode = "attack";
+				    gv.screenType = "combat";
+				    setTargetHighlightStartLocation(pc);
+				    //Toast.makeText(gameContext, "Attack Mode", Toast.LENGTH_SHORT).show();
+			    }
+			    else if (btnCast.getImpact(x, y))
+			    {
+				    if (pc.knownSpellsTags.Count > 0)
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    currentCombatMode = "castSelector";
+					    gv.screenType = "combatCast";
+					    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex; 
+					    spellSelectorIndex = 0;
+					    setTargetHighlightStartLocation(pc);
+				    }
+				    else
+				    {
+					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+					    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+				    }
+			    }
+			    else if (btnSkipTurn.getImpact(x, y))
+			    {
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+				    endPcTurn(false);								
+			    }
+                break;
+		    }
+	    }
+        
+	
+	    public void setTargetHighlightStartLocation(Player pc)
+	    {
+		    targetHighlightCenterLocation.X = pc.combatLocX;
+		    targetHighlightCenterLocation.Y = pc.combatLocY;		
+	    }
+	    public bool isValidAttackTarget(Player pc)
+	    {
+		    if (isInRange(pc))
+		    {
+			    int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+			    int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+			    int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+			    int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+			    if ((isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+				    || (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), targetHighlightCenterLocation) == 1))
+			    {
+				    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+				    {
+					    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+					    {
+						    return true;
+					    }
+				    }
+			    }
+		    }
+		    return false;
+	    }
+	    public bool isValidCastTarget(Player pc)
+	    {
+		    if (isInRange(pc))
+		    {
+			    //check to see if is AoE or Point Target else needs a target PC or Creature
+			    if ((gv.cc.currentSelectedSpell.aoeRadius > 0) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("PointLocation")))
+			    {
+				    return true;
+			    }			
+			    //is not an AoE ranged attack, is a PC or Creature
+			    else
+			    {
+				    //check to see if target is a friend or self
+				    if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
+				    {
+					    foreach (Player p in mod.playerList)
+					    {
+						    if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
+						    {
+							    return true;
+						    }
+					    }
+				    }
+				    else //target is a creature
+				    {
+					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+					    {
+						    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+						    {
+							    return true;
+						    }
+					    }
+				    }
+			    }			
+		    }
+		    return false;
+	    }
+	    public Object getCastTarget(Player pc)
+	    {
+		    if (isInRange(pc))
+		    {
+			    //check to see if is AoE or Point Target else needs a target PC or Creature
+			    if ((gv.cc.currentSelectedSpell.aoeRadius > 0) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("PointLocation")))
+			    {
+				    return new Coordinate(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+			    }			
+			    //is not an AoE ranged attack, is a PC or Creature
+			    else
+			    {
+				    //check to see if target is a friend or self
+				    if ((gv.cc.currentSelectedSpell.spellTargetType.Equals("Friend")) || (gv.cc.currentSelectedSpell.spellTargetType.Equals("Self")))
+				    {
+					    foreach (Player p in mod.playerList)
+					    {
+						    if ((p.combatLocX == targetHighlightCenterLocation.X) && (p.combatLocY == targetHighlightCenterLocation.Y))
+						    {
+							    return p;
+						    }
+					    }
+				    }
+				    else //target is a creature
+				    {
+					    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+					    {
+						    if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
+						    {
+							    return crt;
+						    }
+					    }
+				    }
+			    }			
+		    }
+		    return null;
+	    }
+	    public bool isInRange(Player pc)
+	    {
+		    if (currentCombatMode.Equals("attack"))
+		    {
+			    int range = 1;
+			    if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")) 
+	        		    && (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+	            {
+				    //ranged weapon with no ammo
+				    range = 1;
+	            }
+			    else 
+			    {
+				    range = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
+			    }
+			
+			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), targetHighlightCenterLocation) <= range)
+			    {
+				    return true;
+			    }
+		    }
+		    else if (currentCombatMode.Equals("cast"))
+		    {
+			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), targetHighlightCenterLocation) <= gv.cc.currentSelectedSpell.range)
+			    {
+				    return true;
+			    }
+		    }
+		    return false;
+	    }
+	    public bool isAdjacentEnemy(Player pc)
+	    {
+		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    {
+			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
+			    {
+				    if (!crt.cr_status.Equals("Held"))
+				    {
+					    return true;
+				    }
+			    }
+		    }
+		    return false;
+	    }
+	    public bool isAdjacentPc(Creature crt)
+	    {
+		    foreach (Player pc in mod.playerList)
+		    {
+			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
+			    {
+				    return true;
+			    }
+		    }
+		    return false;
+	    }
+	    public bool isVisibleLineOfSight(Coordinate end, Coordinate start)
+        {
+            // Bresenham Line algorithm
+            // Creates a line from Begin to End starting at (x0,y0) and ending at (x1,y1)
+            // where x0 less than x1 and y0 less than y1
+            // AND line is less steep than it is wide (dx less than dy)    
+
+            int deltax = Math.Abs(end.X - start.X);
+            int deltay = Math.Abs(end.Y - start.Y);
+            int ystep = gv.squareSize / 50;
+            int xstep = gv.squareSize / 50;
+            if (ystep < 1) {ystep = 1;}
+            if (xstep < 1) {xstep = 1;}
+
+            if (deltax > deltay) //Low Angle line
+            {
+        	    Coordinate nextPoint = start;
+                int error = deltax / 2;
+
+                if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
+
+                if (end.X > start.X) //down and right
+                {
+                    for (int x = start.X; x <= end.X; x += xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }                       
+                    }
+                }
+                else //down and left
+                {
+                    for (int x = start.X; x >= end.X; x -= xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }                      
+                    }
+                }
+            }
+
+            else //Low Angle line
+            {
+        	    Coordinate nextPoint = start;
+                int error = deltay / 2;
+
+                if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
+
+                if (end.Y > start.Y) //up and right
+                {
+                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }                      
+                    }
+                }
+                else //up and right
+                {
+                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }                       
+                    }
+                }
+            }
+        
+            return true;
+        }
+	    public bool drawVisibleLineOfSightTrail(Coordinate end, Coordinate start, Color penColor, int penWidth)
+        {
+            // Bresenham Line algorithm
+            // Creates a line from Begin to End starting at (x0,y0) and ending at (x1,y1)
+            // where x0 less than x1 and y0 less than y1
+            // AND line is less steep than it is wide (dx less than dy)    
+        
+            int deltax = Math.Abs(end.X - start.X);
+            int deltay = Math.Abs(end.Y - start.Y);
+            int ystep = gv.squareSize / 50;
+            int xstep = gv.squareSize / 50;
+            if (ystep < 1) {ystep = 1;}
+            if (xstep < 1) {xstep = 1;}
+
+            if (deltax > deltay) //Low Angle line
+            {
+        	    Coordinate nextPoint = start;
+                int error = deltax / 2;
+
+                if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
+
+                if (end.X > start.X) //down and right
+                {
+            	    int lastX = start.X;
+            	    int lastY = start.Y;
+                    for (int x = start.X; x <= end.X; x += xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }
+                        lastX = nextPoint.X;
+                        lastY = nextPoint.Y;
+                    }
+                }
+                else //down and left
+                {
+            	    int lastX = start.X;
+            	    int lastY = start.Y;                
+                    for (int x = start.X; x >= end.X; x -= xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }
+                        lastX = nextPoint.X;
+                        lastY = nextPoint.Y;
+                    }
+                }
+            }
+
+            else //Low Angle line
+            {
+        	    Coordinate nextPoint = start;
+                int error = deltay / 2;
+
+                if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
+
+                if (end.Y > start.Y) //up and right
+                {
+            	    int lastX = start.X;
+            	    int lastY = start.Y;                
+                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }
+                        lastX = nextPoint.X;
+                        lastY = nextPoint.Y;
+                    }
+                }
+                else //up and right
+                {
+            	    int lastX = start.X;
+            	    int lastY = start.Y;                
+                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        int gridx = nextPoint.X / gv.squareSize;
+                        if (gridx > 6) { gridx = 6; }
+                        if (gridx < 0) { gridx = 0; }
+                        int gridy = nextPoint.Y / gv.squareSize;
+                        if (gridy > 6) { gridy = 6; }
+                        if (gridy < 0) { gridy = 0; }
+                        gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
+                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        {
+                    	    return false;
+                        }   
+                        lastX = nextPoint.X;
+                        lastY = nextPoint.Y;
+                    }
+                }
+            }
+        
+            return true;
+        }
+        
+	    public int getDistance(Coordinate start, Coordinate end)
+	    {
+		    int dist = 0;
+            int deltaX = (int)Math.Abs((start.X - end.X));
+            int deltaY = (int)Math.Abs((start.Y - end.Y));
+            if (deltaX > deltaY)
+                dist = deltaX;
+            else
+                dist = deltaY;
+            return dist;
+	    }
+	    public bool isWalkable(int x, int y)
+	    {		
+		    if (!mod.currentEncounter.encounterTiles[y * 7 + x].Walkable)
+            {
+        	    return false;
+            }
+		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    {
+			    if ((crt.combatLocX == x) && (crt.combatLocY == y))
+			    {
+				    return false;
+			    }
+		    }
+		    foreach (Player p in mod.playerList)
+		    {
+			    if ((p.combatLocX == x) && (p.combatLocY == y))
+			    {
+				    if ((!p.charStatus.Equals("Dead")) && (p.hp > 0))
+				    {
+					    return false;
+				    }
+			    }
+		    }
+		    return true;			
+	    }
+	    public void endPcTurn(bool endStealthMode)
+	    {
+		    //remove stealth if endStealthMode = true		
+		    Player pc = mod.playerList[currentPlayerIndex];
+		    if (endStealthMode)
+		    {
+			    pc.steathModeOn = false;
+		    }
+		    else //else test to see if enter/stay in stealth mode if has trait
+		    {
+			    doStealthModeCheck(pc);
+		    }
+		    canMove = true;
+		    currentPlayerIndex++;
+		    if (currentPlayerIndex >= mod.playerList.Count)
+		    {			
+			    currentPlayerIndex = 0;
+			    creatureIndex = 0;
+			    if (mod.currentEncounter.encounterCreatureList.Count > 0)
+			    {
+				    isPlayerTurn = false;
+				    gv.touchEnabled = false;
+				    currentCombatMode = "info";
+				    doCreatureTurn();				
+			    }
+		    }
+		    else
+		    {
+			    currentCombatMode = "info";
+			    startPcTurn();
+		    }
+	    }
+	    public void doStealthModeCheck(Player pc)
+	    {
+		    int skillMod = 0;
+		    if (pc.knownTraitsTags.Contains("stealth4"))
+		    {
+			    Trait tr = mod.getTraitByTag("stealth4");
+			    skillMod = tr.skillModifier;
+		    }
+		    else if (pc.knownTraitsTags.Contains("stealth3"))
+		    {
+			    Trait tr = mod.getTraitByTag("stealth3");
+			    skillMod = tr.skillModifier;
+		    }
+		    else if (pc.knownTraitsTags.Contains("stealth2"))
+		    {
+			    Trait tr = mod.getTraitByTag("stealth2");
+			    skillMod = tr.skillModifier;
+		    }
+		    else if (pc.knownTraitsTags.Contains("stealth"))
+		    {
+			    Trait tr = mod.getTraitByTag("stealth");
+			    skillMod = tr.skillModifier;
+		    } 
+		    else
+		    {
+			    //PC doesn't have stealth trait
+			    pc.steathModeOn = false;
+			    return;
+		    }
+    	    int attMod = (pc.dexterity - 10) / 2;
+    	    int roll = gv.sf.RandInt(20);
+    	    int DC = 18; //eventually change to include area modifiers, proximity to enemies, etc.
+    	    if ( roll + attMod + skillMod >= DC )
+		    {
+    		    pc.steathModeOn = true;
+    		    gv.cc.addLogText("<font color='lime'> stealth ON: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
+    		    if (mod.debugMode) //SD_20131102
+                {
+    			    //gv.cc.addLogText("<font color='yellow'> stealth: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
+    		    }
+		    }
+    	    else
+    	    {
+    		    pc.steathModeOn = false;
+    		    gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
+        	    if (mod.debugMode) //SD_20131102
+                {
+    			    //gv.cc.addLogText("<font color='yellow'> stealth: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
+    		    }
+    	    }
+	    }
+	    public bool checkEndEncounter()
+        {            
+            int foundOneCrtr = 0;
+            foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
+            {
+                if (crtr.hp > 0)
+                {
+                    foundOneCrtr = 1;
+                }
+            }
+            if ((foundOneCrtr == 0) && (gv.screenType.Equals("combat")))
+            {
+        	    gv.touchEnabled = true;
+        	    // give gold drop
+        	    if (mod.currentEncounter.goldDrop > 0)
+        	    {
+        		    gv.cc.addLogText("<font color='yellow'>The party finds " + mod.currentEncounter.goldDrop + " gold.<BR></font>");
+        	    }
+        	    mod.partyGold += mod.currentEncounter.goldDrop;
+        	    // give InventoryList
+                if (mod.currentEncounter.encounterInventoryRefsList.Count > 0)
+                {
+            	
+            	    string s = "<font color='fuchsia'>" + "The party has found:<BR>";
+                    foreach (ItemRefs itRef in mod.currentEncounter.encounterInventoryRefsList)
+    			    {
+            		    mod.partyInventoryRefsList.Add(itRef.DeepCopy());
+            		    s += itRef.name + "<BR>";
+    				    //find this creatureRef in mod creature list
+    				    			
+    			    }
+            	    gv.cc.addLogText(s + "</font>" + "<BR>");
+                }
+
+                //IBMessageBox.Show(game, "You have defeated all the creatures");
+                int giveEachXP = encounterXP / mod.playerList.Count;
+                gv.cc.addLogText("fuchsia","Each receives " + giveEachXP + " XP");            
+                foreach (Player givePcXp in mod.playerList)
+                {
+                    givePcXp.XP = givePcXp.XP + giveEachXP;
+                }
+                btnSelect.Text = "SELECT";
+                gv.screenType = "main";
+                if (mod.playMusic)
+    		    {    			
+            	    gv.stopCombatMusic();
+            	    gv.startMusic();
+            	    gv.startAmbient();
+    		    }
+                //do END ENCOUNTER LOGIC TREE
+    		    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnEndCombatLogicTree, gv.mod.currentEncounter.OnEndCombatParms);
+    		    if (gv.cc.calledEncounterFromProp)
+    		    {    			
+    			    gv.cc.doPropTriggers();
+    		    }
+    		    else
+    		    {
+    			    gv.cc.doTrigger();
+    		    }
+                return true;
+            }
+
+            int foundOnePc = 0;
+            foreach (Player pc in mod.playerList)
+            {
+                if (pc.hp > 0)
+                {
+                    foundOnePc = 1;
+                }
+            }
+            if (foundOnePc == 0)
+            {
+        	    gv.touchEnabled = true;
+        	    gv.sf.MessageBox("Your party has been defeated!");
+        	    if (mod.playMusic)
+    		    {    			
+        		    gv.stopCombatMusic();
+        		    gv.startMusic();
+        		    gv.startAmbient();
+    		    }
+        	    gv.resetGame();
+        	    gv.screenType = "title";
+        	    return true;
+            }
+            return false;
+        }
+                		
+	    public Coordinate GetNextProjectileCoordinateOld(Coordinate nowCoor, Coordinate target)
+	    {
+		    Coordinate nextPoint = new Coordinate();
+		
+		    //float angle = AngleRad(nowCoor, target);
+            int deltax = Math.Abs(target.X * gv.squareSize - nowCoor.X);
+            int deltay = Math.Abs(target.Y * gv.squareSize - nowCoor.Y);
+            int ystep = gv.squareSize/5;
+            int xstep = gv.squareSize/5;
+        
+            if (deltax > deltay) //low angle version
+            {
+        	    nextPoint = nowCoor;
+                int error = deltax / 2;
+                if (target.Y * gv.squareSize < nowCoor.Y) { ystep = -1 * ystep; }
+                if (target.X * gv.squareSize > nowCoor.X)
+                {
+                    nextPoint.X += xstep;
+                    if (nextPoint.X > target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+                    error -= deltay;
+                    if (error < 0) {nextPoint.Y += ystep;}
+                }
+                else
+                {
+            	    nextPoint.X -= xstep;
+                    if (nextPoint.X < target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+                    error -= deltay;
+                    if (error < 0) {nextPoint.Y += ystep;}                
+                }
+            }
+            else //steep version
+            {
+                nextPoint = nowCoor;
+                int error = deltay / 2;
+                if (target.X * gv.squareSize < nowCoor.X) { xstep = -1 * xstep; }
+                if (target.Y * gv.squareSize > nowCoor.Y)
+                {
+                    nextPoint.Y += ystep;
+                    if (nextPoint.Y > target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+                    error -= deltax;
+                    if (error < 0) {nextPoint.X += xstep;}                   
+                }
+                else
+                {
+            	    nextPoint.Y -= ystep;
+                    if (nextPoint.Y < target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+                    error -= deltax;
+                    if (error < 0) {nextPoint.X += xstep;}
+                }
+            }
+        
+		    return nextPoint;
+	    }
+	    public Coordinate GetNextProjectileCoordinate(Coordinate startCoor, Coordinate target)
+	    {
+		    Coordinate nextPoint = new Coordinate();
+		    float divider = ((float)animationFrameIndex) / 4.0f;
+		    nextPoint.X = startCoor.X * gv.squareSize - (int)((startCoor.X * gv.squareSize - target.X * gv.squareSize) * divider);
+		    if (startCoor.X < target.X)
+		    {
+			    if (nextPoint.X > target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+		    }
+		    else
+		    {
+			    if (nextPoint.X < target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+		    }
+		    nextPoint.Y = startCoor.Y * gv.squareSize - (int)((startCoor.Y * gv.squareSize - target.Y * gv.squareSize) * divider); 
+		    if (startCoor.Y < target.Y)
+		    {
+			    if (nextPoint.Y > target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+		    }
+		    else
+		    {
+			    if (nextPoint.Y < target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+		    }
+		    return nextPoint;
+	    }
+
+	    public int CalcPcAttackModifier(Player pc)
+        {
+            int modifier = 0;
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
+        		    || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            {
+                modifier = (pc.strength - 10) / 2;
+                //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
+                if (pc.knownTraitsTags.Contains("criticalstrike"))
+			    {
+            	    int modifierDex = (pc.dexterity - 10) / 2;
+            	    if (modifierDex > modifier)
+            	    {
+            		    modifier = (pc.dexterity - 10) / 2;
+            	    }
+			    }
+                //if doing sneak attack, bonus to hit roll
+                if (pc.steathModeOn)
+                {
+    	            if (pc.knownTraitsTags.Contains("sneakattack"))
+    			    {
+    	        	    //+1 for every 2 levels after level 1
+    	        	    int adding = ((pc.classLevel - 1) / 2) + 1;
+    	        	    modifier += adding;
+    	        	    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
+    	        	    if (mod.debugMode) //SD_20131102
+    	                {
+    	    			    //gv.cc.addLogText("<font color='yellow'> sneak attack: +" + adding + " to hit</font><BR>");
+    	    		    }
+    			    }		        
+                }
+            }
+            else //ranged weapon used
+            {
+                modifier = (pc.dexterity - 10) / 2;
+                //factor in penalty for adjacent enemies when using ranged weapon
+                if (isAdjacentEnemy(pc))
+                {
+            	    if (gv.sf.hasTrait(pc, "pointblankshot"))
+            	    {
+            		    //has point blank shot trait, no penalty
+            	    }
+            	    else
+            	    {
+	            	    modifier -= 4;
+	            	    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
+	            	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
+	            	    gv.cc.floatyTextOn = true;
+	            	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
+	            	    gv.postDelayed("doFloatyText", 100);
+            	    }
+                }
+                if (gv.sf.hasTrait(pc, "preciseshot2"))
+        	    {
+        		    modifier += 2;
+        		    gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 to hit</font><BR>");
+        	    }
+                else if (gv.sf.hasTrait(pc, "preciseshot"))
+        	    {
+            	    modifier++;
+            	    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
+        	    }
+            }
+            if (gv.sf.hasTrait(pc, "hardtokill"))
+            {
+                modifier -= 2;
+                gv.cc.addLogText("<font color='yellow'>" + "blinded by rage" + "</font><BR>");
+                gv.cc.addLogText("<font color='yellow'>" + "-2 attack penalty" + "</font><BR>");
+            }
+            int attackMod = modifier + pc.baseAttBonus + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;        
+            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            if (it != null)
+            {
+        	    attackMod += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+            }
+            return attackMod;
+        }
+	    public int CalcCreatureDefense(Creature crt)
+        {
+            int defense = crt.AC;
+            if (crt.cr_status.Equals("Held"))
+            {
+        	    defense -= 4;
+        	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+4 att", "green");
+            }
+            return defense;
+        }
+	    public int CalcPcDamageToCreature(Player pc, Creature crt)
+        {
+            int damModifier = 0;
+            int adder = 0;
+            bool melee = false;
+            if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
+        		    || (pc.MainHandRefs.name.Equals("none"))
+        		    || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+            {
+        	    melee = true;
+        	    damModifier = (pc.strength - 10) / 2;
+        	    //if has critical strike trait use dexterity for damage modifier in melee if greater than strength modifier
+        	    if (gv.sf.hasTrait(pc, "criticalstrike"))
+        	    {
+        		    int damModifierDex = (pc.dexterity - 10) / 4;    
+        		    if (damModifierDex > damModifier)
+            	    {
+        			    damModifier = (pc.dexterity - 10) / 2;
+            	    }
+        	    }         
+            }
+            else //ranged weapon used
+            {
+                damModifier = 0;  
+                if (gv.sf.hasTrait(pc, "preciseshot2"))
+	    	    {
+	    		    damModifier += 2;
+	    		    gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 damage</font><BR>");
+	    	    }
+                else if (gv.sf.hasTrait(pc, "preciseshot"))
+	    	    {
+            	    damModifier++;
+            	    gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 damage</font><BR>");
+	    	    }
+	    	
+            }            
+
+            int dDam = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
+            float damage = (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+            Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+            if (it != null)
+            {
+        	    damage += mod.getItemByResRefForInfo(pc.AmmoRefs.resref).damageAdder;
+            }
+
+            float resist = 0;
+
+            if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f));
+            }
+            else if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+            {
+                resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f));
+            }        
+
+            int totalDam = (int)(damage * resist);
+            if (totalDam < 0)
+            {
+                totalDam = 0;
+            }
+            //if doing sneak attack, does extra damage
+            if ((pc.steathModeOn) && (melee))
+            {
+	            if (pc.knownTraitsTags.Contains("sneakattack"))
+			    {
+	        	    //+1d6 for every 2 levels after level 1
+	        	    int multiplier = ((pc.classLevel - 1) / 2) + 1;
+	        	    int adding = 0;
+	        	    for (int i = 0; i < multiplier; i++)
+	        	    {
+	        		    adding += gv.sf.RandInt(6);
+	        	    }
+				    totalDam += adding;
+				    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " damage</font><BR>");
+				    if (mod.debugMode) //SD_20131102
+	                {
+	    			    //gv.cc.addLogText("<font color='yellow'> sneak attack: +" + adding + " damage</font><BR>");
+	    		    }
+			    }		        
+            }
+            return totalDam;
+        }
+	    public int CalcCreatureAttackModifier(Creature crt)
+        {
+            if ((crt.cr_category.Equals("Ranged")) && (isAdjacentPc(crt)))
+		    {
+			    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font>" +
+        			    "<BR>");
+        	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
+        			    "<BR>");
+        	    gv.cc.floatyTextOn = true;
+        	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
+        	    gv.postDelayed("doFloatyText", 100);
+        	    return crt.cr_att - 4; 
+            }
+            else //melee weapon used
+            {
+        	    return crt.cr_att;            
+            }
+        }
+	    public int CalcPcDefense(Player pc, Creature crt)
+        {
+            //pc.UpdateStats(this);
+		    int defense = pc.AC;
+            if (pc.charStatus.Equals("Held"))
+            {
+        	    defense -= 4;
+        	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+4 att", "yellow");
+            }
+            return defense;
+        }
+        public int CalcCreatureDamageToPc(Player pc, Creature crt)
+        {
+            int dDam = crt.cr_damageDie;
+            float damage = (crt.cr_damageNumDice * gv.sf.RandInt(dDam)) + crt.cr_damageAdder;
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+
+            float resist = 0;
+
+            if (crt.cr_typeOfDamage.Equals("Acid"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Normal"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Cold"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Electricity"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Fire"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Magic"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f));
+            }
+            else if (crt.cr_typeOfDamage.Equals("Poison"))
+            {
+                resist = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f));
+            }  
+
+            int totalDam = (int)(damage * resist);
+            if (totalDam < 0)
+            {
+                totalDam = 0;
+            }
+
+            return totalDam;
+        }
+
+        public Player targetClosestPC(Creature crt)
+        {
+            Player pc = null;
+            int farDist = 99;
+            foreach (Player p in mod.playerList)
+            {
+                if ((!p.charStatus.Equals("Dead")) && (p.hp >= 0) && (!p.steathModeOn))
+                {
+                    int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
+                    if (dist == farDist)
+                    {
+                	    //since at same distance, do a random check to see if switch or stay with current PC target
+                	    if (gv.sf.RandInt(20) > 10)
+                	    {
+                		    //switch target
+                		    pc = p;
+                		    if (gv.mod.debugMode)
+						    {
+                			    gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+						    }
+                	    }                	
+                    }
+                    else if (dist < farDist)
+                    {
+                        farDist = dist;
+                        pc = p;
+                        if (gv.mod.debugMode)
+					    {
+            			    gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+					    }
+                    }
+                }
+            }
+            return pc;
+        }
+        public Coordinate targetBestPointLocation(Creature crt)
+        {
+            Coordinate targetLoc = new Coordinate(-1,-1);
+            //JamesManhattan Utility maximization function for the VERY INTELLIGENT CREATURE CASTER
+            int utility = 0; //utility
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            Coordinate selectedPoint = new Coordinate(crt.combatLocX, crt.combatLocY); //Initial Select Point is Creature itself, then loop through all squares within range!
+            for (int y = gv.sf.SpellToCast.range; y > -gv.sf.SpellToCast.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+            {
+                for (int x = gv.sf.SpellToCast.range; x > -gv.sf.SpellToCast.range; x--)
+                {
+                    utility = 0; //reset utility for each point tested
+                    selectedPoint = new Coordinate(crt.combatLocX + x, crt.combatLocY + y);
+                
+                    //check if selected point is a valid location on combat map
+                    if ((selectedPoint.X < 0) || (selectedPoint.X > 6) || (selectedPoint.Y < 0) || (selectedPoint.Y > 6))
+                    {
+                	    continue;
+                    }
+                
+                    //check if selected point is in LoS, if not skip this point
+                    int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+        		    int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+        		    int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+        		    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                    {
+                	    continue;
+                    }
+                
+                    if (selectedPoint == new Coordinate(crt.combatLocX, crt.combatLocY))
+                    {
+                        utility -= 4; //the creature at least attempts to avoid hurting itself, but if surrounded might fireball itself!
+                        if (crt.hp <= crt.hpMax / 4) //caster is wounded, definately avoids itself.
+                        {
+                            utility -= 4;
+                        }
+                    } 
+                    foreach (Creature crtr in mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                    {
+                        if (this.CalcDistance(crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                        {
+                            utility -= 1;
+                        }
+                    }
+                    foreach (Player tgt_pc in mod.playerList)
+                    {
+                        if ((this.CalcDistance(tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= gv.sf.SpellToCast.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                        {
+                            utility += 2;
+                            if (utility > optimalUtil)
+                            {
+                                //optimal found, choose this point
+                                optimalUtil = utility;
+                                targetLoc = selectedPoint;
+                            }
+                        }
+                    }
+                    if (gv.mod.debugMode)
+				    {
+        			    gv.cc.addLogText("<font color='yellow'>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</font><BR>");
+				    }
+                }
+            }
+
+            return targetLoc;
+        }
+	    public int CalcDistance(int locCrX, int locCrY, int locPcX, int locPcY)
+        {
+            int dist = 0;
+            int deltaX = (int)Math.Abs((locCrX - locPcX));
+            int deltaY = (int)Math.Abs((locCrY - locPcY));
+            if (deltaX > deltaY)
+                dist = deltaX;
+            else
+                dist = deltaY;
+            return dist;
+        }
+	    public Creature GetCreatureWithLowestHP()
+        {
+            int lowHP = 999;
+            Creature returnCrt = null;
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.hp > 0)
+                {
+                    if (crt.hp < lowHP)
+                    {
+                        lowHP = crt.hp;
+                        returnCrt = crt;
+                    }
+                }
+            }
+            return returnCrt;
+        }
+	    public Creature GetCreatureWithMostDamaged()
+        {
+            int damaged = 0;
+            Creature returnCrt = null;
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {        	
+                if (crt.hp > 0)
+                {
+            	    int dam = crt.hpMax - crt.hp;
+                    if (dam > damaged)
+                    {
+                	    damaged = dam;
+                        returnCrt = crt;
+                    }
+                }
+            }
+            return returnCrt;
+        }
+	    public Creature GetNextAdjacentCreature(Player pc)
+        {
+            foreach (Creature nextCrt in mod.currentEncounter.encounterCreatureList)
+            {
+                if ((CalcDistance(nextCrt.combatLocX, nextCrt.combatLocY, pc.combatLocX, pc.combatLocY) < 2) && (nextCrt.hp > 0))
+                {
+                    return nextCrt;
+                }
+            }
+            return null;
+        }
+	    public Creature GetCreatureByTag(String tag)
+        {
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.cr_tag.Equals(tag))
+                {
+                    return crt;
+                }
+            }
+            return null;
+        }
+    }
+}

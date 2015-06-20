@@ -1,0 +1,118 @@
+[
+  {
+    "name": "Cormondorian",
+    "tag": "cormondorian",
+    "UsableByPlayer": true,
+    "description": "Humans stemming from Northern Cormondor, the First Kingdom of Men, with its strong legions and an iron grip of dominance (see Player's Guide for more).",
+    "strMod": 1,
+    "dexMod": 0,
+    "intMod": 0,
+    "chaMod": -1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "barbarian",
+      "ranger",
+      "wizard",
+      "thief"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Athletainian",
+    "tag": "athletainian",
+    "UsableByPlayer": true,
+    "description": "Inhabitants of noble Athletain, the Second Kingdom of Men, with its valiant knights and wise sages (see Player's Guide for more).",
+    "strMod": -1,
+    "dexMod": 0,
+    "intMod": 0,
+    "chaMod": 1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "ranger",
+      "wizard",
+      "thief"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Morner",
+    "tag": "morner",
+    "UsableByPlayer": true,
+    "description": "Citizens of shadowed Morne, the Third Kingdom of Men, with its twin mining cities of Morgrad and Morgrim (see Player's Guide for more).",
+    "strMod": 0,
+    "dexMod": 0,
+    "intMod": 1,
+    "chaMod": -1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "ranger",
+      "wizard",
+      "thief"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Nehitozumi",
+    "tag": "nehitozumi",
+    "UsableByPlayer": false,
+    "description": "Ratling/Skaven like people from the Jaden Empire, or Teikoko Kogyoku in their tongue (see Player's Guide for more).",
+    "strMod": -1,
+    "dexMod": 2,
+    "intMod": 0,
+    "chaMod": 0,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "ranger",
+      "shugyosha",
+      "thief"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Isnoun Halfblood",
+    "tag": "isnoun",
+    "UsableByPlayer": false,
+    "description": "Human half-bloods originating from Isnoun, the ferocious three and a half meters high frost giants of the north (see Player's Guide for more).",
+    "strMod": 2,
+    "dexMod": -1,
+    "intMod": -1,
+    "chaMod": -1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 40,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "barbarian",
+      "ranger",
+      "thief"
+    ],
+    "traitsAllowed": []
+  }
+]

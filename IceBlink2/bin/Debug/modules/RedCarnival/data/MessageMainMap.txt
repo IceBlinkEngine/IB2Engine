@@ -1,0 +1,10 @@
+<big><b>ADVENTURE MAP</b></big><br>
+<br>
+<b>1. Move:</b> Move your character by pressing one of the arrow buttons or tapping on a map square (left, right, up, down) adjacent to your character.<br>
+<br>
+<b>2. Map Info:</b> Tap on buildings, props, people, etc. to show additional information if available.<br>
+
+<br>
+
+<b>3. Toggle Buttons:</b> there are a number of toggle buttons on the right side of the screen for showing the grid, toggling music and showing an overview map if the current area is using the World Map system.<br>
+<br>

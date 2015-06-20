@@ -1,0 +1,9 @@
+<big><b>PARTY INVENTORY</b></big><br>
+<br>
+<b>1. Item Pages:</b> Press the left or right arrows to scroll through the equipment item pages (maximum of 10 items per page, 10 pages total).<br>
+<br>
+<b>2. Item Selection and Action:</b> Tap on an item once to select it. Tap again to do an action (Use item, Drop item, or show full description).<br>
+<br>
+<b>Usable By Identifiers:</b> F = Fighter, C = Cleric, R = Ranger, T = Thief, W = Wizard.<br>
+<br>
+<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>

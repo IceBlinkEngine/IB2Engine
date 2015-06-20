@@ -1,0 +1,113 @@
+{
+  "tokenFilename": "samire2",
+  "combatFacingLeft": true,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "knownSpellsTags": [
+    "sleep"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [
+    "bluff2"
+  ],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 0,
+  "will": 0,
+  "reflex": 0,
+  "strength": 8,
+  "dexterity": 12,
+  "intelligence": 18,
+  "charisma": 14,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 7,
+  "hpMax": 7,
+  "sp": 28,
+  "spMax": 28,
+  "XPNeeded": 250,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "robes",
+    "tag": "robes_13512",
+    "name": "Robes",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "wandofomgon",
+    "tag": "wandofomgon_13525",
+    "name": "Wand of Omgon",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Samire",
+  "tag": "samire",
+  "nonRemoveablePc": true,
+  "raceTag": "athletainian",
+  "classTag": "wizard",
+  "classLevel": 1,
+  "isMale": false,
+  "baseFortitude": 0,
+  "baseWill": 0,
+  "baseReflex": 0,
+  "baseStr": 9,
+  "baseDex": 12,
+  "baseInt": 18,
+  "baseCha": 13,
+  "ACBase": 10,
+  "XP": 250
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Escape The Raventhal",
+    "Tag": "raventhal",
+    "Entries": [
+      {
+        "EntryTitle": "Begin the Search",
+        "EntryText": "Without any clear direction on how to escape the woods, I might as well start looking somewhere... although, I should probably try and avoid the troll.",
+        "Tag": "rav1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Vinazl's Hut",
+        "EntryText": "I found a trapdoor in Vinazl's hut, but it was shut tight with no apparent way to enter. Clearly, Vinazl knows something about how I can get out of the forest. I need to find another path to reach him.",
+        "Tag": "rav2",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Rani Remembers Forest Trapdoor",
+        "EntryText": "There must be another exit from Vinazl's underground location. Rani said, 'I think I saw him use it once - I saw him climbing out of a hidden door in the earth. I can't remember exactly where it is, but to the north of us is the great lake, Asan, and I think it was east of there somewhere.'",
+        "Tag": "rav3",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Ezzbel Remembers Forest Trapdoor",
+        "EntryText": "There must be another exit from Vinazl's underground location. Ezzbel said, 'I used to hear rumours that the wizard was often seen moving through the woods to the north east of the great lake, Asan. If we head north, then east, we may be lucky.'",
+        "Tag": "rav4",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Forest Trapdoor",
+        "EntryText": "I discovered a trapdoor in the forest, but it is locked, possibly by magic. I need to find a key.",
+        "Tag": "rav5",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Vinazl's Journal",
+        "EntryText": "I found Vinazl's journal and the following entry may contain clues: 'It has come to pass. Kolgoth has awoken. The forest creaks with age and fear. I shall leave the Orb of Theslon in case the Sim must be called to follow me, but I go now to end this once and for all.'",
+        "Tag": "rav6",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Sealed Stone Door",
+        "EntryText": "I found a sealed stone door that I must find a way to open. I made the following observation: 'The stone door is locked. You ran your hands over the cold exteria, but there was no obvious keyhole. There is a small, circular indent in the centre of the door, surrounded by harsh edged runes that looked like they have been recently carved into the stone.'",
+        "Tag": "rav7",
+        "EndPoint": false
+      }
+    ]
+  }
+]

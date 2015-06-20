@@ -1,0 +1,174 @@
+<big><b>PLAYER'S GUIDE</b></big><br>
+<br>
+<u><b>Table of Contents</b></u><br>
+1. General Information<br>
+2. Class Information<br>
+3. XP Tables<br>
+4. BAB Table<br>
+5. Items Allowed by Class<br>
+6. Spells by Class<br>
+<br>
+<b><u>1. GENERAL INFORMATION</u></b><br>
+<br>
+a) Spell points (SP) may regenerate slowly on their own if the module author allows. Potions can also be used to replenish SP.<br>
+<br>
+b) If a player's hit points (HP) drop below 1 HP they are unconscious. They will bleed one HP per round until they reach -20 HP and then they are DEAD! Bring them back above 0 HP to stop the bleeding.<br>
+<br>
+c) Use healing potions sparingly, there is a limited amount of them in the game to be found. Having a cleric, ranger, or wizard with healing spells may be useful.<br>
+<br>
+d) Using ranged weapons with an enemy in an adjacent square lowers your attack chances by 4 points.<br>
+<br>
+e) If you are mostly interested in playing through the story and want to skip through combat, turn on the setting called 'debugmode' found in the settings panel (rusty gear button). This adds a 'KILL' button to the combat screen that lets you defeat all enemies.<br>
+<br>
+f) The story plays out differently depending on who and how many are in your party so choose wisely :-)<br>
+<br>
+g) Tapping on the main map may reveal information about different items, props, NPCs, etc.<br>
+<br>
+<b><u>2. CLASS INFORMATION</u></b><br>
+<br>
+<u>FIGHTER</u><br>
+Fighters excel in melee combat. They gain the Cleave trait at level two which allows them to make another melee attack on a near by target upon killing their first target in that same round. At level four, they gain a second melee attack per round on one target.<br>
+<br>
+<u>CLERIC</u><br>
+Clerics have good combat skills and gain divine spells at each level.<br>
+<br>
+<u>RANGER</u><br>
+Rangers are the only class that can use a long bow. They also gain the Point Blank Shot trait at level two which allows them to avoid the '-4 to attack' penalty when using a ranged weapon with enemies in adjacent squares. Rangers gain a limited amount of spells to use as well.<br>
+<br>
+<u>THIEF</u><br>
+Thieves are average in melee combat, but they have unique skills for finding and disabling traps, picking locks, stealth, sneak attacks, evasion, and critical strikes.<br>
+<br>
+<u>WIZARD</u><br>
+Wizards are weak in melee combat, but they have powerful spells that more than make up for their lack of melee combat skills.<br>
+<br>
+<b><u>3. XP TABLES</u></b><br>
+<br>
+<u>FIGHTER</u><br>
+<tt><u>LVL___XP</u><br>
+1......0<br>
+2....200<br>
+3....400<br>
+4....800<br>
+5...1600<br>
+6...3200<br>
+7...6500<br>
+8..12500<br>
+9..25000<br>
+10.50000<br>
+<br>
+<u>CLERIC</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....150<br>
+3....300<br>
+4....600<br>
+5...1300<br>
+6...2750<br>
+7...5500<br>
+8..11000<br>
+9..22500<br>
+10.45000<br>
+<br>
+<u>RANGER</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....225<br>
+3....450<br>
+4....900<br>
+5...1800<br>
+6...3600<br>
+7...7500<br>
+8..15000<br>
+9..30000<br>
+10.45000<br>
+<br>
+<u>THIEF</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....125<br>
+3....250<br>
+4....500<br>
+5...1000<br>
+6...2000<br>
+7...4000<br>
+8...7000<br>
+9..11000<br>
+10.16000<br>
+<br>
+<u>WIZARD</u><br>
+<u>LVL___XP</u><br>
+1......0<br>
+2....250<br>
+3....500<br>
+4...1000<br>
+5...2000<br>
+6...4000<br>
+7...6000<br>
+8...9000<br>
+9..13500<br>
+10.20000<br>
+<br></tt>
+<br>
+<b><u>4. BAB TABLE</u></b><br>
+<br>
+<tt><small><u>Class____1_2_3_4_5</u><br>
+Fighter..1 2 3 4 5<br>
+Cleric...0 1 2 3 3<br>
+Ranger...1 2 3 4 5<br>
+Thief....0 1 2 3 3<br>
+Wizard...0 1 1 2 2</small></tt><br>
+<br>
+<br>
+<b><u>5. ITEMS ALLOWED</u></b><br>
+<br>
+<u>FIGHTER</u><br>
+most all weapons<br>
+most all armor<br>
+<br>
+<u>CLERIC</u><br>
+blunt weapons<br>
+short sword<br>
+dagger<br>
+sling<br>
+most armor<br>
+shields<br>
+<br>
+<u>RANGER</u><br>
+most all weapons<br>
+only class that can use long bow<br>
+light armor<br>
+<br>
+<u>THIEF</u><br>
+simple weapons<br>
+light armor<br>
+<br>
+<u>WIZARD</u><br>
+dagger<br>
+sling<br>
+robes<br>
+<br>
+<b><u>6. SPELLS</u></b><br>
+<small>(#) level at which spell is available</small><br>
+<br>
+<u>CLERIC</u><br>
+(1)   Minor Healing<br>
+(1)   Bless<br>
+(1)   Magic Stone<br>
+(3)   Moderate Healing<br>
+(4)   Hold<br>
+(5)   Blast of Light<br>
+(5)   Mass Minor Healing<br>
+<br>
+<u>RANGER</u><br>
+(3)   Minor Healing<br>
+(3)   Mage Bolt<br>
+(4)   Blast of Light<br>
+<br>
+<u>WIZARD</u><br>
+(1)   Mage Bolt<br>
+(1)   Mage Armor<br>
+(1)   Sleep<br>
+(3)   Web<br>
+(3)   Ice Storm<br>
+(3)   Minor Regeneration<br>
+(5)   Fireball

@@ -1,0 +1,119 @@
+{
+  "tokenFilename": "pc_fh_wiz3_pc",
+  "steathModeOn": false,
+  "mainPc": false,
+  "nonRemoveablePc": false,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "name": "Veloria",
+  "tag": "veloria",
+  "raceTag": "elf",
+  "classTag": "wizard",
+  "knownSpellsTags": [
+    "sleep"
+  ],
+  "knownTraitsTags": [
+    "bluff"
+  ],
+  "effectsList": [],
+  "classLevel": 1,
+  "isMale": false,
+  "charStatus": "Alive",
+  "baseFortitude": 0,
+  "baseWill": 2,
+  "baseReflex": 0,
+  "fortitude": -2,
+  "will": 5,
+  "reflex": 5,
+  "strength": 5,
+  "dexterity": 20,
+  "intelligence": 17,
+  "charisma": 15,
+  "baseStr": 7,
+  "baseDex": 18,
+  "baseInt": 17,
+  "baseCha": 15,
+  "ACBase": 10,
+  "AC": 15,
+  "classBonus": 0,
+  "baseAttBonus": 0,
+  "baseAttBonusAdders": 0,
+  "hp": 2,
+  "hpMax": 2,
+  "sp": 23,
+  "spMax": 23,
+  "XP": 0,
+  "XPNeeded": 250,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "AmmoRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 10,
+  "damageTypeResistanceTotalPoison": 0
+}

@@ -1,0 +1,21 @@
+<big><b>COMBAT</b></big><br>
+<br>
+<b>1. Player's Turn:</b> Each player takes a turn. The current player will be highlighted with a light blue box. You can Move one square (or stay put) and make one additional action such as ATTACK, CAST, use item, or end turn (SKIP button).<br>
+<br>
+<b>2. Info Mode:</b> Info mode is the default mode. In this mode you can tap on a token (player or enemy image) to show some of their stats (HP, SP, etc.). If none of the buttons are highlighted, then you are in 'Info' mode. If you are in 'move' mode and want to return to 'info' mode, tap on the move button to unselect it and return to 'info' mode. Same concept works for 'attack' mode back to 'info' mode.<br>
+<br>
+<b>3. Move:</b> After pressing move, you may move one square and then do one more action or press 'SKIP' to end this Player's turn. You move by pressing one of the arrow direction buttons or tapping on a square adjacent to the PC.<br>
+<br>
+<b>3. Attack:</b> After pressing attack, move the target selection square by pressing the arrow keys or tapping on any map square. Once you have selected a valid target (box will be green), press the 'TARGET' button or tap on the targeted map square (green box) again to complete the action.<br>
+<br>
+<b>4. Cast:</b> After pressing cast and selecting a spell from the spell selection screen, move the target selection square by pressing the arrow keys or tapping on any map square. Once you have selected a valid target (box will be green), press the 'TARGET' button or tap on the targeted map square (green box) again to complete the action.<br>
+<br>
+<b>5. Skip:</b> The 'SKIP' button will end the current player's turn.<br>
+<br>
+<b>6. Use Item:</b> press the inventory button (image of a bag) to show the party inventory screen. Only the current Player may use an item from this screen during combat.<br>
+<br>
+<b> 7. Switch Equipment:</b> press the character sheet button (image of three heads) to show your character sheet. from here you can swap out some equipment for only the current player.<br>
+<br>
+<b>Toggle Buttons:</b> there are a number of toggle buttons on the right side of the screen for showing the Grid, toggling music, showing Hit Points, showing Spell Points, controlling overall combat speed, toggling attack sound effects, and showing this help message.<br>
+<br>
+<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>

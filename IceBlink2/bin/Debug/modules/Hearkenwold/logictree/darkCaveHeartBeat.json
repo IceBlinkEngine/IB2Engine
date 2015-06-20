@@ -1,0 +1,37 @@
+{
+  "SubNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "linkTo": 0,
+      "nodeText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "linkTo": 0,
+          "nodeText": "Continue",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [
+            {
+              "a_script": "gaCheckForItemToggleLights.cs",
+              "a_parameter_1": "torch01",
+              "a_parameter_2": "1",
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "Filename": "darkCaveHeartBeat",
+  "NextIdNum": 1
+}

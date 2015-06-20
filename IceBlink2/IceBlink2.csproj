@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6A5D6CEC-606B-4181-AF34-05C52FF85E68}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IceBlink2</RootNamespace>
+    <AssemblyName>IceBlink2</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Visual Studio 2010\Projects\IBBToolset\IBBToolset\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="AnimationState.cs" />
+    <Compile Include="Area.cs" />
+    <Compile Include="BarkString.cs" />
+    <Compile Include="CommonCode.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="ContentNode.cs" />
+    <Compile Include="Convo.cs" />
+    <Compile Include="ConvoSavedValues.cs" />
+    <Compile Include="Coordinate.cs" />
+    <Compile Include="Creature.cs" />
+    <Compile Include="CreatureRefs.cs" />
+    <Compile Include="Effect.cs" />
+    <Compile Include="Encounter.cs" />
+    <Compile Include="EventObjEditorReturnObject.cs" />
+    <Compile Include="FloatyText.cs" />
+    <Compile Include="FormattedLine.cs" />
+    <Compile Include="FormattedWord.cs" />
+    <Compile Include="GameView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameView.Designer.cs">
+      <DependentUpon>GameView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalInt.cs" />
+    <Compile Include="GlobalString.cs" />
+    <Compile Include="IbbButton.cs" />
+    <Compile Include="IbbHtmlTextBox.cs" />
+    <Compile Include="IbbHtmlLogBox.cs" />
+    <Compile Include="IbbToggleButton.cs" />
+    <Compile Include="IBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IBForm.designer.cs">
+      <DependentUpon>IBForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IBHtmlMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IBHtmlMessageBox.Designer.cs">
+      <DependentUpon>IBHtmlMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IBMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IBMessageBox.designer.cs">
+      <DependentUpon>IBMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IbRect.cs" />
+    <Compile Include="IceBlinkButtonClose.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IceBlinkButtonMedium.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IceBlinkButtonResize.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemRefs.cs" />
+    <Compile Include="JournalEntry.cs" />
+    <Compile Include="JournalQuest.cs" />
+    <Compile Include="LocalInt.cs" />
+    <Compile Include="LocalString.cs" />
+    <Compile Include="LogicTree.cs" />
+    <Compile Include="LogicTreeNode.cs" />
+    <Compile Include="LogicTreeRun.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="ModuleInfo.cs" />
+    <Compile Include="MouseEventType.cs" />
+    <Compile Include="PathFinder.cs" />
+    <Compile Include="PathFinderAreas.cs" />
+    <Compile Include="ItemListSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemListSelector.Designer.cs">
+      <DependentUpon>ItemListSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerClass.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Prop.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Race.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScreenCastSelector.cs" />
+    <Compile Include="ScreenCombat.cs" />
+    <Compile Include="ScreenPcSelector.cs" />
+    <Compile Include="ScreenItemSelector.cs" />
+    <Compile Include="ScreenConvo.cs" />
+    <Compile Include="ScreenInventory.cs" />
+    <Compile Include="ScreenJournal.cs" />
+    <Compile Include="ScreenLauncher.cs" />
+    <Compile Include="ScreenMainMap.cs" />
+    <Compile Include="ScreenParty.cs" />
+    <Compile Include="ScreenPartyBuild.cs" />
+    <Compile Include="ScreenPartyRoster.cs" />
+    <Compile Include="ScreenPcCreation.cs" />
+    <Compile Include="ScreenShop.cs" />
+    <Compile Include="ScreenSpellLevelUp.cs" />
+    <Compile Include="ScreenTitle.cs" />
+    <Compile Include="ScreenTraitLevelUp.cs" />
+    <Compile Include="ScriptFunctions.cs" />
+    <Compile Include="Shop.cs" />
+    <Compile Include="Spell.cs" />
+    <Compile Include="SpellAllowed.cs" />
+    <Compile Include="TextInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextInputDialog.Designer.cs">
+      <DependentUpon>TextInputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tile.cs" />
+    <Compile Include="TileEnc.cs" />
+    <Compile Include="Trait.cs" />
+    <Compile Include="TraitAllowed.cs" />
+    <Compile Include="Trigger.cs" />
+    <Compile Include="WayPoint.cs" />
+    <EmbeddedResource Include="GameView.resx">
+      <DependentUpon>GameView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IBForm.resx">
+      <DependentUpon>IBForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IBHtmlMessageBox.resx">
+      <DependentUpon>IBHtmlMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IBMessageBox.resx">
+      <DependentUpon>IBMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemListSelector.resx">
+      <DependentUpon>ItemListSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="bin\Debug\default\NewModule\fonts\Metamorphous-Regular.ttf" />
+    <EmbeddedResource Include="TextInputDialog.resx">
+      <DependentUpon>TextInputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Metamorphous-Regular.ttf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_rsize_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_close_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gb_lrg_header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gb_med_header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\modules\Hearkenwold\graphics\btn_large.png" />
+    <Content Include="Resources\btn_large.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

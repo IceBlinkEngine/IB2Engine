@@ -1,0 +1,18 @@
+<big><b>QUICK START GUIDE</b></big><br>
+<br>
+<u><b>Web Site</b></u><br>
+<b>www.iceblinkengine.com</b><br>
+Visit our website for links to more information, guides, adventures to download and play, additional Player Token images to customize your party's look, and the Toolset for creating your own adventures.<br>
+<br>
+<u><b>How To Get Started Playing</b></u><br>
+<br>
+-To play the demo adventure module (Lanterna 2 - chapter 1), all you need to do is tap the "PLAY" button as the Lanterna 2 module automatically installs the first time you run this app.<br>
+-To play other community made adventure modules, you need to download the module's zip file and place it into the 'IceBlinkRPG' folder on your device (IceBlinkRPG folder is located on the root folder level of your device). Then tap the "UnZip Module" button and the module should be in the list of available modules to unzip. Select it from the list and it will be unzipped. Then click "PLAY" to move onto the module selection screen.<br>
+<br> 
+<u><b>UnZip Button</b></u><br>
+<br>
+The UnZip button is used to unzip an adventure module that you downloaded and placed into your IceBlinkRPG folder (see above instructions).<br>
+<br>
+<u><b>Zip Button</b></u><br>
+<br>
+The Zip button is used to zip an adventure module's folder that you created with the IceBlink RPG Toolset and placed into the IceBlinkRPG folder on your device. Zipping the module's folder this way is the safe way to insure that the zip file will properly unzip for other users on their device. Other zipping utilitles may not be compatible.

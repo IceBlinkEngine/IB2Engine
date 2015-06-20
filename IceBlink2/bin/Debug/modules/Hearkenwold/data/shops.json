@@ -1,0 +1,137 @@
+[
+  {
+    "shopTag": "Tavern01",
+    "shopName": "Slaughtered Lamb Tavern",
+    "shopItemRefs": [
+      {
+        "resref": "Brew01",
+        "tag": "Brew01_7399",
+        "name": "Mystic Brew",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "Brew01",
+        "tag": "Brew01_7400",
+        "name": "Mystic Brew",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "Brew01",
+        "tag": "Brew01_7401",
+        "name": "Mystic Brew",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "Beer01",
+        "tag": "Beer01_7402",
+        "name": "Goblin Beer",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "Beer01",
+        "tag": "Beer01_7403",
+        "name": "Goblin Beer",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "Beer01",
+        "tag": "Beer01_7404",
+        "name": "Goblin Beer",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "shopTag": "Fletcher01",
+    "shopName": "Fletcher Shop",
+    "shopItemRefs": [
+      {
+        "resref": "lbowF",
+        "tag": "lbowF_9418",
+        "name": "Fine Longbow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_9419",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_9420",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "shopTag": "Gnome01",
+    "shopName": "Gnome Shop",
+    "shopItemRefs": [
+      {
+        "resref": "torch01",
+        "tag": "torch01_9424",
+        "name": "Torch",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "rope01",
+        "tag": "rope01_9425",
+        "name": "Coiled Rope",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "hook01",
+        "tag": "hook01_9426",
+        "name": "Grappling Hook",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "shopTag": "Ironworks01",
+    "shopName": "Ironworks Shop",
+    "shopItemRefs": [
+      {
+        "resref": "wheel_01",
+        "tag": "wheel_01_9427",
+        "name": "Wagon Wheel",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "shopTag": "Gilded01",
+    "shopName": "Gilded Shop",
+    "shopItemRefs": [
+      {
+        "resref": "dsteak",
+        "tag": "dsteak_9428",
+        "name": "Dragon Steak Tartar",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssoup",
+        "tag": "ssoup_9429",
+        "name": "Sizzling Swine Soup",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]
