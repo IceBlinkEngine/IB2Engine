@@ -2665,8 +2665,14 @@ namespace IceBlink2
 			    int y = (int) e.Y;
 			    //int gridx = (int) e.X / gv.squareSize;
 			    //int gridy = (int) e.Y / gv.squareSize;
-                int gridx = (int) e.X / gv.squareSize - 4;
-			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+
+                //yn1, adjusted for 1920x1080, 20150621
+                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
+                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
+                //int gridx = (int) e.X / gv.squareSize - 4;
+			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+                //end of changes
+
 			    gv.cc.floatyText = "";
 			    gv.cc.floatyText2 = "";
 			    gv.cc.floatyText3 = "";
@@ -3079,8 +3085,14 @@ namespace IceBlink2
 			    btnSkipTurn.glowOn = false;
 			
 			    //TOUCH ON MAP AREA
-			    int gridx = (int) e.X / gv.squareSize - 4;
-			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+
+                //yn1, adjusted for 1920x1080, 20150621
+                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
+                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
+                //int gridx = (int) e.X / gv.squareSize - 4;
+                //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+                //end of changes
+
 			    if (gridy < 7)
 			    {
 				    gv.cc.floatyText = "";
@@ -3299,8 +3311,14 @@ namespace IceBlink2
 			    btnSkipTurn.glowOn = false;
 			
 			    //TOUCH ON MAP AREA
-			    int gridx = (int) e.X / gv.squareSize - 4;
-			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    
+                //yn1, adjsutef or 1920x108, 20150621
+                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
+                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
+                //int gridx = (int) e.X / gv.squareSize - 4;
+			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+                //end of changes
+
 			    if (gridy < 7)
 			    {
 				    gv.cc.floatyText = "";
@@ -3612,8 +3630,13 @@ namespace IceBlink2
 			    btnSkipTurn.glowOn = false;
 			
 			    //TOUCH ON MAP AREA
-			    int gridx = (int) e.X / gv.squareSize - 4;
-			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+			    
+                    //yn1, adjusted for 1920x108,20150621
+                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
+                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
+                //int gridx = (int) e.X / gv.squareSize - 4;
+			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
+                    //end of changes
 			    if (gridy < 7)
 			    {
 				    gv.cc.floatyText = "";

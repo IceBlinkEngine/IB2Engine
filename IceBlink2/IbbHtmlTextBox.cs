@@ -302,16 +302,25 @@ namespace IceBlink2
         private float GetFontSizeInPixels()
         {
             //will end up using the last font size on the stack
-            float fSize = 10.0f;
+            //yn1, adjusted for 1920x1080, 20150621
+            float fSize = 18.0f;
+            //float fSize = 10.0f;
+            //end of changes
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 14.0f;
+                    //yn1, adjusted for 1920x1080, 20150621
+                    //fSize = 14.0f;
+                    fSize = 24.0f;
+                    //end of changes
                 }
                 else if (s == "small")
                 {
-                    fSize = 8.0f;
+                    //yn1, adjusted for 1920x1080, 20150621
+                    fSize = 14.0f;
+                    //fSize = 8.0f;
+                    //end of changes
                 }
             }
             return fSize;

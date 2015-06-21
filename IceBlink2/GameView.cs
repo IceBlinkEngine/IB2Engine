@@ -121,10 +121,15 @@ namespace IceBlink2
  
             //CREATES A FONTFAMILY
             //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
-            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);            
+            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            //yn1, slightly larger font, 20150621
             drawFontReg = new Font(family, 10.0f);
             drawFontLarge = new Font(family, 12.0f);
             drawFontSmall = new Font(family, 8.0f);
+            //drawFontReg = new Font(family, 10.0f);
+            //drawFontLarge = new Font(family, 12.0f);
+            //drawFontSmall = new Font(family, 8.0f);
+            //end
 
 
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);

@@ -92,17 +92,28 @@ namespace IceBlink2
 		    int sX = gv.squareSize * 2;
 		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
 		    IbRect src = new IbRect(0, 0, convoBitmap.Width, convoBitmap.Height);
-            IbRect dst = new IbRect(sX, sY, convoBitmap.Width, convoBitmap.Height);
+            //yn1, adjusted to 1920x1080, 20150621
+            IbRect dst = new IbRect(sX, sY, convoBitmap.Width * 2, convoBitmap.Height * 2);
+            //IbRect dst = new IbRect(sX, sY, convoBitmap.Width, convoBitmap.Height);
+            //yn1, end of changes
+
             if (convoBitmap.Width == convoBitmap.Height)
             {
-        	    dst = new IbRect(sX, sY, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
+                //yn1, adjusted to 1920x1080,20150621
+                dst = new IbRect(sX, sY, (int)(gv.squareSize * 3), (int)(gv.squareSize * 3));
+                //dst = new IbRect(sX, sY, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
+                //yn1, end of changes
             }
 		    if (currentConvo.Narration)
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
                     //new full screen width image
-                    dst = new IbRect((gv.screenWidth / 2) - 200, gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    
+                    //yn1, adjusted to 1920x1080, 20150621
+                    dst = new IbRect((gv.screenWidth / 2) - 375, gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    //dst = new IbRect((gv.screenWidth / 2) - 200, gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    //yn1, end of changes
                 }
                 else //Narration without image
                 {
@@ -167,7 +178,7 @@ namespace IceBlink2
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
                     //do narration with image setup
-        		    startY = (int)((float)gv.screenHeight / 100.0f) * 50;
+                    startY = (int)((float)gv.screenHeight / 100.0f) * 50 + gv.squareSize * 2;
                 }
                 else //Narration without image
                 {
@@ -184,6 +195,7 @@ namespace IceBlink2
             {
                 //Node Rectangle Text
                 SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
+                //textSize.Height += textSize.Height;
                 currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize.Width, (int)textSize.Height));
                 //IbRect rect = new IbRect(startX, startY, width, pH * 50);
                 string textToSpan = txt;
