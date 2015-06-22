@@ -56,6 +56,9 @@
     "killAllCreatures",
     "PartyLocationFloatyText"
   ],
+  "moduleIBScriptsList": [
+    "floatytext2"
+  ],
   "moduleAreasObjects": [],
   "moduleGlobalInts": [],
   "moduleGlobalStrings": [],
@@ -103,7 +106,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 8726,
+  "nextIdNumber": 8731,
   "WorldTime": 240,
   "startingArea": "brinsby",
   "startingPlayerPositionX": 6,
