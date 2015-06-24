@@ -38,24 +38,24 @@ namespace IceBlink2
             //label1.Text = messageText.Length.ToString();
             if (messageText.Length < 60)
             {
-                this.Width = 300;
-                this.Height = 150;
-                this.MaximumSize = new Size(200, 150);
-                this.MinimumSize = new Size(200, 150);
+                this.Width = 600;
+                this.Height = 300;
+                this.MaximumSize = new Size(400, 300);
+                this.MinimumSize = new Size(400, 300);
             }
             else if (messageText.Length < 240)
             {
-                this.Width = 450;
-                this.Height = 105 + (messageText.Length / 30) * 20;
-                if (this.Height < 150) { this.Height = 150; }
+                this.Width = 900;
+                this.Height = 210 + (messageText.Length / 30) * 40;
+                if (this.Height < 300) { this.Height = 300; }
                 this.MaximumSize = new Size(this.Width, this.Height);
                 this.MinimumSize = new Size(this.Width, this.Height);
             }
             else
             {
-                this.Width = 600;
-                this.Height = 105 + (messageText.Length / 40) * 20;
-                if (this.Height < 150) { this.Height = 150; }
+                this.Width = 1200;
+                this.Height = 210 + (messageText.Length / 40) * 40;
+                if (this.Height < 300) { this.Height = 300; }
                 this.MaximumSize = new Size(this.Width, this.Height);
                 this.MinimumSize = new Size(this.Width, this.Height);
             }

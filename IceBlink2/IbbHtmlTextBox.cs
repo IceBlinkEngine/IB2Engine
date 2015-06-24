@@ -29,11 +29,20 @@ namespace IceBlink2
         {
             gv = g;
             fontfamily = gv.family;
-            font = new Font(fontfamily, 10);
+            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
+            font = gv.drawFontReg;
             tbXloc = locX;
             tbYloc = locY;
             tbWidth = width;
             tbHeight = height;
+            brush.Color = Color.Red;
+        }
+        public IbbHtmlTextBox(GameView g)
+        {
+            gv = g;
+            fontfamily = gv.family;
+            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
+            font = gv.drawFontReg;
             brush.Color = Color.Red;
         }
 
@@ -302,17 +311,17 @@ namespace IceBlink2
         private float GetFontSizeInPixels()
         {
             //will end up using the last font size on the stack
-            float fSize = 10.0f;
+            float fSize = 20.0f * (float)gv.squareSize / 100.0f; ;
 
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 14.0f;
+                    fSize = 28.0f * (float)gv.squareSize / 100.0f; ;
                 }
                 else if (s == "small")
                 {
-                    fSize = 8.0f;
+                    fSize = 16.0f * (float)gv.squareSize / 100.0f; ;
                 }
             }
             return fSize;

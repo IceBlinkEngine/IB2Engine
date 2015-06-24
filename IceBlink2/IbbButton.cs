@@ -105,8 +105,14 @@ namespace IceBlink2
 
             int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
             int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)stringSize.Height / 2);
-            
 
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
+                }
+            }
             gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White);
             
             // Measure string.
@@ -115,6 +121,13 @@ namespace IceBlink2
             ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
             ulY = ((int)(this.Height * gv.screenDensity / 2));
 
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(Quantity, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
+                }
+            }
             gv.DrawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.White);
         }
     }

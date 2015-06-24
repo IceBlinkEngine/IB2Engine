@@ -20,8 +20,13 @@ namespace IceBlink2
         public float screenDensity;
         public int screenWidth;
         public int screenHeight;
-        public int squareSizeInPixels = 50;
+        public int squareSizeInPixels = 100;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
+        public int squaresInWidth = 19;
+        public int squaresInHeight = 10;
+        public int ibbwidthL = 340;
+        public int ibbwidthR = 100;
+        public int ibbheight = 100;
         public int playerOffset = 3;
         public int oXshift = 0;
         public int oYshift = 30;
@@ -117,26 +122,15 @@ namespace IceBlink2
                 playerButtonEnter.SoundLocation = mainDirectory + "\\default\\NewModule\\sounds\\btn_hover.wav";
                 playerButtonEnter.Load();
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }  
- 
-            //CREATES A FONTFAMILY
-            //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
-            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
-            drawFontLarge = new Font(family, 12.0f);
-            drawFontReg = new Font(family, 10.0f);
-            drawFontSmall = new Font(family, 8.0f);
-            
-            animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
-            floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
-            floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
-            cc = new CommonCode(this);            
-            mod = new Module();
-                        
+            this.WindowState = FormWindowState.Maximized;
+            this.Width = 1920;
+            this.Height = 1080;
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
-            float sqrW = (float)screenWidth / 20.0f;
-            float sqrH = (float)screenHeight / 12.0f;
+            float sqrW = (float)screenWidth / (float)squaresInWidth;
+            float sqrH = (float)screenHeight / (float)squaresInHeight;
             if (sqrW > sqrH)
             {
                 squareSize = (int)(sqrH);
@@ -145,8 +139,29 @@ namespace IceBlink2
             {
                 squareSize = (int)(sqrW);
             }
+            if ((squareSize > 100) && (squareSize < 120))
+            {
+                squareSize = 100;
+            }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
-            oXshift = (screenWidth - (squareSize * 12)) / 2;
+            oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
+
+            //CREATES A FONTFAMILY
+            //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
+            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            float multiplr = (float)squareSize / 100.0f;
+            drawFontLarge = new Font(family, 24.0f * multiplr);
+            drawFontReg = new Font(family, 20.0f * multiplr);
+            drawFontSmall = new Font(family, 16.0f * multiplr);
+            
+            animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
+            floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
+            floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
+
+            cc = new CommonCode(this);            
+            mod = new Module();
+
+            
 
             log = new IbbHtmlLogBox(this, 12 * squareSize, 1 * squareSize, 8 * squareSize, 6 * squareSize);
             cc.addLogText("red", "screenDensity: " + screenDensity);
