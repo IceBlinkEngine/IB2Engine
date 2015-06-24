@@ -113,12 +113,8 @@ namespace IceBlink2
 			    btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
-			    //btnHelp.X = pW * 2;
-                //changed by yn1, adjusted to 1920x1080, 20150621
-                btnHelp.Y = 10 * gv.squareSize + pH * 2;
-                //btnHelp.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
-			    btnHelp.Height = (int)(50 * gv.screenDensity);
+			    btnHelp.Y = 11 * gv.squareSize + pH * 2;
+                btnHelp.Height = (int)(50 * gv.screenDensity);
 			    btnHelp.Width = (int)(50 * gv.screenDensity);			
 		    }
 		    if (btnInfo == null)
@@ -128,12 +124,8 @@ namespace IceBlink2
 			    btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInfo.X = (10 * gv.squareSize) - padW * 1 + gv.oXshift;
-			    //btnHelp.X = pW * 2;
-			    //changed by yn1, adjusted to 1920x1080, 20150621
-                btnInfo.Y = 10 * gv.squareSize + pH * 2;
-                //btnInfo.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
-			    btnInfo.Height = (int)(50 * gv.screenDensity);
+			    btnInfo.Y = 11 * gv.squareSize + pH * 2;
+                btnInfo.Height = (int)(50 * gv.screenDensity);
 			    btnInfo.Width = (int)(50 * gv.screenDensity);			
 		    }
 		    if (btnReturn == null)
@@ -143,11 +135,8 @@ namespace IceBlink2
 			    btnReturn.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnReturn.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
-                //changed by yn1, adjusted to 1920x1080, 20150621
-                btnReturn.Y = 10 * gv.squareSize + pH * 2;
-                //btnReturn.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
-			    btnReturn.Height = (int)(50 * gv.screenDensity);
+                btnReturn.Y = 11 * gv.squareSize + pH * 2;
+                btnReturn.Height = (int)(50 * gv.screenDensity);
 			    btnReturn.Width = (int)(170 * gv.screenDensity);			
 		    }
 		    if (btnLevelUp == null)

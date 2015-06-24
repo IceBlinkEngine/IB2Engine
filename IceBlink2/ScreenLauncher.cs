@@ -106,10 +106,7 @@ namespace IceBlink2
 		    {
     		    float dstHeight = ((float)gv.screenWidth / (float)titleList[moduleIndex].Width) * (float)titleList[moduleIndex].Height;
 	            IbRect src = new IbRect(0, 0, titleList[moduleIndex].Width, titleList[moduleIndex].Height);
-                //yn1, adjusted to 1920x1080,20150621, 
-                IbRect dst = new IbRect((gv.screenWidth / 2) - 375, gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
-	            //IbRect dst = new IbRect((gv.screenWidth/2)-200, gv.squareSize/2, gv.squareSize*8, gv.squareSize*4);
-                //end
+                IbRect dst = new IbRect((gv.screenWidth/2)-200, gv.squareSize/2, gv.squareSize*8, gv.squareSize*4);
                 gv.DrawBitmap(titleList[moduleIndex], src, dst);
 		    }
             	

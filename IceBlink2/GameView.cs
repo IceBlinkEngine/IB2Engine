@@ -122,42 +122,17 @@ namespace IceBlink2
             //CREATES A FONTFAMILY
             //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
             family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
-            //yn1, slightly larger font, 20150621
-            drawFontReg = new Font(family, 10.0f);
             drawFontLarge = new Font(family, 12.0f);
+            drawFontReg = new Font(family, 10.0f);
             drawFontSmall = new Font(family, 8.0f);
-            //drawFontReg = new Font(family, 10.0f);
-            //drawFontLarge = new Font(family, 12.0f);
-            //drawFontSmall = new Font(family, 8.0f);
-            //end
-
-
+            
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
             floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
 
-            //IBMessageBox.Show(this, "This is a test message", enumMessageButton.OKCancel);
-
-            //super(context);
-            //myActivity = actvty;
-            //gameContext = context;
-            //myTracker = t;
-            //adView = av;
-            //versionNum = version;
-            //fixedModule = modname;
             cc = new CommonCode(this);            
             mod = new Module();
                         
-            //cc.walkPass = BitmapFactory.decodeResource(getResources(), R.drawable.walk_pass);
-            //cc.walkBlocked = BitmapFactory.decodeResource(getResources(), R.drawable.walk_block);
-            //cc.losBlocked = BitmapFactory.decodeResource(getResources(), R.drawable.los_block);
-            //cc.black_tile = BitmapFactory.decodeResource(getResources(), R.drawable.black_tile);
-            //cc.turn_marker = BitmapFactory.decodeResource(getResources(), R.drawable.turn_marker);
-            //cc.pc_dead = BitmapFactory.decodeResource(getResources(), R.drawable.pc_dead);
-            //cc.pc_stealth = BitmapFactory.decodeResource(getResources(), R.drawable.pc_stealth);
-            //cc.hitSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.hit_symbol);
-            //cc.missSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.miss_symbol);
-
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
             float sqrW = (float)screenWidth / 20.0f;
@@ -173,10 +148,6 @@ namespace IceBlink2
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * 12)) / 2;
 
-            //cc.setControlsStart();
-            //cc.setToggleButtonsStart();
-            //createScreens();
-
             log = new IbbHtmlLogBox(this, 12 * squareSize, 1 * squareSize, 8 * squareSize, 6 * squareSize);
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
@@ -186,59 +157,10 @@ namespace IceBlink2
             cc.addLogText("yellow", "sqrH: " + sqrH);
             cc.addLogText("yellow", "");
             cc.addLogText("red", "Welcome to IceBlink 2");
-            cc.addLogText("fuchsia", "You can scroll this");
-            cc.addLogText("fuchsia", "message log box");
-            cc.addLogText("fuchsia", "by swiping up or down");
-
-            //createScreens();		
-            //sf = new ScriptFunctions(mod, this);
-
-            //LoadTestParty();
-
-            //cc.LoadSaveListItems();
-
-            /* TODO deal with fonts
-            mUiTextPaint = new Paint();
-            mUiTextPaint.setStyle(Paint.Style.FILL);
-            mUiTextPaint.setColor(Color.YELLOW);
-            mUiTextPaint.setAntiAlias(true);
-
-
-            mSheetTextPaint = new Paint();
-            mSheetTextPaint.setStyle(Paint.Style.FILL);
-            mSheetTextPaint.setColor(Color.YELLOW);
-            mSheetTextPaint.setAntiAlias(true);
-
-            floatyTextPaint = new Paint();
-            floatyTextPaint.setStyle(Paint.Style.FILL);
-            floatyTextPaint.setColor(Color.YELLOW);
-            floatyTextPaint.setAntiAlias(true);
-
-            Typeface uiTypeface = Typeface.createFromAsset(gameContext.getAssets(), "fonts/Metamorphous-Regular.ttf");
-            if (uiTypeface != null)
-            {
-                mUiTextPaint.setTypeface(uiTypeface);
-                mSheetTextPaint.setTypeface(uiTypeface);
-                floatyTextPaint.setTypeface(uiTypeface);
-            }
-            mUiTextPaint.setTextSize(squareSize / 3);
-            mSheetTextPaint.setTextSize(squareSize / 4);
-            floatyTextPaint.setTextSize(squareSize / 4);
-            cc.addLogText("lime", "textSize: " + mUiTextPaint.getTextSize());
-            uiFont = Typeface.createFromAsset(gameContext.getAssets(), "fonts/Metamorphous-Regular.ttf");
-            */
+            cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
             
             //TODOinitializeMusic();
             //TODOinitializeCombatMusic();
-
-            /*TODO probably do not need this as the folder structure will be preset by me
-            File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File(sdCard.getAbsolutePath() + "/IceBlinkRPG/PlayerTokens");
-            if (!directory.exists())
-            {
-                directory.mkdirs();
-            }
-            */
 
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {

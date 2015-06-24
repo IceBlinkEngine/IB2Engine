@@ -67,10 +67,10 @@ namespace IceBlink2
             {
                 src3 = new IbRect(0, 0, this.Img3.Width, this.Img3.Width);
             }
-            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
+            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
 
             IbRect srcGlow = new IbRect(0, 0, this.Glow.Width, this.Glow.Height);
-            IbRect dstGlow = new IbRect(this.X - (int)(3 * gv.screenDensity), this.Y - (int)(3 * gv.screenDensity), (int)((float)this.Width * 1) + (int)(7 * 1), (int)((float)this.Height * 1) + (int)(7 * 1));
+            IbRect dstGlow = new IbRect(this.X - (int)(3 * gv.screenDensity), this.Y - (int)(3 * gv.screenDensity), (int)((float)this.Width * gv.screenDensity) + (int)(7 * gv.screenDensity), (int)((float)this.Height * gv.screenDensity) + (int)(7 * gv.screenDensity));
             
             if ((this.glowOn) && (this.Glow != null))
             {
@@ -103,33 +103,19 @@ namespace IceBlink2
             // Measure string.
             SizeF stringSize = gv.cc.MeasureString(Text, thisFont, this.Width);
 
-            //IbRect bounds = new IbRect();
-            //gv.drawFontReg.getTextBounds(Text, 0, Text.Length, bounds);
-            int ulX = ((int)(this.Width * 1) / 2) - ((int)stringSize.Width / 2);
+            int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
+            int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)stringSize.Height / 2);
             
-            //yn1, removed ((int)stringSize.Height /2 from the expression to draw the font hight in cente rof button, 20150621
-            int ulY = ((int)(this.Height * 1) / 2);
-            //int ulY = ((int)(this.Height * 1) / 2) + ((int)stringSize.Height /2);
-            //end of change
-
 
             gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White);
-            //canvas.drawText(Text, this.X + ulX, this.Y + ulY - pH, mUiTextPaint);
-
+            
             // Measure string.
             stringSize = gv.cc.MeasureString(Quantity, thisFont, this.Width);
 
-            //bounds = new IbRect();
-            //mUiTextPaint.getTextBounds(Quantity, 0, Quantity.Length, bounds);
-            ulX = ((int)(this.Width * 1 / 2)) - ((int)stringSize.Width);
+            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
+            ulY = ((int)(this.Height * gv.screenDensity / 2));
 
-            //yn1, removed ((int)stringSize.Height /2 from the expression to draw the font hight in cente rof button, 20150621
-            ulY = ((int)(this.Height * 1  / 2));
-            //int ulY = ((int)(this.Height * 1) / 2) + ((int)stringSize.Height /2);
-            //end of change
-
-            gv.DrawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.White); 
-            //canvas.drawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, mUiTextPaint);
+            gv.DrawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.White);
         }
     }
 }

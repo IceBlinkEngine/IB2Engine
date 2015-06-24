@@ -2663,15 +2663,9 @@ namespace IceBlink2
 		    case MouseEventType.EventType.MouseDown:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    //int gridx = (int) e.X / gv.squareSize;
-			    //int gridy = (int) e.Y / gv.squareSize;
-
-                //yn1, adjusted for 1920x1080, 20150621
-                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
-                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
-                //int gridx = (int) e.X / gv.squareSize - 4;
-			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
-                //end of changes
+			    
+                int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
 			    gv.cc.floatyText = "";
 			    gv.cc.floatyText2 = "";
@@ -3086,12 +3080,8 @@ namespace IceBlink2
 			
 			    //TOUCH ON MAP AREA
 
-                //yn1, adjusted for 1920x1080, 20150621
-                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
-                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
-                //int gridx = (int) e.X / gv.squareSize - 4;
-                //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
-                //end of changes
+                int gridx = (int) e.X / gv.squareSize - 4;
+                int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
 			    if (gridy < 7)
 			    {
@@ -3312,12 +3302,8 @@ namespace IceBlink2
 			
 			    //TOUCH ON MAP AREA
 			    
-                //yn1, adjsutef or 1920x108, 20150621
-                int gridx = (int)((float) e.X / gv.squareSize - 4.7f);
-                int gridy = (int) (e.Y - (gv.squareSize / 3)) / gv.squareSize;
-                //int gridx = (int) e.X / gv.squareSize - 4;
-			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
-                //end of changes
+                int gridx = (int) e.X / gv.squareSize - 4;
+			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
 			    if (gridy < 7)
 			    {

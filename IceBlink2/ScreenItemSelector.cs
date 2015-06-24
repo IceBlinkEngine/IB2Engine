@@ -100,11 +100,8 @@ namespace IceBlink2
 			    btnAction.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnAction.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnAction.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f) - (gv.squareSize * 4);
-			    //yn1, adjusted to 1920x1080, 20150621
-                btnAction.Y = 10 * gv.squareSize + pH * 2;
-                //btnAction.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
-			    btnAction.Height = (int)(50 * gv.screenDensity);
+			    btnAction.Y = 11 * gv.squareSize + pH * 2;
+                btnAction.Height = (int)(50 * gv.screenDensity);
 			    btnAction.Width = (int)(170 * gv.screenDensity);			
 		    }
             if (btnAction2 == null)
@@ -121,10 +118,7 @@ namespace IceBlink2
                 btnAction2.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnAction2.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnAction2.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f) + (gv.squareSize * 4);
-                //yn1, adjusted to 1920x1080, 20150621
-                btnAction2.Y = 10 * gv.squareSize + pH * 2;
-                //btnAction2.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
+                btnAction2.Y = 11 * gv.squareSize + pH * 2;
                 btnAction2.Height = (int)(50 * gv.screenDensity);
                 btnAction2.Width = (int)(170 * gv.screenDensity);
             }
@@ -135,10 +129,7 @@ namespace IceBlink2
                 btnExit.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnExit.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnExit.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
-                //yn1, adjusted to 1920x1080, 20150621
-                btnExit.Y = 10 * gv.squareSize + pH * 2;
-                //btnExit.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
+                btnExit.Y = 11 * gv.squareSize + pH * 2;
                 btnExit.Height = (int)(50 * gv.screenDensity);
                 btnExit.Width = (int)(170 * gv.screenDensity);
             }
@@ -149,11 +140,8 @@ namespace IceBlink2
 			    btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInfo.X = (12 * gv.squareSize) - padW * 1 + gv.oXshift;
-                //yn1, adjusted to 1920x1080, 20150621
-                btnInfo.Y = 10 * gv.squareSize + pH * 2;
-                //btnInfo.Y = 11 * gv.squareSize + pH * 2;
-                //end of changes
-			    btnInfo.Height = (int)(50 * gv.screenDensity);
+                btnInfo.Y = 11 * gv.squareSize + pH * 2;
+                btnInfo.Height = (int)(50 * gv.screenDensity);
 			    btnInfo.Width = (int)(50 * gv.screenDensity);			
 		    }
 		    for (int y = 0; y < slotsPerPage; y++)
