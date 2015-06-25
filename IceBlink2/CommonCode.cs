@@ -1408,10 +1408,10 @@ namespace IceBlink2
 			    ctrlUpArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlUpArrow.Img2 = this.LoadBitmap("ctrl_up_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_arrow);
 			    ctrlUpArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlUpArrow.X = 10 * gv.squareSize;
-			    ctrlUpArrow.Y = 8 * gv.squareSize + pH * 2;
-			    ctrlUpArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlUpArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlUpArrow.X = 17 * gv.squareSize;
+			    ctrlUpArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlLeftArrow == null)
 		    {
@@ -1419,10 +1419,10 @@ namespace IceBlink2
 			    ctrlLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlLeftArrow.Img2 = this.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_left_arrow);
 			    ctrlLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlLeftArrow.X = 9 * gv.squareSize;
-			    ctrlLeftArrow.Y = 9 * gv.squareSize + pH * 2;
-			    ctrlLeftArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlLeftArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlLeftArrow.X = 16 * gv.squareSize;
+			    ctrlLeftArrow.Y = 8 * gv.squareSize + pH * 2;
+                ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlRightArrow == null)
 		    {
@@ -1430,10 +1430,10 @@ namespace IceBlink2
 			    ctrlRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlRightArrow.Img2 = this.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_right_arrow);
 			    ctrlRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlRightArrow.X = 11 * gv.squareSize;
-			    ctrlRightArrow.Y = 9 * gv.squareSize + pH * 2;
-			    ctrlRightArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlRightArrow.Width = (int)(50 * gv.screenDensity);			
+			    ctrlRightArrow.X = 18 * gv.squareSize;
+			    ctrlRightArrow.Y = 8 * gv.squareSize + pH * 2;
+                ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (ctrlDownArrow == null)
 		    {
@@ -1441,10 +1441,10 @@ namespace IceBlink2
 			    ctrlDownArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlDownArrow.Img2 = this.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_arrow);
 			    ctrlDownArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlDownArrow.X = 10 * gv.squareSize;
-			    ctrlDownArrow.Y = 10 * gv.squareSize + pH * 2;
-			    ctrlDownArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlDownArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlDownArrow.X = 17 * gv.squareSize;
+			    ctrlDownArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlUpRightArrow == null)
 		    {
@@ -1452,10 +1452,10 @@ namespace IceBlink2
 			    ctrlUpRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlUpRightArrow.Img2 = this.LoadBitmap("ctrl_up_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_right_arrow);
 			    ctrlUpRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlUpRightArrow.X = 11 * gv.squareSize;
-			    ctrlUpRightArrow.Y = 8 * gv.squareSize + pH * 2;
-			    ctrlUpRightArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlUpRightArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlUpRightArrow.X = 18 * gv.squareSize;
+			    ctrlUpRightArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlUpRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlUpLeftArrow == null)
 		    {
@@ -1463,10 +1463,10 @@ namespace IceBlink2
 			    ctrlUpLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlUpLeftArrow.Img2 = this.LoadBitmap("ctrl_up_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_left_arrow);
 			    ctrlUpLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlUpLeftArrow.X = 9 * gv.squareSize;
-			    ctrlUpLeftArrow.Y = 8 * gv.squareSize + pH * 2;
-			    ctrlUpLeftArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlUpLeftArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlUpLeftArrow.X = 16 * gv.squareSize;
+			    ctrlUpLeftArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlUpLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlDownRightArrow == null)
 		    {
@@ -1474,10 +1474,10 @@ namespace IceBlink2
 			    ctrlDownRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlDownRightArrow.Img2 = this.LoadBitmap("ctrl_down_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_right_arrow);
 			    ctrlDownRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlDownRightArrow.X = 11 * gv.squareSize;
-			    ctrlDownRightArrow.Y = 10 * gv.squareSize + pH * 2;
-			    ctrlDownRightArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlDownRightArrow.Width = (int)(50 * gv.screenDensity);
+			    ctrlDownRightArrow.X = 18 * gv.squareSize;
+			    ctrlDownRightArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlDownRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlDownLeftArrow == null)
 		    {
@@ -1485,10 +1485,10 @@ namespace IceBlink2
 			    ctrlDownLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    ctrlDownLeftArrow.Img2 = this.LoadBitmap("ctrl_down_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_left_arrow);
 			    ctrlDownLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-			    ctrlDownLeftArrow.X = 9 * gv.squareSize;
-			    ctrlDownLeftArrow.Y = 10 * gv.squareSize + pH * 2;
-			    ctrlDownLeftArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlDownLeftArrow.Width = (int)(50 * gv.screenDensity);			
+			    ctrlDownLeftArrow.X = 16 * gv.squareSize;
+			    ctrlDownLeftArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlDownLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnInventory == null)
 		    {
@@ -1496,10 +1496,10 @@ namespace IceBlink2
 			    btnInventory.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnInventory.Img2 = this.LoadBitmap("btninventory"); // BitmapFactory.decodeResource(getResources(), R.drawable.btninventory);
 			    btnInventory.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnInventory.X = 1 * gv.squareSize + padW * 2 + gv.oXshift;
-			    btnInventory.Y = 7 * gv.squareSize + pH;
-			    btnInventory.Height = (int)(50 * gv.screenDensity);
-			    btnInventory.Width = (int)(50 * gv.screenDensity);
+			    btnInventory.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnInventory.Y = 9 * gv.squareSize + pH;
+                btnInventory.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnInventory.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }			
 		    if (btnHelp == null)
 		    {
@@ -1507,10 +1507,10 @@ namespace IceBlink2
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnHelp.X = 2 * gv.squareSize + padW * 1 + gv.oXshift;
-                btnHelp.Y = 10 * gv.squareSize + pH * 2;
-			    btnHelp.Height = (int)(50 * gv.screenDensity);
-			    btnHelp.Width = (int)(50 * gv.screenDensity);			
+                btnHelp.X = 6 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnHelp.Y = 9 * gv.squareSize + pH * 2;
+                btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnReturn == null)
 		    {
@@ -1518,10 +1518,10 @@ namespace IceBlink2
 			    btnReturn.Text = "RETURN";
 			    btnReturn.Img = this.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = this.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_large_glow);
-			    btnReturn.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
+                btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
 			    btnReturn.Y = 10 * gv.squareSize + pH * 2;
-			    btnReturn.Height = (int)(50 * gv.screenDensity);
-			    btnReturn.Width = (int)(170 * gv.screenDensity);			
+                btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }		
 				
 	    }
@@ -1532,10 +1532,10 @@ namespace IceBlink2
 			    tglSound = new IbbToggleButton(gv);
 			    tglSound.ImgOn = this.LoadBitmap("tgl_music_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sound_on);
 			    tglSound.ImgOff = this.LoadBitmap("tgl_music_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sound_off);
-			    tglSound.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglSound.Y = 1 * (gv.squareSize) + (gv.squareSize/2);
-			    tglSound.Height = (int)(25 * gv.screenDensity);
-			    tglSound.Width = (int)(25 * gv.screenDensity);
+			    tglSound.X = 3 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
+			    tglSound.Y = 9 * (gv.squareSize) + (gv.squareSize/2);
+                tglSound.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglSound.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }		
         }
 	

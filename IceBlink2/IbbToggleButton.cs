@@ -41,7 +41,7 @@ namespace IceBlink2
         public void Draw()
         {
             IbRect src = new IbRect(0, 0, this.ImgOn.Width, this.ImgOn.Height);
-            IbRect dst = new IbRect(this.X, this.Y, this.ImgOn.Width, this.ImgOn.Height);
+            IbRect dst = new IbRect(this.X, this.Y, gv.squareSize/2, gv.squareSize/2);
 
             if (this.toggleOn)
             {

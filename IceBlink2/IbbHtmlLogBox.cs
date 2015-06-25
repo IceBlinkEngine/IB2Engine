@@ -49,7 +49,7 @@ namespace IceBlink2
             btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
             bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
             fontfamily = gv.family;
-            font = new Font(fontfamily, 10);
+            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             tbXloc = locX;
             tbYloc = locY;
             tbWidth = width;
@@ -65,7 +65,7 @@ namespace IceBlink2
             btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
             bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
             fontfamily = gv.family;
-            font = new Font(fontfamily, 10);
+            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             tbXloc = locX;
             tbYloc = locY;
             tbWidth = width;
@@ -407,16 +407,16 @@ namespace IceBlink2
         private float GetFontSizeInPixels()
         {
             //will end up using the last font size on the stack
-            float fSize = 10.0f;
+            float fSize = 20.0f * (float)gv.squareSize / 100.0f;
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 14.0f;
+                    fSize = 28.0f * (float)gv.squareSize / 100.0f;
                 }
                 else if (s == "small")
                 {
-                    fSize = 8.0f;
+                    fSize = 16.0f * (float)gv.squareSize / 100.0f;
                 }
             }
             return fSize;

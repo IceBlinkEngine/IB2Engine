@@ -27,7 +27,7 @@ namespace IceBlink2
         public int ibbwidthL = 340;
         public int ibbwidthR = 100;
         public int ibbheight = 100;
-        public int playerOffset = 3;
+        public int playerOffset = 4;
         public int oXshift = 0;
         public int oYshift = 30;
         public string mainDirectory;
@@ -163,7 +163,7 @@ namespace IceBlink2
 
             
 
-            log = new IbbHtmlLogBox(this, 12 * squareSize, 1 * squareSize, 8 * squareSize, 6 * squareSize);
+            log = new IbbHtmlLogBox(this, 0 * squareSize + oXshift - 3, 0 * squareSize + oYshift, 6 * squareSize, 7 * squareSize);
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
             cc.addLogText("lime", "screenHeight: " + screenHeight);
