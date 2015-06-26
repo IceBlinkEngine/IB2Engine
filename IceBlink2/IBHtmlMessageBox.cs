@@ -25,7 +25,7 @@ namespace IceBlink2
             this.IceBlinkButtonClose.Visible = false;
             this.IceBlinkButtonResize.Visible = false;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.form_MouseWheel);
-            hlb = new IbbHtmlLogBox(this, gv, 10, 30, 398, 400);                       
+            hlb = new IbbHtmlLogBox(this, gv, 10, 30, 580, 400);                       
             hlb.AddHtmlTextToLog(htmlstring);
             hlb.numberOfLinesToShow = 16;
             hlb.AddHtmlTextToLog("");

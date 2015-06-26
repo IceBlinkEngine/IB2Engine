@@ -48,8 +48,8 @@ namespace IceBlink2
 			    ctrlUpArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
 			    ctrlUpArrow.X = 12 * gv.squareSize;
 			    ctrlUpArrow.Y = 1 * gv.squareSize + pH * 2;
-			    ctrlUpArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlUpArrow.Width = (int)(50 * gv.screenDensity);
+                ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlDownArrow == null)
 		    {
@@ -59,8 +59,8 @@ namespace IceBlink2
 			    ctrlDownArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
 			    ctrlDownArrow.X = 12 * gv.squareSize;
 			    ctrlDownArrow.Y = 2 * gv.squareSize + pH * 3;
-			    ctrlDownArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlDownArrow.Width = (int)(50 * gv.screenDensity);
+                ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlLeftArrow == null)
 		    {
@@ -70,8 +70,8 @@ namespace IceBlink2
 			    ctrlLeftArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
 			    ctrlLeftArrow.X = 10 * gv.squareSize + xShift;
 			    ctrlLeftArrow.Y = pH * 34;
-			    ctrlLeftArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlLeftArrow.Width = (int)(50 * gv.screenDensity);
+                ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (ctrlRightArrow == null)
 		    {
@@ -81,8 +81,8 @@ namespace IceBlink2
 			    ctrlRightArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.arrow_glow);
 			    ctrlRightArrow.X = 11 * gv.squareSize + pW * 2 + xShift;
 			    ctrlRightArrow.Y = pH * 34;
-			    ctrlRightArrow.Height = (int)(50 * gv.screenDensity);
-			    ctrlRightArrow.Width = (int)(50 * gv.screenDensity);			
+                ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
+                ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }				
 		    if (btnReturnJournal == null)
 		    {
@@ -90,10 +90,10 @@ namespace IceBlink2
 			    btnReturnJournal.Text = "RETURN";
 			    btnReturnJournal.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturnJournal.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnReturnJournal.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
-			    btnReturnJournal.Y = 10 * gv.squareSize + pH * 2;
-			    btnReturnJournal.Height = (int)(50 * gv.screenDensity);
-			    btnReturnJournal.Width = (int)(170 * gv.screenDensity);			
+                btnReturnJournal.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnReturnJournal.Y = 9 * gv.squareSize + pH * 2;
+                btnReturnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnReturnJournal.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
 		
 	    }
@@ -104,7 +104,7 @@ namespace IceBlink2
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = pH * 5;
-            int locX = 5 * gv.squareSize + pW * 14;
+            int locX = 4 * gv.squareSize + pW * 14;
             int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int spacing = textH;
     	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
@@ -128,7 +128,7 @@ namespace IceBlink2
     	
     	    //DRAW BACKGROUND IMAGE
     	    IbRect src = new IbRect(0, 0, journalBack.Width, journalBack.Height);
-            IbRect dst = new IbRect(7 * gv.squareSize, 0, 7 * gv.squareSize, 10 * gv.squareSize);
+            IbRect dst = new IbRect(6 * gv.squareSize, 0, 7 * gv.squareSize, 9 * gv.squareSize);
             gv.DrawBitmap(journalBack, src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS

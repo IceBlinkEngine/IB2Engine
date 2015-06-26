@@ -164,6 +164,7 @@ namespace IceBlink2
             
 
             log = new IbbHtmlLogBox(this, 0 * squareSize + oXshift - 3, 0 * squareSize + oYshift, 6 * squareSize, 7 * squareSize);
+            log.numberOfLinesToShow = 20;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
             cc.addLogText("lime", "screenHeight: " + screenHeight);

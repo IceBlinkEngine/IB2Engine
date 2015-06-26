@@ -48,8 +48,8 @@ namespace IceBlink2
 			    btnInventoryLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInventoryLeft.X = 8 * gv.squareSize;
 			    btnInventoryLeft.Y = (1 * gv.squareSize) - (pH * 2);
-			    btnInventoryLeft.Height = (int)(50 * gv.screenDensity);
-			    btnInventoryLeft.Width = (int)(50 * gv.screenDensity);
+                btnInventoryLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnInventoryLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (btnPageIndex == null)
 		    {
@@ -59,8 +59,8 @@ namespace IceBlink2
 			    btnPageIndex.Text = "1/10";
 			    btnPageIndex.X = 9 * gv.squareSize;
 			    btnPageIndex.Y = (1 * gv.squareSize) - (pH * 2);
-			    btnPageIndex.Height = (int)(50 * gv.screenDensity);
-			    btnPageIndex.Width = (int)(50 * gv.screenDensity);
+                btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (btnInventoryRight == null)
 		    {
@@ -70,8 +70,8 @@ namespace IceBlink2
 			    btnInventoryRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnInventoryRight.X = 10 * gv.squareSize;
 			    btnInventoryRight.Y = (1 * gv.squareSize) - (pH * 2);
-			    btnInventoryRight.Height = (int)(50 * gv.screenDensity);
-			    btnInventoryRight.Width = (int)(50 * gv.screenDensity);
+                btnInventoryRight.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnInventoryRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		
 		    if (btnReturn == null)
@@ -80,10 +80,10 @@ namespace IceBlink2
 			    btnReturn.Text = "RETURN";
 			    btnReturn.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnReturn.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnReturn.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
-			    btnReturn.Y = 11 * gv.squareSize + pH * 2;
-			    btnReturn.Height = (int)(50 * gv.screenDensity);
-			    btnReturn.Width = (int)(170 * gv.screenDensity);			
+                btnReturn.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnReturn.Y = 9 * gv.squareSize + pH * 2;
+                btnReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
 		    if (btnHelp == null)
 		    {
@@ -92,9 +92,9 @@ namespace IceBlink2
 			    btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
-			    btnHelp.Y = 11 * gv.squareSize + pH * 2;
-			    btnHelp.Height = (int)(50 * gv.screenDensity);
-			    btnHelp.Width = (int)(50 * gv.screenDensity);			
+			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
+                btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnInfo == null)
 		    {
@@ -102,10 +102,10 @@ namespace IceBlink2
 			    btnInfo.Text = "INFO";
 			    btnInfo.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnInfo.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnInfo.X = (11 * gv.squareSize) - padW * 1 + gv.oXshift;
-			    btnInfo.Y = 11 * gv.squareSize + pH * 2;
-			    btnInfo.Height = (int)(50 * gv.screenDensity);
-			    btnInfo.Width = (int)(50 * gv.screenDensity);			
+			    btnInfo.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
+			    btnInfo.Y = 9 * gv.squareSize + pH * 2;
+                btnInfo.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnInfo.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
@@ -115,27 +115,27 @@ namespace IceBlink2
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y+2) * gv.squareSize) + (padW * (y+1)) + gv.oXshift;
+				    btnNew.X = ((y+2+4) * gv.squareSize) + (padW * (y+1)) + gv.oXshift;
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
 			    else if ((y >=5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5+2) * gv.squareSize) + (padW * ((y-5)+1)) + gv.oXshift;
+				    btnNew.X = ((y-5+2+4) * gv.squareSize) + (padW * ((y-5)+1)) + gv.oXshift;
 				    btnNew.Y = 3 * gv.squareSize + padW;
 			    }
 			    else if ((y >=10 ) && (y < 15))
 			    {
-				    btnNew.X = ((y-10+2) * gv.squareSize) + (padW * ((y-10)+1)) + gv.oXshift;
+				    btnNew.X = ((y-10+2+4) * gv.squareSize) + (padW * ((y-10)+1)) + gv.oXshift;
 				    btnNew.Y = 4 * gv.squareSize + (padW * 2);
 			    }
 			    else
 			    {
-				    btnNew.X = ((y-15+2) * gv.squareSize) + (padW * ((y-15)+1)) + gv.oXshift;
+				    btnNew.X = ((y-15+2+4) * gv.squareSize) + (padW * ((y-15)+1)) + gv.oXshift;
 				    btnNew.Y = 5 * gv.squareSize + (padW * 3);
 			    }
-			
-			    btnNew.Height = (int)(50 * gv.screenDensity);
-			    btnNew.Width = (int)(50 * gv.screenDensity);	
+
+                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
 			    btnInventorySlot.Add(btnNew);
 		    }			
@@ -249,8 +249,8 @@ namespace IceBlink2
                 //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
                 //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
-                description.tbXloc = tabX + (gv.squareSize * 5);
-                description.tbYloc = locY;
+                description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
+                description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();

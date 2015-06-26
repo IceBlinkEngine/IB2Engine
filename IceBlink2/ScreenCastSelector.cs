@@ -44,10 +44,10 @@ namespace IceBlink2
 			    btnSelect.Text = "CAST SELECTED SPELL";
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnSelect.X = (gv.screenWidth / 2) - (int)(170.0f * gv.screenDensity / 2.0f);
-			    btnSelect.Y = 11 * gv.squareSize + pH * 2;
-			    btnSelect.Height = (int)(50 * gv.screenDensity);
-			    btnSelect.Width = (int)(170 * gv.screenDensity);			
+                btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
+			    btnSelect.Y = 9 * gv.squareSize + pH * 2;
+                btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnSelect.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
 		    if (btnHelp == null)
 		    {
@@ -55,10 +55,10 @@ namespace IceBlink2
 			    btnHelp.Text = "HELP";
 			    btnHelp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnHelp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnHelp.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
-			    btnHelp.Y = 11 * gv.squareSize + pH * 2;
-			    btnHelp.Height = (int)(50 * gv.screenDensity);
-			    btnHelp.Width = (int)(50 * gv.screenDensity);			
+			    btnHelp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
+			    btnHelp.Y = 9 * gv.squareSize + pH * 2;
+                btnHelp.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnHelp.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnExit == null)
 		    {
@@ -66,10 +66,10 @@ namespace IceBlink2
 			    btnExit.Text = "EXIT";
 			    btnExit.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnExit.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnExit.X = (10 * gv.squareSize) - padW * 1 + gv.oXshift;
-			    btnExit.Y = 11 * gv.squareSize + pH * 2;
-			    btnExit.Height = (int)(50 * gv.screenDensity);
-			    btnExit.Width = (int)(50 * gv.screenDensity);			
+			    btnExit.X = (15 * gv.squareSize) - padW * 1 + gv.oXshift;
+			    btnExit.Y = 9 * gv.squareSize + pH * 2;
+                btnExit.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnExit.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
@@ -79,11 +79,11 @@ namespace IceBlink2
 			
 			    int x = y % 5;
 			    int yy = y / 5;
-			    btnNew.X = (x * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
+			    btnNew.X = ((x+4) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
 			    btnNew.Y = (1 + yy) * gv.squareSize + (padW * yy);
-			
-			    btnNew.Height = (int)(50 * gv.screenDensity);
-			    btnNew.Width = (int)(50 * gv.screenDensity);	
+
+                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
 			    btnSpellSlots.Add(btnNew);
 		    }			
@@ -244,10 +244,10 @@ namespace IceBlink2
                 //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
                 //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
-                description.tbXloc = tabX + (gv.squareSize * 2);
-                description.tbYloc = locY;
-                description.tbWidth = pW * 80;
-                description.tbHeight = pH * 50;
+                description.tbXloc = 11 * gv.squareSize;
+                description.tbYloc = 1 * gv.squareSize;
+                description.tbWidth = pW * 40;
+                description.tbHeight = pH * 80;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox(gv.gCanvas);

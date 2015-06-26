@@ -51,10 +51,10 @@ namespace IceBlink2
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
 			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnNew.X = ((x) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
-			    btnNew.Y = 10 * gv.squareSize + (pH * 2);
-			    btnNew.Height = (int)(50 * gv.screenDensity);
-			    btnNew.Width = (int)(50 * gv.screenDensity);	
+			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
+			    btnNew.Y = 9 * gv.squareSize + (pH * 2);
+                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
 			    btnPartyIndex.Add(btnNew);
 		    }
@@ -92,7 +92,7 @@ namespace IceBlink2
 		    int sX = gv.squareSize * 2;
 		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
 		    IbRect src = new IbRect(0, 0, convoBitmap.Width, convoBitmap.Height);
-            IbRect dst = new IbRect(sX, sY, convoBitmap.Width, convoBitmap.Height);
+            IbRect dst = new IbRect(sX, sY, convoBitmap.Width * 2, convoBitmap.Height * 2);
 
             if (convoBitmap.Width == convoBitmap.Height)
             {
@@ -102,7 +102,7 @@ namespace IceBlink2
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
-                    dst = new IbRect((gv.screenWidth / 2) - 200, gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
+                    dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), gv.squareSize / 2, gv.squareSize * 8, gv.squareSize * 4);
                 }
                 else //Narration without image
                 {
