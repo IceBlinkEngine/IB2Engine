@@ -19,6 +19,8 @@ namespace IceBlink2
         public List<IfBlock> IfBlockStack = new List<IfBlock>();
         public List<ForBlock> ForBlocksList = new List<ForBlock>();
         public List<IfBlock> IfBlocksList = new List<IfBlock>();
+        public float helpResult;
+       
         
         //The following are the keywords used:
         //if
@@ -223,19 +225,62 @@ namespace IceBlink2
             string sideR = ConcateString(element[2]);
             AddToLocalStrings(element[0], sideR, element[1]);            
         }
+
         public void DoFunction(string line)
         {
             string[] parms = GetParameters(line);
 
-            if (line.StartsWith("~gaTakeItem("))
+            try
             {
-                gaTakeItem(parms);
+                string prm1 = parms[0];
+                string prm2 = parms[1];
+                string prm3 = parms[2];
+                string prm4 = parms[3];
+
+                string sub = line.Substring(1, 2);
+               
+                if (sub == "ga")
+                {
+               
+                string output = line.Split('~', '(')[1];
+                output += ".cs";
+                gv.sf.gaController(output, prm1, prm2, prm3, prm4);
+                }
+
+                if (sub == "og")
+                {
+
+                    string output = line.Split('~', '(')[1];
+                    output += ".cs";
+                    gv.sf.ogController(output, prm1, prm2, prm3, prm4);
+                }
+
+                if (sub == "os")
+                {
+
+                    string output = line.Split('~', '(')[1];
+                    output += ".cs";
+                    gv.sf.osController(output, prm1, prm2, prm3, prm4);
+                }
+
             }
-            else if (line.StartsWith("~gaShowFloatyTextOnMainMap("))
-            {                
-                
+            catch
+            {
             }
+            
+            /*
+                if (line.StartsWith("~gaTakeItem("))
+                {  
+                    gaTakeItem(parms);
+                }
+                else if (line.StartsWith("~gaShowFloatyTextOnMainMap("))
+                {
+                    gaShowFloatyTextOnMainMap(parms);
+                }
+             */
+
         }
+
         public void DoObjectPropertyAssignment(string line)
         {
             string[] element = GetLeftMiddleRightSides(line);
@@ -404,12 +449,37 @@ namespace IceBlink2
         {
             string[] parms = GetParameters(rightSide);
 
-            if (rightSide.StartsWith("~gcCheckItem("))
+            try
+            {
+                string prm1 = parms[0];
+                string prm2 = parms[1];
+                string prm3 = parms[2];
+                string prm4 = parms[3];
+
+                string output = rightSide.Split('~', '(')[1];
+                output += ".cs";
+                gv.sf.gcController(output, prm1, prm2, prm3, prm4);
+                if (gv.mod.returnCheck)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch
+            {
+                return -1;
+            }
+
+            /*if (rightSide.StartsWith("~gcCheckItem("))
             {
                 gcCheckItem(parms);
             }
-            return -1;
+            return -1;*/
         }
+
 
         #region Object Property Assignment
         public void PlayerAssignment(string[] element, int indexNum)
@@ -429,6 +499,21 @@ namespace IceBlink2
                 {
                     gv.mod.playerList[indexNum].hp -= val;
                 }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].hp *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].hp;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].hp = (int)helpResult;
+                }
+                    //yn1: avoided using % because I wasnt sure if this would lead to confusion with already reserved usage of % for object property identification
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].hp %= val;
+                }
             }
             else if (element[0].EndsWith("sp"))
             {
@@ -445,7 +530,1139 @@ namespace IceBlink2
                 {
                     gv.mod.playerList[indexNum].sp -= val;
                 }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].sp *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].sp;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].sp = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].sp %= val;
+                }
+
             }
+            else if (element[0].EndsWith("combatLocX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].combatLocX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].combatLocX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].combatLocX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].combatLocX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].combatLocX;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].combatLocX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].combatLocX %= val;
+                }
+
+            }
+
+            else if (element[0].EndsWith("combatLocY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].combatLocY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].combatLocY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].combatLocY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].combatLocY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].combatLocY;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].combatLocY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].combatLocY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("classLevel"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].classLevel = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].classLevel += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].classLevel -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].classLevel *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].classLevel;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].classLevel = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].classLevel %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseFortitude"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseFortitude = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseFortitude += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseFortitude -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseFortitude *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseFortitude;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseFortitude = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseFortitude %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseWill"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseWill = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseWill += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseWill -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseWill *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseWill;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseWill = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseWill %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseReflex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseReflex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseReflex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseReflex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseReflex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseReflex;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseReflex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseReflex %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fortitude"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].fortitude = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].fortitude += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].fortitude -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].fortitude *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].fortitude;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].fortitude = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].fortitude %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("will"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].will = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].will += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].will -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].will *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].will;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].will = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].will %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("reflex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].reflex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].reflex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].reflex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].reflex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].reflex;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].reflex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].reflex %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("reflex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].reflex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].reflex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].reflex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].reflex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].reflex;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].reflex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].reflex %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("strength"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].strength = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].strength += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].strength -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].strength *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].strength;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].strength = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].strength %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("dexterity"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].dexterity = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].dexterity += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].dexterity -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].dexterity *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].dexterity;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].dexterity = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].dexterity %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("intelligence"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].intelligence = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].intelligence += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].intelligence -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].intelligence *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].intelligence;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].intelligence = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].intelligence %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("charisma"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].charisma = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].charisma += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].charisma -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].charisma *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].charisma;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].charisma = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].charisma %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseStr"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseStr = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseStr += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseStr -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseStr *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseStr;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseStr = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseStr %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseDex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseDex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseDex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseDex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseDex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseDex;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseDex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseDex %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseInt"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseInt = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseInt += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseInt -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseInt *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseInt;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseInt = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseInt %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseCha"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseCha = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseCha += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseCha -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseCha *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseCha;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseCha = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseCha %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ACBase"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].ACBase = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].ACBase += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].ACBase -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].ACBase *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].ACBase;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].ACBase = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].ACBase %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("AC"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].AC = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].AC += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].AC -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].AC *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].AC;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].AC = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].AC %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("classBonus"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].classBonus = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].classBonus += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].classBonus -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].classBonus *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].classBonus;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].classBonus = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].classBonus %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseAttBonus"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonus = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonus += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonus -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonus *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseAttBonus;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseAttBonus = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonus %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("baseAttBonusAdders"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonusAdders = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonusAdders += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonusAdders -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonusAdders *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].baseAttBonusAdders;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].baseAttBonusAdders = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].baseAttBonusAdders %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("hpMax"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].hpMax = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].hpMax += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].hpMax -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].hpMax *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].hpMax;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].hpMax = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].hpMax %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("spMax"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].spMax = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].spMax += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].spMax -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].spMax *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].spMax;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].spMax = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].spMax %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("XP"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].XP = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].XP += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].XP -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].XP *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].XP;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].XP = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].XP %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("XPNeeded"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].XPNeeded = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].XPNeeded += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].XPNeeded -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].XPNeeded *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].XPNeeded;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].XPNeeded = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].XPNeeded %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("hpRegenTimePassedCounter"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].hpRegenTimePassedCounter;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].hpRegenTimePassedCounter %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("spRegenTimePassedCounter"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].spRegenTimePassedCounter;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].spRegenTimePassedCounter %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalAcid"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalCold"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalCold;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalCold %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalNormal"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalElectricity"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalFire"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalFire;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalFire %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalMagic"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("damageTypeResistanceTotalPoison"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison %= val;
+                }
+            }
+
         }
         public void ModAssignment(string[] element, int indexNum)
         {
@@ -456,7 +1673,7 @@ namespace IceBlink2
         #region ga Functions
         public void gaTakeItem(string[] parms)
         {
-
+           
         }
         public void gaShowFloatyTextOnMainMap(string[] parms)
         {
@@ -722,7 +1939,7 @@ namespace IceBlink2
 
             for (int x = 0; x < element.Length;  x++)
             {
-                if ((element[x] != "+") && (element[x] != "-") && (element[x] != "*") && (element[x] != "/"))
+                if ((element[x] != "+") && (element[x] != "-") && (element[x] != "*") && (element[x] != "/") && (element[x] != "./."))
                 {
                     //check to see if any elements are variables (@...) and replace as needed
                     float numR = (float)Convert.ToDouble(ReplaceParameter(element[x]));
@@ -743,6 +1960,10 @@ namespace IceBlink2
                         else if (element[x - 1] == "/")
                         {
                             retValue /= numR;
+                        }
+                        else if (element[x - 1] == "./.")
+                        {
+                            retValue = retValue % numR;
                         }
                     }
                     else
@@ -780,6 +2001,22 @@ namespace IceBlink2
                 {
                     localNumbers[varName]--;
                 }
+                else if (assignType == "*=")
+                {
+                    localNumbers[varName] *= varNum;
+                }
+                //yn1: using instead of % to aovid confuion with already reserved meaning of %
+                else if (assignType == "./.=")
+                {
+                    localNumbers[varName] %= varNum;
+                }
+                else if (assignType == "/=")
+                {
+                    helpResult = localNumbers[varName];
+                    helpResult /= varNum;
+                    localNumbers[varName] = (int)helpResult;
+                }
+               
             }
             else //if not in list then add
             {
@@ -908,6 +2145,147 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].sp.ToString();
                     }
+                    else if (parm.EndsWith("combatLocX"))
+                    {
+                        return gv.mod.playerList[indexNum].combatLocX.ToString();
+                    }
+                    else if (parm.EndsWith("combatLocY"))
+                    {
+                        return gv.mod.playerList[indexNum].combatLocY.ToString();
+                    }
+                    else if (parm.EndsWith("classLevel"))
+                    {
+                        return gv.mod.playerList[indexNum].classLevel.ToString();
+                    }
+                    else if (parm.EndsWith("baseFortitude"))
+                    {
+                        return gv.mod.playerList[indexNum].baseFortitude.ToString();
+                    }
+                    else if (parm.EndsWith("baseWill"))
+                    {
+                        return gv.mod.playerList[indexNum].baseWill.ToString();
+                    }
+                    else if (parm.EndsWith("baseReflex"))
+                    {
+                        return gv.mod.playerList[indexNum].baseReflex.ToString();
+                    }
+                    else if (parm.EndsWith("fortitude"))
+                    {
+                        return gv.mod.playerList[indexNum].fortitude.ToString();
+                    }
+                    else if (parm.EndsWith("will"))
+                    {
+                        return gv.mod.playerList[indexNum].will.ToString();
+                    }
+                    else if (parm.EndsWith("reflex"))
+                    {
+                        return gv.mod.playerList[indexNum].reflex.ToString();
+                    }
+                    else if (parm.EndsWith("strength"))
+                    {
+                        return gv.mod.playerList[indexNum].strength.ToString();
+                    }
+                    else if (parm.EndsWith("dexterity"))
+                    {
+                        return gv.mod.playerList[indexNum].dexterity.ToString();
+                    }
+                    else if (parm.EndsWith("intelligence"))
+                    {
+                        return gv.mod.playerList[indexNum].intelligence.ToString();
+                    }
+                    else if (parm.EndsWith("charisma"))
+                    {
+                        return gv.mod.playerList[indexNum].charisma.ToString();
+                    }
+                    else if (parm.EndsWith("baseStr"))
+                    {
+                        return gv.mod.playerList[indexNum].baseStr.ToString();
+                    }
+                    else if (parm.EndsWith("baseDex"))
+                    {
+                        return gv.mod.playerList[indexNum].baseDex.ToString();
+                    }
+                    else if (parm.EndsWith("baseInt"))
+                    {
+                        return gv.mod.playerList[indexNum].baseInt.ToString();
+                    }
+                    else if (parm.EndsWith("baseCha"))
+                    {
+                        return gv.mod.playerList[indexNum].baseCha.ToString();
+                    }
+                    else if (parm.EndsWith("ACBase"))
+                    {
+                        return gv.mod.playerList[indexNum].ACBase.ToString();
+                    }
+                    else if (parm.EndsWith("AC"))
+                    {
+                        return gv.mod.playerList[indexNum].AC.ToString();
+                    }
+                    else if (parm.EndsWith("classBonus"))
+                    {
+                        return gv.mod.playerList[indexNum].classBonus.ToString();
+                    }
+                    else if (parm.EndsWith("baseAttBonus"))
+                    {
+                        return gv.mod.playerList[indexNum].baseAttBonus.ToString();
+                    }
+                    else if (parm.EndsWith("baseAttBonusAdders"))
+                    {
+                        return gv.mod.playerList[indexNum].baseAttBonusAdders.ToString();
+                    }
+                    else if (parm.EndsWith("hpMax"))
+                    {
+                        return gv.mod.playerList[indexNum].hpMax.ToString();
+                    }
+                    else if (parm.EndsWith("spMax"))
+                    {
+                        return gv.mod.playerList[indexNum].spMax.ToString();
+                    }
+                    else if (parm.EndsWith("XP"))
+                    {
+                        return gv.mod.playerList[indexNum].XP.ToString();
+                    }
+                    else if (parm.EndsWith("XPNeeded"))
+                    {
+                        return gv.mod.playerList[indexNum].XPNeeded.ToString();
+                    }
+                    else if (parm.EndsWith("hpRegenTimePassedCounter"))
+                    {
+                        return gv.mod.playerList[indexNum].hpRegenTimePassedCounter.ToString();
+                    }
+                    else if (parm.EndsWith("spRegenTimePassedCounter"))
+                    {
+                        return gv.mod.playerList[indexNum].spRegenTimePassedCounter.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalAcid"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalAcid.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalCold"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalCold.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalNormal"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalNormal.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalElectricity"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalElectricity.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalFire"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalFire.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalMagic"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalMagic.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceTotalPoison"))
+                    {
+                        return gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison.ToString();
+                    }
+                    
                 }
                 #endregion
             }
