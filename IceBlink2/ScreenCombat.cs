@@ -33,7 +33,7 @@ namespace IceBlink2
 	    private bool drawEndingAnimation = false;
 	    private Coordinate endingAnimationLocation = new Coordinate();
 	    private int animationFrameIndex = 0;
-	    public PathFinder pf;
+	    public PathFinderEncounters pf;
 	    public bool floatyTextOn = false;
 	    public AnimationState animationState = AnimationState.None;
 	    private Bitmap projectile;
@@ -57,11 +57,13 @@ namespace IceBlink2
 	    public IbbToggleButton tglKill = null;
 	    public IbbToggleButton tglHelp = null;
 	    public IbbToggleButton tglGrid = null;
+        public int mapStartLocXinPixels;
 	
 	    public ScreenCombat(Module m, GameView g)
 	    {
 		    mod = m;
 		    gv = g;
+            mapStartLocXinPixels = 6 * gv.squareSize;
 		    setControlsStart();
 		    setToggleButtonsStart();
 	    }
@@ -82,8 +84,8 @@ namespace IceBlink2
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSelect.X = 10 * gv.squareSize;
 			    btnSelect.Y = 9 * gv.squareSize + pH * 2;
-			    btnSelect.Height = (int)(50 * gv.screenDensity);
-			    btnSelect.Width = (int)(50 * gv.screenDensity);
+                btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnSelect.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }			
 		    if (btnMove == null)
 		    {
@@ -93,8 +95,8 @@ namespace IceBlink2
 			    btnMove.Text = "MOVE";
 			    btnMove.X = 3 * gv.squareSize + padW * 4 + gv.oXshift;
 			    btnMove.Y = 7 * gv.squareSize + pH;
-			    btnMove.Height = (int)(50 * gv.screenDensity);
-			    btnMove.Width = (int)(50 * gv.screenDensity);			
+                btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnMove.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnAttack == null)
 		    {
@@ -104,8 +106,8 @@ namespace IceBlink2
 			    btnAttack.Text = "ATTACK";
 			    btnAttack.X = 4 * gv.squareSize + padW * 5 + gv.oXshift;
 			    btnAttack.Y = 7 * gv.squareSize + pH;
-			    btnAttack.Height = (int)(50 * gv.screenDensity);
-			    btnAttack.Width = (int)(50 * gv.screenDensity);			
+                btnAttack.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnAttack.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnCast == null)
 		    {
@@ -115,8 +117,8 @@ namespace IceBlink2
 			    btnCast.Text = "CAST";
 			    btnCast.X = 5 * gv.squareSize + padW * 6 + gv.oXshift;
 			    btnCast.Y = 7 * gv.squareSize + pH;
-			    btnCast.Height = (int)(50 * gv.screenDensity);
-			    btnCast.Width = (int)(50 * gv.screenDensity);			
+                btnCast.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnCast.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnSkipTurn == null)
 		    {
@@ -126,8 +128,8 @@ namespace IceBlink2
 			    btnSkipTurn.Text = "SKIP";
 			    btnSkipTurn.X = 2 * gv.squareSize + padW * 3 + gv.oXshift;
 			    btnSkipTurn.Y = 7 * gv.squareSize + pH;
-			    btnSkipTurn.Height = (int)(50 * gv.screenDensity);
-			    btnSkipTurn.Width = (int)(50 * gv.screenDensity);			
+                btnSkipTurn.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnSkipTurn.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
 		    if (btnSwitchWeapon == null)
 		    {
@@ -137,8 +139,8 @@ namespace IceBlink2
 			    btnSwitchWeapon.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSwitchWeapon.X = 0 * gv.squareSize + padW * 1 + gv.oXshift;
 			    btnSwitchWeapon.Y = 7 * gv.squareSize + pH;
-			    btnSwitchWeapon.Height = (int)(50 * gv.screenDensity);
-			    btnSwitchWeapon.Width = (int)(50 * gv.screenDensity);			
+                btnSwitchWeapon.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnSwitchWeapon.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 					
 		    }
 	    }
@@ -155,8 +157,8 @@ namespace IceBlink2
 			    tglGrid.ImgOff = gv.cc.LoadBitmap("tgl_grid_off");
 			    tglGrid.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglGrid.Y = 0 * (gv.squareSize) + (gv.squareSize/2);
-			    tglGrid.Height = (int)(25 * gv.screenDensity);
-			    tglGrid.Width = (int)(25 * gv.screenDensity);
+                tglGrid.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglGrid.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 			    tglGrid.toggleOn = true;
 		    }
 		    if (tglHP == null)
@@ -166,8 +168,8 @@ namespace IceBlink2
 			    tglHP.ImgOff = gv.cc.LoadBitmap("tgl_hp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_hp_off);
 			    tglHP.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglHP.Y = 2 * gv.squareSize + (gv.squareSize/2);
-			    tglHP.Height = (int)(25 * gv.screenDensity);
-			    tglHP.Width = (int)(25 * gv.screenDensity);
+                tglHP.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglHP.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
 		    if (tglSP == null)
 		    {
@@ -176,8 +178,8 @@ namespace IceBlink2
 			    tglSP.ImgOff = gv.cc.LoadBitmap("tgl_sp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
 			    tglSP.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglSP.Y = 3 * gv.squareSize + (gv.squareSize/2);
-			    tglSP.Height = (int)(25 * gv.screenDensity);
-			    tglSP.Width = (int)(25 * gv.screenDensity);
+                tglSP.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglSP.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
 		    if (tglSpeed == null)
 		    {
@@ -186,8 +188,8 @@ namespace IceBlink2
 			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
 			    tglSpeed.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglSpeed.Y = 4 * gv.squareSize + (gv.squareSize/2);
-			    tglSpeed.Height = (int)(25 * gv.screenDensity);
-			    tglSpeed.Width = (int)(25 * gv.screenDensity);
+                tglSpeed.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglSpeed.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
 		    if (tglSoundFx == null)
 		    {
@@ -196,8 +198,8 @@ namespace IceBlink2
 			    tglSoundFx.ImgOff = gv.cc.LoadBitmap("tgl_sound_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
 			    tglSoundFx.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglSoundFx.Y = 5 * gv.squareSize + (gv.squareSize/2);
-			    tglSoundFx.Height = (int)(25 * gv.screenDensity);
-			    tglSoundFx.Width = (int)(25 * gv.screenDensity);
+                tglSoundFx.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglSoundFx.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
 		    if (tglHelp == null)
 		    {
@@ -206,8 +208,8 @@ namespace IceBlink2
 			    tglHelp.ImgOff = gv.cc.LoadBitmap("tgl_help_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
 			    tglHelp.X = 6 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
 			    tglHelp.Y = 6 * gv.squareSize + (gv.squareSize/4);
-			    tglHelp.Height = (int)(25 * gv.screenDensity);
-			    tglHelp.Width = (int)(25 * gv.screenDensity);
+                tglHelp.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglHelp.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
 		    if (tglKill == null)
 		    {
@@ -216,8 +218,8 @@ namespace IceBlink2
 			    tglKill.ImgOff = gv.cc.LoadBitmap("tgl_kill_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
 			    tglKill.X = gv.oXshift;
 			    tglKill.Y = 6 * gv.squareSize + (gv.squareSize/4);
-			    tglKill.Height = (int)(25 * gv.screenDensity);
-			    tglKill.Width = (int)(25 * gv.screenDensity);
+                tglKill.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglKill.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
         }
 	
@@ -541,7 +543,7 @@ namespace IceBlink2
             {
                 encounterXP += crtr.cr_XP;
             }
-    	    pf = new PathFinder(mod);
+    	    pf = new PathFinderEncounters(mod);
             tutorialMessageCombat(false);
     	    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
     	    startPcTurn();
@@ -779,23 +781,8 @@ namespace IceBlink2
 	
 	    public void doCombatCast(Player pc)
 	    {		
-		    //Toast.makeText(gameContext, "do Combat Cast stuff here", Toast.LENGTH_SHORT).show();
-		    Object target = getCastTarget(pc);
+		    object target = getCastTarget(pc);
 		    gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
-		    /*if (currentSelectedSpell.tag.equals("mageBolt"))
-		    {
-			    sf.spMageBolt(pc, target);			
-			    checkEndEncounter();
-			    endPcTurn();
-                return;
-		    }
-		    if (currentSelectedSpell.tag.equals("hold"))
-		    {
-			    sf.spHold(pc, target);			
-			    checkEndEncounter();
-			    endPcTurn();
-                return;
-		    }*/
 		    checkEndEncounter();
 		    endPcTurn(true);
 	    }
@@ -1180,8 +1167,6 @@ namespace IceBlink2
 	    	    doAnimationController();
 		    }
 	    };*/
-		
-	
 	    /*public Runnable doFloatyText = new Runnable()
 	    {
 		    @Override
@@ -1215,7 +1200,6 @@ namespace IceBlink2
 	    }
 	
 	    //Creature Combat Stuff
-	
 	    public void doCreatureTurn()
 	    {
 		    canMove = true;
@@ -1603,6 +1587,123 @@ namespace IceBlink2
         	    gv.sf.ActionToTake = "Attack";
             }
         }
+        public void endCreatureTurn()
+        {
+            canMove = true;
+            gv.sf.ActionToTake = null;
+            gv.sf.SpellToCast = null;
+            if (checkEndEncounter())
+            {
+                return;
+            }
+            creatureIndex++;
+            if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
+            {
+                //touchEnabled = true;
+                creatureIndex = 0;
+                startNextRoundStuff();
+            }
+            else
+            {
+                doCreatureTurn();
+            }
+        }
+        public void doStandardCreatureAttack()
+        {
+            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            Player pc = (Player)gv.sf.CombatTarget;
+
+            bool hit = false;
+            for (int i = 0; i < crt.cr_numberOfAttacks; i++)
+            {
+                //this reduces the to hit bonus for each further creature attack by an additional -5
+                //creatureMultAttackPenalty = 5 * i;            
+                bool hitreturn = doActualCreatureAttack(pc, crt, i);
+                if (hitreturn) { hit = true; }
+                if (pc.hp <= 0)
+                {
+                    break; //do not try and attack same PC that was just killed
+                }
+            }
+
+            //play attack sound for melee
+            if (!crt.cr_category.Equals("Ranged"))
+            {
+                gv.PlaySound(crt.cr_attackSound);
+            }
+
+            if (hit)
+            {
+                drawHitAnimation = true;
+                hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                gv.Invalidate();
+                animationState = AnimationState.PcHitAnimation;
+                gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
+            }
+            else
+            {
+                drawMissAnimation = true;
+                hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                gv.Invalidate();
+                animationState = AnimationState.PcMissedAnimation;
+                gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
+            }
+        }
+        public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
+        {
+            int attackRoll = gv.sf.RandInt(20);
+            int attackMod = CalcCreatureAttackModifier(crt);
+            int defense = CalcPcDefense(pc, crt);
+            int damage = CalcCreatureDamageToPc(pc, crt);
+            int attack = attackRoll + attackMod;
+
+            if ((attack >= defense) || (attackRoll == 20))
+            {
+                pc.hp = pc.hp - damage;
+                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
+                        "<font color='white'>" + " attacks " + "</font>" +
+                        "<font color='aqua'>" + pc.name + "</font>" +
+                        "<BR>");
+                gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
+                        "<font color='red'>" + damage + "</font>" +
+                        "<font color='white'>" + " damage)" + "</font>" +
+                        "<BR>");
+                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
+                        "<BR>");
+
+                //#region onScoringHit script of creature
+                doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
+                //#endregion                    	
+
+                //Draw floaty text showing damage above PC
+
+                int txtH = (int)gv.drawFontReg.Height;
+                int shiftUp = 0 - (attackNumber * txtH);
+                floatyTextOn = true;
+                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
+                gv.postDelayed("doFloatyText", 100);
+
+                if (pc.hp <= 0)
+                {
+                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font>" +
+                            "<BR>");
+                    pc.charStatus = "Dead";
+                }
+                return true;
+            }
+            else
+            {
+                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
+                        "<font color='white'>" + " attacks " + "</font>" +
+                        "<font color='aqua'>" + pc.name + "</font>" +
+                        "<BR>");
+                gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font>" +
+                        "<BR>");
+                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font>" +
+                        "<BR>");
+                return false;
+            }
+        }
 
         public void startNextRoundStuff()
         {
@@ -1799,11 +1900,7 @@ namespace IceBlink2
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {                            
                             //do script for each effect
-                            //sf.CombatSource = pc;
-                    	    //String parm1 = ef.currentDurationInUnits + "";
-                    	    //String parm2 = ef.durationInUnits + "";
-                            //doScriptBasedOnFilename(ef.effectScript, parm1, parm2, "none", "none");
-                    	    gv.cc.doEffectScript(pc, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                            gv.cc.doEffectScript(pc, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
                         }
                     }
                 }
@@ -1816,10 +1913,6 @@ namespace IceBlink2
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {                            
                             //do script for each effect
-                    	    //sf.CombatSource = crtr;
-                            //String parm1 = ef.currentDurationInUnits + "";
-                    	    //String parm2 = ef.durationInUnits + "";
-                            //doScriptBasedOnFilename(ef.effectScript, parm1, parm2, "none", "none");
                     	    gv.cc.doEffectScript(crtr, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
                         }
                     }
@@ -1848,127 +1941,9 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-        	    //IBMessageBox().Show(com_game, ex.ToString());
+        	    IBMessageBox.Show(gv, ex.ToString());
             }
     	    checkEndEncounter();
-        }
-    
-	    public void endCreatureTurn()
-	    {
-		    canMove = true;
-		    gv.sf.ActionToTake = null;
-		    gv.sf.SpellToCast = null;
-            if (checkEndEncounter()) 
-            { 
-        	    return;
-            } 
-		    creatureIndex++;
-		    if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
-		    {
-			    //touchEnabled = true;
-			    creatureIndex = 0;
-			    startNextRoundStuff();
-		    }
-		    else
-		    {
-			    doCreatureTurn();		
-		    }
-	    }
-        public void doStandardCreatureAttack()
-        {
-    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-    	    Player pc = (Player)gv.sf.CombatTarget;
-        
-    	    bool hit = false;
-    	    for (int i = 0; i < crt.cr_numberOfAttacks; i++)
-            {
-                //this reduces the to hit bonus for each further creature attack by an additional -5
-                //creatureMultAttackPenalty = 5 * i;            
-                bool hitreturn = doActualCreatureAttack(pc, crt, i);
-                if (hitreturn) { hit = true; }
-                if (pc.hp <= 0)
-                {
-                    break; //do not try and attack same PC that was just killed
-                }
-            }
-    	
-    	    //play attack sound for melee
-    	    if (!crt.cr_category.Equals("Ranged")) 
-    	    {
-    		    gv.PlaySound(crt.cr_attackSound);
-    	    }
-    	    	
-    	    if (hit)
-    	    {
-    		    drawHitAnimation = true;
-        	    hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-        	    gv.Invalidate();
-        	    animationState = AnimationState.PcHitAnimation;
-        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
-    	    }
-    	    else
-    	    {
-    		    drawMissAnimation = true;
-        	    hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-        	    gv.Invalidate();
-        	    animationState = AnimationState.PcMissedAnimation;
-        	    gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
-    	    }    	
-        }
-        public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
-        {
-    	    int attackRoll = gv.sf.RandInt(20);
-            int attackMod = CalcCreatureAttackModifier(crt);
-            int defense = CalcPcDefense(pc, crt);
-            int damage = CalcCreatureDamageToPc(pc, crt);
-            int attack = attackRoll + attackMod;
-        
-            if ((attack >= defense) || (attackRoll == 20))
-            {
-        	    pc.hp = pc.hp - damage;
-        	    gv.cc.addLogText("<font color='silver'>" +	crt.cr_name + "</font>" +
-        			    "<font color='white'>" + " attacks " + "</font>" +
-        			    "<font color='aqua'>" +	pc.name + "</font>" +
-        			    "<BR>");
-        	    gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
-        			    "<font color='red'>" +	damage + "</font>" +
-        			    "<font color='white'>" + " damage)" + "</font>" +
-        			    "<BR>");        	
-        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
-        			    "<BR>");
-        	
-        	    //#region onScoringHit script of creature
-        	    doOnHitScriptBasedOnFilename(crt.onScoringHit,crt,pc);
-                //#endregion                    	
-        	
-        	    //Draw floaty text showing damage above PC
-                
-        	    int txtH = (int)gv.drawFontReg.Height;
-        	    int shiftUp = 0 - (attackNumber * txtH);
-        	    floatyTextOn = true;
-        	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
-        	    gv.postDelayed("doFloatyText", 100);
-                
-        	    if (pc.hp <= 0)
-                {
-        		    gv.cc.addLogText("<font color='red'>" +	pc.name + " drops down unconsciously!" + "</font>" +
-            			    "<BR>");
-                    pc.charStatus = "Dead";
-                }
-        	    return true;
-            }
-            else
-            {        	
-        	    gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
-        			    "<font color='white'>" + " attacks " + "</font>" +
-        			    "<font color='aqua'>" +	pc.name + "</font>" +
-        			    "<BR>");
-        	    gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font>" +
-        			    "<BR>");
-        	    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font>" +
-        			    "<BR>");        	
-        	    return false;
-            }
         }
     
         //Combat Draw and Touch        
@@ -2085,23 +2060,23 @@ namespace IceBlink2
 		    if (mod.currentEncounter.UseMapImage)
 		    {
 			    IbRect src = new IbRect(0, 0, mapBitmap.Width, mapBitmap.Height);
-	            IbRect dst = new IbRect(0 + gv.oXshift, 0, gv.squareSize * 7 + gv.oXshift, gv.squareSize * 7);
+                IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * mod.currentEncounter.MapSizeX + gv.oXshift, gv.squareSize * mod.currentEncounter.MapSizeY);
 	            gv.DrawBitmap(mapBitmap, src, dst);
 	            //draw grid
 	            if (mod.com_showGrid)
                 {
 		            src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-		            dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);        
-		            for (int x = 0; x < 7; x++)
+		            dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);
+                    for (int x = 0; x < mod.currentEncounter.MapSizeX; x++)
 		            {
-		                for (int y = 0; y < 7; y++)
+                        for (int y = 0; y < mod.currentEncounter.MapSizeY; y++)
 		                {
-		            	    dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize); 
-		            	    if (mod.currentEncounter.encounterTiles[y * 7 + x].LoSBlocked)
+                            dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize);
+                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
 		                    {
 		                	    gv.DrawBitmap(gv.cc.losBlocked, src, dst);
 		                    }
-		                    if (mod.currentEncounter.encounterTiles[y * 7 + x].Walkable != true)
+                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable != true)
 		                    {
                                 gv.DrawBitmap(gv.cc.walkBlocked, src, dst);
 		                    }
@@ -2115,25 +2090,25 @@ namespace IceBlink2
 		    }
 		    else //using tiles
 		    {
-			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-	            IbRect dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);        
-	            for (int x = 0; x < 7; x++)
+			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels/2, gv.squareSizeInPixels/2);
+                IbRect dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);
+                for (int x = 0; x < mod.currentEncounter.MapSizeX; x++)
 	            {
-	                for (int y = 0; y < 7; y++)
+                    for (int y = 0; y < mod.currentEncounter.MapSizeY; y++)
 	                {
-	            	    TileEnc tile = mod.currentEncounter.encounterTiles[y * 7 + x];
-	            	    dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize); 
+                        TileEnc tile = mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x];
+                        dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, gv.squareSize, gv.squareSize); 
 	            	    //draw layer 1
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
 	            	    //draw layer 2            	
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
 	            	    if (mod.com_showGrid)
 	                    {
-		            	    if (mod.currentEncounter.encounterTiles[y * 7 + x].LoSBlocked)
+                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
 		                    {
                                 gv.DrawBitmap(gv.cc.losBlocked, src, dst);
 		                    }
-		                    if (mod.currentEncounter.encounterTiles[y * 7 + x].Walkable != true)
+                            if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable != true)
 		                    {
                                 gv.DrawBitmap(gv.cc.walkBlocked, src, dst);
 		                    }
@@ -2142,6 +2117,10 @@ namespace IceBlink2
                                 gv.DrawBitmap(gv.cc.walkPass, src, dst);
 		                    } 
 	                    }
+                        if (pf.values != null)
+                        {
+                            gv.DrawText(pf.values[x, y].ToString(), x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize);
+                        }
 	                }
 	            }
 		    }
@@ -2150,7 +2129,7 @@ namespace IceBlink2
 	    {
 		    Player p = mod.playerList[currentPlayerIndex];
             IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Width);
-            IbRect dst = new IbRect(p.combatLocX * gv.squareSize + gv.oXshift, p.combatLocY * gv.squareSize, gv.squareSize, gv.squareSize); 
+            IbRect dst = new IbRect(p.combatLocX * gv.squareSize + gv.oXshift + mapStartLocXinPixels, p.combatLocY * gv.squareSize, gv.squareSize, gv.squareSize); 
 		    if (isPlayerTurn)
 		    {
 			    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
@@ -2165,7 +2144,7 @@ namespace IceBlink2
 			    {
 				    src = new IbRect(0, p.token.Width, p.token.Width, p.token.Width);
 			    }
-			    dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize); 
+                dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(pc.token, src, dst);
 			    //canvas.drawBitmap(pc.token, x, y, null);
 			    src = new IbRect(0, 0, p.token.Width, p.token.Width);
@@ -2192,7 +2171,7 @@ namespace IceBlink2
 		    if (drawHitAnimation)
 		    {
 			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(gv.cc.hitSymbol, src, dst);							
 		    }
 	    }
@@ -2201,7 +2180,7 @@ namespace IceBlink2
 		    if (drawMissAnimation)
 		    {
                 IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+                IbRect dst = new IbRect(hitAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, hitAnimationLocation.Y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(gv.cc.missSymbol, src, dst);							
 		    }
 	    }
@@ -2210,7 +2189,7 @@ namespace IceBlink2
 		    if (drawProjectileAnimation)
 		    {
                 IbRect src = new IbRect(animationFrameIndex * gv.squareSize, 0, gv.squareSize, gv.squareSize);
-                IbRect dst = new IbRect(projectileAnimationLocation.X + gv.oXshift, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+                IbRect dst = new IbRect(projectileAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(projectile, src, dst);		
 		    }
 	    }
@@ -2220,10 +2199,10 @@ namespace IceBlink2
 		    {
 			    int height = ending_fx.Height;
                 IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
-                IbRect dst = new IbRect(endingAnimationLocation.X + gv.oXshift, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
+                IbRect dst = new IbRect(endingAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
 			    if (height > 50)
 			    {
-                    dst = new IbRect(endingAnimationLocation.X + gv.oXshift - gv.squareSize, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
+                    dst = new IbRect(endingAnimationLocation.X + gv.oXshift - gv.squareSize + mapStartLocXinPixels, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
 			    }
 			    gv.DrawBitmap(ending_fx, src, dst);							
 		    }
@@ -2259,7 +2238,7 @@ namespace IceBlink2
 			    int x = cr.combatLocX * gv.squareSize;
 			    int y = cr.combatLocY * gv.squareSize;
 			    IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-	            IbRect dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize); 
+                IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
 			    if (!isPlayerTurn)
 			    {
 				    gv.DrawBitmap(gv.cc.turn_marker, src, dst);
@@ -2274,10 +2253,10 @@ namespace IceBlink2
 			    {
 				    src = new IbRect(0, crt.token.Width, crt.token.Width, crt.token.Width);
 			    }
-	            IbRect dst = new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize);
+                IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	            if (crt.token.Width > 100)
 			    {
-	        	    dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
+                    dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift + mapStartLocXinPixels, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
 			    }
 			    gv.DrawBitmap(crt.token, src, dst);
 			    foreach (Effect ef in crt.cr_effectsList)
@@ -2302,7 +2281,7 @@ namespace IceBlink2
 			    int y = targetHighlightCenterLocation.Y * gv.squareSize;
                 int penWidth = 3;
 			    //canvas.drawRect(new Rect(x + oXshift, y, x + squareSize + oXshift, y + squareSize), pnt);			
-			    gv.DrawRoundRectangle(new IbRect(x + gv.oXshift, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
+                gv.DrawRoundRectangle(new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
 		    }
 		    else if (currentCombatMode.Equals("cast"))
 		    {
@@ -2322,7 +2301,7 @@ namespace IceBlink2
                 int penWidth = 3;
 			    int x = (targetHighlightCenterLocation.X * gv.squareSize) - spellAoEinPixels;
 			    int y = (targetHighlightCenterLocation.Y * gv.squareSize) - spellAoEinPixels;
-			    gv.DrawRoundRectangle(new IbRect(x + gv.oXshift, y, gv.squareSize + (2 * spellAoEinPixels), gv.squareSize + (2 * spellAoEinPixels)), cornerRadius, colr, penWidth);
+                gv.DrawRoundRectangle(new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize + (2 * spellAoEinPixels), gv.squareSize + (2 * spellAoEinPixels)), cornerRadius, colr, penWidth);
 		    }
 	    }	            
         public void drawFloatyText()
@@ -2342,9 +2321,9 @@ namespace IceBlink2
 		    }		
 		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
 		    //gv.floatyTextPaint.setColor(Color.YELLOW);
-            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Yellow);
-            gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.Yellow);
-            gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.Yellow);            
+            gv.DrawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Yellow);
+            gv.DrawText(gv.cc.floatyText2, gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.Yellow);
+            gv.DrawText(gv.cc.floatyText3, gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.Yellow);            
 	    }
 	    public void drawHPText()
 	    {		
@@ -2352,11 +2331,11 @@ namespace IceBlink2
 		    {
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 			    {
-				    drawText(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize, crt.hp + "/" + crt.hpMax, Color.Red);			
+                    drawText(crt.combatLocX * gv.squareSize + mapStartLocXinPixels, crt.combatLocY * gv.squareSize, crt.hp + "/" + crt.hpMax, Color.Red);			
 			    }
 			    foreach (Player pc in mod.playerList)
 			    {
-                    drawText(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize, pc.hp + "/" + pc.hpMax, Color.Red);
+                    drawText(pc.combatLocX * gv.squareSize + mapStartLocXinPixels, pc.combatLocY * gv.squareSize, pc.hp + "/" + pc.hpMax, Color.Red);
 			    }
 		    }
 	    }
@@ -2367,11 +2346,11 @@ namespace IceBlink2
 			    int txtH = (int)gv.drawFontReg.Height;
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 			    {
-                    drawText(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize + txtH, "sp: " + crt.sp, Color.Yellow);			
+                    drawText(crt.combatLocX * gv.squareSize + mapStartLocXinPixels, crt.combatLocY * gv.squareSize + txtH, "sp: " + crt.sp, Color.Yellow);			
 			    }
 			    foreach (Player pc in mod.playerList)
 			    {
-                    drawText(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize + txtH, pc.sp + "/" + pc.spMax, Color.Yellow);
+                    drawText(pc.combatLocX * gv.squareSize + mapStartLocXinPixels, pc.combatLocY * gv.squareSize + txtH, pc.sp + "/" + pc.spMax, Color.Yellow);
 			    }
 		    }
 	    }
@@ -2385,12 +2364,12 @@ namespace IceBlink2
 		    {
 			    for (int y = -2; y <= 2; y++)
 			    {
-				    gv.DrawText(text, xLoc + gv.oXshift + x, yLoc + txtH + y, 1.0f, Color.Black);
+                    gv.DrawText(text, xLoc + gv.oXshift + x + mapStartLocXinPixels, yLoc + txtH + y, 1.0f, Color.Black);
 			    }
 		    }		
 		    //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
 		    //gv.floatyTextPaint.setColor(Color.WHITE);
-		    gv.DrawText(text, xLoc + gv.oXshift, yLoc + txtH, 1.0f, colr);
+            gv.DrawText(text, xLoc + gv.oXshift + mapStartLocXinPixels, yLoc + txtH, 1.0f, colr);
 	    }
 	    public void drawFloatyTextList()
 	    {
@@ -2406,7 +2385,7 @@ namespace IceBlink2
 				    {
 					    for (int y = -2; y <= 2; y++)
 					    {
-                            gv.DrawText(ft.value, ft.location.X + x, ft.location.Y + y, 1.0f, Color.Black);
+                            gv.DrawText(ft.value, ft.location.X + x + mapStartLocXinPixels, ft.location.Y + y, 1.0f, Color.Black);
 					    }
 				    }
                     Color colr = Color.Yellow;
@@ -2427,14 +2406,14 @@ namespace IceBlink2
 				    {
                         colr = Color.Red;
 				    }
-                    gv.DrawText(ft.value, ft.location.X, ft.location.Y, 1.0f, colr);
+                    gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels, ft.location.Y, 1.0f, colr);
 			    }
 		    }
 	    }
         public void drawOverlayTints()
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.Width, gv.cc.tint_sunset.Height);
-            IbRect dst = new IbRect(gv.oXshift, 0, gv.squareSize * 7, gv.squareSize * 7);
+            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * mod.currentEncounter.MapSizeX, gv.squareSize * mod.currentEncounter.MapSizeY);
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -3083,7 +3062,7 @@ namespace IceBlink2
                 int gridx = (int) e.X / gv.squareSize - 4;
                 int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
-			    if (gridy < 7)
+                if (gridy < mod.currentEncounter.MapSizeY)
 			    {
 				    gv.cc.floatyText = "";
 				    gv.cc.floatyText2 = "";
@@ -3305,7 +3284,7 @@ namespace IceBlink2
                 int gridx = (int) e.X / gv.squareSize - 4;
 			    int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
 
-			    if (gridy < 7)
+                if (gridy < mod.currentEncounter.MapSizeY)
 			    {
 				    gv.cc.floatyText = "";
 				    gv.cc.floatyText2 = "";
@@ -3623,7 +3602,7 @@ namespace IceBlink2
                 //int gridx = (int) e.X / gv.squareSize - 4;
 			    //int gridy = (int) (e.Y - (gv.squareSize / 2)) / gv.squareSize;
                     //end of changes
-			    if (gridy < 7)
+                if (gridy < mod.currentEncounter.MapSizeY)
 			    {
 				    gv.cc.floatyText = "";
 				    gv.cc.floatyText2 = "";
@@ -3824,8 +3803,8 @@ namespace IceBlink2
                 break;
 		    }
 	    }
-        
-	
+
+        //Helper Methods
 	    public void setTargetHighlightStartLocation(Player pc)
 	    {
 		    targetHighlightCenterLocation.X = pc.combatLocX;
@@ -3890,7 +3869,7 @@ namespace IceBlink2
 		    }
 		    return false;
 	    }
-	    public Object getCastTarget(Player pc)
+	    public object getCastTarget(Player pc)
 	    {
 		    if (isInRange(pc))
 		    {
@@ -4021,7 +4000,7 @@ namespace IceBlink2
                         int gridy = nextPoint.Y / gv.squareSize;
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                       
@@ -4045,7 +4024,7 @@ namespace IceBlink2
                         int gridy = nextPoint.Y / gv.squareSize;
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                      
@@ -4078,7 +4057,7 @@ namespace IceBlink2
                         int gridy = nextPoint.Y / gv.squareSize;
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                      
@@ -4102,7 +4081,7 @@ namespace IceBlink2
                         int gridy = nextPoint.Y / gv.squareSize;
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }                       
@@ -4154,7 +4133,7 @@ namespace IceBlink2
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -4183,7 +4162,7 @@ namespace IceBlink2
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -4221,7 +4200,7 @@ namespace IceBlink2
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }
@@ -4250,7 +4229,7 @@ namespace IceBlink2
                         if (gridy > 6) { gridy = 6; }
                         if (gridy < 0) { gridy = 0; }
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                        if (mod.currentEncounter.encounterTiles[gridy * 7 + gridx].LoSBlocked)
+                        if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
                         }   
@@ -4275,8 +4254,8 @@ namespace IceBlink2
             return dist;
 	    }
 	    public bool isWalkable(int x, int y)
-	    {		
-		    if (!mod.currentEncounter.encounterTiles[y * 7 + x].Walkable)
+	    {
+            if (!mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].Walkable)
             {
         	    return false;
             }

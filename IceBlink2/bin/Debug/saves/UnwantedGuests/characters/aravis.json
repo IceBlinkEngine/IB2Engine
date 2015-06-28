@@ -1,0 +1,119 @@
+{
+  "tokenFilename": "pc_fh_clr1_pc",
+  "steathModeOn": false,
+  "mainPc": false,
+  "nonRemoveablePc": false,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "name": "Aravis",
+  "tag": "aravis",
+  "raceTag": "elf",
+  "classTag": "cleric",
+  "knownSpellsTags": [
+    "minorHealing"
+  ],
+  "knownTraitsTags": [
+    "diplomacy"
+  ],
+  "effectsList": [],
+  "classLevel": 1,
+  "isMale": false,
+  "charStatus": "Alive",
+  "baseFortitude": 2,
+  "baseWill": 2,
+  "baseReflex": 0,
+  "fortitude": 4,
+  "will": 5,
+  "reflex": 3,
+  "strength": 15,
+  "dexterity": 17,
+  "intelligence": 16,
+  "charisma": 9,
+  "baseStr": 17,
+  "baseDex": 15,
+  "baseInt": 16,
+  "baseCha": 9,
+  "ACBase": 10,
+  "AC": 13,
+  "classBonus": 0,
+  "baseAttBonus": 0,
+  "baseAttBonusAdders": 0,
+  "hp": 10,
+  "hpMax": 10,
+  "sp": 13,
+  "spMax": 13,
+  "XP": 0,
+  "XPNeeded": 150,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "AmmoRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 10,
+  "damageTypeResistanceTotalPoison": 0
+}

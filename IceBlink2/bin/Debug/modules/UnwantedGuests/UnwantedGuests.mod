@@ -106,7 +106,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 8731,
+  "nextIdNumber": 8733,
   "WorldTime": 240,
   "startingArea": "brinsby",
   "startingPlayerPositionX": 6,

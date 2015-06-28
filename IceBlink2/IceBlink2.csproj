@@ -120,6 +120,7 @@
     <Compile Include="ModuleInfo.cs" />
     <Compile Include="MouseEventType.cs" />
     <Compile Include="PathFinder.cs" />
+    <Compile Include="PathFinderEncounters.cs" />
     <Compile Include="PathFinderAreas.cs" />
     <Compile Include="ItemListSelector.cs">
       <SubType>Form</SubType>
