@@ -76,9 +76,9 @@ namespace IceBlink2
             grid = new int[mod.currentEncounter.MapSizeX, mod.currentEncounter.MapSizeY];
             values = new int[mod.currentEncounter.MapSizeX, mod.currentEncounter.MapSizeY];
             //create the grid with 1s and 0s
-            for (int col = 0; col < mod.currentEncounter.MapSizeX; col++)
+            for (int col = 0; col < mod.currentEncounter.MapSizeY; col++)
     	    {
-                for (int row = 0; row < mod.currentEncounter.MapSizeY; row++)
+                for (int row = 0; row < mod.currentEncounter.MapSizeX; row++)
     		    {
     			    if (isWalkable(col,row))
     			    {
