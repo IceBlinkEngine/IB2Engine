@@ -14,27 +14,28 @@ namespace IceBlink2
 {
     public class Encounter 
     {
-	    public String encounterName = "newEncounter";
-	    public String MapImage = "none";
+	    public string encounterName = "newEncounter";
+	    public string MapImage = "none";
 	    public bool UseMapImage = false;
         public bool UseDayNightCycle = false;
+        public int MapSizeX = 7;
+        public int MapSizeY = 7;
         public List<TileEnc> encounterTiles = new List<TileEnc>();
-	    //m=mud, b=black, g=grass, t=tree, r=rock, w=stone wall, s=stone floor
-        public List<CreatureRefs> encounterCreatureRefsList = new List<CreatureRefs>();
+	    public List<CreatureRefs> encounterCreatureRefsList = new List<CreatureRefs>();
         [JsonIgnore]
 	    public List<Creature> encounterCreatureList = new List<Creature>();
         public List<ItemRefs> encounterInventoryRefsList = new List<ItemRefs>();
         public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
 	    public int goldDrop = 0;
-	    public String AreaMusic = "none";
+	    public string AreaMusic = "none";
 	    public int AreaMusicDelay = 0;
 	    public int AreaMusicDelayRandomAdder = 0;
-	    public String OnStartCombatRoundLogicTree = "none";
-	    public String OnStartCombatRoundParms = "";
-	    public String OnStartCombatTurnLogicTree = "none";
-	    public String OnStartCombatTurnParms = "";
-	    public String OnEndCombatLogicTree = "none";
-	    public String OnEndCombatParms = "";
+	    public string OnStartCombatRoundLogicTree = "none";
+	    public string OnStartCombatRoundParms = "";
+	    public string OnStartCombatTurnLogicTree = "none";
+	    public string OnStartCombatTurnParms = "";
+	    public string OnEndCombatLogicTree = "none";
+	    public string OnEndCombatParms = "";
     
 	    public Encounter()
 	    {
