@@ -292,6 +292,7 @@ namespace IceBlink2
             
             if (element[0].StartsWith("%Mod"))
             {
+                //just added testing comment
                 ModAssignment(element, indexNum);                
             }
             else if (element[0].StartsWith("%Player"))
