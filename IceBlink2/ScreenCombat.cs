@@ -17,6 +17,7 @@ namespace IceBlink2
 	    public bool canMove = true;
 	    public int currentPlayerIndex = 0;
 	    private int currentCreatureIndex = 0;
+        public int currentMoves = 0; 
         public Coordinate UpperLeftSquare = new Coordinate();
 	    public string currentCombatMode = "info"; //info, move, cast, attack
 	    private Coordinate targetHighlightCenterLocation = new Coordinate();
@@ -2679,13 +2680,73 @@ namespace IceBlink2
         #region Keyboard Input
         public void onKeyUp(Keys keyData)
         {
+            if (keyData == Keys.M)
+            {
+                if (canMove)
+                {
+                    currentCombatMode = "move";
+                    gv.screenType = "combat";
+                }
+            }
+            else if (keyData == Keys.A)
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                currentCombatMode = "attack";
+                gv.screenType = "combat";
+                setTargetHighlightStartLocation(pc);
+            }
+            else if (keyData == Keys.P)
+            {
+                if (currentPlayerIndex > mod.playerList.Count - 1)
+                {
+                    return;
+                }
+                gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                int cntPCs = 0;
+                foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
+                {
+                    if (cntPCs < mod.playerList.Count)
+                    {
+                        btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
+                    }
+                    cntPCs++;
+                }
+                gv.screenType = "combatParty";
+            }
+            else if (keyData == Keys.I)
+            {
+                gv.screenType = "combatInventory";
+            }
+            else if (keyData == Keys.S)
+            {
+                gv.screenType = "combat";
+                endPcTurn(false);
+            }
+            else if (keyData == Keys.C)
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if (pc.knownSpellsTags.Count > 0)
+                {
+                    currentCombatMode = "castSelector";
+                    gv.screenType = "combatCast";
+                    gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                    spellSelectorIndex = 0;
+                    setTargetHighlightStartLocation(pc);
+                }
+                else
+                {
+                    //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                }
+            }
+
             #region Move Map
             if (keyData == Keys.Up)
             {
                 if (UpperLeftSquare.Y > 0)
                 {
                     UpperLeftSquare.Y--;
-                }                
+                }
+                return;
             }
             else if (keyData == Keys.Left)
             {
@@ -2693,6 +2754,7 @@ namespace IceBlink2
                 {
                     UpperLeftSquare.X--;
                 }
+                return;
             }
             else if (keyData == Keys.Down)
             {
@@ -2700,6 +2762,7 @@ namespace IceBlink2
                 {
                     UpperLeftSquare.Y++;
                 }
+                return;
             }
             else if (keyData == Keys.Right)
             {
@@ -2707,9 +2770,10 @@ namespace IceBlink2
                 {
                     UpperLeftSquare.X++;
                 }
+                return;
             }
-#endregion
-
+            #endregion
+            #region Move PC mode
             if (currentCombatMode.Equals("move"))
             {
                 Player pc = mod.playerList[currentPlayerIndex];
@@ -2745,7 +2809,65 @@ namespace IceBlink2
                 {
                     MoveDownRight(pc);
                 }
+                return;
             }
+            #endregion
+            #region Move Targeting Mode
+            if (currentCombatMode.Equals("attack"))
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if (keyData == Keys.NumPad5)
+                {
+                    TargetAttack(pc);
+                    return;
+                }                
+            }
+            if (currentCombatMode.Equals("cast"))
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if (keyData == Keys.NumPad5)
+                {
+                    TargetCast(pc);
+                    return;
+                }                
+            }
+            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+            {
+                if (keyData == Keys.NumPad7)
+                {
+                    MoveTarget(7);
+                }
+                else if (keyData == Keys.NumPad8)
+                {
+                    MoveTarget(8);
+                }
+                else if (keyData == Keys.NumPad9)
+                {
+                    MoveTarget(9);
+                }
+                else if (keyData == Keys.NumPad4)
+                {
+                    MoveTarget(4);
+                }
+                else if (keyData == Keys.NumPad6)
+                {
+                    MoveTarget(6);
+                }
+                else if (keyData == Keys.NumPad1)
+                {
+                    MoveTarget(1);
+                }
+                else if (keyData == Keys.NumPad2)
+                {
+                    MoveTarget(2);
+                }
+                else if (keyData == Keys.NumPad3)
+                {
+                    MoveTarget(3);
+                }
+                return;
+            }
+            #endregion
         }
         #endregion
 
@@ -2753,7 +2875,6 @@ namespace IceBlink2
         public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //TODOgv.cc.onTouchLog();
-
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
@@ -3412,6 +3533,8 @@ namespace IceBlink2
                         //Check for second tap so TARGET
                         if ((gridx + UpperLeftSquare.X == targetHighlightCenterLocation.X) && (gridy + UpperLeftSquare.Y == targetHighlightCenterLocation.Y))
                         {
+                            TargetAttack(pc);
+                            /*
                             if (isValidAttackTarget(pc))
                             {
                                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
@@ -3442,7 +3565,7 @@ namespace IceBlink2
                                     animationState = AnimationState.PcRangedAttackAnimation;
                                 }
                                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
-                            }
+                            }*/
                         }
                         targetHighlightCenterLocation.Y = gridy + UpperLeftSquare.Y;
                         targetHighlightCenterLocation.X = gridx + UpperLeftSquare.X;
@@ -3453,82 +3576,56 @@ namespace IceBlink2
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (targetHighlightCenterLocation.Y > 0)
-                        {
-                            targetHighlightCenterLocation.Y--;
-                        }
+                        MoveTarget(8);
                     }
                     else if (gv.cc.ctrlDownArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (targetHighlightCenterLocation.Y < 6)
-                        {
-                            targetHighlightCenterLocation.Y++;
-                        }
+                        MoveTarget(2);
                     }
                     else if (gv.cc.ctrlLeftArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (targetHighlightCenterLocation.X > 0)
-                        {
-                            targetHighlightCenterLocation.X--;
-                        }
+                        MoveTarget(4);
                     }
                     else if (gv.cc.ctrlRightArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (targetHighlightCenterLocation.X < 6)
-                        {
-                            targetHighlightCenterLocation.X++;
-                        }
+                        MoveTarget(6);
                     }
                     else if (gv.cc.ctrlUpRightArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y > 0))
-                        {
-                            targetHighlightCenterLocation.X++;
-                            targetHighlightCenterLocation.Y--;
-                        }
+                        MoveTarget(9);
                     }
                     else if (gv.cc.ctrlDownRightArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if ((targetHighlightCenterLocation.X < 6) && (targetHighlightCenterLocation.Y < 6))
-                        {
-                            targetHighlightCenterLocation.X++;
-                            targetHighlightCenterLocation.Y++;
-                        }
+                        MoveTarget(3);
                     }
                     else if (gv.cc.ctrlUpLeftArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y > 0))
-                        {
-                            targetHighlightCenterLocation.X--;
-                            targetHighlightCenterLocation.Y--;
-                        }
+                        MoveTarget(7);
                     }
                     else if (gv.cc.ctrlDownLeftArrow.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < 6))
-                        {
-                            targetHighlightCenterLocation.X--;
-                            targetHighlightCenterLocation.Y++;
-                        }
+                        MoveTarget(1);
                     }
                     else if (btnSelect.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        TargetAttack(pc);
+                        /*
                         if (isValidAttackTarget(pc))
                         {
                             if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
@@ -3557,6 +3654,7 @@ namespace IceBlink2
                             }
                             gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
                         }
+                        */
                     }
                     else if (btnMove.getImpact(x, y))
                     {
@@ -3726,7 +3824,8 @@ namespace IceBlink2
                         //Check for second tap so TARGET
                         if ((gridx + UpperLeftSquare.X == targetHighlightCenterLocation.X) && (gridy + UpperLeftSquare.Y == targetHighlightCenterLocation.Y))
                         {
-                            int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                            TargetCast(pc);
+                            /*int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                             int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
                             int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
                             int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
@@ -3750,7 +3849,7 @@ namespace IceBlink2
                                 gv.Invalidate();
                                 animationState = AnimationState.PcCastAttackAnimation;
                                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
-                            }
+                            }*/
                         }
                         targetHighlightCenterLocation.Y = gridy + UpperLeftSquare.Y;
                         targetHighlightCenterLocation.X = gridx + UpperLeftSquare.X;
@@ -3835,6 +3934,8 @@ namespace IceBlink2
                     }
                     else if (btnSelect.getImpact(x, y))
                     {
+                        TargetCast(pc);
+                        /*
                         int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                         int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
                         int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
@@ -3861,7 +3962,7 @@ namespace IceBlink2
                             gv.Invalidate();
                             animationState = AnimationState.PcCastAttackAnimation;
                             gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
-                        }
+                        }*/
                         //Toast.makeText(gameContext, "Selected", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnMove.getImpact(x, y))
@@ -3921,6 +4022,101 @@ namespace IceBlink2
         }
         #endregion
 
+        public void MoveTarget(int numPadDirection)
+        {
+            switch (numPadDirection)
+            {
+                case 8: //up
+                    if (targetHighlightCenterLocation.Y > 0) 
+                    {
+                        targetHighlightCenterLocation.Y--;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.Y++;
+                        }
+                    }
+                    break;
+                case 2: //down
+                    if (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1)
+                    {
+                        targetHighlightCenterLocation.Y++;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.Y--;
+                        }
+                    }
+                    break;
+                case 4: //left
+                    if (targetHighlightCenterLocation.X > 0)
+                    {
+                        targetHighlightCenterLocation.X--;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X++;
+                        }
+                    }
+                    break;
+                case 6: //right
+                    if (targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1)
+                    {
+                        targetHighlightCenterLocation.X++;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X--;
+                        }
+                    }
+                    break;
+                case 9: //upright
+                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y > 0))
+                    {
+                        targetHighlightCenterLocation.X++;
+                        targetHighlightCenterLocation.Y--;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X--;
+                            targetHighlightCenterLocation.Y++;
+                        }
+                    }
+                    break;
+                case 3: //downright
+                    if ((targetHighlightCenterLocation.X < mod.currentEncounter.MapSizeX - 1) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    {
+                        targetHighlightCenterLocation.X++;
+                        targetHighlightCenterLocation.Y++;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X--;
+                            targetHighlightCenterLocation.Y--;
+                        }
+                    }
+                    break;
+                case 7: //upleft
+                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y > 0))
+                    {
+                        targetHighlightCenterLocation.X--;
+                        targetHighlightCenterLocation.Y--;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X++;
+                            targetHighlightCenterLocation.Y++;
+                        }
+                    }
+                    break;
+                case 1: //downleft
+                    if ((targetHighlightCenterLocation.X > 0) && (targetHighlightCenterLocation.Y < mod.currentEncounter.MapSizeY - 1))
+                    {
+                        targetHighlightCenterLocation.X--;
+                        targetHighlightCenterLocation.Y++;
+                        if (!IsInVisibleCombatWindow(targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y))
+                        {
+                            targetHighlightCenterLocation.X++;
+                            targetHighlightCenterLocation.Y--;
+                        }
+                    }
+                    break;
+            }
+            
+        }
         public void MoveUp(Player pc)
         {
             if (pc.combatLocY > 0)
@@ -4065,6 +4261,67 @@ namespace IceBlink2
                     setTargetHighlightStartLocation(pc);
                     //endPcTurn();
                 }
+            }
+        }
+        public void TargetAttack(Player pc)
+        {
+            if (isValidAttackTarget(pc))
+            {
+                if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.token = gv.cc.flip(pc.token);
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.token = gv.cc.flip(pc.token);
+                    pc.combatFacingLeft = false;
+                }
+                gv.touchEnabled = false;
+                creatureToAnimate = null;
+                playerToAnimate = pc;
+                gv.Invalidate();
+                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                        || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                {
+                    animationState = AnimationState.PcMeleeAttackAnimation;
+                }
+                else
+                {
+                    //play attack sound for ranged
+                    gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    animationState = AnimationState.PcRangedAttackAnimation;
+                }
+                gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+            }
+        }
+        public void TargetCast(Player pc)
+        {
+            int endX = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+            int endY = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+            int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+
+            if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
+            {
+                if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.token = gv.cc.flip(pc.token);
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.token = gv.cc.flip(pc.token);
+                    pc.combatFacingLeft = false;
+                }
+                //doCombatCast(pc);
+                gv.touchEnabled = false;
+                creatureToAnimate = null;
+                playerToAnimate = pc;
+                gv.Invalidate();
+                animationState = AnimationState.PcCastAttackAnimation;
+                gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
             }
         }
         

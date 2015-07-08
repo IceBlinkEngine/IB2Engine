@@ -3848,6 +3848,14 @@ namespace IceBlink2
             armBonus = CalcArmorBonuses(pc);
             acMods = CalcACModifiers(pc);
             pc.AC = pc.ACBase + dMod + armBonus + acMods;
+            /*if (pc.Body.ArmorWeightType == Item.ArmorWeight.Light) //SD_20131116
+            {
+                pc.MoveDistance = pc.Race.MoveDistanceLightArmor + CalcMovementBonuses(pc);
+            }
+            else //medium or heavy SD_20131116
+            {
+                pc.MoveDistance = pc.Race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc);
+            }*/
             foreach (Effect ef in pc.effectsList)
             {
                 if (ef.usedForUpdateStats)
@@ -4112,6 +4120,19 @@ namespace IceBlink2
             mdb = mod.getItemByResRefForInfo(pc.Ring2Refs.resref).maxDexBonus;
             if (mdb < armMaxDexBonuses) { armMaxDexBonuses = mdb; }
             return armMaxDexBonuses;
+        }
+        public static int CalcMovementBonuses(Player pc)
+        {
+            int moveBonuses = 0;
+            /*moveBonuses += pc.Head.MovementPointModifier;
+            moveBonuses += pc.Neck.MovementPointModifier;
+            moveBonuses += pc.Body.MovementPointModifier;
+            moveBonuses += pc.MainHand.MovementPointModifier;
+            moveBonuses += pc.OffHand.MovementPointModifier;
+            moveBonuses += pc.Ring1.MovementPointModifier;
+            moveBonuses += pc.Ring2.MovementPointModifier;
+            moveBonuses += pc.Feet.MovementPointModifier;*/
+            return moveBonuses;
         }
         public void RunAllItemWhileEquippedScripts(Player pc)
         {

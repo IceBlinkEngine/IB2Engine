@@ -20,6 +20,8 @@ namespace IceBlink2
         public bool nonRemoveablePc = false;
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
+        public int moveDistance = 5;
+        public int baseMoveDistance = 5;
 	    public string name = "newCreature";	
 	    public string tag = "newTag";	
 	    public string raceTag = "newRace";
