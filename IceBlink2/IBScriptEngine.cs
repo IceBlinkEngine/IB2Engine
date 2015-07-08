@@ -20,8 +20,8 @@ namespace IceBlink2
         public List<ForBlock> ForBlocksList = new List<ForBlock>();
         public List<IfBlock> IfBlocksList = new List<IfBlock>();
         public float helpResult;
-       
-        
+
+
         //The following are the keywords used:
         //if
         //else
@@ -107,7 +107,7 @@ namespace IceBlink2
                 else if (line.StartsWith("else"))
                 {
                     //add else location to current stack ifBlock
-                    IfBlockStack[IfBlockStack.Count - 1].elseLineNumber = i;                    
+                    IfBlockStack[IfBlockStack.Count - 1].elseLineNumber = i;
                 }
                 else if (line.StartsWith("endif"))
                 {
@@ -128,7 +128,7 @@ namespace IceBlink2
             {
                 //remove all leading white space
                 string line = lines[i].TrimStart(' ');
-                
+
                 if (line.StartsWith("@"))
                 {
                     DoNumberAssignment(line);
@@ -155,12 +155,12 @@ namespace IceBlink2
                 }
                 else if (line.StartsWith("else"))
                 {
-                    i = DoElse(line, i);                   
+                    i = DoElse(line, i);
                 }
                 else if (line.StartsWith("endif"))
                 {
                     continue; //ignore and move to next line
-                }                
+                }
                 else if (line.StartsWith("for"))
                 {
                     i = DoFor(line, i);
@@ -191,7 +191,7 @@ namespace IceBlink2
                 }
                 else if (line.StartsWith("return"))
                 {
-                    i = DoReturn(line, i);                                       
+                    i = DoReturn(line, i);
                 }
                 else if ((line.StartsWith("end")) && (!line.StartsWith("endif")))
                 {
@@ -212,18 +212,18 @@ namespace IceBlink2
             else if (element[2].StartsWith("~gc"))
             {
                 fValue = (float)GetFunctionConditionalCheckReturnValue(element[2]);
-            }            
+            }
             else //@k += 2 or @k = @i + 23 - @stuff
             {
                 fValue = CalcualteNumberEquation(element[2]);
             }
-            AddToLocalNumbers(element[0], fValue, element[1]);                                    
+            AddToLocalNumbers(element[0], fValue, element[1]);
         }
         public void DoStringAssignment(string line)
         {
             string[] element = GetLeftMiddleRightSides(line);
             string sideR = ConcateString(element[2]);
-            AddToLocalStrings(element[0], sideR, element[1]);            
+            AddToLocalStrings(element[0], sideR, element[1]);
         }
 
         public void DoFunction(string line)
@@ -238,13 +238,34 @@ namespace IceBlink2
                 string prm4 = parms[3];
 
                 string sub = line.Substring(1, 2);
-               
+
                 if (sub == "ga")
                 {
-               
-                string output = line.Split('~', '(')[1];
-                output += ".cs";
-                gv.sf.gaController(output, prm1, prm2, prm3, prm4);
+
+                    string output = line.Split('~', '(')[1];
+                    output += ".cs";
+
+                    //yn1: added Gets for global ints and strings: prm1 is the searched global, prm2 is the name of the temporary local to store the value in
+                    //for int: best use @ as first character of the local var to store in (like "~gaGetGlobalInt(questCounter21, @tempInt3)").
+                    //for string: best use $ as first character of the local var to store in (like "~gaGetGlobalString(questCounter21, $tempString3)").
+                    //form here on the temp local var can be used to e.g. assign its value to object properties via %... or just work with the value via $... or @... 
+                    if (output == "gaGetGlobalInt.cs")
+                    {
+                        float temp = (int)gv.sf.GetGlobalInt(prm1);
+                        AddToLocalNumbers(prm2, temp, "="); 
+
+                    }
+                    else if (output == "gaGetGlobalString.cs")
+                    {
+                        string temp = gv.sf.GetGlobalString(prm1);
+                        AddToLocalStrings(prm2, temp, "=");
+                    }
+                    //end of changes
+
+                    else
+                    {
+                        gv.sf.gaController(output, prm1, prm2, prm3, prm4);
+                    }
                 }
 
                 if (sub == "og")
@@ -267,7 +288,7 @@ namespace IceBlink2
             catch
             {
             }
-            
+
             /*
                 if (line.StartsWith("~gaTakeItem("))
                 {  
@@ -289,10 +310,11 @@ namespace IceBlink2
             string index = GetBetween(element[0], '[', ']');
             string indexReplaced = ReplaceParameter(index);
             int indexNum = (int)Convert.ToDouble(indexReplaced);
-            
+
             if (element[0].StartsWith("%Mod"))
             {
-                ModAssignment(element, indexNum);                
+                //just added testing comment
+                ModAssignment(element, indexNum);
             }
             else if (element[0].StartsWith("%Player"))
             {
@@ -357,7 +379,7 @@ namespace IceBlink2
             //if false go to the line just after 'next'
             if (!retForEval)
             {
-                return fb.nextLineNumber;                
+                return fb.nextLineNumber;
             }
             return i;
         }
@@ -509,7 +531,7 @@ namespace IceBlink2
                     helpResult /= val;
                     gv.mod.playerList[indexNum].hp = (int)helpResult;
                 }
-                    //yn1: avoided using % because I wasnt sure if this would lead to confusion with already reserved usage of % for object property identification
+                //yn1: avoided using % because I wasnt sure if this would lead to confusion with already reserved usage of % for object property identification
                 else if (element[1] == "./.=")
                 {
                     gv.mod.playerList[indexNum].hp %= val;
@@ -1666,18 +1688,18 @@ namespace IceBlink2
         }
         public void ModAssignment(string[] element, int indexNum)
         {
-            
+
         }
         #endregion
 
         #region ga Functions
         public void gaTakeItem(string[] parms)
         {
-           
+
         }
         public void gaShowFloatyTextOnMainMap(string[] parms)
         {
-            
+
         }
         #endregion
 
@@ -1754,7 +1776,7 @@ namespace IceBlink2
         public IfBlock CreateIfBlock(string line, int i)
         {
             string conditional = GetBetween(line, '(', ')');
-                        
+
             IfBlock newIB = new IfBlock();
             newIB.ifLineNumber = i;
             newIB.ifConditional = conditional;
@@ -1810,7 +1832,7 @@ namespace IceBlink2
             string[] element = GetLeftMiddleRightSides(removeParenth);
 
             string sLeft = ReplaceParameter(element[0]);
-            
+
             //check to see if it is a number
             double d;
             bool testNumeric = double.TryParse(sLeft, out d);
@@ -1872,9 +1894,9 @@ namespace IceBlink2
                     }
                 }
             }
-            
+
             return false;
-        }        
+        }
         public string ConcateString(string startString)
         {
             List<string> stringParts = new List<string>();
@@ -1891,7 +1913,7 @@ namespace IceBlink2
                     continue;
                 }
                 if (c == '"') //exiting a quote area
-                { 
+                {
                     inQuote = false;
                     part += c;
                     continue;
@@ -1910,7 +1932,7 @@ namespace IceBlink2
                 {
                     part += c;
                     continue;
-                }                
+                }
             }
             //add what ever was left over after the last '+' to the List
             stringParts.Add(part);
@@ -1937,7 +1959,7 @@ namespace IceBlink2
             string[] element = SplitTrimRemoveBlanks(sRightSide);
             float retValue = 0;
 
-            for (int x = 0; x < element.Length;  x++)
+            for (int x = 0; x < element.Length; x++)
             {
                 if ((element[x] != "+") && (element[x] != "-") && (element[x] != "*") && (element[x] != "/") && (element[x] != "./."))
                 {
@@ -1945,7 +1967,7 @@ namespace IceBlink2
                     float numR = (float)Convert.ToDouble(ReplaceParameter(element[x]));
                     if (x > 1) //use last operator and calculate new value
                     {
-                        if (element[x-1] == "+")
+                        if (element[x - 1] == "+")
                         {
                             retValue += numR;
                         }
@@ -1971,15 +1993,15 @@ namespace IceBlink2
                         retValue = numR;
                     }
                 }
-            }            
+            }
             return retValue;
         }
-        
+
         public void AddToLocalNumbers(string varName, float varNum, string assignType)
-        {            
+        {
             //check to see if already in list and replace
             if (localNumbers.ContainsKey(varName))
-            {                
+            {
                 //check to see if it is = or += or -=
                 if (assignType == "=")
                 {
@@ -2016,7 +2038,7 @@ namespace IceBlink2
                     helpResult /= varNum;
                     localNumbers[varName] = (int)helpResult;
                 }
-               
+
             }
             else //if not in list then add
             {
@@ -2043,11 +2065,11 @@ namespace IceBlink2
                 else if (assignType == "+=")
                 {
                     localStrings[varName] += varString;
-                }                
+                }
             }
             else //if not in list then add
             {
-                localStrings.Add(varName, varString);                
+                localStrings.Add(varName, varString);
             }
         }
         public string[] GetLeftMiddleRightSides(string line)
@@ -2075,7 +2097,7 @@ namespace IceBlink2
 
             foreach (char c in str)
             {
-                if ((!startRecording) && (c == start)) 
+                if ((!startRecording) && (c == start))
                 {
                     startRecording = true;
                     continue;
@@ -2285,7 +2307,7 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison.ToString();
                     }
-                    
+
                 }
                 #endregion
             }
