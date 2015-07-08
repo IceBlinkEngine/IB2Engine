@@ -238,18 +238,33 @@ namespace IceBlink2
                 string prm4 = parms[3];
 
                 string sub = line.Substring(1, 2);
-               
+
                 if (sub == "ga")
                 {
-               
-                string output = line.Split('~', '(')[1];
-                output += ".cs";
-                gv.sf.gaController(output, prm1, prm2, prm3, prm4);
+                    string output = line.Split('~', '(')[1];
+                    output += ".cs";
+                    //yn1: added Gets for global ints and strings: prm1 is the searched global, prm2 is the name of the temporary local to store the value in
+                    //for int: best use @ as first character of the local var to store in (like "~gaGetGlobalInt(questCounter21, @tempInt3)").
+                    //for string: best use $ as first character of the local var to store in (like "~gaGetGlobalString(questCounter21, $tempString3)").
+                    //form here on the temp local var can be used to e.g. assign its value to object properties via %... or just work with the value via $... or @... 
+                    if (output == "gaGetGlobalInt.cs")
+                    {
+                        float temp = (int)gv.sf.GetGlobalInt(prm1);
+                        AddToLocalNumbers(prm2, temp, "=");
+                    }
+                    else if (output == "gaGetGlobalString.cs")
+                    {
+                        string temp = gv.sf.GetGlobalString(prm1);
+                        AddToLocalStrings(prm2, temp, "=");
+                    }
+                    //end of changes
+                    else
+                    {
+                        gv.sf.gaController(output, prm1, prm2, prm3, prm4);
+                    }
                 }
-
                 if (sub == "og")
                 {
-
                     string output = line.Split('~', '(')[1];
                     output += ".cs";
                     gv.sf.ogController(output, prm1, prm2, prm3, prm4);
@@ -262,7 +277,6 @@ namespace IceBlink2
                     output += ".cs";
                     gv.sf.osController(output, prm1, prm2, prm3, prm4);
                 }
-
             }
             catch
             {
