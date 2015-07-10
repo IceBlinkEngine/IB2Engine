@@ -29,6 +29,8 @@ namespace IceBlink2
 	    public int damageTypeResistanceValueFire = 0;
 	    public int damageTypeResistanceValueMagic = 0;
 	    public int damageTypeResistanceValuePoison = 0;
+        public int MoveDistanceLightArmor = 6;
+        public int MoveDistanceMediumHeavyArmor = 4;
 	    public List<string> classesAllowed = new List<string>();
 	
 	    public Race()
@@ -54,6 +56,8 @@ namespace IceBlink2
 		    copy.damageTypeResistanceValueFire = this.damageTypeResistanceValueFire;
 		    copy.damageTypeResistanceValueMagic = this.damageTypeResistanceValueMagic;
 		    copy.damageTypeResistanceValuePoison = this.damageTypeResistanceValuePoison;
+            copy.MoveDistanceLightArmor = this.MoveDistanceLightArmor;
+            copy.MoveDistanceMediumHeavyArmor = this.MoveDistanceMediumHeavyArmor;
 		    copy.classesAllowed = new List<string>();
             foreach (string s in this.classesAllowed)
             {

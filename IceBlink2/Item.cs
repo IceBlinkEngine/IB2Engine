@@ -21,6 +21,7 @@ namespace IceBlink2
         public string itemImage = "blank";
         [JsonIgnore]
 	    public Bitmap token;
+        public string ArmorWeightType = "Light"; //Light, Medium, Heavy 
         public string tag = "none"; //item unique tag name    
         public string resref = "none"; //item unique tag name    
         public string desc = ""; //item short detailed description
@@ -54,6 +55,7 @@ namespace IceBlink2
 	    public int savingThrowModifierReflex = 0;
 	    public int savingThrowModifierFortitude = 0;
 	    public int savingThrowModifierWill = 0;
+        public int MovementPointModifier = 0;
         public int spRegenPerRoundInCombat = 0;
         public int hpRegenPerRoundInCombat = 0;
         public int roundsPerSpRegenOutsideCombat = 0;
@@ -82,6 +84,7 @@ namespace IceBlink2
 	    {
 		    Item copy = new Item();
 		    copy.name = this.name;
+            copy.ArmorWeightType = this.ArmorWeightType;
 		    copy.itemImage = this.itemImage;
 		    copy.tag = this.tag;
 		    copy.resref = this.resref;
@@ -116,6 +119,7 @@ namespace IceBlink2
 		    copy.savingThrowModifierReflex = this.savingThrowModifierReflex;
 		    copy.savingThrowModifierFortitude = this.savingThrowModifierFortitude;
 		    copy.savingThrowModifierWill = this.savingThrowModifierWill;
+            copy.MovementPointModifier = this.MovementPointModifier;
             copy.spRegenPerRoundInCombat = this.spRegenPerRoundInCombat;
             copy.hpRegenPerRoundInCombat = this.hpRegenPerRoundInCombat;
             copy.roundsPerSpRegenOutsideCombat = this.roundsPerSpRegenOutsideCombat;
