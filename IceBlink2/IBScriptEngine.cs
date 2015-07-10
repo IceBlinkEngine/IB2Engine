@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -303,6 +303,32 @@ namespace IceBlink2
             string index = GetBetween(element[0], '[', ']');
             string indexReplaced = ReplaceParameter(index);
             int indexNum = (int)Convert.ToDouble(indexReplaced);
+
+            int indexNum2 = 0;
+            int indexNum3 = 0;
+            int indexNum4 = 0;
+
+            string index2 = GetBetween(element[0], '{', '}');
+            if (index2 != element[0])
+            {
+                string indexReplaced2 = ReplaceParameter(index2);
+                indexNum2 = (int)Convert.ToDouble(indexReplaced2);
+            }
+
+            string index3 = GetBetween(element[0], '|', '|');
+            if (index3 != element[0])
+            {
+                string indexReplaced3 = ReplaceParameter(index3);
+                indexNum3 = (int)Convert.ToDouble(indexReplaced3);
+            }
+
+            string index4 = GetBetween(element[0], '^', '^');
+            if (index4 != element[0])
+            {
+                string indexReplaced4 = ReplaceParameter(index4);
+                indexNum4 = (int)Convert.ToDouble(indexReplaced4);
+            }
+
             
             if (element[0].StartsWith("%Mod"))
             {
@@ -311,6 +337,10 @@ namespace IceBlink2
             else if (element[0].StartsWith("%Player"))
             {
                 PlayerAssignment(element, indexNum);
+            }
+            else if (element[0].StartsWith("%Prop"))
+            {
+                PropAssignment(element, indexNum, indexNum2);
             }
         }
         public void DoMessage(string line)
@@ -1682,6 +1712,21 @@ namespace IceBlink2
         {
             
         }
+        public void PropAssignment(string[] element, int indexNum, int indexNum2)
+        {
+            if (element[0].EndsWith("isShown"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown = false;
+                }
+            }
+        }
         #endregion
 
         #region ga Functions
@@ -2143,14 +2188,44 @@ namespace IceBlink2
             }
             else if (parm.StartsWith("%"))
             {
+                string index = GetBetween(parm, '[', ']');
+                string indexTrimmed = index.Trim();
+                string indexReplaced = ReplaceParameter(indexTrimmed);
+                int indexNum = (int)Convert.ToDouble(indexReplaced);
+
+                int indexNum2 = 0;
+                int indexNum3 = 0;
+                int indexNum4 = 0;
+
+
+                string index2 = GetBetween(parm, '{', '}');
+                if (index2 != parm)
+                {
+                    string indexTrimmed2 = index2.Trim();
+                    string indexReplaced2 = ReplaceParameter(indexTrimmed2);
+                    indexNum2 = (int)Convert.ToDouble(indexReplaced2);
+                }
+                
+
+                string index3 = GetBetween(parm, '|', '|');
+                if (index3 != parm)
+                {
+                    string indexTrimmed3 = index3.Trim();
+                    string indexReplaced3 = ReplaceParameter(indexTrimmed3);
+                    indexNum3 = (int)Convert.ToDouble(indexReplaced3);
+                }
+
+                string index4 = GetBetween(parm, '^', '^');
+                    if (index4 != parm)
+                    {
+                    string indexTrimmed4 = index4.Trim();
+                    string indexReplaced4 = ReplaceParameter(indexTrimmed4);
+                    indexNum4 = (int)Convert.ToDouble(indexReplaced4);
+                    }
+
                 #region Player
                 if (parm.StartsWith("%Player"))
                 {
-                    string index = GetBetween(parm, '[', ']');
-                    string indexTrimmed = index.Trim();
-                    string indexReplaced = ReplaceParameter(indexTrimmed);
-                    int indexNum = (int)Convert.ToDouble(indexReplaced);
-
                     if (parm.EndsWith("hp"))
                     {
                         return gv.mod.playerList[indexNum].hp.ToString();
@@ -2301,6 +2376,32 @@ namespace IceBlink2
                     }
                     
                 }
+                #endregion
+
+                #region Area
+                else if (parm.StartsWith("%Area"))
+                {
+                    if (parm.EndsWith("numberOfProps"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props.Count.ToString();
+                    }
+                    else if (parm.EndsWith("Filename"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Filename.ToString();
+                    }
+                }
+
+                #endregion
+
+                #region Prop
+                if (parm.StartsWith("%Prop"))
+                {
+                    if (parm.EndsWith("PropTag"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropTag.ToString();
+                    }
+                }
+
                 #endregion
             }
             else if (parm.StartsWith("#"))
