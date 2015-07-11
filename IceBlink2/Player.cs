@@ -21,8 +21,7 @@ namespace IceBlink2
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
         public int moveDistance = 5;
-        public int baseMoveDistance = 5;
-	    public string name = "newCreature";	
+        public string name = "newCreature";	
 	    public string tag = "newTag";	
 	    public string raceTag = "newRace";
         [JsonIgnore]
@@ -94,6 +93,7 @@ namespace IceBlink2
 		      copy.tokenFilename = this.tokenFilename;
 		      copy.combatLocX = this.combatLocX;
 		      copy.combatLocY = this.combatLocY;
+              copy.moveDistance = this.moveDistance;
               copy.mainPc = this.mainPc;
               copy.nonRemoveablePc = this.nonRemoveablePc;
 		      copy.name = this.name;	
