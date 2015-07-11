@@ -125,8 +125,8 @@ namespace IceBlink2
             catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
             this.WindowState = FormWindowState.Maximized;
-            this.Width = 1366;
-            this.Height = 768;
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
+            this.Height = Screen.PrimaryScreen.Bounds.Height;
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
             float sqrW = (float)screenWidth / (float)squaresInWidth;
