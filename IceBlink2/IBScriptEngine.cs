@@ -223,6 +223,7 @@ namespace IceBlink2
         {
             string[] element = GetLeftMiddleRightSides(line);
             string sideR = ConcateString(element[2]);
+            sideR = ReplaceParameter(sideR);
             AddToLocalStrings(element[0], sideR, element[1]);            
         }
 
@@ -1707,6 +1708,176 @@ namespace IceBlink2
                 }
             }
 
+            else if (element[0].EndsWith("moveDistance"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].moveDistance = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].moveDistance += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.playerList[indexNum].moveDistance -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.playerList[indexNum].moveDistance *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.playerList[indexNum].moveDistance;
+                    helpResult /= val;
+                    gv.mod.playerList[indexNum].moveDistance = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.playerList[indexNum].moveDistance %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("combatFacingLeft"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.playerList[indexNum].combatFacingLeft = true;
+                }
+                else
+                {
+                    gv.mod.playerList[indexNum].combatFacingLeft = false;
+                }
+            }
+            else if (element[0].EndsWith("steathModeOn"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.playerList[indexNum].steathModeOn = true;
+                }
+                else
+                {
+                    gv.mod.playerList[indexNum].steathModeOn = false;
+                }
+            }
+            else if (element[0].EndsWith("mainPc"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.playerList[indexNum].mainPc = true;
+                }
+                else
+                {
+                    gv.mod.playerList[indexNum].mainPc = false;
+                }
+            }
+            else if (element[0].EndsWith("nonRemoveablePc"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.playerList[indexNum].nonRemoveablePc = true;
+                }
+                else
+                {
+                    gv.mod.playerList[indexNum].nonRemoveablePc = false;
+                }
+            }
+            else if (element[0].EndsWith("isMale"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.playerList[indexNum].isMale = true;
+                }
+                else
+                {
+                    gv.mod.playerList[indexNum].isMale = false;
+                }
+            }
+
+            else if (element[0].EndsWith("tokenFilename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].tokenFilename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].tokenFilename += val;
+                }
+            }
+
+            else if (element[0].EndsWith("name"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].name = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].name += val;
+                }
+            }
+
+            else if (element[0].EndsWith("tag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].tag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].tag += val;
+                }
+            }
+
+            else if (element[0].EndsWith("raceTag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].raceTag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].raceTag += val;
+                }
+            }
+
+            else if (element[0].EndsWith("classTag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].classTag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].classTag += val;
+                }
+            }
+
+            else if (element[0].EndsWith("charStatus"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.playerList[indexNum].charStatus = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.playerList[indexNum].charStatus += val;
+                }
+            }
+            
         }
         public void ModAssignment(string[] element, int indexNum)
         {
@@ -1726,6 +1897,602 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown = false;
                 }
             }
+
+            else if (element[0].EndsWith("LocationX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("LocationY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PostLocationX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PostLocationY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("WayPointListCurrentIndex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChanceToMove2Squares"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChanceToMove0Squares"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChaserDetectRangeRadius"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChaserGiveUpChasingRangeRadius"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChaserChaseDuration"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("ChaserStartChasingTime"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("RandomMoverRadius"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius %= val;
+                }
+            }
+            else if (element[0].EndsWith("PropFacingLeft"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropFacingLeft = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropFacingLeft = false;
+                }
+            }
+
+            else if (element[0].EndsWith("HasCollision"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].HasCollision = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].HasCollision = false;
+                }
+            }
+
+            else if (element[0].EndsWith("isActive"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isActive = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isActive = false;
+                }
+            }
+
+            else if (element[0].EndsWith("DeletePropWhenThisEncounterIsWon"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].DeletePropWhenThisEncounterIsWon = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].DeletePropWhenThisEncounterIsWon = false;
+                }
+            }
+
+            else if (element[0].EndsWith("isMover"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isMover = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isMover = false;
+                }
+            }
+
+            else if (element[0].EndsWith("isChaser"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isChaser = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isChaser = false;
+                }
+            }
+
+            else if (element[0].EndsWith("isCurrentlyChasing"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isCurrentlyChasing = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isCurrentlyChasing = false;
+                }
+            }
+
+            else if (element[0].EndsWith("ReturningToPost"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (val == 1)
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ReturningToPost = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ReturningToPost = false;
+                }
+            }
+            else if (element[0].EndsWith("ImageFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ImageFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ImageFileName += val;
+                }
+            }
+            else if (element[0].EndsWith("MouseOverText"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MouseOverText = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MouseOverText += val;
+                }
+            }
+            else if (element[0].EndsWith("PropTag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropTag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropTag += val;
+                }
+            }
+            else if (element[0].EndsWith("PropCategoryName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropCategoryName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropCategoryName += val;
+                }
+            }
+            else if (element[0].EndsWith("ConversationWhenOnPartySquare"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ConversationWhenOnPartySquare = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ConversationWhenOnPartySquare += val;
+                }
+            }
+            else if (element[0].EndsWith("EncounterWhenOnPartySquare"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].EncounterWhenOnPartySquare = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].EncounterWhenOnPartySquare += val;
+                }
+            }
+            else if (element[0].EndsWith("MoverType"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MoverType = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MoverType += val;
+                }
+            }
+            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree += val;
+                }
+            }
+            else if (element[0].EndsWith("OnHeartBeatParm"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParm = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParm += val;
+                }
+            }
+            else if (element[0].EndsWith("ImageFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ImageFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ImageFileName += val;
+                }
+            }
+
         }
         #endregion
 
@@ -2156,7 +2923,7 @@ namespace IceBlink2
             string lineJustParms = GetBetween(line, '(', ')');
             return lineJustParms.Split(',').Select(p => p.Trim()).ToArray();
         }
-        public string ReplaceParameter(string parm)
+        public string ReplaceParameter(string parm) 
         {
             //if parm is a variable, grab the value from the proper Dictionary
             if (parm.StartsWith("@"))
@@ -2374,14 +3141,77 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].damageTypeResistanceTotalPoison.ToString();
                     }
-                    
+                     else if (parm.EndsWith("moveDistance"))
+                    {
+                        return gv.mod.playerList[indexNum].moveDistance.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfknownSpellsTags"))
+                    {
+                        return gv.mod.playerList[indexNum].knownSpellsTags.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfknownSpellsList"))
+                    {
+                        return gv.mod.playerList[indexNum].knownSpellsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfknownTraitsTags"))
+                    {
+                        return gv.mod.playerList[indexNum].knownTraitsTags.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfknownTraitsList"))
+                    {
+                        return gv.mod.playerList[indexNum].knownTraitsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfeffectsList"))
+                    {
+                        return gv.mod.playerList[indexNum].effectsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("combatFacingLeft"))
+                    {
+                        return gv.mod.playerList[indexNum].combatFacingLeft.ToString();
+                    }
+                    else if (parm.EndsWith("steathModeOn"))
+                    {
+                        return gv.mod.playerList[indexNum].steathModeOn.ToString();
+                    }
+                    else if (parm.EndsWith("mainPc"))
+                    {
+                        return gv.mod.playerList[indexNum].mainPc.ToString();
+                    }
+                    else if (parm.EndsWith("nonRemoveablePc"))
+                    {
+                        return gv.mod.playerList[indexNum].nonRemoveablePc.ToString();
+                    }
+                    else if (parm.EndsWith("isMale"))
+                    {
+                        return gv.mod.playerList[indexNum].isMale.ToString();
+                    }
+                    else if (parm.EndsWith("tokenFilename"))
+                    {
+                        return gv.mod.playerList[indexNum].tokenFilename.ToString();
+                    }
+                    else if (parm.EndsWith("name"))
+                    {
+                        return gv.mod.playerList[indexNum].name.ToString();
+                    }
+                    else if (parm.EndsWith("tag"))
+                    {
+                        return gv.mod.playerList[indexNum].tag.ToString();
+                    }
+                    else if (parm.EndsWith("raceTag"))
+                    {
+                        return gv.mod.playerList[indexNum].raceTag.ToString();
+                    }
+                    else if (parm.EndsWith("classTag"))
+                    {
+                        return gv.mod.playerList[indexNum].classTag.ToString();
+                    }
                 }
                 #endregion
 
                 #region Area
                 else if (parm.StartsWith("%Area"))
                 {
-                    if (parm.EndsWith("numberOfProps"))
+                    if (parm.EndsWith("SizeOfProps"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props.Count.ToString();
                     }
@@ -2400,6 +3230,137 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropTag.ToString();
                     }
+                    else if (parm.EndsWith("LocationX"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationX.ToString();
+                    }
+                    else if (parm.EndsWith("LocationY"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].LocationY.ToString();
+                    }
+                    else if (parm.EndsWith("PropFacingLeft"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropFacingLeft.ToString();
+                    }
+                    else if (parm.EndsWith("HasCollision"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].HasCollision.ToString();
+                    }
+                    else if (parm.EndsWith("isShown"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown.ToString();
+                    }
+                    else if (parm.EndsWith("isActive"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isActive.ToString();
+                    }
+                    else if (parm.EndsWith("DeletePropWhenThisEncounterIsWon"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].DeletePropWhenThisEncounterIsWon.ToString();
+                    }
+                    else if (parm.EndsWith("PostLocationX"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("PostLocationY"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PostLocationY.ToString();
+                    }
+                    else if (parm.EndsWith("WayPointListCurrentIndex"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointListCurrentIndex.ToString();
+                    }
+                    else if (parm.EndsWith("isMover"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isMover.ToString();
+                    }
+                    else if (parm.EndsWith("ChanceToMove2Squares"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove2Squares.ToString();
+                    }
+                    else if (parm.EndsWith("public int ChanceToMove0Squares"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChanceToMove0Squares.ToString();
+                    }
+                    else if (parm.EndsWith("isChaser"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isChaser.ToString();
+                    }
+                    else if (parm.EndsWith("isCurrentlyChasing"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isCurrentlyChasing.ToString();
+                    }
+                    else if (parm.EndsWith("ChaserDetectRangeRadius"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserDetectRangeRadius.ToString();
+                    }
+                    else if (parm.EndsWith("ChaserGiveUpChasingRangeRadius"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserGiveUpChasingRangeRadius.ToString();
+                    }
+                    else if (parm.EndsWith("ChaserChaseDuration"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserChaseDuration.ToString();
+                    }
+                    else if (parm.EndsWith("ChaserStartChasingTime"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ChaserStartChasingTime.ToString();
+                    }
+                    else if (parm.EndsWith("RandomMoverRadius"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].RandomMoverRadius.ToString();
+                    }
+                    else if (parm.EndsWith("ReturningToPost"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ReturningToPost.ToString();
+                    }
+                    else if (parm.EndsWith("ImageFileName"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ImageFileName.ToString();
+                    }
+                    else if (parm.EndsWith("MouseOverText"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MouseOverText.ToString();
+                    }
+                    else if (parm.EndsWith("PropCategoryName"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropCategoryName.ToString();
+                    }
+                    else if (parm.EndsWith("ConversationWhenOnPartySquare"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ConversationWhenOnPartySquare.ToString();
+                    }
+                    else if (parm.EndsWith("EncounterWhenOnPartySquare"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].EncounterWhenOnPartySquare.ToString();
+                    }
+                    else if (parm.EndsWith("MoverType"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MoverType.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParms.ToString();
+                    }
+
+                    else if (parm.EndsWith("SizeOfPropLocalInts"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropLocalInts.Count.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("SizeOfPropLocalStrings"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropLocalStrings.Count.ToString();
+                    }
+
+                    else if (parm.EndsWith("SizeOfWayPointList"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointList.Count.ToString();
+                    }   
                 }
 
                 #endregion
