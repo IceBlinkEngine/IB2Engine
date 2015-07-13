@@ -2468,16 +2468,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree += val;
                 }
             }
-            else if (element[0].EndsWith("OnHeartBeatParm"))
+            else if (element[0].EndsWith("OnHeartBeatParms"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParm = val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParms = val;
                 }
                 else if (element[1] == "+=")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParm += val;
+                    gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParms += val;
                 }
             }
             else if (element[0].EndsWith("ImageFileName"))
