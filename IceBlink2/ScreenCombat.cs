@@ -17,7 +17,8 @@ namespace IceBlink2
 	    public bool canMove = true;
 	    public int currentPlayerIndex = 0;
 	    private int currentCreatureIndex = 0;
-        public int currentMoves = 0; 
+        public int currentMoves = 0;
+        public int creatureMoves = 0;
         public Coordinate UpperLeftSquare = new Coordinate();
 	    public string currentCombatMode = "info"; //info, move, cast, attack
 	    private Coordinate targetHighlightCenterLocation = new Coordinate();
@@ -52,6 +53,7 @@ namespace IceBlink2
 	    private IbbButton btnCast = null;
 	    private IbbButton btnSkipTurn = null;
 	    private IbbButton btnSwitchWeapon = null;
+        private IbbButton btnMoveCounter = null;
 	    public IbbToggleButton tglHP = null;
 	    public IbbToggleButton tglSP = null;
 	    public IbbToggleButton tglSpeed = null;
@@ -100,6 +102,17 @@ namespace IceBlink2
                 btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMove.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
+            if (btnMoveCounter == null)
+            {
+                btnMoveCounter = new IbbButton(gv, 1.2f);
+                btnMoveCounter.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                btnMoveCounter.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+                btnMoveCounter.Text = "0";
+                btnMoveCounter.X = 14 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnMoveCounter.Y = 9 * gv.squareSize + pH;
+                btnMoveCounter.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnMoveCounter.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
 		    if (btnAttack == null)
 		    {
 			    btnAttack = new IbbButton(gv, 0.8f);
@@ -304,16 +317,19 @@ namespace IceBlink2
 		    if (animationState == AnimationState.None)
 		    {
 			    return;
-		    }
-		    else if (animationState == AnimationState.PcMeleeAttackAnimation)
+            }
+            #region PcMeleeAttackAnimation
+            else if (animationState == AnimationState.PcMeleeAttackAnimation)
 		    {
 			    creatureToAnimate = null;
 	    	    playerToAnimate = null;
 	    	    gv.Invalidate();
 	    	    Player pc = mod.playerList[currentPlayerIndex];
 	    	    doCombatAttack(pc);
-		    }
-		    else if (animationState == AnimationState.CreatureHitAnimation)
+            }
+            #endregion
+            #region CreatureHitAnimation
+            else if (animationState == AnimationState.CreatureHitAnimation)
 		    {
 			    drawHitAnimation = false;
         	    hitAnimationLocation = new Coordinate();
@@ -323,9 +339,11 @@ namespace IceBlink2
 			    //end PC's turn
                 gv.touchEnabled = true;
                 animationState = AnimationState.None;
-                endPcTurn(true);            
-		    }
-		    else if (animationState == AnimationState.CreatureMissedAnimation)
+                endPcTurn(true);
+            }
+            #endregion
+            #region CreatureMissedAnimation
+            else if (animationState == AnimationState.CreatureMissedAnimation)
 		    {
 			    drawMissAnimation = false;
         	    hitAnimationLocation = new Coordinate();
@@ -335,376 +353,378 @@ namespace IceBlink2
                 gv.touchEnabled = true;
                 animationState = AnimationState.None;
 			    //end PC's turn
-                endPcTurn(true);            
-		    }
-		    else if (animationState == AnimationState.CreatureMeleeAttackAnimation)
+                endPcTurn(true);
+            }
+            #endregion
+            #region CreatureMeleeAttackAnimation
+            else if (animationState == AnimationState.CreatureMeleeAttackAnimation)
 		    {
 			    creatureToAnimate = null;
 	    	    playerToAnimate = null;
 	    	    gv.Invalidate();
 	    	    doStandardCreatureAttack();
-		    }
-		    else if (animationState == AnimationState.PcHitAnimation)
+            }
+            #endregion
+            #region PcHitAnimation
+            else if (animationState == AnimationState.PcHitAnimation)
 		    {
 			    drawHitAnimation = false;
         	    hitAnimationLocation = new Coordinate();
         	    gv.Invalidate();
 	    	    animationState = AnimationState.None;
 	    	    endCreatureTurn();
-		    }
-		    else if (animationState == AnimationState.PcMissedAnimation)
-		    {
-			    drawMissAnimation = false;
-        	    hitAnimationLocation = new Coordinate();
-        	    gv.Invalidate();
-	    	    animationState = AnimationState.None;
-	    	    endCreatureTurn();
-		    }
-		    else if (animationState == AnimationState.PcRangedAttackAnimation)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    Player pc = mod.playerList[currentPlayerIndex];
-	    	    //do projectile next
-	    	    drawProjectileAnimation = true;
-        	    projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-	    	    //load projectile image
-	    	    projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
-	    	    if (pc.combatLocY < targetHighlightCenterLocation.Y)
-			    {
-	    		    projectile = gv.cc.FlipHorz(projectile);
-			    }
-	    	    //reset animation frame counter
-	    	    animationFrameIndex = 0;
-	    	    gv.Invalidate();
-	    	    animationState = AnimationState.PcRangedProjectileAnimation;
-	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-		    }
-		    else if (animationState == AnimationState.PcRangedProjectileAnimation)
-		    {
-			    Player pc = mod.playerList[currentPlayerIndex];
-			    //if at target, do ending
-			    if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
-			    {
-				    drawProjectileAnimation = false;
-	        	    projectileAnimationLocation = new Coordinate();
-	        	    drawEndingAnimation = true;
-	        	    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
-		    	    animationFrameIndex = 0;
-		    	    ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
-		    	    gv.Invalidate();
-		    	    animationState = AnimationState.PcRangedEndingAnimation;
-		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    //if frame is last, reset
-				    animationFrameIndex++;
-				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
-		    	    //get next coordinate
-				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
-				    gv.Invalidate();
-				    animationState = AnimationState.PcRangedProjectileAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-		    }
-		    else if (animationState == AnimationState.PcRangedEndingAnimation)
-		    {
-			    Player pc = mod.playerList[currentPlayerIndex];
-			    if ((animationFrameIndex < 3) && (!mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spriteEndingFilename.Equals("none")))
-			    {
-				    animationFrameIndex++;
-				    gv.Invalidate();
-				    animationState = AnimationState.PcRangedEndingAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    drawEndingAnimation = false;
-	        	    endingAnimationLocation = new Coordinate();
-	        	    animationFrameIndex = 0;
-	        	    //loop through 4 times
-	        	    gv.Invalidate();
-		    	    animationState = AnimationState.None;
-		    	    gv.touchEnabled = true;
-		    	    //Player pc = mod.playerList.get(currentPlayerIndex);
-		    	    doCombatAttack(pc);
-			    }
-		    }
-		    else if (animationState == AnimationState.PcCastAttackAnimation)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    Player pc = mod.playerList[currentPlayerIndex];
-	    	    //do projectile next
-	    	    drawProjectileAnimation = true;
-        	    projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-	    	    //load projectile image
-	    	    projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
-	    	    if (pc.combatLocY < targetHighlightCenterLocation.Y)
-			    {
-	    		    projectile = gv.cc.FlipHorz(projectile);
-			    }
-	    	    //reset animation frame counter
-	    	    animationFrameIndex = 0;
-	    	    gv.Invalidate();
-	    	    animationState = AnimationState.PcCastProjectileAnimation;
-	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-	    	    //play cast projectile sound
-	    	    gv.PlaySound(gv.cc.currentSelectedSpell.spellStartSound);
-		    }
-		    else if (animationState == AnimationState.PcCastProjectileAnimation)
-		    {
-			    Player pc = mod.playerList[currentPlayerIndex];
-			    //if at target, do ending
-			    if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
-			    {
-				    drawProjectileAnimation = false;
-	        	    projectileAnimationLocation = new Coordinate();
-	        	    drawEndingAnimation = true;
-	        	    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
-		    	    animationFrameIndex = 0;
-		    	    ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);		    	
-		    	    gv.Invalidate();
-		    	    animationState = AnimationState.PcCastEndingAnimation;
-		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-		    	    //play cast ending sound
-		    	    gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    //if frame is last, reset
-				    animationFrameIndex++;
-				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
-		    	    //get next coordinate
-				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
-				    gv.Invalidate();
-				    animationState = AnimationState.PcCastProjectileAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-		    }
-		    else if (animationState == AnimationState.PcCastEndingAnimation)
-		    {
-			    if (animationFrameIndex < 3)
-			    {
-				    animationFrameIndex++;
-				    gv.Invalidate();
-				    animationState = AnimationState.PcCastEndingAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    drawEndingAnimation = false;
-	        	    endingAnimationLocation = new Coordinate();
-	        	    animationFrameIndex = 0;
-	        	    //loop through 4 times
-	        	    gv.Invalidate();
-		    	    animationState = AnimationState.None;
-		    	    gv.touchEnabled = true;
-		    	    Player pc = mod.playerList[currentPlayerIndex];
-		    	    doCombatCast(pc);
-			    }
-		    }
-		    else if (animationState == AnimationState.CreatureRangedAttackAnimation)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-	    	    //do projectile next
-	    	    drawProjectileAnimation = true;
-        	    projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
-	    	    //load projectile image
-	    	    projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
-	    	    if (crt.combatLocY < creatureTargetLocation.Y)
-			    {
-	    		    projectile = gv.cc.FlipHorz(projectile);
-			    }
-	    	    //reset animation frame counter
-	    	    animationFrameIndex = 0;
-	    	    gv.Invalidate();
-	    	    animationState = AnimationState.CreatureRangedProjectileAnimation;
-	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-		    }
-		    else if (animationState == AnimationState.CreatureRangedProjectileAnimation)
-		    {
-			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-			    //if at target, do ending
-			    if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
-			    {
-				    drawProjectileAnimation = false;
-	        	    projectileAnimationLocation = new Coordinate();
-	        	    drawEndingAnimation = true;
-	        	    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
-		    	    animationFrameIndex = 0;
-		    	    ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
-		    	    gv.Invalidate();
-		    	    animationState = AnimationState.CreatureRangedEndingAnimation;
-		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    //if frame is last, reset
-				    animationFrameIndex++;
-				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
-		    	    //get next coordinate
-				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
-				    gv.Invalidate();
-				    animationState = AnimationState.CreatureRangedProjectileAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-		    }
-		    else if (animationState == AnimationState.CreatureRangedEndingAnimation)
-		    {
-			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-			    if ((animationFrameIndex < 3) && (!crt.cr_spriteEndingFilename.Equals("none")))
-			    {
-				    animationFrameIndex++;
-				    gv.Invalidate();
-				    animationState = AnimationState.CreatureRangedEndingAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    drawEndingAnimation = false;
-	        	    endingAnimationLocation = new Coordinate();
-	        	    animationFrameIndex = 0;
-	        	    //loop through 4 times
-	        	    gv.Invalidate();
-		    	    animationState = AnimationState.None;
-		    	    //touchEnabled = true;
-		    	    doStandardCreatureAttack();
-			    }
-		    }
-		    else if (animationState == AnimationState.CreatureCastAttackAnimation)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-	    	    //do projectile next
-	    	    drawProjectileAnimation = true;
-        	    projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
-	    	    //load projectile image
-	    	    projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
-	    	    if (crt.combatLocY < creatureTargetLocation.Y)
-			    {
-	    		    projectile = gv.cc.FlipHorz(projectile);
-			    }
-	    	    //reset animation frame counter
-	    	    animationFrameIndex = 0;
-	    	    gv.Invalidate();
-	    	    animationState = AnimationState.CreatureCastProjectileAnimation;
-	    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-	    	    //play cast start sound
-	    	    gv.PlaySound(gv.sf.SpellToCast.spellStartSound);
-		    }
-		    else if (animationState == AnimationState.CreatureCastProjectileAnimation)
-		    {
-			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-			    //if at target, do ending
-			    if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
-			    {
-				    drawProjectileAnimation = false;
-	        	    projectileAnimationLocation = new Coordinate();
-	        	    drawEndingAnimation = true;
-	        	    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
-		    	    animationFrameIndex = 0;
-		    	    ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);		    	
-		    	    gv.Invalidate();
-		    	    animationState = AnimationState.CreatureCastEndingAnimation;
-		    	    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-		    	    //play cast ending sound
-		    	    gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    //if frame is last, reset
-				    animationFrameIndex++;
-				    if (animationFrameIndex > 4) {animationFrameIndex = 0;}				
-		    	    //get next coordinate
-				    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
-				    gv.Invalidate();
-				    animationState = AnimationState.CreatureCastProjectileAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-		    }
-		    else if (animationState == AnimationState.CreatureCastEndingAnimation)
-		    {
-			    if (animationFrameIndex < 3)
-			    {
-				    animationFrameIndex++;
-				    gv.Invalidate();
-				    animationState = AnimationState.CreatureCastEndingAnimation;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
-			    }
-			    else //if not at target, get new coordinate and keep going
-			    {
-				    drawEndingAnimation = false;
-	        	    endingAnimationLocation = new Coordinate();
-	        	    animationFrameIndex = 0;
-	        	    //loop through 4 times
-	        	    gv.Invalidate();
-		    	    animationState = AnimationState.None;
-		    	    //touchEnabled = true;
-		    	    doCreatureSpell();
-			    }
-		    }
-		    else if (animationState == AnimationState.CreatureThink)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    doCreatureTurnAfterDelay();
-		    }
-		    else if (animationState == AnimationState.CreatureMove)
-		    {
-			    creatureToAnimate = null;
-	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
-	    	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-	    	    CreatureDoesAttack(crt);
-	    	    //endCreatureTurn();
-		    }		
-	    }	
-        /*public Runnable doAnimation = new Runnable()
-	    {
-		    @Override
-		    public void run()
-		    {
-			    gv.invalidate();
-	    	    doAnimationController();
-		    }
-	    };*/
-	    /*public Runnable doFloatyText = new Runnable()
-	    {
-		    @Override
-		    public void run()
-		    {
-			    gv.invalidate();
-			    int pH = (int)((float)gv.screenHeight / 200.0f);
-	    	    //move all floaty text up one %pixel
-			    if (gv.cc.floatyTextCounter < 10)
-			    {
-				    for (FloatyText ft : gv.cc.floatyTextList)
-				    {
-					    ft.location.Y -= pH;
-				    }
-				    //call again until counter hits 10
-				    gv.cc.floatyTextCounter++;
-				    doFloatyTextLoop();
-			    }
-			    else
-			    {
-				    gv.cc.floatyTextCounter = 0;
-				    floatyTextOn = false;
-				    gv.cc.floatyTextList.clear();
-			    }
-		    }
-	    };*/
-	    public void doFloatyTextLoop()
+            }
+            #endregion
+            #region PcMissedAnimation
+            else if (animationState == AnimationState.PcMissedAnimation)
+            {
+                drawMissAnimation = false;
+                hitAnimationLocation = new Coordinate();
+                gv.Invalidate();
+                animationState = AnimationState.None;
+                endCreatureTurn();
+            }
+            #endregion
+            #region PcRangedAttackAnimation
+            else if (animationState == AnimationState.PcRangedAttackAnimation)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                Player pc = mod.playerList[currentPlayerIndex];
+                //do projectile next
+                drawProjectileAnimation = true;
+                projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                //load projectile image
+                projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
+                if (pc.combatLocY < targetHighlightCenterLocation.Y)
+                {
+                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                //reset animation frame counter
+                animationFrameIndex = 0;
+                gv.Invalidate();
+                animationState = AnimationState.PcRangedProjectileAnimation;
+                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+            }
+            #endregion
+            #region PcRangedProjectileAnimation
+            else if (animationState == AnimationState.PcRangedProjectileAnimation)
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                //if at target, do ending
+                if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+                {
+                    drawProjectileAnimation = false;
+                    projectileAnimationLocation = new Coordinate();
+                    drawEndingAnimation = true;
+                    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+                    animationFrameIndex = 0;
+                    ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
+                    gv.Invalidate();
+                    animationState = AnimationState.PcRangedEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    //if frame is last, reset
+                    animationFrameIndex++;
+                    if (animationFrameIndex > 4) { animationFrameIndex = 0; }
+                    //get next coordinate
+                    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
+                    gv.Invalidate();
+                    animationState = AnimationState.PcRangedProjectileAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+            }
+            #endregion
+            #region PcRangedEndingAnimation
+            else if (animationState == AnimationState.PcRangedEndingAnimation)
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                if ((animationFrameIndex < 3) && (!mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spriteEndingFilename.Equals("none")))
+                {
+                    animationFrameIndex++;
+                    gv.Invalidate();
+                    animationState = AnimationState.PcRangedEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    drawEndingAnimation = false;
+                    endingAnimationLocation = new Coordinate();
+                    animationFrameIndex = 0;
+                    //loop through 4 times
+                    gv.Invalidate();
+                    animationState = AnimationState.None;
+                    gv.touchEnabled = true;
+                    //Player pc = mod.playerList.get(currentPlayerIndex);
+                    doCombatAttack(pc);
+                }
+            }
+            #endregion
+            #region PcCastAttackAnimation
+            else if (animationState == AnimationState.PcCastAttackAnimation)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                Player pc = mod.playerList[currentPlayerIndex];
+                //do projectile next
+                drawProjectileAnimation = true;
+                projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                //load projectile image
+                projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
+                if (pc.combatLocY < targetHighlightCenterLocation.Y)
+                {
+                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                //reset animation frame counter
+                animationFrameIndex = 0;
+                gv.Invalidate();
+                animationState = AnimationState.PcCastProjectileAnimation;
+                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                //play cast projectile sound
+                gv.PlaySound(gv.cc.currentSelectedSpell.spellStartSound);
+            }
+            #endregion
+            #region PcCastProjectileAnimation
+            else if (animationState == AnimationState.PcCastProjectileAnimation)
+            {
+                Player pc = mod.playerList[currentPlayerIndex];
+                //if at target, do ending
+                if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+                {
+                    drawProjectileAnimation = false;
+                    projectileAnimationLocation = new Coordinate();
+                    drawEndingAnimation = true;
+                    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+                    animationFrameIndex = 0;
+                    ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);
+                    gv.Invalidate();
+                    animationState = AnimationState.PcCastEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                    //play cast ending sound
+                    gv.PlaySound(gv.cc.currentSelectedSpell.spellEndSound);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    //if frame is last, reset
+                    animationFrameIndex++;
+                    if (animationFrameIndex > 4) { animationFrameIndex = 0; }
+                    //get next coordinate
+                    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
+                    gv.Invalidate();
+                    animationState = AnimationState.PcCastProjectileAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+            }
+            #endregion
+            #region PcCastEndingAnimation
+            else if (animationState == AnimationState.PcCastEndingAnimation)
+            {
+                if (animationFrameIndex < 3)
+                {
+                    animationFrameIndex++;
+                    gv.Invalidate();
+                    animationState = AnimationState.PcCastEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    drawEndingAnimation = false;
+                    endingAnimationLocation = new Coordinate();
+                    animationFrameIndex = 0;
+                    //loop through 4 times
+                    gv.Invalidate();
+                    animationState = AnimationState.None;
+                    gv.touchEnabled = true;
+                    Player pc = mod.playerList[currentPlayerIndex];
+                    doCombatCast(pc);
+                }
+            }
+            #endregion
+            #region CreatureRangedAttackAnimation
+            else if (animationState == AnimationState.CreatureRangedAttackAnimation)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                //do projectile next
+                drawProjectileAnimation = true;
+                projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+                //load projectile image
+                projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
+                if (crt.combatLocY < creatureTargetLocation.Y)
+                {
+                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                //reset animation frame counter
+                animationFrameIndex = 0;
+                gv.Invalidate();
+                animationState = AnimationState.CreatureRangedProjectileAnimation;
+                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+            }
+            #endregion
+            #region CreatureRangedProjectileAnimation
+            else if (animationState == AnimationState.CreatureRangedProjectileAnimation)
+            {
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                //if at target, do ending
+                if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+                {
+                    drawProjectileAnimation = false;
+                    projectileAnimationLocation = new Coordinate();
+                    drawEndingAnimation = true;
+                    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+                    animationFrameIndex = 0;
+                    ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureRangedEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    //if frame is last, reset
+                    animationFrameIndex++;
+                    if (animationFrameIndex > 4) { animationFrameIndex = 0; }
+                    //get next coordinate
+                    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureRangedProjectileAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+            }
+            #endregion
+            #region CreatureRangedEndingAnimation
+            else if (animationState == AnimationState.CreatureRangedEndingAnimation)
+            {
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                if ((animationFrameIndex < 3) && (!crt.cr_spriteEndingFilename.Equals("none")))
+                {
+                    animationFrameIndex++;
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureRangedEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    drawEndingAnimation = false;
+                    endingAnimationLocation = new Coordinate();
+                    animationFrameIndex = 0;
+                    //loop through 4 times
+                    gv.Invalidate();
+                    animationState = AnimationState.None;
+                    //touchEnabled = true;
+                    doStandardCreatureAttack();
+                }
+            }
+            #endregion
+            #region CreatureCastAttackAnimation
+            else if (animationState == AnimationState.CreatureCastAttackAnimation)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                //do projectile next
+                drawProjectileAnimation = true;
+                projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+                //load projectile image
+                projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
+                if (crt.combatLocY < creatureTargetLocation.Y)
+                {
+                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                //reset animation frame counter
+                animationFrameIndex = 0;
+                gv.Invalidate();
+                animationState = AnimationState.CreatureCastProjectileAnimation;
+                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                //play cast start sound
+                gv.PlaySound(gv.sf.SpellToCast.spellStartSound);
+            }
+            #endregion
+            #region CreatureCastProjectileAnimation
+            else if (animationState == AnimationState.CreatureCastProjectileAnimation)
+            {
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                //if at target, do ending
+                if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+                {
+                    drawProjectileAnimation = false;
+                    projectileAnimationLocation = new Coordinate();
+                    drawEndingAnimation = true;
+                    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+                    animationFrameIndex = 0;
+                    ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureCastEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                    //play cast ending sound
+                    gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    //if frame is last, reset
+                    animationFrameIndex++;
+                    if (animationFrameIndex > 4) { animationFrameIndex = 0; }
+                    //get next coordinate
+                    projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureCastProjectileAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+            }
+            #endregion
+            #region CreatureCastEndingAnimation
+            else if (animationState == AnimationState.CreatureCastEndingAnimation)
+            {
+                if (animationFrameIndex < 3)
+                {
+                    animationFrameIndex++;
+                    gv.Invalidate();
+                    animationState = AnimationState.CreatureCastEndingAnimation;
+                    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                }
+                else //if not at target, get new coordinate and keep going
+                {
+                    drawEndingAnimation = false;
+                    endingAnimationLocation = new Coordinate();
+                    animationFrameIndex = 0;
+                    //loop through 4 times
+                    gv.Invalidate();
+                    animationState = AnimationState.None;
+                    //touchEnabled = true;
+                    doCreatureSpell();
+                }
+            }
+            #endregion
+            #region CreatureThink
+            else if (animationState == AnimationState.CreatureThink)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                doCreatureTurnAfterDelay();
+            }
+            #endregion
+            #region CreatureMove
+            else if (animationState == AnimationState.CreatureMove)
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                //CreatureDoesAttack(crt);
+                creatureMoves++;
+                doCreatureNextAction();
+                //endCreatureTurn();
+            }
+            #endregion
+        }	
+        public void doFloatyTextLoop()
 	    {
 		    gv.postDelayed("doFloatyText", 200);
 	    }
@@ -1337,22 +1357,30 @@ namespace IceBlink2
 	    {
 		    canMove = true;
 		    //gv.cc.logScrollOffset = 0;
-		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-		    //do onTurn LT
+		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];            
+		    //do onStartTurn LogicTree 
+            //TODO add IBScript hook as well
 		    gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
-		    if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
-            {
-			    creatureToAnimate = null;
-	            playerToAnimate = null;
-	            gv.Invalidate();
-	            animationState = AnimationState.CreatureThink;
-	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
-            }
-		    else
-		    {
-			    endCreatureTurn();		
-		    }
+            creatureMoves = 0;
+            doCreatureNextAction();
 	    }
+        public void doCreatureNextAction()
+        {
+            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            CalculateUpperLeftCreature();
+            if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+            {
+                creatureToAnimate = null;
+                playerToAnimate = null;
+                gv.Invalidate();
+                animationState = AnimationState.CreatureThink;
+                gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+            }
+            else
+            {
+                endCreatureTurn();
+            }
+        }
 	    public void doCreatureTurnAfterDelay()
 	    {
 		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -1370,13 +1398,20 @@ namespace IceBlink2
             }
             if (gv.sf.ActionToTake.Equals("Attack"))
             {
-        	    Player pc = targetClosestPC(crt);
+                Player pc = targetClosestPC(crt);
         	    gv.sf.CombatTarget = pc;	                
                 CreatureDoesAttack(crt);
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
-                CreatureMoves();
+                if (creatureMoves < crt.moveDistance)
+                {
+                    CreatureMoves();
+                }
+                else
+                {
+                    endCreatureTurn();
+                }
             }
             else if (gv.sf.ActionToTake.Equals("Cast"))
             {
@@ -1388,9 +1423,10 @@ namespace IceBlink2
 	    }
 	    public void CreatureMoves()
 	    {
-		    if (canMove)
+            Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            if (creatureMoves < crt.moveDistance)
 		    {
-			    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+			    //Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
 			    Player pc = targetClosestPC(crt);
 			    //run pathFinder to get new location
 			    if (pc != null)
@@ -1415,7 +1451,7 @@ namespace IceBlink2
 					    crt.combatFacingLeft = false;
 				    }
 				    crt.combatLocX = newCoor.X;
-				    crt.combatLocY = newCoor.Y;
+				    crt.combatLocY = newCoor.Y;                    
 				    canMove = false;
 				    animationState = AnimationState.CreatureMove;
 				    gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
@@ -2224,7 +2260,11 @@ namespace IceBlink2
 		    }
 		    btnCast.Draw();
 		    btnSkipTurn.Draw();
-		
+            Player pc = mod.playerList[currentPlayerIndex];
+            int movesLeft = pc.moveDistance - currentMoves;
+            if (movesLeft < 0) { movesLeft = 0; }
+            btnMoveCounter.Text = movesLeft.ToString();
+            btnMoveCounter.Draw();
 	    }
 	    public void drawCombatMap()
 	    {
@@ -2304,7 +2344,7 @@ namespace IceBlink2
                                 gv.DrawBitmap(gv.cc.walkPass, src, dst);
 		                    } 
 	                    }
-                        if (pf.values != null)
+                        if ((pf.values != null) && (mod.debugMode))
                         {
                             gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
                         }
@@ -4025,6 +4065,7 @@ namespace IceBlink2
 
         public void doUpdate(Player pc)
         {
+            CalculateUpperLeft();
             currentMoves++;
             //refreshMap();
             //txtInfo.Text = "currentMoves = " + currentMoves.ToString();
