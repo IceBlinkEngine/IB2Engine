@@ -343,6 +343,14 @@ namespace IceBlink2
             {
                 PropAssignment(element, indexNum, indexNum2);
             }
+            else if (element[0].StartsWith("%CreatureInCurrentEncounter"))
+            {
+                CreatureInCurrentEncounterAssignment(element, indexNum);
+            }
+            else if (element[0].StartsWith("%CreatureResRef"))
+            {
+                CreatureResRefAssignment(element, indexNum, indexNum2);
+            }
         }
         public void DoMessage(string line)
         {
@@ -1741,8 +1749,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("combatFacingLeft"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.playerList[indexNum].combatFacingLeft = true;
                 }
@@ -1753,8 +1761,8 @@ namespace IceBlink2
             }
             else if (element[0].EndsWith("steathModeOn"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.playerList[indexNum].steathModeOn = true;
                 }
@@ -1765,8 +1773,8 @@ namespace IceBlink2
             }
             else if (element[0].EndsWith("mainPc"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.playerList[indexNum].mainPc = true;
                 }
@@ -1777,8 +1785,8 @@ namespace IceBlink2
             }
             else if (element[0].EndsWith("nonRemoveablePc"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.playerList[indexNum].nonRemoveablePc = true;
                 }
@@ -1789,8 +1797,8 @@ namespace IceBlink2
             }
             else if (element[0].EndsWith("isMale"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.playerList[indexNum].isMale = true;
                 }
@@ -1881,14 +1889,423 @@ namespace IceBlink2
         }
         public void ModAssignment(string[] element, int indexNum)
         {
-            
+            if (element[0].EndsWith("WorldTime"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.WorldTime = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.WorldTime += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.WorldTime -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.WorldTime *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.WorldTime;
+                    helpResult /= val;
+                    gv.mod.WorldTime = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.WorldTime %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("TimePerRound"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.TimePerRound = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.TimePerRound += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.TimePerRound -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.TimePerRound *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.TimePerRound;
+                    helpResult /= val;
+                    gv.mod.TimePerRound = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.TimePerRound %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("startingPlayerPositionX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.startingPlayerPositionX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.startingPlayerPositionX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.startingPlayerPositionX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.startingPlayerPositionX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.startingPlayerPositionX;
+                    helpResult /= val;
+                    gv.mod.startingPlayerPositionX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.startingPlayerPositionX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("startingPlayerPositionY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.startingPlayerPositionY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.startingPlayerPositionY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.startingPlayerPositionY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.startingPlayerPositionY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.startingPlayerPositionY;
+                    helpResult /= val;
+                    gv.mod.startingPlayerPositionY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.startingPlayerPositionY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PlayerLocationX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.PlayerLocationX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.PlayerLocationX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.PlayerLocationX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.PlayerLocationX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.PlayerLocationX;
+                    helpResult /= val;
+                    gv.mod.PlayerLocationX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.PlayerLocationX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PlayerLocationY "))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.PlayerLocationY  = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.PlayerLocationY  += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.PlayerLocationY  -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.PlayerLocationY  *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.PlayerLocationY ;
+                    helpResult /= val;
+                    gv.mod.PlayerLocationY  = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.PlayerLocationY  %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PlayerLastLocationX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.PlayerLastLocationX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.PlayerLastLocationX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.PlayerLastLocationX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.PlayerLastLocationX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.PlayerLastLocationX;
+                    helpResult /= val;
+                    gv.mod.PlayerLastLocationX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.PlayerLastLocationX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("PlayerLastLocationY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.PlayerLastLocationY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.PlayerLastLocationY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.PlayerLastLocationY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.PlayerLastLocationY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.PlayerLastLocationY;
+                    helpResult /= val;
+                    gv.mod.PlayerLastLocationY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.PlayerLastLocationY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("partyGold"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.partyGold = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.partyGold += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.partyGold -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.partyGold *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.partyGold;
+                    helpResult /= val;
+                    gv.mod.partyGold = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.partyGold %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("selectedPartyLeader"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.selectedPartyLeader = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.selectedPartyLeader += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.selectedPartyLeader -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.selectedPartyLeader *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.selectedPartyLeader;
+                    helpResult /= val;
+                    gv.mod.selectedPartyLeader = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.selectedPartyLeader %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("combatAnimationSpeed"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.combatAnimationSpeed = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.combatAnimationSpeed += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.combatAnimationSpeed -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.combatAnimationSpeed *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.combatAnimationSpeed;
+                    helpResult /= val;
+                    gv.mod.combatAnimationSpeed = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.combatAnimationSpeed %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("indexOfPCtoLastUseItem"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.indexOfPCtoLastUseItem = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.indexOfPCtoLastUseItem += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.indexOfPCtoLastUseItem -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.indexOfPCtoLastUseItem *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.indexOfPCtoLastUseItem;
+                    helpResult /= val;
+                    gv.mod.indexOfPCtoLastUseItem = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.indexOfPCtoLastUseItem %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("partyTokenFilename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.partyTokenFilename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.partyTokenFilename += val;
+                }
+            }
+            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.OnHeartBeatLogicTree = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.OnHeartBeatLogicTree += val;
+                }
+            }
+            else if (element[0].EndsWith("OnHeartBeatParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.OnHeartBeatParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.OnHeartBeatParms += val;
+                }
+            }
+
         }
         public void PropAssignment(string[] element, int indexNum, int indexNum2)
         {
             if (element[0].EndsWith("isShown"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown = true;
                 }
@@ -2271,8 +2688,8 @@ namespace IceBlink2
             }
             else if (element[0].EndsWith("PropFacingLeft"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropFacingLeft = true;
                 }
@@ -2284,8 +2701,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("HasCollision"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].HasCollision = true;
                 }
@@ -2297,8 +2714,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("isActive"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isActive = true;
                 }
@@ -2310,8 +2727,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("DeletePropWhenThisEncounterIsWon"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].DeletePropWhenThisEncounterIsWon = true;
                 }
@@ -2323,8 +2740,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("isMover"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isMover = true;
                 }
@@ -2336,8 +2753,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("isChaser"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isChaser = true;
                 }
@@ -2349,8 +2766,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("isCurrentlyChasing"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "val")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isCurrentlyChasing = true;
                 }
@@ -2362,8 +2779,8 @@ namespace IceBlink2
 
             else if (element[0].EndsWith("ReturningToPost"))
             {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (val == 1)
+                string val = ConcateString(element[2]);
+                if (val == "true")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ReturningToPost = true;
                 }
@@ -2493,6 +2910,1278 @@ namespace IceBlink2
                 }
             }
 
+        }
+        public void CreatureInCurrentEncounterAssignment(string[] element, int indexNum)
+        {
+            if (element[0].EndsWith("combatLocX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX %= val;
+                }
+            }
+            else if (element[0].EndsWith("combatLocY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY %= val;
+                }
+            }
+            else if (element[0].EndsWith("moveDistance"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_level"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level %= val;
+                }
+            }
+            else if (element[0].EndsWith("hp"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].hp;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hp %= val;
+                }
+            }
+            else if (element[0].EndsWith("hpMax"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax %= val;
+                }
+            }
+            else if (element[0].EndsWith("sp"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].sp;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].sp %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_XP"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP %= val;
+                }
+            }
+            else if (element[0].EndsWith("AC"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].AC;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].AC %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_att"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_attRange"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_damageNumDice"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_damageDie"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_damageAdder"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder %= val;
+                }
+            }
+            else if (element[0].EndsWith("cr_numberOfAttacks"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks %= val;
+                }
+            }
+            else if (element[0].EndsWith("fortitude"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude %= val;
+                }
+            }
+            else if (element[0].EndsWith("will"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].will;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].will %= val;
+                }
+            }
+            else if (element[0].EndsWith("reflex"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueAcid"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueNormal"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueCold"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueElectricity"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueFire"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValueMagic"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic %= val;
+                }
+            }
+            else if (element[0].EndsWith("damageTypeResistanceValuePoison"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("cr_tokenFilename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tokenFilename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tokenFilename += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_name"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_tag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_resref"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_resref = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_resref += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_desc"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_desc = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_desc += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_status"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_status = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_status += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_category"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_category = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_category += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_projSpriteFilename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_projSpriteFilename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_projSpriteFilename += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_spriteEndingFilename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_spriteEndingFilename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_spriteEndingFilename += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_attackSound"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attackSound = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attackSound += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_ai"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_ai = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_ai += val;
+                }
+            }
+            else if (element[0].EndsWith("cr_typeOfDamage"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_typeOfDamage = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_typeOfDamage += val;
+                }
+            }
+            else if (element[0].EndsWith("onScoringHit"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHit = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHit += val;
+                }
+            }
+            else if (element[0].EndsWith("onScoringHitParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHitParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHitParms += val;
+                }
+            }
+            else if (element[0].EndsWith("onDeathLogicTree"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathLogicTree = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathLogicTree += val;
+                }
+            }
+            else if (element[0].EndsWith("onDeathParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathParms += val;
+                }
+            }
+
+            else if (element[0].EndsWith("combatFacingLeft"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatFacingLeft = true;
+                }
+                else
+                {
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].combatFacingLeft = false;
+                }
+            }
+            
+        }
+        public void CreatureResRefAssignment(string[] element, int indexNum, int indexNum2)
+        {
+            if (element[0].EndsWith("creatureStartLocationX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX;
+                    helpResult /= val;
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX %= val;
+                }
+            }
+            else if (element[0].EndsWith("creatureStartLocationY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY;
+                    helpResult /= val;
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY %= val;
+                }
+            }
+            else if (element[0].EndsWith("creatureResRef"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureResRef = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureResRef += val;
+                }
+            }
+            else if (element[0].EndsWith("creatureTag"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag += val;
+                }
+            }
+        }
+        public void AreaAssignment(string[] element, int indexNum)
+        {
+            if (element[0].EndsWith("TimePerSquare"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].TimePerSquare;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].TimePerSquare %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("MapSizeX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].MapSizeX;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("MapSizeY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].MapSizeY;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MapSizeY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("UseMiniMapFogOfWar"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].UseMiniMapFogOfWar = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].UseMiniMapFogOfWar = false;
+                }
+            }
+
+            else if (element[0].EndsWith("areaDark"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].areaDark = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].areaDark = false;
+                }
+            }
+
+            else if (element[0].EndsWith("UseDayNightCycle"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].UseDayNightCycle = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].UseDayNightCycle = false;
+                }
+            }
+
+            else if (element[0].EndsWith("Filename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Filename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].Filename += val;
+                }
+            }
+
+            else if (element[0].EndsWith("MusicFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MusicFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].MusicFileName += val;
+                }
+            }
+
+            else if (element[0].EndsWith("ImageFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].ImageFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].ImageFileName += val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaMusic"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].AreaMusic = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].AreaMusic += val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaSounds"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].AreaSounds = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].AreaSounds += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].OnHeartBeatLogicTree = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].OnHeartBeatLogicTree += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnHeartBeatParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].OnHeartBeatParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].OnHeartBeatParms += val;
+                }
+            }
         }
         #endregion
 
@@ -3219,6 +4908,66 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Filename.ToString();
                     }
+                    else if (parm.EndsWith("UseMiniMapFogOfWar"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].UseMiniMapFogOfWar.ToString();
+                    }
+                    else if (parm.EndsWith("areaDark"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].areaDark.ToString();
+                    }
+                    else if (parm.EndsWith("UseDayNightCycle"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].UseDayNightCycle.ToString();
+                    }
+                    else if (parm.EndsWith("TimePerSquare"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].TimePerSquare.ToString();
+                    }
+                    else if (parm.EndsWith("MusicFileName"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].MusicFileName.ToString();
+                    }
+                    else if (parm.EndsWith("ImageFileName"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].ImageFileName.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeX"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].MapSizeX.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeY"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].MapSizeY.ToString();
+                    }
+                    else if (parm.EndsWith("AreaMusic"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].AreaMusic.ToString();
+                    }
+                    else if (parm.EndsWith("AreaSounds"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].AreaSounds.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatLogicTree.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatParms.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfTriggers"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].Triggers.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOFAreaLocalInts"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].AreaLocalInts.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfAreaLocalStrings"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].AreaLocalStrings.Count.ToString();
+                    }
                 }
 
                 #endregion
@@ -3361,6 +5110,282 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].WayPointList.Count.ToString();
                     }   
+                }
+
+                #endregion
+
+                #region CreatureInCurrentEncounter
+                else if (parm.StartsWith("%CreatureInCurrrentEncounter"))
+                {
+                    if (parm.EndsWith("cr_tokenFilename"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tokenFilename.ToString();
+                    }
+                    else if (parm.EndsWith("combatFacingLeft"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].combatFacingLeft.ToString();
+                    }
+                    else if (parm.EndsWith("combatLocX"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocX.ToString();
+                    }
+                    else if (parm.EndsWith("combatLocY"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].combatLocY.ToString();
+                    }
+                    else if (parm.EndsWith("moveDistance"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].moveDistance.ToString();
+                    }
+                    else if (parm.EndsWith("cr_name"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_name.ToString();
+                    }
+                    else if (parm.EndsWith("cr_tag"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_tag.ToString();
+                    }
+                    else if (parm.EndsWith("cr_resref"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_resref.ToString();
+                    }
+                    else if (parm.EndsWith("cr_desc"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_desc.ToString();
+                    }
+                    else if (parm.EndsWith("cr_level"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_level.ToString();
+                    }
+                    else if (parm.EndsWith("hpMax"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].hpMax.ToString();
+                    }
+                    else if (parm.EndsWith("sp"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].sp.ToString();
+                    }
+                    else if (parm.EndsWith("hp"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].hp.ToString();
+                    }
+                    else if (parm.EndsWith("cr_XP"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_XP.ToString();
+                    }
+                    else if (parm.EndsWith("AC"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].AC.ToString();
+                    }
+                    else if (parm.EndsWith("cr_status"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_status.ToString();
+                    }
+                    else if (parm.EndsWith("cr_att"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_att.ToString();
+                    }
+                    else if (parm.EndsWith("cr_attRange"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attRange.ToString();
+                    }
+                    else if (parm.EndsWith("cr_damageNumDice"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageNumDice.ToString();
+                    }
+                    else if (parm.EndsWith("cr_damageDie"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageDie.ToString();
+                    }
+                    else if (parm.EndsWith("cr_damageAdder"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder.ToString();
+                    }
+                    else if (parm.EndsWith("cr_category"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_category.ToString();
+                    }
+                    else if (parm.EndsWith("cr_projSpriteFilename"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_projSpriteFilename.ToString();
+                    }
+                    else if (parm.EndsWith("cr_spriteEndingFilename"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_spriteEndingFilename.ToString();
+                    }
+                    else if (parm.EndsWith("cr_attackSound"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_attackSound.ToString();
+                    }
+                    else if (parm.EndsWith("cr_numberOfAttacks"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_numberOfAttacks.ToString();
+                    }
+                    else if (parm.EndsWith("cr_ai"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_ai.ToString();
+                    }
+                    else if (parm.EndsWith("fortitude"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].fortitude.ToString();
+                    }
+                    else if (parm.EndsWith("will"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].will.ToString();
+                    }
+                    else if (parm.EndsWith("reflex"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].reflex.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueAcid"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueAcid.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueNormal"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueNormal.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueCold"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueCold.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueElectricity"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueElectricity.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueFire"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueFire.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValueMagic"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValueMagic.ToString();
+                    }
+                    else if (parm.EndsWith("damageTypeResistanceValuePoison"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageTypeResistanceValuePoison.ToString();
+                    }
+                    else if (parm.EndsWith("cr_typeOfDamage"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_typeOfDamage.ToString();
+                    }
+                    else if (parm.EndsWith("onScoringHit"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHit.ToString();
+                    }
+                    else if (parm.EndsWith("onScoringHitParms"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHitParms.ToString();
+                    }
+                    else if (parm.EndsWith("onDeathLogicTree"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathLogicTree.ToString();
+                    }
+                    else if (parm.EndsWith("onDeathParms"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathParms.ToString();
+                    }
+                    else if (parm.EndsWith("knownSpellsTags"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].knownSpellsTags.Count.ToString();
+                    }
+                    else if (parm.EndsWith("cr_effectsList"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_effectsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("CreatureLocalInts"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].CreatureLocalInts.Count.ToString();
+                    }
+                    else if (parm.EndsWith("CreatureLocalStrings"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].CreatureLocalStrings.Count.ToString();
+                    }
+                }
+                #endregion
+
+                #region CreatureResRef
+                else if (parm.StartsWith("%CreatureResRef"))
+                {
+                    if (parm.EndsWith("creatureResRef"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureResRef.ToString();
+                    }
+                    else if (parm.EndsWith("creatureTag"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
+                    }
+                    else if (parm.EndsWith("creatureStartLocationX"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("creatureStartLocationY"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
+                    }
+                }
+
+                #endregion
+
+                #region Mod
+                else if (parm.StartsWith("%Mod"))
+                {
+                    if (parm.EndsWith("WorldTime"))
+                    {
+                        return gv.mod.WorldTime.ToString();
+                    }
+                    else if (parm.EndsWith("TimePerRound"))
+                    {
+                        return gv.mod.TimePerRound.ToString();
+                    }
+                    else if (parm.EndsWith("PlayerLocationX"))
+                    {
+                        return gv.mod.PlayerLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("PlayerLocationY"))
+                    {
+                        return gv.mod.PlayerLocationY.ToString();
+                    }
+                    else if (parm.EndsWith("PlayerLastLocationX"))
+                    {
+                        return gv.mod.PlayerLastLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("PlayerLastLocationY"))
+                    {
+                        return gv.mod.PlayerLastLocationY.ToString();
+                    }
+                    else if (parm.EndsWith("partyGold"))
+                    {
+                        return gv.mod.partyGold.ToString();
+                    }
+                    else if (parm.EndsWith("showPartyToken"))
+                    {
+                        return gv.mod.showPartyToken.ToString();
+                    }
+                    else if (parm.EndsWith("partyTokenFilename"))
+                    {
+                        return gv.mod.partyTokenFilename.ToString();
+                    }
+                    else if (parm.EndsWith("selectedPartyLeader"))
+                    {
+                        return gv.mod.selectedPartyLeader.ToString();
+                    }
+                    else if (parm.EndsWith("indexOfPCtoLastUseItem"))
+                    {
+                        return gv.mod.indexOfPCtoLastUseItem.ToString();
+                    }
+                    else if (parm.EndsWith("combatAnimationSpeed"))
+                    {
+                        return gv.mod.combatAnimationSpeed.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    {
+                        return gv.mod.OnHeartBeatLogicTree.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    {
+                        return gv.mod.OnHeartBeatParms.ToString();
+                    }
                 }
 
                 #endregion
