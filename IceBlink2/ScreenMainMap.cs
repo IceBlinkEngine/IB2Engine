@@ -215,6 +215,44 @@ namespace IceBlink2
             }
             drawControls();
             drawMiniMap();
+            drawPortraits();
+        }
+        public void drawPortraits()
+        {
+            for (int j = 0; j < mod.playerList.Count; j++)
+            {
+                IbRect src = new IbRect(0, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                if (j == 0)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+                else if (j == 1)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+                else if (j == 2)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 2 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+                else if (j == 3)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 2 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+                else if (j == 4)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 4 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+                else if (j == 5)
+                {
+                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 4 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
+                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
+                }
+            }
         }
         public void drawWorldMap()
         {

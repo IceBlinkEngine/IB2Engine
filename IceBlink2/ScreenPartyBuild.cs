@@ -83,6 +83,7 @@ namespace IceBlink2
             {
                 Player newPc = LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
+                newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
     		    newPc.playerClass = mod.getPlayerClass(newPc.classTag);
     		    newPc.race = mod.getRace(newPc.raceTag);
     		    //check to see if already in party before adding
@@ -461,6 +462,7 @@ namespace IceBlink2
 				    {
 					    Player copyPC = pcList[pcIndex].DeepCopy();
 					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
 					    mod.playerList.Add(copyPC);
@@ -477,6 +479,7 @@ namespace IceBlink2
 				    {
 					    Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
 					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
 					    pcList.Add(copyPC);

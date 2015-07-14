@@ -2029,6 +2029,7 @@ namespace IceBlink2
             {
                 Player newPc = gv.cc.LoadPlayer(filename); //ex: filename = "ezzbel.json"
                 newPc.token = gv.cc.LoadBitmap(newPc.tokenFilename);
+                newPc.portrait = gv.cc.LoadBitmap(newPc.portraitFilename);
                 newPc.playerClass = mod.getPlayerClass(newPc.classTag);
                 newPc.race = mod.getRace(newPc.raceTag);
                 //check to see if already in party before adding

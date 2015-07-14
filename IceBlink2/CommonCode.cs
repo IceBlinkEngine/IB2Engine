@@ -2958,6 +2958,14 @@ namespace IceBlink2
                 {
                     bm = new Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename);
                 }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png"))
+                {
+                    bm = new Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename))
+                {
+                    bm = new Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename);
+                }
 
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png"))
                 {
@@ -2994,6 +3002,14 @@ namespace IceBlink2
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename))
                 {
                     bm = new Bitmap(gv.mainDirectory + "\\default\\NewModule\\tiles\\" + filename);
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".png"))
+                {
+                    bm = new Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename))
+                {
+                    bm = new Bitmap(gv.mainDirectory + "\\default\\NewModule\\portraits\\" + filename);
                 }
 
                 else

@@ -23,12 +23,15 @@ namespace IceBlink2
 	    private IbbButton btnRollStats = null;
 	    private IbbButton btnFinished = null;
 	    private IbbButton btnAbort = null;
+        private IbbButton btnPortrait = null;
         private Bitmap blankItemSlot;
 	    private int pcCreationIndex = 0;
 	    private int pcTokenSelectionIndex = 0;
+        private int pcPortraitSelectionIndex = 0;
 	    private int pcRaceSelectionIndex = 0;
 	    private int pcClassSelectionIndex = 0;
 	    public List<string> playerTokenList = new List<string>();
+        public List<string> playerPortraitList = new List<string>();
         public List<Race> playerRaces = new List<Race>();
         private Player pc;
 	
@@ -37,16 +40,18 @@ namespace IceBlink2
 		    mod = m;
 		    gv = g;
             blankItemSlot = gv.cc.LoadBitmap("item_slot");
-		    setControlsStart();
 		    LoadPlayerBitmapList();
+            LoadPlayerPortraitList();            
             CreateRaceList();
 		    resetPC();
+            setControlsStart();
 	    }
 	
 	    public void resetPC()
 	    {
 		    pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
 		    pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
+            pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
 		    pc.playerClass = mod.getPlayerClass(pc.classTag);
 		    pc.race = this.getAllowedRace(pc.raceTag);
 		    pc.name = "ChangeThis";
@@ -150,6 +155,73 @@ namespace IceBlink2
                 MessageBox.Show(ex.ToString());
     	    }
 	    }
+        public void LoadPlayerPortraitList()
+        {
+            playerPortraitList.Clear();
+            try
+            {
+                //Load from module folder first
+                string[] files;
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits", "*.png");
+                    //directory.mkdirs(); 
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileName(file);
+                            if ((filename.EndsWith(".png")) || (filename.EndsWith(".PNG")))
+                            {
+                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                playerPortraitList.Add(fileNameWithOutExt);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            try
+            {
+                //Load from PlayerTokens folder last
+                string[] files;
+                if (Directory.Exists(gv.mainDirectory + "\\PlayerPortraits"))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\PlayerPortraits", "*.png");
+                    //directory.mkdirs(); 
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileName(file);
+                            if ((filename.EndsWith(".png")) || (filename.EndsWith(".PNG")))
+                            {
+                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                if (!playerPortraitList.Contains(fileNameWithOutExt))
+                                {
+                                    playerPortraitList.Add(fileNameWithOutExt);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 	
 	    public void setControlsStart()
 	    {		
@@ -158,6 +230,16 @@ namespace IceBlink2
 		    int padW = gv.squareSize/6;
             int center = gv.screenWidth / 2;
 
+            if (btnPortrait == null)
+            {
+                btnPortrait = new IbbButton(gv, 1.0f);
+                btnPortrait.Img = gv.cc.LoadBitmap(pc.portraitFilename);
+                btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                btnPortrait.X = 12 * gv.squareSize;
+                btnPortrait.Y = 1 * gv.squareSize + pH * 2;
+                btnPortrait.Height = (int)(pc.portrait.Height * gv.screenDensity);
+                btnPortrait.Width = (int)(pc.portrait.Width * gv.screenDensity);
+            }
             if (ctrlUpArrow == null)
             {
                 ctrlUpArrow = new IbbButton(gv, 1.0f);
@@ -279,6 +361,8 @@ namespace IceBlink2
     	    int leftStartY = pH * 20;
     	    int tokenStartX = locX + (textH * 5);
     	    int tokenStartY = pH * 5 + (spacing/2);
+            int portraitStartX = 12 * gv.squareSize + (textH * 5);
+            int portraitStartY = pH * 5 + (spacing / 2);
     	    int tokenRectPad = pW * 1;
     	
 		    //canvas.drawColor(Color.DKGRAY);
@@ -308,7 +392,12 @@ namespace IceBlink2
 			    IbRect dst2 = new IbRect(tokenStartX - tokenRectPad/2, tokenStartY - tokenRectPad/2, tokenRectPad + gv.squareSize, tokenRectPad + gv.squareSize);
                 gv.DrawRoundRectangle(dst2, 10, Color.Lime, 3);			    
 		    }
-		
+
+            //PORTRAIT
+            //src = new IbRect(0, 0, pc.portrait.Width, pc.portrait.Height);
+            //dst = new IbRect(portraitStartX, portraitStartY, pc.portrait.Width, pc.portrait.Height);
+            //gv.DrawBitmap(pc.portrait, src, dst);
+            		
 		    //name
             if (pcCreationIndex == 1) { color = Color.Lime; }
             else { color = Color.White; }
@@ -375,7 +464,8 @@ namespace IceBlink2
             int yLoc = pH * 18;
             IbRect rect = new IbRect(tabX, yLoc, pW * 35, pH * 50);
             gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-            
+
+            btnPortrait.Draw();
             ctrlUpArrow.Draw();
     	    ctrlDownArrow.Draw();
     	    ctrlLeftArrow.Draw();
@@ -695,6 +785,19 @@ namespace IceBlink2
 				    //doPlayersGuideDialog();
 				    gv.cc.tutorialBeginnersGuide();
 			    }
+                else if (btnPortrait.getImpact(x, y))
+                {
+                    if (pcPortraitSelectionIndex < playerPortraitList.Count - 1)
+                    {
+                        pcPortraitSelectionIndex++;
+                        portraitLoad(pc);
+                    }
+                    else
+                    {
+                        pcPortraitSelectionIndex = 0;
+                        portraitLoad(pc);
+                    }
+                }
 			    break;
 		    }
 	    }
@@ -703,6 +806,12 @@ namespace IceBlink2
         {
     	    p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
     	    p.token = gv.cc.LoadBitmap(p.tokenFilename);
+        }
+        public void portraitLoad(Player p)
+        {
+            p.portraitFilename = playerPortraitList[pcPortraitSelectionIndex];
+            p.portrait = gv.cc.LoadBitmap(p.portraitFilename);
+            btnPortrait.Img = gv.cc.LoadBitmap(p.portraitFilename);
         }
         public void changePcName()
         {

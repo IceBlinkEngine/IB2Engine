@@ -102,7 +102,7 @@
   "moduleVersion": 2,
   "defaultPlayerFilename": "drin.json",
   "mustUsePreMadePC": false,
-  "numberOfPlayerMadePcsAllowed": 2,
+  "numberOfPlayerMadePcsAllowed": 6,
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",

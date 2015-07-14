@@ -11,8 +11,11 @@ namespace IceBlink2
     public class Player 
     {
 	    public string tokenFilename = "blank.png";
+        public string portraitFilename = "F0404_L";
         [JsonIgnore]
 	    public Bitmap token;
+        [JsonIgnore]
+        public Bitmap portrait;
         [JsonIgnore]
 	    public bool combatFacingLeft = true;
 	    public bool steathModeOn = false;
