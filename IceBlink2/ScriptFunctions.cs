@@ -929,6 +929,7 @@ namespace IceBlink2
                                 {
                                     gv.mod.moduleAreasObjects[i].Props.Add(prp2);
                                     added = 1;
+                                    prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                                     break;
                                 }
                             }
@@ -948,6 +949,24 @@ namespace IceBlink2
                                 }
                             }
 
+                        }
+                    }
+
+                    else if (filename.Equals("osAddCreatureToCurrentEncounter.cs"))
+                    {
+                        //this.MessageBoxHtml("Add creature script ran");
+                        foreach (Creature c in gv.mod.moduleCreaturesList)
+                        {
+                            if (c.cr_resref == p1)
+                            {
+                                Creature copy = c.DeepCopy();
+                                copy.cr_tag = p2;
+                                copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
+                                copy.combatLocX = Convert.ToInt32(p3);
+                                copy.combatLocY = Convert.ToInt32(p4);
+                                mod.currentEncounter.encounterCreatureList.Add(copy);
+                                //gv.screenCombat.drawCombatCreatures();
+                            }
                         }
                     }
 
