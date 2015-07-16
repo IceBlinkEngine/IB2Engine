@@ -787,6 +787,8 @@ namespace IceBlink2
             pf = new PathFinderEncounters(mod);
             tutorialMessageCombat(false);
             gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+            //IBScript Start Combat Round Hook
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             startPcTurn();
         }
         public void startNextRoundStuff()
@@ -800,6 +802,8 @@ namespace IceBlink2
             }
             applyEffectsCombat();
             gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+            //IBScript Start Combat Round Hook
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             startPcTurn();
         }
         public void doBattleRegenTrait()

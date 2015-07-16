@@ -20,6 +20,7 @@ namespace IceBlink2
         public List<ForBlock> ForBlocksList = new List<ForBlock>();
         public List<IfBlock> IfBlocksList = new List<IfBlock>();
         public float helpResult;
+        public List<string> parmsList = new List<string>();
        
         
         //The following are the keywords used:
@@ -48,7 +49,7 @@ namespace IceBlink2
         //~ = the prefix for a function call ( ex. ~gaTakeItem() )
         //# = the prefix for the number of elements in a data object List ( ex. #ItemList )
 
-        public IBScriptEngine(GameView g, string filename, string prm1, string prm2, string prm3, string prm4)
+        public IBScriptEngine(GameView g, string filename, string parms)
         {
             gv = g;
             //read in script file and create line numbered list
@@ -61,7 +62,8 @@ namespace IceBlink2
             fillForBlocksList();
             fillIfBlocksList();
 
-            //RunScript();
+            //convert the parms into a List<String> by comma delimination and remove white space
+            parmsList = parms.Split(',').Select(x => x.Trim()).ToList();
         }
 
         public void fillForBlocksList()
@@ -4640,6 +4642,26 @@ namespace IceBlink2
                 {
                     //not in Dictionary so return ""
                     return "";
+                }
+            }
+            else if (parm.StartsWith("parm("))
+            {
+                string indx = parm.Split('(', ')')[1];
+                int index = Convert.ToInt32(indx);
+                if (index < parmsList.Count)
+                {
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>Replaced " + parm + " with " + parmsList[index] + "</font><BR>");
+                    }
+                    return parmsList[index];
+                }
+                else
+                {
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>index given in " + parm + " is outside range</font><BR>");
+                    }
                 }
             }
             else if (parm.StartsWith("%"))
