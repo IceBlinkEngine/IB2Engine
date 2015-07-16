@@ -22,6 +22,12 @@ namespace IceBlink2
 	    public IbbToggleButton tglMiniMap = null;
 	    public IbbToggleButton tglGrid = null;
 	    public IbbToggleButton tglClock = null;
+        public IbbPortrait ptrPc0 = null;
+        public IbbPortrait ptrPc1 = null;
+        public IbbPortrait ptrPc2 = null;
+        public IbbPortrait ptrPc3 = null;
+        public IbbPortrait ptrPc4 = null;
+        public IbbPortrait ptrPc5 = null;
 	    public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public int mapStartLocXinPixels;
 
@@ -36,6 +42,7 @@ namespace IceBlink2
 		    gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
 		    setControlsStart();
+            setPortraitsStart();
 		    setToggleButtonsStart();
 	    }
 	
@@ -114,7 +121,76 @@ namespace IceBlink2
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 	    }
-	    public void setToggleButtonsStart()
+	    public void setPortraitsStart()
+        {
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pH = (int)((float)gv.screenHeight / 100.0f);
+            int padW = gv.squareSize / 6;
+            int ptrH = 170;
+            int ptrW = 110;
+
+            if (ptrPc0 == null)
+            {
+                ptrPc0 = new IbbPortrait(gv, 1.0f);
+                ptrPc0.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc0.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc0.X = gv.oXshift + 16 * gv.squareSize;
+                ptrPc0.Y = 0 * gv.squareSize + pH * 2;
+                ptrPc0.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc0.Width = (int)(ptrW * gv.screenDensity);
+            }
+            if (ptrPc1 == null)
+            {
+                ptrPc1 = new IbbPortrait(gv, 1.0f);
+                ptrPc1.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc1.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc1.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
+                ptrPc1.Y = 0 * gv.squareSize + pH * 2;
+                ptrPc1.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc1.Width = (int)(ptrW * gv.screenDensity);
+            }
+            if (ptrPc2 == null)
+            {
+                ptrPc2 = new IbbPortrait(gv, 1.0f);
+                ptrPc2.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc2.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc2.X = gv.oXshift + 16 * gv.squareSize;
+                ptrPc2.Y = 2 * gv.squareSize + pH * 2;
+                ptrPc2.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc2.Width = (int)(ptrW * gv.screenDensity);
+            }
+            if (ptrPc3 == null)
+            {
+                ptrPc3 = new IbbPortrait(gv, 1.0f);
+                ptrPc3.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc3.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc3.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
+                ptrPc3.Y = 2 * gv.squareSize + pH * 2;
+                ptrPc3.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc3.Width = (int)(ptrW * gv.screenDensity);
+            }
+            if (ptrPc4 == null)
+            {
+                ptrPc4 = new IbbPortrait(gv, 1.0f);
+                ptrPc4.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc4.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc4.X = gv.oXshift + 16 * gv.squareSize;
+                ptrPc4.Y = 4 * gv.squareSize + pH * 2;
+                ptrPc4.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc4.Width = (int)(ptrW * gv.screenDensity);
+            }
+            if (ptrPc5 == null)
+            {
+                ptrPc5 = new IbbPortrait(gv, 1.0f);
+                ptrPc5.ImgBG = gv.cc.LoadBitmap("btn_small");
+                ptrPc5.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc5.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
+                ptrPc5.Y = 4 * gv.squareSize + pH * 2;
+                ptrPc5.Height = (int)(ptrH * gv.screenDensity);
+                ptrPc5.Width = (int)(ptrW * gv.screenDensity);
+            }
+        }
+        public void setToggleButtonsStart()
         {
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -219,39 +295,47 @@ namespace IceBlink2
         }
         public void drawPortraits()
         {
-            for (int j = 0; j < mod.playerList.Count; j++)
+            if (mod.playerList.Count > 0)
             {
-                IbRect src = new IbRect(0, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                if (j == 0)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
-                else if (j == 1)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 0, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
-                else if (j == 2)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 2 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
-                else if (j == 3)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 2 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
-                else if (j == 4)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 16 * gv.squareSize, 4 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
-                else if (j == 5)
-                {
-                    IbRect dst = new IbRect(gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2, 4 * gv.squareSize, mod.playerList[j].portrait.Width, mod.playerList[j].portrait.Height);
-                    gv.DrawBitmap(mod.playerList[j].portrait, src, dst);
-                }
+                ptrPc0.Img = mod.playerList[0].portrait;
+                ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
+                ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
+                ptrPc0.Draw();
+            }
+            if (mod.playerList.Count > 1)
+            {
+                ptrPc1.Img = mod.playerList[1].portrait;
+                ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
+                ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
+                ptrPc1.Draw();
+            }
+            if (mod.playerList.Count > 2)
+            {
+                ptrPc2.Img = mod.playerList[2].portrait;
+                ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
+                ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
+                ptrPc2.Draw();
+            }
+            if (mod.playerList.Count > 3)
+            {
+                ptrPc3.Img = mod.playerList[3].portrait;
+                ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
+                ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
+                ptrPc3.Draw();
+            }
+            if (mod.playerList.Count > 4)
+            {
+                ptrPc4.Img = mod.playerList[4].portrait;
+                ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
+                ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
+                ptrPc4.Draw();
+            }
+            if (mod.playerList.Count > 5)
+            {
+                ptrPc5.Img = mod.playerList[5].portrait;
+                ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
+                ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
+                ptrPc5.Draw();
             }
         }
         public void drawWorldMap()

@@ -2676,8 +2676,18 @@ namespace IceBlink2
         }
         public void doIBScriptBasedOnFilename(string filename, string parms)
         {
-            IBScriptEngine e = new IBScriptEngine(gv, filename, parms);
-            e.RunScript();
+            try
+            {
+                if (!filename.Equals("none"))
+                {
+                    IBScriptEngine e = new IBScriptEngine(gv, filename, parms);
+                    e.RunScript();
+                }
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBox("failed to run IBScript: " + filename);
+            }
         }
         public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
         {

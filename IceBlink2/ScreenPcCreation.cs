@@ -23,7 +23,7 @@ namespace IceBlink2
 	    private IbbButton btnRollStats = null;
 	    private IbbButton btnFinished = null;
 	    private IbbButton btnAbort = null;
-        private IbbButton btnPortrait = null;
+        private IbbPortrait btnPortrait = null;
         private Bitmap blankItemSlot;
 	    private int pcCreationIndex = 0;
 	    private int pcTokenSelectionIndex = 0;
@@ -232,7 +232,7 @@ namespace IceBlink2
 
             if (btnPortrait == null)
             {
-                btnPortrait = new IbbButton(gv, 1.0f);
+                btnPortrait = new IbbPortrait(gv, 1.0f);
                 btnPortrait.Img = gv.cc.LoadBitmap(pc.portraitFilename);
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
                 btnPortrait.X = 12 * gv.squareSize;
