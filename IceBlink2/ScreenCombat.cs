@@ -61,12 +61,6 @@ namespace IceBlink2
 	    public IbbToggleButton tglKill = null;
 	    public IbbToggleButton tglHelp = null;
 	    public IbbToggleButton tglGrid = null;
-        public IbbPortrait ptrPc0 = null;
-        public IbbPortrait ptrPc1 = null;
-        public IbbPortrait ptrPc2 = null;
-        public IbbPortrait ptrPc3 = null;
-        public IbbPortrait ptrPc4 = null;
-        public IbbPortrait ptrPc5 = null;
         public int mapStartLocXinPixels;
 	
 	    public ScreenCombat(Module m, GameView g)
@@ -75,8 +69,7 @@ namespace IceBlink2
 		    gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
 		    setControlsStart();
-            setPortraitsStart();
-		    setToggleButtonsStart();
+            setToggleButtonsStart();
 	    }
 	
 	    public void setControlsStart()
@@ -166,75 +159,6 @@ namespace IceBlink2
 					
 		    }
 	    }
-        public void setPortraitsStart()
-        {
-            int pW = (int)((float)gv.screenWidth / 100.0f);
-            int pH = (int)((float)gv.screenHeight / 100.0f);
-            int padW = gv.squareSize / 6;
-            int ptrH = 170;
-            int ptrW = 110;
-
-            if (ptrPc0 == null)
-            {
-                ptrPc0 = new IbbPortrait(gv, 1.0f);
-                ptrPc0.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc0.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc0.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc0.Y = 0 * gv.squareSize + pH * 2;
-                ptrPc0.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc0.Width = (int)(ptrW * gv.screenDensity);
-            }
-            if (ptrPc1 == null)
-            {
-                ptrPc1 = new IbbPortrait(gv, 1.0f);
-                ptrPc1.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc1.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc1.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc1.Y = 0 * gv.squareSize + pH * 2;
-                ptrPc1.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc1.Width = (int)(ptrW * gv.screenDensity);
-            }
-            if (ptrPc2 == null)
-            {
-                ptrPc2 = new IbbPortrait(gv, 1.0f);
-                ptrPc2.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc2.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc2.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc2.Y = 2 * gv.squareSize + pH * 2;
-                ptrPc2.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc2.Width = (int)(ptrW * gv.screenDensity);
-            }
-            if (ptrPc3 == null)
-            {
-                ptrPc3 = new IbbPortrait(gv, 1.0f);
-                ptrPc3.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc3.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc3.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc3.Y = 2 * gv.squareSize + pH * 2;
-                ptrPc3.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc3.Width = (int)(ptrW * gv.screenDensity);
-            }
-            if (ptrPc4 == null)
-            {
-                ptrPc4 = new IbbPortrait(gv, 1.0f);
-                ptrPc4.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc4.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc4.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc4.Y = 4 * gv.squareSize + pH * 2;
-                ptrPc4.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc4.Width = (int)(ptrW * gv.screenDensity);
-            }
-            if (ptrPc5 == null)
-            {
-                ptrPc5 = new IbbPortrait(gv, 1.0f);
-                ptrPc5.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc5.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                ptrPc5.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc5.Y = 4 * gv.squareSize + pH * 2;
-                ptrPc5.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc5.Width = (int)(ptrW * gv.screenDensity);
-            }
-        }
         public void setToggleButtonsStart()
         {
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -2351,45 +2275,45 @@ namespace IceBlink2
         {
             if (mod.playerList.Count > 0)
             {
-                ptrPc0.Img = mod.playerList[0].portrait;
-                ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
-                ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
-                ptrPc0.Draw();
+                gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
+                gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
+                gv.cc.ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
+                gv.cc.ptrPc0.Draw();
             }
             if (mod.playerList.Count > 1)
             {
-                ptrPc1.Img = mod.playerList[1].portrait;
-                ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
-                ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
-                ptrPc1.Draw();
+                gv.cc.ptrPc1.Img = mod.playerList[1].portrait;
+                gv.cc.ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
+                gv.cc.ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
+                gv.cc.ptrPc1.Draw();
             }
             if (mod.playerList.Count > 2)
             {
-                ptrPc2.Img = mod.playerList[2].portrait;
-                ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
-                ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
-                ptrPc2.Draw();
+                gv.cc.ptrPc2.Img = mod.playerList[2].portrait;
+                gv.cc.ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
+                gv.cc.ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
+                gv.cc.ptrPc2.Draw();
             }
             if (mod.playerList.Count > 3)
             {
-                ptrPc3.Img = mod.playerList[3].portrait;
-                ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
-                ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
-                ptrPc3.Draw();
+                gv.cc.ptrPc3.Img = mod.playerList[3].portrait;
+                gv.cc.ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
+                gv.cc.ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
+                gv.cc.ptrPc3.Draw();
             }
             if (mod.playerList.Count > 4)
             {
-                ptrPc4.Img = mod.playerList[4].portrait;
-                ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
-                ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
-                ptrPc4.Draw();
+                gv.cc.ptrPc4.Img = mod.playerList[4].portrait;
+                gv.cc.ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
+                gv.cc.ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
+                gv.cc.ptrPc4.Draw();
             }
             if (mod.playerList.Count > 5)
             {
-                ptrPc5.Img = mod.playerList[5].portrait;
-                ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
-                ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
-                ptrPc5.Draw();
+                gv.cc.ptrPc5.Img = mod.playerList[5].portrait;
+                gv.cc.ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
+                gv.cc.ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
+                gv.cc.ptrPc5.Draw();
             }
         }
         public void drawCombatMap()

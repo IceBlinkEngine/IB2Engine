@@ -235,7 +235,7 @@ namespace IceBlink2
                 btnPortrait = new IbbPortrait(gv, 1.0f);
                 btnPortrait.Img = gv.cc.LoadBitmap(pc.portraitFilename);
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnPortrait.X = 12 * gv.squareSize;
+                btnPortrait.X = 14 * gv.squareSize;
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
                 btnPortrait.Height = (int)(pc.portrait.Height * gv.screenDensity);
                 btnPortrait.Width = (int)(pc.portrait.Width * gv.screenDensity);

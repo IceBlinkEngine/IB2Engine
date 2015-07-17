@@ -1,0 +1,123 @@
+{
+  "tokenFilename": "pc_fh_fig3_pc",
+  "portraitFilename": "F0888_L",
+  "steathModeOn": false,
+  "mainPc": false,
+  "nonRemoveablePc": false,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "moveDistance": 6,
+  "name": "shade",
+  "tag": "shade",
+  "raceTag": "elf",
+  "classTag": "thief",
+  "knownSpellsTags": [],
+  "knownTraitsTags": [
+    "pickpocket",
+    "spot",
+    "stealth",
+    "disabledevice",
+    "bluff"
+  ],
+  "effectsList": [],
+  "classLevel": 1,
+  "isMale": false,
+  "charStatus": "Alive",
+  "baseFortitude": 0,
+  "baseWill": 0,
+  "baseReflex": 2,
+  "fortitude": 1,
+  "will": -1,
+  "reflex": 7,
+  "strength": 13,
+  "dexterity": 20,
+  "intelligence": 7,
+  "charisma": 10,
+  "baseStr": 15,
+  "baseDex": 18,
+  "baseInt": 7,
+  "baseCha": 10,
+  "ACBase": 10,
+  "AC": 15,
+  "classBonus": 0,
+  "baseAttBonus": 0,
+  "baseAttBonusAdders": 0,
+  "hp": 7,
+  "hpMax": 7,
+  "sp": 4,
+  "spMax": 4,
+  "XP": 0,
+  "XPNeeded": 125,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "AmmoRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 10,
+  "damageTypeResistanceTotalPoison": 0
+}

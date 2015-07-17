@@ -94,6 +94,7 @@ namespace IceBlink2
 	    {
 		      Player copy = new Player();
 		      copy.tokenFilename = this.tokenFilename;
+              copy.portraitFilename = this.portraitFilename;
 		      copy.combatLocX = this.combatLocX;
 		      copy.combatLocY = this.combatLocY;
               copy.moveDistance = this.moveDistance;

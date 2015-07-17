@@ -284,6 +284,7 @@ namespace IceBlink2
         
 		    cc.nullOutControls();
 		    cc.setControlsStart();
+            cc.setPortraitsStart();
 		    cc.setToggleButtonsStart();
 		    createScreens();
 		    initializeSounds();

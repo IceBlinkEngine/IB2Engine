@@ -105,6 +105,8 @@ namespace IceBlink2
 
             int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
             int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)stringSize.Height / 2);
+            ulX = pW * 0;
+            ulY = this.Height - ((int)stringSize.Height * 2);
 
             for (int x = -2; x <= 2; x++)
             {
@@ -121,6 +123,8 @@ namespace IceBlink2
 
             ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
             ulY = ((int)(this.Height * gv.screenDensity / 2));
+            ulX = pW * 1;
+            ulY = this.Height - ((int)stringSize.Height * 1);
 
             for (int x = -2; x <= 2; x++)
             {
