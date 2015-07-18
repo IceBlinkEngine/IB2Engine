@@ -14,16 +14,23 @@ namespace IceBlink2
 	    public Module mod;
 	    public GameView gv;
 
-        private IbbButton ctrlUpArrow = null;
-        private IbbButton ctrlDownArrow = null;
-        private IbbButton ctrlLeftArrow = null;
-        private IbbButton ctrlRightArrow = null;
+        //private IbbButton ctrlUpArrow = null;
+        //private IbbButton ctrlDownArrow = null;
+        //private IbbButton ctrlLeftArrow = null;
+        //private IbbButton ctrlRightArrow = null;
+        private IbbButton btnName = null;
+        private IbbButton btnRace = null;
+        private IbbButton btnClass = null;
+        private IbbButton btnGender = null;
+        private IbbPortrait btnPortrait = null;
+        private IbbButton btnToken = null;
+
 	    private IbbButton btnPlayerGuideOnPcCreation = null;
 	    private IbbButton btnBeginnerGuideOnPcCreation = null;
 	    private IbbButton btnRollStats = null;
 	    private IbbButton btnFinished = null;
 	    private IbbButton btnAbort = null;
-        private IbbPortrait btnPortrait = null;
+        
         private Bitmap blankItemSlot;
 	    private int pcCreationIndex = 0;
 	    private int pcTokenSelectionIndex = 0;
@@ -33,7 +40,7 @@ namespace IceBlink2
 	    public List<string> playerTokenList = new List<string>();
         public List<string> playerPortraitList = new List<string>();
         public List<Race> playerRaces = new List<Race>();
-        private Player pc;
+        public Player pc;
 	
 	    public ScreenPcCreation(Module m, GameView g)
 	    {
@@ -54,8 +61,8 @@ namespace IceBlink2
             pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
 		    pc.playerClass = mod.getPlayerClass(pc.classTag);
 		    pc.race = this.getAllowedRace(pc.raceTag);
-		    pc.name = "ChangeThis";
-		    pc.tag = "changethis";
+		    pc.name = "CharacterName";
+            pc.tag = "characterName";
 		    pcCreationIndex = 0;
 	    }
         public void CreateRaceList()
@@ -233,56 +240,63 @@ namespace IceBlink2
             if (btnPortrait == null)
             {
                 btnPortrait = new IbbPortrait(gv, 1.0f);
-                btnPortrait.Img = gv.cc.LoadBitmap(pc.portraitFilename);
+                btnPortrait.ImgBG = gv.cc.LoadBitmap(pc.portraitFilename);
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnPortrait.X = 14 * gv.squareSize;
+                btnPortrait.X = 10 * gv.squareSize;
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
                 btnPortrait.Height = (int)(pc.portrait.Height * gv.screenDensity);
                 btnPortrait.Width = (int)(pc.portrait.Width * gv.screenDensity);
             }
-            if (ctrlUpArrow == null)
+            if (btnToken == null)
             {
-                ctrlUpArrow = new IbbButton(gv, 1.0f);
-                ctrlUpArrow.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-                ctrlUpArrow.Img2 = gv.cc.LoadBitmap("ctrl_up_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_arrow);
-                ctrlUpArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpArrow.X = 12 * gv.squareSize;
-                ctrlUpArrow.Y = 7 * gv.squareSize + pH * 2;
-                ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
-                ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnToken = new IbbButton(gv, 1.0f);
+                btnToken.Img = gv.cc.LoadBitmap("item_slot");
+                btnToken.Img2 = gv.cc.LoadBitmap(pc.tokenFilename);
+                btnToken.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                btnToken.X = 12 * gv.squareSize;
+                btnToken.Y = 1 * gv.squareSize + pH * 2;
+                btnToken.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnToken.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
-            if (ctrlLeftArrow == null)
+            if (btnName == null)
             {
-                ctrlLeftArrow = new IbbButton(gv, 1.0f);
-                ctrlLeftArrow.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-                ctrlLeftArrow.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_left_arrow);
-                ctrlLeftArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlLeftArrow.X = 11 * gv.squareSize;
-                ctrlLeftArrow.Y = 8 * gv.squareSize + pH * 2;
-                ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
-                ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnName = new IbbButton(gv, 1.0f);
+                btnName.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnName.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnName.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
+                btnName.Y = 1 * gv.squareSize;
+                btnName.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
-            if (ctrlRightArrow == null)
+            if (btnRace == null)
             {
-                ctrlRightArrow = new IbbButton(gv, 1.0f);
-                ctrlRightArrow.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-                ctrlRightArrow.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_right_arrow);
-                ctrlRightArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlRightArrow.X = 13 * gv.squareSize;
-                ctrlRightArrow.Y = 8 * gv.squareSize + pH * 2;
-                ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
-                ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnRace = new IbbButton(gv, 1.0f);
+                btnRace.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnRace.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnRace.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
+                btnRace.Y = 2 * gv.squareSize;
+                btnRace.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnRace.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
-            if (ctrlDownArrow == null)
+            if (btnGender == null)
             {
-                ctrlDownArrow = new IbbButton(gv, 1.0f);
-                ctrlDownArrow.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-                ctrlDownArrow.Img2 = gv.cc.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_arrow);
-                ctrlDownArrow.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownArrow.X = 12 * gv.squareSize;
-                ctrlDownArrow.Y = 9 * gv.squareSize + pH * 2;
-                ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
-                ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+                btnGender = new IbbButton(gv, 1.0f);
+                btnGender.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnGender.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnGender.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
+                btnGender.Y = 3 * gv.squareSize;
+                btnGender.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnGender.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+            if (btnClass == null)
+            {
+                btnClass = new IbbButton(gv, 1.0f);
+                btnClass.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnClass.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnClass.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
+                btnClass.Y = 4 * gv.squareSize;
+                btnClass.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnClass.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
 		    if (btnPlayerGuideOnPcCreation == null)
 		    {
@@ -312,8 +326,8 @@ namespace IceBlink2
 			    btnRollStats.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnRollStats.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnRollStats.Text = "Roll Stats";
-                btnRollStats.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-			    btnRollStats.Y = 6 * gv.squareSize - pH;
+                btnRollStats.X = center + pW * 1;
+                btnRollStats.Y = 7 * gv.squareSize;
                 btnRollStats.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRollStats.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 		    }
@@ -324,7 +338,7 @@ namespace IceBlink2
 			    btnFinished.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnFinished.Text = "Finished";
                 btnFinished.X = center + pW * 1;
-			    btnFinished.Y = 6 * gv.squareSize - pH;
+			    btnFinished.Y = 8 * gv.squareSize + pH;
                 btnFinished.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnFinished.Width = (int)(gv.ibbwidthL * gv.screenDensity);
 		    }
@@ -343,8 +357,7 @@ namespace IceBlink2
 
 	    public void redrawPcCreation()
         {
-            //gv.BackColor = Color.DimGray;
-    	    //Player pc = mod.playerList.get(0);
+            //Player pc = mod.playerList.get(0);
     	    gv.sf.UpdateStats(pc);
     	
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -355,7 +368,7 @@ namespace IceBlink2
     	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;            
             int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int spacing = textH;
-    	    int locY = 0;
+            int locY = 5 * gv.squareSize;
     	    int tabX = pW * 50;
     	    int tabX2 = pW * 50;
     	    int leftStartY = pH * 20;
@@ -365,33 +378,28 @@ namespace IceBlink2
             int portraitStartY = pH * 5 + (spacing / 2);
     	    int tokenRectPad = pW * 1;
     	
-		    //canvas.drawColor(Color.DKGRAY);
-		
 		    //Page Title
 		    //gv.mSheetTextPaint.setColor(Color.WHITE);
 		    //canvas.drawText("CREATE CHARACTER", pW * 31, pH * 3, gv.mSheetTextPaint);
             gv.DrawText("CREATE CHARACTER", pW * 40, pH * 3);
 				
 		    //select token
-		    //gv.mSheetTextPaint.setColor(Color.YELLOW);	
-		    //canvas.drawText("Left/Right to Change", tabX2, tokenStartY + (gv.squareSize / 2), gv.mSheetTextPaint);
-            gv.DrawText("Left/Right to Change", tabX2, tokenStartY + (gv.squareSize / 2), 1.0f, Color.Yellow);
+		    //gv.DrawText("Left/Right to Change", tabX2, tokenStartY + (gv.squareSize / 2), 1.0f, Color.Yellow);
 
             Color color = Color.White;
-            if (pcCreationIndex == 0) { color = Color.Lime; }
-            else { color = Color.White; }
-            gv.DrawText("Image:", locX, tokenStartY + (gv.squareSize / 2), 1.0f, color);
-		    //canvas.drawText("Image:", locX, tokenStartY + (gv.squareSize / 2), gv.mSheetTextPaint);
-		
-		    IbRect src = new IbRect(0, 0, pc.token.Width, pc.token.Width);
-		    IbRect dst = new IbRect(tokenStartX, tokenStartY, gv.squareSize, gv.squareSize);
-            gv.DrawBitmap(blankItemSlot, src, dst);
-		    gv.DrawBitmap(pc.token, src, dst);	
-		    if (pcCreationIndex == 0)
-		    {                
-			    IbRect dst2 = new IbRect(tokenStartX - tokenRectPad/2, tokenStartY - tokenRectPad/2, tokenRectPad + gv.squareSize, tokenRectPad + gv.squareSize);
-                gv.DrawRoundRectangle(dst2, 10, Color.Lime, 3);			    
-		    }
+            //if (pcCreationIndex == 0) { color = Color.Lime; }
+            //else { color = Color.White; }
+            //gv.DrawText("Image:", locX, tokenStartY + (gv.squareSize / 2), 1.0f, color);
+		    
+		    //IbRect src = new IbRect(0, 0, pc.token.Width, pc.token.Width);
+		    //IbRect dst = new IbRect(tokenStartX, tokenStartY, gv.squareSize, gv.squareSize);
+            //gv.DrawBitmap(blankItemSlot, src, dst);
+		    //gv.DrawBitmap(pc.token, src, dst);	
+		    //if (pcCreationIndex == 0)
+		    //{                
+			//    IbRect dst2 = new IbRect(tokenStartX - tokenRectPad/2, tokenStartY - tokenRectPad/2, tokenRectPad + gv.squareSize, tokenRectPad + gv.squareSize);
+            //    gv.DrawRoundRectangle(dst2, 10, Color.Lime, 3);			    
+		    //}
 
             //PORTRAIT
             //src = new IbRect(0, 0, pc.portrait.Width, pc.portrait.Height);
@@ -399,45 +407,41 @@ namespace IceBlink2
             //gv.DrawBitmap(pc.portrait, src, dst);
             		
 		    //name
-            if (pcCreationIndex == 1) { color = Color.Lime; }
-            else { color = Color.White; }
-            gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, 1.0f, color);
+            //if (pcCreationIndex == 1) { color = Color.Lime; }
+            //else { color = Color.White; }
+            //gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, 1.0f, color);
 
 		    //if (pcCreationIndex == 1) { gv.mSheetTextPaint.setColor(Color.GREEN); }
 		    //else { gv.mSheetTextPaint.setColor(Color.WHITE); }
 		    //canvas.drawText("Name: " + pc.name, locX, locY += leftStartY, gv.mSheetTextPaint);
 		
 		    //race
-            if (pcCreationIndex == 2) { color = Color.Lime; }
-            else { color = Color.White; }
-            gv.DrawText("Race: " + pc.race.name, locX, locY += spacing, 1.0f, color);
+            //if (pcCreationIndex == 2) { color = Color.Lime; }
+            //else { color = Color.White; }
+            //gv.DrawText("Race: " + pc.race.name, locX, locY += spacing, 1.0f, color);
 
 		    //if (pcCreationIndex == 2) { gv.mSheetTextPaint.setColor(Color.GREEN); }
 		    //else { gv.mSheetTextPaint.setColor(Color.WHITE); }
 		    //canvas.drawText("Race: " + pc.race.name, locX, locY += spacing, gv.mSheetTextPaint);
 		
 		    //gender
-            if (pcCreationIndex == 3) { color = Color.Lime; }
-            else { color = Color.White; }
+            //if (pcCreationIndex == 3) { color = Color.Lime; }
+            //else { color = Color.White; }
             
 
-		    //if (pcCreationIndex == 3) { gv.mSheetTextPaint.setColor(Color.GREEN); }
-		    //else { gv.mSheetTextPaint.setColor(Color.WHITE); }
-		    if (pc.isMale)
-		    {
-                gv.DrawText("Gender: Male", locX, locY += spacing, 1.0f, color);
-			    //canvas.drawText("Gender: Male", locX, locY += spacing, gv.mSheetTextPaint);
-		    }
-		    else
-		    {
-                gv.DrawText("Gender: Female", locX, locY += spacing, 1.0f, color);
-			    //canvas.drawText("Gender: Female", locX, locY += spacing, gv.mSheetTextPaint);
-		    }
+		    //if (pc.isMale)
+		    //{
+            //    gv.DrawText("Gender: Male", locX, locY += spacing, 1.0f, color);
+		    //}
+		    //else
+		    //{
+            //    gv.DrawText("Gender: Female", locX, locY += spacing, 1.0f, color);
+		    //}
 		
 		    //class
-            if (pcCreationIndex == 4) { color = Color.Lime; }
-            else { color = Color.White; }
-            gv.DrawText("Class: " + pc.playerClass.name, locX, locY += spacing, 1.0f, color);
+            //if (pcCreationIndex == 4) { color = Color.Lime; }
+            //else { color = Color.White; }
+            //gv.DrawText("Class: " + pc.playerClass.name, locX, locY += spacing, 1.0f, color);
 
 		    gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength, locX, locY += spacing);
             gv.DrawText("AC: " + pc.AC, tabX2, locY);
@@ -460,16 +464,32 @@ namespace IceBlink2
             {
                 textToSpan = "Description:" + Environment.NewLine;
         	    textToSpan += pc.playerClass.description;
-            }		
-            int yLoc = pH * 18;
+            }
+            int yLoc = 3 * gv.squareSize;
             IbRect rect = new IbRect(tabX, yLoc, pW * 35, pH * 50);
             gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
             btnPortrait.Draw();
-            ctrlUpArrow.Draw();
-    	    ctrlDownArrow.Draw();
-    	    ctrlLeftArrow.Draw();
-    	    ctrlRightArrow.Draw();
+            btnToken.Draw();
+            btnName.Text = pc.name;
+            btnName.Draw();
+            btnRace.Text = pc.race.name;
+            btnRace.Draw();
+            if (pc.isMale)
+            {
+                btnGender.Text = "Male";
+            }
+            else
+            {
+                btnGender.Text = "Female";
+            }
+            btnGender.Draw();
+            btnClass.Text = pc.playerClass.name;
+            btnClass.Draw();
+            //ctrlUpArrow.Draw();
+    	    //ctrlDownArrow.Draw();
+    	    //ctrlLeftArrow.Draw();
+    	    //ctrlRightArrow.Draw();
 		    btnRollStats.Draw();
 		    btnFinished.Draw();
 		    gv.cc.btnHelp.Draw();
@@ -481,10 +501,10 @@ namespace IceBlink2
 	    {
     	    //Player pc = mod.playerList.get(0);
     	
-    	    ctrlUpArrow.glowOn = false;
-    	    ctrlDownArrow.glowOn = false;
-    	    ctrlLeftArrow.glowOn = false;
-    	    ctrlRightArrow.glowOn = false;
+    	    //ctrlUpArrow.glowOn = false;
+    	    //ctrlDownArrow.glowOn = false;
+    	    //ctrlLeftArrow.glowOn = false;
+    	    //ctrlRightArrow.glowOn = false;
 		    btnRollStats.glowOn = false;
 		    btnFinished.glowOn = false;	
 		    btnAbort.glowOn = false;	
@@ -499,7 +519,7 @@ namespace IceBlink2
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (ctrlUpArrow.getImpact(x, y))
+			    /*if (ctrlUpArrow.getImpact(x, y))
 			    {
 				    ctrlUpArrow.glowOn = true;
 			    }
@@ -514,8 +534,8 @@ namespace IceBlink2
 			    else if (ctrlRightArrow.getImpact(x, y))
 			    {
 				    ctrlRightArrow.glowOn = true;
-			    }	
-			    else if (btnRollStats.getImpact(x, y))
+			    }*/	
+			    if (btnRollStats.getImpact(x, y))
 			    {
 				    btnRollStats.glowOn = true;
 			    }
@@ -545,10 +565,10 @@ namespace IceBlink2
                 x = (int)e.X;
                 y = (int)e.Y;
 			
-			    ctrlUpArrow.glowOn = false;
-			    ctrlDownArrow.glowOn = false;
-			    ctrlLeftArrow.glowOn = false;
-			    ctrlRightArrow.glowOn = false;
+			    //ctrlUpArrow.glowOn = false;
+			    //ctrlDownArrow.glowOn = false;
+			    //ctrlLeftArrow.glowOn = false;
+			    //ctrlRightArrow.glowOn = false;
 			    btnRollStats.glowOn = false;
 			    btnFinished.glowOn = false;	
 			    btnAbort.glowOn = false;
@@ -556,7 +576,87 @@ namespace IceBlink2
 			    btnPlayerGuideOnPcCreation.glowOn = false;
 			    btnBeginnerGuideOnPcCreation.glowOn = false;
 			
-			    if (ctrlUpArrow.getImpact(x, y))
+                if (btnName.getImpact(x, y))
+			    {
+                    gv.PlaySound("btn_click");
+				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    pcCreationIndex = 1;
+                    changePcName();
+			    }
+                else if (btnRace.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    pcCreationIndex = 2; 
+                    pcRaceSelectionIndex++;
+                    if (pcRaceSelectionIndex >= this.playerRaces.Count)
+                    {
+                        pcRaceSelectionIndex = 0;
+                    }
+                    pc.race = playerRaces[pcRaceSelectionIndex];
+                    pc.raceTag = pc.race.tag;
+                    resetClassSelection(pc);
+                    gv.sf.UpdateStats(pc);
+                    pc.hp = pc.hpMax;
+                    pc.sp = pc.spMax;
+                }
+                else if (btnGender.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    pcCreationIndex = 3; 
+                    if (pc.isMale)
+                    {
+                        pc.isMale = false;
+                    }
+                    else
+                    {
+                        pc.isMale = true;
+                    }
+                }
+                else if (btnClass.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    pcCreationIndex = 4;
+                    pcClassSelectionIndex++;
+                    if (pcClassSelectionIndex >= pc.race.classesAllowed.Count)
+                    {
+                        pcClassSelectionIndex = 0;
+                    }
+                    pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                    pc.classTag = pc.playerClass.tag;
+                    gv.sf.UpdateStats(pc);
+                    pc.hp = pc.hpMax;
+                    pc.sp = pc.spMax;
+                }
+                else if (btnPortrait.getImpact(x, y))
+                {
+                    //pass items to selector
+                    gv.screenType = "portraitSelector";
+                    gv.screenPortraitSelector.resetPortraitSelector("pcCreation", pc);
+                }
+                else if (btnToken.getImpact(x, y))
+                {
+                    gv.screenType = "tokenSelector";
+                    gv.screenTokenSelector.resetTokenSelector("pcCreation", pc);
+                    /*if (pcTokenSelectionIndex < playerTokenList.Count - 1)
+                    {
+                        pcTokenSelectionIndex++;
+                        tokenLoad(pc);
+                    }
+                    else
+                    {
+                        pcTokenSelectionIndex = 0;
+                        tokenLoad(pc);	
+                    }*/
+                }
+
+			    /*if (ctrlUpArrow.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
@@ -634,184 +734,172 @@ namespace IceBlink2
 						    break;
 				    }
 			    }
-			    else if (ctrlRightArrow.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    switch (pcCreationIndex)
-				    {
-					    case 0:
-						    if (pcTokenSelectionIndex < playerTokenList.Count - 1)
-						    {
-							    pcTokenSelectionIndex++;
-							    tokenLoad(pc);	
-						    }											
-						    break;
-					    case 1:
-						    changePcName();
-						    break;
-					    case 2:
-						    //if (pcRaceSelectionIndex < mod.moduleRacesList.size()-1)
-                            if (pcRaceSelectionIndex < this.playerRaces.Count-1)
-						    {
-							    pcRaceSelectionIndex++;
-							    //pc.race = mod.moduleRacesList.get(pcRaceSelectionIndex);
-                                pc.race = playerRaces[pcRaceSelectionIndex];
-							    pc.raceTag = pc.race.tag;
-							    //changeClassIfDwarf(pc);
-							    resetClassSelection(pc);
-							    gv.sf.UpdateStats(pc);
-							    pc.hp = pc.hpMax;
-							    pc.sp = pc.spMax;
-						    }
-						    break;
-					    case 3:
-						    if (pc.isMale)
-						    {
-							    pc.isMale = false;
-						    }
-						    else
-						    {
-							    pc.isMale = true;
-						    }
-						    break;
-					    case 4:
-						    //do stuff
-						    if (pcClassSelectionIndex < pc.race.classesAllowed.Count-1)
-						    {
-							    pcClassSelectionIndex++;
-							    //if raceIndex = 1 (dwarf) then class index is now 1 (cleric)
-							    //if (pcRaceSelectionIndex == 1) {pcClassSelectionIndex = 1;}
-							    pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
-							    //pc.playerClass = mod.modulePlayerClassList.get(pcClassSelectionIndex);
-							    pc.classTag = pc.playerClass.tag;
-							    gv.sf.UpdateStats(pc);
-					    	    pc.hp = pc.hpMax;
-							    pc.sp = pc.spMax;
-						    }
-						    break;
-				    }
-			    }	
-			    else if (btnRollStats.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    reRollStats(pc);
-			    }
-			    else if (btnFinished.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				
-				    //if automatically learned traits or spells add them
-				    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
-		    	    {
-		    		    if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
-		    		    {
-		    			    pc.knownTraitsTags.Add(ta.tag);
-		    		    }
-		    	    }
-				    foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
-		    	    {
-		    		    if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
-		    		    {
-		    			    pc.knownSpellsTags.Add(sa.tag);
-		    		    }
-		    	    }
-				
-				    //check to see if have any traits to learn
-			        List<string> traitTagsList = new List<string>();
-			        traitTagsList = pc.getTraitsToLearn(gv.mod);
-			    
-			        //check to see if have any spells to learn
-			        List<string> spellTagsList = new List<string>();
-			        spellTagsList = pc.getSpellsToLearn();
-			    			    
-			        if (traitTagsList.Count > 0)
-			        {
-			    	    gv.screenTraitLevelUp.resetPC(pc);
-			    	    gv.screenType = "learnTraitCreation";
-			        }			    
-				
-			        else if (spellTagsList.Count > 0)
-			        {
-			    	    gv.screenSpellLevelUp.resetPC(pc);
-			    	    gv.screenType = "learnSpellCreation";
-			        }
-			        else
-			        {
-				        //no spells or traits to learn
-			    	    //save character, add them to the pcList of screenPartyBuild, and go back to build screen
-			    	    this.SaveCharacter(pc);
-			    	    gv.screenPartyBuild.pcList.Add(pc);
-			    	    gv.screenType = "partyBuild";
-			    	
-			    	    /* old stuff, keep for now
-			    	    gv.cc.tutorialMessageMainMap();
-			    	    gv.screenType = "main";
-			    	    gv.cc.doUpdate();*/
-			        }				
-			    }
-			    else if (btnAbort.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}				
-				    gv.screenType = "partyBuild";			    			
-			    }
-			    else if (gv.cc.btnHelp.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    gv.cc.tutorialPcCreation();
-			    }
-			    else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    //doPlayersGuideDialog();
-				    gv.cc.tutorialPlayersGuide();
-			    }
-			    else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    //doPlayersGuideDialog();
-				    gv.cc.tutorialBeginnersGuide();
-			    }
-                else if (btnPortrait.getImpact(x, y))
+                else if (ctrlRightArrow.getImpact(x, y))
                 {
-                    if (pcPortraitSelectionIndex < playerPortraitList.Count - 1)
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    switch (pcCreationIndex)
                     {
-                        pcPortraitSelectionIndex++;
-                        portraitLoad(pc);
+                        case 0:
+                            if (pcTokenSelectionIndex < playerTokenList.Count - 1)
+                            {
+                                pcTokenSelectionIndex++;
+                                tokenLoad(pc);
+                            }
+                            break;
+                        case 1:
+                            changePcName();
+                            break;
+                        case 2:
+                            //if (pcRaceSelectionIndex < mod.moduleRacesList.size()-1)
+                            if (pcRaceSelectionIndex < this.playerRaces.Count - 1)
+                            {
+                                pcRaceSelectionIndex++;
+                                //pc.race = mod.moduleRacesList.get(pcRaceSelectionIndex);
+                                pc.race = playerRaces[pcRaceSelectionIndex];
+                                pc.raceTag = pc.race.tag;
+                                //changeClassIfDwarf(pc);
+                                resetClassSelection(pc);
+                                gv.sf.UpdateStats(pc);
+                                pc.hp = pc.hpMax;
+                                pc.sp = pc.spMax;
+                            }
+                            break;
+                        case 3:
+                            if (pc.isMale)
+                            {
+                                pc.isMale = false;
+                            }
+                            else
+                            {
+                                pc.isMale = true;
+                            }
+                            break;
+                        case 4:
+                            //do stuff
+                            if (pcClassSelectionIndex < pc.race.classesAllowed.Count - 1)
+                            {
+                                pcClassSelectionIndex++;
+                                //if raceIndex = 1 (dwarf) then class index is now 1 (cleric)
+                                //if (pcRaceSelectionIndex == 1) {pcClassSelectionIndex = 1;}
+                                pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                                //pc.playerClass = mod.modulePlayerClassList.get(pcClassSelectionIndex);
+                                pc.classTag = pc.playerClass.tag;
+                                gv.sf.UpdateStats(pc);
+                                pc.hp = pc.hpMax;
+                                pc.sp = pc.spMax;
+                            }
+                            break;
+                    }
+                }*/
+                else if (btnRollStats.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    reRollStats(pc);
+                }
+                else if (btnFinished.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+
+                    //if automatically learned traits or spells add them
+                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                    {
+                        if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                        {
+                            pc.knownTraitsTags.Add(ta.tag);
+                        }
+                    }
+                    foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                    {
+                        if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                        {
+                            pc.knownSpellsTags.Add(sa.tag);
+                        }
+                    }
+
+                    //check to see if have any traits to learn
+                    List<string> traitTagsList = new List<string>();
+                    traitTagsList = pc.getTraitsToLearn(gv.mod);
+
+                    //check to see if have any spells to learn
+                    List<string> spellTagsList = new List<string>();
+                    spellTagsList = pc.getSpellsToLearn();
+
+                    if (traitTagsList.Count > 0)
+                    {
+                        gv.screenTraitLevelUp.resetPC(pc);
+                        gv.screenType = "learnTraitCreation";
+                    }
+
+                    else if (spellTagsList.Count > 0)
+                    {
+                        gv.screenSpellLevelUp.resetPC(pc);
+                        gv.screenType = "learnSpellCreation";
                     }
                     else
                     {
-                        pcPortraitSelectionIndex = 0;
-                        portraitLoad(pc);
+                        //no spells or traits to learn
+                        //save character, add them to the pcList of screenPartyBuild, and go back to build screen
+                        this.SaveCharacter(pc);
+                        gv.screenPartyBuild.pcList.Add(pc);
+                        gv.screenType = "partyBuild";
+
+                        /* old stuff, keep for now
+                        gv.cc.tutorialMessageMainMap();
+                        gv.screenType = "main";
+                        gv.cc.doUpdate();*/
                     }
                 }
+                else if (btnAbort.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}				
+                    gv.screenType = "partyBuild";
+                }
+                else if (gv.cc.btnHelp.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    gv.cc.tutorialPcCreation();
+                }
+                else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    //doPlayersGuideDialog();
+                    gv.cc.tutorialPlayersGuide();
+                }
+                else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
+                {
+                    gv.PlaySound("btn_click");
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    //doPlayersGuideDialog();
+                    gv.cc.tutorialBeginnersGuide();
+                }                
 			    break;
 		    }
 	    }
         
         public void tokenLoad(Player p)
         {
-    	    p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
+    	    //p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
     	    p.token = gv.cc.LoadBitmap(p.tokenFilename);
+            btnToken.Img2 = p.token;
         }
         public void portraitLoad(Player p)
         {
-            p.portraitFilename = playerPortraitList[pcPortraitSelectionIndex];
+            //p.portraitFilename = playerPortraitList[pcPortraitSelectionIndex];
             p.portrait = gv.cc.LoadBitmap(p.portraitFilename);
-            btnPortrait.Img = gv.cc.LoadBitmap(p.portraitFilename);
+            btnPortrait.Img = p.portrait;
         }
         public void changePcName()
         {

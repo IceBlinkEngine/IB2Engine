@@ -8,57 +8,57 @@ using System.Windows.Forms;
 
 namespace IceBlink2
 {
-    public class ScreenPortraitSelector
+    public class ScreenTokenSelector
     {
         public Module mod;
 	    public GameView gv;
         public Player pc;
-	    private int ptrPageIndex = 0;
-	    private int ptrSlotIndex = 0;
-	    private int slotsPerPage = 15;
+	    private int tknPageIndex = 0;
+	    private int tknSlotIndex = 0;
+	    private int slotsPerPage = 20;
         private int maxPages = 20;
-	    private List<IbbPortrait> btnPortraitSlot = new List<IbbPortrait>();
-	    private IbbButton btnPortraitsLeft = null;
-	    private IbbButton btnPortraitsRight = null;
+	    private List<IbbButton> btnTokenSlot = new List<IbbButton>();
+	    private IbbButton btnTokensLeft = null;
+	    private IbbButton btnTokensRight = null;
 	    private IbbButton btnPageIndex = null;
 	    private IbbButton btnAction = null;
         private IbbButton btnExit = null;
-        public string callingScreen = "main"; //main, party, inventory
-        public List<string> playerPortraitList = new List<string>();
+        public string callingScreen = "pcCreation"; //party, pcCreation
+        public List<string> playerTokenList = new List<string>();
 
-        public ScreenPortraitSelector(Module m, GameView g)
+        public ScreenTokenSelector(Module m, GameView g)
 	    {
 		    mod = m;
 		    gv = g;
 	    }
 
-        public void resetPortraitSelector(string callingScreenToReturnTo, Player p)
+        public void resetTokenSelector(string callingScreenToReturnTo, Player p)
         {
             pc = p;
             callingScreen = callingScreenToReturnTo;
-            LoadPlayerPortraitList();
+            LoadPlayerTokenList();
         }
 
-        public void LoadPlayerPortraitList()
+        public void LoadPlayerTokenList()
         {
-            playerPortraitList.Clear();
+            playerTokenList.Clear();
             try
             {
                 //Load from module folder first
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
                         {
                             string filename = Path.GetFileName(file);
-                            if ((filename.EndsWith(".png")) || (filename.EndsWith(".PNG")))
+                            if (filename.EndsWith("_pc.png"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                playerPortraitList.Add(fileNameWithOutExt);
+                                playerTokenList.Add(fileNameWithOutExt);
                             }
                         }
                         catch (Exception ex)
@@ -76,21 +76,21 @@ namespace IceBlink2
             {
                 //Load from PlayerTokens folder last
                 string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\PlayerPortraits"))
+                if (Directory.Exists(gv.mainDirectory + "\\PlayerTokens"))
                 {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\PlayerPortraits", "*.png");
+                    files = Directory.GetFiles(gv.mainDirectory + "\\PlayerTokens", "*.png");
                     //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
                         {
                             string filename = Path.GetFileName(file);
-                            if ((filename.EndsWith(".png")) || (filename.EndsWith(".PNG")))
+                            if (filename.EndsWith("_pc.png"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                if (!playerPortraitList.Contains(fileNameWithOutExt))
+                                if (!playerTokenList.Contains(fileNameWithOutExt))
                                 {
-                                    playerPortraitList.Add(fileNameWithOutExt);
+                                    playerTokenList.Add(fileNameWithOutExt);
                                 }
                             }
                         }
@@ -113,16 +113,16 @@ namespace IceBlink2
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
 
-            if (btnPortraitsLeft == null)
+            if (btnTokensLeft == null)
 		    {
-			    btnPortraitsLeft = new IbbButton(gv, 1.0f);
-			    btnPortraitsLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnPortraitsLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-			    btnPortraitsLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnPortraitsLeft.X = 8 * gv.squareSize;
-			    btnPortraitsLeft.Y = (1 * gv.squareSize) - (pH * 2);
-                btnPortraitsLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnPortraitsLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+			    btnTokensLeft = new IbbButton(gv, 1.0f);
+			    btnTokensLeft.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnTokensLeft.Img2 = gv.cc.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+			    btnTokensLeft.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnTokensLeft.X = 8 * gv.squareSize;
+			    btnTokensLeft.Y = (1 * gv.squareSize) - (pH * 2);
+                btnTokensLeft.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensLeft.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		    if (btnPageIndex == null)
 		    {
@@ -135,16 +135,16 @@ namespace IceBlink2
                 btnPageIndex.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPageIndex.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
-		    if (btnPortraitsRight == null)
+		    if (btnTokensRight == null)
 		    {
-			    btnPortraitsRight = new IbbButton(gv, 1.0f);
-			    btnPortraitsRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnPortraitsRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
-			    btnPortraitsRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
-			    btnPortraitsRight.X = 10 * gv.squareSize;
-			    btnPortraitsRight.Y = (1 * gv.squareSize) - (pH * 2);
-                btnPortraitsRight.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnPortraitsRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+			    btnTokensRight = new IbbButton(gv, 1.0f);
+			    btnTokensRight.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+			    btnTokensRight.Img2 = gv.cc.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
+			    btnTokensRight.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnTokensRight.X = 10 * gv.squareSize;
+			    btnTokensRight.Y = (1 * gv.squareSize) - (pH * 2);
+                btnTokensRight.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnTokensRight.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }
 		
 		    if (btnAction == null)
@@ -171,35 +171,40 @@ namespace IceBlink2
             }
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
-			    IbbPortrait btnNew = new IbbPortrait(gv, 0.8f);	
-			    btnNew.ImgBG = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
+			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
 			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y+1)) + gv.oXshift;
+				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y + 1)) + gv.oXshift;
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
 			    else if ((y >=5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5 + 2 + 4) * gv.squareSize) + (padW * ((y-5)+1)) + gv.oXshift;
-				    btnNew.Y = 4 * gv.squareSize + padW;
+				    btnNew.X = ((y - 5 + 2 + 4) * gv.squareSize) + (padW * ((y - 5) + 1)) + gv.oXshift;
+				    btnNew.Y = 3 * gv.squareSize + padW;
 			    }
-			    else
-			    {
-				    btnNew.X = ((y-10 + 2 + 4) * gv.squareSize) + (padW * ((y-10)+1)) + gv.oXshift;
-				    btnNew.Y = 6 * gv.squareSize + (padW * 2);
-			    }
+                else if ((y >= 10) && (y < 15))
+                {
+                    btnNew.X = ((y - 10 + 2 + 4) * gv.squareSize) + (padW * ((y - 10) + 1)) + gv.oXshift;
+                    btnNew.Y = 4 * gv.squareSize + (padW * 2);
+                }
+                else
+                {
+                    btnNew.X = ((y - 15 + 2 + 4) * gv.squareSize) + (padW * ((y - 15) + 1)) + gv.oXshift;
+                    btnNew.Y = 5 * gv.squareSize + (padW * 3);
+                }
 
-                btnNew.Height = (int)(170 * gv.screenDensity);
-                btnNew.Width = (int)(110 * gv.screenDensity);	
+                btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 			
-			    btnPortraitSlot.Add(btnNew);
+			    btnTokenSlot.Add(btnNew);
 		    }			
 	    }
 	
 	    //INVENTORY SCREEN (COMBAT and MAIN)
-        public void redrawPortraitSelector()
+        public void redrawTokenSelector()
         {
     	    //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnAction == null)
@@ -232,22 +237,22 @@ namespace IceBlink2
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
-		    btnPortraitsLeft.Draw();
-		    btnPortraitsRight.Draw();		
+		    btnTokensLeft.Draw();
+		    btnTokensRight.Draw();		
 		
 		    //DRAW ALL INVENTORY SLOTS		
 		    int cntSlot = 0;
-		    foreach (IbbPortrait btn in btnPortraitSlot)
+		    foreach (IbbButton btn in btnTokenSlot)
 		    {
-			    if (cntSlot == ptrSlotIndex) {btn.glowOn = true;}
+			    if (cntSlot == tknSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			    if ((cntSlot + (ptrPageIndex * slotsPerPage)) < playerPortraitList.Count)
+			    if ((cntSlot + (tknPageIndex * slotsPerPage)) < playerTokenList.Count)
 			    {
-                    btn.Img = gv.cc.LoadBitmap(playerPortraitList[cntSlot + (ptrPageIndex * slotsPerPage)]);
+                    btn.Img2 = gv.cc.LoadBitmap(playerTokenList[cntSlot + (tknPageIndex * slotsPerPage)]);
 			    }
 			    else
 			    {
-				    btn.Img = null;
+				    btn.Img2 = null;
 			    }
 			    btn.Draw();
 			    cntSlot++;
@@ -256,10 +261,10 @@ namespace IceBlink2
 		    btnAction.Draw();
             btnExit.Draw();
         }
-        public void onTouchPortraitSelector(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchTokenSelector(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
-		    btnPortraitsLeft.glowOn = false;
-		    btnPortraitsRight.glowOn = false;
+		    btnTokensLeft.glowOn = false;
+		    btnTokensRight.glowOn = false;
 		    btnAction.glowOn = false;
             btnExit.glowOn = false;
             
@@ -269,13 +274,13 @@ namespace IceBlink2
 		    case MouseEventType.EventType.MouseMove:
 			    int x = (int) e.X;
 			    int y = (int) e.Y;
-			    if (btnPortraitsLeft.getImpact(x, y))
+			    if (btnTokensLeft.getImpact(x, y))
 			    {
-				    btnPortraitsLeft.glowOn = true;
+				    btnTokensLeft.glowOn = true;
 			    }
-			    else if (btnPortraitsRight.getImpact(x, y))
+			    else if (btnTokensRight.getImpact(x, y))
 			    {
-				    btnPortraitsRight.glowOn = true;
+				    btnTokensRight.glowOn = true;
 			    }
 			    else if (btnAction.getImpact(x, y))
 			    {
@@ -291,76 +296,76 @@ namespace IceBlink2
 			    x = (int) e.X;
 			    y = (int) e.Y;
 			
-			    btnPortraitsLeft.glowOn = false;
-			    btnPortraitsRight.glowOn = false;
+			    btnTokensLeft.glowOn = false;
+			    btnTokensRight.glowOn = false;
 			    btnAction.glowOn = false;
                 btnExit.glowOn = false;
                 
                 for (int j = 0; j < slotsPerPage; j++)
 			    {
-				    if (btnPortraitSlot[j].getImpact(x, y))
+				    if (btnTokenSlot[j].getImpact(x, y))
 				    {
 					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (ptrSlotIndex == j)
-                        {
+                        if (tknSlotIndex == j)
+                        {                            
                             //return to calling screen
                             if (callingScreen.Equals("party"))
                             {
-                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                                gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                                 gv.screenType = "party";
-                                gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                                gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
                             }
                             else if (callingScreen.Equals("pcCreation"))
                             {
-                                //set PC portrait filename to the currently selected image
-                                gv.screenPcCreation.pc.portraitFilename = playerPortraitList[GetIndex()];                            
+                                //set PC token filename to the currently selected image
+                                gv.screenPcCreation.pc.tokenFilename = playerTokenList[GetIndex()];
                                 gv.screenType = "pcCreation";
-                                gv.screenPcCreation.portraitLoad(gv.screenPcCreation.pc);
+                                gv.screenPcCreation.tokenLoad(gv.screenPcCreation.pc);
                             }
                             doCleanUp();
                         }
-					    ptrSlotIndex = j;
+					    tknSlotIndex = j;
 				    }
 			    }
-			    if (btnPortraitsLeft.getImpact(x, y))
+			    if (btnTokensLeft.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    if (ptrPageIndex > 0)
+				    if (tknPageIndex > 0)
 				    {
-					    ptrPageIndex--;
-					    btnPageIndex.Text = (ptrPageIndex + 1) + "/" + maxPages;
+					    tknPageIndex--;
+					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
 				    }
 			    }
-			    else if (btnPortraitsRight.getImpact(x, y))
+			    else if (btnTokensRight.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    if (ptrPageIndex < maxPages)
+				    if (tknPageIndex < maxPages)
 				    {
-					    ptrPageIndex++;
-					    btnPageIndex.Text = (ptrPageIndex + 1) + "/" + maxPages;
+					    tknPageIndex++;
+					    btnPageIndex.Text = (tknPageIndex + 1) + "/" + maxPages;
 				    }
 			    }
 			    else if (btnAction.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                                        
+                    
                     //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
-                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
+                        gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].tokenFilename = playerTokenList[GetIndex()];
                         gv.screenType = "party";
-                        gv.screenParty.portraitLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
+                        gv.screenParty.tokenLoad(gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex]);
                     }
                     else if (callingScreen.Equals("pcCreation"))
                     {
                         //set PC portrait filename to the currently selected image
-                        gv.screenPcCreation.pc.portraitFilename = playerPortraitList[GetIndex()];
+                        gv.screenPcCreation.pc.tokenFilename = playerTokenList[GetIndex()];
                         gv.screenType = "pcCreation";
-                        gv.screenPcCreation.portraitLoad(gv.screenPcCreation.pc);
+                        gv.screenPcCreation.tokenLoad(gv.screenPcCreation.pc);
                     }
 					doCleanUp();						
 			    }
@@ -385,9 +390,9 @@ namespace IceBlink2
 	    }
         public void doCleanUp()
 	    {
-		    btnPortraitSlot.Clear();
-		    btnPortraitsLeft = null;
-		    btnPortraitsRight = null;
+		    btnTokenSlot.Clear();
+		    btnTokensLeft = null;
+		    btnTokensRight = null;
 		    btnPageIndex = null;
 		    btnAction = null;
             btnExit = null;
@@ -395,11 +400,11 @@ namespace IceBlink2
 	
 	    public int GetIndex()
 	    {
-		    return ptrSlotIndex + (ptrPageIndex * slotsPerPage);
+		    return tknSlotIndex + (tknPageIndex * slotsPerPage);
 	    }	
 	    public bool isSelectedPtrSlotInPortraitListRange()
 	    {
-            return GetIndex() < playerPortraitList.Count;
+            return GetIndex() < playerTokenList.Count;
 	    }
     }
 }

@@ -10,8 +10,8 @@ namespace IceBlink2
     public class IbbPortrait
     {
         //this class is handled differently than Android version
-        public Bitmap Img = null;
         public Bitmap ImgBG = null;
+        public Bitmap Img = null;
         public Bitmap ImgLU = null;
         public Bitmap Glow = null;
         public bool glowOn = false;
@@ -55,17 +55,17 @@ namespace IceBlink2
             int pW = (int)((float)gv.screenHeight / 200.0f);
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
-            IbRect src = new IbRect(0, 0, this.Img.Width, this.Img.Height);
-            IbRect src2 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
-            IbRect src3 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
+            IbRect src = new IbRect(0, 0, this.ImgBG.Width, this.ImgBG.Height);
+            IbRect src2 = new IbRect(0, 0, this.ImgBG.Width, this.ImgBG.Height);
+            IbRect src3 = new IbRect(0, 0, this.ImgBG.Width, this.ImgBG.Height);
 
-            if (this.ImgBG != null)
+            if (this.Img != null)
             {
-                src2 = new IbRect(0, 0, this.ImgBG.Width, this.ImgBG.Width);
+                src2 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
             }
             if (this.ImgLU != null)
             {
-                src3 = new IbRect(0, 0, this.ImgLU.Width, this.ImgLU.Width);
+                src3 = new IbRect(0, 0, this.ImgLU.Width, this.ImgLU.Height);
             }
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
 
@@ -78,12 +78,12 @@ namespace IceBlink2
             if ((this.glowOn) && (this.Glow != null))
             {
                 gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
-            }            
-            if (this.ImgBG != null)
-            {
-                gv.DrawBitmap(this.ImgBG, src2, dst);
             }
-            gv.DrawBitmap(this.Img, src, dst);
+            gv.DrawBitmap(this.ImgBG, src, dst);
+            if (this.Img != null)
+            {
+                gv.DrawBitmap(this.Img, src2, dst);
+            }            
             if (this.ImgLU != null)
             {
                 gv.DrawBitmap(this.ImgLU, src3, dst);

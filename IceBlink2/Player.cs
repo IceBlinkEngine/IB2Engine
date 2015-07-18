@@ -24,7 +24,7 @@ namespace IceBlink2
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
         public int moveDistance = 5;
-        public string name = "newCreature";	
+        public string name = "CharacterName";	
 	    public string tag = "newTag";	
 	    public string raceTag = "newRace";
         [JsonIgnore]

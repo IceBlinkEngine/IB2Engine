@@ -163,6 +163,7 @@
     <Compile Include="Schedule.cs" />
     <Compile Include="ScreenCastSelector.cs" />
     <Compile Include="ScreenCombat.cs" />
+    <Compile Include="ScreenTokenSelector.cs" />
     <Compile Include="ScreenPortraitSelector.cs" />
     <Compile Include="ScreenPcSelector.cs" />
     <Compile Include="ScreenItemSelector.cs" />

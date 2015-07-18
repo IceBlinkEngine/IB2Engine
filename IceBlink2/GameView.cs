@@ -61,6 +61,8 @@ namespace IceBlink2
         public ScreenParty screenParty;
         public ScreenInventory screenInventory;
         public ScreenItemSelector screenItemSelector;
+        public ScreenPortraitSelector screenPortraitSelector;
+        public ScreenTokenSelector screenTokenSelector;
         public ScreenPcSelector screenPcSelector;
         public ScreenJournal screenJournal;
         public ScreenShop screenShop;
@@ -200,6 +202,8 @@ namespace IceBlink2
 		    screenParty = new ScreenParty(mod, this);
 		    screenInventory = new ScreenInventory(mod, this);
             screenItemSelector = new ScreenItemSelector(mod, this);
+            screenPortraitSelector = new ScreenPortraitSelector(mod, this);
+            screenTokenSelector = new ScreenTokenSelector(mod, this);
             screenPcSelector = new ScreenPcSelector(mod, this);
 		    screenJournal = new ScreenJournal(mod, this);	
 		    screenShop = new ScreenShop(mod, this);
@@ -981,6 +985,14 @@ namespace IceBlink2
             {
                 screenItemSelector.redrawItemSelector();
             }
+            else if (screenType.Equals("portraitSelector"))
+            {
+                screenPortraitSelector.redrawPortraitSelector();
+            }
+            else if (screenType.Equals("tokenSelector"))
+            {
+                screenTokenSelector.redrawTokenSelector();
+            }
             else if (screenType.Equals("pcSelector"))
             {
                 screenPcSelector.redrawPcSelector();
@@ -1118,6 +1130,14 @@ namespace IceBlink2
                     else if (screenType.Equals("itemSelector"))
                     {
                         screenItemSelector.onTouchItemSelector(e, eventType);
+                    }
+                    else if (screenType.Equals("portraitSelector"))
+                    {
+                        screenPortraitSelector.onTouchPortraitSelector(e, eventType);
+                    }
+                    else if (screenType.Equals("tokenSelector"))
+                    {
+                        screenTokenSelector.onTouchTokenSelector(e, eventType);
                     }
                     else if (screenType.Equals("pcSelector"))
                     {

@@ -14,6 +14,8 @@ namespace IceBlink2
         private IbbHtmlTextBox description;
 
 	    public List<IbbButton> btnPartyIndex = new List<IbbButton>();
+        private IbbPortrait btnPortrait = null;
+        private IbbButton btnToken = null;
 	    private IbbButton btnHead = null;
 	    private IbbButton btnNeck = null;
 	    private IbbButton btnBody = null;
@@ -51,7 +53,28 @@ namespace IceBlink2
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
-		
+
+            if (btnPortrait == null)
+            {
+                btnPortrait = new IbbPortrait(gv, 1.0f);
+                btnPortrait.ImgBG = gv.cc.LoadBitmap("item_slot");
+                btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                btnPortrait.X = 10 * gv.squareSize;
+                btnPortrait.Y = 1 * gv.squareSize + pH * 2;
+                btnPortrait.Height = (int)(170 * gv.screenDensity);
+                btnPortrait.Width = (int)(110 * gv.screenDensity);
+            }
+            if (btnToken == null)
+            {
+                btnToken = new IbbButton(gv, 1.0f);
+                btnToken.Img = gv.cc.LoadBitmap("item_slot");
+                //btnToken.Img2 = gv.cc.LoadBitmap(pc.tokenFilename);
+                btnToken.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                btnToken.X = 12 * gv.squareSize;
+                btnToken.Y = 1 * gv.squareSize + pH * 2;
+                btnToken.Height = (int)(gv.ibbheight * gv.screenDensity);
+                btnToken.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
 		    if (btnSpells == null)
 		    {
 			    btnSpells = new IbbButton(gv, 0.6f);	
@@ -293,6 +316,9 @@ namespace IceBlink2
 			    }
 			    cntPCs++;
 		    }
+
+            btnPortrait.Draw();
+            btnToken.Draw();
 				
 		    //DRAW LEFT STATS
             //name            
@@ -535,7 +561,18 @@ namespace IceBlink2
 			
 			    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
 			
-			    if (btnSpells.getImpact(x, y))
+                if (btnPortrait.getImpact(x, y))
+                {
+                    //pass items to selector
+                    gv.screenType = "portraitSelector";
+                    gv.screenPortraitSelector.resetPortraitSelector("party", pc);
+                }
+                else if (btnToken.getImpact(x, y))
+                {
+                    gv.screenType = "tokenSelector";
+                    gv.screenTokenSelector.resetTokenSelector("party", pc);
+                }
+			    else if (btnSpells.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
@@ -809,6 +846,16 @@ namespace IceBlink2
 			    break;	
 		    }
 	    }
+        public void tokenLoad(Player p)
+        {
+            p.token = gv.cc.LoadBitmap(p.tokenFilename);
+            btnToken.Img2 = p.token;
+        }
+        public void portraitLoad(Player p)
+        {
+            p.portrait = gv.cc.LoadBitmap(p.portraitFilename);
+            btnPortrait.Img = p.portrait;
+        }
         public String isUseableBy(Item it)
         {
     	    string strg = "";
