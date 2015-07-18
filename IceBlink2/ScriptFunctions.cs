@@ -954,18 +954,187 @@ namespace IceBlink2
 
                     else if (filename.Equals("osAddCreatureToCurrentEncounter.cs"))
                     {
-                        //this.MessageBoxHtml("Add creature script ran");
+                        //p1 is the resref of the summoned cretaure (use one from a blueprint int he toolset's creature blueprints section)
+                        //p2 will be teh summon duartion (NOT IMPLEMENTED YET)
+                        //p3 x location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
+                        //p4 y location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
+
+                        this.MessageBoxHtml("Add creature script ran");
                         foreach (Creature c in gv.mod.moduleCreaturesList)
                         {
                             if (c.cr_resref == p1)
                             {
+                                //fetch the data for our creature by making a blueprint(object) copy
                                 Creature copy = c.DeepCopy();
-                                copy.cr_tag = p2;
+                                //crucial for loading the creature token
                                 copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
-                                copy.combatLocX = Convert.ToInt32(p3);
-                                copy.combatLocY = Convert.ToInt32(p4);
-                                mod.currentEncounter.encounterCreatureList.Add(copy);
-                                //gv.screenCombat.drawCombatCreatures();
+                                
+                                //Automaically create a unique tag
+                                gv.sf.SetGlobalInt("summonCounter", "++");
+                                string tagCounter = gv.sf.GetGlobalInt("summonCounter").ToString();
+                                copy.cr_tag = "SummonTag" + tagCounter;
+                                this.MessageBoxHtml("Summon tag is: " + copy.cr_tag);
+
+                                //find correct summon spot, replace with nearest location if neccessary
+                                copy.combatLocX = Convert.ToInt32(p3);// x destination intended for the summon
+                                copy.combatLocY = Convert.ToInt32(p4);// y destination intended for the summon
+                                bool changeSummonLocation = false;// used as switch for cycling through all tiles in case the originally intended spot was occupied/not-walkable
+                                int targetTile = copy.combatLocY * gv.mod.currentEncounter.MapSizeX + copy.combatLocX;//the index of the original target spot in the encounter's tiles list
+                                List<int> freeTilesByIndex = new List<int>();// a new list used to store the indices of all free tiles in the enocunter
+                                int tileLocX = 0;//just temporary storage in for locations of tiles
+                                int tileLocY = 0;//just temporary storage in for locations of tiles
+                                double floatTileLocY = 0;//was uncertain about rounding and conversion details, therefore need this one (see below)
+                                bool tileIsFree = true;//identify a tile suited as new summon loaction
+                                int nearestTileByIndex = -1;//store the nearest tile by index; as the relevant loop runs this will be replaced several times likely with ever nearer tiles
+                                int dist = 0;//distance between the orignally intended summon location and a free tile
+                                int lowestDist = 10000;//this storest the lowest ditance found while the loop runs
+                                int deltaX = 0;//temporary value used for distance calculation 
+                                int deltaY = 0;//temporary value used for distance calculation 
+
+                                //Check whether the target tile is free (then it's not neccessary to loop through any other tiles)
+                                //three checks are done in the following: walkable, occupied by creature, occupied by pc
+                                
+                                //first check: check walkable
+                                if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
+                                {
+                                    changeSummonLocation = true;
+                                    this.MessageBoxHtml("Target square not walkable");
+                                }
+
+                                //second check: check ossupied by creature (only necceessary if walkable)
+                                if (changeSummonLocation == false)
+                                {
+                                    foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if ((cr.combatLocX == copy.combatLocX) && (cr.combatLocY == copy.combatLocY))
+                                        {
+                                            changeSummonLocation = true;
+                                            this.MessageBoxHtml("Target square occupied by other cretaure");
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //third check: check occupied by pc (only necceessary if walkable and not occupied by creature)
+                                if (changeSummonLocation == false)
+                                {
+                                    foreach (Player pc in gv.mod.playerList)
+                                    {
+                                        if ((pc.combatLocX == copy.combatLocX) && (pc.combatLocY == copy.combatLocY))
+                                        {
+                                            changeSummonLocation = true;
+                                            this.MessageBoxHtml("Target square occupied by pc");
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to
+                                if (changeSummonLocation == true)
+                                {
+                                    this.MessageBoxHtml("Changed the summon location because target spot was occupied");
+                                    //FIRST PART: get all FREE tiles in the current encounter
+                                    for (int i = 0; i < gv.mod.currentEncounter.encounterTiles.Count; i++)
+                                    {
+                                        //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)
+                                        //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again
+                                        tileIsFree = true;
+                                        //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6
+                                        tileLocX = i % gv.mod.currentEncounter.MapSizeY;
+                                        //Note: ensure rounding down here 
+                                        floatTileLocY = i / gv.mod.currentEncounter.MapSizeX;
+                                        tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                        //look at content of currently checked tile, again with three checks for walkable, occupied by creature, occupied by pc
+                                        //walkbale check
+                                        if (gv.mod.currentEncounter.encounterTiles[i].Walkable == false)
+                                        {
+                                            tileIsFree = false;
+                                        }
+
+                                        //creature occupied check
+                                        if (tileIsFree == true)
+                                        {
+                                            foreach (Creature cr in gv.mod.currentEncounter.encounterCreatureList)
+                                            {
+                                                if ((cr.combatLocX == tileLocX) && (cr.combatLocY == tileLocY))
+                                                {
+                                                    tileIsFree = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        //pc occupied check
+                                        if (tileIsFree == true)
+                                        {
+                                            foreach (Player pc in gv.mod.playerList)
+                                            {
+                                                if ((pc.combatLocX == tileLocX) && (pc.combatLocY == tileLocY))
+                                                {
+                                                    tileIsFree = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values
+                                        //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index
+                                        if (tileIsFree == true)
+                                        {
+                                            freeTilesByIndex.Add(i);
+                                        }
+                                    }
+
+                                    //SECOND PART: find the free tile NEAREST to originally intended summon location
+                                    for (int i = 0; i < freeTilesByIndex.Count; i++)
+                                    {
+                                        dist = 0;
+
+                                        //get location x and y of the tile stored at the index number i, i.e. get the value of elment indexed with i and transform to x and y location
+                                        tileLocX = freeTilesByIndex[i] % gv.mod.currentEncounter.MapSizeY;
+                                        floatTileLocY = freeTilesByIndex[i] / gv.mod.currentEncounter.MapSizeX;
+                                        tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                        //get distance between the current free tile and the originally intended summon location
+                                        deltaX = (int)Math.Abs((tileLocX - copy.combatLocX));
+                                        deltaY = (int)Math.Abs((tileLocY - copy.combatLocY));
+                                        if (deltaX > deltaY)
+                                        {
+                                            dist = deltaX;
+                                        }
+                                        else
+                                        {
+                                            dist = deltaY;
+                                        }
+
+                                        //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles
+                                        if (dist < lowestDist)
+                                        {
+                                            lowestDist = dist;
+                                            nearestTileByIndex = freeTilesByIndex[i];
+                                        }
+                                    }
+
+                                    if (nearestTileByIndex != -1)
+                                    {
+                                        //get the nearest tile's x and y location and use it as creature summon coordinates
+                                        tileLocX = nearestTileByIndex % gv.mod.currentEncounter.MapSizeY;
+                                        floatTileLocY = nearestTileByIndex / gv.mod.currentEncounter.MapSizeX;
+                                        tileLocY = (int)Math.Floor(floatTileLocY);
+
+                                        copy.combatLocX = tileLocX;
+                                        copy.combatLocY = tileLocY;
+                                    }
+
+                                }
+
+                                //just check whether a free squre does exist at all; if not, do not complete the summon
+                                if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
+                                {
+                                    //finally add creature
+                                    mod.currentEncounter.encounterCreatureList.Add(copy);
+                                }
                             }
                         }
                     }

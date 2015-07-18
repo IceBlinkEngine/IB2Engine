@@ -36,6 +36,8 @@ namespace IceBlink2
 	    public string OnStartCombatTurnParms = "";
 	    public string OnEndCombatLogicTree = "none";
 	    public string OnEndCombatParms = "";
+        public string OnSetupCombatIBScript = "none";
+        public string OnSetupCombatIBScriptParms = "";
         public string OnStartCombatRoundIBScript = "none";
         public string OnStartCombatRoundIBScriptParms = "";
         public string OnStartCombatTurnIBScript = "none";

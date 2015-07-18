@@ -786,6 +786,9 @@ namespace IceBlink2
             }
             pf = new PathFinderEncounters(mod);
             tutorialMessageCombat(false);
+            //IBScript Setup Combat Hook (run only once)
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
+            //LogicTree Start Combat
             gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
