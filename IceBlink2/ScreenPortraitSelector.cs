@@ -173,21 +173,21 @@ namespace IceBlink2
 		    {
 			    IbbPortrait btnNew = new IbbPortrait(gv, 0.8f);	
 			    btnNew.ImgBG = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    btnNew.Glow = gv.cc.LoadBitmap("btn_ptr_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    if (y < 5)
 			    {
-				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y+1)) + gv.oXshift;
+				    btnNew.X = ((y + 2 + 4) * gv.squareSize) + (padW * (y * 2 + 1)) + gv.oXshift;
 				    btnNew.Y = 2 * gv.squareSize;
 			    }
-			    else if ((y >=5 ) && (y < 10))
+			    else if ((y >= 5 ) && (y < 10))
 			    {
-				    btnNew.X = ((y-5 + 2 + 4) * gv.squareSize) + (padW * ((y-5)+1)) + gv.oXshift;
+				    btnNew.X = ((y - 5 + 2 + 4) * gv.squareSize) + (padW * ((y - 5) * 2 + 1)) + gv.oXshift;
 				    btnNew.Y = 4 * gv.squareSize + padW;
 			    }
 			    else
 			    {
-				    btnNew.X = ((y-10 + 2 + 4) * gv.squareSize) + (padW * ((y-10)+1)) + gv.oXshift;
+				    btnNew.X = ((y - 10 + 2 + 4) * gv.squareSize) + (padW * ((y - 10) * 2 + 1)) + gv.oXshift;
 				    btnNew.Y = 6 * gv.squareSize + (padW * 2);
 			    }
 
@@ -228,7 +228,7 @@ namespace IceBlink2
 		    //DRAW TEXT		
 		    locY = (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Item Selection", locX + (gv.squareSize * 8), locY);
+		    gv.DrawText("Portrait Selection", locX + (gv.squareSize * 8), locY);
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();

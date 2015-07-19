@@ -224,6 +224,8 @@ namespace IceBlink2
                 gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
                 gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
                 gv.cc.ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
+                if (gv.mod.selectedPartyLeader == 0) { gv.cc.ptrPc0.glowOn = true; }
+                else { gv.cc.ptrPc0.glowOn = false; }
                 gv.cc.ptrPc0.Draw();
             }
             if (mod.playerList.Count > 1)
@@ -231,6 +233,8 @@ namespace IceBlink2
                 gv.cc.ptrPc1.Img = mod.playerList[1].portrait;
                 gv.cc.ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
                 gv.cc.ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
+                if (gv.mod.selectedPartyLeader == 1) { gv.cc.ptrPc1.glowOn = true; }
+                else { gv.cc.ptrPc1.glowOn = false; }
                 gv.cc.ptrPc1.Draw();
             }
             if (mod.playerList.Count > 2)
@@ -238,6 +242,8 @@ namespace IceBlink2
                 gv.cc.ptrPc2.Img = mod.playerList[2].portrait;
                 gv.cc.ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
                 gv.cc.ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
+                if (gv.mod.selectedPartyLeader == 2) { gv.cc.ptrPc2.glowOn = true; }
+                else { gv.cc.ptrPc2.glowOn = false; }
                 gv.cc.ptrPc2.Draw();
             }
             if (mod.playerList.Count > 3)
@@ -245,6 +251,8 @@ namespace IceBlink2
                 gv.cc.ptrPc3.Img = mod.playerList[3].portrait;
                 gv.cc.ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
                 gv.cc.ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
+                if (gv.mod.selectedPartyLeader == 3) { gv.cc.ptrPc3.glowOn = true; }
+                else { gv.cc.ptrPc3.glowOn = false; }
                 gv.cc.ptrPc3.Draw();
             }
             if (mod.playerList.Count > 4)
@@ -252,6 +260,8 @@ namespace IceBlink2
                 gv.cc.ptrPc4.Img = mod.playerList[4].portrait;
                 gv.cc.ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
                 gv.cc.ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
+                if (gv.mod.selectedPartyLeader == 4) { gv.cc.ptrPc4.glowOn = true; }
+                else { gv.cc.ptrPc4.glowOn = false; }
                 gv.cc.ptrPc4.Draw();
             }
             if (mod.playerList.Count > 5)
@@ -259,6 +269,8 @@ namespace IceBlink2
                 gv.cc.ptrPc5.Img = mod.playerList[5].portrait;
                 gv.cc.ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
                 gv.cc.ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
+                if (gv.mod.selectedPartyLeader == 5) { gv.cc.ptrPc5.glowOn = true; }
+                else { gv.cc.ptrPc5.glowOn = false; }
                 gv.cc.ptrPc5.Draw();
             }
         }
@@ -1279,7 +1291,7 @@ namespace IceBlink2
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    int cntPCs = 0;
+				    /*int cntPCs = 0;
 				    foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
 				    {
 					    if (cntPCs < mod.playerList.Count)
@@ -1287,11 +1299,108 @@ namespace IceBlink2
 						    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
 					    }
 					    cntPCs++;
-				    }
+				    }*/
+                    gv.screenParty.resetPartyScreen();
 				    gv.screenType = "party";
 				    gv.cc.tutorialMessageParty(false);
 			    }
-			    else if (gv.cc.btnInventory.getImpact(x, y))
+                else if ((gv.cc.ptrPc0.getImpact(x, y)) && (mod.playerList.Count > 0))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 0;
+                        gv.cc.partyScreenPcIndex = 0;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 0;
+                        gv.cc.partyScreenPcIndex = 0;
+                    }
+                }
+                else if ((gv.cc.ptrPc1.getImpact(x, y)) && (mod.playerList.Count > 1))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 1;
+                        gv.cc.partyScreenPcIndex = 1;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 1;
+                        gv.cc.partyScreenPcIndex = 1;
+                    }
+                }
+                else if ((gv.cc.ptrPc2.getImpact(x, y)) && (mod.playerList.Count > 2))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 2;
+                        gv.cc.partyScreenPcIndex = 2;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 2;
+                        gv.cc.partyScreenPcIndex = 2;
+                    }
+                }
+                else if ((gv.cc.ptrPc3.getImpact(x, y)) && (mod.playerList.Count > 3))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 3;
+                        gv.cc.partyScreenPcIndex = 3;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 3;
+                        gv.cc.partyScreenPcIndex = 3;
+                    }
+                }
+                else if ((gv.cc.ptrPc4.getImpact(x, y)) && (mod.playerList.Count > 4))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 4;
+                        gv.cc.partyScreenPcIndex = 4;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 4;
+                        gv.cc.partyScreenPcIndex = 4;
+                    }
+                }
+                else if ((gv.cc.ptrPc5.getImpact(x, y)) && (mod.playerList.Count > 5))
+                {
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        mod.selectedPartyLeader = 5;
+                        gv.cc.partyScreenPcIndex = 5;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if (e.Button == MouseButtons.Right)
+                    {
+                        mod.selectedPartyLeader = 5;
+                        gv.cc.partyScreenPcIndex = 5;
+                    }
+                }
+                else if (gv.cc.btnInventory.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
@@ -1446,7 +1555,7 @@ namespace IceBlink2
             }
             if (keyData == Keys.P)
             {
-                int cntPCs = 0;
+                /*int cntPCs = 0;
                 foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
                 {
                     if (cntPCs < mod.playerList.Count)
@@ -1454,7 +1563,8 @@ namespace IceBlink2
                         btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
                     }
                     cntPCs++;
-                }
+                }*/
+                gv.screenParty.resetPartyScreen();
                 gv.screenType = "party";
                 gv.cc.tutorialMessageParty(false);
             }

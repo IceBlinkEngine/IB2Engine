@@ -240,7 +240,7 @@ namespace IceBlink2
             if (btnPortrait == null)
             {
                 btnPortrait = new IbbPortrait(gv, 1.0f);
-                btnPortrait.ImgBG = gv.cc.LoadBitmap(pc.portraitFilename);
+                btnPortrait.ImgBG = gv.cc.LoadBitmap("item_slot");
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
                 btnPortrait.X = 10 * gv.squareSize;
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
@@ -379,71 +379,11 @@ namespace IceBlink2
     	    int tokenRectPad = pW * 1;
     	
 		    //Page Title
-		    //gv.mSheetTextPaint.setColor(Color.WHITE);
-		    //canvas.drawText("CREATE CHARACTER", pW * 31, pH * 3, gv.mSheetTextPaint);
-            gv.DrawText("CREATE CHARACTER", pW * 40, pH * 3);
-				
-		    //select token
-		    //gv.DrawText("Left/Right to Change", tabX2, tokenStartY + (gv.squareSize / 2), 1.0f, Color.Yellow);
-
+		    gv.DrawText("CREATE CHARACTER", pW * 40, pH * 3);
+						    
             Color color = Color.White;
-            //if (pcCreationIndex == 0) { color = Color.Lime; }
-            //else { color = Color.White; }
-            //gv.DrawText("Image:", locX, tokenStartY + (gv.squareSize / 2), 1.0f, color);
-		    
-		    //IbRect src = new IbRect(0, 0, pc.token.Width, pc.token.Width);
-		    //IbRect dst = new IbRect(tokenStartX, tokenStartY, gv.squareSize, gv.squareSize);
-            //gv.DrawBitmap(blankItemSlot, src, dst);
-		    //gv.DrawBitmap(pc.token, src, dst);	
-		    //if (pcCreationIndex == 0)
-		    //{                
-			//    IbRect dst2 = new IbRect(tokenStartX - tokenRectPad/2, tokenStartY - tokenRectPad/2, tokenRectPad + gv.squareSize, tokenRectPad + gv.squareSize);
-            //    gv.DrawRoundRectangle(dst2, 10, Color.Lime, 3);			    
-		    //}
-
-            //PORTRAIT
-            //src = new IbRect(0, 0, pc.portrait.Width, pc.portrait.Height);
-            //dst = new IbRect(portraitStartX, portraitStartY, pc.portrait.Width, pc.portrait.Height);
-            //gv.DrawBitmap(pc.portrait, src, dst);
-            		
-		    //name
-            //if (pcCreationIndex == 1) { color = Color.Lime; }
-            //else { color = Color.White; }
-            //gv.DrawText("Name: " + pc.name, locX, locY += leftStartY, 1.0f, color);
-
-		    //if (pcCreationIndex == 1) { gv.mSheetTextPaint.setColor(Color.GREEN); }
-		    //else { gv.mSheetTextPaint.setColor(Color.WHITE); }
-		    //canvas.drawText("Name: " + pc.name, locX, locY += leftStartY, gv.mSheetTextPaint);
-		
-		    //race
-            //if (pcCreationIndex == 2) { color = Color.Lime; }
-            //else { color = Color.White; }
-            //gv.DrawText("Race: " + pc.race.name, locX, locY += spacing, 1.0f, color);
-
-		    //if (pcCreationIndex == 2) { gv.mSheetTextPaint.setColor(Color.GREEN); }
-		    //else { gv.mSheetTextPaint.setColor(Color.WHITE); }
-		    //canvas.drawText("Race: " + pc.race.name, locX, locY += spacing, gv.mSheetTextPaint);
-		
-		    //gender
-            //if (pcCreationIndex == 3) { color = Color.Lime; }
-            //else { color = Color.White; }
             
-
-		    //if (pc.isMale)
-		    //{
-            //    gv.DrawText("Gender: Male", locX, locY += spacing, 1.0f, color);
-		    //}
-		    //else
-		    //{
-            //    gv.DrawText("Gender: Female", locX, locY += spacing, 1.0f, color);
-		    //}
-		
-		    //class
-            //if (pcCreationIndex == 4) { color = Color.Lime; }
-            //else { color = Color.White; }
-            //gv.DrawText("Class: " + pc.playerClass.name, locX, locY += spacing, 1.0f, color);
-
-		    gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength, locX, locY += spacing);
+            gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength, locX, locY += spacing);
             gv.DrawText("AC: " + pc.AC, tabX2, locY);
             gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity, locX, locY += spacing);
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
@@ -469,6 +409,7 @@ namespace IceBlink2
             IbRect rect = new IbRect(tabX, yLoc, pW * 35, pH * 50);
             gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
+            btnPortrait.Img = pc.portrait;
             btnPortrait.Draw();
             btnToken.Draw();
             btnName.Text = pc.name;
@@ -486,11 +427,8 @@ namespace IceBlink2
             btnGender.Draw();
             btnClass.Text = pc.playerClass.name;
             btnClass.Draw();
-            //ctrlUpArrow.Draw();
-    	    //ctrlDownArrow.Draw();
-    	    //ctrlLeftArrow.Draw();
-    	    //ctrlRightArrow.Draw();
-		    btnRollStats.Draw();
+            
+            btnRollStats.Draw();
 		    btnFinished.Draw();
 		    gv.cc.btnHelp.Draw();
 		    btnAbort.Draw();

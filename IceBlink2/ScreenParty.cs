@@ -59,7 +59,7 @@ namespace IceBlink2
                 btnPortrait = new IbbPortrait(gv, 1.0f);
                 btnPortrait.ImgBG = gv.cc.LoadBitmap("item_slot");
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnPortrait.X = 10 * gv.squareSize;
+                btnPortrait.X = 4 * gv.squareSize - (pW * 2);
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
                 btnPortrait.Height = (int)(170 * gv.screenDensity);
                 btnPortrait.Width = (int)(110 * gv.screenDensity);
@@ -70,8 +70,8 @@ namespace IceBlink2
                 btnToken.Img = gv.cc.LoadBitmap("item_slot");
                 //btnToken.Img2 = gv.cc.LoadBitmap(pc.tokenFilename);
                 btnToken.Glow = gv.cc.LoadBitmap("btn_small_glow");
-                btnToken.X = 12 * gv.squareSize;
-                btnToken.Y = 1 * gv.squareSize + pH * 2;
+                btnToken.X = 4 * gv.squareSize - (pW * 2);
+                btnToken.Y = 3 * gv.squareSize + pH * 2;
                 btnToken.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnToken.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -279,10 +279,27 @@ namespace IceBlink2
 		    }
 	    }
 	
-	    //PARTY SCREEN
+        public void resetPartyScreen()
+        {
+            int cntPCs = 0;
+            foreach (IbbButton btn in btnPartyIndex)
+            {
+                if (cntPCs < mod.playerList.Count)
+                {
+                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
+                }
+                cntPCs++;
+            }
+            resetTokenAndPortrait();
+        }
+        public void resetTokenAndPortrait()
+        {
+            btnToken.Img2 = mod.playerList[gv.cc.partyScreenPcIndex].token;
+            btnPortrait.Img = mod.playerList[gv.cc.partyScreenPcIndex].portrait;
+        }
+
         public void redrawParty()
-        {    	
-            
+        {
     	    if (gv.cc.partyScreenPcIndex >= mod.playerList.Count)
     	    {
     		    gv.cc.partyScreenPcIndex = 0;
@@ -293,18 +310,14 @@ namespace IceBlink2
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padH = gv.squareSize/6;
     	    int locY = 0;
-    	    int locX = pW * 4;
+            int locX = 5 * gv.squareSize + (pW * 0) + gv.oXshift;
+            int tabX = 8 * gv.squareSize + (pW * 0) + gv.oXshift;
+            int tabX2 = 10 * gv.squareSize + (pW * 0) + gv.oXshift;
             int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int spacing = textH;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-    	    int tabX = pW * 50;
-    	    int tabX2 = pW * 70;
-    	    int leftStartY = btnPartyIndex[0].Y + btnPartyIndex[0].Height + (pH * 4);
+            int spacing = textH;    	    
+    	    int leftStartY = btnPartyIndex[0].Y + btnPartyIndex[0].Height + (pH * 2);
 		
-            //gv.gCanvas.Clear(Color.DarkGray);
-		    //canvas.drawColor(Color.DKGRAY);
-		
-		    //DRAW EACH PC BUTTON
+            //DRAW EACH PC BUTTON
 		    int cntPCs = 0;
 		    foreach (IbbButton btn in btnPartyIndex)
 		    {
@@ -316,7 +329,7 @@ namespace IceBlink2
 			    }
 			    cntPCs++;
 		    }
-
+            //DRAW TOKEN AND PORTRAIT
             btnPortrait.Draw();
             btnToken.Draw();
 				
@@ -341,26 +354,47 @@ namespace IceBlink2
             gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, 1.0f, Color.White);
             gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing, 1.0f, Color.White);
 		    gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, 1.0f, Color.White);
-		    gv.DrawText("---------------", locX, locY += spacing, 1.0f, Color.White);
+		    //gv.DrawText("---------------", locX, locY += spacing, 1.0f, Color.White);
 
-		    btnSpells.Y = locY + (pH * 0);
-		    btnTraits.Y = locY + (pH * 0);
-		    btnEffects.Y = locY + (pH * 0);
-		    btnOthers.Y = locY + (pH * 0);
+            //LOCATE STATS INFO BUTTONS
+            locY += spacing;
+            btnSpells.Y = locY + (pH * 0);
+            btnTraits.Y = locY + (pH * 0);
+            btnEffects.Y = locY + (pH * 0);
+            btnOthers.Y = locY + (pH * 0);
             btnPartyRoster.Y = locY + (pH * 0);
-		    
-            //DRAW EQUIPMENT SLOTS
-		    int startSlotsY = locY + gv.squareSize + padH;
-		    btnHead.Y = startSlotsY;
-		    btnNeck.Y = startSlotsY;		
-		    btnMainHand.Y = startSlotsY;
-		    btnOffHand.Y = startSlotsY;
-		    btnAmmo.Y = startSlotsY;
-		    int startSlotsY2 = startSlotsY + gv.squareSize + padH;
-		    btnRing.Y = startSlotsY2;
-		    btnRing2.Y = startSlotsY2;
-		    btnBody.Y = startSlotsY2;
-		    btnFeet.Y = startSlotsY2;		
+            
+            //LOCATE EQUIPMENT SLOTS
+            int startSlotsY = locY + gv.squareSize + padH;
+            btnHead.Y = startSlotsY;
+            btnNeck.Y = startSlotsY;
+            btnMainHand.Y = startSlotsY;
+            btnOffHand.Y = startSlotsY;
+            btnAmmo.Y = startSlotsY;
+            int startSlotsY2 = startSlotsY + gv.squareSize + padH;
+            btnRing.Y = startSlotsY2;
+            btnRing2.Y = startSlotsY2;
+            btnBody.Y = startSlotsY2;
+            btnFeet.Y = startSlotsY2;
+
+            //DRAW RIGHT STATS
+            locY = 0;
+            gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
+            gv.DrawText("AC: " + pc.AC, tabX2, locY);
+            gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
+            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
+            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
+            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
+            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
+            gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
+
+            //DRAW LEVEL UP BUTTON
+            btnLevelUp.Y = locY + (pH * 1);
+            btnLevelUp.X = tabX - (pW * 5);
+            if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
+            {
+                btnLevelUp.Draw();
+            }	
 		
 		    if (gv.cc.partyItemSlotIndex == 0) { btnMainHand.glowOn = true; }
 		    else { btnMainHand.glowOn = false; }
@@ -415,26 +449,7 @@ namespace IceBlink2
 		    btnEffects.Draw();
 		    btnOthers.Draw();
             btnPartyRoster.Draw();
-		
-            //DRAW RIGHT STATS
-            locY = 0;
-		    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-		    gv.DrawText("AC: " + pc.AC, tabX2, locY);
-		    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-		    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-		    gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-		    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-		    gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
-		    gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-		
-		    //DRAW LEVEL UP BUTTON
-		    btnLevelUp.Y = locY + (pH * 1);
-		    btnLevelUp.X = tabX - (pW * 5);
-		    if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
-		    {
-			    btnLevelUp.Draw();
-		    }
-		
+				
 		    //DRAW DESCRIPTION BOX
 		    Item it = new Item();
 		    if (gv.cc.partyItemSlotIndex == 0) { it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);}
@@ -475,7 +490,7 @@ namespace IceBlink2
             //string textToSpan = "<u>Module Description</u>" + "<br><br>";
             //textToSpan += "<b><i><big>" + moduleList[moduleIndex].moduleLabelName + "</big></i></b><br>";
             //textToSpan += moduleList[moduleIndex].moduleDescription;
-            description.tbXloc = (12 * gv.squareSize) + (pW * 5) + gv.oXshift;
+            description.tbXloc = (10 * gv.squareSize) + (pW * 5) + gv.oXshift;
             description.tbYloc = startSlotsY;
             description.tbWidth = pW * 80;
             description.tbHeight = pH * 50;
@@ -840,6 +855,7 @@ namespace IceBlink2
 							    doInterPartyConvo(); //not used in The Raventhal
 						    }
 						    gv.cc.partyScreenPcIndex = j;
+                            resetTokenAndPortrait();
 					    }
 				    }
 			    }

@@ -336,8 +336,10 @@ namespace IceBlink2
 				    {
 					    Player copyPC = mod.partyRosterList[partyRosterPcIndex].DeepCopy();
 					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
+                        //Player copyPC = mod.partyRosterList[partyRosterPcIndex];
 					    mod.playerList.Add(copyPC);
                         mod.partyRosterList.RemoveAt(partyRosterPcIndex);
 				    }
@@ -351,8 +353,10 @@ namespace IceBlink2
 				    {
 					    Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
 					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
+                        //Player copyPC = mod.partyRosterList[partyRosterPcIndex];
                         mod.partyRosterList.Add(copyPC);
 					    mod.playerList.RemoveAt(partyScreenPcIndex);
 				    }

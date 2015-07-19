@@ -1542,8 +1542,8 @@ namespace IceBlink2
             if (ptrPc0 == null)
             {
                 ptrPc0 = new IbbPortrait(gv, 0.8f);
-                ptrPc0.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc0.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc0.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc0.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc0.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc0.Y = 0 * gv.squareSize + pH * 2;
                 ptrPc0.Height = (int)(ptrH * gv.screenDensity);
@@ -1552,8 +1552,8 @@ namespace IceBlink2
             if (ptrPc1 == null)
             {
                 ptrPc1 = new IbbPortrait(gv, 0.8f);
-                ptrPc1.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc1.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc1.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc1.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc1.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc1.Y = 0 * gv.squareSize + pH * 2;
                 ptrPc1.Height = (int)(ptrH * gv.screenDensity);
@@ -1562,8 +1562,8 @@ namespace IceBlink2
             if (ptrPc2 == null)
             {
                 ptrPc2 = new IbbPortrait(gv, 0.8f);
-                ptrPc2.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc2.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc2.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc2.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc2.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc2.Y = 2 * gv.squareSize + pH * 2;
                 ptrPc2.Height = (int)(ptrH * gv.screenDensity);
@@ -1572,8 +1572,8 @@ namespace IceBlink2
             if (ptrPc3 == null)
             {
                 ptrPc3 = new IbbPortrait(gv, 0.8f);
-                ptrPc3.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc3.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc3.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc3.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc3.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc3.Y = 2 * gv.squareSize + pH * 2;
                 ptrPc3.Height = (int)(ptrH * gv.screenDensity);
@@ -1582,8 +1582,8 @@ namespace IceBlink2
             if (ptrPc4 == null)
             {
                 ptrPc4 = new IbbPortrait(gv, 0.8f);
-                ptrPc4.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc4.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc4.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc4.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc4.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc4.Y = 4 * gv.squareSize + pH * 2;
                 ptrPc4.Height = (int)(ptrH * gv.screenDensity);
@@ -1592,8 +1592,8 @@ namespace IceBlink2
             if (ptrPc5 == null)
             {
                 ptrPc5 = new IbbPortrait(gv, 0.8f);
-                ptrPc5.ImgBG = gv.cc.LoadBitmap("btn_small");
-                ptrPc5.Glow = gv.cc.LoadBitmap("btn_small_glow");
+                ptrPc5.ImgBG = gv.cc.LoadBitmap("item_slot");
+                ptrPc5.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc5.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc5.Y = 4 * gv.squareSize + pH * 2;
                 ptrPc5.Height = (int)(ptrH * gv.screenDensity);

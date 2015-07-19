@@ -2796,7 +2796,8 @@ namespace IceBlink2
                     return;
                 }
                 gv.cc.partyScreenPcIndex = currentPlayerIndex;
-                int cntPCs = 0;
+                gv.screenParty.resetPartyScreen();
+                /*int cntPCs = 0;
                 foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
                 {
                     if (cntPCs < mod.playerList.Count)
@@ -2804,7 +2805,7 @@ namespace IceBlink2
                         btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
                     }
                     cntPCs++;
-                }
+                }*/
                 gv.screenType = "combatParty";
             }
             else if (keyData == Keys.I)
@@ -3149,17 +3150,8 @@ namespace IceBlink2
                         {
                             return;
                         }
-
                         gv.cc.partyScreenPcIndex = currentPlayerIndex;
-                        int cntPCs = 0;
-                        foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
-                        {
-                            if (cntPCs < mod.playerList.Count)
-                            {
-                                btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
-                            }
-                            cntPCs++;
-                        }
+                        gv.screenParty.resetPartyScreen();
                         gv.screenType = "combatParty";
                     }
                     break;

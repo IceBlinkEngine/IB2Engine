@@ -233,7 +233,7 @@ namespace IceBlink2
 		    //DRAW TEXT		
 		    locY = (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Item Selection", locX + (gv.squareSize * 8), locY);
+		    gv.DrawText("Token Selection", locX + (gv.squareSize * 8), locY);
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
