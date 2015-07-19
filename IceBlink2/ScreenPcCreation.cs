@@ -264,7 +264,7 @@ namespace IceBlink2
                 btnName.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnName.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnName.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-                btnName.Y = 1 * gv.squareSize;
+                btnName.Y = 0 * gv.squareSize + gv.squareSize / 2;
                 btnName.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnName.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -274,7 +274,7 @@ namespace IceBlink2
                 btnRace.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnRace.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnRace.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-                btnRace.Y = 2 * gv.squareSize;
+                btnRace.Y = 1 * gv.squareSize + gv.squareSize / 2;
                 btnRace.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRace.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -284,7 +284,7 @@ namespace IceBlink2
                 btnGender.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnGender.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnGender.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-                btnGender.Y = 3 * gv.squareSize;
+                btnGender.Y = 2 * gv.squareSize + gv.squareSize / 2;
                 btnGender.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnGender.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -294,7 +294,7 @@ namespace IceBlink2
                 btnClass.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
                 btnClass.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnClass.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-                btnClass.Y = 4 * gv.squareSize;
+                btnClass.Y = 3 * gv.squareSize + gv.squareSize / 2;
                 btnClass.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnClass.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
@@ -368,7 +368,7 @@ namespace IceBlink2
     	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;            
             int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int spacing = textH;
-            int locY = 5 * gv.squareSize;
+            int locY = 4 * gv.squareSize + gv.squareSize / 4;
     	    int tabX = pW * 50;
     	    int tabX2 = pW * 50;
     	    int leftStartY = pH * 20;
@@ -379,7 +379,7 @@ namespace IceBlink2
     	    int tokenRectPad = pW * 1;
     	
 		    //Page Title
-		    gv.DrawText("CREATE CHARACTER", pW * 40, pH * 3);
+		    gv.DrawText("CREATE CHARACTER", pW * 40, pH * 1);
 						    
             Color color = Color.White;
             
@@ -387,10 +387,12 @@ namespace IceBlink2
             gv.DrawText("AC: " + pc.AC, tabX2, locY);
             gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity, locX, locY += spacing);
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-            gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence, locX, locY += spacing);
+            gv.DrawText("CON:  " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution, locX, locY += spacing);
             gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma, locX, locY += spacing);
+            gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence, locX, locY += spacing);
             gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
+            gv.DrawText("WIS: " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom, locX, locY += spacing);
+            gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma, locX, locY += spacing);
 
             //Description
 		    string textToSpan = "";
@@ -908,6 +910,8 @@ namespace IceBlink2
     	    p.baseDex = 6 + gv.sf.RandInt(12);
     	    p.baseInt = 6 + gv.sf.RandInt(12);
     	    p.baseCha = 6 + gv.sf.RandInt(12);
+            p.baseCon = 6 + gv.sf.RandInt(12);
+            p.baseWis = 6 + gv.sf.RandInt(12);
     	    gv.sf.UpdateStats(p);
     	    p.hp = p.hpMax;
 		    p.sp = p.spMax;		

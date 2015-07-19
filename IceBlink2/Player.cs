@@ -52,10 +52,14 @@ namespace IceBlink2
 	    public int dexterity = 10;	
 	    public int intelligence = 10;	
 	    public int charisma = 10;
+        public int constitution = 10;
+        public int wisdom = 10;
 	    public int baseStr = 10;
 	    public int baseDex = 10;
 	    public int baseInt = 10;
 	    public int baseCha = 10;
+        public int baseWis = 10;
+        public int baseCon = 10;
 	    public int ACBase = 10;
 	    public int AC = 10;
 	    public int classBonus = 0;
@@ -118,10 +122,14 @@ namespace IceBlink2
 		      copy.dexterity = this.dexterity;	
 		      copy.intelligence = this.intelligence;	
 		      copy.charisma = this.charisma;
+              copy.constitution = this.constitution;
+              copy.wisdom = this.wisdom;
 		      copy.baseStr = this.baseStr;
 		      copy.baseDex = this.baseDex;
 		      copy.baseInt = this.baseInt;
 		      copy.baseCha = this.baseCha;
+              copy.baseCon = this.baseCon;
+              copy.baseWis = this.baseWis;
 		      copy.ACBase = this.ACBase;
 		      copy.AC = this.AC;
 		      copy.classBonus = this.classBonus;
@@ -180,7 +188,7 @@ namespace IceBlink2
 	        // change level by one, level++
 		    this.classLevel++;
 		    // UpdateStats
-	        this.hp += this.playerClass.hpPerLevelUp + ((this.strength - 10) / 2);
+	        this.hp += this.playerClass.hpPerLevelUp + ((this.constitution - 10) / 2);
 	        this.sp += this.playerClass.spPerLevelUp + ((this.intelligence - 10) / 2);
 	        XPNeeded = this.playerClass.xpTable[this.classLevel];
 	    }

@@ -52,6 +52,8 @@ namespace IceBlink2
 	    public int attributeBonusModifierDex = 0;
 	    public int attributeBonusModifierInt = 0;
 	    public int attributeBonusModifierCha = 0;
+        public int attributeBonusModifierCon = 0;
+        public int attributeBonusModifierWis = 0;
 	    public int savingThrowModifierReflex = 0;
 	    public int savingThrowModifierFortitude = 0;
 	    public int savingThrowModifierWill = 0;
@@ -116,6 +118,8 @@ namespace IceBlink2
 		    copy.attributeBonusModifierDex = this.attributeBonusModifierDex;
 		    copy.attributeBonusModifierInt = this.attributeBonusModifierInt;
 		    copy.attributeBonusModifierCha = this.attributeBonusModifierCha;
+            copy.attributeBonusModifierCon = this.attributeBonusModifierCon;
+            copy.attributeBonusModifierWis = this.attributeBonusModifierWis;
 		    copy.savingThrowModifierReflex = this.savingThrowModifierReflex;
 		    copy.savingThrowModifierFortitude = this.savingThrowModifierFortitude;
 		    copy.savingThrowModifierWill = this.savingThrowModifierWill;

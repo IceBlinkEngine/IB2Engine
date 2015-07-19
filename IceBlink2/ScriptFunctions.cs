@@ -3448,6 +3448,14 @@ namespace IceBlink2
                 {
                     attMod = (mod.playerList[PCIndex].charisma - 10) / 2;
                 }
+                else if (tr.skillModifierAttribute.Equals("con"))
+                {
+                    attMod = (mod.playerList[PCIndex].constitution - 10) / 2;
+                }
+                else if (tr.skillModifierAttribute.Equals("wis"))
+                {
+                    attMod = (mod.playerList[PCIndex].wisdom - 10) / 2;
+                }
                 int roll = gv.sf.RandInt(20);
                 if (roll + attMod + skillMod >= dc)
                 {
@@ -3526,6 +3534,14 @@ namespace IceBlink2
             else if (attribute.Equals("cha"))
             {
                 pcAttValue = mod.playerList[PCIndex].charisma;
+            }
+            else if (attribute.Equals("con"))
+            {
+                pcAttValue = mod.playerList[PCIndex].constitution;
+            }
+            else if (attribute.Equals("wis"))
+            {
+                pcAttValue = mod.playerList[PCIndex].wisdom;
             }
             else
             {
@@ -4068,13 +4084,15 @@ namespace IceBlink2
         {
             //used at level up, doPcTurn, open inventory, etc.
             ReCalcSavingThrowBases(pc); //SD_20131029
-            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.strength - 10) / 2; //SD_20131127
+            pc.fortitude = pc.baseFortitude + CalcSavingThrowModifiersFortitude(pc) + (pc.constitution - 10) / 2; //SD_20131127
             pc.will = pc.baseWill + CalcSavingThrowModifiersWill(pc) + (pc.intelligence - 10) / 2; //SD_20131127
             pc.reflex = pc.baseReflex + CalcSavingThrowModifiersReflex(pc) + (pc.dexterity - 10) / 2; //SD_20131127
             pc.strength = pc.baseStr + pc.race.strMod + CalcAttributeModifierStr(pc); //SD_20131127
             pc.dexterity = pc.baseDex + pc.race.dexMod + CalcAttributeModifierDex(pc); //SD_20131127
             pc.intelligence = pc.baseInt + pc.race.intMod + CalcAttributeModifierInt(pc); //SD_20131127
             pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
+            pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
+            pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
             //SD_20131124 Start
             pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
             if (pc.damageTypeResistanceTotalAcid > 100) { pc.damageTypeResistanceTotalAcid = 100; }
@@ -4097,7 +4115,7 @@ namespace IceBlink2
                 pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
             }
 
-            int cMod = (pc.strength - 10) / 2;
+            int cMod = (pc.constitution - 10) / 2;
             int iMod = (pc.intelligence - 10) / 2;
             pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod));
             pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod));
@@ -4240,6 +4258,32 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
+            return attBonuses;
+        }
+        public int CalcAttributeModifierCon(Player pc)
+        {
+            int attBonuses = 0;
+            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
+            return attBonuses;
+        }
+        public int CalcAttributeModifierWis(Player pc)
+        {
+            int attBonuses = 0;
+            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
             return attBonuses;
         }
         public int CalcAcidModifiers(Player pc)

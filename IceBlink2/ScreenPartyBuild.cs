@@ -368,22 +368,16 @@ namespace IceBlink2
                 
 			    //DRAW RIGHT STATS
 			    locY = 0;
-			    //canvas.drawText("STR: " + pc.strength, tabX, locY += leftStartY, gv.mSheetTextPaint);
-                gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-			    //canvas.drawText("AC: " + pc.AC, tabX2, locY, gv.mSheetTextPaint);
-                gv.DrawText("AC: " + pc.AC, tabX2, locY);
-			    //canvas.drawText("DEX: " + pc.dexterity, tabX, locY += spacing, gv.mSheetTextPaint);
-                gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-			    //canvas.drawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY, gv.mSheetTextPaint);
-                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-			    //canvas.drawText("INT: " + pc.intelligence, tabX, locY += spacing, gv.mSheetTextPaint);
-                gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-			    //canvas.drawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY, gv.mSheetTextPaint);
-                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-			    //canvas.drawText("CHA: " + pc.charisma, tabX, locY += spacing, gv.mSheetTextPaint);
+			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
+			    gv.DrawText("AC: " + pc.AC, tabX2, locY);
+			    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
+			    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
+			    gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
+			    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
+			    gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
+			    gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
+                gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
                 gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
-			    //canvas.drawText("BAB: " + pc.baseAttBonus, tabX2, locY, gv.mSheetTextPaint);
-                gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
                 
 		    }            
        }

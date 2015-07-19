@@ -383,10 +383,12 @@ namespace IceBlink2
             gv.DrawText("AC: " + pc.AC, tabX2, locY);
             gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
+            gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
             gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
+            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
             gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
+            gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
+            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
 
             //DRAW LEVEL UP BUTTON
             btnLevelUp.Y = locY + (pH * 1);

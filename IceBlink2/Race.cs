@@ -22,6 +22,8 @@ namespace IceBlink2
 	    public int dexMod = 0;
 	    public int intMod = 0;
 	    public int chaMod = 0;
+        public int wisMod = 0;
+        public int conMod = 0;
 	    public int damageTypeResistanceValueAcid = 0;
 	    public int damageTypeResistanceValueNormal = 0;
 	    public int damageTypeResistanceValueCold = 0;
@@ -49,6 +51,8 @@ namespace IceBlink2
 		    copy.dexMod = this.dexMod;	
 		    copy.intMod = this.intMod;
 		    copy.chaMod = this.chaMod;
+            copy.conMod = this.conMod;
+            copy.wisMod = this.wisMod;
 		    copy.damageTypeResistanceValueAcid = this.damageTypeResistanceValueAcid;
 		    copy.damageTypeResistanceValueNormal = this.damageTypeResistanceValueNormal;
 		    copy.damageTypeResistanceValueCold = this.damageTypeResistanceValueCold;
