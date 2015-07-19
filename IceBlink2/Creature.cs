@@ -18,6 +18,7 @@ namespace IceBlink2
         [JsonIgnore]
 	    public Bitmap token;
 	    public bool combatFacingLeft = true;
+        public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
         public int moveDistance = 5;
@@ -73,6 +74,7 @@ namespace IceBlink2
 		    Creature copy = new Creature();
 		    copy.cr_tokenFilename = this.cr_tokenFilename;
 		    copy.combatFacingLeft = this.combatFacingLeft;
+            copy.combatFacing = this.combatFacing;
 		    copy.combatLocX = this.combatLocX;
 		    copy.combatLocY = this.combatLocY;
             copy.moveDistance = this.moveDistance;

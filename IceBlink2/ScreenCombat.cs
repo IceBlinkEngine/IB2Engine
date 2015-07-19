@@ -1357,6 +1357,17 @@ namespace IceBlink2
                 }
             }
         }
+        public void doPlayerCombatFacing(Player pc, int tarX, int tarY)
+        {
+            if ((tarX == pc.combatLocX) && (tarY > pc.combatLocY)) { pc.combatFacing = 2; }
+            if ((tarX > pc.combatLocX) && (tarY > pc.combatLocY)) { pc.combatFacing = 3; }
+            if ((tarX < pc.combatLocX) && (tarY > pc.combatLocY)) { pc.combatFacing = 1; }
+            if ((tarX == pc.combatLocX) && (tarY < pc.combatLocY)) { pc.combatFacing = 8; }
+            if ((tarX > pc.combatLocX) && (tarY < pc.combatLocY)) { pc.combatFacing = 9; }
+            if ((tarX < pc.combatLocX) && (tarY < pc.combatLocY)) { pc.combatFacing = 7; }
+            if ((tarX > pc.combatLocX) && (tarY == pc.combatLocY)) { pc.combatFacing = 6; }
+            if ((tarX < pc.combatLocX) && (tarY == pc.combatLocY)) { pc.combatFacing = 4; }
+        }
         #endregion
 
         #region Creature Combat Stuff
@@ -1457,7 +1468,10 @@ namespace IceBlink2
 					    crt.token= gv.cc.flip(crt.token);
 					    crt.combatFacingLeft = false;
 				    }
-				    crt.combatLocX = newCoor.X;
+                    //CHANGE FACING BASED ON MOVE
+                    doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+				    
+                    crt.combatLocX = newCoor.X;
 				    crt.combatLocY = newCoor.Y;                    
 				    canMove = false;
 				    animationState = AnimationState.CreatureMove;
@@ -1507,6 +1521,8 @@ namespace IceBlink2
         			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
 	                if (crt.hp > 0)
 	                {
 	            	    //doStandardCreatureAttack(crt, pc);
@@ -1535,6 +1551,8 @@ namespace IceBlink2
         			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
 	                if (crt.hp > 0)
 	                {
 	            	    //doStandardCreatureAttack(crt, pc);	            	
@@ -1599,6 +1617,8 @@ namespace IceBlink2
     			    crt.token= gv.cc.flip(crt.token);
     			    crt.combatFacingLeft = false;
     		    }
+                //CHANGE FACING BASED ON ATTACK
+                doCreatureCombatFacing(crt, pnt.X, pnt.Y);
         	    creatureTargetLocation = pnt;
         	    //touchEnabled = false;
 			    creatureToAnimate = crt;
@@ -1880,6 +1900,17 @@ namespace IceBlink2
                         "<BR>");
                 return false;
             }
+        }
+        public void doCreatureCombatFacing(Creature crt, int tarX, int tarY)
+        {
+            if ((tarX == crt.combatLocX) && (tarY > crt.combatLocY)) { crt.combatFacing = 2; }
+            if ((tarX > crt.combatLocX) && (tarY > crt.combatLocY)) { crt.combatFacing = 3; }
+            if ((tarX < crt.combatLocX) && (tarY > crt.combatLocY)) { crt.combatFacing = 1; }
+            if ((tarX == crt.combatLocX) && (tarY < crt.combatLocY)) { crt.combatFacing = 8; }
+            if ((tarX > crt.combatLocX) && (tarY < crt.combatLocY)) { crt.combatFacing = 9; }
+            if ((tarX < crt.combatLocX) && (tarY < crt.combatLocY)) { crt.combatFacing = 7; }
+            if ((tarX > crt.combatLocX) && (tarY == crt.combatLocY)) { crt.combatFacing = 6; }
+            if ((tarX < crt.combatLocX) && (tarY == crt.combatLocY)) { crt.combatFacing = 4; }
         }
         #endregion
 
@@ -2474,6 +2505,19 @@ namespace IceBlink2
                         src = new IbRect(0, 0, gv.cc.pc_stealth.Width, gv.cc.pc_stealth.Width);
                         gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
                     }
+                    //PLAYER FACING
+                    Bitmap fac = gv.cc.LoadBitmap("facing4");
+                    if (pc.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
+                    else if (pc.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
+                    else if (pc.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
+                    else if (pc.combatFacing == 3) { fac = gv.cc.LoadBitmap("facing3"); }
+                    else if (pc.combatFacing == 2) { fac = gv.cc.LoadBitmap("facing2"); }
+                    else if (pc.combatFacing == 1) { fac = gv.cc.LoadBitmap("facing1"); }
+                    else if (pc.combatFacing == 4) { fac = gv.cc.LoadBitmap("facing4"); }
+                    else if (pc.combatFacing == 7) { fac = gv.cc.LoadBitmap("facing7"); }
+                    else { } //didn't find one
+                    src = new IbRect(0, 0, fac.Width, fac.Height);
+                    gv.DrawBitmap(fac, src, dst);
                 }
 		    }
 	    }
@@ -2584,6 +2628,19 @@ namespace IceBlink2
                     src = new IbRect(0, 0, fx.Width, fx.Width);
 				    gv.DrawBitmap(fx, src, dst);
 			    }
+                //CREATURE FACING
+                Bitmap fac = gv.cc.LoadBitmap("facing4");
+                if (crt.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
+                else if (crt.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
+                else if (crt.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
+                else if (crt.combatFacing == 3) { fac = gv.cc.LoadBitmap("facing3"); }
+                else if (crt.combatFacing == 2) { fac = gv.cc.LoadBitmap("facing2"); }
+                else if (crt.combatFacing == 1) { fac = gv.cc.LoadBitmap("facing1"); }
+                else if (crt.combatFacing == 4) { fac = gv.cc.LoadBitmap("facing4"); }
+                else if (crt.combatFacing == 7) { fac = gv.cc.LoadBitmap("facing7"); }
+                else { } //didn't find one
+                src = new IbRect(0, 0, fac.Width, fac.Height);
+                gv.DrawBitmap(fac, src, dst);                
 		    }
 	    }
 	    public void drawTargetHighlight()
@@ -4232,6 +4289,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY - 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY - 1);
                     pc.combatLocY--;
                     //canMove = false;
                     //currentCombatMode = "attack";
@@ -4247,6 +4305,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                     pc.combatLocX++;
                     pc.combatLocY--;
                     if (pc.combatFacingLeft)
@@ -4267,6 +4326,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                     pc.combatLocX--;
                     pc.combatLocY--;
                     if (!pc.combatFacingLeft)
@@ -4287,6 +4347,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY + 1);
                     pc.combatLocY++;
                     //canMove = false;
                     //currentCombatMode = "attack";
@@ -4301,6 +4362,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                     pc.combatLocX++;
                     pc.combatLocY++;
                     if (pc.combatFacingLeft)
@@ -4321,6 +4383,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                     pc.combatLocX--;
                     pc.combatLocY++;
                     if (!pc.combatFacingLeft)
@@ -4341,6 +4404,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY);
                     pc.combatLocX++;
                     if (pc.combatFacingLeft)
                     {
@@ -4360,6 +4424,7 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY))
                 {
+                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
                     pc.combatLocX--;
                     if (!pc.combatFacingLeft)
                     {

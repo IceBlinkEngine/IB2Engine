@@ -18,6 +18,8 @@ namespace IceBlink2
         public Bitmap portrait;
         [JsonIgnore]
 	    public bool combatFacingLeft = true;
+        [JsonIgnore]
+        public int combatFacing = 4; //numpad directions (7,8,9,4,6,1,2,3)
 	    public bool steathModeOn = false;
         public bool mainPc = false;
         public bool nonRemoveablePc = false;
