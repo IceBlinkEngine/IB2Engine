@@ -16,6 +16,8 @@ namespace IceBlink2
 	    public int StartWaitDurationTime = 0; //in seconds, this is set to the world time once at waypoint
 	    public List<BarkString> BarkStringsAtWayPoint = new List<BarkString>();
 	    public List<BarkString> BarkStringsOnTheWayToNextWayPoint = new List<BarkString>();
+        public string departureTime = "";
+        public string areaName = "";
     
         public WayPoint()
         {    	

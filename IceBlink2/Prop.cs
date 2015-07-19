@@ -40,7 +40,7 @@ namespace IceBlink2
 	    public bool isMover = false;
 	    public int ChanceToMove2Squares = 0;
 	    public int ChanceToMove0Squares = 0;
-	    public string MoverType = "post"; //post, random, patrol
+	    public string MoverType = "post"; //post, random, patrol, daily, weekly, monthly, yearly
         [JsonIgnore]
 	    public Coordinate CurrentMoveToTarget = new Coordinate(0,0);
 	    public bool isChaser = false;
