@@ -4452,6 +4452,7 @@ namespace IceBlink2
                     pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
@@ -4490,6 +4491,7 @@ namespace IceBlink2
                     pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
                 //doCombatCast(pc);
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
