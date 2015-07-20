@@ -2010,10 +2010,10 @@ namespace IceBlink2
             {
                 if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
                 {
-                   
+
                     for (int j = 0; j < gv.mod.moduleAreasObjects[i].Props.Count; j++)
                     {
-                        
+
                         int relevantAreaIndex = 0;
                         int relevantPropIndex = 0;
                         int relevantWaypointIndex = 0;
@@ -2021,66 +2021,64 @@ namespace IceBlink2
 
                         if ((gv.mod.moduleAreasObjects[i].Props[j].MoverType == "daily") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "weekly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "monthly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "yearly"))
                         {
-                        for (int k = 0; k < gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count; k++)
-                        {
-                            //bool departureTimeReached = false;
-                            int nearestPointInTime = 29030401;
-                            List<string> timeUnitsList = new List<string>();
-                            int currentTimeInInterval = 0;
-
-                            //monster of an expression, yeesh ;-)
-                            timeUnitsList = gv.mod.moduleAreasObjects[i].Props[j].WayPointList[k].departureTime.Split(':').Select(x => x.Trim()).ToList();
-
-                            int dayCounter = Convert.ToInt32(timeUnitsList[0]);
-                            int hourCounter = Convert.ToInt32(timeUnitsList[1]);
-                            int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
-
-                            int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
-
-                            if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
+                            for (int k = 0; k < gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count; k++)
                             {
-                                currentTimeInInterval = gv.mod.WorldTime % 86400;
-                            }
-                            if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
-                            {
-                                currentTimeInInterval = gv.mod.WorldTime % 604800;
-                            }
-                            if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
-                            {
-                                currentTimeInInterval = gv.mod.WorldTime % 2419200;
-                            }
-                            if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
-                            {
-                                currentTimeInInterval = gv.mod.WorldTime % 29030400;
-                            }
+                                //bool departureTimeReached = false;
+                                int nearestPointInTime = 29030401;
+                                List<string> timeUnitsList = new List<string>();
+                                int currentTimeInInterval = 0;
 
-                            if (convertedDepartureTime >= currentTimeInInterval)
-                            {
-                                if (gv.mod.moduleAreasObjects[i].Props[j].WayPointList[k].areaName == gv.mod.currentArea.Filename)
+                                //monster of an expression, yeesh ;-)
+                                timeUnitsList = gv.mod.moduleAreasObjects[i].Props[j].WayPointList[k].departureTime.Split(':').Select(x => x.Trim()).ToList();
+
+                                int dayCounter = Convert.ToInt32(timeUnitsList[0]);
+                                int hourCounter = Convert.ToInt32(timeUnitsList[1]);
+                                int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
+
+                                int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
+
+                                if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                 {
-                                    if (convertedDepartureTime < nearestPointInTime)
+                                    currentTimeInInterval = gv.mod.WorldTime % 86400;
+                                }
+                                if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
+                                {
+                                    currentTimeInInterval = gv.mod.WorldTime % 604800;
+                                }
+                                if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
+                                {
+                                    currentTimeInInterval = gv.mod.WorldTime % 2419200;
+                                }
+                                if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
+                                {
+                                    currentTimeInInterval = gv.mod.WorldTime % 29030400;
+                                }
+
+                                if (currentTimeInInterval >= convertedDepartureTime)
+                                {
+                                    if (convertedDepartureTime > nearestPointInTime)
                                     {
                                         nearestPointInTime = convertedDepartureTime;
-
                                         relevantAreaIndex = i;
                                         relevantPropIndex = j;
                                         relevantWaypointIndex = k;
                                         foundProp = true;
                                     }
+                                }
+                            }
 
+                            if (foundProp == true)
+                            {
+                                foundProp = false; 
+                                if (gv.mod.moduleAreasObjects[relevantAreaIndex + 1].Props[relevantPropIndex + 1].WayPointList[relevantWaypointIndex + 1].areaName == gv.mod.currentArea.Filename)
+                                {
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
+                                    gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y; 
                                 }
                             }
                         }
-                    }
-                        if (foundProp == true)
-                        {
-                            //mmmmhhh... the long one :-)
-                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
-                            gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
-                            foundProp = false;
-                            
-                        }
-
                     }
                 }
             }
