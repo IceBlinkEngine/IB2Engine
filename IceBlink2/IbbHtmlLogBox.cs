@@ -357,6 +357,14 @@ namespace IceBlink2
                 {
                     clr = Color.Black;
                 }
+                else if ((s == "font color='blue'") || (s == "font color = 'blue'"))
+                {
+                    clr = Color.Blue;
+                }
+                else if ((s == "font color='teal'") || (s == "font color = 'teal'"))
+                {
+                    clr = Color.Teal;
+                }
                 else if ((s == "font color='white'") || (s == "font color = 'white'"))
                 {
                     clr = Color.White;

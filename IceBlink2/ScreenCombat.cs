@@ -1172,9 +1172,9 @@ namespace IceBlink2
             this.decrementAmmo(pc);
 
             int attackRoll = gv.sf.RandInt(20);
-            int attackMod = CalcPcAttackModifier(pc);
+            int attackMod = CalcPcAttackModifier(pc, crt);
             int attack = attackRoll + attackMod;
-            int defense = CalcCreatureDefense(crt);
+            int defense = CalcCreatureDefense(pc, crt);
             int damage = CalcPcDamageToCreature(pc, crt);
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20)) //HIT
@@ -1849,7 +1849,7 @@ namespace IceBlink2
         public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
         {
             int attackRoll = gv.sf.RandInt(20);
-            int attackMod = CalcCreatureAttackModifier(crt);
+            int attackMod = CalcCreatureAttackModifier(crt, pc);
             int defense = CalcPcDefense(pc, crt);
             int damage = CalcCreatureDamageToPc(pc, crt);
             int attack = attackRoll + attackMod;
@@ -1859,14 +1859,11 @@ namespace IceBlink2
                 pc.hp = pc.hp - damage;
                 gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
                         "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font>" +
-                        "<BR>");
+                        "<font color='aqua'>" + pc.name + "</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
                         "<font color='red'>" + damage + "</font>" +
-                        "<font color='white'>" + " damage)" + "</font>" +
-                        "<BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
-                        "<BR>");
+                        "<font color='white'>" + " damage)" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
 
                 //#region onScoringHit script of creature
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
@@ -1882,8 +1879,7 @@ namespace IceBlink2
 
                 if (pc.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font>" +
-                            "<BR>");
+                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font><BR>");
                     pc.charStatus = "Dead";
                 }
                 return true;
@@ -1892,12 +1888,9 @@ namespace IceBlink2
             {
                 gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
                         "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font>" +
-                        "<BR>");
-                gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font>" +
-                        "<BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font>" +
-                        "<BR>");
+                        "<font color='aqua'>" + pc.name + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
                 return false;
             }
         }
@@ -4287,36 +4280,58 @@ namespace IceBlink2
         {
             if (pc.combatLocY > 0)
             {
+                //check is walkable (blocked square or PC)
                 if (isWalkable(pc.combatLocX, pc.combatLocY - 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY - 1);
-                    pc.combatLocY--;
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    //check if creature -> do attack
+                    Creature c = isBumpIntoCreature(pc.combatLocX, pc.combatLocY - 1);
+                    if (c != null)
+                    {
+                        //attack creature
+                        targetHighlightCenterLocation.X = pc.combatLocX;
+                        targetHighlightCenterLocation.Y = pc.combatLocY - 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
+                    }
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY - 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY - 1);
+                        pc.combatLocY--;
+                        doUpdate(pc);
+                    }
                 }
             }
         }
         public void MoveUpRight(Player pc)
         {
-            //if ((pc.combatLocX < 6) && (pc.combatLocY > 0))
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
-                    pc.combatLocX++;
-                    pc.combatLocY--;
-                    if (pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY - 1);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = false;
+                        targetHighlightCenterLocation.X = pc.combatLocX + 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY - 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
+                        pc.combatLocX++;
+                        pc.combatLocY--;
+                        if (pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = false;
+                        }
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4326,18 +4341,28 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
-                    pc.combatLocX--;
-                    pc.combatLocY--;
-                    if (!pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY - 1);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = true;
+                        targetHighlightCenterLocation.X = pc.combatLocX - 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY - 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
+                        pc.combatLocX--;
+                        pc.combatLocY--;
+                        if (!pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = true;
+                        }
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4347,12 +4372,22 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX, pc.combatLocY + 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY + 1);
-                    pc.combatLocY++;
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    Creature c = isBumpIntoCreature(pc.combatLocX, pc.combatLocY + 1);
+                    if (c != null)
+                    {
+                        targetHighlightCenterLocation.X = pc.combatLocX;
+                        targetHighlightCenterLocation.Y = pc.combatLocY + 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
+                    }
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY + 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY + 1);
+                        pc.combatLocY++;
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4362,18 +4397,28 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
-                    pc.combatLocX++;
-                    pc.combatLocY++;
-                    if (pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY + 1);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = false;
+                        targetHighlightCenterLocation.X = pc.combatLocX + 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY + 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
+                        pc.combatLocX++;
+                        pc.combatLocY++;
+                        if (pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = false;
+                        }
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4383,18 +4428,28 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
-                    pc.combatLocX--;
-                    pc.combatLocY++;
-                    if (!pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY + 1);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = true;
+                        targetHighlightCenterLocation.X = pc.combatLocX - 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY + 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
+                        pc.combatLocX--;
+                        pc.combatLocY++;
+                        if (!pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = true;
+                        }
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4404,17 +4459,27 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY);
-                    pc.combatLocX++;
-                    if (pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = false;
+                        targetHighlightCenterLocation.X = pc.combatLocX + 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY);
+                        doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY);
+                        pc.combatLocX++;
+                        if (pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = false;
+                        }
+                        doUpdate(pc);
+                    }
                 }
             }
         }
@@ -4424,17 +4489,27 @@ namespace IceBlink2
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY))
                 {
-                    doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
-                    pc.combatLocX--;
-                    if (!pc.combatFacingLeft)
+                    Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY);
+                    if (c != null)
                     {
-                        pc.token= gv.cc.flip(pc.token);
-                        pc.combatFacingLeft = true;
+                        targetHighlightCenterLocation.X = pc.combatLocX - 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
                     }
-                    //canMove = false;
-                    //currentCombatMode = "attack";
-                    //setTargetHighlightStartLocation(pc);
-                    doUpdate(pc);
+                    else
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY);
+                        doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
+                        pc.combatLocX--;
+                        if (!pc.combatFacingLeft)
+                        {
+                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = true;
+                        }
+                        doUpdate(pc);
+                    }                    
                 }
             }
         }
@@ -4984,7 +5059,30 @@ namespace IceBlink2
         
             return true;
         }
-        
+        public bool IsAttackFromBehind(Player pc, Creature crt)
+        {
+            if ((pc.combatLocX >  crt.combatLocX) && (pc.combatLocY >  crt.combatLocY) && (crt.combatFacing == 7)) { return true; }
+            if ((pc.combatLocX == crt.combatLocX) && (pc.combatLocY >  crt.combatLocY) && (crt.combatFacing == 8)) { return true; }
+            if ((pc.combatLocX <  crt.combatLocX) && (pc.combatLocY >  crt.combatLocY) && (crt.combatFacing == 9)) { return true; }
+            if ((pc.combatLocX >  crt.combatLocX) && (pc.combatLocY == crt.combatLocY) && (crt.combatFacing == 4)) { return true; }
+            if ((pc.combatLocX <  crt.combatLocX) && (pc.combatLocY == crt.combatLocY) && (crt.combatFacing == 6)) { return true; }
+            if ((pc.combatLocX >  crt.combatLocX) && (pc.combatLocY <  crt.combatLocY) && (crt.combatFacing == 1)) { return true; }
+            if ((pc.combatLocX == crt.combatLocX) && (pc.combatLocY <  crt.combatLocY) && (crt.combatFacing == 2)) { return true; }
+            if ((pc.combatLocX <  crt.combatLocX) && (pc.combatLocY <  crt.combatLocY) && (crt.combatFacing == 3)) { return true; }
+            return false;
+        }
+        public bool IsCreatureAttackFromBehind(Player pc, Creature crt)
+        {
+            if ((crt.combatLocX > pc.combatLocX) && (crt.combatLocY > pc.combatLocY) && (pc.combatFacing == 7)) { return true; }
+            if ((crt.combatLocX == pc.combatLocX) && (crt.combatLocY > pc.combatLocY) && (pc.combatFacing == 8)) { return true; }
+            if ((crt.combatLocX < pc.combatLocX) && (crt.combatLocY > pc.combatLocY) && (pc.combatFacing == 9)) { return true; }
+            if ((crt.combatLocX > pc.combatLocX) && (crt.combatLocY == pc.combatLocY) && (pc.combatFacing == 4)) { return true; }
+            if ((crt.combatLocX < pc.combatLocX) && (crt.combatLocY == pc.combatLocY) && (pc.combatFacing == 6)) { return true; }
+            if ((crt.combatLocX > pc.combatLocX) && (crt.combatLocY < pc.combatLocY) && (pc.combatFacing == 1)) { return true; }
+            if ((crt.combatLocX == pc.combatLocX) && (crt.combatLocY < pc.combatLocY) && (pc.combatFacing == 2)) { return true; }
+            if ((crt.combatLocX < pc.combatLocX) && (crt.combatLocY < pc.combatLocY) && (pc.combatFacing == 3)) { return true; }
+            return false;
+        }
 	    public int getDistance(Coordinate start, Coordinate end)
 	    {
 		    int dist = 0;
@@ -5002,13 +5100,13 @@ namespace IceBlink2
             {
         	    return false;
             }
-		    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-		    {
-			    if ((crt.combatLocX == x) && (crt.combatLocY == y))
-			    {
-				    return false;
-			    }
-		    }
+		    //foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+		    //{
+			//    if ((crt.combatLocX == x) && (crt.combatLocY == y))
+			//    {
+			//	    return false;
+			//    }
+		    //}
 		    foreach (Player p in mod.playerList)
 		    {
 			    if ((p.combatLocX == x) && (p.combatLocY == y))
@@ -5021,6 +5119,44 @@ namespace IceBlink2
 		    }
 		    return true;			
 	    }
+        public Creature isBumpIntoCreature(int x, int y)
+        {
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if ((crt.combatLocX == x) && (crt.combatLocY == y))
+                {
+            	    return crt;
+                }
+            }
+            return null;
+        }
+        public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
+        {
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+                {
+                    //if started in distance = 1 and now distance = 2 then do attackOfOpportunity
+                    if ((CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2))
+                    {
+                        if (pc.steathModeOn)
+                        {
+                            gv.cc.addLogText("<font color='lime'>Avoids Attack of Opportunity due to Stealth</font><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
+                            doActualCreatureAttack(pc, crt, 1);
+                            if (pc.hp <= 0)
+                            {
+                                currentMoves = 99;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 	            		
 	    public Coordinate GetNextProjectileCoordinateOld(Coordinate nowCoor, Coordinate target)
 	    {
@@ -5100,7 +5236,7 @@ namespace IceBlink2
 		    return nextPoint;
 	    }
 
-	    public int CalcPcAttackModifier(Player pc)
+	    public int CalcPcAttackModifier(Player pc, Creature crt)
         {
             int modifier = 0;
             if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")) 
@@ -5126,11 +5262,13 @@ namespace IceBlink2
     	        	    int adding = ((pc.classLevel - 1) / 2) + 1;
     	        	    modifier += adding;
     	        	    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
-    	        	    if (mod.debugMode) //SD_20131102
-    	                {
-    	    			    //gv.cc.addLogText("<font color='yellow'> sneak attack: +" + adding + " to hit</font><BR>");
-    	    		    }
     			    }		        
+                }
+                //all attacks of the PC from behind get a +2 bonus to hit            
+                if (IsAttackFromBehind(pc, crt))
+                {
+                    modifier += 2;
+                    gv.cc.addLogText("<font color='lime'> attack from behind: +2 att</font><BR>");
                 }
             }
             else //ranged weapon used
@@ -5178,14 +5316,14 @@ namespace IceBlink2
             }
             return attackMod;
         }
-	    public int CalcCreatureDefense(Creature crt)
+	    public int CalcCreatureDefense(Player pc, Creature crt)
         {
             int defense = crt.AC;
             if (crt.cr_status.Equals("Held"))
             {
         	    defense -= 4;
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+4 att", "green");
-            }
+            }            
             return defense;
         }
 	    public int CalcPcDamageToCreature(Player pc, Creature crt)
@@ -5274,7 +5412,7 @@ namespace IceBlink2
                 totalDam = 0;
             }
             //if doing sneak attack, does extra damage
-            if ((pc.steathModeOn) && (melee))
+            if ((pc.steathModeOn) && (melee) && (IsAttackFromBehind(pc,crt)))
             {
 	            if (pc.knownTraitsTags.Contains("sneakattack"))
 			    {
@@ -5295,7 +5433,7 @@ namespace IceBlink2
             }
             return totalDam;
         }
-	    public int CalcCreatureAttackModifier(Creature crt)
+	    public int CalcCreatureAttackModifier(Creature crt, Player pc)
         {
             if ((crt.cr_category.Equals("Ranged")) && (isAdjacentPc(crt)))
 		    {
@@ -5310,7 +5448,14 @@ namespace IceBlink2
             }
             else //melee weapon used
             {
-        	    return crt.cr_att;            
+                int modifier = 0;
+                //all attacks of the Creature from behind get a +2 bonus to hit            
+                if (IsCreatureAttackFromBehind(pc, crt))
+                {
+                    modifier += 2;
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +2 att</font><BR>");
+                }
+        	    return crt.cr_att + modifier;            
             }
         }
 	    public int CalcPcDefense(Player pc, Creature crt)
