@@ -394,7 +394,7 @@ namespace IceBlink2
                 Player pc = mod.playerList[currentPlayerIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
-                projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                projectileAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //load projectile image
                 projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
@@ -413,12 +413,12 @@ namespace IceBlink2
             {
                 Player pc = mod.playerList[currentPlayerIndex];
                 //if at target, do ending
-                if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+                if ((projectileAnimationLocation.X == getPixelLocX(targetHighlightCenterLocation.X)) && (projectileAnimationLocation.Y == getPixelLocY(targetHighlightCenterLocation.Y)))
                 {
                     drawProjectileAnimation = false;
                     projectileAnimationLocation = new Coordinate();
                     drawEndingAnimation = true;
-                    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+                    endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
                     gv.Invalidate();
@@ -472,7 +472,7 @@ namespace IceBlink2
                 Player pc = mod.playerList[currentPlayerIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
-                projectileAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
+                projectileAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //load projectile image
                 projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
@@ -493,12 +493,12 @@ namespace IceBlink2
             {
                 Player pc = mod.playerList[currentPlayerIndex];
                 //if at target, do ending
-                if ((projectileAnimationLocation.X == targetHighlightCenterLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == targetHighlightCenterLocation.Y * gv.squareSize))
+                if ((projectileAnimationLocation.X == getPixelLocX(targetHighlightCenterLocation.X)) && (projectileAnimationLocation.Y == getPixelLocY(targetHighlightCenterLocation.Y)))
                 {
                     drawProjectileAnimation = false;
                     projectileAnimationLocation = new Coordinate();
                     drawEndingAnimation = true;
-                    endingAnimationLocation = new Coordinate(targetHighlightCenterLocation.X * gv.squareSize, targetHighlightCenterLocation.Y * gv.squareSize);
+                    endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);
                     gv.Invalidate();
@@ -553,7 +553,7 @@ namespace IceBlink2
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
-                projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+                projectileAnimationLocation = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                 //load projectile image
                 projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
@@ -572,12 +572,12 @@ namespace IceBlink2
             {
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //if at target, do ending
-                if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+                if ((projectileAnimationLocation.X == getPixelLocX(creatureTargetLocation.X)) && (projectileAnimationLocation.Y == getPixelLocY(creatureTargetLocation.Y)))
                 {
                     drawProjectileAnimation = false;
                     projectileAnimationLocation = new Coordinate();
                     drawEndingAnimation = true;
-                    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+                    endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
                     gv.Invalidate();
@@ -630,7 +630,7 @@ namespace IceBlink2
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
-                projectileAnimationLocation = new Coordinate(crt.combatLocX * gv.squareSize, crt.combatLocY * gv.squareSize);
+                projectileAnimationLocation = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                 //load projectile image
                 projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
@@ -651,12 +651,12 @@ namespace IceBlink2
             {
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //if at target, do ending
-                if ((projectileAnimationLocation.X == creatureTargetLocation.X * gv.squareSize) && (projectileAnimationLocation.Y == creatureTargetLocation.Y * gv.squareSize))
+                if ((projectileAnimationLocation.X == getPixelLocX(creatureTargetLocation.X)) && (projectileAnimationLocation.Y == getPixelLocY(creatureTargetLocation.Y)))
                 {
                     drawProjectileAnimation = false;
                     projectileAnimationLocation = new Coordinate();
                     drawEndingAnimation = true;
-                    endingAnimationLocation = new Coordinate(creatureTargetLocation.X * gv.squareSize, creatureTargetLocation.Y * gv.squareSize);
+                    endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);
                     gv.Invalidate();
@@ -1475,7 +1475,7 @@ namespace IceBlink2
 				    crt.combatLocY = newCoor.Y;                    
 				    canMove = false;
 				    animationState = AnimationState.CreatureMove;
-				    gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
 			    }
 			    else //no target found
 			    {
@@ -2536,8 +2536,8 @@ namespace IceBlink2
 	    {
 		    if (drawProjectileAnimation)
 		    {
-                IbRect src = new IbRect(animationFrameIndex * gv.squareSize, 0, gv.squareSize, gv.squareSize);
-                IbRect dst = new IbRect(projectileAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
+                IbRect src = new IbRect(animationFrameIndex * projectile.Height, 0, projectile.Height, projectile.Height);
+                IbRect dst = new IbRect(projectileAnimationLocation.X, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(projectile, src, dst);		
 		    }
 	    }
@@ -2547,10 +2547,10 @@ namespace IceBlink2
 		    {
 			    int height = ending_fx.Height;
                 IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
-                IbRect dst = new IbRect(endingAnimationLocation.X + gv.oXshift + mapStartLocXinPixels, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
+                IbRect dst = new IbRect(endingAnimationLocation.X, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
 			    if (height > 50)
 			    {
-                    dst = new IbRect(endingAnimationLocation.X + gv.oXshift - gv.squareSize + mapStartLocXinPixels, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
+                    dst = new IbRect(endingAnimationLocation.X - gv.squareSize, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
 			    }
 			    gv.DrawBitmap(ending_fx, src, dst);							
 		    }
@@ -4619,6 +4619,14 @@ namespace IceBlink2
         {
             return (sqrY - UpperLeftSquare.Y) * gv.squareSize;
         }
+        public int getViewportSquareLocX(int sqrX)
+        {
+            return sqrX - UpperLeftSquare.X;
+        }
+        public int getViewportSquareLocY(int sqrY)
+        {
+            return sqrY - UpperLeftSquare.Y;
+        }
 	    public void setTargetHighlightStartLocation(Player pc)
 	    {
 		    targetHighlightCenterLocation.X = pc.combatLocX;
@@ -5215,23 +5223,25 @@ namespace IceBlink2
 	    {
 		    Coordinate nextPoint = new Coordinate();
 		    float divider = ((float)animationFrameIndex) / 4.0f;
-		    nextPoint.X = startCoor.X * gv.squareSize - (int)((startCoor.X * gv.squareSize - target.X * gv.squareSize) * divider);
-		    if (startCoor.X < target.X)
+		    nextPoint.X = getViewportSquareLocX(startCoor.X) * gv.squareSize - (int)((getViewportSquareLocX(startCoor.X) * gv.squareSize - getViewportSquareLocX(target.X) * gv.squareSize) * divider);
+            //shift to map viewport location
+            nextPoint.X += gv.oXshift + mapStartLocXinPixels;
+            if (startCoor.X < target.X)
 		    {
-			    if (nextPoint.X > target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+                if (nextPoint.X > getPixelLocX(target.X)) { nextPoint.X = getPixelLocX(target.X); }
 		    }
 		    else
 		    {
-			    if (nextPoint.X < target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
+                if (nextPoint.X < getPixelLocX(target.X)) { nextPoint.X = getPixelLocX(target.X); }
 		    }
-		    nextPoint.Y = startCoor.Y * gv.squareSize - (int)((startCoor.Y * gv.squareSize - target.Y * gv.squareSize) * divider); 
+            nextPoint.Y = getViewportSquareLocY(startCoor.Y) * gv.squareSize - (int)((getViewportSquareLocY(startCoor.Y) * gv.squareSize - getViewportSquareLocY(target.Y) * gv.squareSize) * divider); 
 		    if (startCoor.Y < target.Y)
 		    {
-			    if (nextPoint.Y > target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+                if (nextPoint.Y > getPixelLocY(target.Y)) { nextPoint.Y = getPixelLocY(target.Y); }
 		    }
 		    else
 		    {
-			    if (nextPoint.Y < target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
+                if (nextPoint.Y < getPixelLocY(target.Y)) { nextPoint.Y = getPixelLocY(target.Y); }
 		    }
 		    return nextPoint;
 	    }
