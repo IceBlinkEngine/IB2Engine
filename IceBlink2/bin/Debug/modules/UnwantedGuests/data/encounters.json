@@ -2772,7 +2772,15 @@
     "OnStartCombatTurnLogicTree": "none",
     "OnStartCombatTurnParms": "",
     "OnEndCombatLogicTree": "none",
-    "OnEndCombatParms": ""
+    "OnEndCombatParms": "",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
   },
   {
     "encounterMapLayout": [
@@ -3193,7 +3201,15 @@
     "OnStartCombatTurnLogicTree": "none",
     "OnStartCombatTurnParms": "",
     "OnEndCombatLogicTree": "endCombatGlobalIntJournal",
-    "OnEndCombatParms": "spiders,2,spidersquest,spiders2"
+    "OnEndCombatParms": "spiders,2,spidersquest,spiders2",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
   },
   {
     "encounterMapLayout": [
@@ -3608,7 +3624,15 @@
     "OnStartCombatTurnLogicTree": "none",
     "OnStartCombatTurnParms": "",
     "OnEndCombatLogicTree": "doConvo",
-    "OnEndCombatParms": "aTestEndEncConvo"
+    "OnEndCombatParms": "aTestEndEncConvo",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
   },
   {
     "encounterMapLayout": [
@@ -5877,6 +5901,14 @@
     "OnStartCombatTurnLogicTree": "none",
     "OnStartCombatTurnParms": "",
     "OnEndCombatLogicTree": "none",
-    "OnEndCombatParms": ""
+    "OnEndCombatParms": "",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
   }
 ]

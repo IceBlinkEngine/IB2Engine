@@ -1996,7 +1996,8 @@ namespace IceBlink2
         }
 	    public void doPropMoves()
 	    {
-
+            //IBMessageBox.Show(gv, "Moving props"); 
+            //gv.sf.MessageBox("Moving props");
             //code for registering enterign a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
             bool doOnEnterAreaUpdate = false;
             if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
@@ -2024,7 +2025,7 @@ namespace IceBlink2
                             for (int k = 0; k < gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count; k++)
                             {
                                 //bool departureTimeReached = false;
-                                int nearestPointInTime = 29030401;
+                                int nearestPointInTime = 0;
                                 List<string> timeUnitsList = new List<string>();
                                 int currentTimeInInterval = 0;
 
@@ -2035,23 +2036,52 @@ namespace IceBlink2
                                 int hourCounter = Convert.ToInt32(timeUnitsList[1]);
                                 int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
 
+                                if ((dayCounter == 0) || (dayCounter == 1))
+                                {
+                                    dayCounter = 0;
+                                }
+                                else
+                                {
+                                    dayCounter = (dayCounter - 1);
+                                }
+
                                 int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
+
+                                if (k == gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count -1)
+                                {
+                                    if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
+                                    {
+                                        convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes
+                                    }
+                                    if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
+                                    {
+                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1 ); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                    }
+                                    if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
+                                    {
+                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                    }
+                                    if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
+                                    {
+                                        convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes
+                                    } 
+                                }
 
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                 {
-                                    currentTimeInInterval = gv.mod.WorldTime % 86400;
+                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 86400;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                 {
-                                    currentTimeInInterval = gv.mod.WorldTime % 604800;
+                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 604800;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                 {
-                                    currentTimeInInterval = gv.mod.WorldTime % 2419200;
+                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 2419200;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                 {
-                                    currentTimeInInterval = gv.mod.WorldTime % 29030400;
+                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 29030400;
                                 }
 
                                 if (currentTimeInInterval >= convertedDepartureTime)
@@ -2063,19 +2093,44 @@ namespace IceBlink2
                                         relevantPropIndex = j;
                                         relevantWaypointIndex = k;
                                         foundProp = true;
+                                        //IBMessageBox.Show(gv, "Found prop"); 
                                     }
                                 }
                             }
 
+
                             if (foundProp == true)
                             {
-                                foundProp = false; 
-                                if (gv.mod.moduleAreasObjects[relevantAreaIndex + 1].Props[relevantPropIndex + 1].WayPointList[relevantWaypointIndex + 1].areaName == gv.mod.currentArea.Filename)
+                                foundProp = false;
+                                int listEndCheckedIndexOfNextWaypoint = 0;
+                                if (relevantWaypointIndex >= gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList.Count - 1)
                                 {
+                                    listEndCheckedIndexOfNextWaypoint = 0;
+                                }
+                                else
+                                {
+                                    listEndCheckedIndexOfNextWaypoint = relevantWaypointIndex + 1;
+                                }
+                                
+                                if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename)
+                                {
+                                    //IBMessageBox.Show(gv, "Moving area enter I"); 
                                     gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
+
                                     gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
+
                                     gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y; 
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y;
+                                }
+                                else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantPropIndex].areaName != gv.mod.currentArea.Filename))
+                                {
+                                    //IBMessageBox.Show(gv, "Moving area enter II"); 
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
+
+                                    gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
+
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
                                 }
                             }
                         }
@@ -2216,8 +2271,10 @@ namespace IceBlink2
 					    doPropBarkString(prp);
 				    }
 				    else if (prp.MoverType.Equals("patrol"))
-				    {					
-					    if (prp.WayPointList.Count > 0)
+				    {
+                        //IBMessageBox.Show(gv, "Moving props"); 
+                        //gv.sf.MessageBox("Found patrol mover");
+                        if (prp.WayPointList.Count > 0)
 					    {
 						    //move towards next waypoint location if not already there
 						    if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
@@ -2248,10 +2305,14 @@ namespace IceBlink2
 
                     else if (prp.MoverType.Equals("daily") || prp.MoverType.Equals("weekly") || prp.MoverType.Equals("monthly") || prp.MoverType.Equals("yearly"))
                     {
-
+                        //IBMessageBox.Show(gv, "Found daily"); 
+                        //gv.sf.MessageBox("Found daily mover");
                         bool departureTimeReached = false;
                         List<string> timeUnitsList = new List<string>();
                         int currentTimeInInterval = 0;
+                        //bool moveBlock = true;
+                        //IBMessageBox.Show(gv, "Index:" + prp.WayPointListCurrentIndex).ToString();
+                      
 
                         //monster of an expression, yeesh ;-)
                         timeUnitsList = prp.WayPointList[prp.WayPointListCurrentIndex].departureTime.Split(':').Select(x => x.Trim()).ToList();
@@ -2260,28 +2321,64 @@ namespace IceBlink2
                         int hourCounter = Convert.ToInt32(timeUnitsList[1]);
                         int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
 
+                        if ((dayCounter == 0) || (dayCounter == 1))
+                        {
+                            dayCounter = 0;
+                            //IBMessageBox.Show(gv, "daycounter was zero or 1"); 
+                        }
+                        else
+                        {
+                            dayCounter = (dayCounter - 1);
+                        }
+
                         int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
+                        //IBMessageBox.Show(gv, "departure tiem in seconds:" + convertedDepartureTime.ToString()); 
+
+                        if (prp.WayPointListCurrentIndex == prp.WayPointList.Count-1)
+                        {
+                            if (prp.MoverType.Equals("daily"))
+                            {
+                                convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);//assuming that worldtime is in seconds and timepersquare in minutes
+                            }
+                            if (prp.MoverType.Equals("weekly"))
+                            {
+                                convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                            }
+                            if (prp.MoverType.Equals("monthly"))
+                            {
+                                convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                            }
+                            if (prp.MoverType.Equals("yearly"))
+                            {
+                                convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes
+                            } 
+                        }
+                        //IBMessageBox.Show(gv, "departure tiem in seconds:" + convertedDepartureTime.ToString()); 
 
                         if (prp.MoverType.Equals("daily"))
                         {
-                            currentTimeInInterval = gv.mod.WorldTime % 86400;
+                            currentTimeInInterval = (gv.mod.WorldTime*60) % 86400;
                         }
                         if (prp.MoverType.Equals("weekly"))
                         {
-                            currentTimeInInterval = gv.mod.WorldTime % 604800;
+                            currentTimeInInterval = (gv.mod.WorldTime*60) % 604800;
                         }
                         if (prp.MoverType.Equals("monthly"))
                         {
-                            currentTimeInInterval = gv.mod.WorldTime % 2419200;
+                            currentTimeInInterval = (gv.mod.WorldTime*60) % 2419200;
                         }
                         if (prp.MoverType.Equals("yearly"))
                         {
-                            currentTimeInInterval = gv.mod.WorldTime % 29030400;
-                        } 
+                            currentTimeInInterval = (gv.mod.WorldTime*60) % 29030400;
+                        }
+                        //IBMessageBox.Show(gv, "current time inseconds:" + currentTimeInInterval.ToString());
+                        //IBMessageBox.Show(gv, "departure time inseconds:" + convertedDepartureTime.ToString()); 
 
-                        if (convertedDepartureTime >= currentTimeInInterval)
+                        if (currentTimeInInterval >= convertedDepartureTime)
                         {
                             departureTimeReached = true;
+                            //moveBlock = false;
+                            //IBMessageBox.Show(gv, "departure time reached"); 
                         }
                             
                         if (prp.WayPointList.Count > 0)
@@ -2289,35 +2386,55 @@ namespace IceBlink2
                             //move towards next waypoint location if not already there and departure time is reached
                             if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y) && (departureTimeReached == true))
                             {
- 
+                               
                                 //already there so set next way point location (revert to index 0 if at last way point)
                                 if (prp.WayPointListCurrentIndex >= prp.WayPointList.Count - 1)
                                 {
+                                    
                                     prp.WayPointListCurrentIndex = 0;
 
-                                    if (prp.WayPointList[prp.WayPointList.Count - 1].areaName != gv.mod.currentArea.Filename)
+                                    if (prp.WayPointList[prp.WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
                                     {
                                         //the REAL monster of an expression, hehe
                                         gv.sf.osController("osSetPropLocationAnyArea.cs", prp.PropTag, prp.WayPointList[prp.WayPointListCurrentIndex].areaName, prp.WayPointList[prp.WayPointListCurrentIndex].X.ToString(), prp.WayPointList[prp.WayPointListCurrentIndex].Y.ToString());
                                     }
+                                    
                                 }
                                 else
                                 {
+
                                     prp.WayPointListCurrentIndex++;
-                                     //check whether it's time to leave the current area
-                                    if (prp.WayPointList[prp.WayPointListCurrentIndex-1].areaName != gv.mod.currentArea.Filename)
+                                    
+                                    //check whether it's time to leave the current area
+                                    if (prp.WayPointList[prp.WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
                                     {
                                         //the REAL monster of an expression, hehe
                                         gv.sf.osController("osSetPropLocationAnyArea.cs", prp.PropTag, prp.WayPointList[prp.WayPointListCurrentIndex].areaName, prp.WayPointList[prp.WayPointListCurrentIndex].X.ToString(), prp.WayPointList[prp.WayPointListCurrentIndex].Y.ToString());
                                     }
+                                    
                                 }
-                                    prp.CurrentMoveToTarget.X = prp.WayPointList[prp.WayPointListCurrentIndex].X;
-                                    prp.CurrentMoveToTarget.Y = prp.WayPointList[prp.WayPointListCurrentIndex].Y;
-                                    prp.ReturningToPost = false;
-                                
+                                prp.CurrentMoveToTarget.X = prp.WayPointList[prp.WayPointListCurrentIndex].X;
+                                //IBMessageBox.Show(gv, "x target:" + prp.CurrentMoveToTarget.X.ToString());
+                                prp.CurrentMoveToTarget.Y = prp.WayPointList[prp.WayPointListCurrentIndex].Y;
+                                //IBMessageBox.Show(gv, "y target:" + prp.CurrentMoveToTarget.Y.ToString());
+                                prp.ReturningToPost = false;
+
                             }
                             //move to next target
-                            this.moveToTarget(prp.CurrentMoveToTarget.X, prp.CurrentMoveToTarget.Y, prp, moveDist);
+                            //if (moveBlock == false)
+                            //{
+                                //IBMessageBox.Show(gv, "x target trying to move to:" + prp.CurrentMoveToTarget.X.ToString());
+                                //IBMessageBox.Show(gv, "y target trying to move to:" + prp.CurrentMoveToTarget.Y.ToString());
+
+                                if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    this.moveToTarget(prp.CurrentMoveToTarget.X, prp.CurrentMoveToTarget.Y, prp, moveDist);
+                                }
+                            //}
                             if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
