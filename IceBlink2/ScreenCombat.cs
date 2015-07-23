@@ -4787,7 +4787,21 @@ namespace IceBlink2
 		    }
 		    return false;
 	    }
-	    public bool isVisibleLineOfSight(Coordinate end, Coordinate start)
+	    public int getGridX(Coordinate nextPoint)
+        {
+            int gridx = ((nextPoint.X - mapStartLocXinPixels - gv.oXshift) / gv.squareSize) + UpperLeftSquare.X;
+            if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
+            if (gridx < 0) { gridx = 0; }
+            return gridx;
+        }
+        public int getGridY(Coordinate nextPoint)
+        {
+            int gridy = ((nextPoint.Y - gv.oYshift) / gv.squareSize) + UpperLeftSquare.Y;
+            if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
+            if (gridy < 0) { gridy = 0; }
+            return gridy;
+        }
+        public bool isVisibleLineOfSight(Coordinate end, Coordinate start)
         {
             // Bresenham Line algorithm
             // Creates a line from Begin to End starting at (x0,y0) and ending at (x1,y1)
@@ -4820,12 +4834,8 @@ namespace IceBlink2
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
@@ -4844,12 +4854,8 @@ namespace IceBlink2
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
@@ -4877,12 +4883,8 @@ namespace IceBlink2
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
@@ -4901,12 +4903,8 @@ namespace IceBlink2
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
                     	    return false;
@@ -4952,12 +4950,8 @@ namespace IceBlink2
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
@@ -4981,12 +4975,8 @@ namespace IceBlink2
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
@@ -5019,12 +5009,8 @@ namespace IceBlink2
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
@@ -5048,12 +5034,8 @@ namespace IceBlink2
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        int gridx = nextPoint.X / gv.squareSize;
-                        if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
-                        if (gridx < 0) { gridx = 0; }
-                        int gridy = nextPoint.Y / gv.squareSize;
-                        if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
-                        if (gridy < 0) { gridy = 0; }
+                        int gridx = getGridX(nextPoint);
+                        int gridy = getGridY(nextPoint);
                         gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
                         if (mod.currentEncounter.encounterTiles[gridy * mod.currentEncounter.MapSizeX + gridx].LoSBlocked)
                         {
