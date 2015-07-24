@@ -58,6 +58,7 @@ namespace IceBlink2
         private IbbButton btnMoveCounter = null;
 	    public IbbToggleButton tglHP = null;
 	    public IbbToggleButton tglSP = null;
+        public IbbToggleButton tglMoveOrder = null;
 	    public IbbToggleButton tglSpeed = null;
 	    public IbbToggleButton tglSoundFx = null;
 	    public IbbToggleButton tglKill = null;
@@ -198,6 +199,16 @@ namespace IceBlink2
                 tglSP.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSP.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
+            if (tglMoveOrder == null)
+            {
+                tglMoveOrder = new IbbToggleButton(gv);
+                tglMoveOrder.ImgOn = gv.cc.LoadBitmap("tgl_mo_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
+                tglMoveOrder.ImgOff = gv.cc.LoadBitmap("tgl_mo_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
+                tglMoveOrder.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                tglMoveOrder.Y = 8 * gv.squareSize + (gv.squareSize / 2);
+                tglMoveOrder.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglMoveOrder.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
+            }
 		    if (tglSpeed == null)
 		    {
 			    tglSpeed = new IbbToggleButton(gv);
@@ -2336,6 +2347,7 @@ namespace IceBlink2
 		    gv.cc.ctrlDownRightArrow.Draw();
 		    tglHP.Draw();
 		    tglSP.Draw();
+            tglMoveOrder.Draw();
 		    tglSpeed.Draw();
 		    tglSoundFx.Draw();
 		    tglHelp.Draw();
@@ -2612,8 +2624,11 @@ namespace IceBlink2
                     else { } //didn't find one
                     src = new IbRect(0, 0, fac.Width, fac.Height);
                     gv.DrawBitmap(fac, src, dst);
-                    int mo = pc.moveOrder + 1;
-                    gv.DrawText(mo.ToString(), getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
+                    if (tglMoveOrder.toggleOn)
+                    {
+                        int mo = pc.moveOrder + 1;
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontReg.Height, mo.ToString(), Color.White);
+                    }
                 }
 		    }
 	    }
@@ -2737,8 +2752,11 @@ namespace IceBlink2
                 else { } //didn't find one
                 src = new IbRect(0, 0, fac.Width, fac.Height);
                 gv.DrawBitmap(fac, src, dst);
-                int mo = crt.moveOrder + 1;
-                gv.DrawText(mo.ToString(), getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                if (tglMoveOrder.toggleOn)
+                {
+                    int mo = crt.moveOrder + 1;
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontReg.Height, mo.ToString(), Color.White);
+                }
 		    }
 	    }
 	    public void drawTargetHighlight()
@@ -3196,6 +3214,19 @@ namespace IceBlink2
                         else
                         {
                             tglSP.toggleOn = true;
+                        }
+                    }
+                    if (tglMoveOrder.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglMoveOrder.toggleOn)
+                        {
+                            tglMoveOrder.toggleOn = false;
+                        }
+                        else
+                        {
+                            tglMoveOrder.toggleOn = true;
                         }
                     }
                     if (tglSpeed.getImpact(x, y))
