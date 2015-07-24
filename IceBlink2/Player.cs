@@ -26,6 +26,7 @@ namespace IceBlink2
 	    public int combatLocX = 0;
 	    public int combatLocY = 0;
         public int moveDistance = 5;
+        public int moveOrder = 0;
         public string name = "CharacterName";	
 	    public string tag = "newTag";	
 	    public string raceTag = "newRace";

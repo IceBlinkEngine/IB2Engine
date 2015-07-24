@@ -16,7 +16,10 @@ namespace IceBlink2
 	    private bool isPlayerTurn = true;
 	    public bool canMove = true;
 	    public int currentPlayerIndex = 0;
-	    private int currentCreatureIndex = 0;
+        public int creatureIndex = 0;
+        public int currentMoveOrderIndex = 0;
+        public List<MoveOrder> moveOrderList = new List<MoveOrder>();
+        public int initialMoveOrderListSize = 0;
         public int currentMoves = 0;
         public int creatureMoves = 0;
         public Coordinate UpperLeftSquare = new Coordinate();
@@ -40,8 +43,7 @@ namespace IceBlink2
 	    public bool floatyTextOn = false;
 	    public AnimationState animationState = AnimationState.None;
 	    private Bitmap projectile;
-	    private Bitmap ending_fx;
-	    public int creatureIndex = 0;
+	    private Bitmap ending_fx;	    
 	    private Bitmap mapBitmap;
 
         public int totalStartingHp = 0;
@@ -769,7 +771,7 @@ namespace IceBlink2
                     }
                 }
             }
-
+            //Place all PCs
             for (int index = 0; index < mod.playerList.Count; index++)
             {
                 mod.playerList[index].combatLocX = mod.currentEncounter.encounterPcStartLocations[index].X;
@@ -777,7 +779,8 @@ namespace IceBlink2
             }
             isPlayerTurn = true;
             currentPlayerIndex = 0;
-            currentCreatureIndex = 0;
+            creatureIndex = 0;
+            currentMoveOrderIndex = 0;
             currentCombatMode = "info";
             encounterXP = 0;
             foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
@@ -792,10 +795,105 @@ namespace IceBlink2
             gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
-            startPcTurn();
+            //determine initiative
+            calcualteMoveOrder();
+            //do turn controller
+            turnContoller();
+            //startPcTurn();
         }
+        public void calcualteMoveOrder()
+        {
+            moveOrderList.Clear();
+            //go through each PC and creature and make initiative roll
+            foreach (Player pc in mod.playerList)
+            {
+                int roll = gv.sf.RandInt(100) + (((pc.dexterity - 10) / 2) * 5);
+                MoveOrder newMO = new MoveOrder();
+                newMO.PcOrCreature = pc;
+                newMO.rank = roll;
+                moveOrderList.Add(newMO);
+
+            }
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                int roll = gv.sf.RandInt(100) + (crt.initiativeBonus * 5);
+                MoveOrder newMO = new MoveOrder();
+                newMO.PcOrCreature = crt;
+                newMO.rank = roll;
+                moveOrderList.Add(newMO);
+            }
+            initialMoveOrderListSize = moveOrderList.Count;
+            //sort PCs and creatures based on results
+            moveOrderList = moveOrderList.OrderByDescending(x => x.rank).ToList();
+            //assign moveOrder to PC and Creature property
+            int cnt = 0;
+            foreach (MoveOrder m in moveOrderList)
+            {
+                if (m.PcOrCreature is Player)
+                {
+                    Player pc = (Player)m.PcOrCreature;
+                    pc.moveOrder = cnt;
+                }
+                else
+                {
+                    Creature crt = (Creature)m.PcOrCreature;
+                    crt.moveOrder = cnt;
+                }
+                cnt++;
+            }
+        }
+        public void turnContoller()
+        {
+            if (currentMoveOrderIndex >= initialMoveOrderListSize)
+            {
+                //hit the end so start the next round
+                startNextRoundStuff();
+                return;
+            }
+            //get the next PC or Creature based on currentMoveOrderIndex and moveOrder property
+            int idx = 0;
+            foreach (Player pc in mod.playerList)
+            {
+                if (pc.moveOrder == currentMoveOrderIndex)
+                {
+                    //change creatureIndex or currentPlayerIndex
+                    currentPlayerIndex = idx;
+                    //set isPlayerTurn
+                    isPlayerTurn = true;
+                    
+                    currentCombatMode = "info";
+                    currentMoveOrderIndex++;
+                    //go to start PlayerTurn or start CreatureTurn
+                    startPcTurn();
+                    return;
+                }
+                idx++;
+            }
+            idx = 0;
+            foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+            {
+                if (crt.moveOrder == currentMoveOrderIndex)
+                {
+                    //change creatureIndex or currentPlayerIndex
+                    creatureIndex = idx;
+                    //set isPlayerTurn
+                    isPlayerTurn = false;
+                    
+                    gv.touchEnabled = false;
+                    currentCombatMode = "info";
+                    currentMoveOrderIndex++;
+                    //go to start PlayerTurn or start CreatureTurn
+                    doCreatureTurn();
+                    return;
+                }
+                idx++;
+            }            
+            //didn't find one so increment moveOrderIndex and try again
+            currentMoveOrderIndex++;
+        }        
         public void startNextRoundStuff()
         {
+            currentMoveOrderIndex = 0;
             gv.sf.dsWorldTime();
             doHardToKillTrait();
             doBattleRegenTrait();
@@ -807,7 +905,8 @@ namespace IceBlink2
             gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
-            startPcTurn();
+            //startPcTurn();
+            turnContoller();
         }
         public void doBattleRegenTrait()
         {
@@ -1287,7 +1386,8 @@ namespace IceBlink2
                 doStealthModeCheck(pc);
             }
             canMove = true;
-            currentPlayerIndex++;
+            turnContoller();
+            /*currentPlayerIndex++;
             if (currentPlayerIndex >= mod.playerList.Count)
             {
                 currentPlayerIndex = 0;
@@ -1304,7 +1404,7 @@ namespace IceBlink2
             {
                 currentCombatMode = "info";
                 startPcTurn();
-            }
+            }*/
         }
         public void doStealthModeCheck(Player pc)
         {
@@ -1792,7 +1892,8 @@ namespace IceBlink2
             {
                 return;
             }
-            creatureIndex++;
+            turnContoller();
+            /*creatureIndex++;
             if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
             {
                 //touchEnabled = true;
@@ -1802,7 +1903,7 @@ namespace IceBlink2
             else
             {
                 doCreatureTurn();
-            }
+            }*/
         }
         public void doStandardCreatureAttack()
         {
@@ -2511,6 +2612,8 @@ namespace IceBlink2
                     else { } //didn't find one
                     src = new IbRect(0, 0, fac.Width, fac.Height);
                     gv.DrawBitmap(fac, src, dst);
+                    int mo = pc.moveOrder + 1;
+                    gv.DrawText(mo.ToString(), getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 }
 		    }
 	    }
@@ -2580,16 +2683,16 @@ namespace IceBlink2
 	    {
 		    if (mod.currentEncounter.encounterCreatureList.Count > 0)
 		    {
-			    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
-                if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
+                if (!isPlayerTurn)
                 {
-                    //int x = cr.combatLocX * gv.squareSize;
-                    //int y = cr.combatLocY * gv.squareSize;
-                    IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Height);
-                    //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                    IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
-                    if (!isPlayerTurn)
+                    Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
+                    if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
+                        //int x = cr.combatLocX * gv.squareSize;
+                        //int y = cr.combatLocY * gv.squareSize;
+                        IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Height);
+                        //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                     }
                 }
@@ -2633,7 +2736,9 @@ namespace IceBlink2
                 else if (crt.combatFacing == 7) { fac = gv.cc.LoadBitmap("facing7"); }
                 else { } //didn't find one
                 src = new IbRect(0, 0, fac.Width, fac.Height);
-                gv.DrawBitmap(fac, src, dst);                
+                gv.DrawBitmap(fac, src, dst);
+                int mo = crt.moveOrder + 1;
+                gv.DrawText(mo.ToString(), getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
 		    }
 	    }
 	    public void drawTargetHighlight()
@@ -5679,6 +5784,18 @@ namespace IceBlink2
                 }
             }
             return null;
+        }
+    }
+
+    public class MoveOrder
+    {
+        public object PcOrCreature;
+        public int index = 0;
+        public int rank = 0;
+
+        public MoveOrder() 
+        {
+
         }
     }
 }
