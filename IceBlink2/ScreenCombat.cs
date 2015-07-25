@@ -2462,19 +2462,32 @@ namespace IceBlink2
 		    //col = x
 		    if (mod.currentEncounter.UseMapImage)
 		    {
-			    IbRect src = new IbRect(0, 0, mapBitmap.Width, mapBitmap.Height);
-                IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * mod.currentEncounter.MapSizeX + gv.oXshift, gv.squareSize * mod.currentEncounter.MapSizeY);
+                int sqrsizeW = mapBitmap.Width / this.mod.currentEncounter.MapSizeX;
+                int sqrsizeH = mapBitmap.Height / this.mod.currentEncounter.MapSizeY;
+                IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * 9, sqrsizeH * 9);
+                IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * 9, gv.squareSize * 9);
 	            gv.DrawBitmap(mapBitmap, src, dst);
 	            //draw grid
 	            if (mod.com_showGrid)
                 {
-		            src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
-		            dst = new IbRect(0, 0, gv.squareSize, gv.squareSize);
-                    for (int x = 0; x < mod.currentEncounter.MapSizeX; x++)
+                    src = new IbRect(0, 0, gv.squareSizeInPixels / 2, gv.squareSizeInPixels / 2);
+                    dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);
+                    for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
 		            {
-                        for (int y = 0; y < mod.currentEncounter.MapSizeY; y++)
+                        for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
 		                {
-                            dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize);
+                            if (!IsInVisibleCombatWindow(x, y))
+                            {
+                                continue;
+                            }
+
+                            int tlX = ((x - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                            int tlY = (y - UpperLeftSquare.Y) * gv.squareSize;
+                            int brX = gv.squareSize;
+                            int brY = gv.squareSize;
+
+                            dst = new IbRect(tlX, tlY, brX, brY);
+                            //dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize);
                             if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
 		                    {
 		                	    gv.DrawBitmap(gv.cc.losBlocked, src, dst);
@@ -2486,7 +2499,11 @@ namespace IceBlink2
 		                    else
 		                    {
                                 gv.DrawBitmap(gv.cc.walkPass, src, dst);
-		                    } 		                
+		                    }
+                            if ((pf.values != null) && (mod.debugMode))
+                            {
+                                gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                            }
 		                }
 		            }
                 }
@@ -2495,10 +2512,8 @@ namespace IceBlink2
 		    {
                 IbRect src = new IbRect(0, 0, gv.squareSizeInPixels/2, gv.squareSizeInPixels/2);
                 IbRect dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);
-                //for (int x = 0; x < mod.currentEncounter.MapSizeX; x++)
                 for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
                 {
-                    //for (int y = 0; y < mod.currentEncounter.MapSizeY; y++)
                     for (int y = UpperLeftSquare.Y; y < this.mod.currentEncounter.MapSizeY; y++)
                     {
                         if (!IsInVisibleCombatWindow(x,y))
