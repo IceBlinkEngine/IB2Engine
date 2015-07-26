@@ -1966,7 +1966,7 @@ namespace IceBlink2
 			    gv.screenTitle = null;
 		    }
             //gv.logUpdated = false;
-		    gv.sf.dsWorldTime();
+            gv.sf.dsWorldTime();
 		    //do Module heartbeat
 		    doLogicTreeBasedOnTag(gv.mod.OnHeartBeatLogicTree, gv.mod.OnHeartBeatParms);
 		    //do Area heartbeat
@@ -1994,48 +1994,60 @@ namespace IceBlink2
                 gv.sf.ThisProp = null;
             }
         }
-	    public void doPropMoves()
-	    {
-            //IBMessageBox.Show(gv, "Moving props"); 
-            //gv.sf.MessageBox("Moving props");
-            //code for registering enterign a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
+
+        #region doPropMoves
+        public void doPropMoves()
+        {
+            #region register the party switching the area (belongs to time driven movement)
+
+            //code for registering entering a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
             bool doOnEnterAreaUpdate = false;
             if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
             {
                 gv.sf.SetGlobalString("AreaFromLastTurn", gv.mod.currentArea.Filename);
                 doOnEnterAreaUpdate = true;
             }
+            #endregion
+
+            #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
             
-            //check for new props entering the current area this turn
-            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+            //Synchronization: check for all time driven movers either 1. coming in from outside or 2. found when entering an area
+            //three nested loops running through area/prop/waypoint
+            for (int i = gv.mod.moduleAreasObjects.Count - 1; i >= 0; i--)
             {
+                //the check for the two conditions itself; donOnEnterAreaUpdate is set in the region above 
                 if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
                 {
-
-                    for (int j = 0; j < gv.mod.moduleAreasObjects[i].Props.Count; j++)
+                    for (int j = gv.mod.moduleAreasObjects[i].Props.Count -1; j >= 0; j--)
                     {
-
                         int relevantAreaIndex = 0;
                         int relevantPropIndex = 0;
                         int relevantWaypointIndex = 0;
                         bool foundProp = false;
+                        int nearestPointInTime = 0;
 
                         if ((gv.mod.moduleAreasObjects[i].Props[j].MoverType == "daily") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "weekly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "monthly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "yearly"))
                         {
-                            for (int k = 0; k < gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count; k++)
-                            {
-                                //bool departureTimeReached = false;
-                                int nearestPointInTime = 0;
+
+                            int listEndCheckedIndexOfNextWaypoint = 0; 
+                            for (int k = gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count -1; k >= 0; k--)
+                            {                                
                                 List<string> timeUnitsList = new List<string>();
                                 int currentTimeInInterval = 0;
 
-                                //monster of an expression, yeesh ;-)
+                                //convert the string from the toolset for departure time into separate ints, filtering out ":" and blanks
+                                //format in toolset is number:number:number
+                                //with these ranges [0 to 336]:[0 to 23]:[0 to 59]
+                                //actually it's 1 to 336 for for intuitive feeling, but below code treats zero and 1 the same way
+                                //think: 1 equals monday, 2 equals tuesday and so forth
                                 timeUnitsList = gv.mod.moduleAreasObjects[i].Props[j].WayPointList[k].departureTime.Split(':').Select(x => x.Trim()).ToList();
 
                                 int dayCounter = Convert.ToInt32(timeUnitsList[0]);
                                 int hourCounter = Convert.ToInt32(timeUnitsList[1]);
                                 int minuteCounter = Convert.ToInt32(timeUnitsList[2]);
 
+                                //catch entries of zero
+                                //counter is reduced by one to make below calculation work the same for day/minutes/hours
                                 if ((dayCounter == 0) || (dayCounter == 1))
                                 {
                                     dayCounter = 0;
@@ -2045,28 +2057,34 @@ namespace IceBlink2
                                     dayCounter = (dayCounter - 1);
                                 }
 
+                                //turn the the three counters into one number for departure time (in seconds)
                                 int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
 
+                                //automatically overwritwe departure time for last in line waypoint to be at the end of the respective time interval 
+                                //and factor in the duration of one step 
+                                //this makes sure that within each time cycle every waypoint is only used once
                                 if (k == gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count -1)
                                 {
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                     {
-                                        convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes
+                                        convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);//times 60 is necceessary as world time and time per square are measured in minutes  
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                     {
-                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1 ); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1 ); 
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                     {
-                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1); 
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                     {
-                                        convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1); //assuming that worldtime is in seconds and timepersquare in minutes
+                                        convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
                                     } 
                                 }
 
+                                //use modulo operation to get the current time (in seconds) in each of the intervals
+                                //the intervalls endlessly run from zero to maximum length to zero to maximum length and so forth
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                 {
                                     currentTimeInInterval = (gv.mod.WorldTime*60) % 86400;
@@ -2084,25 +2102,31 @@ namespace IceBlink2
                                     currentTimeInInterval = (gv.mod.WorldTime*60) % 29030400;
                                 }
 
+                                //we look for waypoints whose time has already been reached in this step
                                 if (currentTimeInInterval >= convertedDepartureTime)
                                 {
+                                    //we filter those waypoints out who are older than other waypoitns whose time has already been reached
                                     if (convertedDepartureTime > nearestPointInTime)
                                     {
+                                        //we store and overwrite the waypoints whose time has been reached, overwriting the older ones so long until only the youngest waypoint whose time has already been reached remains
                                         nearestPointInTime = convertedDepartureTime;
                                         relevantAreaIndex = i;
                                         relevantPropIndex = j;
                                         relevantWaypointIndex = k;
                                         foundProp = true;
-                                        //IBMessageBox.Show(gv, "Found prop"); 
                                     }
                                 }
                             }
 
-
+                            //a waypint whose time ahs been reached has been found in above step, it's the youngest of these
                             if (foundProp == true)
                             {
+                                //activate the filter again for the next props in the loop
                                 foundProp = false;
-                                int listEndCheckedIndexOfNextWaypoint = 0;
+
+                                //check whether the waypoint found was a last in line wayoint
+                                //this is important as we will look whether the waypoint after the found one has a different area name
+                                //note: if areea name of next waypoint is different than current one, the prop is transitioned to the other area
                                 if (relevantWaypointIndex >= gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList.Count - 1)
                                 {
                                     listEndCheckedIndexOfNextWaypoint = 0;
@@ -2110,212 +2134,268 @@ namespace IceBlink2
                                 else
                                 {
                                     listEndCheckedIndexOfNextWaypoint = relevantWaypointIndex + 1;
+                                    //IBMessageBox.Show(gv, "listEndCheckedIndexOfNextWaypoint:" + listEndCheckedIndexOfNextWaypoint.ToString()); 
                                 }
                                 
-                                if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename)
+                                //we check the situation that the party enters a fresh area
+                                //what we want is props whose next in line waypoint is on the current map
+                                //there are two situations to handle (dpeedning on whether current waypoint is on curretn map):
+                                //1. the current waypoint is on different map, but the next waypoint is on current map: move prop to next waypoint
+                                //2. the current waypoint and the next are on current map: move prop to current waypoint
+                                
+                                if (doOnEnterAreaUpdate == true)
                                 {
-                                    //IBMessageBox.Show(gv, "Moving area enter I"); 
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
 
-                                    gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
-
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y;
-                                }
-                                else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantPropIndex].areaName != gv.mod.currentArea.Filename))
+                                //1. the current waypoint is on different map, but the next waypoint is on current map: move prop to next waypoint
+                                if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantPropIndex].areaName != gv.mod.currentArea.Filename))
                                 {
-                                    //IBMessageBox.Show(gv, "Moving area enter II"); 
+                                    //we assign the index of next in line waypoint
                                     gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
+
+                                    //move the prop to current area, at coordinates of next waypoint
+                                    //note: we use the area from listEndCheckedIndexOfNextWaypoint.i.e. the current area
+                                  
+                                    //set move to target coordinates
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
 
                                     gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
 
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
-                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
+                                }
+
+                                //2. the current waypoint and the next are on current map: move prop to current waypoint
+                                else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantPropIndex].areaName == gv.mod.currentArea.Filename))
+                                {
+                                    //note: the index will be updatd a few lines down in the normal move section to the correct target
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
+
+                                    //note: the move to target coordinates will be updated a few lines down in the normal move section
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
+                                    gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y;
+
+                                    gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
+
+                                }
+                                }
+                                //we handle props entering the current area while the party is in it
+                                //we will look for props whose next in line waypoint is on current map: we then move the prop to next in line waypoint
+                                //note: this will allow props entering the current map even if the departure time of first waypoint on current map is not reached yet
+                                //note: this is not run for props already on the current map (see condition at the very start that exempts current area from the loops), so no worries about affecting those already existing props
+                                else
+                                {
+                                    if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename)
+                                    {
+                                        //we assign the index of next in line waypoint
+                                        gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
+
+                                        //move the prop to current area, at coordinates of next waypoint
+                                        //note: we use the area from listEndCheckedIndexOfNextWaypoint.i.e. the current area
+                                        //set move to target coordinates
+                                        gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
+                                        gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
+
+                                        gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
+
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            
+            #endregion
+
+            #region move ALL movers on current map (post, random, patrol, daily, weekly, monthly, yearly; also handle chasing)
             //begin moving the existing props in this map
-            foreach (Prop prp in gv.mod.currentArea.Props)
-    	    {
-			    //I suggest to modify this, so the prop will only wait for one turn and then move on, regardless of shared location with player
+
+            for (int i = gv.mod.currentArea.Props.Count - 1; i >= 0; i--)
+            {
+
+                #region delay a mover for one turn on same square as party
+                //I suggest to modify this, so the prop will only wait for one turn and then move on, regardless of shared location with player
                 //otherwise the player can pin down a mover forever which feels weird imho
-                if ((prp.LocationX == gv.mod.PlayerLocationX) && (prp.LocationY == gv.mod.PlayerLocationY))
+                if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.PlayerLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.PlayerLocationY))
                 {
-                    if (gv.sf.GetLocalInt(prp.PropTag, "hasAlreadyWaited") == -1)
+                    if (gv.sf.GetLocalInt(gv.mod.currentArea.Props[i].PropTag, "hasAlreadyWaited") == -1)
                     {
-                        gv.sf.SetLocalInt(prp.PropTag, "hasAlreadyWaited", "1");
+                        gv.sf.SetLocalInt(gv.mod.currentArea.Props[i].PropTag, "hasAlreadyWaited", "1");
                         //do nothing since prop and player are on the same square
                         continue;
                     }
                 }
                 else
                 {
-                    gv.sf.SetLocalInt(prp.PropTag, "hasAlreadyWaited", "-1");
+                    gv.sf.SetLocalInt(gv.mod.currentArea.Props[i].PropTag, "hasAlreadyWaited", "-1");
                 }
+                #endregion
 
-			    //Here I would suggest a full disable - the illsuion of a living wold would not work with a time freeze bubble outside 10 square radius
-                //if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(prp.LocationX, prp.LocationY)) > 10)
+                #region DISABLED: dont move props further away than ten squares
+                //Here I would suggest a full disable - the illsuion of a living wold would not work with a time freeze bubble outside 10 square radius
+                //if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) > 10)
 			    //{
 				    //do nothing since prop and player are far away from each other
 				    //continue;			
-			    //}
-			    
-                if ((prp.isMover) && (prp.isActive))
+                //}
+                #endregion
+
+                if ((gv.mod.currentArea.Props[i].isMover) && (gv.mod.currentArea.Props[i].isActive))
 			    {
 				    //determine move distance first
-				    int moveDist = this.getMoveDistance(prp);
-				
-				    if ((prp.isChaser) && (!prp.ReturningToPost))
+                    int moveDist = this.getMoveDistance(gv.mod.currentArea.Props[i]);
+
+                    #region Chaser code
+                    if ((gv.mod.currentArea.Props[i].isChaser) && (!gv.mod.currentArea.Props[i].ReturningToPost))
 				    {
 					    //determine if start chasing or stop chasing (set isCurrentlyChasing to true or false)
-					    if (!prp.isCurrentlyChasing)
+                        if (!gv.mod.currentArea.Props[i].isCurrentlyChasing)
 					    {
 						    //not chasing so see if in detect distance and set to true
-						    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(prp.LocationX, prp.LocationY)) <= prp.ChaserDetectRangeRadius)
+                            if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) <= gv.mod.currentArea.Props[i].ChaserDetectRangeRadius)
 						    {
-							    prp.isCurrentlyChasing = true;
-							    prp.ChaserStartChasingTime = gv.mod.WorldTime;
+                                gv.mod.currentArea.Props[i].isCurrentlyChasing = true;
+                                gv.mod.currentArea.Props[i].ChaserStartChasingTime = gv.mod.WorldTime;
 							    if (gv.mod.debugMode)
 							    {
-								    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "following you", "red", 4000);
-								    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " start chasing " + prp.ChaserChaseDuration + " seconds</font><BR>");
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
+                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</font><BR>");
 							    }
 						    }
 					    }
 					    else //is chasing so see if out of follow range and set to false
 					    {
-						    if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(prp.LocationX, prp.LocationY)) >= prp.ChaserGiveUpChasingRangeRadius)
+                            if (getDistance(new Coordinate(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY), new Coordinate(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY)) >= gv.mod.currentArea.Props[i].ChaserGiveUpChasingRangeRadius)
 						    {
-							    prp.isCurrentlyChasing = false;
-							    prp.ReturningToPost = true;
+                                gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
+                                gv.mod.currentArea.Props[i].ReturningToPost = true;
 							    if (gv.mod.debugMode)
 							    {
-								    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "nevermind", "green", 4000);
-								    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " stop chasing on range</font><BR>");
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
+                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on range</font><BR>");
 							    }
 						    }
-						    else if (gv.mod.WorldTime - prp.ChaserStartChasingTime >= prp.ChaserChaseDuration)
+                            else if (gv.mod.WorldTime - gv.mod.currentArea.Props[i].ChaserStartChasingTime >= gv.mod.currentArea.Props[i].ChaserChaseDuration)
 						    {
-							    prp.isCurrentlyChasing = false;		
-							    prp.ReturningToPost = true;
+                                gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
+                                gv.mod.currentArea.Props[i].ReturningToPost = true;
 							    if (gv.mod.debugMode)
 							    {
-								    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "nevermind", "green", 4000);
-								    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " stop chasing on duration</font><BR>");
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
+                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on duration</font><BR>");
 							    }
 						    }
 						    else
 						    {
 							    if (gv.mod.debugMode)
 							    {
-								    int timeRemain = prp.ChaserChaseDuration - (gv.mod.WorldTime - prp.ChaserStartChasingTime);
-								    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " chasing " + timeRemain + " seconds left</font><BR>");
+                                    int timeRemain = gv.mod.currentArea.Props[i].ChaserChaseDuration - (gv.mod.WorldTime - gv.mod.currentArea.Props[i].ChaserStartChasingTime);
+                                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " chasing " + timeRemain + " seconds left</font><BR>");
 							    }
 						    }
 					    }
 				    }
 				    //check to see if currently chasing, if so, chase
-				    if ((prp.isChaser) && (prp.isCurrentlyChasing))
+                    if ((gv.mod.currentArea.Props[i].isChaser) && (gv.mod.currentArea.Props[i].isCurrentlyChasing))
 				    {					
 					    //move the distance
-					    this.moveToTarget(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, prp, moveDist);
-					    doPropBarkString(prp);
+                        this.moveToTarget(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.currentArea.Props[i], moveDist);
+                        doPropBarkString(gv.mod.currentArea.Props[i]);
 					    if (gv.mod.debugMode)
 					    {
-						    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
-						    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.LocationX + "," + prp.LocationY + ")", "yellow", 4000);
+                            gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
 					    }
-				    }
-				    //not chasing so do mover type
-				    else if (prp.MoverType.Equals("post"))
+                    }
+                    #endregion
+
+                    #region Mover type: post
+                    //not chasing so do mover type
+                    else if (gv.mod.currentArea.Props[i].MoverType.Equals("post"))
 				    {
 					    //move towards post location if not already there
-					    if ((prp.LocationX == prp.PostLocationX) && (prp.LocationY == prp.PostLocationY))
+                        if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].PostLocationX) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].PostLocationY))
 					    {
 						    //already there so do not move
-						    prp.ReturningToPost = false;
+                            gv.mod.currentArea.Props[i].ReturningToPost = false;
 					    }
 					    else
 					    {
-						    this.moveToTarget(prp.PostLocationX, prp.PostLocationY, prp, moveDist);
+                            this.moveToTarget(gv.mod.currentArea.Props[i].PostLocationX, gv.mod.currentArea.Props[i].PostLocationY, gv.mod.currentArea.Props[i], moveDist);
 						    if (gv.mod.debugMode)
 						    {
-							    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
-							    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.LocationX + "," + prp.LocationY + ")", "yellow", 4000);
+                                gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
 						    }
 					    }
-					    doPropBarkString(prp);
+                        doPropBarkString(gv.mod.currentArea.Props[i]);
 				    }
-				    else if (prp.MoverType.Equals("random"))
+                    #endregion
+
+                    #region Mover type: random
+                    else if (gv.mod.currentArea.Props[i].MoverType.Equals("random"))
 				    {
 					    //check to see if at target square already and if so, change target
-					    if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
+                        if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
 					    {
-						    Coordinate newCoor = this.getNewRandomTarget(prp);
+                            Coordinate newCoor = this.getNewRandomTarget(gv.mod.currentArea.Props[i]);
 						    //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + newCoor.X + "," + newCoor.Y + ")", "blue", 4000);
-						    prp.CurrentMoveToTarget = new Coordinate(newCoor.X, newCoor.Y);
-						    prp.ReturningToPost = false;
+                            gv.mod.currentArea.Props[i].CurrentMoveToTarget = new Coordinate(newCoor.X, newCoor.Y);
+                            gv.mod.currentArea.Props[i].ReturningToPost = false;
 					    }
 					    //move to target
-					    this.moveToTarget(prp.CurrentMoveToTarget.X, prp.CurrentMoveToTarget.Y, prp, moveDist);
+                        this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
 					    //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.CurrentMoveToTarget.X + "," + prp.CurrentMoveToTarget.Y + ")", "red", 4000);
 					    if (gv.mod.debugMode)
 					    {
-						    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
-						    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.LocationX + "," + prp.LocationY + ")", "yellow", 4000);
+                            gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
 					    }
-					    doPropBarkString(prp);
-				    }
-				    else if (prp.MoverType.Equals("patrol"))
+                        doPropBarkString(gv.mod.currentArea.Props[i]);
+                    }
+                    #endregion
+
+                    #region Mover type: patrol
+                    else if (gv.mod.currentArea.Props[i].MoverType.Equals("patrol"))
 				    {
                         //IBMessageBox.Show(gv, "Moving props"); 
-                        //gv.sf.MessageBox("Found patrol mover");
-                        if (prp.WayPointList.Count > 0)
+                        if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
 					    {
 						    //move towards next waypoint location if not already there
-						    if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
+                            if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
 						    {
 							    //already there so set next way point location (revert to index 0 if at last way point)
-							    if (prp.WayPointListCurrentIndex >= prp.WayPointList.Count - 1)
+                                if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
 							    {
-								    prp.WayPointListCurrentIndex = 0;
+                                    gv.mod.currentArea.Props[i].WayPointListCurrentIndex = 0;
 							    }
 							    else
 							    {
-								    prp.WayPointListCurrentIndex++;
+                                    gv.mod.currentArea.Props[i].WayPointListCurrentIndex++;
 							    }
-							    prp.CurrentMoveToTarget.X = prp.WayPointList[prp.WayPointListCurrentIndex].X;
-							    prp.CurrentMoveToTarget.Y = prp.WayPointList[prp.WayPointListCurrentIndex].Y;
-							    prp.ReturningToPost = false;
+                                gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
+                                gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
+                                gv.mod.currentArea.Props[i].ReturningToPost = false;
 						    }
 						    //move to next target
-						    this.moveToTarget(prp.CurrentMoveToTarget.X, prp.CurrentMoveToTarget.Y, prp, moveDist);	
+                            this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);	
 						    if (gv.mod.debugMode)
 						    {
-							    gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
-							    gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.LocationX + "," + prp.LocationY + ")", "yellow", 4000);
+                                gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
 						    }
 					    }
-					    doPropBarkString(prp);
-				    }
-
-                    else if (prp.MoverType.Equals("daily") || prp.MoverType.Equals("weekly") || prp.MoverType.Equals("monthly") || prp.MoverType.Equals("yearly"))
+					    doPropBarkString(gv.mod.currentArea.Props[i]);
+                    }
+                    #endregion
+                    
+                    #region time driven movers (daily, weekly, monthly, yearly)
+                    else if (gv.mod.currentArea.Props[i].MoverType.Equals("daily") || gv.mod.currentArea.Props[i].MoverType.Equals("weekly") || gv.mod.currentArea.Props[i].MoverType.Equals("monthly") || gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                     {
-                        //IBMessageBox.Show(gv, "Found daily"); 
-                        //gv.sf.MessageBox("Found daily mover");
                         bool departureTimeReached = false;
                         List<string> timeUnitsList = new List<string>();
                         int currentTimeInInterval = 0;
-                        //bool moveBlock = true;
-                        //IBMessageBox.Show(gv, "Index:" + prp.WayPointListCurrentIndex).ToString();
-                      
+                        bool registerRemoval = false;
 
-                        //monster of an expression, yeesh ;-)
-                        timeUnitsList = prp.WayPointList[prp.WayPointListCurrentIndex].departureTime.Split(':').Select(x => x.Trim()).ToList();
+                        timeUnitsList = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].departureTime.Split(':').Select(x => x.Trim()).ToList();
                          
                         int dayCounter = Convert.ToInt32(timeUnitsList[0]);
                         int hourCounter = Convert.ToInt32(timeUnitsList[1]);
@@ -2324,7 +2404,6 @@ namespace IceBlink2
                         if ((dayCounter == 0) || (dayCounter == 1))
                         {
                             dayCounter = 0;
-                            //IBMessageBox.Show(gv, "daycounter was zero or 1"); 
                         }
                         else
                         {
@@ -2332,121 +2411,139 @@ namespace IceBlink2
                         }
 
                         int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
-                        //IBMessageBox.Show(gv, "departure tiem in seconds:" + convertedDepartureTime.ToString()); 
 
-                        if (prp.WayPointListCurrentIndex == prp.WayPointList.Count-1)
+                        if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex == gv.mod.currentArea.Props[i].WayPointList.Count - 1)
                         {
-                            if (prp.MoverType.Equals("daily"))
+                            if (gv.mod.currentArea.Props[i].MoverType.Equals("daily"))
                             {
-                                convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);//assuming that worldtime is in seconds and timepersquare in minutes
+                                convertedDepartureTime = 86400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
                             }
-                            if (prp.MoverType.Equals("weekly"))
+                            if (gv.mod.currentArea.Props[i].MoverType.Equals("weekly"))
                             {
-                                convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare *  60 +1); 
                             }
-                            if (prp.MoverType.Equals("monthly"))
+                            if (gv.mod.currentArea.Props[i].MoverType.Equals("monthly"))
                             {
-                                convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes 
+                                convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare *  60 +1); 
                             }
-                            if (prp.MoverType.Equals("yearly"))
+                            if (gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                             {
-                                convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare *  60 +1); //assuming that worldtime is in seconds and timepersquare in minutes
+                                convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare *  60 +1); 
                             } 
                         }
-                        //IBMessageBox.Show(gv, "departure tiem in seconds:" + convertedDepartureTime.ToString()); 
 
-                        if (prp.MoverType.Equals("daily"))
+                        if (gv.mod.currentArea.Props[i].MoverType.Equals("daily"))
                         {
                             currentTimeInInterval = (gv.mod.WorldTime*60) % 86400;
                         }
-                        if (prp.MoverType.Equals("weekly"))
+                        if (gv.mod.currentArea.Props[i].MoverType.Equals("weekly"))
                         {
                             currentTimeInInterval = (gv.mod.WorldTime*60) % 604800;
                         }
-                        if (prp.MoverType.Equals("monthly"))
+                        if (gv.mod.currentArea.Props[i].MoverType.Equals("monthly"))
                         {
                             currentTimeInInterval = (gv.mod.WorldTime*60) % 2419200;
                         }
-                        if (prp.MoverType.Equals("yearly"))
+                        if (gv.mod.currentArea.Props[i].MoverType.Equals("yearly"))
                         {
                             currentTimeInInterval = (gv.mod.WorldTime*60) % 29030400;
                         }
-                        //IBMessageBox.Show(gv, "current time inseconds:" + currentTimeInInterval.ToString());
-                        //IBMessageBox.Show(gv, "departure time inseconds:" + convertedDepartureTime.ToString()); 
-
+                          
                         if (currentTimeInInterval >= convertedDepartureTime)
                         {
                             departureTimeReached = true;
-                            //moveBlock = false;
-                            //IBMessageBox.Show(gv, "departure time reached"); 
                         }
-                            
-                        if (prp.WayPointList.Count > 0)
-                        {
-                            //move towards next waypoint location if not already there and departure time is reached
-                            if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y) && (departureTimeReached == true))
-                            {
-                               
-                                //already there so set next way point location (revert to index 0 if at last way point)
-                                if (prp.WayPointListCurrentIndex >= prp.WayPointList.Count - 1)
-                                {
-                                    
-                                    prp.WayPointListCurrentIndex = 0;
 
-                                    if (prp.WayPointList[prp.WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
+                        if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
+                        {
+                            
+                            //move towards next waypoint location if not already there and departure time is reached
+                            if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y) && (departureTimeReached == true))
+                            {
+
+                                if ((gv.mod.currentArea.Props[i].WayPointListCurrentIndex == 0) && (currentTimeInInterval > convertedDepartureTime))
+                                {
+                                }
+                                
+                                //already there so set next way point location (revert to index 0 if at last way point)
+                                else if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
+                                {
+                                    gv.mod.currentArea.Props[i].WayPointListCurrentIndex = 0;
+
+                                    if (gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
                                     {
                                         //the REAL monster of an expression, hehe
-                                        gv.sf.osController("osSetPropLocationAnyArea.cs", prp.PropTag, prp.WayPointList[prp.WayPointListCurrentIndex].areaName, prp.WayPointList[prp.WayPointListCurrentIndex].X.ToString(), prp.WayPointList[prp.WayPointListCurrentIndex].Y.ToString());
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
+                                        gv.mod.currentArea.Props[i].ReturningToPost = false;
+
+                                        gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
+
+                                        registerRemoval = true;
                                     }
                                     
                                 }
-                                else
+                                else 
                                 {
-
-                                    prp.WayPointListCurrentIndex++;
+                                    gv.mod.currentArea.Props[i].WayPointListCurrentIndex++;
                                     
                                     //check whether it's time to leave the current area
-                                    if (prp.WayPointList[prp.WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
+                                    if (gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
                                     {
                                         //the REAL monster of an expression, hehe
-                                        gv.sf.osController("osSetPropLocationAnyArea.cs", prp.PropTag, prp.WayPointList[prp.WayPointListCurrentIndex].areaName, prp.WayPointList[prp.WayPointListCurrentIndex].X.ToString(), prp.WayPointList[prp.WayPointListCurrentIndex].Y.ToString());
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
+                                        gv.mod.currentArea.Props[i].ReturningToPost = false;
+
+                                        gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
+
+                                        registerRemoval = true;
                                     }
                                     
                                 }
-                                prp.CurrentMoveToTarget.X = prp.WayPointList[prp.WayPointListCurrentIndex].X;
-                                //IBMessageBox.Show(gv, "x target:" + prp.CurrentMoveToTarget.X.ToString());
-                                prp.CurrentMoveToTarget.Y = prp.WayPointList[prp.WayPointListCurrentIndex].Y;
-                                //IBMessageBox.Show(gv, "y target:" + prp.CurrentMoveToTarget.Y.ToString());
-                                prp.ReturningToPost = false;
+                                if (registerRemoval == false)
+                                {
+                                    gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
+                                    gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
+                                    gv.mod.currentArea.Props[i].ReturningToPost = false;
+                                }
 
                             }
-                            //move to next target
-                            //if (moveBlock == false)
-                            //{
-                                //IBMessageBox.Show(gv, "x target trying to move to:" + prp.CurrentMoveToTarget.X.ToString());
-                                //IBMessageBox.Show(gv, "y target trying to move to:" + prp.CurrentMoveToTarget.Y.ToString());
 
-                                if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
+                            //move to next target
+                            if (registerRemoval == false)
+                            { 
+                            if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
                                 {
                                     
                                 }
                                 else
                                 {
-                                    this.moveToTarget(prp.CurrentMoveToTarget.X, prp.CurrentMoveToTarget.Y, prp, moveDist);
+                                    this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
                                 }
-                            //}
-                            if (gv.mod.debugMode)
+                            }
+
+                            if (gv.mod.debugMode && registerRemoval == false)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + prp.PropTag + " moves " + moveDist + "</font><BR>");
-                                gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + prp.LocationX + "," + prp.LocationY + ")", "yellow", 4000);
+                                gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
+                                gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                             }
                         }
-                        doPropBarkString(prp);
-                    }        
-			    }
-    	    }
-	    }
-	    public void doPropBarkString(Prop prp)
+                        if (registerRemoval == false)
+                        {
+                            doPropBarkString(gv.mod.currentArea.Props[i]);
+                        }
+                    }
+                    #endregion
+                }
+            }
+            //do prop removals here, niot within the prop loop
+
+            #endregion
+        }
+        #endregion
+
+        public void doPropBarkString(Prop prp)
 	    {
 		    if (prp.WayPointList.Count > 0)
 		    {

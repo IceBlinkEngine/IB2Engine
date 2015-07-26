@@ -723,7 +723,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 236,
+  "NextIdNumber": 238,
   "OnHeartBeatLogicTree": "none",
   "OnHeartBeatParms": "",
   "AreaLocalInts": [],

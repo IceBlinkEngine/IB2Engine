@@ -922,27 +922,28 @@ namespace IceBlink2
                             Prop prp2 = prp.DeepCopy();
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
+                           
 
-                            for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                            for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
                             {
-                                if (gv.mod.moduleAreasObjects[i].Filename == p2)
+                                if (gv.mod.moduleAreasObjects[i2].Filename == p2)
                                 {
-                                    gv.mod.moduleAreasObjects[i].Props.Add(prp2);
+                                    gv.mod.moduleAreasObjects[i2].Props.Add(prp2);
                                     added = 1;
                                     prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                                     break;
                                 }
                             }
-                            
+                              
                             if (added == 1)
                             {
-                                for (int j = gv.mod.moduleAreasObjects.Count -1; j > -1; j--)
+                                for (int j2 = gv.mod.moduleAreasObjects.Count -1; j2 > -1; j2--)
                                 {
-                                    for (int k = gv.mod.moduleAreasObjects[j].Props.Count -1; k > -1; k--)
+                                    for (int k2 = gv.mod.moduleAreasObjects[j2].Props.Count -1; k2 > -1; k2--)
                                     {
-                                        if (gv.mod.moduleAreasObjects[j].Props[k].PropTag.Equals(p1))
+                                        if (gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2))
                                         {
-                                            gv.mod.moduleAreasObjects[j].Props.Remove(prp);
+                                            gv.mod.moduleAreasObjects[j2].Props.Remove(gv.mod.moduleAreasObjects[j2].Props[k2]);
                                             break;
                                         }
                                     }

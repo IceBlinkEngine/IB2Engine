@@ -107,6 +107,8 @@ namespace IceBlink2
         	    WayPoint c = new WayPoint();
                 c.X = coor.X;
                 c.Y = coor.Y;
+                c.areaName = coor.areaName;
+                c.departureTime = coor.departureTime;
                 copy.WayPointList.Add(c);
             }
             copy.WayPointListCurrentIndex = this.WayPointListCurrentIndex;
