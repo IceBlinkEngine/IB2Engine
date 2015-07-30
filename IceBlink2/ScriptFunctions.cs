@@ -922,15 +922,14 @@ namespace IceBlink2
                             Prop prp2 = prp.DeepCopy();
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
+                            prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                            
-
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
                             {
                                 if (gv.mod.moduleAreasObjects[i2].Filename == p2)
                                 {
-                                    gv.mod.moduleAreasObjects[i2].Props.Add(prp2);
                                     added = 1;
-                                    prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
+                                    gv.mod.moduleAreasObjects[i2].Props.Add(prp2);   
                                     break;
                                 }
                             }
@@ -941,15 +940,15 @@ namespace IceBlink2
                                 {
                                     for (int k2 = gv.mod.moduleAreasObjects[j2].Props.Count -1; k2 > -1; k2--)
                                     {
+                                        //prevent removing the prop from the area it was just addded to
                                         if (gv.mod.moduleAreasObjects[j2].Props[k2].PropTag.Equals(p1) && (gv.mod.moduleAreasObjects[j2].Filename != p2))
                                         {
-                                            gv.mod.moduleAreasObjects[j2].Props.Remove(gv.mod.moduleAreasObjects[j2].Props[k2]);
+                                            gv.mod.moduleAreasObjects[j2].Props.RemoveAt(k2);
                                             break;
                                         }
                                     }
                                 }
                             }
-
                         }
                     }
 
