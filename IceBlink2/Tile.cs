@@ -12,6 +12,9 @@ namespace IceBlink2
         public string Layer1Filename = "t_grass";
         //[JsonIgnore]
         public string Layer2Filename = "t_blank";
+        public string Layer3Filename = "t_blank";
+        public string Layer4Filename = "t_blank";
+        public string Layer5Filename = "t_blank";
         //[JsonIgnore]
         public bool Walkable = true;
         //[JsonIgnore]

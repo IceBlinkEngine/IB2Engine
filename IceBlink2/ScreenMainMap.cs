@@ -301,10 +301,16 @@ namespace IceBlink2
             	
             	    IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].Width, gv.cc.tileBitmapList[tile.Layer1Filename].Height);
             	    IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].Width, gv.cc.tileBitmapList[tile.Layer2Filename].Height);
+                    IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].Width, gv.cc.tileBitmapList[tile.Layer3Filename].Height);
+                    IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].Width, gv.cc.tileBitmapList[tile.Layer4Filename].Height);
+                    IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].Width, gv.cc.tileBitmapList[tile.Layer5Filename].Height);
                     IbRect dst = new IbRect(tlX + gv.oXshift, tlY, brX, brY);
                 
                     gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
                     gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
+                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src3, dst);
+                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src4, dst);
+                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src5, dst);
                 }
             }
         }

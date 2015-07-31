@@ -2534,6 +2534,8 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
 	            	    //draw layer 2            	
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
+                        //draw layer 3            	
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src, dst);
 	            	    if (mod.com_showGrid)
 	                    {
                             if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
