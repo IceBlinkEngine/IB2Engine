@@ -709,6 +709,12 @@ namespace IceBlink2
     		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
     		    gv.cc.currentPlayerIndexUsingItem = pcIndex;
     		    gv.cc.doLogicTreeBasedOnTag(it.onUseItemLogicTree, it.onUseItemLogicTreeParms);
+                //do IBScript
+                gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
+                if (it.destroyItemAfterOnUseItemIBScript)
+                {
+                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                }
     		    if (it.destroyItemAfterOnUseItemLogicTree)
         	    {
         		    gv.sf.RemoveItemFromInventory(itRef, 1);

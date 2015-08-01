@@ -61,6 +61,8 @@ namespace IceBlink2
 	    public string onScoringHitParms = "none";
         public string onDeathLogicTree = "none";
         public string onDeathParms = "";
+        public string onDeathIBScript = "none";
+        public string onDeathIBScriptParms = ""; 
 	    public List<string> knownSpellsTags = new List<string>();
 	    public List<Effect> cr_effectsList = new List<Effect>();
 	    public List<LocalInt> CreatureLocalInts = new List<LocalInt>();
@@ -118,6 +120,8 @@ namespace IceBlink2
 		    copy.onScoringHitParms = this.onScoringHitParms;
             copy.onDeathLogicTree = this.onDeathLogicTree;
             copy.onDeathParms = this.onDeathParms;
+            copy.onDeathIBScript = this.onDeathIBScript;
+            copy.onDeathIBScriptParms = this.onDeathIBScriptParms;
 		    copy.cr_effectsList = new List<Effect>();
 		
 		    copy.knownSpellsTags = new List<string>();

@@ -55,6 +55,8 @@ namespace IceBlink2
 	    public bool ReturningToPost = false;
         public string OnHeartBeatLogicTree = "none";
         public string OnHeartBeatParms = "";
+        public string OnHeartBeatIBScript = "none";
+        public string OnHeartBeatIBScriptParms = "";
     
         public Prop()
         {
@@ -125,7 +127,9 @@ namespace IceBlink2
 		    copy.ChaserStartChasingTime = this.ChaserStartChasingTime;
 		    copy.RandomMoverRadius = this.RandomMoverRadius;
             copy.OnHeartBeatLogicTree = this.OnHeartBeatLogicTree;
-            copy.OnHeartBeatParms = this.OnHeartBeatLogicTree;
+            copy.OnHeartBeatParms = this.OnHeartBeatParms;
+            copy.OnHeartBeatIBScript = this.OnHeartBeatIBScript;
+            copy.OnHeartBeatIBScriptParms = this.OnHeartBeatIBScriptParms;
 		    return copy;
         }
     }

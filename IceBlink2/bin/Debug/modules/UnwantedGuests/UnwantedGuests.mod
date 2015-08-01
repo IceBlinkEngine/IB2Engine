@@ -57,7 +57,13 @@
     "PartyLocationFloatyText"
   ],
   "moduleIBScriptsList": [
-    "floatytext2"
+    "floatytext2",
+    "doConvo",
+    "doEncounter",
+    "endCombatGlobalInt",
+    "endCombatGlobalIntJournal",
+    "floatytext",
+    "PartyLocationFloatyText"
   ],
   "moduleAreasObjects": [],
   "moduleGlobalInts": [],
@@ -106,7 +112,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 8790,
+  "nextIdNumber": 8796,
   "WorldTime": 0,
   "startingArea": "brinsby",
   "startingPlayerPositionX": 6,
@@ -114,5 +120,7 @@
   "partyGold": 100,
   "partyTokenFilename": "prp_party",
   "OnHeartBeatLogicTree": "none",
-  "OnHeartBeatParms": ""
+  "OnHeartBeatParms": "",
+  "OnHeartBeatIBScript": "none",
+  "OnHeartBeatIBScriptParms": ""
 }

@@ -1969,8 +1969,13 @@ namespace IceBlink2
             gv.sf.dsWorldTime();
             //do Module heartbeat
             doLogicTreeBasedOnTag(gv.mod.OnHeartBeatLogicTree, gv.mod.OnHeartBeatParms);
+            //IBScript Module heartbeat
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
             //do Area heartbeat
             doLogicTreeBasedOnTag(gv.mod.currentArea.OnHeartBeatLogicTree, gv.mod.currentArea.OnHeartBeatParms);
+            //IBScript Area heartbeat
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.OnHeartBeatIBScript, gv.mod.currentArea.OnHeartBeatIBScriptParms);
+            //apply effects
             applyEffects();
             //do Prop heartbeat
             doPropLogicTree();
@@ -1990,7 +1995,10 @@ namespace IceBlink2
             foreach (Prop prp in gv.mod.currentArea.Props)
             {
                 gv.sf.ThisProp = prp;
+                //logic tree
                 doLogicTreeBasedOnTag(prp.OnHeartBeatLogicTree, prp.OnHeartBeatParms);
+                //IBScript Prop heartbeat
+                gv.cc.doIBScriptBasedOnFilename(prp.OnHeartBeatIBScript, prp.OnHeartBeatIBScriptParms);
                 gv.sf.ThisProp = null;
             }
         }

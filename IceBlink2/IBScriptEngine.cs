@@ -235,10 +235,18 @@ namespace IceBlink2
 
             try
             {
-                string prm1 = parms[0];
-                string prm2 = parms[1];
-                string prm3 = parms[2];
-                string prm4 = parms[3];
+                string prm1 = "none";
+                string prm2 = "none";
+                string prm3 = "none";
+                string prm4 = "none";
+                if (parms.Length > 0)
+                    prm1 = parms[0];
+                if (parms.Length > 1)
+                    prm2 = parms[1];
+                if (parms.Length > 2)
+                    prm3 = parms[2];
+                if (parms.Length > 3)
+                    prm4 = parms[3];
 
                 string sub = line.Substring(1, 2);
 
@@ -506,10 +514,18 @@ namespace IceBlink2
 
             try
             {
-                string prm1 = parms[0];
-                string prm2 = parms[1];
-                string prm3 = parms[2];
-                string prm4 = parms[3];
+                string prm1 = "none";
+                string prm2 = "none";
+                string prm3 = "none";
+                string prm4 = "none";
+                if (parms.Length > 0)
+                    prm1 = parms[0];
+                if (parms.Length > 1)
+                    prm2 = parms[1];
+                if (parms.Length > 2)
+                    prm3 = parms[2];
+                if (parms.Length > 3)
+                    prm4 = parms[3];
 
                 string output = rightSide.Split('~', '(')[1];
                 output += ".cs";
@@ -4580,6 +4596,7 @@ namespace IceBlink2
             if (allelement.Length < 3) { return elementList.ToArray(); }
             //get the right side concated
             string rightSide = line.Substring(line.IndexOf(allelement[1]) + allelement[1].Length);
+            rightSide = rightSide.Trim();
             //string rightSideConcated = ConcateString(rightSide);
             elementList.Add(rightSide);
             //convert the list to an array
@@ -4609,9 +4626,28 @@ namespace IceBlink2
             }
             return retString;
         }
+        public string GetBetweenFunctionParms(string str)
+        {
+            int posA = str.IndexOf("(");
+            int posB = str.LastIndexOf(")");
+            if (posA == -1)
+            {
+                return str;
+            }
+            if (posB == -1)
+            {
+                return str;
+            }
+            int adjustedPosA = posA + 1;
+            if (adjustedPosA >= posB)
+            {
+                return str;
+            }
+            return str.Substring(adjustedPosA, posB - adjustedPosA);
+        }
         public string[] GetParameters(string line)
         {
-            string lineJustParms = GetBetween(line, '(', ')');
+            string lineJustParms = GetBetweenFunctionParms(line);
             return lineJustParms.Split(',').Select(p => p.Trim()).ToArray();
         }
         public string ReplaceParameter(string parm) 

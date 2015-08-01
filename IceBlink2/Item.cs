@@ -69,6 +69,9 @@ namespace IceBlink2
         public string onUseItemLogicTree = "none";
         public string onUseItemLogicTreeParms = "";
 	    public bool destroyItemAfterOnUseItemLogicTree = false;
+        public string onUseItemIBScript = "none";
+        public string onUseItemIBScriptParms = "";
+        public bool destroyItemAfterOnUseItemIBScript = false;
 	    public int damageTypeResistanceValueAcid = 0;
 	    public int damageTypeResistanceValueCold = 0;
 	    public int damageTypeResistanceValueNormal = 0;
@@ -135,6 +138,9 @@ namespace IceBlink2
 		    copy.onUseItemLogicTree = this.onUseItemLogicTree;
 		    copy.onUseItemLogicTreeParms = this.onUseItemLogicTreeParms;
 		    copy.destroyItemAfterOnUseItemLogicTree = this.destroyItemAfterOnUseItemLogicTree;
+            copy.onUseItemIBScript = this.onUseItemIBScript;
+            copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;
+            copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;
 		    copy.damageTypeResistanceValueAcid = this.damageTypeResistanceValueAcid;
 		    copy.damageTypeResistanceValueNormal = this.damageTypeResistanceValueNormal;
 		    copy.damageTypeResistanceValueCold = this.damageTypeResistanceValueCold;

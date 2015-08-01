@@ -106,6 +106,8 @@ namespace IceBlink2
 	    public float soundVolume = 1.0f;
 	    public string OnHeartBeatLogicTree = "none";
 	    public string OnHeartBeatParms = "";
+        public string OnHeartBeatIBScript = "none";
+        public string OnHeartBeatIBScriptParms = "";
 	
 	    public Module()
 	    {
