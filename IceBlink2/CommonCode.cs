@@ -2017,7 +2017,7 @@ namespace IceBlink2
             }
             #endregion
 
-             #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
+            #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
 
             //Synchronization: check for all time driven movers either 1. found when entering an area (three variants: move into current area, move on current area, move out of current area) or 2. coming in from outside while party is already on current area
             //three nested loops running through area/prop/waypoint
@@ -2026,7 +2026,7 @@ namespace IceBlink2
                 //the check for the two conditions itself; donOnEnterAreaUpdate is set in the region above 
                 if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
                 {
-                    for (int j = gv.mod.moduleAreasObjects[i].Props.Count -1; j >= 0; j--)
+                    for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
                     {
                         int relevantAreaIndex = 0;
                         int relevantPropIndex = 0;
@@ -2038,8 +2038,8 @@ namespace IceBlink2
                         if ((gv.mod.moduleAreasObjects[i].Props[j].MoverType == "daily") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "weekly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "monthly") || (gv.mod.moduleAreasObjects[i].Props[j].MoverType == "yearly"))
                         {
 
-                            int listEndCheckedIndexOfNextWaypoint = 0; 
-                            for (int k = gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count -1; k >= 0; k--)
+                            int listEndCheckedIndexOfNextWaypoint = 0;
+                            for (int k = gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count - 1; k >= 0; k--)
                             {
                                 List<string> timeUnitsList = new List<string>();
                                 int currentTimeInInterval = 0;
@@ -2065,15 +2065,15 @@ namespace IceBlink2
                                 {
                                     dayCounter = (dayCounter - 1);
                                 }
-                                
+
                                 //turn the the three counters into one number for departure time (in seconds)
                                 int convertedDepartureTime = dayCounter * 86400 + hourCounter * 3600 + minuteCounter * 60;
 
                                 //automatically overwritwe departure time for last in line waypoint to be at the end of the respective time interval 
                                 //and factor in the duration of one step 
                                 //this makes sure that within each time cycle every waypoint is only used once
-                             
-                                if (k == gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count -1)
+
+                                if (k == gv.mod.moduleAreasObjects[i].Props[j].WayPointList.Count - 1)
                                 {
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                     {
@@ -2081,37 +2081,37 @@ namespace IceBlink2
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                     {
-                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1 ); 
+                                        convertedDepartureTime = 604800 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                     {
-                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1); 
+                                        convertedDepartureTime = 2419200 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
                                     }
                                     if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                     {
                                         convertedDepartureTime = 29030400 - (gv.mod.currentArea.TimePerSquare * 60 + 1);
-                                    } 
+                                    }
                                 }
 
                                 //use modulo operation to get the current time (in seconds) in each of the intervals
                                 //the intervalls endlessly run from zero to maximum length to zero to maximum length and so forth
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("daily"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 86400;
+                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 86400;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("weekly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 604800;
+                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 604800;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("monthly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 2419200;
+                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 2419200;
                                 }
                                 if (gv.mod.moduleAreasObjects[i].Props[j].MoverType.Equals("yearly"))
                                 {
-                                    currentTimeInInterval = (gv.mod.WorldTime*60) % 29030400;
+                                    currentTimeInInterval = (gv.mod.WorldTime * 60) % 29030400;
                                 }
-                                
+
                                 //we look for waypoints whose time has already been reached in this step
                                 if (currentTimeInInterval >= convertedDepartureTime)
                                 {
@@ -2128,7 +2128,7 @@ namespace IceBlink2
                                     }
                                 }
                             }
-                            
+
                             //a waypint whose time has been reached has been found in above step, it's the youngest of these
                             if (foundProp == true)
                             {
@@ -2146,7 +2146,7 @@ namespace IceBlink2
                                 {
                                     listEndCheckedIndexOfNextWaypoint = relevantWaypointIndex + 1;
                                 }
-                                
+
                                 //we check the situation that the party enters a fresh area
                                 //there are three situations to handle:
                                 //1. the current waypoint is on different map, but the next waypoint is on current map: move prop to next waypoint (move into area)
@@ -2170,7 +2170,6 @@ namespace IceBlink2
 
                                         if (isOnCurrentAreaAlready == false)
                                         {
-                                        
                                             //we assign the index of next in line waypoint
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
                                             //set move to target coordinates
@@ -2178,10 +2177,19 @@ namespace IceBlink2
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
                                             gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
                                         }
-
+                                        //prop already exists on current area, so we only relocate it, but no transfer
+                                        else
+                                        { 
+                                            //we assign the index of next in line waypoint
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
+                                            //set move to target coordinates
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
+                                            gv.sf.osController("osSetPropLocation.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
+                                        }
                                     }
 
-                                    //2. the current waypoint and the next are on current map: move prop to current waypoint (move on current area)
+                                    //2. the current waypoint and the next are on current map: move prop to current waypoint (move on current area, venetually transfer in from other area)
                                     else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName == gv.mod.currentArea.Filename))
                                     {
                                         //apply only for props that are not already in current area
@@ -2193,17 +2201,26 @@ namespace IceBlink2
                                                 isOnCurrentAreaAlready = true;
                                             }
                                         }
-
+                                        //prop is not on current area, so transfer and tehn relocate it
                                         if (isOnCurrentAreaAlready == false)
                                         {
-                                            //note: the index will be updtwd a few lines down in the normal move section to the correct target
+                                            //note: the index will be updated a few lines down in the normal move section to the correct target
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
+                                            //note: the move to target coordinates will be updated a few lines down in the normal move section
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y;
+                                            gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
+                                        }
+                                        //the prop is already on the current area, so just relocate it on area
+                                        else
+                                        {
+                                            //note: the index will be updated a few lines down in the normal move section to the correct target
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = relevantWaypointIndex;
                                             //note: the move to target coordinates will be updated a few lines down in the normal move section
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X;
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y;
                                             gv.sf.osController("osSetPropLocation.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].Y.ToString());
                                         }
-
                                     }
                                     //3. remove from current area (move out of current area)
                                     else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName != gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName == gv.mod.currentArea.Filename))
@@ -2229,27 +2246,51 @@ namespace IceBlink2
                                         }
 
                                     }
-                                }
-                                //we handle props entering the current area while the party is in it
-                                //we will look for props whose next in line waypoint is on current map: we then move the prop to next in line waypoint
-                                //note: this will allow props entering the current map even if the departure time of first waypoint on current map is not reached yet
-                                //note: this is not run for props already on the current map (see condition at the very start that exempts current area from the loops), so no worries about affecting those already existing props
-                                else
-                                {
-                                    if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename)
+                                    //4. remove from echo prop (and transfer to fitting area)
+                                    else if ((gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName != gv.mod.currentArea.Filename) && (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[relevantWaypointIndex].areaName != gv.mod.currentArea.Filename))
                                     {
+                                        //apply only for props that ARE already in current area
+                                        bool isOnCurrentAreaAlready = false;
+                                        foreach (Prop p in gv.mod.currentArea.Props)
+                                        {
+                                            if (p.PropTag == relevantPropTag)
+                                            {
+                                                isOnCurrentAreaAlready = true;
+                                            }
+                                        }
+
+                                        if (isOnCurrentAreaAlready == true)
+                                        {
+                                            //we assign the index of next in line waypoint
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
                                             //set move to target coordinates
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
                                             gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
+                                        }
+                                    }
+                                }
+                                    //we handle props entering the current area while the party is in it
+                                    //we will look for props whose next in line waypoint is on current map: we then move the prop to next in line waypoint
+                                    //note: this will allow props entering the current map even if the departure time of first waypoint on current map is not reached yet
+                                    //note: this is not run for props already on the current map (see condition at the very start that exempts current area from the loops), so no worries about affecting those already existing props
+                                    else
+                                    {
+                                        if (gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName == gv.mod.currentArea.Filename)
+                                        {
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
+                                            //set move to target coordinates
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.X = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
+                                            gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].CurrentMoveToTarget.Y = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
+                                            gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
+            
             #endregion
 
             #region move ALL movers on current map (post, random, patrol, daily, weekly, monthly, yearly; also handle chasing)
