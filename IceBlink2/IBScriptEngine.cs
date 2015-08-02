@@ -21,6 +21,7 @@ namespace IceBlink2
         public List<IfBlock> IfBlocksList = new List<IfBlock>();
         public float helpResult;
         public List<string> parmsList = new List<string>();
+        public string scriptFilename = "";
        
         
         //The following are the keywords used:
@@ -41,6 +42,7 @@ namespace IceBlink2
         //return
         //
         //msg
+        //debug
 
         //Variable types and the prefix used:
         //@ = float or integer (stored as float and converted to int if needed)
@@ -52,6 +54,7 @@ namespace IceBlink2
         public IBScriptEngine(GameView g, string filename, string parms)
         {
             gv = g;
+            scriptFilename = filename;
             //read in script file and create line numbered list
             lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + filename + ".ibs");
             List<string> converttolist = lines.ToList();
@@ -126,78 +129,94 @@ namespace IceBlink2
 
         public void RunScript()
         {
-            for (int i = 0; i < lines.Length; i++)
+            int currentLineNumber = 0;
+            try
             {
-                //remove all leading white space
-                string line = lines[i].TrimStart(' ');
-                
-                if (line.StartsWith("@"))
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    DoNumberAssignment(line);
+                    currentLineNumber = i;
+                    //remove all leading white space
+                    string line = lines[i].TrimStart(' ');
+
+                    if (line.StartsWith("@"))
+                    {
+                        DoNumberAssignment(line);
+                    }
+                    else if (line.StartsWith("$"))
+                    {
+                        DoStringAssignment(line);
+                    }
+                    else if (line.StartsWith("~"))
+                    {
+                        DoFunction(line); //not for ~gc functions, they use @ above
+                    }
+                    else if (line.StartsWith("%"))
+                    {
+                        DoObjectPropertyAssignment(line);
+                    }
+                    else if (line.StartsWith("msg"))
+                    {
+                        DoMessage(line);
+                    }
+                    else if (line.StartsWith("debug"))
+                    {
+                        DoDebugMessage(line);
+                    }
+                    else if (line.StartsWith("if"))
+                    {
+                        i = DoIf(line, i);
+                    }
+                    else if (line.StartsWith("else"))
+                    {
+                        i = DoElse(line, i);
+                    }
+                    else if (line.StartsWith("endif"))
+                    {
+                        continue; //ignore and move to next line
+                    }
+                    else if (line.StartsWith("for"))
+                    {
+                        i = DoFor(line, i);
+                    }
+                    else if (line.StartsWith("continue"))
+                    {
+                        i = DoContinue(line);
+                    }
+                    else if (line.StartsWith("break"))
+                    {
+                        i = DoBreak(line);
+                    }
+                    else if (line.StartsWith("next"))
+                    {
+                        i = DoNext(line, i);
+                    }
+                    else if (line.StartsWith("label"))
+                    {
+                        continue; //ignore and move to next line
+                    }
+                    else if (line.StartsWith("goto"))
+                    {
+                        i = DoGoto(line, i);
+                    }
+                    else if (line.StartsWith("gosub"))
+                    {
+                        i = DoGosub(line, i);
+                    }
+                    else if (line.StartsWith("return"))
+                    {
+                        i = DoReturn(line, i);
+                    }
+                    else if ((line.StartsWith("end")) && (!line.StartsWith("endif")))
+                    {
+                        break; //end of script so end the script
+                    }
                 }
-                else if (line.StartsWith("$"))
+            }
+            catch (Exception ex)
+            {                
+                if (gv.mod.debugMode)
                 {
-                    DoStringAssignment(line);
-                }
-                else if (line.StartsWith("~"))
-                {
-                    DoFunction(line); //not for ~gc functions, they use @ above
-                }
-                else if (line.StartsWith("%"))
-                {
-                    DoObjectPropertyAssignment(line);
-                }
-                else if (line.StartsWith("msg"))
-                {
-                    DoMessage(line);
-                }
-                else if (line.StartsWith("if"))
-                {
-                    i = DoIf(line, i);
-                }
-                else if (line.StartsWith("else"))
-                {
-                    i = DoElse(line, i);                   
-                }
-                else if (line.StartsWith("endif"))
-                {
-                    continue; //ignore and move to next line
-                }                
-                else if (line.StartsWith("for"))
-                {
-                    i = DoFor(line, i);
-                }
-                else if (line.StartsWith("continue"))
-                {
-                    i = DoContinue(line);
-                }
-                else if (line.StartsWith("break"))
-                {
-                    i = DoBreak(line);
-                }
-                else if (line.StartsWith("next"))
-                {
-                    i = DoNext(line, i);
-                }
-                else if (line.StartsWith("label"))
-                {
-                    continue; //ignore and move to next line
-                }
-                else if (line.StartsWith("goto"))
-                {
-                    i = DoGoto(line, i);
-                }
-                else if (line.StartsWith("gosub"))
-                {
-                    i = DoGosub(line, i);
-                }
-                else if (line.StartsWith("return"))
-                {
-                    i = DoReturn(line, i);                                       
-                }
-                else if ((line.StartsWith("end")) && (!line.StartsWith("endif")))
-                {
-                    break; //end of script so end the script
+                    gv.log.AddHtmlTextToLog("IBScript " + scriptFilename + " failed at line: " + currentLineNumber.ToString() + " with this Message: " + ex.Message.ToString());
                 }
             }
         }
@@ -240,13 +259,13 @@ namespace IceBlink2
                 string prm3 = "none";
                 string prm4 = "none";
                 if (parms.Length > 0)
-                    prm1 = parms[0];
+                    prm1 = ReplaceParameter(parms[0]);
                 if (parms.Length > 1)
-                    prm2 = parms[1];
+                    prm2 = ReplaceParameter(parms[1]);
                 if (parms.Length > 2)
-                    prm3 = parms[2];
+                    prm3 = ReplaceParameter(parms[2]);
                 if (parms.Length > 3)
-                    prm4 = parms[3];
+                    prm4 = ReplaceParameter(parms[3]);
 
                 string sub = line.Substring(1, 2);
 
@@ -261,12 +280,12 @@ namespace IceBlink2
                     if (output == "gaGetGlobalInt.cs")
                     {
                         float temp = (int)gv.sf.GetGlobalInt(prm1);
-                        AddToLocalNumbers(prm2, temp, "=");
+                        AddToLocalNumbers(parms[1], temp, "=");
                     }
                     else if (output == "gaGetGlobalString.cs")
                     {
                         string temp = gv.sf.GetGlobalString(prm1);
-                        AddToLocalStrings(prm2, temp, "=");
+                        AddToLocalStrings(parms[1], temp, "=");
                     }
                     //end of changes
                     else
@@ -367,6 +386,15 @@ namespace IceBlink2
             string removeParenth = GetBetween(line, '(', ')');
             string mesg = ConcateString(removeParenth);
             gv.log.AddHtmlTextToLog(mesg);
+        }
+        public void DoDebugMessage(string line)
+        {
+            if (gv.mod.debugMode)
+            {
+                string removeParenth = GetBetween(line, '(', ')');
+                string mesg = ConcateString(removeParenth);
+                gv.log.AddHtmlTextToLog(mesg);
+            }
         }
         public int DoIf(string line, int i)
         {

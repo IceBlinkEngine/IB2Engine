@@ -847,7 +847,7 @@ namespace IceBlink2
 					
 			    foreach (FloatyText ft in floatyTextPool)
 			    {
-				    if (gv.cc.getDistance(ft.location, new Coordinate(mod.PlayerLastLocationX, mod.PlayerLocationY)) > 2)
+				    if (gv.cc.getDistance(ft.location, new Coordinate(mod.PlayerLastLocationX, mod.PlayerLocationY)) > 3)
 				    {
 					    continue; //out of range from view so skip drawing floaty message
 				    }
@@ -904,7 +904,7 @@ namespace IceBlink2
 
                 foreach (FloatyText ft in floatyTextPool)
                 {
-                    if (gv.cc.getDistance(ft.location, new Coordinate(mod.PlayerLastLocationX, mod.PlayerLocationY)) > 2)
+                    if (gv.cc.getDistance(ft.location, new Coordinate(mod.PlayerLastLocationX, mod.PlayerLocationY)) > 3)
                     {
                         continue; //out of range from view so skip drawing floaty message
                     }
@@ -919,7 +919,7 @@ namespace IceBlink2
                         {
                             for (int y = -2; y <= 2; y++)
                             {
-                                gv.DrawText(ft.value, new IbRect(xLoc + x + gv.oXshift + mapStartLocXinPixels, yLoc + y + txtH, 100, 1000), 1.0f, Color.Black);
+                                gv.DrawText(ft.value, new IbRect(xLoc + x + gv.oXshift + mapStartLocXinPixels, yLoc + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
                             }
                         }
                         //gv.floatyTextPaint.setStyle(Paint.Style.FILL);
@@ -944,7 +944,7 @@ namespace IceBlink2
                         {
                             colr = Color.White;
                         }
-                        gv.DrawText(ft.value, new IbRect(xLoc + gv.oXshift + mapStartLocXinPixels, yLoc + txtH, 100, 1000), 1.0f, colr);
+                        gv.DrawText(ft.value, new IbRect(xLoc + gv.oXshift + mapStartLocXinPixels, yLoc + txtH, gv.squareSize * 2, 1000), 0.8f, colr);
                         //gv.DrawText(wrapList[i], xLoc + gv.oXshift, yLoc + txtH, 1.0f, colr);
                     
                 }
