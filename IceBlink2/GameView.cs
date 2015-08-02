@@ -68,7 +68,7 @@ namespace IceBlink2
         public ScreenShop screenShop;
         public ScreenCastSelector screenCastSelector;
         public ScreenConvo screenConvo;
-        public LogicTreeRun logicTreeRun;
+        //public LogicTreeRun logicTreeRun;
         public ScreenTitle screenTitle;
         public ScreenPcCreation screenPcCreation;
         public ScreenSpellLevelUp screenSpellLevelUp;
@@ -209,7 +209,7 @@ namespace IceBlink2
 		    screenShop = new ScreenShop(mod, this);
 		    screenCastSelector = new ScreenCastSelector(mod, this);
 		    screenConvo = new ScreenConvo(mod, this);
-		    logicTreeRun = new LogicTreeRun(mod, this);
+		    //logicTreeRun = new LogicTreeRun(mod, this);
 		    screenCombat = new ScreenCombat(mod, this);
 		    screenMainMap = new ScreenMainMap(mod, this);
 		    screenTitle = new ScreenTitle(mod, this);

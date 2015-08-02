@@ -803,7 +803,7 @@ namespace IceBlink2
             //IBScript Setup Combat Hook (run only once)
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
             //LogicTree Start Combat
-            gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             //determine initiative
@@ -913,7 +913,7 @@ namespace IceBlink2
                 RunAllItemCombatRegenerations(pc);
             }
             applyEffectsCombat();
-            gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
+            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             //startPcTurn();
@@ -1190,7 +1190,7 @@ namespace IceBlink2
             gv.sf.UpdateStats(pc);
             currentMoves = 0;
             //do onTurn LT
-            gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
+            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
 
@@ -1338,7 +1338,7 @@ namespace IceBlink2
                                 try
                                 {
                                     //do OnDeath LOGIC TREE
-                                    gv.cc.doLogicTreeBasedOnTag(crt.onDeathLogicTree, crt.onDeathParms);
+                                    //REMOVEgv.cc.doLogicTreeBasedOnTag(crt.onDeathLogicTree, crt.onDeathParms);
                                     //do OnDeath IBScript
                                     gv.cc.doIBScriptBasedOnFilename(crt.onDeathIBScript, crt.onDeathIBScriptParms);
                                     mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -1492,7 +1492,7 @@ namespace IceBlink2
 		    //gv.cc.logScrollOffset = 0;
 		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];            
 		    //do onStartTurn LogicTree 
-            gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
+            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
@@ -2266,7 +2266,7 @@ namespace IceBlink2
                     gv.startAmbient();
                 }
                 //do END ENCOUNTER LOGIC TREE
-                gv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnEndCombatLogicTree, gv.mod.currentEncounter.OnEndCombatParms);
+                //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnEndCombatLogicTree, gv.mod.currentEncounter.OnEndCombatParms);
                 //do END ENCOUNTER IBScript
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
                 if (gv.cc.calledEncounterFromProp)

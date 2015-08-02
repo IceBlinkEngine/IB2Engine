@@ -4945,7 +4945,7 @@ namespace IceBlink2
                                     try
                                     {
                                         //do OnDeath LOGIC TREE
-                                        gv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
+                                        //REMOVEgv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
                                         //do OnDeath IBScript
                                         gv.cc.doIBScriptBasedOnFilename(target.onDeathIBScript, target.onDeathIBScriptParms);
                                         mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -5326,7 +5326,7 @@ namespace IceBlink2
                         try
                         {
                             //do OnDeath LOGIC TREE
-                            gv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
+                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
                             //do OnDeath IBScript
                             gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -5552,7 +5552,7 @@ namespace IceBlink2
                         try
                         {
                             //do OnDeath LOGIC TREE
-                            gv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
+                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
                             //do OnDeath IBScript
                             gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -5917,7 +5917,7 @@ namespace IceBlink2
                                     try
                                     {
                                         //do OnDeath LOGIC TREE
-                                        gv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
+                                        //REMOVEgv.cc.doLogicTreeBasedOnTag(target.onDeathLogicTree, target.onDeathParms);
                                         //do OnDeath IBScript
                                         gv.cc.doIBScriptBasedOnFilename(target.onDeathIBScript, target.onDeathIBScriptParms);
                                         mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -6061,7 +6061,7 @@ namespace IceBlink2
                         try
                         {
                             //do OnDeath LOGIC TREE
-                            gv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
+                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
                             //do OnDeath IBScript
                             gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);

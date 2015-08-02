@@ -141,14 +141,14 @@ namespace IceBlink2
                 gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
             }
         }
-        public void LoadCurrentLogicTree(string filename)
+        /*public void LoadCurrentLogicTree(string filename)
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\logictree\\" + filename + ".json"))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 gv.logicTreeRun.currentLogicTree = (LogicTree)serializer.Deserialize(file, typeof(LogicTree));
             }
-        }
+        }*/
         public void AutoSave()
         {
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\autosave.json";
@@ -1968,11 +1968,11 @@ namespace IceBlink2
             //gv.logUpdated = false;
             gv.sf.dsWorldTime();
             //do Module heartbeat
-            doLogicTreeBasedOnTag(gv.mod.OnHeartBeatLogicTree, gv.mod.OnHeartBeatParms);
+            //REMOVEdoLogicTreeBasedOnTag(gv.mod.OnHeartBeatLogicTree, gv.mod.OnHeartBeatParms);
             //IBScript Module heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
             //do Area heartbeat
-            doLogicTreeBasedOnTag(gv.mod.currentArea.OnHeartBeatLogicTree, gv.mod.currentArea.OnHeartBeatParms);
+            //REMOVEdoLogicTreeBasedOnTag(gv.mod.currentArea.OnHeartBeatLogicTree, gv.mod.currentArea.OnHeartBeatParms);
             //IBScript Area heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.OnHeartBeatIBScript, gv.mod.currentArea.OnHeartBeatIBScriptParms);
             //apply effects
@@ -1996,7 +1996,7 @@ namespace IceBlink2
             {
                 gv.sf.ThisProp = prp;
                 //logic tree
-                doLogicTreeBasedOnTag(prp.OnHeartBeatLogicTree, prp.OnHeartBeatParms);
+                //REMOVEdoLogicTreeBasedOnTag(prp.OnHeartBeatLogicTree, prp.OnHeartBeatParms);
                 //IBScript Prop heartbeat
                 gv.cc.doIBScriptBasedOnFilename(prp.OnHeartBeatIBScript, prp.OnHeartBeatIBScriptParms);
                 gv.sf.ThisProp = null;
@@ -2820,11 +2820,11 @@ namespace IceBlink2
                         {
                             doConversationBasedOnTag(trig.Event1FilenameOrTag);
                         }
-                        else if (trig.Event1Type.Equals("logictree"))
+                        /*//REMOVEelse if (trig.Event1Type.Equals("logictree"))
                         {
                             doLogicTreeBasedOnTag(trig.Event1FilenameOrTag, trig.Event1Parm1);
                             doTrigger();
-                        }
+                        }*/
                         else if (trig.Event1Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event1FilenameOrTag);
@@ -2864,11 +2864,11 @@ namespace IceBlink2
                         {
                             doConversationBasedOnTag(trig.Event2FilenameOrTag);
                         }
-                        else if (trig.Event2Type.Equals("logictree"))
+                        /*//REMOVEelse if (trig.Event2Type.Equals("logictree"))
                         {
                             doLogicTreeBasedOnTag(trig.Event2FilenameOrTag, trig.Event2Parm1);
                             doTrigger();
-                        }
+                        }*/
                         else if (trig.Event2Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event2FilenameOrTag);
@@ -2908,11 +2908,11 @@ namespace IceBlink2
                         {
                             doConversationBasedOnTag(trig.Event3FilenameOrTag);
                         }
-                        else if (trig.Event3Type.Equals("logictree"))
+                        /*//REMOVEelse if (trig.Event3Type.Equals("logictree"))
                         {
                             doLogicTreeBasedOnTag(trig.Event3FilenameOrTag, trig.Event3Parm1);
                             doTrigger();
-                        }
+                        }*/
                         else if (trig.Event3Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event3FilenameOrTag);
@@ -3066,7 +3066,7 @@ namespace IceBlink2
                 gv.sf.MessageBox("failed to open conversation with tag: " + tag);
             }
         }
-        public void doLogicTreeBasedOnTag(string tag, string parms)
+        /*public void doLogicTreeBasedOnTag(string tag, string parms)
         {
             try
             {
@@ -3080,7 +3080,7 @@ namespace IceBlink2
             {
                 gv.sf.MessageBox("failed to run LogicTree: " + tag);
             }
-        }
+        }*/
         public void doSpellBasedOnTag(string spellTag, object source, object target)
         {
             //WIZARD SPELLS
