@@ -954,12 +954,12 @@ namespace IceBlink2
 
                     else if (filename.Equals("osAddCreatureToCurrentEncounter.cs"))
                     {
-                        //p1 is the resref of the summoned cretaure (use one from a blueprint int he toolset's creature blueprints section)
-                        //p2 will be teh summon duartion (NOT IMPLEMENTED YET)
+                        //p1 is the resref of the summoned cretaure (use one from a blueprint in the toolset's creature blueprints section)
+                        //p2 will be teh su mmon duartion (NOT IMPLEMENTED YET)
                         //p3 x location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
                         //p4 y location of the summon in current encounter (will be automatically adjusted to nearest location if the spot is already occupied or non-walkable)
 
-                        this.MessageBoxHtml("Add creature script ran");
+                        //this.MessageBoxHtml("Add creature script ran");
                         foreach (Creature c in gv.mod.moduleCreaturesList)
                         {
                             if (c.cr_resref == p1)
@@ -998,7 +998,7 @@ namespace IceBlink2
                                 if (gv.mod.currentEncounter.encounterTiles[targetTile].Walkable == false)
                                 {
                                     changeSummonLocation = true;
-                                    this.MessageBoxHtml("Target square not walkable");
+                                    //this.MessageBoxHtml("Target square not walkable");
                                 }
 
                                 //second check: check ossupied by creature (only necceessary if walkable)
@@ -1009,7 +1009,7 @@ namespace IceBlink2
                                         if ((cr.combatLocX == copy.combatLocX) && (cr.combatLocY == copy.combatLocY))
                                         {
                                             changeSummonLocation = true;
-                                            this.MessageBoxHtml("Target square occupied by other cretaure");
+                                            //this.MessageBoxHtml("Target square occupied by other cretaure");
                                             break;
                                         }
                                     }
@@ -1023,7 +1023,7 @@ namespace IceBlink2
                                         if ((pc.combatLocX == copy.combatLocX) && (pc.combatLocY == copy.combatLocY))
                                         {
                                             changeSummonLocation = true;
-                                            this.MessageBoxHtml("Target square occupied by pc");
+                                            //this.MessageBoxHtml("Target square occupied by pc");
                                             break;
                                         }
                                     }
@@ -1032,7 +1032,7 @@ namespace IceBlink2
                                 //target square was already occupied/non-walkable, so all other tiles are searched for the NEAREST FREE tile to switch the summon location to
                                 if (changeSummonLocation == true)
                                 {
-                                    this.MessageBoxHtml("Changed the summon location because target spot was occupied");
+                                    //this.MessageBoxHtml("Changed the summon location because target spot was occupied");
                                     //FIRST PART: get all FREE tiles in the current encounter
                                     for (int i = 0; i < gv.mod.currentEncounter.encounterTiles.Count; i++)
                                     {

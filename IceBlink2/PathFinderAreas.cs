@@ -28,7 +28,8 @@ namespace IceBlink2
         //find all props that have collision and set there square to 1
         foreach (Prop prp in mod.currentArea.Props)
         {
-        	if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
+        	//if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
+            if  ((prp.HasCollision) && (prp.isActive))
         	{
         		grid[prp.LocationX,prp.LocationY] = 1;
         	}
@@ -86,7 +87,7 @@ namespace IceBlink2
     }
 
         //helper functions
-        public void buildPath(Coordinate start)
+        /*public void buildPath(Coordinate start)
         {
             int minX = start.X - 16;
             if (minX < 0) { minX = 0; }
@@ -102,8 +103,23 @@ namespace IceBlink2
             {
                 //1100 is used because 32*32=1024 and rounded up to 1100
                 for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
+                {*/
+        public void buildPath(Coordinate start)
+        {
+            int minX = 0;
+            int minY = 0;
+            int maxX = mod.currentArea.MapSizeX;
+            int maxY = mod.currentArea.MapSizeY;
+            int numberOfSquaresInArea = mod.currentArea.MapSizeX * mod.currentArea.MapSizeY;
+
+            //iterate through all values for next number and evaluate neighbors
+            int next = 0;
+            for (int cnt = 0; cnt < numberOfSquaresInArea; cnt++)
+            {
+                //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
+                for (int x = minX; x < maxX; x++)
+                {            
+        for (int y = minY; y < maxY; y++)
                     {
                         if (values[x,y] == next)
                         {
