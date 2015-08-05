@@ -82,6 +82,8 @@ namespace IceBlink2
         public bool touchEnabled = true;
         //public AlertDialog ItemDialog;
         //public AlertDialog ActionDialog;
+        public WMPLib.WindowsMediaPlayer areaMusic;
+        public WMPLib.WindowsMediaPlayer areaSounds;
         //public MediaPlayer playerMain = new MediaPlayer();
         //public MediaPlayer playerAmbient = new MediaPlayer();
         //public MediaPlayer playerCombat = new MediaPlayer();
@@ -100,6 +102,8 @@ namespace IceBlink2
         public Timer animationTimer = new Timer();
         public Timer floatyTextTimer = new Timer();
         public Timer floatyTextMainMapTimer = new Timer();
+        public Timer areaMusicTimer = new Timer();
+        public Timer areaSoundsTimer = new Timer();
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
@@ -178,6 +182,7 @@ namespace IceBlink2
             cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
             
             //TODOinitializeMusic();
+            //setupMusicPlayers();
             //TODOinitializeCombatMusic();
 
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
@@ -340,7 +345,220 @@ namespace IceBlink2
 		    }
 	    };
 	    */
-		
+
+        #region Area Music/Sounds
+        public void setupMusicPlayers()
+        {
+            try
+            {
+                areaMusic = new WMPLib.WindowsMediaPlayer();
+                areaMusic.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaMusic_PlayStateChange);
+                areaMusic.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                areaMusic.settings.volume = 50;
+
+                areaSounds = new WMPLib.WindowsMediaPlayer();
+                areaSounds.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaSounds_PlayStateChange);
+                areaSounds.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+
+                playAreaMusicSounds();
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("red","Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
+            }
+        }
+        public void playAreaMusicSounds()
+        {
+            try
+            {
+                areaMusic.controls.stop();
+                areaSounds.controls.stop();
+
+                if (mod.currentArea.AreaMusic != "none")
+                {
+                    if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic))
+                    {
+                        areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic;
+                    }
+                    else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic))
+                    {
+                        areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic;
+                    }
+                    else
+                    {
+                        areaMusic.URL = "";
+                    }
+                    if (areaMusic.URL != "")
+                    {
+                        areaMusic.controls.stop();
+                        areaMusic.controls.play();
+                    }
+                }
+                else
+                {
+                    areaMusic.URL = "";
+                }
+                if (mod.currentArea.AreaSounds != "none")
+                {
+                    if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds))
+                    {
+                        areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds;
+                    }
+                    else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds))
+                    {
+                        areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds;
+                    }
+                    else
+                    {
+                        areaSounds.URL = "";
+                    }
+                    if (areaSounds.URL != "")
+                    {
+                        areaSounds.controls.stop();
+                        areaSounds.controls.play();
+                    }
+                }
+                else
+                {
+                    areaSounds.URL = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("red","Failed on playAreaMusicSounds()" + ex.ToString());
+            }
+        }
+        public void playCombatAreaMusicSounds()
+        {
+            try
+            {
+                areaMusic.controls.stop();
+                areaSounds.controls.stop();
+
+                if (mod.currentEncounter.AreaMusic != "none")
+                {
+                    if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic))
+                    {
+                        areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic;
+                    }
+                    else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic))
+                    {
+                        areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic;
+                    }
+                    else
+                    {
+                        areaMusic.URL = "";
+                    }
+                    if (areaMusic.URL != "")
+                    {
+                        areaMusic.controls.stop();
+                        areaMusic.controls.play();
+                    }
+                }
+                else
+                {
+                    areaMusic.URL = "";
+                }                
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("red", "Failed on playCombatAreaMusicSounds()" + ex.ToString());
+            }
+        }
+        private void AreaMusic_PlayStateChange(int NewState)
+        {
+            try
+            {
+                if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    delayMusic();
+                }
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on AreaMusic_PlayStateChange()" + ex.ToString());
+            }
+        }
+        private void AreaSounds_PlayStateChange(int NewState)
+        {
+            try
+            {
+                if ((WMPLib.WMPPlayState)NewState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    delaySounds();
+                }
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on AreaSounds_PlayStateChange()" + ex.ToString());
+            }
+        }
+        private void Player_MediaError(object pMediaObject)
+        {
+            cc.addLogText("Cannot play media file.");
+        }
+        private void delayMusic()
+        {
+            try
+            {
+                int rand = sf.RandInt(mod.currentArea.AreaMusicDelayRandomAdder);
+                areaMusicTimer.Enabled = false;
+                areaMusic.controls.stop();
+                areaMusicTimer.Interval = mod.currentArea.AreaMusicDelay + rand;
+                areaMusicTimer.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on delayMusic()" + ex.ToString());
+            }
+        }
+        private void areaMusicTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (areaMusic.URL != "")
+                {
+                    areaMusic.controls.play();
+                }
+                areaMusicTimer.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on areaMusicTimer_Tick()" + ex.ToString());
+            }
+        }
+        private void delaySounds()
+        {
+            try
+            {
+                int rand = sf.RandInt(mod.currentArea.AreaSoundsDelayRandomAdder);
+                areaSoundsTimer.Enabled = false;
+                areaSounds.controls.stop();
+                areaSoundsTimer.Interval = mod.currentArea.AreaSoundsDelay + rand;
+                areaSoundsTimer.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on delaySounds()" + ex.ToString());
+            }
+        }
+        private void areaSoundsTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (areaSounds.URL != "")
+                {
+                    areaSounds.controls.play();
+                }
+                areaSoundsTimer.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("Failed on areaSoundsTimer_Tick()" + ex.ToString());
+            }
+        }
+        #endregion
+
 	    public void startMusic()
 	    {            
 		    /*if ((currentMainMusic.equals(mod.currentArea.AreaMusic)) && (playerMain != null))
@@ -599,113 +817,29 @@ namespace IceBlink2
             {
                 oSoundStreams.Add(Path.GetFileNameWithoutExtension(f), File.OpenRead(Path.GetFullPath(f)));
             }
-            
-            /*
-		    sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-		
-		    soundsList.clear();		
-		    File sdCard = Environment.getExternalStorageDirectory();
-		    File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG/" + mod.moduleName + "/sounds");
-		    if (directory.exists())
-		    {
-			    for (File f : directory.listFiles()) 
-			    {
-		            if (f.isFile())
-		            {
-		        	    try
-		        	    {
-			        	    String filename = f.getName();
-			        	    int pos = filename.lastIndexOf(".");
-			        	    String fileNameWithOutExt = pos > 0 ? filename.substring(0, pos) : filename;
-			        	    int soundID = sounds.load(sdCard.getAbsolutePath() + "/IceBlinkRPG/" + mod.moduleName + "/sounds/" + filename, 1);
-			        	    soundsList.put(fileNameWithOutExt, soundID);		        	
-		        	    }
-		        	    catch (Exception ex)
-		        	    {
-		        		    int x = 0;
-		        	    }
-	        	    }
-		        }
-		    }
-		    else
-		    {
-			    AssetManager assetManager = gameContext.getAssets();
-	            String[] files;
-			    try 
-			    {
-				    files = assetManager.list("sounds");
-				    for (String filename : files)
-		            {
-					    //String filename = f.getName();
-					    if (filename.endsWith(".wav"))
-					    {
-			        	    int pos = filename.lastIndexOf(".");
-			        	    String fileNameWithOutExt = pos > 0 ? filename.substring(0, pos) : filename;
-			                //tileBitmapList.put(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-			                int soundID = sounds.load(assetManager.openFd("sounds/" + filename), 1);
-			        	    soundsList.put(fileNameWithOutExt, soundID);	
-					    }
-		            }
-			    } 
-			    catch (IOException e) 
-			    {
-				    e.printStackTrace();
-			    }	        
-		    }
-            */
 	    }
 	    public void PlaySound(string filenameNoExtension)
-	    {
-            //if (mod.playSoundFx)
-            //{                
-                if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")))
+	    {            
+            if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")))
+            {
+                //play nothing
+            }
+            else
+            {
+                try
                 {
-                    //play nothing
+                    soundPlayer.Stream = oSoundStreams[filenameNoExtension];
+                    soundPlayer.Play();
                 }
-                else
+                catch (Exception ex)
                 {
-                    try
+                    if (mod.debugMode) //SD_20131102
                     {
-                        soundPlayer.Stream = oSoundStreams[filenameNoExtension];
-                        soundPlayer.Play();
+                        cc.addLogText("<font color='yellow'>failed to play sound" + filenameNoExtension + "</font><BR>");
                     }
-                    catch (Exception ex)
-                    {
-                        if (mod.debugMode) //SD_20131102
-                        {
-                            cc.addLogText("<font color='yellow'>failed to play sound" + filenameNoExtension + "</font><BR>");
-                        }
-                        initializeSounds();
-                    }
+                    initializeSounds();
                 }
-            //}
-            /*
-		    if (mod.playSoundFx)
-		    {
-			    float rate = 1.0f;
-			    if (mod.combatAnimationSpeed < 25) { rate = 2.0f; }
-			    //play attack sound for melee
-	    	    if ((filename.equals("none")) || (filename.equals("")))
-	    	    {
-	    		    //play nothing
-	    	    }
-	    	    else
-	    	    {
-	    		    try
-	    		    {
-	    			    //.SoundPool.play(int soundID, float leftVolume, float rightVolume, int priority, int loop, float rate)
-	    			    sounds.play(soundsList.get(filename), mod.soundVolume, mod.soundVolume, 1, 0, rate);
-	    		    }
-	    		    catch (Exception ex)
-	    		    { 
-	    			    if (mod.debugMode) //SD_20131102
-	                    {
-	        			    cc.addLogText("<font color='yellow'>failed to play sound" + filename + "</font><BR>");
-	        		    }
-	    		    }
-	    	    }
-		    }
-            */
+            }            
 	    }
 
         //Animation Timer Stuff
