@@ -2521,6 +2521,71 @@ namespace IceBlink2
                     gv.mod.OnHeartBeatIBScriptParms += val;
                 }
             }
+            else if (element[0].EndsWith("allowSave"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.allowSave = true;
+                }
+                else
+                {
+                    gv.mod.allowSave = false;
+                }
+            }
+            else if (element[0].EndsWith("debugMode"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.debugMode = true;
+                }
+                else
+                {
+                    gv.mod.debugMode = false;
+                }
+            }
+            else if (element[0].EndsWith("showPartyToken"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.showPartyToken = true;
+                }
+                else
+                {
+                    gv.mod.showPartyToken = false;
+                }
+            }
+            else if (element[0].EndsWith("PlayerFacingLeft"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.PlayerFacingLeft = true;
+                }
+                else
+                {
+                    gv.mod.PlayerFacingLeft = false;
+                }
+            }
+            else if (element[0].EndsWith("allowAutosave"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.allowAutosave = true;
+                }
+                else
+                {
+                    gv.mod.allowAutosave = false;
+                }
+            }
 
         }
         public void PropAssignment(string[] element, int indexNum, int indexNum2)
@@ -5542,6 +5607,186 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].classTag.ToString();
                     }
+                    else if (parm.EndsWith("HeadRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].HeadRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("HeadRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].HeadRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("HeadRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].HeadRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("HeadRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].HeadRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("HeadRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].HeadRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("NeckRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].NeckRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("NeckRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].NeckRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("NeckRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].NeckRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("NeckRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].NeckRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("NeckRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].NeckRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("BodyRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].BodyRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("BodyRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].BodyRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("BodyRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].BodyRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("BodyRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].BodyRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("BodyRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].BodyRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("MainHandRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].MainHandRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("MainHandRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].MainHandRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("MainHandRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].MainHandRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("MainHandRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].MainHandRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("MainHandRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].MainHandRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("OffHandRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].OffHandRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("OffHandRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].OffHandRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("OffHandRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].OffHandRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("OffHandRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].OffHandRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("OffHandRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].OffHandRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("RingRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].RingRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("RingRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].RingRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("RingRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].RingRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("RingRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].RingRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("RingRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].RingRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("Ring2RefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].Ring2Refs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("Ring2RefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].Ring2Refs.name.ToString();
+                    }
+                    else if (parm.EndsWith("Ring2RefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].Ring2Refs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("Ring2RefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].Ring2Refs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("Ring2RefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].Ring2Refs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("FeetRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].FeetRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("FeetRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].FeetRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("FeetRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].FeetRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("FeetRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].FeetRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("FeetRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].FeetRefs.quantity.ToString();
+                    }
+                    else if (parm.EndsWith("AmmoRefsTag"))
+                    {
+                        return gv.mod.playerList[indexNum].AmmoRefs.tag.ToString();
+                    }
+                    else if (parm.EndsWith("AmmoRefsName"))
+                    {
+                        return gv.mod.playerList[indexNum].AmmoRefs.name.ToString();
+                    }
+                    else if (parm.EndsWith("AmmoRefsResRef"))
+                    {
+                        return gv.mod.playerList[indexNum].AmmoRefs.resref.ToString();
+                    }
+                    else if (parm.EndsWith("AmmoRefsCanNotBeUnequipped"))
+                    {
+                        return gv.mod.playerList[indexNum].AmmoRefs.canNotBeUnequipped.ToString();
+                    }
+                    else if (parm.EndsWith("AmmoRefsQuantity"))
+                    {
+                        return gv.mod.playerList[indexNum].AmmoRefs.quantity.ToString();
+                    }
                 }
                 #endregion
 
@@ -6050,6 +6295,110 @@ namespace IceBlink2
                     {
                         return gv.mod.OnHeartBeatIBScriptParms.ToString();
                     }
+                    else if (parm.EndsWith("debugMode"))
+                    {
+                        return gv.mod.debugMode.ToString();
+                    }
+                    else if (parm.EndsWith("allowSave"))
+                    {
+                        return gv.mod.allowSave.ToString();
+                    }
+                    else if (parm.EndsWith("PlayerFacingLeft"))
+                    {
+                        return gv.mod.PlayerFacingLeft.ToString();
+                    }
+                    else if (parm.EndsWith("showPartyToken"))
+                    {
+                        return gv.mod.showPartyToken.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleItemsList"))
+                    {
+                        return gv.mod.moduleItemsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleEncountersLists"))
+                    {
+                        return gv.mod.moduleEncountersList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleContainersList"))
+                    {
+                        return gv.mod.moduleContainersList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleShopsList"))
+                    {
+                        return gv.mod.moduleShopsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleCreaturesList"))
+                    {
+                        return gv.mod.moduleCreaturesList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleJournal"))
+                    {
+                        return gv.mod.moduleJournal.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModulePlayerClassLists"))
+                    {
+                        return gv.mod.modulePlayerClassList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleRacesList"))
+                    {
+                        return gv.mod.moduleRacesList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleSpellsList"))
+                    {
+                        return gv.mod.moduleSpellsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleTraitsList"))
+                    {
+                        return gv.mod.moduleTraitsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleEffectsList"))
+                    {
+                        return gv.mod.moduleEffectsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleAreasList"))
+                    {
+                        return gv.mod.moduleAreasList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleConvosList"))
+                    {
+                        return gv.mod.moduleConvosList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleAreasObjects"))
+                    {
+                        return gv.mod.moduleAreasObjects.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleGlobalInts"))
+                    {
+                        return gv.mod.moduleGlobalInts.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfmoduleGlobalStrings"))
+                    {
+                        return gv.mod.moduleGlobalStrings.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfModuleConvoSavedValuesList"))
+                    {
+                        return gv.mod.moduleConvoSavedValuesList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfPlayerList"))
+                    {
+                        return gv.mod.playerList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfPartyRosterList"))
+                    {
+                        return gv.mod.partyRosterList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfPartyInventoryRefsList"))
+                    {
+                        return gv.mod.partyInventoryRefsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfPartyJournalQuests"))
+                    {
+                        return gv.mod.partyJournalQuests.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfPartyJournalCompleted"))
+                    {
+                        return gv.mod.partyJournalCompleted.Count.ToString();
+                    }
                 }
 
                 #endregion
@@ -6151,6 +6500,78 @@ namespace IceBlink2
                     }
                 }
                 #endregion
+
+                /*#region ItemResRefParty
+                else if (parm.StartsWith("%ItemResRefParty"))
+                {
+                    if (parm.EndsWith("resRef"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
+                    }
+                    else if (parm.EndsWith("tag"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
+                    }
+                    else if (parm.EndsWith("name"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("creatureStartLocationY"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
+                    }
+                }
+
+                #endregion
+
+                #region ItemResRefContainer
+                else if (parm.StartsWith("%ItemResRefContainer"))
+                {
+                    if (parm.EndsWith("resRef"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
+                    }
+                    else if (parm.EndsWith("tag"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
+                    }
+                    else if (parm.EndsWith("name"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("creatureStartLocationY"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
+                    }
+                }
+
+                #endregion
+
+                #region ItemResRefShop
+                else if (parm.StartsWith("%ItemResRefShop"))
+                {
+                    if (parm.EndsWith("resRef"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].creatureResRef.ToString();
+                    }
+                    else if (parm.EndsWith("tag"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureTag.ToString();
+                    }
+                    else if (parm.EndsWith("name"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationX.ToString();
+                    }
+                    else if (parm.EndsWith("creatureStartLocationY"))
+                    {
+                        return gv.mod.moduleEncountersList[indexNum].encounterCreatureRefsList[indexNum2].creatureStartLocationY.ToString();
+                    }
+                }
+
+                #endregion*/
+
+
+
             }
             else if (parm.StartsWith("#"))
             {
