@@ -1978,7 +1978,7 @@ namespace IceBlink2
             //apply effects
             applyEffects();
             //do Prop heartbeat
-            doPropLogicTree();
+            doPropHeartBeat();
             //move any props that are active and only if they are not on the party location
             doPropMoves();
             //do Conversation and/or Encounter if on Prop
@@ -1990,7 +1990,7 @@ namespace IceBlink2
                 gv.screenMainMap.doFloatyTextLoop();
             }
         }
-        public void doPropLogicTree()
+        public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
             {

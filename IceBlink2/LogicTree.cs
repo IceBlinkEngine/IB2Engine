@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace IceBlink2
 {
-    public class LogicTree
+    /*public class LogicTree
     {
         public string Filename = "";
         public List<LogicTreeNode> SubNodes = new List<LogicTreeNode>();
@@ -31,5 +31,5 @@ namespace IceBlink2
             }
             return null;
         }
-    }
+    }*/
 }

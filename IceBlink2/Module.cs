@@ -29,6 +29,7 @@ namespace IceBlink2
 	    public int WorldTime = 0;
         public int TimePerRound = 6;
         public bool debugMode = false;
+        public bool allowSave = true;
         [JsonIgnore]
 		public List<Item> moduleItemsList = new List<Item>();
 	    public List<Encounter> moduleEncountersList = new List<Encounter>();

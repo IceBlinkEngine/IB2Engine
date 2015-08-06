@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace IceBlink2
 {
-    public class LogicTreeNode
+    /*public class LogicTreeNode
     {
         public int idNum = -1;
         public int linkTo = 0;
@@ -38,5 +38,5 @@ namespace IceBlink2
             }
             return null;
         }
-    }
+    }*/
 }

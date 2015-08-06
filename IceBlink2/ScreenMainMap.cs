@@ -106,6 +106,7 @@ namespace IceBlink2
 		    {
 			    btnSave = new IbbButton(gv, 0.8f);
 			    btnSave.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                btnSave.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnSave.Img2 = gv.cc.LoadBitmap("btndisk"); // BitmapFactory.decodeResource(getResources(), R.drawable.btndisk);
 			    btnSave.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSave.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
@@ -834,8 +835,16 @@ namespace IceBlink2
 		    btnParty.Draw();
 		    gv.cc.btnInventory.Draw();
 		    btnJournal.Draw();
-		    btnSettings.Draw();		
-		    btnSave.Draw();	
+		    btnSettings.Draw();
+            if (mod.allowSave)
+            {
+                btnSave.buttonOn = true;
+            }
+            else
+            {
+                btnSave.buttonOn = false;
+            }
+            btnSave.Draw();
 		    btnCastOnMainMap.Draw();			
 	    }
 	    public void drawFloatyTextPoolOld()
@@ -1091,7 +1100,10 @@ namespace IceBlink2
 			    }	
 			    else if (btnSave.getImpact(x, y))
 			    {
-				    btnSave.glowOn = true;
+                    if (mod.allowSave)
+                    {
+                        btnSave.glowOn = true;
+                    }
 			    }
 			    else if (btnCastOnMainMap.getImpact(x, y))
 			    {
@@ -1429,7 +1441,10 @@ namespace IceBlink2
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    gv.cc.doSavesDialog();
+                    if (mod.allowSave)
+                    {
+                        gv.cc.doSavesDialog();
+                    }
 			    }
 			    else if (btnWait.getImpact(x, y))
 			    {
@@ -1534,8 +1549,15 @@ namespace IceBlink2
             }
             if (keyData == Keys.Q)
             {
-                gv.cc.QuickSave();
-                gv.cc.addLogText("lime", "Quicksave Completed");
+                if (mod.allowSave)
+                {
+                    gv.cc.QuickSave();
+                    gv.cc.addLogText("lime", "Quicksave Completed");
+                }
+                else
+                {
+                    gv.cc.addLogText("red", "No save allowed at this time.");
+                }
             }
             if (keyData == Keys.D)
             {

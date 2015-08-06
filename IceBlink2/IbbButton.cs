@@ -11,9 +11,11 @@ namespace IceBlink2
     {
         //this class is handled differently than Android version
         public Bitmap Img = null;
+        public Bitmap ImgOff = null;
         public Bitmap Img2 = null;
         public Bitmap Img3 = null;
         public Bitmap Glow = null;
+        public bool buttonOn = true;
         public bool glowOn = false;
         public string Text = "";
         public string Quantity = "";
@@ -56,9 +58,14 @@ namespace IceBlink2
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
             IbRect src = new IbRect(0, 0, this.Img.Width, this.Img.Height);
+            IbRect srcOff = new IbRect(0, 0, this.Img.Width, this.Img.Height);
             IbRect src2 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
             IbRect src3 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
 
+            if (this.ImgOff != null)
+            {
+                srcOff = new IbRect(0, 0, this.ImgOff.Width, this.ImgOff.Width);
+            }
             if (this.Img2 != null)
             {
                 src2 = new IbRect(0, 0, this.Img2.Width, this.Img2.Width);
@@ -78,19 +85,23 @@ namespace IceBlink2
             if ((this.glowOn) && (this.Glow != null))
             {
                 gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
-                //canvas.drawBitmap(this.Glow, srcGlow, dstGlow, null);
             }
-            gv.DrawBitmap(this.Img, src, dst);
-            //canvas.drawBitmap(this.Img, src, dst, null);
+            //draw button as OFF if set to off
+            if ((!this.buttonOn) && (this.ImgOff != null))
+            {
+                gv.DrawBitmap(this.ImgOff, srcOff, dst);
+            }
+            else //draw button as ON (normal)
+            {
+                gv.DrawBitmap(this.Img, src, dst);
+            }
             if (this.Img2 != null)
             {
                 gv.DrawBitmap(this.Img2, src2, dst);
-                //canvas.drawBitmap(this.Img2, src2, dst, null);
             }
             if (this.Img3 != null)
             {
                 gv.DrawBitmap(this.Img3, src3, dst);
-                //canvas.drawBitmap(this.Img3, src3, dst, null);
             }
 
             Font thisFont = gv.drawFontReg;
