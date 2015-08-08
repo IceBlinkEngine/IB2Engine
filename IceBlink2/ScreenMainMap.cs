@@ -297,7 +297,7 @@ namespace IceBlink2
             	    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
             	    int brX = gv.squareSize;
             	    int brY = gv.squareSize;
-            	
+
             	    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
             	
             	    IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].Width, gv.cc.tileBitmapList[tile.Layer1Filename].Height);
@@ -305,7 +305,7 @@ namespace IceBlink2
                     IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].Width, gv.cc.tileBitmapList[tile.Layer3Filename].Height);
                     IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].Width, gv.cc.tileBitmapList[tile.Layer4Filename].Height);
                     IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].Width, gv.cc.tileBitmapList[tile.Layer5Filename].Height);
-                    IbRect dst = new IbRect(tlX + gv.oXshift, tlY, brX, brY);
+                    IbRect dst = new IbRect(tlX + gv.oXshift + ((gv.playerOffset + 2) * gv.squareSize), tlY, brX, brY);
                 
                     gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
                     gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
@@ -656,7 +656,7 @@ namespace IceBlink2
 	    public void drawOverlayTints()
 	    {
 		    IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.Width, gv.cc.tint_sunset.Height);
-            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * 9), gv.squareSize * 9);
+            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * 9), (gv.squareSize * 9));
 		    int dawn = 5 * 60;
 		    int sunrise = 6 * 60;
 		    int day = 7 * 60;
@@ -747,56 +747,107 @@ namespace IceBlink2
         public void drawBlackTilesOverTints()
         {
             //at left edge
+            if (mod.PlayerLocationX < 4)
+            {
+                drawColumnOfBlack(0);
+            }
             if (mod.PlayerLocationX < 3)
             {
                 drawColumnOfBlack(0);
+                drawColumnOfBlack(1);
             }
             if (mod.PlayerLocationX < 2)
             {
                 drawColumnOfBlack(1);
+                drawColumnOfBlack(2);
             }
             if (mod.PlayerLocationX < 1)
             {
                 drawColumnOfBlack(2);
+                drawColumnOfBlack(3);
             }
             //at top edge
+            if (mod.PlayerLocationY < 4)
+            {
+                drawRowOfBlack(0);
+            }
             if (mod.PlayerLocationY < 3)
             {
                 drawRowOfBlack(0);
+                drawRowOfBlack(1);
             }
             if (mod.PlayerLocationY < 2)
             {
                 drawRowOfBlack(1);
+                drawRowOfBlack(2);
             }
             if (mod.PlayerLocationY < 1)
             {
                 drawRowOfBlack(2);
+                drawRowOfBlack(3);
             }
+            
             //at right edge
+            if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 5)
+            {
+                drawColumnOfBlack(8);
+            }
+
             if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 4)
             {
-                drawColumnOfBlack(6);
+                drawColumnOfBlack(7);
+                drawColumnOfBlack(8);
             }
             if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 3)
             {
-                drawColumnOfBlack(5);
+
+                drawColumnOfBlack(6);
+                drawColumnOfBlack(7);
+                drawColumnOfBlack(8);
             }
             if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 2)
             {
-                drawColumnOfBlack(4);
+
+                drawColumnOfBlack(5);
+                drawColumnOfBlack(6);
+                drawColumnOfBlack(7);
+                drawColumnOfBlack(8);
             }
+            
             //at bottom edge
+            if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 5)
+            {
+                drawRowOfBlack(8);
+                //drawRowOfBlack(9);
+                //drawRowOfBlack(10);
+            }
+
             if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 4)
             {
-                drawRowOfBlack(6);
+               
+                drawRowOfBlack(7);
+                drawRowOfBlack(8);
+                //drawRowOfBlack(9);
+                //drawRowOfBlack(10);
             }
             if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 3)
             {
-                drawRowOfBlack(5);
+                
+                drawRowOfBlack(6);
+                drawRowOfBlack(7);
+                drawRowOfBlack(8);
+                //drawRowOfBlack(9);
+                //drawRowOfBlack(10);
             }
             if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 2)
             {
-                drawRowOfBlack(4);
+                
+                drawRowOfBlack(5);
+                drawRowOfBlack(6);
+                drawRowOfBlack(7);
+                drawRowOfBlack(8);
+                //drawRowOfBlack(9);
+                //drawRowOfBlack(10);
             }
             //if player location is 1 draw two row or col
             //if player location is 2 draw one row or col
@@ -962,7 +1013,7 @@ namespace IceBlink2
 
         public void drawColumnOfBlack(int col)
         {
-            for (int y = 0; y < 7; y++)
+            for (int y = 0; y < 9; y++)
             {
                 int tlX = col * gv.squareSize;
                 int tlY = y * gv.squareSize;
@@ -975,7 +1026,7 @@ namespace IceBlink2
         }
         public void drawRowOfBlack(int row)
         {
-            for (int x = 0; x < 7; x++)
+            for (int x = 0; x < 9; x++)
             {
                 int tlX = x * gv.squareSize;
                 int tlY = row * gv.squareSize;
