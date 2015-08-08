@@ -19,7 +19,9 @@
     "firebeetlecave",
     "homeds",
     "homeus",
-    "wm_Movers"
+    "wm_Movers",
+    "moverTest",
+    "wm_try"
   ],
   "moduleConvosList": [
     "aTestConvo",
@@ -113,11 +115,11 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 8809,
+  "nextIdNumber": 8930,
   "WorldTime": 0,
-  "startingArea": "wm_Movers",
-  "startingPlayerPositionX": 0,
-  "startingPlayerPositionY": 0,
+  "startingArea": "brinsby",
+  "startingPlayerPositionX": 6,
+  "startingPlayerPositionY": 14,
   "partyGold": 100,
   "partyTokenFilename": "prp_party",
   "OnHeartBeatLogicTree": "none",

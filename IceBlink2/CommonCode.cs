@@ -3199,6 +3199,7 @@ namespace IceBlink2
                             prp.LocationX = newCoor.X;
                             prp.LocationY = newCoor.Y;
                             moveToTarget(targetX, targetY, prp, 1);
+                            //gv.screenMainMap.addFloatyText(targetX, targetY, "Swift", "white", 1000);
                             return;
                         }//4
                         //origin square not occupied, so waiting would be an alternative to double move: 50/50 situation
@@ -3213,6 +3214,7 @@ namespace IceBlink2
                                 prp.LocationY = newCoor.Y;
                                 //recursive call, careful
                                 moveToTarget(targetX, targetY, prp, 1);
+                                //gv.screenMainMap.addFloatyText(targetX, targetY, "Swift", "white", 1000);
                                 return;
                             }//5
                             //Skip whole move, ie 0 steps on path (rolled a 1 as random roll)
