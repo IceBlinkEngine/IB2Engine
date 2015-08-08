@@ -4362,9 +4362,9 @@
       "Event3Parm4": "none"
     }
   ],
-  "AreaMusic": "none",
-  "AreaMusicDelay": 0,
-  "AreaMusicDelayRandomAdder": 0,
+  "AreaMusic": "forest",
+  "AreaMusicDelay": 1000,
+  "AreaMusicDelayRandomAdder": 5000,
   "AreaSounds": "forest",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,

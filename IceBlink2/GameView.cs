@@ -182,7 +182,7 @@ namespace IceBlink2
             cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel or scroll bar");
             
             //TODOinitializeMusic();
-            //setupMusicPlayers();
+            setupMusicPlayers();
             //TODOinitializeCombatMusic();
 
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
@@ -360,105 +360,161 @@ namespace IceBlink2
                 areaSounds.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaSounds_PlayStateChange);
                 areaSounds.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
 
-                playAreaMusicSounds();
+                startMusic();
+                startAmbient();
             }
             catch (Exception ex)
             {
                 cc.addLogText("red","Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
             }
         }
-        public void playAreaMusicSounds()
+        public void startMusic()
         {
             try
             {
-                areaMusic.controls.stop();
-                areaSounds.controls.stop();
-
-                if (mod.currentArea.AreaMusic != "none")
+                if ((currentMainMusic.Equals(mod.currentArea.AreaMusic)) && (areaMusic != null))
                 {
-                    if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic))
+                    areaMusic.controls.play();
+                }
+                else
+                {
+                    areaMusic.controls.stop();
+                   
+                    if (mod.currentArea.AreaMusic != "none")
                     {
-                        areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic;
-                    }
-                    else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic))
-                    {
-                        areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic;
+                        if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic))
+                        {
+                            areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic;
+                        }
+                        else if (File.Exists(this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic + ".mp3"))
+                        {
+                            areaMusic.URL = this.mainDirectory + "\\modules\\" + this.mod.moduleName + "\\music\\" + mod.currentArea.AreaMusic + ".mp3";
+                        }
+                        else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic + ".mp3"))
+                        {
+                            areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic + ".mp3";
+                        }
+                        else if (File.Exists(this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic))
+                        {
+                            areaMusic.URL = this.mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaMusic;
+                        }
+                        else
+                        {
+                            areaMusic.URL = "";
+                        }
+                        if (areaMusic.URL != "")
+                        {
+                            areaMusic.controls.stop();
+                            areaMusic.controls.play();
+                        }
                     }
                     else
                     {
                         areaMusic.URL = "";
                     }
-                    if (areaMusic.URL != "")
-                    {
-                        areaMusic.controls.stop();
-                        areaMusic.controls.play();
-                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                cc.addLogText("red", "Failed on startMusic(): " + ex.ToString());
+            }        
+        }
+        public void startAmbient()
+        {
+            try
+            {
+                if ((currentAmbientMusic.Equals(mod.currentArea.AreaSounds)) && (areaSounds != null))
+                {
+                    areaSounds.controls.play();
                 }
                 else
                 {
-                    areaMusic.URL = "";
-                }
-                if (mod.currentArea.AreaSounds != "none")
-                {
-                    if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds))
+                    areaSounds.controls.stop();
+
+                    if (mod.currentArea.AreaSounds != "none")
                     {
-                        areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds;
-                    }
-                    else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds))
-                    {
-                        areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds;
+                        if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds))
+                        {
+                            areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds;
+                        }
+                        else if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds + ".mp3"))
+                        {
+                            areaSounds.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentArea.AreaSounds + ".mp3";
+                        }
+                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds))
+                        {
+                            areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds;
+                        }
+                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds + ".mp3"))
+                        {
+                            areaSounds.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentArea.AreaSounds + ".mp3";
+                        }
+                        else
+                        {
+                            areaSounds.URL = "";
+                        }
+                        if (areaSounds.URL != "")
+                        {
+                            areaSounds.controls.stop();
+                            areaSounds.controls.play();
+                        }
                     }
                     else
                     {
                         areaSounds.URL = "";
                     }
-                    if (areaSounds.URL != "")
-                    {
-                        areaSounds.controls.stop();
-                        areaSounds.controls.play();
-                    }
-                }
-                else
-                {
-                    areaSounds.URL = "";
                 }
             }
             catch (Exception ex)
             {
-                cc.addLogText("red","Failed on playAreaMusicSounds()" + ex.ToString());
+                cc.addLogText("red", "Failed on startAmbient(): " + ex.ToString());
             }
         }
-        public void playCombatAreaMusicSounds()
+        public void startCombatMusic()
         {
             try
             {
-                areaMusic.controls.stop();
-                areaSounds.controls.stop();
-
-                if (mod.currentEncounter.AreaMusic != "none")
+                if ((currentCombatMusic.Equals(mod.currentEncounter.AreaMusic)) && (areaMusic != null))
                 {
-                    if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic))
+                    areaMusic.controls.play();
+                }
+                else
+                {
+                    areaMusic.controls.stop();
+                    
+                    if (mod.currentEncounter.AreaMusic != "none")
                     {
-                        areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic;
-                    }
-                    else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic))
-                    {
-                        areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic;
+                        if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic + ".mp3"))
+                        {
+                            areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic + ".mp3";
+                        }
+                        else if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic))
+                        {
+                            areaMusic.URL = mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + mod.currentEncounter.AreaMusic;
+                        }
+                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic + ".mp3"))
+                        {
+                            areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic + ".mp3";
+                        }
+                        else if (File.Exists(mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic))
+                        {
+                            areaMusic.URL = mainDirectory + "\\default\\NewModule\\music\\" + mod.currentEncounter.AreaMusic;
+                        }
+                        else
+                        {
+                            areaMusic.URL = "";
+                        }
+                        if (areaMusic.URL != "")
+                        {
+                            areaMusic.controls.stop();
+                            areaMusic.controls.play();
+                        }
                     }
                     else
                     {
                         areaMusic.URL = "";
                     }
-                    if (areaMusic.URL != "")
-                    {
-                        areaMusic.controls.stop();
-                        areaMusic.controls.play();
-                    }
                 }
-                else
-                {
-                    areaMusic.URL = "";
-                }                
             }
             catch (Exception ex)
             {
@@ -559,7 +615,7 @@ namespace IceBlink2
         }
         #endregion
 
-	    public void startMusic()
+	    public void startMusicOld()
 	    {            
 		    /*if ((currentMainMusic.equals(mod.currentArea.AreaMusic)) && (playerMain != null))
 		    {
@@ -638,7 +694,7 @@ namespace IceBlink2
 			    }
 		    }*/
 	    }		
-	    public void startAmbient()
+	    public void startAmbientOld()
 	    {
 		    /*if ((currentAmbientMusic.equals(mod.currentArea.AreaSounds)) && (playerAmbient != null))
 		    {
@@ -717,7 +773,7 @@ namespace IceBlink2
 			    }
 		    }*/
 	    }
-	    public void startCombatMusic()
+	    public void startCombatMusicOld()
 	    {
 		    /*if ((currentCombatMusic.equals(mod.currentEncounter.AreaMusic)) && (playerCombat != null))
 		    {
@@ -798,15 +854,15 @@ namespace IceBlink2
 	    }
 	    public void stopMusic()
 	    {
-		    //playerMain.pause();
+            areaMusic.controls.pause();
 	    }
 	    public void stopAmbient()
 	    {
-		    //playerAmbient.pause();
+            areaSounds.controls.pause();
 	    }
 	    public void stopCombatMusic()
 	    {
-		    //playerCombat.pause();
+            areaMusic.controls.pause();
 	    }
 	    public void initializeSounds()
 	    {
