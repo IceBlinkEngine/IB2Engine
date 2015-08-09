@@ -1499,6 +1499,7 @@ namespace IceBlink2
             if (btnInventory == null)
             {
                 btnInventory = new IbbButton(gv, 1.0f);
+                btnInventory.HotKey = "I";
                 btnInventory.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnInventory.Img2 = this.LoadBitmap("btninventory"); // BitmapFactory.decodeResource(getResources(), R.drawable.btninventory);
                 btnInventory.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
