@@ -809,7 +809,7 @@ namespace IceBlink2
             //determine initiative
             calcualteMoveOrder();
             //do turn controller
-            turnContoller();
+            turnController();
             //startPcTurn();
         }
         public void calcualteMoveOrder()
@@ -853,7 +853,7 @@ namespace IceBlink2
                 cnt++;
             }
         }
-        public void turnContoller()
+        public void turnController()
         {
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
             {
@@ -875,7 +875,14 @@ namespace IceBlink2
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
                     //go to start PlayerTurn or start CreatureTurn
-                    startPcTurn();
+                    if ((pc.charStatus.Equals("Held")) || (pc.charStatus.Equals("Dead")))
+                    {
+                        endPcTurn(false);
+                    }
+                    else
+                    {
+                        startPcTurn();
+                    }
                     return;
                 }
                 idx++;
@@ -894,13 +901,21 @@ namespace IceBlink2
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
                     //go to start PlayerTurn or start CreatureTurn
-                    doCreatureTurn();
+                    if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+                    {
+                        doCreatureTurn();
+                    }
+                    else
+                    {
+                        endCreatureTurn();
+                    }                    
                     return;
                 }
                 idx++;
             }            
             //didn't find one so increment moveOrderIndex and try again
             currentMoveOrderIndex++;
+            turnController();
         }        
         public void startNextRoundStuff()
         {
@@ -917,7 +932,7 @@ namespace IceBlink2
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             //startPcTurn();
-            turnContoller();
+            turnController();
         }
         public void doBattleRegenTrait()
         {
@@ -1401,7 +1416,7 @@ namespace IceBlink2
                 doStealthModeCheck(pc);
             }
             canMove = true;
-            turnContoller();
+            turnController();
             /*currentPlayerIndex++;
             if (currentPlayerIndex >= mod.playerList.Count)
             {
@@ -1908,7 +1923,7 @@ namespace IceBlink2
             {
                 return;
             }
-            turnContoller();
+            turnController();
             /*creatureIndex++;
             if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
             {
@@ -2703,12 +2718,17 @@ namespace IceBlink2
 		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
 		    {
 			    int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
-			    int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2) + gv.oYshift;
+			    int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2) + gv.oYshift;                
 			    int startX = getPixelLocX(p.combatLocX) + (gv.squareSize / 2);
 			    int startY = getPixelLocY(p.combatLocY) + (gv.squareSize / 2) + gv.oYshift;
+
+                int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                int startX2 = p.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int startY2 = p.combatLocY * gv.squareSize + (gv.squareSize / 2);
 			    
                 //check if target is within attack distance, use green if true, red if false
-			    if (isVisibleLineOfSight(new Coordinate(endX,endY), new Coordinate(startX,startY))) 
+			    if (isVisibleLineOfSight(new Coordinate(endX2,endY2), new Coordinate(startX2,startY2))) 
                 {
                     drawVisibleLineOfSightTrail(new Coordinate(endX,endY), new Coordinate(startX,startY), Color.Lime, 2);                    
                 }
