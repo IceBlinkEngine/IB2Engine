@@ -27,7 +27,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -57,7 +61,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -87,7 +95,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -117,7 +129,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -147,7 +163,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -177,7 +197,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -207,7 +231,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -237,7 +265,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -267,7 +299,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -297,7 +333,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -327,7 +367,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -357,7 +401,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -387,7 +435,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -417,7 +469,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -447,7 +503,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -477,7 +537,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -507,7 +571,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -537,7 +605,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -567,7 +639,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -597,7 +673,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -627,7 +707,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -657,7 +741,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -687,7 +775,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -717,7 +809,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -747,7 +843,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -777,7 +877,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -807,7 +911,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -837,7 +945,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -867,7 +979,11 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   },
   {
     "LocationX": 0,
@@ -897,6 +1013,10 @@
     "ChaserDetectRangeRadius": 2,
     "ChaserGiveUpChasingRangeRadius": 3,
     "ChaserChaseDuration": 24,
-    "RandomMoverRadius": 5
+    "RandomMoverRadius": 5,
+    "OnHeartBeatLogicTree": "none",
+    "OnHeartBeatParms": "",
+    "OnHeartBeatIBScript": "none",
+    "OnHeartBeatIBScriptParms": ""
   }
 ]

@@ -406,7 +406,8 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gaGetPlayerIndexThatIsUsingItem.cs"))
                     {
-                        String val = gv.cc.currentPlayerIndexUsingItem + "";
+                        //String val = gv.cc.currentPlayerIndexUsingItem + "";
+                        string val = gv.mod.indexOfPCtoLastUseItem + "";
                         SetGlobalInt(prm1, val);
                     }
                     else if (filename.Equals("gaWriteTextToLog.cs"))
@@ -710,7 +711,8 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("ogGetCurrentPlayerIndexUsingItem.cs"))
                     {
-                        String val = gv.cc.currentPlayerIndexUsingItem + "";
+                        //String val = gv.cc.currentPlayerIndexUsingItem + "";
+                        string val = gv.mod.indexOfPCtoLastUseItem + "";
                         SetGlobalInt(prm1, val);
                     }
                     else if (filename.Equals("ogGetCreatureCombatLocation.cs"))
