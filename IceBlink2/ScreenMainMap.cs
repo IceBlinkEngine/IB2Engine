@@ -61,6 +61,7 @@ namespace IceBlink2
 		    if (btnParty == null)
 		    {
 			    btnParty = new IbbButton(gv, 1.0f);
+                btnParty.HotKey = "P";
 			    btnParty.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnParty.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
 			    btnParty.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
@@ -72,6 +73,7 @@ namespace IceBlink2
 		    if (btnJournal == null)
 		    {
 			    btnJournal = new IbbButton(gv, 1.0f);
+                btnJournal.HotKey = "J";
 			    btnJournal.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnJournal.Img2 = gv.cc.LoadBitmap("btnjournal"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnjournal);
 			    btnJournal.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
@@ -94,6 +96,7 @@ namespace IceBlink2
 		    if (btnCastOnMainMap == null)
 		    {
 			    btnCastOnMainMap = new IbbButton(gv, 0.8f);
+                btnCastOnMainMap.HotKey = "C";
 			    btnCastOnMainMap.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnCastOnMainMap.Img2 = gv.cc.LoadBitmap("btnspell"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnspell);
 			    btnCastOnMainMap.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);

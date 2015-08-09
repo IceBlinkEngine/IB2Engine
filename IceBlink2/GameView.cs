@@ -31,6 +31,7 @@ namespace IceBlink2
         public int oXshift = 0;
         public int oYshift = 30;
         public string mainDirectory;
+        public bool showHotKeys = false;
 
         public Graphics gCanvas;
 
@@ -1027,21 +1028,6 @@ namespace IceBlink2
         }
         public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor)
         {
-            //ANDROID
-            //canvas.drawText(text, xLoc + gv.oXshift, yLoc + txtH, gv.floatyTextPaint);
-                //floatyTextPaint = new Paint();
-		        //floatyTextPaint.setStyle(Paint.Style.FILL);
-		        //floatyTextPaint.setColor(Color.YELLOW);
-		        //floatyTextPaint.setAntiAlias(true);
-                //Typeface uiTypeface = Typeface.createFromAsset(gameContext.getAssets(), "fonts/Metamorphous-Regular.ttf");
-		        //floatyTextPaint.setTypeface(uiTypeface);
-                //floatyTextPaint.setTextSize(squareSize/4);
-
-            //PC
-            //device.DrawString(crtRef.creatureTag, drawFont, drawBrush, new Point(cspx, cspy+25));
-                //Font drawFont = new Font("Arial", 6);
-                //SolidBrush drawBrush = new SolidBrush(Color.Yellow);
-
             Font thisFont = drawFontReg;
             if (scaler > 1.05f)
             {
@@ -1053,6 +1039,26 @@ namespace IceBlink2
             }
             drawBrush.Color = fontColor;
             gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift));
+        }
+        public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor, bool showHotkey)
+        {
+            // Declare a new StringFormat.
+            StringFormat format = new StringFormat();
+
+            // Set the HotkeyPrefix property.
+            format.HotkeyPrefix = System.Drawing.Text.HotkeyPrefix.Show;
+
+            Font thisFont = drawFontReg;
+            if (scaler > 1.05f)
+            {
+                thisFont = drawFontLarge;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFont = drawFontSmall;
+            }
+            drawBrush.Color = fontColor;
+            gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift), format);
         }
         public void DrawText(string text, IbRect rect, float scaler, Color fontColor)
         {
@@ -1067,10 +1073,6 @@ namespace IceBlink2
             //floatyTextPaint.setTextSize(squareSize/4);
 
             //PC
-            //device.DrawString(crtRef.creatureTag, drawFont, drawBrush, new Point(cspx, cspy+25));
-            //Font drawFont = new Font("Arial", 6);
-            //SolidBrush drawBrush = new SolidBrush(Color.Yellow);
-
             Font thisFont = drawFontReg;
             if (scaler > 1.05f)
             {
@@ -1380,6 +1382,11 @@ namespace IceBlink2
             {
                 if (touchEnabled)
                 {
+                    if (keyData == Keys.Alt | keyData == Keys.ControlKey | keyData == Keys.Control | keyData == Keys.Space)
+                    {
+                        if (showHotKeys) { showHotKeys = false; }
+                        else { showHotKeys = true; }
+                    }
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
