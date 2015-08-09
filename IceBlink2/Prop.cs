@@ -58,6 +58,7 @@ namespace IceBlink2
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
         public bool passOneMove = false;
+        public int randomMoverTimerForNextTarget = 0;
     
         public Prop()
         {
@@ -132,6 +133,7 @@ namespace IceBlink2
             copy.OnHeartBeatIBScript = this.OnHeartBeatIBScript;
             copy.OnHeartBeatIBScriptParms = this.OnHeartBeatIBScriptParms;
             copy.passOneMove = this.passOneMove;
+            copy.randomMoverTimerForNextTarget = this.randomMoverTimerForNextTarget;
 		    return copy;
         }
     }

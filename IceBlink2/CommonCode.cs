@@ -2010,11 +2010,30 @@ namespace IceBlink2
 
             //code for registering entering a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
             bool doOnEnterAreaUpdate = false;
-            if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
+              
+            //if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
+            //{
+                //gv.sf.SetGlobalString("AreaFromLastTurn", gv.mod.currentArea.Filename);
+                //doOnEnterAreaUpdate = true;
+            //}
+
+            int dist = 0;
+            int deltaX = (int)Math.Abs((gv.mod.PlayerLastLocationX - gv.mod.PlayerLocationX));
+            int deltaY = (int)Math.Abs((gv.mod.PlayerLastLocationY - gv.mod.PlayerLocationY));
+            if (deltaX > deltaY)
             {
-                gv.sf.SetGlobalString("AreaFromLastTurn", gv.mod.currentArea.Filename);
+                dist = deltaX;
+            }
+            else
+            {
+                dist = deltaY;
+            }
+
+            if ((dist != 1) && (dist != 0))
+            {
                 doOnEnterAreaUpdate = true;
             }
+
             #endregion
 
             #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
@@ -2438,9 +2457,11 @@ namespace IceBlink2
                         #region Mover type: random
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("random"))
                         {
+                            gv.mod.currentArea.Props[i].randomMoverTimerForNextTarget += 1;
                             //check to see if at target square already and if so, change target
-                            if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
+                            if (((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y)) || (gv.mod.currentArea.Props[i].randomMoverTimerForNextTarget >= 20))
                             {
+                                gv.mod.currentArea.Props[i].randomMoverTimerForNextTarget = 0;
                                 Coordinate newCoor = this.getNewRandomTarget(gv.mod.currentArea.Props[i]);
                                 //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, "(" + newCoor.X + "," + newCoor.Y + ")", "blue", 4000);
                                 gv.mod.currentArea.Props[i].CurrentMoveToTarget = new Coordinate(newCoor.X, newCoor.Y);
@@ -3045,8 +3066,11 @@ namespace IceBlink2
                         {//4
                             if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
                             {//5
+                                if (otherProp2.PropTag != prp.PropTag)
+                                {
                                 originSquareOccupied = true;
                                 break;
+                                }
                             }//5
                         }//4
 
@@ -3125,13 +3149,13 @@ namespace IceBlink2
                             }//5
 
                             //SECOND PART: find the free tile NEAREST to originally intended summon location
-                            for (int j = 0; j < freeTilesByIndex.Count; j++)
+                            for (int k = 0; k < freeTilesByIndex.Count; k++)
                             {//5
                                 dist = 0;
 
                                 //get location x and y of the tile stored at the index number j, i.e. get the value of elment indexed with i and transform to x and y location
-                                tileLocX = freeTilesByIndex[j] % gv.mod.currentArea.MapSizeY;
-                                floatTileLocY = freeTilesByIndex[j] / gv.mod.currentArea.MapSizeX;
+                                tileLocX = freeTilesByIndex[k] % gv.mod.currentArea.MapSizeY;
+                                floatTileLocY = freeTilesByIndex[k] / gv.mod.currentArea.MapSizeX;
                                 tileLocY = (int)Math.Floor(floatTileLocY);
 
                                 //get distance between the current free tile and the originally intended target location (i.e. teh deistination square in this case, aka path end)
@@ -3150,7 +3174,7 @@ namespace IceBlink2
                                 if (dist < lowestDist)
                                 {//6
                                     lowestDist = dist;
-                                    nearestTileByIndex = freeTilesByIndex[j];
+                                    nearestTileByIndex = freeTilesByIndex[k];
                                 }//6
                             }//5
 
@@ -3161,20 +3185,11 @@ namespace IceBlink2
                                 floatTileLocY = nearestTileByIndex / gv.mod.currentArea.MapSizeX;
                                 tileLocY = (int)Math.Floor(floatTileLocY);
 
-                                newCoor.X = tileLocX;
-                                newCoor.Y = tileLocY;
-                            }//5
-
-                            //just check whether a free square does exist at all; if not, do not complete the whole move;
-                            //better two props on one square/move delay in an ultra rare case than a crash
-                            if (nearestTileByIndex != -1)
-                            {//5
-                                //memo to self: check what invalidate does                                         
-                                gv.Invalidate();
-                                return;
+                                prp.LocationX = tileLocX;
+                                prp.LocationY = tileLocY;
                             }//5
                         }//4
-                    }//3
+                    }//3 
 
                     //the (occupied) target square is not the destination, i.e. path end, square
                     else
