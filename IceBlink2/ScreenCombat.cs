@@ -99,7 +99,7 @@ namespace IceBlink2
 			    btnMove = new IbbButton(gv, 0.8f);
 			    btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnMove.Text = "MOVE";
+			    btnMove.Text = "&MOVE";
 			    btnMove.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnMove.Y = 9 * gv.squareSize + pH;
                 btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -121,7 +121,7 @@ namespace IceBlink2
 			    btnAttack = new IbbButton(gv, 0.8f);
 			    btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnAttack.Text = "ATTACK";
+			    btnAttack.Text = "&ATTACK";
 			    btnAttack.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnAttack.Y = 9 * gv.squareSize + pH;
                 btnAttack.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -132,7 +132,7 @@ namespace IceBlink2
 			    btnCast = new IbbButton(gv, 0.8f);
 			    btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnCast.Text = "CAST";
+			    btnCast.Text = "&CAST";
 			    btnCast.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnCast.Y = 9 * gv.squareSize + pH;
                 btnCast.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -143,7 +143,7 @@ namespace IceBlink2
 			    btnSkipTurn = new IbbButton(gv, 0.8f);
 			    btnSkipTurn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnSkipTurn.Text = "SKIP";
+			    btnSkipTurn.Text = "&SKIP";
 			    btnSkipTurn.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnSkipTurn.Y = 9 * gv.squareSize + pH;
                 btnSkipTurn.Height = (int)(gv.ibbheight * gv.screenDensity);

@@ -19,6 +19,7 @@ namespace IceBlink2
         public bool glowOn = false;
         public string Text = "";
         public string Quantity = "";
+        public string HotKey = "";
         public int X = 0;
         public int Y = 0;
         public int Width = 0;
@@ -114,7 +115,7 @@ namespace IceBlink2
                 thisFont = gv.drawFontSmall;
             }
             
-            // Measure string.
+            // DRAW TEXT
             SizeF stringSize = gv.cc.MeasureString(Text, thisFont, this.Width);
 
             int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
@@ -124,12 +125,12 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
+                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black, true);
                 }
             }
-            gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White);
+            gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White, true);
             
-            // Measure string.
+            // DRAW QUANTITY
             stringSize = gv.cc.MeasureString(Quantity, thisFont, this.Width);
 
             ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
@@ -143,6 +144,24 @@ namespace IceBlink2
                 }
             }
             gv.DrawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.White);
+
+            // DRAW HOTKEY
+            if (gv.showHotKeys)
+            {
+                stringSize = gv.cc.MeasureString(HotKey, thisFont, this.Width);
+
+                ulX = ((int)(this.Width * gv.screenDensity / 2));
+                ulY = ((int)(this.Height * gv.screenDensity / 2));
+
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawText(HotKey, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
+                    }
+                }
+                gv.DrawText(HotKey, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Red);
+            }
         }
     }
 }
