@@ -1382,7 +1382,7 @@ namespace IceBlink2
             {
                 if (touchEnabled)
                 {
-                    if (keyData == Keys.Alt | keyData == Keys.ControlKey | keyData == Keys.Control | keyData == Keys.Space)
+                    if (keyData == Keys.H)
                     {
                         if (showHotKeys) { showHotKeys = false; }
                         else { showHotKeys = true; }

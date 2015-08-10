@@ -707,7 +707,8 @@ namespace IceBlink2
 		    {
     		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
     		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-    		    gv.cc.currentPlayerIndexUsingItem = pcIndex;
+    		    //gv.cc.currentPlayerIndexUsingItem = pcIndex;
+                gv.mod.indexOfPCtoLastUseItem = pcIndex;
                 //REMOVEgv.cc.doLogicTreeBasedOnTag(it.onUseItemLogicTree, it.onUseItemLogicTreeParms);
                 //do IBScript
                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);

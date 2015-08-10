@@ -1,0 +1,6 @@
+//test script for floaty text
+~gaShowFloatyTextOnMainMap(parm(0),parm(1),rand(5-9),rand(5-9))
+msg("each player losses 1 hp")
+for (@i = 0; @i < #numPlayers; @i ++)
+   %Player[@i].hp -= 1   
+next
