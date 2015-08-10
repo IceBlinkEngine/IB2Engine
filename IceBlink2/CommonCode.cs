@@ -95,6 +95,8 @@ namespace IceBlink2
         public string stringMessageParty = "";
         public string stringMessageMainMap = "";
 
+        public bool doOnEnterAreaUpdate = false;
+
         public CommonCode(GameView g)
         {
             gv = g;
@@ -2009,7 +2011,7 @@ namespace IceBlink2
             #region register the party switching the area (belongs to time driven movement)
 
             //code for registering entering a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
-            bool doOnEnterAreaUpdate = false;
+            //doOnEnterAreaUpdate = false;
               
             //if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
             //{
@@ -2017,7 +2019,7 @@ namespace IceBlink2
                 //doOnEnterAreaUpdate = true;
             //}
 
-            int dist = 0;
+            /*int dist = 0;
             int deltaX = (int)Math.Abs((gv.mod.PlayerLastLocationX - gv.mod.PlayerLocationX));
             int deltaY = (int)Math.Abs((gv.mod.PlayerLastLocationY - gv.mod.PlayerLocationY));
             if (deltaX > deltaY)
@@ -2032,7 +2034,7 @@ namespace IceBlink2
             if ((dist != 1) && (dist != 0))
             {
                 doOnEnterAreaUpdate = true;
-            }
+            }*/
 
             #endregion
 
@@ -2045,6 +2047,11 @@ namespace IceBlink2
                 //the check for the two conditions itself; donOnEnterAreaUpdate is set in the region above 
                 if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
                 {
+                    //if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.Filename)
+                    //{
+                        //doOnEnterAreaUpdate = false;
+                    //}
+                    
                     for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
                     {
                         int relevantAreaIndex = 0;
@@ -2702,6 +2709,7 @@ namespace IceBlink2
             }
 
             #endregion
+            doOnEnterAreaUpdate = false;
         }
         #endregion
 
@@ -3950,6 +3958,8 @@ namespace IceBlink2
                     gv.stopMusic();
                     gv.stopAmbient();
                 }
+                doOnEnterAreaUpdate = true;
+                doPropMoves();
                 gv.mod.setCurrentArea(areaFilename, gv);
                 if (gv.mod.playMusic)
                 {
