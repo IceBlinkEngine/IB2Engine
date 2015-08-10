@@ -2008,35 +2008,6 @@ namespace IceBlink2
         #region doPropMoves
         public void doPropMoves()
         {
-            #region register the party switching the area (belongs to time driven movement)
-
-            //code for registering entering a new area and setting the update prop positions switch (doOnEnterAreaUpdate)
-            //doOnEnterAreaUpdate = false;
-              
-            //if (gv.mod.currentArea.Filename != gv.sf.GetGlobalString("AreaFromLastTurn"))
-            //{
-                //gv.sf.SetGlobalString("AreaFromLastTurn", gv.mod.currentArea.Filename);
-                //doOnEnterAreaUpdate = true;
-            //}
-
-            /*int dist = 0;
-            int deltaX = (int)Math.Abs((gv.mod.PlayerLastLocationX - gv.mod.PlayerLocationX));
-            int deltaY = (int)Math.Abs((gv.mod.PlayerLastLocationY - gv.mod.PlayerLocationY));
-            if (deltaX > deltaY)
-            {
-                dist = deltaX;
-            }
-            else
-            {
-                dist = deltaY;
-            }
-
-            if ((dist != 1) && (dist != 0))
-            {
-                doOnEnterAreaUpdate = true;
-            }*/
-
-            #endregion
 
             #region Synchronization: update the position of time driven movers (either when the party switches area or when a time driven mover enters the current area)
 
@@ -2047,11 +2018,6 @@ namespace IceBlink2
                 //the check for the two conditions itself; donOnEnterAreaUpdate is set in the region above 
                 if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
                 {
-                    //if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.Filename)
-                    //{
-                        //doOnEnterAreaUpdate = false;
-                    //}
-                    
                     for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
                     {
                         int relevantAreaIndex = 0;
@@ -2709,7 +2675,7 @@ namespace IceBlink2
             }
 
             #endregion
-            doOnEnterAreaUpdate = false;
+            //doOnEnterAreaUpdate = false;
         }
         #endregion
 
@@ -3958,9 +3924,10 @@ namespace IceBlink2
                     gv.stopMusic();
                     gv.stopAmbient();
                 }
+                gv.mod.setCurrentArea(areaFilename, gv);
                 doOnEnterAreaUpdate = true;
                 doPropMoves();
-                gv.mod.setCurrentArea(areaFilename, gv);
+                doOnEnterAreaUpdate = false;
                 if (gv.mod.playMusic)
                 {
                     gv.startMusic();
