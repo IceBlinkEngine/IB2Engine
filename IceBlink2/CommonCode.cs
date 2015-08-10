@@ -2618,7 +2618,16 @@ namespace IceBlink2
                                             gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
                                             gv.mod.currentArea.Props[i].ReturningToPost = false;
                                             //added floaty text that announces the area transfer
-                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, "white", 4000);
+                                            string shownAreaName = ""; 
+                                            for (int a = gv.mod.moduleAreasObjects.Count - 1; a >= 0; a--)
+                                             {
+                                                  if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
+                                                  {
+                                                      shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
+                                                  }
+                                             }
+
+                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
                                             gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
                                             registerRemoval = true;
                                         }
@@ -2632,7 +2641,16 @@ namespace IceBlink2
                                             gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
                                             gv.mod.currentArea.Props[i].ReturningToPost = false;
                                             //added floaty text that announces the area transfer
-                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, "white", 4000);
+                                            string shownAreaName = "";
+                                            for (int a = gv.mod.moduleAreasObjects.Count - 1; a >= 0; a--)
+                                            {
+                                                if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
+                                                {
+                                                    shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
+                                                }
+                                            }
+
+                                            gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
                                             gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
                                             registerRemoval = true;
                                         }
@@ -3175,8 +3193,11 @@ namespace IceBlink2
                         {//4
                             if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
                             {//5
-                                originSquareOccupied = true;
-                                break;
+                                if (otherProp2.PropTag != prp.PropTag)
+                                {
+                                    originSquareOccupied = true;
+                                    break;
+                                }
                             }//5
                         }//4
                         //origin square is occupied, waiting is no option therefore, so we must do (at least) double move forward (target square is occupied, too)
@@ -3200,6 +3221,7 @@ namespace IceBlink2
                             //another step forward, ie (at least) 2 steps on path
                             if (decider == 0)
                             {//5
+                                //IBMessageBox.Show(gv, "double move, decider was: " + decider.ToString());
                                 prp.LocationX = newCoor.X;
                                 prp.LocationY = newCoor.Y;
                                 //recursive call, careful
@@ -3210,7 +3232,8 @@ namespace IceBlink2
                             //Skip whole move, ie 0 steps on path (rolled a 1 as random roll)
                             else
                             {//5
-                                //memo to self: check what invalidate does                                         
+                                //memo to self: check what invalidate does
+                                //IBMessageBox.Show(gv, "Skipping");
                                 gv.Invalidate();
                                 return;
                             }//5

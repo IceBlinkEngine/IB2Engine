@@ -1205,6 +1205,8 @@ namespace IceBlink2
             CalculateUpperLeft();
             isPlayerTurn = true;
             gv.touchEnabled = true;
+            currentCombatMode = "move";
+            //gv.screenType = "combat";
             //gv.cc.logScrollOffset = 0;
             Player pc = mod.playerList[currentPlayerIndex];
             gv.sf.UpdateStats(pc);
