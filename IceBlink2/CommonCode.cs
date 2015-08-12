@@ -3163,11 +3163,23 @@ namespace IceBlink2
                                     dist = deltaY;
                                 }//6
 
+                               
                                 //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles
-                                if (dist < lowestDist)
+                                if ((dist < lowestDist) && (dist < 3))
                                 {//6
-                                    lowestDist = dist;
-                                    nearestTileByIndex = freeTilesByIndex[k];
+
+                                    bool wayIsFree = false;
+                                    Coordinate newCoor2 = gv.pfa.findNewPoint(new Coordinate(tileLocX, tileLocY), new Coordinate(targetX, targetY));
+                                    if ((newCoor2.X != -1) && (newCoor2.Y != -1))
+                                    {
+                                        wayIsFree = true;
+                                    }
+
+                                    if (wayIsFree == true)
+                                    {
+                                        lowestDist = dist;
+                                        nearestTileByIndex = freeTilesByIndex[k];
+                                    }
                                 }//6
                             }//5
 
