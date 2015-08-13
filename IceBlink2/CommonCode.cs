@@ -2456,27 +2456,41 @@ namespace IceBlink2
                         #region Mover type: patrol
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("patrol"))
                         {
+                            bool mustWait = false;
                             //IBMessageBox.Show(gv, "Moving props"); 
                             if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                             {
                                 //move towards next waypoint location if not already there
                                 if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
                                 {
-                                    //already there so set next way point location (revert to index 0 if at last way point)
-                                    if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
+                                    if ((gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].WaitDuration > 0) && (gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].turnsAlreadyWaited <= gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].WaitDuration))
                                     {
-                                        gv.mod.currentArea.Props[i].WayPointListCurrentIndex = 0;
+                                        gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].turnsAlreadyWaited += 1;
+                                        mustWait = true;
                                     }
                                     else
                                     {
-                                        gv.mod.currentArea.Props[i].WayPointListCurrentIndex++;
+                                        gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].turnsAlreadyWaited = 0;
+                                        //already there so set next way point location (revert to index 0 if at last way point)
+                                        if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
+                                        {
+                                            gv.mod.currentArea.Props[i].WayPointListCurrentIndex = 0;
+                                        }
+                                        else
+                                        {
+                                            gv.mod.currentArea.Props[i].WayPointListCurrentIndex++;
+                                        }
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
+                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
+                                        gv.mod.currentArea.Props[i].ReturningToPost = false;
                                     }
-                                    gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
-                                    gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
-                                    gv.mod.currentArea.Props[i].ReturningToPost = false;
+
                                 }
                                 //move to next target
-                                this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                                if (mustWait == false)
+                                {
+                                    this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
+                                }
                                 if (gv.mod.debugMode)
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
@@ -2698,7 +2712,7 @@ namespace IceBlink2
         }
         #endregion
 
-        public void doPropBarkString(Prop prp)
+        /*public void doPropBarkString(Prop prp)
         {
             if (prp.WayPointList.Count > 0)
             {
@@ -2727,7 +2741,77 @@ namespace IceBlink2
                     }
                 }
             }
+        }*/
+
+        public void doPropBarkString(Prop prp)
+        {
+            List<BarkString> chosenBarks = new List<BarkString>();
+            Random rnd3 = new Random();
+            int decider = 0;
+
+            if (prp.WayPointList.Count > 0)
+            {
+                if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
+                {
+                    //do barks for waypoint
+                    //if (prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint.Count > 0)
+                    //{
+                        foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint)
+                        {
+                            if (gv.sf.RandInt(100) < b.ChanceToShow)
+                            {
+                                chosenBarks.Add(b);
+                            }
+                        }
+                        if (chosenBarks.Count > 0)
+                        {
+                            decider = rnd3.Next(0, chosenBarks.Count);
+                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                        }
+                    //}
+                }
+                else
+                {
+                    //do barks for patrol, random, chasing or tiem driven
+                    if (prp.WayPointListCurrentIndex == 0)
+                    {
+                        //if (prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint.Count > 0)
+                        //{
+                            foreach (BarkString b in prp.WayPointList[prp.WayPointList.Count-1].BarkStringsOnTheWayToNextWayPoint)
+                            {
+                                if (gv.sf.RandInt(100) < b.ChanceToShow)
+                                {
+                                    chosenBarks.Add(b);
+                                }
+                            }
+                            if (chosenBarks.Count > 0)
+                            {
+                                decider = rnd3.Next(0, chosenBarks.Count);
+                                gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                            }
+                        //}
+                    }
+                    else
+                    {
+                        foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex - 1].BarkStringsOnTheWayToNextWayPoint)
+                        {
+                            if (gv.sf.RandInt(100) < b.ChanceToShow)
+                            {
+                                chosenBarks.Add(b);
+                                //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, b.FloatyTextOneLiner, b.Color, b.LengthOfTimeToShowInMilliSeconds);
+                                //break;
+                            }
+                        }
+                        if (chosenBarks.Count > 0)
+                        {
+                            decider = rnd3.Next(0, chosenBarks.Count);
+                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                        }
+                    }
+                }
+            }
         }
+
         public int getMoveDistance(Prop prp)
         {
             if (gv.sf.RandInt(100) <= prp.ChanceToMove2Squares)
@@ -3165,7 +3249,7 @@ namespace IceBlink2
 
                                
                                 //filter out the nearest tile by remembering it and its distance for further comparison while the loop runs through all free tiles
-                                if ((dist < lowestDist) && (dist < 3))
+                                if ((dist < lowestDist) && (dist < 4))
                                 {//6
 
                                     bool wayIsFree = false;
@@ -3193,6 +3277,23 @@ namespace IceBlink2
                                 prp.LocationX = tileLocX;
                                 prp.LocationY = tileLocY;
                             }//5
+
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+                            //if (nearestTileByIndex != -1)
+                            //{//5 
+                                //get the nearest tile's x and y location and use it as target square coordinates 
+                                //tileLocX = nearestTileByIndex % gv.mod.currentArea.MapSizeY;
+                                //floatTileLocY = nearestTileByIndex / gv.mod.currentArea.MapSizeX;
+                                //tileLocY = (int)Math.Floor(floatTileLocY);
+                                //gv.pfa.resetGrid();
+                                //moveToTarget(tileLocX, tileLocY, prp, 1);
+                                //return;
+                            //}
+
+                            //XXXXXXXXXXXXXXXXXXXXXXXXXXx
                         }//4
                     }//3 
 
