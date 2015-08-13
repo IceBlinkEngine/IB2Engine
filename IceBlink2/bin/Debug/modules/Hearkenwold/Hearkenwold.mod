@@ -279,7 +279,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "The adventure begins with the party fleeing an attack on a feudal manor, and seeking refuge in Castle Hearkenwold. From there, they can be enlisted into service of the Kingdom, or try to explore on their own. Eventually this will be an open world sandbox style campaign. For now, there are areas partially filled with content that exists around a more structured quest line. This demo can be considered to contain the first two \"chapters\" of the story, although more is being updated and expanded.",
   "moduleCredits": "<big><b>Hearkenwold</b></big><BR>\r\n<BR>\r\n<b>By Dorateen</b>, converted to android by slowdive_fan<br>\r\n<br>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 11134,
+  "nextIdNumber": 11326,
   "WorldTime": 0,
   "startingArea": "introductionarea",
   "startingPlayerPositionX": 6,
