@@ -11,7 +11,8 @@ namespace IceBlink2
     {
 	    public int X = 0;
 	    public int Y = 0;
-	    public int WaitDuration = 6; //in seconds
+	    public int WaitDuration = 6; //in turns
+        public int turnsAlreadyWaited = 0;
         [JsonIgnore]
 	    public int StartWaitDurationTime = 0; //in seconds, this is set to the world time once at waypoint
 	    public List<BarkString> BarkStringsAtWayPoint = new List<BarkString>();
