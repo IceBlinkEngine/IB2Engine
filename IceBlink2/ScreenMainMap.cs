@@ -409,6 +409,30 @@ namespace IceBlink2
 					    IbRect src = new IbRect(0, 0, p.token.Width, p.token.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 			            gv.DrawBitmap(p.token, src, dst);
+
+                        if (p.EncounterWhenOnPartySquare != "none")
+                        {
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("walk_block");
+                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                            continue;
+                        }
+
+                        if (p.unavoidableConversation == true)
+                        {
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("turn_marker");
+                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                            continue;
+                        }
+                        
+                        if (p.ConversationWhenOnPartySquare != "none")
+                        {
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("walk_pass");
+                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            gv.DrawBitmap(interactionStateIndicator, src, dst);
+                            continue;
+                        }
 				    }
 			    }
 		    }

@@ -59,6 +59,8 @@ namespace IceBlink2
         public string OnHeartBeatIBScriptParms = "";
         public bool passOneMove = false;
         public int randomMoverTimerForNextTarget = 0;
+        public int lengthOfLastPath = 0;
+        public bool unavoidableConversation = false;
     
         public Prop()
         {
@@ -134,6 +136,8 @@ namespace IceBlink2
             copy.OnHeartBeatIBScriptParms = this.OnHeartBeatIBScriptParms;
             copy.passOneMove = this.passOneMove;
             copy.randomMoverTimerForNextTarget = this.randomMoverTimerForNextTarget;
+            copy.lengthOfLastPath = this.lengthOfLastPath;
+            copy.unavoidableConversation = this.unavoidableConversation;
 		    return copy;
         }
     }
