@@ -14,17 +14,6 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public GameView gv;
 
-        //public List<string> LogText = new List<string>();
-        //public int logNumberOfLines = 50;
-        //public Coordinate topleftLog = new Coordinate();
-        //public Coordinate bottomrightLog = new Coordinate();
-        //public int logDownY = 0;
-        //public int logUpY = 0;
-        //public int logScrollOffset = 0;
-        //public int touchDownY = 0;
-        //public int logLocYatTouchDownY = 0;
-        //public int logLocY = 0;
-        //public string logTextToSpan = "";
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
@@ -75,7 +64,17 @@ namespace IceBlink2
         public Bitmap tint_sunset;
         public Bitmap tint_dusk;
         public Bitmap tint_night;
+        public Bitmap facing1;
+        public Bitmap facing2;
+        public Bitmap facing3;
+        public Bitmap facing4;
+        public Bitmap facing6;
+        public Bitmap facing7;
+        public Bitmap facing8;
+        public Bitmap facing9;
+        
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
+        public Dictionary<string, Bitmap> uiBitmapList = new Dictionary<string, Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
         public string floatyText = "";
@@ -4119,6 +4118,17 @@ namespace IceBlink2
             else
                 dist = deltaY;
             return dist;
+        }
+        public void LoadBitmapUI(string filename)
+        {
+            //filename should NOT have the extension
+            //if already in list then just return
+            if (uiBitmapList.ContainsKey(filename))
+            {
+                return;
+            }
+            //add to list
+            uiBitmapList.Add(filename, LoadBitmap(filename));
         }
         public Bitmap LoadBitmap(string filename)
         {

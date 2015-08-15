@@ -892,11 +892,11 @@ namespace IceBlink2
 		    btnSettings.Draw();
             if (mod.allowSave)
             {
-                btnSave.buttonOn = true;
+                btnSave.btnState = buttonState.Normal;
             }
             else
             {
-                btnSave.buttonOn = false;
+                btnSave.btnState = buttonState.Off;
             }
             btnSave.Draw();
 		    btnCastOnMainMap.Draw();			

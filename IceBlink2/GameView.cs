@@ -242,6 +242,14 @@ namespace IceBlink2
             cc.tint_sunset = cc.LoadBitmap("tint_sunset");
             cc.tint_dusk = cc.LoadBitmap("tint_dusk");
             cc.tint_night = cc.LoadBitmap("tint_night");
+            cc.facing1 = cc.LoadBitmap("facing1");
+            cc.facing2 = cc.LoadBitmap("facing2");
+            cc.facing3 = cc.LoadBitmap("facing3");
+            cc.facing4 = cc.LoadBitmap("facing4");
+            cc.facing6 = cc.LoadBitmap("facing6");
+            cc.facing7 = cc.LoadBitmap("facing7");
+            cc.facing8 = cc.LoadBitmap("facing8");
+            cc.facing9 = cc.LoadBitmap("facing9");
         }	
 	    public void resetGame()
 	    {

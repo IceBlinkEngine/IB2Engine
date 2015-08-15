@@ -10,12 +10,15 @@ namespace IceBlink2
     public class IbbButton
     {
         //this class is handled differently than Android version
-        public Bitmap Img = null;
-        public Bitmap ImgOff = null;
-        public Bitmap Img2 = null;
-        public Bitmap Img3 = null;
-        public Bitmap Glow = null;
-        public bool buttonOn = true;
+        public Bitmap Img = null;    //this is the normal button and color intensity
+        public Bitmap ImgOff = null; //this is usually a grayed out button
+        public Bitmap ImgOn = null;  //useful for buttons that are toggled on like "Move"
+        public Bitmap Img2 = null;   //usually used for an image on top of default button like arrows or inventory backpack image
+        public Bitmap Img2Off = null;   //usually used for turned off image on top of default button like spell not available
+        public Bitmap Img3 = null;   //typically used for convo plus notification icon
+        public Bitmap Glow = null;   //typically the green border highlight when hoover over or press button
+        public buttonState btnState = buttonState.Normal;
+        public bool btnNotificationOn = true; //used to determine whether Img3 is shown or not
         public bool glowOn = false;
         public string Text = "";
         public string Quantity = "";
@@ -59,14 +62,9 @@ namespace IceBlink2
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
             IbRect src = new IbRect(0, 0, this.Img.Width, this.Img.Height);
-            IbRect srcOff = new IbRect(0, 0, this.Img.Width, this.Img.Height);
             IbRect src2 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
             IbRect src3 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
 
-            if (this.ImgOff != null)
-            {
-                srcOff = new IbRect(0, 0, this.ImgOff.Width, this.ImgOff.Width);
-            }
             if (this.Img2 != null)
             {
                 src2 = new IbRect(0, 0, this.Img2.Width, this.Img2.Width);
@@ -82,25 +80,36 @@ namespace IceBlink2
                                         this.Y - (int)(7 * gv.screenDensity), 
                                         (int)((float)this.Width * gv.screenDensity) + (int)(15 * gv.screenDensity), 
                                         (int)((float)this.Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
-            
+
+            //draw glow first if on
             if ((this.glowOn) && (this.Glow != null))
             {
                 gv.DrawBitmap(this.Glow, srcGlow, dstGlow);
             }
-            //draw button as OFF if set to off
-            if ((!this.buttonOn) && (this.ImgOff != null))
+            //draw the proper button State
+            if ((this.btnState == buttonState.On) && (this.ImgOn != null))
             {
-                gv.DrawBitmap(this.ImgOff, srcOff, dst);
+                gv.DrawBitmap(this.ImgOn, src, dst);
             }
-            else //draw button as ON (normal)
+            else if ((this.btnState == buttonState.Off) && (this.ImgOff != null))
+            {
+                gv.DrawBitmap(this.ImgOff, src, dst);
+            }
+            else
             {
                 gv.DrawBitmap(this.Img, src, dst);
             }
-            if (this.Img2 != null)
+            //draw the standard overlay image if has one
+            if ((this.btnState == buttonState.Off) && (this.Img2Off != null))
+            {
+                gv.DrawBitmap(this.Img2Off, src2, dst);
+            }
+            else if (this.Img2 != null)
             {
                 gv.DrawBitmap(this.Img2, src2, dst);
             }
-            if (this.Img3 != null)
+            //draw the notification image if turned on (like a level up or additional convo nodes image)
+            if ((this.btnNotificationOn) && (this.Img3 != null))
             {
                 gv.DrawBitmap(this.Img3, src3, dst);
             }
@@ -163,5 +172,12 @@ namespace IceBlink2
                 gv.DrawText(HotKey, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Red);
             }
         }
+    }
+
+    public enum buttonState
+    {
+        Normal,
+        On,
+        Off        
     }
 }

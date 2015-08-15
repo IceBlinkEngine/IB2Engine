@@ -21,6 +21,7 @@ namespace IceBlink2
 	    private IbbButton btnExit = null;
 	    private string stringMessageCastSelector = "";
         private IbbHtmlTextBox description;
+        public bool isInCombat = false;
 	
 	    public ScreenCastSelector(Module m, GameView g) 
 	    {
@@ -75,7 +76,8 @@ namespace IceBlink2
 		    {
 			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
 			    btnNew.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnNew.ImgOff = gv.cc.LoadBitmap("btn_small_off");
+                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    int x = y % 5;
 			    int yy = y / 5;
@@ -86,13 +88,67 @@ namespace IceBlink2
                 btnNew.Width = (int)(gv.ibbwidthR * gv.screenDensity);	
 			
 			    btnSpellSlots.Add(btnNew);
-		    }			
+		    }
+			//DRAW ALL SPELL SLOTS		
+		    int cntSlot = 0;
+		    foreach (IbbButton btn in btnSpellSlots)
+		    {			
+			    Player pc = getCastingPlayer();						
+			
+			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
+			    else {btn.glowOn = false;}
+			
+			    //show only spells for the PC class
+                if (cntSlot < pc.playerClass.spellsAllowed.Count)
+                {
+                    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
+                    Spell sp = mod.getSpellByTag(sa.tag);
+
+                    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                    btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+
+                    if (pc.knownSpellsTags.Contains(sp.tag))
+                    {
+                        if (isInCombat) //all spells can be used in combat
+                        {
+                            //btn.Img = gv.cc.LoadBitmap("btn_small");
+                            btn.btnState = buttonState.Normal;
+                        }
+                        //not in combat so check if spell can be used on adventure maps
+                        else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
+                        {
+                            //btn.Img = gv.cc.LoadBitmap("btn_small");
+                            btn.btnState = buttonState.Normal;
+                            //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        }
+                        else //can't be used on adventure map
+                        {
+                            btn.btnState = buttonState.Off;
+                            //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            //btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
+                    }
+                    else //spell not known
+                    {
+                        btn.btnState = buttonState.Off;
+                        //btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                        //btn.Img2Off = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                    }
+                }
+                else //slot is not in spells allowed index range
+                {
+                    btn.btnState = buttonState.Off;
+                    btn.Img2 = null;
+                    btn.Img2Off = null;
+                }
+			    cntSlot++;
+		    }
 	    }
 	
 	    //CAST SELECTOR SCREEN (COMBAT and MAIN)
         public void redrawCastSelector(bool inCombat)
         {
-            
+            isInCombat = inCombat;
     	    //IF CONTROLS ARE NULL, CREATE THEM
     	    if (btnSelect == null)
     	    {
@@ -175,12 +231,12 @@ namespace IceBlink2
 		    int cntSlot = 0;
 		    foreach (IbbButton btn in btnSpellSlots)
 		    {			
-			    Player pc = getCastingPlayer();						
+			    //Player pc = getCastingPlayer();						
 			
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
 			
-			    //show only spells for the PC class
+			    /*//show only spells for the PC class
 			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
 			    {
 				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
@@ -192,7 +248,7 @@ namespace IceBlink2
 					    if (inCombat) //all spells can be used in combat
 					    {
 						    btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);                            
 					    }
 					    //not in combat so check if spell can be used on adventure maps
 					    else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
@@ -216,7 +272,7 @@ namespace IceBlink2
 			    {
 				    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 				    btn.Img2 = null;
-			    }			
+			    }*/			
 			    btn.Draw();
 			    cntSlot++;
 		    }

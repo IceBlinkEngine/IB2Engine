@@ -97,8 +97,10 @@ namespace IceBlink2
 		    if (btnMove == null)
 		    {
 			    btnMove = new IbbButton(gv, 0.8f);
-			    btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+			    btnMove.Img = gv.cc.LoadBitmap("btn_small");
+                btnMove.ImgOn = gv.cc.LoadBitmap("btn_small_on");
+                btnMove.ImgOff = gv.cc.LoadBitmap("btn_small_off");
+			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow");
 			    btnMove.Text = "&MOVE";
                 btnMove.HotKey = "M";
 			    btnMove.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
@@ -120,7 +122,9 @@ namespace IceBlink2
 		    if (btnAttack == null)
 		    {
 			    btnAttack = new IbbButton(gv, 0.8f);
-			    btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnAttack.Img = gv.cc.LoadBitmap("btn_small");
+                btnAttack.ImgOn = gv.cc.LoadBitmap("btn_small_on");
+                btnAttack.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnAttack.Text = "&ATTACK";
                 btnAttack.HotKey = "A";
@@ -132,7 +136,9 @@ namespace IceBlink2
 		    if (btnCast == null)
 		    {
 			    btnCast = new IbbButton(gv, 0.8f);
-			    btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+			    btnCast.Img = gv.cc.LoadBitmap("btn_small");
+                btnCast.ImgOn = gv.cc.LoadBitmap("btn_small_on");
+                btnCast.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnCast.Text = "&CAST";
                 btnCast.HotKey = "C";
@@ -2404,35 +2410,42 @@ namespace IceBlink2
 		    {
 			    if (currentCombatMode.Equals("move"))
 			    {
-				    btnMove.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+                    btnMove.btnState = buttonState.On;
+				    //btnMove.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 			    }
 			    else
 			    {
-				    btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                    btnMove.btnState = buttonState.Normal;
+				    //btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    }
 		    }
 		    else
 		    {
-			    btnMove.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_off);
+                btnMove.btnState = buttonState.Off;
+			    //btnMove.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_off);
 		    }
 		    btnMove.Draw();
 		    gv.cc.btnInventory.Draw();
 		    if (currentCombatMode.Equals("attack"))
 		    {
-			    btnAttack.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+                btnAttack.btnState = buttonState.On;
+			    //btnAttack.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 		    }
 		    else
 		    {
-			    btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                btnAttack.btnState = buttonState.Normal;
+			    //btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 		    }
 		    btnAttack.Draw();
 		    if (currentCombatMode.Equals("cast"))
 		    {
-			    btnCast.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
+                btnCast.btnState = buttonState.On;
+			    //btnCast.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 		    }
 		    else
 		    {
-			    btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                btnCast.btnState = buttonState.Normal;
+			    //btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 		    }
 		    btnCast.Draw();
 		    btnSkipTurn.Draw();
@@ -2660,7 +2673,7 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
                     }
                     //PLAYER FACING
-                    Bitmap fac = gv.cc.LoadBitmap("facing4");
+                    /*Bitmap fac = gv.cc.LoadBitmap("facing4");
                     if (pc.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
                     else if (pc.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
                     else if (pc.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
@@ -2672,6 +2685,19 @@ namespace IceBlink2
                     else { } //didn't find one
                     src = new IbRect(0, 0, fac.Width, fac.Height);
                     gv.DrawBitmap(fac, src, dst);
+                    */
+                    src = new IbRect(0, 0, gv.cc.facing1.Width, gv.cc.facing1.Height);
+                    if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                    else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                    else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                    else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                    else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                    else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                    else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                    else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                    else { } //didn't find one
+
+
                     if (tglMoveOrder.toggleOn)
                     {
                         int mo = pc.moveOrder + 1;
@@ -2794,7 +2820,7 @@ namespace IceBlink2
 				    gv.DrawBitmap(fx, src, dst);
 			    }
                 //CREATURE FACING
-                Bitmap fac = gv.cc.LoadBitmap("facing4");
+                /*Bitmap fac = gv.cc.LoadBitmap("facing4");
                 if (crt.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
                 else if (crt.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
                 else if (crt.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
@@ -2806,6 +2832,18 @@ namespace IceBlink2
                 else { } //didn't find one
                 src = new IbRect(0, 0, fac.Width, fac.Height);
                 gv.DrawBitmap(fac, src, dst);
+                */
+                src = new IbRect(0, 0, gv.cc.facing1.Width, gv.cc.facing1.Height);
+                if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
+                else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
+                else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
+                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
+                else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
+                else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
+                else { } //didn't find one
+
                 if (tglMoveOrder.toggleOn)
                 {
                     int mo = crt.moveOrder + 1;

@@ -596,10 +596,12 @@ namespace IceBlink2
                     if (comparePcOptions.Equals(selectedPcOptions))
                     {
                 	    //no new options for this PC so no plus bubble marker 
+                        btnPartyIndex[PcIndx].btnNotificationOn = false;
                 	    btnPartyIndex[PcIndx].Img3 = null;
                     } 
                     else //new options available so show bubble plus marker
                     {
+                        btnPartyIndex[PcIndx].btnNotificationOn = true;
                 	    btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
                     }
                 }
