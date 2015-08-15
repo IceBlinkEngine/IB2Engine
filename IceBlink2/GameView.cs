@@ -11,6 +11,21 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using System.Media;
+using SharpDX.DXGI;
+using SharpDX.Direct3D11;
+using SharpDX.Direct2D1;
+using SharpDX.DirectWrite;
+using SharpDX.Direct3D;
+using SharpDX;
+using FontFamily = System.Drawing.FontFamily;
+using Font = System.Drawing.Font;
+using Bitmap = System.Drawing.Bitmap;
+using Message = System.Windows.Forms.Message;
+using Color = System.Drawing.Color;
+using Point = System.Drawing.Point;
+using RectangleF = System.Drawing.RectangleF;
+using Rectangle = System.Drawing.Rectangle;
+
 
 namespace IceBlink2
 {
@@ -34,6 +49,18 @@ namespace IceBlink2
         public bool showHotKeys = false;
 
         public Graphics gCanvas;
+
+        //DIRECT2D STUFF
+        public SharpDX.Direct3D11.Device _device;
+        public SwapChain _swapChain;
+        public Texture2D _backBuffer;
+        public RenderTargetView _backBufferView;
+        public SharpDX.Direct2D1.Factory factory2D;
+        public SharpDX.DirectWrite.Factory factoryDWrite;
+        public RenderTarget renderTarget2D;
+        public SolidColorBrush sceneColorBrush;
+        public TextFormat textFormat;
+        public TextLayout textLayout;
 
         public string versionNum = "v1.00";
         public string fixedModule = "";
@@ -1233,6 +1260,163 @@ namespace IceBlink2
             {
                 screenPartyRoster.redrawPartyRoster();
             }
+        }
+
+        //DIRECT2D STUFF
+        public void InitializeRenderer()
+        {
+            // SwapChain description
+            var desc = new SwapChainDescription()
+            {
+                BufferCount = 1,
+                ModeDescription =
+                    new ModeDescription(this.Width, this.Height,
+                                        new Rational(60, 1), Format.R8G8B8A8_UNorm),
+                IsWindowed = true,
+                OutputHandle = this.Handle,
+                SampleDescription = new SampleDescription(1, 0),
+                SwapEffect = SwapEffect.Discard,
+                Usage = Usage.RenderTargetOutput
+            };
+
+            // Create Device and SwapChain
+            SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_11_0 }, desc, out _device, out _swapChain);
+
+            // Ignore all windows events
+            SharpDX.DXGI.Factory factory = _swapChain.GetParent<SharpDX.DXGI.Factory>();
+            factory.MakeWindowAssociation(this.Handle, WindowAssociationFlags.IgnoreAll);
+
+            // New RenderTargetView from the backbuffer
+            _backBuffer = Texture2D.FromSwapChain<Texture2D>(_swapChain, 0);
+
+            _backBufferView = new RenderTargetView(_device, _backBuffer);
+
+            factory2D = new SharpDX.Direct2D1.Factory();
+            using (var surface = _backBuffer.QueryInterface<Surface>())
+            {
+                renderTarget2D = new RenderTarget(factory2D, surface, new RenderTargetProperties(new SharpDX.Direct2D1.PixelFormat(Format.Unknown, AlphaMode.Premultiplied)));
+            }
+            renderTarget2D.AntialiasMode = AntialiasMode.PerPrimitive;
+
+            //TEXT STUFF
+            factoryDWrite = new SharpDX.DirectWrite.Factory();
+            sceneColorBrush = new SolidColorBrush(renderTarget2D, SharpDX.Color.Blue);
+            renderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
+
+            // ##### This app specific #########
+            // Load D2D1Bitmap
+            //newBus.busBitmap = LoadFromFile(renderTarget2D, "sharpdx.png");
+            // Initialize a TextFormat
+            //textFormat = new TextFormat(factoryDWrite, "Calibri", 20) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };            
+            // Initialize a TextLayout
+            //textLayout = new TextLayout(factoryDWrite, "load: " + timer1 + "  process: " + timer2, textFormat, this.Width, this.Height);
+        }
+
+        public void BeginDraw()
+        {
+            _device.ImmediateContext.Rasterizer.SetViewport(new Viewport(0, 0, this.Width, this.Height));
+            _device.ImmediateContext.OutputMerger.SetTargets(_backBufferView);
+            renderTarget2D.BeginDraw();
+        }
+        public void Draw()
+        {
+            /*
+            renderTarget2D.Clear(Color4.Black);
+            // Draw the TextLayout
+            //int locX = 100;
+            if (mirror == -1)
+            {
+                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), true, false);
+            }
+            else if (flip == -1)
+            {
+                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), false, true);
+            }
+            else
+            {
+                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), false, false);
+            }
+            //renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
+            for (int j = 0; j < 40; j++)
+            {
+                for (int x = 0; x < 20; x++)
+                {
+                    for (int y = 0; y < 10; y++)
+                    {
+                        DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(x * 50 + shift, y * 50 + shift, 50, 50));
+                    }
+                }
+            }
+            renderTarget2D.DrawTextLayout(new Vector2(0, 0), textLayout, sceneColorBrush, DrawTextOptions.None); // ##### This app specific
+            */
+        }
+        public void EndDraw()
+        {
+            renderTarget2D.EndDraw();
+            _swapChain.Present(1, PresentFlags.None);
+        }
+
+        private void Render()
+        {
+            BeginDraw();
+            Draw();
+            EndDraw();
+        }
+
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
+        {
+            DrawBitmap(bitmap, source, target, false, false);
+        }
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, bool flip)
+        {
+            if ((mirror) && (flip))
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, 0, 0, 0);
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
+                                                (target.Top + bitmap.PixelSize.Height) * -1,
+                                                target.Width,
+                                                target.Height),
+                                            1.0f,
+                                            BitmapInterpolationMode.Linear,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else if (flip)
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, 0, 0, 0);
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF(target.Left,
+                                                (target.Top + bitmap.PixelSize.Height) * -1,
+                                                target.Width,
+                                                target.Height),
+                                            1.0f,
+                                            BitmapInterpolationMode.Linear,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else if (mirror)
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
+                                                target.Top,
+                                                target.Width,
+                                                target.Height),
+                                            1.0f,
+                                            BitmapInterpolationMode.Linear,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else
+            {
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF(target.Left,
+                                                target.Top,
+                                                target.Width,
+                                                target.Height),
+                                            1.0f,
+                                            BitmapInterpolationMode.Linear,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
         }
 
         //INPUT STUFF
