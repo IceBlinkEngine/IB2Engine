@@ -139,7 +139,7 @@ namespace IceBlink2
                 
         public GameView()
         {
-            InitializeComponent();
+            InitializeComponent();            
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -212,6 +212,7 @@ namespace IceBlink2
             //TODOinitializeMusic();
             setupMusicPlayers();
             //TODOinitializeCombatMusic();
+            //InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
@@ -1153,12 +1154,19 @@ namespace IceBlink2
             Rectangle tar = new Rectangle(target.Left, target.Top + oYshift, target.Width, target.Height);
             Rectangle src = new Rectangle(source.Left, source.Top, source.Width, source.Height);
             gCanvas.DrawImage(bitmap, tar, src, GraphicsUnit.Pixel);
-        }    
+        }
+        public void DrawBitmapD2D(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target)
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar);
+        }
         protected override void OnPaint(PaintEventArgs e)
 	    {
             base.OnPaint(e);
             gCanvas = e.Graphics;
-
+            //BeginDraw(); //uncomment this for DIRECT2D ADDITIONS
+            //renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
             //draw count stuff for debugging
             //DrawText("draws:" + drawCount.ToString(), 0, 0, 1.0f, Color.White);
             //DrawText("mouse:" + mouseCount.ToString(), 0, 15, 1.0f, Color.White);
@@ -1260,6 +1268,7 @@ namespace IceBlink2
             {
                 screenPartyRoster.redrawPartyRoster();
             }
+            //EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
 
         //DIRECT2D STUFF
@@ -1311,7 +1320,6 @@ namespace IceBlink2
             // Initialize a TextLayout
             //textLayout = new TextLayout(factoryDWrite, "load: " + timer1 + "  process: " + timer2, textFormat, this.Width, this.Height);
         }
-
         public void BeginDraw()
         {
             _device.ImmediateContext.Rasterizer.SetViewport(new Viewport(0, 0, this.Width, this.Height));
@@ -1355,7 +1363,6 @@ namespace IceBlink2
             renderTarget2D.EndDraw();
             _swapChain.Present(1, PresentFlags.None);
         }
-
         private void Render()
         {
             BeginDraw();
@@ -1363,11 +1370,11 @@ namespace IceBlink2
             EndDraw();
         }
 
-        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
         {
-            DrawBitmap(bitmap, source, target, false, false);
+            DrawD2DBitmap(bitmap, source, target, false, false);
         }
-        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, bool flip)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, bool flip)
         {
             if ((mirror) && (flip))
             {
