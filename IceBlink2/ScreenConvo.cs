@@ -149,7 +149,7 @@ namespace IceBlink2
             htmltext.tbHeight = pH * 50;
             htmltext.logLinesList.Clear();
             htmltext.AddHtmlTextToLog(textToSpan);
-            htmltext.onDrawLogBox(gv.gCanvas);
+            htmltext.onDrawLogBox();
 	    }
 	    public void drawPcNode()
 	    {          
@@ -200,7 +200,7 @@ namespace IceBlink2
                 htmltext.tbHeight = pH * 50;
                 htmltext.logLinesList.Clear();
                 htmltext.AddHtmlTextToLog(textToSpan);
-                htmltext.onDrawLogBox(gv.gCanvas);
+                htmltext.onDrawLogBox();
 
                 startY += (int)textSize.Height + pad;
                 cnt++;

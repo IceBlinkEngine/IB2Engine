@@ -124,7 +124,7 @@ namespace IceBlink2
                 description.tbYloc = 6 * gv.squareSize + gv.oYshift;
                 description.tbWidth = 12 * gv.squareSize;
                 description.tbHeight = 6 * gv.squareSize;
-                description.onDrawLogBox(gv.gCanvas);
+                description.onDrawLogBox();
                 
                 btnModuleName.Text = moduleList[moduleIndex].moduleLabelName;
 	    	    drawLauncherControls();

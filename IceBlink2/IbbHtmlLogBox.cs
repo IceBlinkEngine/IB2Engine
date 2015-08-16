@@ -10,8 +10,7 @@ namespace IceBlink2
     public class IbbHtmlLogBox
     {
         public GameView gv = null;
-        public IBHtmlMessageBox hmb = null;
-
+        
         public SolidBrush brush = new SolidBrush(Color.Black);
         public FontFamily fontfamily;
         public Font font;
@@ -23,11 +22,8 @@ namespace IceBlink2
         public List<string> tagStack = new List<string>();
         public List<FormattedLine> logLinesList = new List<FormattedLine>();
         public int currentTopLineIndex = 0;
-        public int numberOfLinesToShow = 17;        
-        //int startYLocForTextDrawing = 0;
+        public int numberOfLinesToShow = 17;
         public int xLoc = 0;
-        //int yLoc = 50;
-        //int totalTextHeight = 0;
         public int moveEY = 0;
         public int moveScrollingStartY = 0;
         public int scrollButtonYLoc = 0;
@@ -38,8 +34,6 @@ namespace IceBlink2
         public int tbXloc = 10;
         public int tbYloc = 10;
         public float fontHeightToWidthRatio = 1.0f;
-        //public List<string> LogText = new List<string>();
-        //public string text = "";
 
         public IbbHtmlLogBox(GameView g, int locX, int locY, int width, int height)
         {
@@ -56,34 +50,18 @@ namespace IceBlink2
             tbHeight = height;
             brush.Color = Color.Red;
         }
-        public IbbHtmlLogBox(IBHtmlMessageBox h, GameView g, int locX, int locY, int width, int height)
+        
+        public void DrawBitmap(Bitmap bmp, int x, int y)
         {
-            hmb = h;
-            gv = g;
-            btn_up = gv.cc.LoadBitmap("btn_up.png");
-            btn_down = gv.cc.LoadBitmap("btn_down.png");
-            btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
-            bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
-            fontfamily = gv.family;
-            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
-            tbXloc = locX;
-            tbYloc = locY;
-            tbWidth = width;
-            tbHeight = height;
-            brush.Color = Color.Red;
+            IbRect src = new IbRect(0, 0, bmp.Width, bmp.Height);
+            IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.Width, bmp.Height);
+            gv.DrawBitmap(bmp, src, dst);
         }
-
-        public void DrawBitmap(Graphics g, Bitmap bmp, int x, int y)
-        {
-            Rectangle src = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            Rectangle dst = new Rectangle(x + tbXloc, y + tbYloc, bmp.Width, bmp.Height);
-            g.DrawImage(bmp, dst, src, GraphicsUnit.Pixel);
-        }
-        public void DrawString(Graphics g, string text, Font f, SolidBrush sb, int x, int y)
+        public void DrawString(string text, Font f, SolidBrush sb, int x, int y)
         {
             if ((y > -2) && (y <= tbHeight - f.Height))
             {
-                g.DrawString(text, f, sb, x + tbXloc, y + tbYloc);
+                gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc - gv.oYshift);
             }
         }
 
@@ -242,7 +220,7 @@ namespace IceBlink2
             }
         }
 
-        public void onDrawLogBox(Graphics g)
+        public void onDrawLogBox()
         {
             //ratio of #lines to #pixels
             float ratio = (float)(logLinesList.Count) / (float)(tbHeight - btn_down.Height - btn_up.Height - btn_scroll.Height);
@@ -264,10 +242,10 @@ namespace IceBlink2
                 {
                     //print each word and move xLoc
                     font = new Font(fontfamily, word.fontSize, word.fontStyle);
-                    int wordWidth = (int)(g.MeasureString(word.text, font)).Width;
+                    int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
                     brush.Color = word.color;
                     int difYheight = logLinesList[i].lineHeight - font.Height;
-                    DrawString(g, word.text, font, brush, xLoc, yLoc + difYheight);
+                    DrawString(word.text, font, brush, xLoc, yLoc + difYheight);
                     xLoc += wordWidth;
                 }
                 xLoc = 0;
@@ -288,14 +266,14 @@ namespace IceBlink2
             //draw scrollbar
             for (int y = 0; y < tbHeight - 10; y += 10)
             {
-                DrawBitmap(g, bg_scroll, tbWidth - bg_scroll.Width - 5, y);
+                DrawBitmap(bg_scroll, tbWidth - bg_scroll.Width - 5, y);
             }
-            DrawBitmap(g, btn_up, tbWidth - btn_up.Width, 0);
-            DrawBitmap(g, btn_down, tbWidth - btn_down.Width, tbHeight - btn_down.Height);
-            DrawBitmap(g, btn_scroll, tbWidth - btn_scroll.Width - 1, scrollButtonYLoc);
+            DrawBitmap(btn_up, tbWidth - btn_up.Width, 0);
+            DrawBitmap(btn_down, tbWidth - btn_down.Width, tbHeight - btn_down.Height);
+            DrawBitmap(btn_scroll, tbWidth - btn_scroll.Width - 1, scrollButtonYLoc);
 
             //draw border for debug info
-            g.DrawRectangle(new Pen(Color.DimGray), new Rectangle(tbXloc, tbYloc, tbWidth, tbHeight));
+            gv.DrawRectangle(new IbRect(tbXloc, tbYloc - gv.oYshift, tbWidth, tbHeight), Color.DimGray, 1);
         }
                 
         public void scrollToEnd()
@@ -327,18 +305,7 @@ namespace IceBlink2
                 currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
             }
         }
-        public void ParentFormInvalidate()
-        {
-            if (hmb != null)
-            {
-                hmb.Invalidate();
-            }
-            else if (gv != null)
-            {
-                gv.Invalidate();
-            }            
-        }
-
+        
         private Color GetColor()
         {
             //will end up using the last color on the stack
@@ -457,7 +424,7 @@ namespace IceBlink2
                 if (numberOfTextLinesToMove != 0)
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    ParentFormInvalidate();
+                    gv.Invalidate();
                 }
             }
         }
@@ -527,7 +494,7 @@ namespace IceBlink2
                     //currentTopLineIndex -= 5;
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
-                    ParentFormInvalidate();
+                    gv.Invalidate();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.Height)
                 {
@@ -535,7 +502,7 @@ namespace IceBlink2
                     //currentTopLineIndex += 5;
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
-                    ParentFormInvalidate();
+                    gv.Invalidate();
                 }
             }
             else if (isMouseWithinTextBox(e))
