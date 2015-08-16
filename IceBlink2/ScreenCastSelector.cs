@@ -306,7 +306,7 @@ namespace IceBlink2
                 description.tbHeight = pH * 80;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
-                description.onDrawLogBox(gv.gCanvas);
+                description.onDrawLogBox();
 		    }
 		
 		    btnHelp.Draw();	

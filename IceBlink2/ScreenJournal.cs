@@ -183,7 +183,7 @@ namespace IceBlink2
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
                 description.brush.Color = Color.Black;
-                description.onDrawLogBox(gv.gCanvas);
+                description.onDrawLogBox();
     	    }
 		
 		    //DRAW INSTRUCTIONS

@@ -46,17 +46,21 @@ namespace IceBlink2
             brush.Color = Color.Red;
         }
 
-        public void DrawBitmap(Graphics g, Bitmap bmp, int x, int y)
+        public void DrawBitmap(Bitmap bmp, int x, int y)
         {
-            Rectangle src = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            Rectangle dst = new Rectangle(x + tbXloc, y + tbYloc + gv.oYshift, bmp.Width, bmp.Height);
-            g.DrawImage(bmp, dst, src, GraphicsUnit.Pixel);
+            //Rectangle src = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            //Rectangle dst = new Rectangle(x + tbXloc, y + tbYloc + gv.oYshift, bmp.Width, bmp.Height);
+            //g.DrawImage(bmp, dst, src, GraphicsUnit.Pixel);
+            IbRect src = new IbRect(0, 0, bmp.Width, bmp.Height);
+            IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.Width, bmp.Height);
+            gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(Graphics g, string text, Font f, SolidBrush sb, int x, int y)
+        public void DrawString(string text, Font f, SolidBrush sb, int x, int y)
         {
             if ((y > -2) && (y <= tbHeight - f.Height))
             {
-                g.DrawString(text, f, sb, x + tbXloc, y + tbYloc + gv.oYshift);
+                gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc);
+                //g.DrawString(text, f, sb, x + tbXloc, y + tbYloc + gv.oYshift);
             }
         }
 
@@ -213,7 +217,7 @@ namespace IceBlink2
             }
         }
 
-        public void onDrawLogBox(Graphics g)
+        public void onDrawLogBox()
         {
             //only draw lines needed to fill textbox
             int xLoc = 0;
@@ -226,10 +230,10 @@ namespace IceBlink2
                 {
                     //print each word and move xLoc
                     font = new Font(fontfamily, word.fontSize, word.fontStyle);
-                    int wordWidth = (int)(g.MeasureString(word.text, font)).Width;
+                    int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
                     brush.Color = word.color;
                     int difYheight = logLinesList[i].lineHeight - font.Height;
-                    DrawString(g, word.text, font, brush, xLoc, yLoc + difYheight);
+                    DrawString(word.text, font, brush, xLoc, yLoc + difYheight);
                     xLoc += wordWidth;
                 }
                 xLoc = 0;
@@ -239,7 +243,7 @@ namespace IceBlink2
             //draw border for debug info
             if (showBoxBorder)
             {
-                g.DrawRectangle(new Pen(Color.DimGray), new Rectangle(tbXloc, tbYloc + gv.oYshift, tbWidth, tbHeight));
+                gv.DrawRectangle(new IbRect(tbXloc, tbYloc, tbWidth, tbHeight), Color.DimGray, 1);
             }
         }
 

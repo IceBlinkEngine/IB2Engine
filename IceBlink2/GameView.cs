@@ -1028,7 +1028,7 @@ namespace IceBlink2
         public void drawLog()
         {
             //log.updateLog();
-            log.onDrawLogBox(gCanvas);            
+            log.onDrawLogBox();            
         }
         public void onTouchLog()
         {
@@ -1061,6 +1061,10 @@ namespace IceBlink2
         public void DrawText(string text, int xLoc, int yLoc)
         {
             DrawText(text, xLoc, yLoc, 1.0f, Color.White);
+        }
+        public void DrawText(string text, Font f, SolidBrush sb, int x, int y)
+        {
+            gCanvas.DrawString(text, f, sb, new Point(x, y + oYshift));
         }
         public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor)
         {
@@ -1141,6 +1145,13 @@ namespace IceBlink2
             p.Dispose();
             gp.Dispose();
         }   
+        public void DrawRectangle(IbRect rect, Color penColor, int penWidth)
+        {
+            Pen p = new Pen(penColor, penWidth);
+            Rectangle r = new Rectangle(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            gCanvas.DrawRectangle(p, r);
+            p.Dispose();
+        }
         public void DrawLine(int lastX, int lastY, int nextX, int nextY, Color penColor, int penWidth)
         {
             Pen p = new Pen(penColor, penWidth);
