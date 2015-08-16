@@ -21,6 +21,8 @@ namespace IceBlink2
 	    public IbbToggleButton tglFullParty = null;
 	    public IbbToggleButton tglMiniMap = null;
 	    public IbbToggleButton tglGrid = null;
+        public IbbToggleButton tglInteractionState = null;
+        public IbbToggleButton tglAvoidConversation = null;
 	    public IbbToggleButton tglClock = null;
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public int mapStartLocXinPixels;
@@ -168,6 +170,30 @@ namespace IceBlink2
                 tglClock.Width = (int)(gv.ibbwidthR/2 * gv.screenDensity);
 			    tglClock.toggleOn = true;
 		    }
+            if (tglInteractionState == null)
+            {
+                tglInteractionState = new IbbToggleButton(gv);
+                tglInteractionState.ImgOn = gv.cc.LoadBitmap("tgl_state_on");
+                tglInteractionState.ImgOff = gv.cc.LoadBitmap("tgl_state_off");
+                tglInteractionState.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                tglInteractionState.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                tglInteractionState.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglInteractionState.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
+                tglInteractionState.toggleOn = false;
+            }
+            if (tglAvoidConversation == null)
+            {
+                tglAvoidConversation = new IbbToggleButton(gv);
+                tglAvoidConversation.ImgOn = gv.cc.LoadBitmap("tgl_avoidConvo_on");
+                tglAvoidConversation.ImgOff = gv.cc.LoadBitmap("tgl_avoidConvo_off");
+                tglAvoidConversation.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                tglAvoidConversation.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                tglAvoidConversation.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
+                tglAvoidConversation.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
+                tglAvoidConversation.toggleOn = false;
+            }
+
+
         }
 
 	    //MAIN SCREEN
@@ -389,6 +415,35 @@ namespace IceBlink2
 					    IbRect src = new IbRect(0, 0, p.token.Width, p.token.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 			            gv.DrawBitmap(p.token, src, dst);
+
+                        if (mod.showInteractionState == true)
+                        {
+                            if (p.EncounterWhenOnPartySquare != "none")
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                continue;
+                            }
+
+                            if (p.unavoidableConversation == true)
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                continue;
+                            }
+
+                            if (p.ConversationWhenOnPartySquare != "none")
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                continue;
+                            }
+                        }
+
+
 				    }
 			    }
 		    }
@@ -410,28 +465,31 @@ namespace IceBlink2
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 			            gv.DrawBitmap(p.token, src, dst);
 
+                        if(mod.showInteractionState == true)
+                        {
                         if (p.EncounterWhenOnPartySquare != "none")
                         {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("walk_block");
-                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                            src = new IbRect(0, 0, 50, 50);
                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                             continue;
                         }
 
                         if (p.unavoidableConversation == true)
                         {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("turn_marker");
-                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                            src = new IbRect(0, 0, 50, 50);
                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                             continue;
                         }
                         
                         if (p.ConversationWhenOnPartySquare != "none")
                         {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("walk_pass");
-                            src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                            src = new IbRect(0, 0, 50, 50);
                             gv.DrawBitmap(interactionStateIndicator, src, dst);
                             continue;
+                        }
                         }
 				    }
 			    }
@@ -905,6 +963,8 @@ namespace IceBlink2
 			    tglMiniMap.Draw();
 		    }
 		    tglGrid.Draw();
+            tglInteractionState.Draw();
+            tglAvoidConversation.Draw();
 		    tglClock.Draw();
 		
 		    //check for levelup available and switch button image
@@ -1229,6 +1289,44 @@ namespace IceBlink2
 					    mod.map_showGrid = true;
 				    }
 			    }
+
+                if (tglInteractionState.getImpact(x, y))
+                {
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    if (tglInteractionState.toggleOn)
+                    {
+                        tglInteractionState.toggleOn = false;
+                        mod.showInteractionState = false;
+                        gv.cc.addLogText("lime", "No info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
+                    }
+                    else
+                    {
+                        tglInteractionState.toggleOn = true;
+                        mod.showInteractionState = true;
+                        gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
+                    }
+                }
+
+                if (tglAvoidConversation.getImpact(x, y))
+                {
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    if (tglAvoidConversation.toggleOn)
+                    {
+                        tglAvoidConversation.toggleOn = false;
+                        mod.avoidInteraction = false;
+                        gv.cc.addLogText("lime", "Normal move mode: party does all possible conversations");
+                    }
+                    else
+                    {
+                        tglAvoidConversation.toggleOn = true;
+                        mod.avoidInteraction = true;
+                        gv.cc.addLogText("lime", "In a hurry: Party is avoiding all conversations that are not mandatory");
+                    }
+                }
+
+
 			    if (tglClock.getImpact(x, y))
 			    {
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}

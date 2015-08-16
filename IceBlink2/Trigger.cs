@@ -13,6 +13,7 @@ namespace IceBlink2
 	    public string TriggerTag = "newTrigger"; //must be unique
 	    public bool Enabled = true;
 	    public bool DoOnceOnly = false;
+        public bool conversationCannotBeAvoided = true;
 	    public List<Coordinate> TriggerSquaresList = new List<Coordinate>();
 
 	    public bool EnabledEvent1 = true;

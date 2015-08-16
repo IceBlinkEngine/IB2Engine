@@ -3107,8 +3107,16 @@ namespace IceBlink2
                         prp.token = gv.cc.flip(prp.token);
                         prp.PropFacingLeft = false;
                     }//3
+                    int oldX = prp.LocationX;
+                    int oldY = prp.LocationY;
+                    int newX = newCoor.X;
+                    int newY = newCoor.Y;
+
+                    //gv.DrawLine(prp.LocationX + gv.oXshift, prp.LocationY, newCoor.X + gv.oXshift, newCoor.Y, System.Drawing.Color.Lime, 2);
+                    //gv.DrawLine(oldX, oldY, newX, newY, SharpDX.Color.Lime, 2);
                     prp.LocationX = newCoor.X;
                     prp.LocationY = newCoor.Y;
+                    //gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
                 }//2
             }//1
         }
@@ -3183,10 +3191,23 @@ namespace IceBlink2
                         gv.triggerPropIndex++;
                         if ((gv.triggerPropIndex == 1) && (!prp.ConversationWhenOnPartySquare.Equals("none")))
                         {
-                            calledConvoFromProp = true;
-                            gv.sf.ThisProp = prp;
-                            doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
-                            break;
+
+                            if (prp.unavoidableConversation == true)
+                            {
+                                calledConvoFromProp = true;
+                                gv.sf.ThisProp = prp;
+                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                break;
+                            }
+                            else if (gv.mod.avoidInteraction == false)
+                            {
+                                calledConvoFromProp = true;
+                                gv.sf.ThisProp = prp;
+                                doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
+                                break;
+                            }
+
+
                         }
                         else if ((gv.triggerPropIndex == 2) && (!prp.EncounterWhenOnPartySquare.Equals("none")))
                         {
@@ -3255,7 +3276,14 @@ namespace IceBlink2
                         }
                         else if (trig.Event1Type.Equals("conversation"))
                         {
-                            doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                            if (trig.conversationCannotBeAvoided == true)
+                            {
+                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                            }
+                            else if (gv.mod.avoidInteraction == false)
+                            {
+                                doConversationBasedOnTag(trig.Event1FilenameOrTag);
+                            }
                         }
                         /*//REMOVEelse if (trig.Event1Type.Equals("logictree"))
                         {
@@ -3299,7 +3327,14 @@ namespace IceBlink2
                         }
                         else if (trig.Event2Type.Equals("conversation"))
                         {
-                            doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                            if (trig.conversationCannotBeAvoided == true)
+                            {
+                                doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                            }
+                            else if (gv.mod.avoidInteraction == false)
+                            {
+                                doConversationBasedOnTag(trig.Event2FilenameOrTag);
+                            }
                         }
                         /*//REMOVEelse if (trig.Event2Type.Equals("logictree"))
                         {
@@ -3343,7 +3378,14 @@ namespace IceBlink2
                         }
                         else if (trig.Event3Type.Equals("conversation"))
                         {
-                            doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                            if (trig.conversationCannotBeAvoided == true)
+                            {
+                                doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                            }
+                            else if (gv.mod.avoidInteraction == false)
+                            {
+                                doConversationBasedOnTag(trig.Event3FilenameOrTag);
+                            }
                         }
                         /*//REMOVEelse if (trig.Event3Type.Equals("logictree"))
                         {

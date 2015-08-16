@@ -109,6 +109,8 @@ namespace IceBlink2
 	    public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
+        public bool showInteractionState = false;
+        public bool avoidInteraction = false;
 	
 	    public Module()
 	    {

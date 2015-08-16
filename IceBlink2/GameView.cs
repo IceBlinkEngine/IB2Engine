@@ -1258,7 +1258,10 @@ namespace IceBlink2
 		    }
 		    else if (screenType.Equals("convo"))
 		    {
-			    screenConvo.redrawConvo();
+                //if (mod.avoidInteraction == false)
+                //
+                    screenConvo.redrawConvo();
+                //
 		    }
 		    else if (screenType.Equals("partyBuild"))
 		    {
