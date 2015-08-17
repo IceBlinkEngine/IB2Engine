@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using Newtonsoft.Json;
 using System.Drawing;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {

@@ -8,7 +8,7 @@ using System.IO;
 using System.Drawing;
 using System.ComponentModel;
 using Newtonsoft.Json;
-//using IceBlink;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {

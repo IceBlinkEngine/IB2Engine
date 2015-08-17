@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -423,7 +424,7 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
-                    projectile = gv.cc.FlipHorz(projectile);
+//TODO                    projectile = gv.cc.FlipHorz(projectile);
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -501,7 +502,7 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
-                    projectile = gv.cc.FlipHorz(projectile);
+//TODO                    projectile = gv.cc.FlipHorz(projectile);
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -582,7 +583,7 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
-                    projectile = gv.cc.FlipHorz(projectile);
+//TODO                    projectile = gv.cc.FlipHorz(projectile);
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -659,7 +660,7 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
-                    projectile = gv.cc.FlipHorz(projectile);
+//TODO                    projectile = gv.cc.FlipHorz(projectile);
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -1604,12 +1605,12 @@ namespace IceBlink2
 				    }
 				    if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
 				    {
-					    crt.token= gv.cc.flip(crt.token);
+//TODO					    crt.token= gv.cc.flip(crt.token);
 					    crt.combatFacingLeft = true;
 				    }
 				    else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
 				    {
-					    crt.token= gv.cc.flip(crt.token);
+//TODO					    crt.token= gv.cc.flip(crt.token);
 					    crt.combatFacingLeft = false;
 				    }
                     //CHANGE FACING BASED ON MOVE
@@ -1658,12 +1659,12 @@ namespace IceBlink2
 	                //frm.currentCombat.drawProjectile(starting, ending, crt_pt.ProjectileSpriteFilename);
 	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
         		    {
-        			    crt.token= gv.cc.flip(crt.token);
+//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = true;
         		    }
         		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
         		    {
-        			    crt.token= gv.cc.flip(crt.token);
+//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
                     //CHANGE FACING BASED ON ATTACK
@@ -1688,12 +1689,12 @@ namespace IceBlink2
 	            {
 	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
         		    {
-        			    crt.token= gv.cc.flip(crt.token);
+//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = true;
         		    }
         		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
         		    {
-        			    crt.token= gv.cc.flip(crt.token);
+//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
                     //CHANGE FACING BASED ON ATTACK
@@ -1755,12 +1756,12 @@ namespace IceBlink2
             {
                 if ((pnt.X < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
     		    {
-    			    crt.token= gv.cc.flip(crt.token);
+//TODO    			    crt.token= gv.cc.flip(crt.token);
     			    crt.combatFacingLeft = true;
     		    }
     		    else if ((pnt.X > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
     		    {
-    			    crt.token= gv.cc.flip(crt.token);
+//TODO    			    crt.token= gv.cc.flip(crt.token);
     			    crt.combatFacingLeft = false;
     		    }
                 //CHANGE FACING BASED ON ATTACK
@@ -2506,8 +2507,8 @@ namespace IceBlink2
 		    //col = x
 		    if (mod.currentEncounter.UseMapImage)
 		    {
-                int sqrsizeW = mapBitmap.Width / this.mod.currentEncounter.MapSizeX;
-                int sqrsizeH = mapBitmap.Height / this.mod.currentEncounter.MapSizeY;
+                int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
+                int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
                 IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * 9, sqrsizeH * 9);
                 IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * 9, gv.squareSize * 9);
 	            gv.DrawBitmap(mapBitmap, src, dst);
@@ -2632,7 +2633,7 @@ namespace IceBlink2
 		    Player p = mod.playerList[currentPlayerIndex];
             if (IsInVisibleCombatWindow(p.combatLocX, p.combatLocY))
             {
-                IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Width);
+                IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Width);
                 IbRect dst = new IbRect(getPixelLocX(p.combatLocX), getPixelLocY(p.combatLocY), gv.squareSize, gv.squareSize);
                 if (isPlayerTurn)
                 {
@@ -2645,31 +2646,31 @@ namespace IceBlink2
                 {
                     //int x = (pc.combatLocX - UpperLeftSquare.X) * gv.squareSize;
                     //int y = (pc.combatLocY - UpperLeftSquare.Y) * gv.squareSize;
-                    IbRect src = new IbRect(0, 0, pc.token.Width, pc.token.Width);
+                    IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     //check if drawing animation of player
                     if ((playerToAnimate != null) && (playerToAnimate == pc))
                     {
-                        src = new IbRect(0, pc.token.Width, pc.token.Width, pc.token.Width);
+                        src = new IbRect(0, pc.token.PixelSize.Width, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     }
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                     //dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
                     gv.DrawBitmap(pc.token, src, dst);
                     //canvas.drawBitmap(pc.token, x, y, null);
-                    src = new IbRect(0, 0, pc.token.Width, pc.token.Width);
+                    src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     foreach (Effect ef in pc.effectsList)
                     {
                         Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                        src = new IbRect(0, 0, fx.Width, fx.Width);
+                        src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                         gv.DrawBitmap(fx, src, dst);
                     }
                     if ((pc.charStatus.Equals("Dead")) || (pc.hp < 0))
                     {
-                        src = new IbRect(0, 0, gv.cc.pc_dead.Width, gv.cc.pc_dead.Width);
+                        src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
                         gv.DrawBitmap(gv.cc.pc_dead, src, dst);
                     }
                     if (pc.steathModeOn)
                     {
-                        src = new IbRect(0, 0, gv.cc.pc_stealth.Width, gv.cc.pc_stealth.Width);
+                        src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
                         gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
                     }
                     //PLAYER FACING
@@ -2686,7 +2687,7 @@ namespace IceBlink2
                     src = new IbRect(0, 0, fac.Width, fac.Height);
                     gv.DrawBitmap(fac, src, dst);
                     */
-                    src = new IbRect(0, 0, gv.cc.facing1.Width, gv.cc.facing1.Height);
+                    src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                     if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                     else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                     else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
@@ -2710,7 +2711,7 @@ namespace IceBlink2
 	    {
 		    if (drawHitAnimation)
 		    {
-                IbRect src = new IbRect(0, 0, gv.cc.hitSymbol.Width, gv.cc.hitSymbol.Height);
+                IbRect src = new IbRect(0, 0, gv.cc.hitSymbol.PixelSize.Width, gv.cc.hitSymbol.PixelSize.Height);
                 IbRect dst = new IbRect(hitAnimationLocation.X, hitAnimationLocation.Y, gv.squareSize, gv.squareSize);
                 gv.DrawBitmap(gv.cc.hitSymbol, src, dst);							
 		    }
@@ -2719,7 +2720,7 @@ namespace IceBlink2
 	    {
 		    if (drawMissAnimation)
 		    {
-                IbRect src = new IbRect(0, 0, gv.cc.missSymbol.Width, gv.cc.missSymbol.Height);
+                IbRect src = new IbRect(0, 0, gv.cc.missSymbol.PixelSize.Width, gv.cc.missSymbol.PixelSize.Height);
                 IbRect dst = new IbRect(hitAnimationLocation.X, hitAnimationLocation.Y, gv.squareSize, gv.squareSize);
                 gv.DrawBitmap(gv.cc.missSymbol, src, dst);
 		    }
@@ -2728,7 +2729,7 @@ namespace IceBlink2
 	    {
 		    if (drawProjectileAnimation)
 		    {
-                IbRect src = new IbRect(animationFrameIndex * projectile.Height, 0, projectile.Height, projectile.Height);
+                IbRect src = new IbRect(animationFrameIndex * projectile.PixelSize.Height, 0, projectile.PixelSize.Height, projectile.PixelSize.Height);
                 IbRect dst = new IbRect(projectileAnimationLocation.X, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
 			    gv.DrawBitmap(projectile, src, dst);		
 		    }
@@ -2737,7 +2738,7 @@ namespace IceBlink2
 	    {
 		    if ((drawEndingAnimation) && (ending_fx != null))
 		    {
-			    int height = ending_fx.Height;
+                int height = ending_fx.PixelSize.Height;
                 IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
                 IbRect dst = new IbRect(endingAnimationLocation.X, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
 			    if (height > 50)
@@ -2785,7 +2786,7 @@ namespace IceBlink2
                     {
                         //int x = cr.combatLocX * gv.squareSize;
                         //int y = cr.combatLocY * gv.squareSize;
-                        IbRect src = new IbRect(0, 0, gv.cc.turn_marker.Width, gv.cc.turn_marker.Height);
+                        IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
                         //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                         IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst);
@@ -2800,14 +2801,14 @@ namespace IceBlink2
                 }
 			    //int x = crt.combatLocX * gv.squareSize;
 			    //int y = crt.combatLocY * gv.squareSize;
-			    IbRect src = new IbRect(0, 0, crt.token.Width, crt.token.Width);
+                IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
 			    {
-				    src = new IbRect(0, crt.token.Width, crt.token.Width, crt.token.Width);
+                    src = new IbRect(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    }
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
                 //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-	            if (crt.token.Width > 100)
+                if (crt.token.PixelSize.Width > 100)
 			    {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                     //dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift + mapStartLocXinPixels, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
@@ -2816,7 +2817,7 @@ namespace IceBlink2
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                    src = new IbRect(0, 0, fx.Width, fx.Width);
+                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
 				    gv.DrawBitmap(fx, src, dst);
 			    }
                 //CREATURE FACING
@@ -2833,7 +2834,7 @@ namespace IceBlink2
                 src = new IbRect(0, 0, fac.Width, fac.Height);
                 gv.DrawBitmap(fac, src, dst);
                 */
-                src = new IbRect(0, 0, gv.cc.facing1.Width, gv.cc.facing1.Height);
+                src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                 else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                 else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
@@ -3006,7 +3007,7 @@ namespace IceBlink2
 	    }
         public void drawOverlayTints()
         {
-            IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.Width, gv.cc.tint_sunset.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
             IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffset + gv.playerOffset + 1), gv.squareSize * (gv.playerOffset + gv.playerOffset + 1));
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
@@ -4420,7 +4421,7 @@ namespace IceBlink2
                         pc.combatLocY--;
                         if (pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         doUpdate(pc);
@@ -4451,7 +4452,7 @@ namespace IceBlink2
                         pc.combatLocY--;
                         if (!pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         doUpdate(pc);
@@ -4507,7 +4508,7 @@ namespace IceBlink2
                         pc.combatLocY++;
                         if (pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         doUpdate(pc);
@@ -4538,7 +4539,7 @@ namespace IceBlink2
                         pc.combatLocY++;
                         if (!pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         doUpdate(pc);
@@ -4568,7 +4569,7 @@ namespace IceBlink2
                         pc.combatLocX++;
                         if (pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         doUpdate(pc);
@@ -4598,7 +4599,7 @@ namespace IceBlink2
                         pc.combatLocX--;
                         if (!pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         doUpdate(pc);
@@ -4612,12 +4613,12 @@ namespace IceBlink2
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
                 {
-                    pc.token = gv.cc.flip(pc.token);
+//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = true;
                 }
                 else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
                 {
-                    pc.token = gv.cc.flip(pc.token);
+//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
@@ -4652,12 +4653,12 @@ namespace IceBlink2
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
                 {
-                    pc.token = gv.cc.flip(pc.token);
+//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = true;
                 }
                 else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
                 {
-                    pc.token = gv.cc.flip(pc.token);
+//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -328,12 +329,12 @@ namespace IceBlink2
             	    int brY = gv.squareSize;
 
             	    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-            	
-            	    IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].Width, gv.cc.tileBitmapList[tile.Layer1Filename].Height);
-            	    IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].Width, gv.cc.tileBitmapList[tile.Layer2Filename].Height);
-                    IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].Width, gv.cc.tileBitmapList[tile.Layer3Filename].Height);
-                    IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].Width, gv.cc.tileBitmapList[tile.Layer4Filename].Height);
-                    IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].Width, gv.cc.tileBitmapList[tile.Layer5Filename].Height);
+
+                    IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
+                    IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                    IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                    IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
+                    IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
                     IbRect dst = new IbRect(tlX + gv.oXshift + ((gv.playerOffset + 2) * gv.squareSize), tlY, brX, brY);
                 
                     gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
@@ -348,8 +349,8 @@ namespace IceBlink2
 	    {
 		    int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
 		    int dstUX = 0, dstUY = 0, dstDX = 0, dstDY = 0;
-		    int bmpWidth = gv.cc.bmpMap.Width;
-            int bmpHeight = gv.cc.bmpMap.Height;
+            int bmpWidth = gv.cc.bmpMap.PixelSize.Width;
+            int bmpHeight = gv.cc.bmpMap.PixelSize.Height;
             int mapSquareSize = 50;
 		    if (mod.PlayerLocationX < gv.playerOffset) //at left edge of map
 		    {
@@ -412,7 +413,7 @@ namespace IceBlink2
 					    int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
 					    int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
 					    //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
-					    IbRect src = new IbRect(0, 0, p.token.Width, p.token.Width);
+                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 			            gv.DrawBitmap(p.token, src, dst);
 
@@ -421,7 +422,7 @@ namespace IceBlink2
                             if (p.EncounterWhenOnPartySquare != "none")
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 continue;
                             }
@@ -429,7 +430,7 @@ namespace IceBlink2
                             if (p.unavoidableConversation == true)
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 continue;
                             }
@@ -437,7 +438,7 @@ namespace IceBlink2
                             if (p.ConversationWhenOnPartySquare != "none")
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                src = new IbRect(0, 0, p.token.Width / 2, p.token.Width / 2);
+                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 continue;
                             }
@@ -461,7 +462,7 @@ namespace IceBlink2
 					    int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
 					    int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
 					    //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
-					    IbRect src = new IbRect(0, 0, p.token.Width, p.token.Width);
+                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 			            gv.DrawBitmap(p.token, src, dst);
 
@@ -503,9 +504,9 @@ namespace IceBlink2
 			    int pH = (int)((float)gv.screenHeight / 100.0f);
 			    int shift = pW;
 			    Bitmap minimap = gv.cc.LoadBitmap(mod.currentArea.Filename);
-			
-			    int mapSqrX = minimap.Width / 5;
-			    int mapSqrY = minimap.Height / 5;
+
+                int mapSqrX = minimap.PixelSize.Width / 5;
+                int mapSqrY = minimap.PixelSize.Height / 5;
 			    int drawW = mapSqrX * pW/2;
 			    int drawH = mapSqrY * pW/2;
 			/*TODO
@@ -517,7 +518,7 @@ namespace IceBlink2
 			    canvas.drawRect(new Rect(gv.oXshift, pH, gv.oXshift + drawW + pW, pH + drawH + pW), pnt);
 			*/
 			    //draw minimap
-			    IbRect src = new IbRect(0, 0, minimap.Width, minimap.Height);
+                IbRect src = new IbRect(0, 0, minimap.PixelSize.Width, minimap.PixelSize.Height);
                 IbRect dst = new IbRect(gv.oXshift + shift + mapStartLocXinPixels, pH + shift, drawW, drawH);
 	            gv.DrawBitmap(minimap, src, dst);
                 /*TODO
@@ -561,7 +562,7 @@ namespace IceBlink2
 		    int x = gv.playerOffset * gv.squareSize;
 		    int y = gv.playerOffset * gv.squareSize;
 		    int shift = gv.squareSize / 3;
-		    IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.Width, mod.playerList[mod.selectedPartyLeader].token.Width);
+            IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
             if (mod.showPartyToken)
             {
@@ -702,7 +703,7 @@ namespace IceBlink2
             	    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
             	    int brX = gv.squareSize;
             	    int brY = gv.squareSize;
-                    IbRect src = new IbRect(0, 0, gv.cc.walkBlocked.Width, gv.cc.walkBlocked.Height);
+                    IbRect src = new IbRect(0, 0, gv.cc.walkBlocked.PixelSize.Width, gv.cc.walkBlocked.PixelSize.Height);
                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                     if (mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
                     {
@@ -740,7 +741,7 @@ namespace IceBlink2
 	    }
 	    public void drawOverlayTints()
 	    {
-		    IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.Width, gv.cc.tint_sunset.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
             IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * 9), (gv.squareSize * 9));
 		    int dawn = 5 * 60;
 		    int sunrise = 6 * 60;
@@ -820,7 +821,7 @@ namespace IceBlink2
             	    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
             	    int brX = gv.squareSize;
             	    int brY = gv.squareSize;
-                    IbRect src = new IbRect(0, 0, gv.cc.black_tile.Width, gv.cc.black_tile.Height);
+                    IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                     if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].Visible)
                     {
@@ -1106,7 +1107,7 @@ namespace IceBlink2
                 int tlY = y * gv.squareSize;
                 int brX = gv.squareSize;
                 int brY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, gv.cc.black_tile.Width, gv.cc.black_tile.Height);
+                IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
             }
@@ -1119,7 +1120,7 @@ namespace IceBlink2
                 int tlY = row * gv.squareSize;
                 int brX = gv.squareSize;
                 int brY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, gv.cc.black_tile.Width, gv.cc.black_tile.Height);
+                IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
             }
@@ -1439,13 +1440,13 @@ namespace IceBlink2
 						    mod.PlayerLocationX--;
 						    if (!mod.playerList[0].combatFacingLeft)
 						    {
-							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+//TODO							    //mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
 						    }
 						    foreach (Player pc in mod.playerList)
 						    {
 							    if (!pc.combatFacingLeft)
 							    {
-								    pc.token = gv.cc.flip(pc.token);
+//TODO								    //pc.token = gv.cc.flip(pc.token);
 								    pc.combatFacingLeft = true;
 							    }
 						    }
@@ -1467,13 +1468,13 @@ namespace IceBlink2
 						    mod.PlayerLocationX++;
 						    if (mod.playerList[0].combatFacingLeft)
 						    {
-							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+//TODO							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
 						    }
 						    foreach (Player pc in mod.playerList)
 						    {
 							    if (pc.combatFacingLeft)
 							    {
-								    pc.token = gv.cc.flip(pc.token);
+//TODO								    pc.token = gv.cc.flip(pc.token);
 								    pc.combatFacingLeft = false;
 							    }
 						    }						
@@ -1853,13 +1854,13 @@ namespace IceBlink2
                     mod.PlayerLocationX--;
                     if (!mod.playerList[0].combatFacingLeft)
                     {
-                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+//TODO                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                     }
                     foreach (Player pc in mod.playerList)
                     {
                         if (!pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                     }
@@ -1879,13 +1880,13 @@ namespace IceBlink2
                     mod.PlayerLocationX++;
                     if (mod.playerList[0].combatFacingLeft)
                     {
-                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+//TODO                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                     }
                     foreach (Player pc in mod.playerList)
                     {
                         if (pc.combatFacingLeft)
                         {
-                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                     }

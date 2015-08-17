@@ -12,6 +12,7 @@ using System.Drawing.Design;
 //using System.Design;
 using System.ComponentModel.Design;
 using Newtonsoft.Json;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {

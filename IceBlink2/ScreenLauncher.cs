@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -107,7 +108,7 @@ namespace IceBlink2
             //DRAW TITLE SCREEN
     	    if ((titleList.Count > 0) && (moduleIndex < titleList.Count))
 		    {
-    		    IbRect src = new IbRect(0, 0, titleList[moduleIndex].Width, titleList[moduleIndex].Height);
+                IbRect src = new IbRect(0, 0, titleList[moduleIndex].PixelSize.Width, titleList[moduleIndex].PixelSize.Height);
                 IbRect dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), 0, gv.squareSize * 8, gv.squareSize * 4);
                 gv.DrawBitmap(titleList[moduleIndex], src, dst);
 		    }

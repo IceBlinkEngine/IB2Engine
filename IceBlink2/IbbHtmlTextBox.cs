@@ -46,13 +46,13 @@ namespace IceBlink2
             brush.Color = Color.Red;
         }
 
-        public void DrawBitmap(Bitmap bmp, int x, int y)
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bmp, int x, int y)
         {
             //Rectangle src = new Rectangle(0, 0, bmp.Width, bmp.Height);
             //Rectangle dst = new Rectangle(x + tbXloc, y + tbYloc + gv.oYshift, bmp.Width, bmp.Height);
             //g.DrawImage(bmp, dst, src, GraphicsUnit.Pixel);
-            IbRect src = new IbRect(0, 0, bmp.Width, bmp.Height);
-            IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.Width, bmp.Height);
+            IbRect src = new IbRect(0, 0, bmp.PixelSize.Width, bmp.PixelSize.Height);
+            IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
         public void DrawString(string text, Font f, SolidBrush sb, int x, int y)
@@ -230,7 +230,8 @@ namespace IceBlink2
                 {
                     //print each word and move xLoc
                     font = new Font(fontfamily, word.fontSize, word.fontStyle);
-                    int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
+                    //int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
+                    int wordWidth = 12;
                     brush.Color = word.color;
                     int difYheight = logLinesList[i].lineHeight - font.Height;
                     DrawString(word.text, font, brush, xLoc, yLoc + difYheight);

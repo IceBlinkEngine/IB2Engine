@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -127,7 +128,7 @@ namespace IceBlink2
     	    }
     	
     	    //DRAW BACKGROUND IMAGE
-    	    IbRect src = new IbRect(0, 0, journalBack.Width, journalBack.Height);
+            IbRect src = new IbRect(0, 0, journalBack.PixelSize.Width, journalBack.PixelSize.Height);
             IbRect dst = new IbRect(6 * gv.squareSize, 0, 7 * gv.squareSize, 9 * gv.squareSize);
             gv.DrawBitmap(journalBack, src, dst);
         

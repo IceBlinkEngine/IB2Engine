@@ -93,10 +93,10 @@ namespace IceBlink2
         //From IbbHtmlLogBox
         public void InitializeHtmlLogBox(int locX, int locY, int width, int height)
         {
-            btn_up = gv.cc.LoadBitmap("btn_up.png");
-            btn_down = gv.cc.LoadBitmap("btn_down.png");
-            btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
-            bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
+            btn_up = gv.cc.LoadBitmapGDI("btn_up.png");
+            btn_down = gv.cc.LoadBitmapGDI("btn_down.png");
+            btn_scroll = gv.cc.LoadBitmapGDI("btn_scroll.png");
+            bg_scroll = gv.cc.LoadBitmapGDI("bg_scroll.png");
             fontfamily = gv.family;
             font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             tbXloc = locX;

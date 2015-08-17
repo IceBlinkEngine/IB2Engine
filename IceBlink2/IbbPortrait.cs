@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -55,17 +56,17 @@ namespace IceBlink2
             int pW = (int)((float)gv.screenHeight / 200.0f);
             float fSize = (float)(gv.squareSize / 4) * scaler;
 
-            IbRect src = new IbRect(0, 0, this.ImgBG.Width, this.ImgBG.Height);
+            IbRect src = new IbRect(0, 0, this.ImgBG.PixelSize.Width, this.ImgBG.PixelSize.Height);
             IbRect src2 = new IbRect(0, 0, 0, 0);
             IbRect src3 = new IbRect(0, 0, 0, 0);
 
             if (this.Img != null)
             {
-                src2 = new IbRect(0, 0, this.Img.Width, this.Img.Height);
+                src2 = new IbRect(0, 0, this.Img.PixelSize.Width, this.Img.PixelSize.Height);
             }
             if (this.ImgLU != null)
             {
-                src3 = new IbRect(0, 0, this.ImgLU.Width, this.ImgLU.Height);
+                src3 = new IbRect(0, 0, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
             }
             IbRect dstBG = new IbRect(this.X - (int)(3 * gv.screenDensity),
                                         this.Y - (int)(3 * gv.screenDensity),
@@ -74,7 +75,7 @@ namespace IceBlink2
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
             IbRect dstLU = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
 
-            IbRect srcGlow = new IbRect(0, 0, this.Glow.Width, this.Glow.Height);
+            IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
                                         this.Y - (int)(7 * gv.screenDensity), 
                                         (int)((float)this.Width * gv.screenDensity) + (int)(15 * gv.screenDensity), 

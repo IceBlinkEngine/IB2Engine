@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -244,8 +245,8 @@ namespace IceBlink2
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
                 btnPortrait.X = 10 * gv.squareSize;
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
-                btnPortrait.Height = (int)(pc.portrait.Height * gv.screenDensity);
-                btnPortrait.Width = (int)(pc.portrait.Width * gv.screenDensity);
+                btnPortrait.Height = (int)(pc.portrait.PixelSize.Height * gv.screenDensity);
+                btnPortrait.Width = (int)(pc.portrait.PixelSize.Width * gv.screenDensity);
             }
             if (btnToken == null)
             {

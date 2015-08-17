@@ -2569,7 +2569,7 @@ namespace IceBlink2
                 gv.mod.partyTokenBitmap = gv.cc.LoadBitmap(gv.mod.partyTokenFilename);
                 if (!mod.playerList[0].combatFacingLeft)
                 {
-                    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+//TODO                    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                 }
                 gv.mod.showPartyToken = enable;
             }

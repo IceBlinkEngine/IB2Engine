@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -53,8 +54,8 @@ namespace IceBlink2
         
         public void DrawBitmap(Bitmap bmp, int x, int y)
         {
-            IbRect src = new IbRect(0, 0, bmp.Width, bmp.Height);
-            IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.Width, bmp.Height);
+            IbRect src = new IbRect(0, 0, bmp.PixelSize.Width, bmp.PixelSize.Height);
+            IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
         public void DrawString(string text, Font f, SolidBrush sb, int x, int y)
@@ -73,11 +74,11 @@ namespace IceBlink2
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
-                ProcessHtmlString(htmlText, tbWidth - btn_up.Width);
+                ProcessHtmlString(htmlText, tbWidth - btn_up.PixelSize.Width);
             }
             else
             {
-                ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.Width);
+                ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.PixelSize.Width);
             }            
             scrollToEnd();
         }
@@ -223,7 +224,7 @@ namespace IceBlink2
         public void onDrawLogBox()
         {
             //ratio of #lines to #pixels
-            float ratio = (float)(logLinesList.Count) / (float)(tbHeight - btn_down.Height - btn_up.Height - btn_scroll.Height);
+            float ratio = (float)(logLinesList.Count) / (float)(tbHeight - btn_down.PixelSize.Height - btn_up.PixelSize.Height - btn_scroll.PixelSize.Height);
             if (ratio < 1.0f) { ratio = 1.0f; }
             if (moveDeltaY != 0)
             {
@@ -242,7 +243,8 @@ namespace IceBlink2
                 {
                     //print each word and move xLoc
                     font = new Font(fontfamily, word.fontSize, word.fontStyle);
-                    int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
+                    //int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
+                    int wordWidth = 12;
                     brush.Color = word.color;
                     int difYheight = logLinesList[i].lineHeight - font.Height;
                     DrawString(word.text, font, brush, xLoc, yLoc + difYheight);
@@ -254,23 +256,23 @@ namespace IceBlink2
 
             //determine the scrollbutton location            
             scrollButtonYLoc = (currentTopLineIndex / (int)ratio);
-            if (scrollButtonYLoc > tbHeight - btn_down.Height - btn_scroll.Height)
+            if (scrollButtonYLoc > tbHeight - btn_down.PixelSize.Height - btn_scroll.PixelSize.Height)
             {
-                scrollButtonYLoc = tbHeight - btn_down.Height - btn_scroll.Height;
+                scrollButtonYLoc = tbHeight - btn_down.PixelSize.Height - btn_scroll.PixelSize.Height;
             }
-            if (scrollButtonYLoc < 0 + btn_up.Height)
+            if (scrollButtonYLoc < 0 + btn_up.PixelSize.Height)
             {
-                scrollButtonYLoc = 0 + btn_up.Height;
+                scrollButtonYLoc = 0 + btn_up.PixelSize.Height;
             }
 
             //draw scrollbar
             for (int y = 0; y < tbHeight - 10; y += 10)
             {
-                DrawBitmap(bg_scroll, tbWidth - bg_scroll.Width - 5, y);
+                DrawBitmap(bg_scroll, tbWidth - bg_scroll.PixelSize.Width - 5, y);
             }
-            DrawBitmap(btn_up, tbWidth - btn_up.Width, 0);
-            DrawBitmap(btn_down, tbWidth - btn_down.Width, tbHeight - btn_down.Height);
-            DrawBitmap(btn_scroll, tbWidth - btn_scroll.Width - 1, scrollButtonYLoc);
+            DrawBitmap(btn_up, tbWidth - btn_up.PixelSize.Width, 0);
+            DrawBitmap(btn_down, tbWidth - btn_down.PixelSize.Width, tbHeight - btn_down.PixelSize.Height);
+            DrawBitmap(btn_scroll, tbWidth - btn_scroll.PixelSize.Width - 1, scrollButtonYLoc);
 
             //draw border for debug info
             gv.DrawRectangle(new IbRect(tbXloc, tbYloc - gv.oYshift, tbWidth, tbHeight), Color.DimGray, 1);
@@ -407,7 +409,7 @@ namespace IceBlink2
         }
         private bool isMouseWithinScrollBar(MouseEventArgs e)
         {
-            if ((e.X > tbWidth + tbXloc - btn_up.Width) && (e.X < tbWidth + tbXloc) && (e.Y > tbYloc) && (e.Y < tbHeight + tbYloc))
+            if ((e.X > tbWidth + tbXloc - btn_up.PixelSize.Width) && (e.X < tbWidth + tbXloc) && (e.Y > tbYloc) && (e.Y < tbHeight + tbYloc))
             {
                 return true;
             }
@@ -438,7 +440,7 @@ namespace IceBlink2
                     //if mouse is above scroll button, move up a bit
                     xLoc = 0;
                 }
-                else if (e.Y - tbYloc > scrollButtonYLoc + btn_scroll.Height)
+                else if (e.Y - tbYloc > scrollButtonYLoc + btn_scroll.PixelSize.Height)
                 {
                     //if mouse is below scroll button, move down a bit
                     xLoc = 0;
@@ -488,7 +490,7 @@ namespace IceBlink2
             if (isMouseWithinScrollBar(e))
             {
                 //if click on top button, move 5 lines up
-                if (e.Y < tbYloc + btn_up.Height)
+                if (e.Y < tbYloc + btn_up.PixelSize.Height)
                 {
                     SetCurrentTopLineIndex(-5);
                     //currentTopLineIndex -= 5;
@@ -496,7 +498,7 @@ namespace IceBlink2
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
                     gv.Invalidate();
                 }
-                else if (e.Y > tbYloc + tbHeight - btn_down.Height)
+                else if (e.Y > tbYloc + tbHeight - btn_down.PixelSize.Height)
                 {
                     SetCurrentTopLineIndex(5);
                     //currentTopLineIndex += 5;

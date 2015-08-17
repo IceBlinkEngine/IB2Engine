@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -91,7 +92,7 @@ namespace IceBlink2
     	    //canvas.drawColor(Color.BLACK); 
 
             //DRAW TITLE SCREEN
-            IbRect src = new IbRect(0, 0, gv.cc.title.Width, gv.cc.title.Height);
+            IbRect src = new IbRect(0, 0, gv.cc.title.PixelSize.Width, gv.cc.title.PixelSize.Height);
             IbRect dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), 0, gv.squareSize * 8, gv.squareSize * 4);
             
             gv.DrawBitmap(gv.cc.title, src, dst);

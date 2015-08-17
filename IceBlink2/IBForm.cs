@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
+using SharpDX.Windows;
 
 namespace IceBlink2
 {
-    public partial class IBForm : Form
+    public partial class IBForm : RenderForm
     {
         private bool moveable;
         private Point currentPosition;

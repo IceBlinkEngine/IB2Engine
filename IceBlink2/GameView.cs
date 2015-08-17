@@ -19,7 +19,7 @@ using SharpDX.Direct3D;
 using SharpDX;
 using FontFamily = System.Drawing.FontFamily;
 using Font = System.Drawing.Font;
-using Bitmap = System.Drawing.Bitmap;
+//using Bitmap = System.Drawing.Bitmap;
 using Message = System.Windows.Forms.Message;
 using Color = System.Drawing.Color;
 using Point = System.Drawing.Point;
@@ -180,6 +180,8 @@ namespace IceBlink2
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
 
+            InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
+
             //CREATES A FONTFAMILY
             //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
             family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
@@ -194,8 +196,6 @@ namespace IceBlink2
 
             cc = new CommonCode(this);            
             mod = new Module();
-
-            
 
             log = new IbbHtmlLogBox(this, 0 * squareSize + oXshift - 3, 0 * squareSize + oYshift, 6 * squareSize, 7 * squareSize);
             log.numberOfLinesToShow = 20;
@@ -212,7 +212,7 @@ namespace IceBlink2
             //TODOinitializeMusic();
             setupMusicPlayers();
             //TODOinitializeCombatMusic();
-            //InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
+            
 
             if (fixedModule.Equals("")) //this is the IceBlink Engine app
             {
@@ -962,14 +962,16 @@ namespace IceBlink2
         {
             animationTimer.Enabled = false;
             animationTimer.Stop();
-            Invalidate();
+            Render();
+            //Invalidate();
             screenCombat.doAnimationController();
         }
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
             floatyTextTimer.Enabled = false;
             floatyTextTimer.Stop();
-            Invalidate();
+            //Invalidate();
+            Render();
 
             int pH = (int)((float)screenHeight / 200.0f);
             //move all floaty text up one %pixel
@@ -994,7 +996,8 @@ namespace IceBlink2
         {
             floatyTextMainMapTimer.Enabled = false;
             floatyTextMainMapTimer.Stop();
-            Invalidate();
+            //Invalidate();
+            Render();
 
             if (screenMainMap.floatyTextPool.Count > 0)
             {
@@ -1064,7 +1067,10 @@ namespace IceBlink2
         }
         public void DrawText(string text, Font f, SolidBrush sb, int x, int y)
         {
-            gCanvas.DrawString(text, f, sb, new Point(x, y + oYshift));
+            //gCanvas.DrawString(text, f, sb, new Point(x, y + oYshift));
+            textFormat = new TextFormat(factoryDWrite, f.FontFamily.Name, f.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+            renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
         }
         public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor)
         {
@@ -1078,7 +1084,10 @@ namespace IceBlink2
                 thisFont = drawFontSmall;
             }
             drawBrush.Color = fontColor;
-            gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift));
+            //gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift));
+            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+            renderTarget2D.DrawTextLayout(new Vector2(xLoc, yLoc + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
         }
         public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor, bool showHotkey)
         {
@@ -1098,7 +1107,10 @@ namespace IceBlink2
                 thisFont = drawFontSmall;
             }
             drawBrush.Color = fontColor;
-            gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift), format);
+            //gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift), format);
+            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+            renderTarget2D.DrawTextLayout(new Vector2(xLoc, yLoc + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
         }
         public void DrawText(string text, IbRect rect, float scaler, Color fontColor)
         {
@@ -1124,7 +1136,10 @@ namespace IceBlink2
             }
             RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             drawBrush.Color = fontColor;
-            gCanvas.DrawString(text, thisFont, drawBrush, rectF);
+            //gCanvas.DrawString(text, thisFont, drawBrush, rectF);
+            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+            textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+            renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
         }
         public void DrawRoundRectangle(IbRect rect, int rad, Color penColor, int penWidth)
         {
@@ -1140,7 +1155,7 @@ namespace IceBlink2
             gp.AddArc(rect.Left, rect.Top + oYshift + rect.Height - rad, rad, rad, 90, 90);
             gp.CloseFigure();            
 
-            gCanvas.DrawPath(p, gp);
+            //gCanvas.DrawPath(p, gp);
 
             p.Dispose();
             gp.Dispose();
@@ -1149,24 +1164,22 @@ namespace IceBlink2
         {
             Pen p = new Pen(penColor, penWidth);
             Rectangle r = new Rectangle(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
-            gCanvas.DrawRectangle(p, r);
+            //gCanvas.DrawRectangle(p, r);
             p.Dispose();
         }
         public void DrawLine(int lastX, int lastY, int nextX, int nextY, Color penColor, int penWidth)
         {
             Pen p = new Pen(penColor, penWidth);
-            gCanvas.DrawLine(p, lastX, lastY, nextX, nextY);
+            //gCanvas.DrawLine(p, lastX, lastY, nextX, nextY);
             p.Dispose();
         }
-        public void DrawBitmap(Bitmap bitmap, IbRect source, IbRect target)
+        public void DrawBitmapGDI(System.Drawing.Bitmap bitmap, IbRect source, IbRect target) //change this to DrawBitmapGDI
         {
-            //device.DrawImage(g_walkPass, target, src, GraphicsUnit.Pixel);
-            //canvas.drawBitmap(gv.cc.turn_marker, src, dst, null);
             Rectangle tar = new Rectangle(target.Left, target.Top + oYshift, target.Width, target.Height);
             Rectangle src = new Rectangle(source.Left, source.Top, source.Width, source.Height);
             gCanvas.DrawImage(bitmap, tar, src, GraphicsUnit.Pixel);
         }
-        public void DrawBitmapD2D(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target)
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target) //change this to DrawBitmap
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
@@ -1174,14 +1187,11 @@ namespace IceBlink2
         }
         protected override void OnPaint(PaintEventArgs e)
 	    {
-            base.OnPaint(e);
-            gCanvas = e.Graphics;
-            //BeginDraw(); //uncomment this for DIRECT2D ADDITIONS
-            //renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
-            //draw count stuff for debugging
-            //DrawText("draws:" + drawCount.ToString(), 0, 0, 1.0f, Color.White);
-            //DrawText("mouse:" + mouseCount.ToString(), 0, 15, 1.0f, Color.White);
-            //drawCount++;
+            Render();
+            //base.OnPaint(e);
+            //gCanvas = e.Graphics;
+            /*BeginDraw(); //uncomment this for DIRECT2D ADDITIONS
+            renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
             
             if (screenType.Equals("title"))
 		    {
@@ -1270,9 +1280,9 @@ namespace IceBlink2
 		    else if (screenType.Equals("convo"))
 		    {
                 //if (mod.avoidInteraction == false)
-                //
+                //{
                     screenConvo.redrawConvo();
-                //
+                //}
 		    }
 		    else if (screenType.Equals("partyBuild"))
 		    {
@@ -1282,7 +1292,8 @@ namespace IceBlink2
             {
                 screenPartyRoster.redrawPartyRoster();
             }
-            //EndDraw(); //uncomment this for DIRECT2D ADDITIONS
+            EndDraw(); //uncomment this for DIRECT2D ADDITIONS
+            */
         }
 
         //DIRECT2D STUFF
@@ -1377,11 +1388,112 @@ namespace IceBlink2
             renderTarget2D.EndDraw();
             _swapChain.Present(1, PresentFlags.None);
         }
-        private void Render()
+        public void Render()
         {
-            BeginDraw();
-            Draw();
-            EndDraw();
+            BeginDraw(); //uncomment this for DIRECT2D ADDITIONS  
+          
+            renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
+
+            if (screenType.Equals("title"))
+            {
+                screenTitle.redrawTitle();
+            }
+            else if (screenType.Equals("launcher"))
+            {
+                screenLauncher.redrawLauncher();
+            }
+            else if (screenType.Equals("pcCreation"))
+            {
+                screenPcCreation.redrawPcCreation();
+            }
+            else if (screenType.Equals("learnSpellCreation"))
+            {
+                screenSpellLevelUp.redrawSpellLevelUp(true);
+            }
+            else if (screenType.Equals("learnSpellLevelUp"))
+            {
+                screenSpellLevelUp.redrawSpellLevelUp(false);
+            }
+            else if (screenType.Equals("learnTraitCreation"))
+            {
+                screenTraitLevelUp.redrawTraitLevelUp(true);
+            }
+            else if (screenType.Equals("learnTraitLevelUp"))
+            {
+                screenTraitLevelUp.redrawTraitLevelUp(false);
+            }
+            else if (screenType.Equals("main"))
+            {
+                screenMainMap.redrawMain();
+            }
+            else if (screenType.Equals("party"))
+            {
+                screenParty.redrawParty();
+            }
+            else if (screenType.Equals("combatParty"))
+            {
+                screenParty.redrawParty();
+            }
+            else if (screenType.Equals("inventory"))
+            {
+                screenInventory.redrawInventory();
+            }
+            else if (screenType.Equals("itemSelector"))
+            {
+                screenItemSelector.redrawItemSelector();
+            }
+            else if (screenType.Equals("portraitSelector"))
+            {
+                screenPortraitSelector.redrawPortraitSelector();
+            }
+            else if (screenType.Equals("tokenSelector"))
+            {
+                screenTokenSelector.redrawTokenSelector();
+            }
+            else if (screenType.Equals("pcSelector"))
+            {
+                screenPcSelector.redrawPcSelector();
+            }
+            else if (screenType.Equals("combatInventory"))
+            {
+                screenInventory.redrawInventory();
+            }
+            else if (screenType.Equals("journal"))
+            {
+                screenJournal.redrawJournal();
+            }
+            else if (screenType.Equals("shop"))
+            {
+                screenShop.redrawShop();
+            }
+            else if (screenType.Equals("combat"))
+            {
+                screenCombat.redrawCombat();
+            }
+            else if (screenType.Equals("combatCast"))
+            {
+                screenCastSelector.redrawCastSelector(true);
+            }
+            else if (screenType.Equals("mainMapCast"))
+            {
+                screenCastSelector.redrawCastSelector(false);
+            }
+            else if (screenType.Equals("convo"))
+            {
+                //if (mod.avoidInteraction == false)
+                //{
+                screenConvo.redrawConvo();
+                //}
+            }
+            else if (screenType.Equals("partyBuild"))
+            {
+                screenPartyBuild.redrawPartyBuild();
+            }
+            else if (screenType.Equals("partyRoster"))
+            {
+                screenPartyRoster.redrawPartyRoster();
+            }
+            EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
 
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
@@ -1437,6 +1549,7 @@ namespace IceBlink2
                                             BitmapInterpolationMode.Linear,
                                             new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
             }
+            //return transform back to original
             renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
         }
 
@@ -1467,6 +1580,7 @@ namespace IceBlink2
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
         {
+            Render();
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 log.onMouseMove(sender, e);
@@ -1580,7 +1694,7 @@ namespace IceBlink2
                     {
                         screenPartyRoster.onTouchPartyRoster(e, eventType);
                     }
-                    this.Invalidate();
+                    //this.Invalidate();
                 }
             }
             catch (Exception ex) 
@@ -1603,17 +1717,20 @@ namespace IceBlink2
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
-                        this.Invalidate();
+                        Render();
+                        //this.Invalidate();
                     }
                     else if (screenType.Equals("combat"))
                     {
                         screenCombat.onKeyUp(keyData);
-                        this.Invalidate();
+                        Render();
+                        //this.Invalidate();
                     }
                     else if (screenType.Equals("convo"))
                     {
                         screenConvo.onKeyUp(keyData);
-                        this.Invalidate();
+                        Render();
+                        //this.Invalidate();
                     }
                 }
             }

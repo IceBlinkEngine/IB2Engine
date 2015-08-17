@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
@@ -91,10 +92,10 @@ namespace IceBlink2
 	    {		
 		    int sX = gv.squareSize * 2;
 		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
-		    IbRect src = new IbRect(0, 0, convoBitmap.Width, convoBitmap.Height);
-            IbRect dst = new IbRect(sX, sY, convoBitmap.Width * 2, convoBitmap.Height * 2);
+            IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
+            IbRect dst = new IbRect(sX, sY, convoBitmap.PixelSize.Width * 2, convoBitmap.PixelSize.Height * 2);
 
-            if (convoBitmap.Width == convoBitmap.Height)
+            if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
             {
                 dst = new IbRect(sX, sY, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
             }
