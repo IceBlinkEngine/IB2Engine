@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Color = SharpDX.Color;
+using FontStyle = SharpDX.DirectWrite.FontStyle;
+using FontWeight = SharpDX.DirectWrite.FontWeight;
 
 namespace IceBlink2
 {
@@ -10,7 +13,8 @@ namespace IceBlink2
     {
         public string text = "";
         public Color color = Color.White;
-        public FontStyle fontStyle = FontStyle.Regular;
+        public FontStyle fontStyle = FontStyle.Normal;
+        public FontWeight fontWeight = FontWeight.Normal;
         public float fontSize = 10.0f;
 
         public FormattedWord()

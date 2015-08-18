@@ -1,9 +1,11 @@
-﻿using System;
+﻿using SharpDX.DirectWrite;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
@@ -11,13 +13,13 @@ namespace IceBlink2
     {
         public GameView gv;
 
-        public SolidBrush brush = new SolidBrush(Color.Black);
-        public FontFamily fontfamily;
-        public Font font;
+        //public SolidBrush brush = new SolidBrush(Color.Black);
+        //public FontFamily fontfamily;
+        //public Font font;
         
         public List<string> tagStack = new List<string>();
         public List<FormattedLine> logLinesList = new List<FormattedLine>();
-        int xLoc = 0;
+        float xLoc = 0;
         public int tbHeight = 200;
         public int tbWidth = 300;
         public int tbXloc = 10;
@@ -28,22 +30,22 @@ namespace IceBlink2
         public IbbHtmlTextBox(GameView g, int locX, int locY, int width, int height)
         {
             gv = g;
-            fontfamily = gv.family;
-            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
+            //fontfamily = gv.family;
+            //font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             //font = gv.drawFontReg;
             tbXloc = locX;
             tbYloc = locY;
             tbWidth = width;
             tbHeight = height;
-            brush.Color = Color.Red;
+            //brush.Color = Color.Red;
         }
         public IbbHtmlTextBox(GameView g)
         {
             gv = g;
-            fontfamily = gv.family;
-            font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
+            //fontfamily = gv.family;
+            //font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             //font = gv.drawFontReg;
-            brush.Color = Color.Red;
+            //brush.Color = Color.Red;
         }
 
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bmp, int x, int y)
@@ -55,12 +57,11 @@ namespace IceBlink2
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, Font f, SolidBrush sb, int x, int y)
+        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
-            if ((y > -2) && (y <= tbHeight - f.Height))
+            if ((y > -2) && (y <= tbHeight - gv.drawFontReg.Height))
             {
-                gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc);
-                //g.DrawString(text, f, sb, x + tbXloc, y + tbYloc + gv.oYshift);
+                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor);
             }
         }
 
@@ -97,11 +98,14 @@ namespace IceBlink2
                     if (newWord.text != "")
                     {
                         newWord.fontStyle = GetFontStyle();
+                        newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        font = new Font(fontfamily, newWord.fontSize, newWord.fontStyle);
-                        int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length);
-                        if (font.Height > lineHeight) { lineHeight = font.Height; }
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, gv.drawFontReg.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
+                        //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
+                        float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                        if (gv.drawFontReg.Height > lineHeight) { lineHeight = gv.drawFontReg.Height; }
                         //int wordWidth = (int)(frm.gCanvas.MeasureString(newWord.word, font)).Width;
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -154,6 +158,7 @@ namespace IceBlink2
                         if ((tag.ToLower() == "br") || (tag == "BR"))
                         {
                             newWord.fontStyle = GetFontStyle();
+                            newWord.fontWeight = GetFontWeight();
                             newWord.fontSize = GetFontSizeInPixels();
                             newWord.color = GetColor();
                             //end last line and add it to the log
@@ -183,12 +188,15 @@ namespace IceBlink2
                     else //hit a space so end word
                     {
                         newWord.fontStyle = GetFontStyle();
+                        newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        font = new Font(fontfamily, newWord.fontSize, newWord.fontStyle);
-                        int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length);
-                        if (font.Height > lineHeight) { lineHeight = font.Height; }
-                        //int wordWidth = (int)(g.MeasureString(newWord.word, font)).Width;
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, gv.drawFontReg.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
+                        //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
+                        float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+                        if (gv.drawFontReg.Height > lineHeight) { lineHeight = gv.drawFontReg.Height; }
+
                         if (xLoc + wordWidth > width) //word wrap
                         {
                             //end last line and add it to the log
@@ -220,22 +228,29 @@ namespace IceBlink2
         public void onDrawLogBox()
         {
             //only draw lines needed to fill textbox
-            int xLoc = 0;
-            int yLoc = 0;
+            float xLoc = 0;
+            float yLoc = 0;
             //loop through 5 lines from current index point
             for (int i = 0; i < logLinesList.Count; i++)
             {
                 //loop through each line and print each word
                 foreach (FormattedWord word in logLinesList[i].wordsList)
                 {
+                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                    gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
+                    int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
+                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color);
+                    xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
+
+                    //OLD STUFF
                     //print each word and move xLoc
-                    font = new Font(fontfamily, word.fontSize, word.fontStyle);
+                    //font = new Font(fontfamily, word.fontSize, word.fontStyle);
                     //int wordWidth = (int)(gv.gCanvas.MeasureString(word.text, font)).Width;
-                    int wordWidth = 12;
-                    brush.Color = word.color;
-                    int difYheight = logLinesList[i].lineHeight - font.Height;
-                    DrawString(word.text, font, brush, xLoc, yLoc + difYheight);
-                    xLoc += wordWidth;
+                    //int wordWidth = 12;
+                    //brush.Color = word.color;
+                    //int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
+                    //DrawString(word.text, xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color);
+                    //xLoc += wordWidth;
                 }
                 xLoc = 0;
                 yLoc += logLinesList[i].lineHeight;
@@ -293,22 +308,26 @@ namespace IceBlink2
             }
             return clr;
         }
-        private FontStyle GetFontStyle()
+        private SharpDX.DirectWrite.FontStyle GetFontStyle()
         {
-            FontStyle style = FontStyle.Regular;
+            SharpDX.DirectWrite.FontStyle style = SharpDX.DirectWrite.FontStyle.Normal;
+            foreach (string s in tagStack)
+            {
+                if (s == "i")
+                {
+                    style = style | SharpDX.DirectWrite.FontStyle.Italic;
+                }
+            }
+            return style;
+        }
+        private SharpDX.DirectWrite.FontWeight GetFontWeight()
+        {
+            SharpDX.DirectWrite.FontWeight style = SharpDX.DirectWrite.FontWeight.Normal;
             foreach (string s in tagStack)
             {
                 if (s == "b")
                 {
-                    style = style | FontStyle.Bold;
-                }
-                else if (s == "i")
-                {
-                    style = style | FontStyle.Italic;
-                }
-                else if (s == "u")
-                {
-                    style = style | FontStyle.Underline;
+                    style = style | SharpDX.DirectWrite.FontWeight.Bold;
                 }
             }
             return style;

@@ -95,7 +95,9 @@
     <Compile Include="Encounter.cs" />
     <Compile Include="EventObjEditorReturnObject.cs" />
     <Compile Include="FloatyText.cs" />
+    <Compile Include="FormattedLineGDI.cs" />
     <Compile Include="FormattedLine.cs" />
+    <Compile Include="FormattedWordGDI.cs" />
     <Compile Include="FormattedWord.cs" />
     <Compile Include="GameView.cs">
       <SubType>Form</SubType>
@@ -166,6 +168,9 @@
     <Compile Include="Prop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Race.cs" />
+    <Compile Include="ResourceFontFileEnumerator.cs" />
+    <Compile Include="ResourceFontFileStream.cs" />
+    <Compile Include="ResourceFontLoader.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="ScreenCastSelector.cs" />
     <Compile Include="ScreenCombat.cs" />
@@ -231,7 +236,7 @@
     <EmbeddedResource Include="TextInputDialog.resx">
       <DependentUpon>TextInputDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Metamorphous-Regular.ttf" />
+    <EmbeddedResource Include="Metamorphous-Regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -22,7 +22,7 @@ namespace IceBlink2
         public Bitmap btn_scroll;
         public Bitmap bg_scroll;
         public List<string> tagStack = new List<string>();
-        public List<FormattedLine> logLinesList = new List<FormattedLine>();
+        public List<FormattedLineGDI> logLinesList = new List<FormattedLineGDI>();
         public int currentTopLineIndex = 0;
         public int numberOfLinesToShow = 17;
         public int xLoc = 0;
@@ -140,8 +140,8 @@ namespace IceBlink2
         {
             bool tagMode = false;
             string tag = "";
-            FormattedWord newWord = new FormattedWord();
-            FormattedLine newLine = new FormattedLine();
+            FormattedWordGDI newWord = new FormattedWordGDI();
+            FormattedLineGDI newLine = new FormattedLineGDI();
             int lineHeight = 0;
 
             foreach (char c in text)
@@ -166,7 +166,7 @@ namespace IceBlink2
                             newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
-                            newLine = new FormattedLine();
+                            newLine = new FormattedLineGDI();
                             newLine.wordsList.Add(newWord);
                             xLoc = 0;
                         }
@@ -176,7 +176,7 @@ namespace IceBlink2
                         }
                         //instead of drawing, just add to line list 
                         xLoc += wordWidth;
-                        newWord = new FormattedWord();
+                        newWord = new FormattedWordGDI();
                     }
                     continue;
                 }
@@ -216,7 +216,7 @@ namespace IceBlink2
                             newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
-                            newLine = new FormattedLine();
+                            newLine = new FormattedLineGDI();
                             //newLine.wordsList.Add(newWord);
                             xLoc = 0;
                         }
@@ -250,7 +250,7 @@ namespace IceBlink2
                             newLine.lineHeight = lineHeight;
                             logLinesList.Add(newLine);
                             //start a new line and add this word
-                            newLine = new FormattedLine();
+                            newLine = new FormattedLineGDI();
                             newLine.wordsList.Add(newWord);
                             xLoc = 0;
                         }
@@ -260,7 +260,7 @@ namespace IceBlink2
                         }
                         //instead of drawing, just add to line list 
                         xLoc += wordWidth;
-                        newWord = new FormattedWord();
+                        newWord = new FormattedWordGDI();
                     }
                 }
                 else if (tagMode)
@@ -289,7 +289,7 @@ namespace IceBlink2
             for (int i = currentTopLineIndex; i < maxLines; i++)
             {
                 //loop through each line and print each word
-                foreach (FormattedWord word in logLinesList[i].wordsList)
+                foreach (FormattedWordGDI word in logLinesList[i].wordsList)
                 {
                     //print each word and move xLoc
                     font = new Font(fontfamily, word.fontSize, word.fontStyle);

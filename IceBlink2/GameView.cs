@@ -59,6 +59,9 @@ namespace IceBlink2
         public SharpDX.DirectWrite.Factory factoryDWrite;
         public RenderTarget renderTarget2D;
         public SolidColorBrush sceneColorBrush;
+        public ResourceFontLoader CurrentResourceFontLoader;
+        public SharpDX.DirectWrite.FontCollection CurrentFontCollection;
+        public string FontFamilyName;
         public TextFormat textFormat;
         public TextLayout textLayout;
 
@@ -189,6 +192,7 @@ namespace IceBlink2
             drawFontLarge = new Font(family, 24.0f * multiplr);
             drawFontReg = new Font(family, 20.0f * multiplr);
             drawFontSmall = new Font(family, 16.0f * multiplr);
+            InitCustomFont();
             
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
@@ -354,6 +358,15 @@ namespace IceBlink2
             _myFonts = new PrivateFontCollection();//here is where we assing memory space to myFonts 
             _myFonts.AddFontFile(fileName);//we add the full path of the ttf file
             return _myFonts.Families[0];//returns the family object as usual.
+        }
+        private void InitCustomFont()
+        {
+            CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite);
+            CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
+            FontFamilyName = "Metamorphous";
+            //comboBoxFonts.Items.Add("Pericles");
+            //comboBoxFonts.Items.Add("Kootenay");
+            //comboBoxFonts.SelectedIndex = 0;
         }
 
 	    //MUSIC AND SOUNDS	    
@@ -1061,70 +1074,38 @@ namespace IceBlink2
             }*/
         }
         
+        public void CleanUpDrawTextResources()
+        {
+            if (textFormat != null)
+            {
+                textFormat.Dispose();
+                textFormat = null;
+            }
+            if (textLayout != null)
+            {
+                textLayout.Dispose();
+                textLayout = null;
+            }
+        }
         public void DrawText(string text, int xLoc, int yLoc)
         {
-            DrawText(text, xLoc, yLoc, 1.0f, Color.White);
+            DrawText(text, xLoc, yLoc, 1.0f, SharpDX.Color.White);
         }
-        public void DrawText(string text, Font f, SolidBrush sb, int x, int y)
+        public void DrawText(string text, int x, int y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
-            //gCanvas.DrawString(text, f, sb, new Point(x, y + oYshift));
-            textFormat = new TextFormat(factoryDWrite, f.FontFamily.Name, f.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
-            renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
+            DrawText(text, new IbRect(x, y, this.Width, this.Height), FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor);
         }
-        public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor)
+        public void DrawText(string text, int xLoc, int yLoc, float scaler, SharpDX.Color fontColor)
         {
-            Font thisFont = drawFontReg;
-            if (scaler > 1.05f)
-            {
-                thisFont = drawFontLarge;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFont = drawFontSmall;
-            }
-            drawBrush.Color = fontColor;
-            //gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift));
-            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
-            renderTarget2D.DrawTextLayout(new Vector2(xLoc, yLoc + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
+            DrawText(text, new IbRect(xLoc, yLoc, this.Width, this.Height), scaler, fontColor);
         }
-        public void DrawText(string text, int xLoc, int yLoc, float scaler, Color fontColor, bool showHotkey)
+        public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
-            // Declare a new StringFormat.
-            StringFormat format = new StringFormat();
-
-            // Set the HotkeyPrefix property.
-            format.HotkeyPrefix = System.Drawing.Text.HotkeyPrefix.Show;
-
-            Font thisFont = drawFontReg;
-            if (scaler > 1.05f)
-            {
-                thisFont = drawFontLarge;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFont = drawFontSmall;
-            }
-            drawBrush.Color = fontColor;
-            //gCanvas.DrawString(text, thisFont, drawBrush, new Point(xLoc, yLoc + oYshift), format);
-            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-            textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
-            renderTarget2D.DrawTextLayout(new Vector2(xLoc, yLoc + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
+            DrawText(text, rect, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
-        public void DrawText(string text, IbRect rect, float scaler, Color fontColor)
+        public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
-            //ANDROID
-            //canvas.drawText(text, xLoc + gv.oXshift, yLoc + txtH, gv.floatyTextPaint);
-            //floatyTextPaint = new Paint();
-            //floatyTextPaint.setStyle(Paint.Style.FILL);
-            //floatyTextPaint.setColor(Color.YELLOW);
-            //floatyTextPaint.setAntiAlias(true);
-            //Typeface uiTypeface = Typeface.createFromAsset(gameContext.getAssets(), "fonts/Metamorphous-Regular.ttf");
-            //floatyTextPaint.setTypeface(uiTypeface);
-            //floatyTextPaint.setTextSize(squareSize/4);
-
-            //PC
+            CleanUpDrawTextResources();
             Font thisFont = drawFontReg;
             if (scaler > 1.05f)
             {
@@ -1135,19 +1116,41 @@ namespace IceBlink2
                 thisFont = drawFontSmall;
             }
             RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
-            drawBrush.Color = fontColor;
-            //gCanvas.DrawString(text, thisFont, drawBrush, rectF);
-            textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-            textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
-            renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, sceneColorBrush, DrawTextOptions.None);
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+                //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
+                renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
         }
-        public void DrawRoundRectangle(IbRect rect, int rad, Color penColor, int penWidth)
+        public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        {
+            CleanUpDrawTextResources();
+            Font thisFont = drawFontReg;
+            if (scaler > 1.05f)
+            {
+                thisFont = drawFontLarge;
+            }
+            else if (scaler < 0.95f)
+            {
+                thisFont = drawFontSmall;
+            }
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
+            {
+                //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+                renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
+            }
+        }
+        public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
         {
             //ANDROID canvas.drawRoundRect(new RectF(x + gv.oXshift, y, x + gv.squareSize + gv.oXshift + spellAoEinPixels + spellAoEinPixels, y + gv.squareSize + spellAoEinPixels + spellAoEinPixels), cornerRadius, cornerRadius, pnt);
             //PC      device.DrawRectangle(blackPen, target);
             
             GraphicsPath gp = new GraphicsPath();
-            Pen p = new Pen(penColor, penWidth);
+            //Pen p = new Pen(penColor, penWidth);
 
             gp.AddArc(rect.Left, rect.Top + oYshift, rad, rad, 180, 90);
             gp.AddArc(rect.Left + rect.Width - rad, rect.Top + oYshift, rad, rad, 270, 90);
@@ -1157,21 +1160,21 @@ namespace IceBlink2
 
             //gCanvas.DrawPath(p, gp);
 
-            p.Dispose();
+            //p.Dispose();
             gp.Dispose();
         }   
-        public void DrawRectangle(IbRect rect, Color penColor, int penWidth)
+        public void DrawRectangle(IbRect rect, SharpDX.Color penColor, int penWidth)
         {
-            Pen p = new Pen(penColor, penWidth);
+            //Pen p = new Pen(penColor, penWidth);
             Rectangle r = new Rectangle(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             //gCanvas.DrawRectangle(p, r);
-            p.Dispose();
+            //p.Dispose();
         }
-        public void DrawLine(int lastX, int lastY, int nextX, int nextY, Color penColor, int penWidth)
+        public void DrawLine(int lastX, int lastY, int nextX, int nextY, SharpDX.Color penColor, int penWidth)
         {
-            Pen p = new Pen(penColor, penWidth);
+            //Pen p = new Pen(penColor, penWidth);
             //gCanvas.DrawLine(p, lastX, lastY, nextX, nextY);
-            p.Dispose();
+            //p.Dispose();
         }
         public void DrawBitmapGDI(System.Drawing.Bitmap bitmap, IbRect source, IbRect target) //change this to DrawBitmapGDI
         {

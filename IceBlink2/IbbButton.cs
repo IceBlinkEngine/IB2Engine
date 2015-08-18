@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
+using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
@@ -135,10 +136,10 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black, true);
+                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
                 }
             }
-            gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White, true);
+            gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White);
             
             // DRAW QUANTITY
             stringSize = gv.cc.MeasureString(Quantity, thisFont, this.Width);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
+using Color = SharpDX.Color;
 
 namespace IceBlink2
 {

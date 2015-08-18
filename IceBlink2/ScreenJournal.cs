@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
+using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
@@ -183,7 +184,7 @@ namespace IceBlink2
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
-                description.brush.Color = Color.Black;
+                //description.brush.Color = Color.Black;
                 description.onDrawLogBox();
     	    }
 		
