@@ -72,6 +72,9 @@ namespace IceBlink2
         public Font drawFontReg;
         public Font drawFontLarge;
         public Font drawFontSmall;
+        public float drawFontRegHeight;
+        public float drawFontLargeHeight;
+        public float drawFontSmallHeight;
         public SolidBrush drawBrush = new SolidBrush(Color.White);
         //public Paint mUiTextPaint = null;
         //public Paint mSheetTextPaint = null;
@@ -192,6 +195,9 @@ namespace IceBlink2
             drawFontLarge = new Font(family, 24.0f * multiplr);
             drawFontReg = new Font(family, 20.0f * multiplr);
             drawFontSmall = new Font(family, 16.0f * multiplr);
+            drawFontLargeHeight = 32.0f * multiplr;
+            drawFontRegHeight = 26.0f * multiplr;
+            drawFontSmallHeight = 20.0f * multiplr;
             InitCustomFont();
             
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
@@ -1087,17 +1093,17 @@ namespace IceBlink2
                 textLayout = null;
             }
         }
-        public void DrawText(string text, int xLoc, int yLoc)
+        public void DrawText(string text, float xLoc, float yLoc)
         {
-            DrawText(text, xLoc, yLoc, 1.0f, SharpDX.Color.White);
+            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White);
         }
-        public void DrawText(string text, int x, int y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
+        public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
-            DrawText(text, new IbRect(x, y, this.Width, this.Height), FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor);
+            DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor);
         }
-        public void DrawText(string text, int xLoc, int yLoc, float scaler, SharpDX.Color fontColor)
+        public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
-            DrawText(text, new IbRect(xLoc, yLoc, this.Width, this.Height), scaler, fontColor);
+            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
         }
         public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
@@ -1106,20 +1112,20 @@ namespace IceBlink2
         public void DrawText(string text, IbRect rect, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
-            Font thisFont = drawFontReg;
+            float thisFontHeight = drawFontRegHeight;
             if (scaler > 1.05f)
             {
-                thisFont = drawFontLarge;
+                thisFontHeight = drawFontLargeHeight;
             }
             else if (scaler < 0.95f)
             {
-                thisFont = drawFontSmall;
+                thisFontHeight = drawFontSmallHeight;
             }
             RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
                 //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
@@ -1127,19 +1133,19 @@ namespace IceBlink2
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
         {
             CleanUpDrawTextResources();
-            Font thisFont = drawFontReg;
+            float thisFontHeight = drawFontRegHeight;
             if (scaler > 1.05f)
             {
-                thisFont = drawFontLarge;
+                thisFontHeight = drawFontLargeHeight;
             }
             else if (scaler < 0.95f)
             {
-                thisFont = drawFontSmall;
+                thisFontHeight = drawFontSmallHeight;
             }
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
                 //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
-                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
                 renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
             }

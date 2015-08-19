@@ -139,8 +139,8 @@ namespace IceBlink2
             //Node Rectangle Text
             string textToSpan = "";
             textToSpan = currentNpcNode;
-            SizeF textSize = gv.cc.MeasureString(currentNpcNode, gv.drawFontReg, width);
-            npcNodeEndY = startY + (int)textSize.Height;
+            float textSize = gv.drawFontRegHeight;
+            npcNodeEndY = startY + (int)textSize;
             //IbRect rect = new IbRect(startX, startY, width, pH * 50);
             //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
@@ -184,9 +184,10 @@ namespace IceBlink2
             foreach (string txt in currentPcNodeList)
             {
                 //Node Rectangle Text
-                SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
+                //SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
+                float textSize = gv.cc.MeasureString(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
                 //textSize.Height += textSize.Height;
-                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize.Width, (int)textSize.Height));
+                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize, (int)gv.drawFontRegHeight));
                 //IbRect rect = new IbRect(startX, startY, width, pH * 50);
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
@@ -203,7 +204,7 @@ namespace IceBlink2
                 htmltext.AddHtmlTextToLog(textToSpan);
                 htmltext.onDrawLogBox();
 
-                startY += (int)textSize.Height + pad;
+                startY += (int)gv.drawFontRegHeight + pad;
                 cnt++;
             }
 

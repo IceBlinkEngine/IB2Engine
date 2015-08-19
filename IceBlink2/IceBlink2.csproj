@@ -112,6 +112,12 @@
     <Compile Include="IbbHtmlTextBox.cs" />
     <Compile Include="IbbHtmlLogBox.cs" />
     <Compile Include="IbbToggleButton.cs" />
+    <Compile Include="IBFormGDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IBFormGDI.designer.cs">
+      <DependentUpon>IBFormGDI.cs</DependentUpon>
+    </Compile>
     <Compile Include="IBForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     <Compile Include="WayPoint.cs" />
     <EmbeddedResource Include="GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IBFormGDI.resx">
+      <DependentUpon>IBFormGDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IBForm.resx">
       <DependentUpon>IBForm.cs</DependentUpon>

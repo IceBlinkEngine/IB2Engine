@@ -4146,11 +4146,23 @@ namespace IceBlink2
             }
             return txt;
         }
-        public SizeF MeasureString(string text, Font font, int maxWidth)
+        public float MeasureString(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
         {
-            // Measure string.
-            //return gv.gCanvas.MeasureString(text, font, maxWidth);
-            return new SizeF(10,10);
+            // Measure string width.
+            SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
+            SharpDX.DirectWrite.TextLayout tl = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, text, tf, gv.Width, gv.Height);
+            float returnWidth = tl.Metrics.Width;
+            if (tf != null)
+            {
+                tf.Dispose();
+                tf = null;
+            }
+            if (tl != null)
+            {
+                tl.Dispose();
+                tl = null;
+            }
+            return returnWidth;
         }
         public void MakeDirectoryIfDoesntExist(string filenameAndFullPath)
         {

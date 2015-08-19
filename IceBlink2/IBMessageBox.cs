@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace IceBlink2
 {
-    public partial class IBMessageBox : IBForm
+    public partial class IBMessageBox : IBFormGDI
     {
         //private Game game;
 

@@ -75,7 +75,8 @@ namespace IceBlink2
             int padH = gv.squareSize / 6;
             int locY = 0;
             int locX = pW * 4;
-            int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+            int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
             int tabX = pW * 50;
             int tabX2 = pW * 70;

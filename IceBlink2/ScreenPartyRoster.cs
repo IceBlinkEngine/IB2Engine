@@ -181,7 +181,8 @@ namespace IceBlink2
 		    int padH = gv.squareSize/6;
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+            int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
     	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
     	    int tabX = pW * 50;
@@ -192,7 +193,8 @@ namespace IceBlink2
 		    //canvas.drawColor(Color.DKGRAY);
 		
 		    //Draw screen title name
-		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", gv.drawFontReg, gv.Width).Width;
+		    //int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", gv.drawFontReg, gv.Width).Width;
+            int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, 1.0f, Color.Gray);
 		    		    
@@ -212,7 +214,8 @@ namespace IceBlink2
 		    }
 
             //Draw screen title name
-            textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", gv.drawFontReg, gv.Width).Width;
+            //textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", gv.drawFontReg, gv.Width).Width;
+            textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Party Roster [Players in Reserve]", ulX, 3 * gv.squareSize + (pH * 0), 1.0f, Color.Gray);
 

@@ -266,8 +266,8 @@ namespace IceBlink2
 		    int padH = gv.squareSize/6;
     	    int locY = 0;
             int locX = 2 * gv.squareSize + gv.oXshift;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-            int spacing = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+    	    //int spacing = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+            int spacing = (int)gv.drawFontRegHeight;
     	    int tabX = pW * 50;
     	    int tabX2 = pW * 60;
     	    int leftStartY = 5 * gv.squareSize + (pH * 6);
@@ -278,10 +278,11 @@ namespace IceBlink2
 		    //Draw screen title name
 		    string text = "Party Members [" + mod.numberOfPlayerMadePcsAllowed + " player made PC(s) Allowed]";
             // Measure string.
-            SizeF stringSize = gv.cc.MeasureString(text, gv.drawFontReg, gv.Width);
+            //SizeF stringSize = gv.cc.MeasureString(text, gv.drawFontReg, gv.Width);
+            float stringSize = gv.cc.MeasureString(text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             //Rect bounds = new Rect();
 		    //gv.mSheetTextPaint.getTextBounds(text, 0, text.length(), bounds);
-		    int ulX = (gv.screenWidth / 2) - ((int)stringSize.Width / 2);
+		    int ulX = (gv.screenWidth / 2) - ((int)stringSize / 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
             gv.DrawText(text, ulX, pH * 3, 1.0f, Color.White);
 		    //canvas.drawText(text, ulX, pH * 3, gv.mSheetTextPaint);

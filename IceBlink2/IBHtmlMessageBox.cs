@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace IceBlink2
 {
-    public partial class IBHtmlMessageBox : IBForm
+    public partial class IBHtmlMessageBox : IBFormGDI
     {
         public GameView gv;
 

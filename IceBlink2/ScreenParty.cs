@@ -36,7 +36,7 @@ namespace IceBlink2
 	    private IbbButton btnTraits = null;
 	    private IbbButton btnEffects = null;
 	    private IbbButton btnOthers = null;
-	    private bool dialogOpen = false;
+	    //private bool dialogOpen = false;
 	    public string traitGained = "";
 	    public string spellGained = "";
 	
@@ -311,12 +311,13 @@ namespace IceBlink2
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padH = gv.squareSize/6;
-    	    int locY = 0;
+    	    float locY = 0;
             int locX = 5 * gv.squareSize + (pW * 0) + gv.oXshift;
             int tabX = 8 * gv.squareSize + (pW * 0) + gv.oXshift;
             int tabX2 = 10 * gv.squareSize + (pW * 0) + gv.oXshift;
-            int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int spacing = textH;    	    
+            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
+            float textH = gv.drawFontRegHeight;
+            float spacing = textH + pH;    	    
     	    int leftStartY = btnPartyIndex[0].Y + btnPartyIndex[0].Height + (pH * 2);
 		
             //DRAW EACH PC BUTTON
@@ -360,20 +361,20 @@ namespace IceBlink2
 
             //LOCATE STATS INFO BUTTONS
             locY += spacing;
-            btnSpells.Y = locY + (pH * 0);
-            btnTraits.Y = locY + (pH * 0);
-            btnEffects.Y = locY + (pH * 0);
-            btnOthers.Y = locY + (pH * 0);
-            btnPartyRoster.Y = locY + (pH * 0);
+            btnSpells.Y = (int)locY + (pH * 2);
+            btnTraits.Y = (int)locY + (pH * 2);
+            btnEffects.Y = (int)locY + (pH * 2);
+            btnOthers.Y = (int)locY + (pH * 2);
+            btnPartyRoster.Y = (int)locY + (pH * 2);
             
             //LOCATE EQUIPMENT SLOTS
-            int startSlotsY = locY + gv.squareSize + padH;
+            int startSlotsY = (int)locY + gv.squareSize + padH + (pH * 2);
             btnHead.Y = startSlotsY;
             btnNeck.Y = startSlotsY;
             btnMainHand.Y = startSlotsY;
             btnOffHand.Y = startSlotsY;
             btnAmmo.Y = startSlotsY;
-            int startSlotsY2 = startSlotsY + gv.squareSize + padH;
+            int startSlotsY2 = startSlotsY + gv.squareSize + padH + (pH * 2);
             btnRing.Y = startSlotsY2;
             btnRing2.Y = startSlotsY2;
             btnBody.Y = startSlotsY2;
@@ -393,7 +394,7 @@ namespace IceBlink2
             gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
 
             //DRAW LEVEL UP BUTTON
-            btnLevelUp.Y = locY + (pH * 1);
+            btnLevelUp.Y = (int)locY + (pH * 1);
             btnLevelUp.X = tabX - (pW * 5);
             if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
             {

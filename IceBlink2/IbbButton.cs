@@ -116,35 +116,35 @@ namespace IceBlink2
                 gv.DrawBitmap(this.Img3, src3, dst);
             }
 
-            Font thisFont = gv.drawFontReg;
+            float thisFontHeight = gv.drawFontRegHeight;
             if (scaler > 1.05f)
             {
-                thisFont = gv.drawFontLarge;
+                thisFontHeight = gv.drawFontLargeHeight;
             }
             else if (scaler < 0.95f)
             {
-                thisFont = gv.drawFontSmall;
+                thisFontHeight = gv.drawFontSmallHeight;
             }
             
             // DRAW TEXT
-            SizeF stringSize = gv.cc.MeasureString(Text, thisFont, this.Width);
+            float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
-            int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)stringSize.Height / 2);
+            float ulX = ((this.Width * gv.screenDensity / 2) - (stringSize / 2)) / 2;
+            float ulY = ((this.Height * gv.screenDensity / 2) / 2) + (thisFontHeight / 2);
 
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY - pH + y , scaler, Color.Black);
+                    gv.DrawText(Text, this.X + ulX + x + gv.oXshift, this.Y + ulY - pH + y , scaler, Color.Black);
                 }
             }
-            gv.DrawText(Text, this.X + ulX, this.Y + ulY - pH, scaler, Color.White);
+            gv.DrawText(Text, this.X + ulX + gv.oXshift, this.Y + ulY - pH, scaler, Color.White);
             
             // DRAW QUANTITY
-            stringSize = gv.cc.MeasureString(Quantity, thisFont, this.Width);
+            stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
+            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize);
             ulY = ((int)(this.Height * gv.screenDensity / 2));
 
             for (int x = -2; x <= 2; x++)
@@ -159,7 +159,7 @@ namespace IceBlink2
             // DRAW HOTKEY
             if (gv.showHotKeys)
             {
-                stringSize = gv.cc.MeasureString(HotKey, thisFont, this.Width);
+                stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 ulX = ((int)(this.Width * gv.screenDensity / 2));
                 ulY = ((int)(this.Height * gv.screenDensity / 2));

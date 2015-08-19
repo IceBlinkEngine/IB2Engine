@@ -99,24 +99,25 @@ namespace IceBlink2
                 gv.DrawBitmap(this.ImgLU, src3, dst);
             }
 
-            Font thisFont = gv.drawFontReg;
+            float thisFontHeight = gv.drawFontRegHeight;
             if (scaler > 1.05f)
             {
-                thisFont = gv.drawFontLarge;
+                thisFontHeight = gv.drawFontLargeHeight;
             }
             else if (scaler < 0.95f)
             {
-                thisFont = gv.drawFontSmall;
+                thisFontHeight = gv.drawFontSmallHeight;
             }
             
             //DRAW HP/HPmax
             // Measure string.
-            SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
+            //SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
+            float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize.Width / 2);
-            int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)stringSize.Height / 2);
+            int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize / 2);
+            int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)thisFontHeight / 2);
             ulX = pW * 0;
-            ulY = this.Height - ((int)stringSize.Height * 2);
+            ulY = this.Height - ((int)thisFontHeight * 2);
 
             for (int x = -2; x <= 2; x++)
             {
@@ -129,12 +130,13 @@ namespace IceBlink2
             
             //DRAW SP/SPmax
             // Measure string.
-            stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
+            //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
+            stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize.Width);
+            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize);
             ulY = ((int)(this.Height * gv.screenDensity / 2));
             ulX = pW * 1;
-            ulY = this.Height - ((int)stringSize.Height * 1);
+            ulY = this.Height - ((int)thisFontHeight * 1);
 
             for (int x = -2; x <= 2; x++)
             {
