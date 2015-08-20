@@ -1505,7 +1505,7 @@ namespace IceBlink2
             }
             if (btnInventory == null)
             {
-                btnInventory = new IbbButton(gv, 1.0f);
+                btnInventory = new IbbButton(gv, 0.8f);
                 btnInventory.HotKey = "I";
                 btnInventory.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnInventory.Img2 = this.LoadBitmap("btninventory"); // BitmapFactory.decodeResource(getResources(), R.drawable.btninventory);
@@ -1749,7 +1749,7 @@ namespace IceBlink2
         }
         public void addFloatyText(Coordinate coorInSquares, string value)
         {
-            int txtH = (int)gv.drawFontReg.Height;
+            int txtH = (int)gv.drawFontRegHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
@@ -1757,7 +1757,7 @@ namespace IceBlink2
         }
         public void addFloatyText(Coordinate coorInSquares, string value, string color)
         {
-            int txtH = (int)gv.drawFontReg.Height;
+            int txtH = (int)gv.drawFontRegHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2);
             Coordinate coor = new Coordinate(x, y);
@@ -1765,7 +1765,7 @@ namespace IceBlink2
         }
         public void addFloatyText(Coordinate coorInSquares, string value, int shiftUp)
         {
-            int txtH = (int)gv.drawFontReg.Height;
+            int txtH = (int)gv.drawFontRegHeight;
             int x = ((coorInSquares.X * gv.squareSize) + (gv.squareSize / 2) + gv.oXshift) - (txtH / 2);
             int y = ((coorInSquares.Y * gv.squareSize) + (gv.squareSize / 2) + txtH) - (txtH / 2) - shiftUp;
             Coordinate coor = new Coordinate(x, y);
@@ -4149,7 +4149,7 @@ namespace IceBlink2
         public float MeasureString(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
         {
             // Measure string width.
-            SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
+            SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
             SharpDX.DirectWrite.TextLayout tl = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, text, tf, gv.Width, gv.Height);
             float returnWidth = tl.Metrics.Width;
             if (tf != null)
@@ -4163,6 +4163,24 @@ namespace IceBlink2
                 tl = null;
             }
             return returnWidth;
+        }
+        public CoordinateF MeasureStringSize(string text, SharpDX.DirectWrite.FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float fontHeight)
+        {
+            // Measure string width.
+            SharpDX.DirectWrite.TextFormat tf = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, fw, fs, SharpDX.DirectWrite.FontStretch.Normal, fontHeight) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
+            SharpDX.DirectWrite.TextLayout tl = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, text, tf, gv.Width, gv.Height);
+            CoordinateF returnSize = new CoordinateF(tl.Metrics.Width, tl.Metrics.Height);
+            if (tf != null)
+            {
+                tf.Dispose();
+                tf = null;
+            }
+            if (tl != null)
+            {
+                tl.Dispose();
+                tl = null;
+            }
+            return returnSize;
         }
         public void MakeDirectoryIfDoesntExist(string filenameAndFullPath)
         {

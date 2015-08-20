@@ -44,7 +44,7 @@ namespace IceBlink2
         public int ibbheight = 100;
         public int playerOffset = 4;
         public int oXshift = 0;
-        public int oYshift = 30;
+        public int oYshift = 35;
         public string mainDirectory;
         public bool showHotKeys = false;
 
@@ -1152,32 +1152,33 @@ namespace IceBlink2
         }
         public void DrawRoundRectangle(IbRect rect, int rad, SharpDX.Color penColor, int penWidth)
         {
-            //ANDROID canvas.drawRoundRect(new RectF(x + gv.oXshift, y, x + gv.squareSize + gv.oXshift + spellAoEinPixels + spellAoEinPixels, y + gv.squareSize + spellAoEinPixels + spellAoEinPixels), cornerRadius, cornerRadius, pnt);
-            //PC      device.DrawRectangle(blackPen, target);
-            
-            GraphicsPath gp = new GraphicsPath();
-            //Pen p = new Pen(penColor, penWidth);
-
-            gp.AddArc(rect.Left, rect.Top + oYshift, rad, rad, 180, 90);
-            gp.AddArc(rect.Left + rect.Width - rad, rect.Top + oYshift, rad, rad, 270, 90);
-            gp.AddArc(rect.Left + rect.Width - rad, rect.Top + oYshift + rect.Height - rad, rad, rad, 0, 90);
-            gp.AddArc(rect.Left, rect.Top + oYshift + rect.Height - rad, rad, rad, 90, 90);
-            gp.CloseFigure();            
-
-            //gCanvas.DrawPath(p, gp);
-
-            //p.Dispose();
-            gp.Dispose();
+            RoundedRectangle r = new RoundedRectangle();
+            r.Rect = new SharpDX.RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            r.RadiusX = rad;
+            r.RadiusY = rad;
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
+            {
+                renderTarget2D.DrawRoundedRectangle(r, scb, penWidth);
+            }
         }   
         public void DrawRectangle(IbRect rect, SharpDX.Color penColor, int penWidth)
         {
             //Pen p = new Pen(penColor, penWidth);
-            Rectangle r = new Rectangle(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            SharpDX.RectangleF r = new SharpDX.RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
+            {
+                renderTarget2D.DrawRectangle(r, scb, penWidth);
+            }
+            
             //gCanvas.DrawRectangle(p, r);
             //p.Dispose();
         }
         public void DrawLine(int lastX, int lastY, int nextX, int nextY, SharpDX.Color penColor, int penWidth)
         {
+            using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
+            {
+                renderTarget2D.DrawLine(new Vector2(lastX,lastY), new Vector2(nextX, nextY), scb, penWidth);
+            }
             //Pen p = new Pen(penColor, penWidth);
             //gCanvas.DrawLine(p, lastX, lastY, nextX, nextY);
             //p.Dispose();

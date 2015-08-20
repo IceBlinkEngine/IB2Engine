@@ -60,9 +60,9 @@ namespace IceBlink2
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
+        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight)
         {
-            if ((y > -2) && (y <= tbHeight - gv.drawFontReg.Height))
+            if ((y > -2) && (y <= tbHeight - fontHeight))
             {
                 //gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc - gv.oYshift);
                 gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor);
@@ -107,11 +107,11 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, gv.drawFontReg.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (gv.drawFontReg.Height > lineHeight) { lineHeight = gv.drawFontReg.Height; }
+                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
 
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -197,11 +197,11 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, gv.drawFontReg.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (gv.drawFontReg.Height > lineHeight) { lineHeight = gv.drawFontReg.Height; }
+                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
                         
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -254,7 +254,7 @@ namespace IceBlink2
                     gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
                     int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
-                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color);
+                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
 
                     //OLD STUFF
@@ -405,16 +405,16 @@ namespace IceBlink2
         private float GetFontSizeInPixels()
         {
             //will end up using the last font size on the stack
-            float fSize = 20.0f * (float)gv.squareSize / 100.0f;
+            float fSize = gv.drawFontRegHeight * (float)gv.squareSize / 100.0f;
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 28.0f * (float)gv.squareSize / 100.0f;
+                    fSize = gv.drawFontLargeHeight * (float)gv.squareSize / 100.0f;
                 }
                 else if (s == "small")
                 {
-                    fSize = 16.0f * (float)gv.squareSize / 100.0f;
+                    fSize = gv.drawFontSmallHeight * (float)gv.squareSize / 100.0f;
                 }
             }
             return fSize;
@@ -447,7 +447,8 @@ namespace IceBlink2
                 if (numberOfTextLinesToMove != 0)
                 {
                     SetCurrentTopLineIndex(-numberOfTextLinesToMove);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                 }
             }
         }
@@ -517,7 +518,8 @@ namespace IceBlink2
                     //currentTopLineIndex -= 5;
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                 }
                 else if (e.Y > tbYloc + tbHeight - btn_down.PixelSize.Height)
                 {
@@ -525,7 +527,8 @@ namespace IceBlink2
                     //currentTopLineIndex += 5;
                     //if (currentTopLineIndex < 0) { currentTopLineIndex = 0; }
                     //if (currentTopLineIndex > logLinesList.Count - 1) { currentTopLineIndex = logLinesList.Count - 1; }
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                 }
             }
             else if (isMouseWithinTextBox(e))

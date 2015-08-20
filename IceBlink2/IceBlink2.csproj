@@ -88,6 +88,7 @@
     <Compile Include="ContentNode.cs" />
     <Compile Include="Convo.cs" />
     <Compile Include="ConvoSavedValues.cs" />
+    <Compile Include="CoordinateF.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureRefs.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="IBMessageBox.designer.cs">
       <DependentUpon>IBMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="IbRectF.cs" />
     <Compile Include="IbRect.cs" />
     <Compile Include="IBScriptEngine.cs" />
     <Compile Include="IceBlinkButtonClose.cs">

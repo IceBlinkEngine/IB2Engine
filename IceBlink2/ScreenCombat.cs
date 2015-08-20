@@ -103,7 +103,7 @@ namespace IceBlink2
                 btnMove.ImgOn = gv.cc.LoadBitmap("btn_small_on");
                 btnMove.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow");
-			    btnMove.Text = "&MOVE";
+			    btnMove.Text = "MOVE";
                 btnMove.HotKey = "M";
 			    btnMove.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnMove.Y = 9 * gv.squareSize + pH;
@@ -128,7 +128,7 @@ namespace IceBlink2
                 btnAttack.ImgOn = gv.cc.LoadBitmap("btn_small_on");
                 btnAttack.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnAttack.Text = "&ATTACK";
+			    btnAttack.Text = "ATTACK";
                 btnAttack.HotKey = "A";
 			    btnAttack.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnAttack.Y = 9 * gv.squareSize + pH;
@@ -142,7 +142,7 @@ namespace IceBlink2
                 btnCast.ImgOn = gv.cc.LoadBitmap("btn_small_on");
                 btnCast.ImgOff = gv.cc.LoadBitmap("btn_small_off");
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnCast.Text = "&CAST";
+			    btnCast.Text = "CAST";
                 btnCast.HotKey = "C";
 			    btnCast.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnCast.Y = 9 * gv.squareSize + pH;
@@ -154,7 +154,7 @@ namespace IceBlink2
 			    btnSkipTurn = new IbbButton(gv, 0.8f);
 			    btnSkipTurn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnSkipTurn.Text = "&SKIP";
+			    btnSkipTurn.Text = "SKIP";
                 btnSkipTurn.HotKey = "S";
 			    btnSkipTurn.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnSkipTurn.Y = 9 * gv.squareSize + pH;
@@ -163,7 +163,7 @@ namespace IceBlink2
 		    }
 		    if (btnSwitchWeapon == null)
 		    {
-			    btnSwitchWeapon = new IbbButton(gv, 1.0f);
+			    btnSwitchWeapon = new IbbButton(gv, 0.8f);
                 btnSwitchWeapon.HotKey = "P";
 			    btnSwitchWeapon.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSwitchWeapon.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
@@ -349,7 +349,8 @@ namespace IceBlink2
 		    {
 			    creatureToAnimate = null;
 	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    Player pc = mod.playerList[currentPlayerIndex];
 	    	    doCombatAttack(pc);
             }
@@ -359,7 +360,8 @@ namespace IceBlink2
 		    {
 			    drawHitAnimation = false;
         	    hitAnimationLocation = new Coordinate();
-        	    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    //check for end of encounter
                 checkEndEncounter();
 			    //end PC's turn
@@ -373,7 +375,8 @@ namespace IceBlink2
 		    {
 			    drawMissAnimation = false;
         	    hitAnimationLocation = new Coordinate();
-        	    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    //check for end of encounter
                 checkEndEncounter();
                 gv.touchEnabled = true;
@@ -387,7 +390,8 @@ namespace IceBlink2
 		    {
 			    creatureToAnimate = null;
 	    	    playerToAnimate = null;
-	    	    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    doStandardCreatureAttack();
             }
             #endregion
@@ -396,7 +400,8 @@ namespace IceBlink2
 		    {
 			    drawHitAnimation = false;
         	    hitAnimationLocation = new Coordinate();
-        	    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    animationState = AnimationState.None;
 	    	    endCreatureTurn();
             }
@@ -406,7 +411,8 @@ namespace IceBlink2
             {
                 drawMissAnimation = false;
                 hitAnimationLocation = new Coordinate();
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.None;
                 endCreatureTurn();
             }
@@ -416,7 +422,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 Player pc = mod.playerList[currentPlayerIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
@@ -429,7 +436,8 @@ namespace IceBlink2
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.PcRangedProjectileAnimation;
                 gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
             }
@@ -447,7 +455,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcRangedEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -458,7 +467,8 @@ namespace IceBlink2
                     if (animationFrameIndex > 4) { animationFrameIndex = 0; }
                     //get next coordinate
                     projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcRangedProjectileAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -471,7 +481,8 @@ namespace IceBlink2
                 if ((animationFrameIndex < 3) && (!mod.getItemByResRefForInfo(pc.MainHandRefs.resref).spriteEndingFilename.Equals("none")))
                 {
                     animationFrameIndex++;
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcRangedEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -481,7 +492,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate();
                     animationFrameIndex = 0;
                     //loop through 4 times
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.None;
                     gv.touchEnabled = true;
                     //Player pc = mod.playerList.get(currentPlayerIndex);
@@ -494,7 +506,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 Player pc = mod.playerList[currentPlayerIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
@@ -507,7 +520,8 @@ namespace IceBlink2
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.PcCastProjectileAnimation;
                 gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 //play cast projectile sound
@@ -527,7 +541,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcCastEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                     //play cast ending sound
@@ -540,7 +555,8 @@ namespace IceBlink2
                     if (animationFrameIndex > 4) { animationFrameIndex = 0; }
                     //get next coordinate
                     projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(pc.combatLocX, pc.combatLocY), targetHighlightCenterLocation);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcCastProjectileAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -552,7 +568,8 @@ namespace IceBlink2
                 if (animationFrameIndex < 3)
                 {
                     animationFrameIndex++;
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.PcCastEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -562,7 +579,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate();
                     animationFrameIndex = 0;
                     //loop through 4 times
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.None;
                     gv.touchEnabled = true;
                     Player pc = mod.playerList[currentPlayerIndex];
@@ -575,7 +593,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
@@ -588,7 +607,8 @@ namespace IceBlink2
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.CreatureRangedProjectileAnimation;
                 gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
             }
@@ -606,7 +626,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureRangedEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -617,7 +638,8 @@ namespace IceBlink2
                     if (animationFrameIndex > 4) { animationFrameIndex = 0; }
                     //get next coordinate
                     projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureRangedProjectileAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -630,7 +652,8 @@ namespace IceBlink2
                 if ((animationFrameIndex < 3) && (!crt.cr_spriteEndingFilename.Equals("none")))
                 {
                     animationFrameIndex++;
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureRangedEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -640,7 +663,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate();
                     animationFrameIndex = 0;
                     //loop through 4 times
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.None;
                     //touchEnabled = true;
                     doStandardCreatureAttack();
@@ -652,7 +676,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //do projectile next
                 drawProjectileAnimation = true;
@@ -665,7 +690,8 @@ namespace IceBlink2
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.CreatureCastProjectileAnimation;
                 gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 //play cast start sound
@@ -685,7 +711,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
                     ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureCastEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                     //play cast ending sound
@@ -698,7 +725,8 @@ namespace IceBlink2
                     if (animationFrameIndex > 4) { animationFrameIndex = 0; }
                     //get next coordinate
                     projectileAnimationLocation = GetNextProjectileCoordinate(new Coordinate(crt.combatLocX, crt.combatLocY), creatureTargetLocation);
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureCastProjectileAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -710,7 +738,8 @@ namespace IceBlink2
                 if (animationFrameIndex < 3)
                 {
                     animationFrameIndex++;
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.CreatureCastEndingAnimation;
                     gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                 }
@@ -720,7 +749,8 @@ namespace IceBlink2
                     endingAnimationLocation = new Coordinate();
                     animationFrameIndex = 0;
                     //loop through 4 times
-                    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
                     animationState = AnimationState.None;
                     //touchEnabled = true;
                     doCreatureSpell();
@@ -732,7 +762,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 doCreatureTurnAfterDelay();
             }
             #endregion
@@ -741,7 +772,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //CreatureDoesAttack(crt);
                 creatureMoves++;
@@ -868,6 +900,8 @@ namespace IceBlink2
         }
         public void turnController()
         {
+            //redraw screen
+            gv.Render();
             if (currentMoveOrderIndex >= initialMoveOrderListSize)
             {
                 //hit the end so start the next round
@@ -1290,7 +1324,8 @@ namespace IceBlink2
                             drawHitAnimation = true;
                             hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
                             //hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
-                            gv.Invalidate();
+                            //gv.Invalidate();
+                            gv.Render();
                             animationState = AnimationState.CreatureHitAnimation;
                             gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
                         }
@@ -1299,7 +1334,8 @@ namespace IceBlink2
                             drawMissAnimation = true;
                             hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
                             //hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
-                            gv.Invalidate();
+                            //gv.Invalidate();
+                            gv.Render();
                             animationState = AnimationState.CreatureMissedAnimation;
                             gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
                         }
@@ -1350,7 +1386,7 @@ namespace IceBlink2
 
                 //Draw floaty text showing damage above PC
 
-                int txtH = (int)gv.drawFontReg.Height;
+                int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
@@ -1536,7 +1572,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.CreatureThink;
                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
             }
@@ -1600,7 +1637,8 @@ namespace IceBlink2
 				    if ((newCoor.X == -1) && (newCoor.Y == -1))
 				    {
 					    //didn't find a path, don't move
-					    gv.Invalidate();
+                        //gv.Invalidate();
+                        gv.Render();
 			    	    endCreatureTurn();
 					    return;
 				    }
@@ -1625,14 +1663,16 @@ namespace IceBlink2
 			    }
 			    else //no target found
 			    {
-				    gv.Invalidate();
+                    //gv.Invalidate();
+                    gv.Render();
 		    	    endCreatureTurn();
 				    return;
 			    }
 		    }
 		    else
 		    {
-			    gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	    	    endCreatureTurn();
 			    return;
 		    }
@@ -1675,7 +1715,8 @@ namespace IceBlink2
 	            	    //doStandardCreatureAttack(crt, pc);
 	            	    creatureToAnimate = crt;
 	    	            playerToAnimate = null;
-	    	            gv.Invalidate();
+                        //gv.Invalidate();
+                        gv.Render();
 	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
 	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
 	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
@@ -1705,7 +1746,8 @@ namespace IceBlink2
 	            	    //doStandardCreatureAttack(crt, pc);	            	
 	            	    creatureToAnimate = crt;
 	    	            playerToAnimate = null;
-	    	            gv.Invalidate();
+                        //gv.Invalidate();
+                        gv.Render();
 	    	            animationState = AnimationState.CreatureMeleeAttackAnimation;
 	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
 	            	    //creatureTurnState = "attackAnim";
@@ -1771,7 +1813,8 @@ namespace IceBlink2
         	    //touchEnabled = false;
 			    creatureToAnimate = crt;
 	            playerToAnimate = null;
-	            gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
 	            animationState = AnimationState.CreatureCastAttackAnimation;
 	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
 	                    
@@ -1981,7 +2024,8 @@ namespace IceBlink2
             {
                 drawHitAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.PcHitAnimation;
                 gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
             }
@@ -1990,7 +2034,8 @@ namespace IceBlink2
                 drawMissAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY)); 
                 //hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.PcMissedAnimation;
                 gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
             }
@@ -2020,7 +2065,7 @@ namespace IceBlink2
 
                 //Draw floaty text showing damage above PC
 
-                int txtH = (int)gv.drawFontReg.Height;
+                int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
@@ -2703,7 +2748,7 @@ namespace IceBlink2
                     if (tglMoveOrder.toggleOn)
                     {
                         int mo = pc.moveOrder + 1;
-                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontReg.Height, mo.ToString(), Color.White);
+                        drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
                     }
                 }
 		    }
@@ -2849,7 +2894,7 @@ namespace IceBlink2
                 if (tglMoveOrder.toggleOn)
                 {
                     int mo = crt.moveOrder + 1;
-                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontReg.Height, mo.ToString(), Color.White);
+                    drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
                 }
 		    }
 	    }
@@ -2901,7 +2946,7 @@ namespace IceBlink2
 	    }	            
         public void drawFloatyText()
 	    {            
-		    int txtH = (int)gv.drawFontReg.Height;
+		    int txtH = (int)gv.drawFontRegHeight;
 		
 		    for (int x = -2; x <= 2; x++)
 		    {
@@ -2940,7 +2985,7 @@ namespace IceBlink2
 	    {		
 		    if (tglSP.toggleOn)
 		    {
-			    int txtH = (int)gv.drawFontReg.Height;
+			    int txtH = (int)gv.drawFontRegHeight;
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 			    {
                     if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
@@ -2959,7 +3004,7 @@ namespace IceBlink2
 	    }
 	    public void drawText(int xLoc, int yLoc, string text, Color colr)
 	    {
-		    int txtH = (int)gv.drawFontReg.Height;
+		    int txtH = (int)gv.drawFontRegHeight;
 
 		    for (int x = -2; x <= 2; x++)
 		    {
@@ -2974,7 +3019,7 @@ namespace IceBlink2
 	    {
 		    if (floatyTextOn)
 		    {
-                int txtH = (int)gv.drawFontReg.Height;
+                int txtH = (int)gv.drawFontRegHeight;
 					
 			    foreach (FloatyText ft in gv.cc.floatyTextList)
 			    {
@@ -4626,7 +4671,8 @@ namespace IceBlink2
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                         || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
                         || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
@@ -4667,7 +4713,8 @@ namespace IceBlink2
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
-                gv.Invalidate();
+                //gv.Invalidate();
+                gv.Render();
                 animationState = AnimationState.PcCastAttackAnimation;
                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
             }

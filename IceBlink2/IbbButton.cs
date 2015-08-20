@@ -129,49 +129,52 @@ namespace IceBlink2
             // DRAW TEXT
             float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            float ulX = ((this.Width * gv.screenDensity / 2) - (stringSize / 2)) / 2;
-            float ulY = ((this.Height * gv.screenDensity / 2) / 2) + (thisFontHeight / 2);
+            //place in the center
+            float ulX = ((this.Width * gv.screenDensity) - stringSize) / 2;
+            float ulY = ((this.Height * gv.screenDensity) - thisFontHeight) / 2;
 
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(Text, this.X + ulX + x + gv.oXshift, this.Y + ulY - pH + y , scaler, Color.Black);
+                    gv.DrawText(Text, this.X + ulX + x, this.Y + ulY + y , scaler, Color.Black);
                 }
             }
-            gv.DrawText(Text, this.X + ulX + gv.oXshift, this.Y + ulY - pH, scaler, Color.White);
+            gv.DrawText(Text, this.X + ulX, this.Y + ulY, scaler, Color.White);
             
             // DRAW QUANTITY
             stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize);
-            ulY = ((int)(this.Height * gv.screenDensity / 2));
+            
+            //place in the bottom right quadrant
+            ulX = (((this.Width * gv.screenDensity) - stringSize) / 8) * 7;
+            ulY = (((this.Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
 
             for (int x = -2; x <= 2; x++)
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(Quantity, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
+                    gv.DrawText(Quantity, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                 }
             }
-            gv.DrawText(Quantity, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.White);
+            gv.DrawText(Quantity, this.X + ulX, this.Y + ulY, scaler, Color.White);
 
             // DRAW HOTKEY
             if (gv.showHotKeys)
             {
                 stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-                ulX = ((int)(this.Width * gv.screenDensity / 2));
-                ulY = ((int)(this.Height * gv.screenDensity / 2));
+                //place in the bottom center
+                ulX = ((this.Width * gv.screenDensity) - stringSize) / 2;
+                ulY = (((this.Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
 
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(HotKey, this.X + ulX - pW + x, this.Y + ulY - pH + y, scaler, Color.Black);
+                        gv.DrawText(HotKey, this.X + ulX + x, this.Y + ulY + y, scaler, Color.Black);
                     }
                 }
-                gv.DrawText(HotKey, this.X + ulX - pW, this.Y + ulY - pH, scaler, Color.Red);
+                gv.DrawText(HotKey, this.X + ulX, this.Y + ulY, scaler, Color.Red);
             }
         }
     }

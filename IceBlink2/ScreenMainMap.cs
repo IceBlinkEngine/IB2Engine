@@ -64,7 +64,7 @@ namespace IceBlink2
 		    }
 		    if (btnParty == null)
 		    {
-			    btnParty = new IbbButton(gv, 1.0f);
+			    btnParty = new IbbButton(gv, 0.8f);
                 btnParty.HotKey = "P";
 			    btnParty.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnParty.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
@@ -76,7 +76,7 @@ namespace IceBlink2
 		    }		
 		    if (btnJournal == null)
 		    {
-			    btnJournal = new IbbButton(gv, 1.0f);
+			    btnJournal = new IbbButton(gv, 0.8f);
                 btnJournal.HotKey = "J";
 			    btnJournal.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnJournal.Img2 = gv.cc.LoadBitmap("btnjournal"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnjournal);
@@ -788,7 +788,7 @@ namespace IceBlink2
 			    sMinute = "0" + minute;
 		    }
 
-            int txtH = (int)gv.drawFontReg.Height;
+            int txtH = (int)gv.drawFontRegHeight;
 		
 		    for (int x = -2; x <= 2; x++)
 		    {
@@ -991,7 +991,7 @@ namespace IceBlink2
 	    {            
 		    if (floatyTextPool.Count > 0)
 		    {
-			    int txtH = (int)gv.drawFontReg.Height;
+			    int txtH = (int)gv.drawFontRegHeight;
 			    int pH = (int)((float)gv.screenHeight / 200.0f);
 					
 			    foreach (FloatyText ft in floatyTextPool)
@@ -1048,7 +1048,7 @@ namespace IceBlink2
         {
             if (floatyTextPool.Count > 0)
             {
-                int txtH = (int)gv.drawFontReg.Height;
+                int txtH = (int)gv.drawFontRegHeight;
                 int pH = (int)((float)gv.screenHeight / 200.0f);
 
                 foreach (FloatyText ft in floatyTextPool)

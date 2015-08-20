@@ -359,7 +359,8 @@ namespace IceBlink2
  	        	        {
 						    gv.screenSpellLevelUp.resetPC(pc);
  	        		        gv.screenType = "learnSpellLevelUp";
- 	        		        gv.Invalidate();
+                            //gv.Invalidate();
+                            gv.Render();
  	        	        }
  	        	        else //no spells or traits to learn
  	        	        {

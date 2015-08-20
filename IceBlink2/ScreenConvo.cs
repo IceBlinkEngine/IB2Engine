@@ -185,9 +185,9 @@ namespace IceBlink2
             {
                 //Node Rectangle Text
                 //SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
-                float textSize = gv.cc.MeasureString(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+                CoordinateF textSize = gv.cc.MeasureStringSize(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
                 //textSize.Height += textSize.Height;
-                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize, (int)gv.drawFontRegHeight));
+                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize.X, (int)textSize.Y));
                 //IbRect rect = new IbRect(startX, startY, width, pH * 50);
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
