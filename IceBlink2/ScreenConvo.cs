@@ -138,9 +138,7 @@ namespace IceBlink2
             }
             //Node Rectangle Text
             string textToSpan = "";
-            textToSpan = currentNpcNode;
-            float textSize = gv.drawFontRegHeight;
-            npcNodeEndY = startY + (int)textSize;
+            textToSpan = currentNpcNode;            
             //IbRect rect = new IbRect(startX, startY, width, pH * 50);
             //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
@@ -151,6 +149,12 @@ namespace IceBlink2
             htmltext.logLinesList.Clear();
             htmltext.AddHtmlTextToLog(textToSpan);
             htmltext.onDrawLogBox();
+            float totalHeight = 0;
+            foreach (FormattedLine fl in htmltext.logLinesList)
+            {
+                totalHeight += fl.lineHeight;
+            }
+            npcNodeEndY = startY + (int)totalHeight;
 	    }
 	    public void drawPcNode()
 	    {          
@@ -185,9 +189,9 @@ namespace IceBlink2
             {
                 //Node Rectangle Text
                 //SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
-                CoordinateF textSize = gv.cc.MeasureStringSize(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+                //CoordinateF textSize = gv.cc.MeasureStringSize(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
                 //textSize.Height += textSize.Height;
-                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)textSize.X, (int)textSize.Y));
+                
                 //IbRect rect = new IbRect(startX, startY, width, pH * 50);
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
@@ -203,6 +207,14 @@ namespace IceBlink2
                 htmltext.logLinesList.Clear();
                 htmltext.AddHtmlTextToLog(textToSpan);
                 htmltext.onDrawLogBox();
+                
+                float totalHeight = 0;
+                float totalWidth = htmltext.tbWidth;
+                foreach (FormattedLine fl in htmltext.logLinesList)
+                {
+                    totalHeight += fl.lineHeight;
+                }
+                currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)totalWidth, (int)totalHeight));
 
                 startY += (int)gv.drawFontRegHeight + pad;
                 cnt++;

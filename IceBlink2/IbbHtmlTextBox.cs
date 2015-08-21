@@ -101,11 +101,12 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
+                        float height = gv.textLayout.Metrics.Height;
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
+                        if (height > lineHeight) { lineHeight = (int)height; }
                         //int wordWidth = (int)(frm.gCanvas.MeasureString(newWord.word, font)).Width;
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -191,11 +192,12 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
+                        float height = gv.textLayout.Metrics.Height;
+                        if (height > lineHeight) { lineHeight = (int)height; }
 
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -236,10 +238,13 @@ namespace IceBlink2
                 //loop through each line and print each word
                 foreach (FormattedWord word in logLinesList[i].wordsList)
                 {
-                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
+                    float ht = gv.textLayout.Metrics.Height;
+                    float wd = gv.textLayout.Metrics.Width;
                     int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
                     DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize);
+                    //gv.DrawRectangle(new IbRect((int)xLoc + tbXloc, (int)yLoc + difYheight + tbYloc, (int)wd, (int)ht), SharpDX.Color.White, 1);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
 
                     //OLD STUFF
@@ -334,18 +339,16 @@ namespace IceBlink2
         }
         private float GetFontSizeInPixels()
         {
-            //will end up using the last font size on the stack
-            float fSize = 20.0f * (float)gv.squareSize / 100.0f;
-
+            float fSize = gv.drawFontRegHeight * (float)gv.squareSize / 100.0f;
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 28.0f * (float)gv.squareSize / 100.0f;
+                    fSize = gv.drawFontLargeHeight * (float)gv.squareSize / 100.0f;
                 }
                 else if (s == "small")
                 {
-                    fSize = 16.0f * (float)gv.squareSize / 100.0f;
+                    fSize = gv.drawFontSmallHeight * (float)gv.squareSize / 100.0f;
                 }
             }
             return fSize;

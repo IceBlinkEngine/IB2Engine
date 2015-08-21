@@ -107,11 +107,12 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
+                        float height = gv.textLayout.Metrics.Height;
+                        if (height > lineHeight) { lineHeight = (int)height; }
 
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -197,11 +198,12 @@ namespace IceBlink2
                         newWord.fontWeight = GetFontWeight();
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
-                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                        gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, FontStretch.Normal, newWord.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
                         float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        if (newWord.fontSize > lineHeight) { lineHeight = (int)newWord.fontSize; }
+                        float height = gv.textLayout.Metrics.Height;
+                        if (height > lineHeight) { lineHeight = (int)height; }
                         
                         if (xLoc + wordWidth > width) //word wrap
                         {
@@ -251,7 +253,7 @@ namespace IceBlink2
                 //loop through each line and print each word
                 foreach (FormattedWord word in logLinesList[i].wordsList)
                 {
-                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
+                    gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
                     int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
                     DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize);

@@ -431,13 +431,12 @@ namespace IceBlink2
         }
         private float GetFontSizeInPixels()
         {
-            //will end up using the last font size on the stack
             float fSize = 20.0f * (float)gv.squareSize / 100.0f;
             foreach (string s in tagStack)
             {
                 if (s == "big")
                 {
-                    fSize = 28.0f * (float)gv.squareSize / 100.0f;
+                    fSize = 24.0f * (float)gv.squareSize / 100.0f;
                 }
                 else if (s == "small")
                 {
