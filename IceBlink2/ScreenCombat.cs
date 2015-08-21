@@ -45,6 +45,7 @@ namespace IceBlink2
 	    public bool floatyTextOn = false;
 	    public AnimationState animationState = AnimationState.None;
 	    private Bitmap projectile;
+        private bool projectileFacingUp = true;
 	    private Bitmap ending_fx;	    
 	    private Bitmap mapBitmap;
 
@@ -340,6 +341,7 @@ namespace IceBlink2
 	    
         public void doAnimationController()
 	    {
+            gv.Render();
 		    if (animationState == AnimationState.None)
 		    {
 			    return;
@@ -432,7 +434,12 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
+                    projectileFacingUp = false;
 //TODO                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                else
+                {
+                    projectileFacingUp = true;
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -516,7 +523,12 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
+                    projectileFacingUp = false;
 //TODO                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                else
+                {
+                    projectileFacingUp = true;
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -603,7 +615,12 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
+                    projectileFacingUp = false;
 //TODO                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                else
+                {
+                    projectileFacingUp = true;
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -686,7 +703,12 @@ namespace IceBlink2
                 projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
+                    projectileFacingUp = false;
 //TODO                    projectile = gv.cc.FlipHorz(projectile);
+                }
+                else
+                {
+                    projectileFacingUp = true;
                 }
                 //reset animation frame counter
                 animationFrameIndex = 0;
@@ -921,6 +943,7 @@ namespace IceBlink2
                     
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
+                    gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
                     if ((pc.charStatus.Equals("Held")) || (pc.charStatus.Equals("Dead")))
                     {
@@ -947,6 +970,7 @@ namespace IceBlink2
                     gv.touchEnabled = false;
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
+                    gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
                     if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
                     {
@@ -1456,6 +1480,7 @@ namespace IceBlink2
         }
         public void endPcTurn(bool endStealthMode)
         {
+            gv.Render();
             //remove stealth if endStealthMode = true		
             Player pc = mod.playerList[currentPlayerIndex];
             if (endStealthMode)
@@ -1976,6 +2001,7 @@ namespace IceBlink2
         }
         public void endCreatureTurn()
         {
+            gv.Render();
             canMove = true;
             gv.sf.ActionToTake = null;
             gv.sf.SpellToCast = null;
@@ -2700,7 +2726,7 @@ namespace IceBlink2
                     }
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                     //dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
-                    gv.DrawBitmap(pc.token, src, dst);
+                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                     //canvas.drawBitmap(pc.token, x, y, null);
                     src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     foreach (Effect ef in pc.effectsList)
@@ -2777,7 +2803,7 @@ namespace IceBlink2
 		    {
                 IbRect src = new IbRect(animationFrameIndex * projectile.PixelSize.Height, 0, projectile.PixelSize.Height, projectile.PixelSize.Height);
                 IbRect dst = new IbRect(projectileAnimationLocation.X, projectileAnimationLocation.Y, gv.squareSize, gv.squareSize); 
-			    gv.DrawBitmap(projectile, src, dst);		
+			    gv.DrawBitmap(projectile, src, dst, false, !projectileFacingUp);		
 		    }
 	    }
 	    public void DrawEndingAnimation()
@@ -2859,7 +2885,7 @@ namespace IceBlink2
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                     //dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift + mapStartLocXinPixels, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
 			    }
-			    gv.DrawBitmap(crt.token, src, dst);
+			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);

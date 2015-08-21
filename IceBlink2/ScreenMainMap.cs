@@ -416,7 +416,7 @@ namespace IceBlink2
 					    //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
                         IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-			            gv.DrawBitmap(p.token, src, dst);
+			            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
 
                         if (mod.showInteractionState == true)
                         {
@@ -444,8 +444,6 @@ namespace IceBlink2
                                 continue;
                             }
                         }
-
-
 				    }
 			    }
 		    }
@@ -567,7 +565,7 @@ namespace IceBlink2
             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
             if (mod.showPartyToken)
             {
-        	    gv.DrawBitmap(mod.partyTokenBitmap, src, dst);
+                gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft, false);
             }
             else
             {
@@ -577,33 +575,33 @@ namespace IceBlink2
 		            {		
 		        	    if (i == 0)
 		        	    {
-                            dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
-		        		    gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		        	    if (i == 1)
 		        	    {
                             dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		        	    if (i == 2)
 		        	    {
                             dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		        	    if (i == 3)
 		        	    {
                             dst = new IbRect(x + gv.oXshift + (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		        	    if (i == 4)
 		        	    {
                             dst = new IbRect(x + gv.oXshift - (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		        	    if (i == 5)
 		        	    {
                             dst = new IbRect(x + gv.oXshift - (shift * 3) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		            }
 	            }
@@ -618,7 +616,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-	    		    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
 	            else if (mod.selectedPartyLeader == 1)
 	    	    {
@@ -630,7 +628,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
 	            else if (mod.selectedPartyLeader == 2)
 	    	    {
@@ -642,7 +640,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
 	            else if (mod.selectedPartyLeader == 3)
 	    	    {
@@ -654,7 +652,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
 	            else if (mod.selectedPartyLeader == 4)
 	    	    {
@@ -666,7 +664,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
 	            else if (mod.selectedPartyLeader == 5)
 	    	    {
@@ -678,7 +676,7 @@ namespace IceBlink2
 	        	    {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 	        	    }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst);
+                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
             }
 	    }
