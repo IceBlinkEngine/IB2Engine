@@ -1408,8 +1408,7 @@ namespace IceBlink2
                     gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                 }
 
-                //Draw floaty text showing damage above PC
-
+                //Draw floaty text showing damage above Creature
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 floatyTextOn = true;
@@ -3053,7 +3052,7 @@ namespace IceBlink2
 				    {
 					    for (int y = -2; y <= 2; y++)
 					    {
-                            gv.DrawText(ft.value, ft.location.X + x + mapStartLocXinPixels, ft.location.Y + y, 1.0f, Color.Black);
+                            gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + x + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize) + y, 1.0f, Color.Black);
 					    }
 				    }
                     Color colr = Color.Yellow;
@@ -3073,7 +3072,7 @@ namespace IceBlink2
 				    {
                         colr = Color.Red;
 				    }
-                    gv.DrawText(ft.value, ft.location.X + mapStartLocXinPixels, ft.location.Y, 1.0f, colr);
+                    gv.DrawText(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize), 1.0f, colr);
 			    }
 		    }
 	    }
@@ -3156,6 +3155,7 @@ namespace IceBlink2
             else if (keyData == Keys.I)
             {
                 gv.screenType = "combatInventory";
+                gv.screenInventory.resetInventory();
             }
             else if (keyData == Keys.S)
             {
@@ -3608,6 +3608,7 @@ namespace IceBlink2
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
+                        gv.screenInventory.resetInventory();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
@@ -3823,6 +3824,7 @@ namespace IceBlink2
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
+                        gv.screenInventory.resetInventory();
                         //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnAttack.getImpact(x, y))
@@ -4053,6 +4055,7 @@ namespace IceBlink2
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
+                        gv.screenInventory.resetInventory();
                     }
                     else if (btnAttack.getImpact(x, y))
                     {
@@ -4283,6 +4286,7 @@ namespace IceBlink2
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "combatInventory";
+                        gv.screenInventory.resetInventory();
                         //Toast.makeText(gameContext, "Inventory Button", Toast.LENGTH_SHORT).show();
                     }
                     else if (btnAttack.getImpact(x, y))

@@ -141,6 +141,37 @@ namespace IceBlink2
 		    }			
 	    }
 	
+        public void resetInventory()
+        {
+            if (btnReturn == null)
+            {
+                setControlsStart();
+            }
+            int cntSlot = 0;
+            foreach (IbbButton btn in btnInventorySlot)
+            {
+                if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
+                {
+                    Item it = mod.getItemByResRefForInfo(mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
+                    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
+                    if (itr.quantity > 1)
+                    {
+                        btn.Quantity = itr.quantity + "";
+                    }
+                    else
+                    {
+                        btn.Quantity = "";
+                    }
+                }
+                else
+                {
+                    btn.Img2 = null;
+                    btn.Quantity = "";
+                }
+                cntSlot++;
+            }
+        }
 	    //INVENTORY SCREEN (COMBAT and MAIN)
         public void redrawInventory()
         {
@@ -190,7 +221,7 @@ namespace IceBlink2
 		    {
 			    if (cntSlot == inventorySlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
+			    /*if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
 			    {
 				    Item it = mod.getItemByResRefForInfo(mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
 				    //Item it = mod.partyInventoryRefsList.get(cntSlot + (inventoryPageIndex * slotsPerPage).resref);
@@ -209,7 +240,7 @@ namespace IceBlink2
 			    {
 				    btn.Img2 = null;
 				    btn.Quantity = "";
-			    }
+			    }*/
 			    btn.Draw();
 			    cntSlot++;
 		    }
@@ -359,6 +390,7 @@ namespace IceBlink2
 				    {
 					    inventoryPageIndex--;
 					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                        resetInventory();
 				    }
 			    }
 			    else if (btnInventoryRight.getImpact(x, y))
@@ -369,6 +401,7 @@ namespace IceBlink2
 				    {
 					    inventoryPageIndex++;
 					    btnPageIndex.Text = (inventoryPageIndex + 1) + "/10";
+                        resetInventory();
 				    }
 			    }
 			    else if (btnHelp.getImpact(x, y))
@@ -533,166 +566,7 @@ namespace IceBlink2
 	            	gv.sf.ShowFullDescription(it);
 	            }                                
             }
-		    /*if (isSelectedItemSlotInPartyInventoryRange())
-		    {
-			    if (dialogOpen)
-	    	    {
-	    		    return;
-	    	    }
-	    	    dialogOpen = true;
-			    // Strings to Show In Dialog with Radio Buttons
-			    final CharSequence[] items = {" Use Item "," Drop Item "," View Item Description "};				            
-	            // Creating and Building the Dialog 
-	            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	            builder.setTitle("Item Action");
-	            builder.setOnCancelListener(new DialogInterface.OnCancelListener() 
-	            {			
-				    @Override
-				    public void onCancel(DialogInterface dialog) 
-				    {
-					    dialogOpen = false;
-				    }
-			    });
-	            builder.setItems(items, new DialogInterface.OnClickListener() 
-	            {
-	                public void onClick(DialogInterface dialog, int item) 
-	                {
-	            	    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	            	    Item it = mod.getItemByResRefForInfo(itRef.resref);
-	            	    //Item it = mod.partyInventoryList.get(filteredInventoryIndexList.get(partyInventoryItemIndex));
-	            	    //if ((item == 0) && (!mod.partyInventoryList.get(partyInventoryItemIndex).onUseItem.equals("none")))
-	            	    if ( (item == 0) && ( (!it.onUseItem.equals("none")) || (!it.onUseItemLogicTree.equals("none")) ) )
-	            	    {	      
-	            		    // selected to USE ITEM
-	            		    List<String> pcNames = new ArrayList<String>();
-	                        pcNames.add("cancel");
-	                        if (inCombat)
-	                        {
-	                    	    Player pc = mod.playerList.get(gv.screenCombat.currentPlayerIndex);
-	                            pcNames.add(pc.name);
-	                        }
-	                        else
-	                        {
-		                        for (Player pc : mod.playerList)
-		                        {
-		                    	    pcNames.add(pc.name);
-		                        }	   
-	                        }
-	                        final CharSequence[] items = pcNames.toArray(new CharSequence[pcNames.size()]);
-	                        // Creating and Building the Dialog 
-	                        AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	                        builder.setTitle("Select the PC to use the Item");
-	                        builder.setItems(items, new DialogInterface.OnClickListener() 
-	                        {
-	    	                    public void onClick(DialogInterface dialog, int item) 
-	    	                    {
-	    	                	    if (item > 0)
-	    	                	    {	        	                		
-		                			    try
-		                                {
-		                				    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-		            	            	    Item it = mod.getItemByResRefForInfo(itRef.resref);
-		                				    if (inCombat)
-		                				    {
-		                					    //check to see if use logic tree first
-		                					    if (!it.onUseItem.equals("none"))
-		                					    {
-			                					    Player pc = mod.playerList.get(gv.screenCombat.currentPlayerIndex);
-			                					    doItemInventoryScriptBasedOnFilename(pc);
-			                					    gv.screenCombat.currentCombatMode = "move";
-			                					    gv.screenType = "combat";
-			                					    gv.screenCombat.endPcTurn(false);
-		                					    }
-		                					    else if (!it.onUseItemLogicTree.equals("none"))
-		                					    {
-		                						    doItemInventoryLogicTree(gv.screenCombat.currentPlayerIndex);
-		                						    gv.screenCombat.currentCombatMode = "move";
-			                					    gv.screenType = "combat";
-			                					    gv.screenCombat.endPcTurn(false);
-		                					    }
-		                						
-		                				    }
-		                				    else
-		                				    {
-		                					    //check to see if use logic tree first
-		                					    if (!it.onUseItem.equals("none"))
-		                					    {
-			                					    Player pc = mod.playerList.get(item - 1);
-			                					    doItemInventoryScriptBasedOnFilename(pc);
-		                					    }
-		                					    else if (!it.onUseItemLogicTree.equals("none"))
-		                					    {
-		                						    doItemInventoryLogicTree(item - 1);
-		                					    }
-		                				    }
-		                                }
-		                                catch (Exception ex)
-		                                {
-		                                    //print error
-		                                }        	                            	        	                        
-	    	                	    }
-	    	                	    else if (item == 0) // selected "cancel"
-	    	                	    {
-	    	                		    //do nothing
-	    	                	    }
-	    	                	    gv.ActionDialog.dismiss();
-	    	                	    gv.invalidate();
-	    	                    }
-	                        });
-	                        gv.ActionDialog = builder.create();
-	                        gv.ActionDialog.show();
-	            	    }
-	            	    else if (item == 1) // selected to DROP ITEM
-	            	    {	                		
-	            		    //drop item
-	            		    final CharSequence[] items = {" YES "," NO "};				            
-	                        AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	                        builder.setTitle("Are you sure you wish to drop the item forever?");
-	                        builder.setItems(items, new DialogInterface.OnClickListener() 
-	                        {
-	    	                    public void onClick(DialogInterface dialog, int item) 
-	    	                    {
-	    	                	    if (item == 0) // selected YES
-	    	                	    {	                		
-	    	                		    //drop item
-	    	                		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
-	    	                		    Item it = mod.getItemByResRef(itRef.resref);
-	    	                		    if (!it.plotItem)
-	    	                		    {
-		    	                		    //Item it = mod.partyInventoryList.get(filteredInventoryIndexList.get(partyInventoryItemIndex));
-		    	                		    //mod.partyInventoryList.remove(it);
-	    	                			    gv.sf.RemoveItemFromInventory(itRef, 1);
-		    	                            //mod.partyInventoryRefsList.remove(itRef);
-		    	                            //partyInventoryItemIndex = 0;
-	    	                		    }
-	    	                		    else
-	    	                		    {
-	    	                			    gv.sf.MessageBoxHtml("You can't drop this item.");
-	    	                		    }
-	    	                	    }
-	    	                	    else if (item == 1) // selected NO
-	    	                	    {	                		
-	    	                		    //do nothing
-	    	                	    }
-	    	                	    gv.ActionDialog.dismiss();
-	    	                	    gv.invalidate();
-	    	                    }
-	                        });
-	                        gv.ActionDialog = builder.create();
-	                        gv.ActionDialog.show();
-	            	    }
-	            	    else if (item == 2) // selected to VIEW ITEM
-	            	    {
-	            		    gv.sf.ShowFullDescription(it);
-	            	    }
-	            	    dialogOpen = false;
-	            	    gv.ItemDialog.dismiss();
-	            	    gv.invalidate();
-	                }
-	            });
-	            gv.ItemDialog = builder.create();
-	            gv.ItemDialog.show();
-		    }*/
+            resetInventory();
 	    }
 	    public void doItemInventoryScriptBasedOnFilename(Player pc)
         {
@@ -701,6 +575,7 @@ namespace IceBlink2
     		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
         	    gv.cc.doItemScriptBasedOnUseItem(pc, itRef, true);	    	
 		    }
+            resetInventory();
         }
 	    public void doItemInventoryLogicTree(int pcIndex)
         {
@@ -722,6 +597,7 @@ namespace IceBlink2
         		    gv.sf.RemoveItemFromInventory(itRef, 1);
         	    }	    	
 		    }
+            resetInventory();
         }
 	    public int GetIndex()
 	    {

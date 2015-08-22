@@ -1599,6 +1599,7 @@ namespace IceBlink2
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.screenType = "inventory";
+                    gv.screenInventory.resetInventory();
 				    gv.cc.tutorialMessageInventory(false);
 			    }
 			    else if (btnJournal.getImpact(x, y))
@@ -1751,6 +1752,7 @@ namespace IceBlink2
             if (keyData == Keys.I)
             {
                 gv.screenType = "inventory";
+                gv.screenInventory.resetInventory();
                 gv.cc.tutorialMessageInventory(false);
             }
             if (keyData == Keys.J)

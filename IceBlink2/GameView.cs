@@ -1010,6 +1010,7 @@ namespace IceBlink2
                 screenCombat.floatyTextOn = false;
                 this.cc.floatyTextList.Clear();
             }
+            Render();
         }
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
         {
