@@ -1,0 +1,6 @@
+Example syntax:
+
+end
+
+Usage:
+This will end the script once this command is called anywhere in the script

@@ -1,0 +1,8 @@
+Example syntax:
+
+gosub coolsubroutine
+end
+
+subroutine coolsubroutine
+   msg("entered subroutine")
+return

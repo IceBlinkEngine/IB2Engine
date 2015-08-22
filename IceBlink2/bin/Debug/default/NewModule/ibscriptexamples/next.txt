@@ -1,0 +1,5 @@
+Example syntax:
+
+for (@i = 0; @i < #numPlayers; @i ++)
+   %Player[@i].hp -= 1   
+next

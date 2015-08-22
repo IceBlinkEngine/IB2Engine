@@ -1,0 +1,10 @@
+Example syntax:
+
+if (@i = 1)
+   $txt1 = "party is 1 square away...fireballend sound plays WorldTime +120"
+   ~gaShowFloatyTextOnMainMap($txt1,red,@propx,@propy)
+   ~gaPlaySound(fireballend)
+   ~osSetWorldTime(+,120,true)
+else
+   msg("@i does not equal 1")
+endif

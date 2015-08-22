@@ -1,0 +1,8 @@
+Example syntax:
+
+goto coolcode
+msg("this is skipped")
+
+label coolcode
+   msg("entered label")
+end

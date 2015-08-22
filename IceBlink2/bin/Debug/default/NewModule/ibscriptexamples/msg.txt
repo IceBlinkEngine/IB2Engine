@@ -1,0 +1,3 @@
+Example syntax:
+
+msg("each player losses 1 hp")
