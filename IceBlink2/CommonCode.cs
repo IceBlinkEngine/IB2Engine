@@ -3209,7 +3209,11 @@ namespace IceBlink2
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
                                 break;
                             }
-
+                            else
+                            {
+                                foundOne = false;
+                                break;
+                            }
 
                         }
                         else if ((gv.triggerPropIndex == 2) && (!prp.EncounterWhenOnPartySquare.Equals("none")))

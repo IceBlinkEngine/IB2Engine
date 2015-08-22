@@ -380,6 +380,19 @@ namespace IceBlink2
             {
                 CreatureResRefAssignment(element, indexNum, indexNum2);
             }
+            else if (element[0].StartsWith("%Area"))
+            {
+                AreaAssignment(element, indexNum);
+            }
+            else if (element[0].StartsWith("%Encounter"))
+            {
+                EncounterAssignment(element, indexNum);
+            }
+            else if (element[0].StartsWith("%CurrentEncounter"))
+            {
+                CurrentEncounterAssignment(element);
+            }
+
         }
         public void DoMessage(string line)
         {
@@ -4509,6 +4522,18 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].OnHeartBeatIBScriptParms += val;
                 }
             }
+            else if (element[0].EndsWith("inGameAreaName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].inGameAreaName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].inGameAreaName += val;
+                }
+            }
         }
         public void EncounterAssignment(string[] element, int indexNum)
         {
@@ -4835,6 +4860,333 @@ namespace IceBlink2
                 }
             }         
         }
+
+        public void CurrentEncounterAssignment(string[] element)
+        {
+            if (element[0].EndsWith("MapSizeX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.MapSizeX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.MapSizeX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.MapSizeX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.MapSizeX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.MapSizeX;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.MapSizeX = (int)helpResult;
+                }
+                //yn1: avoided using % because I wasnt sure if this would lead to confusion with already reserved usage of % for object property identification
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.MapSizeX %= val;
+                }
+            }
+            else if (element[0].EndsWith("MapSizeY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.MapSizeY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.MapSizeY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.MapSizeY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.MapSizeY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.MapSizeY;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.MapSizeY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.MapSizeY %= val;
+                }
+
+            }
+            else if (element[0].EndsWith("goldDrop"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.goldDrop = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.goldDrop += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.goldDrop -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.goldDrop *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.goldDrop;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.goldDrop = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.goldDrop %= val;
+                }
+
+            }
+
+            else if (element[0].EndsWith("AreaMusicDelay"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelay = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelay += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelay -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelay *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.AreaMusicDelay;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.AreaMusicDelay = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelay %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaMusicDelayRandomAdder"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentEncounter.AreaMusicDelayRandomAdder;
+                    helpResult /= val;
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentEncounter.AreaMusicDelayRandomAdder %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("UseMapImage"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentEncounter.UseMapImage = true;
+                }
+                else
+                {
+                    gv.mod.currentEncounter.UseMapImage = false;
+                }
+            }
+            else if (element[0].EndsWith("UseDayNightCycle"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentEncounter.UseDayNightCycle = true;
+                }
+                else
+                {
+                    gv.mod.currentEncounter.UseDayNightCycle = false;
+                }
+            }
+            else if (element[0].EndsWith("encounterName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.encounterName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.encounterName += val;
+                }
+            }
+
+            else if (element[0].EndsWith("MapImage"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.MapImage = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.MapImage += val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaMusic"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.AreaMusic = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.AreaMusic += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnSetupCombatIBScript"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnSetupCombatIBScript = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnSetupCombatIBScript += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnSetupCombatIBScriptParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnSetupCombatIBScriptParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnSetupCombatIBScriptParms += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnStartCombatRoundIBScript"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatRoundIBScript = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatRoundIBScript += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnStartCombatRoundIBScriptParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnStartCombatTurnIBScript"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatTurnIBScript = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatTurnIBScript += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnStartCombatTurnIBScriptParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnEndCombatIBScript"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnEndCombatIBScript = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnEndCombatIBScript += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnEndCombatIBScriptParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentEncounter.OnEndCombatIBScriptParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentEncounter.OnEndCombatIBScriptParms += val;
+                }
+            }
+        }
+        
         #endregion
 
         #region ga Functions
@@ -5861,13 +6213,17 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].AreaLocalStrings.Count.ToString();
                     }
-                    else if (parm.EndsWith("OnEndCombatIBScript"))
+                    else if (parm.EndsWith("OnHeartBeatIBScript"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatIBScript.ToString();
                     }
                     else if (parm.EndsWith("OnHeartBeatIBScriptParms"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatIBScriptParms.ToString();
+                    }
+                     else if (parm.EndsWith("inGameAreaName"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].inGameAreaName.ToString();
                     }
                 }
 
@@ -6501,6 +6857,108 @@ namespace IceBlink2
                 }
                 #endregion
 
+                 #region CurrentEncounter
+                if (parm.StartsWith("%CurrentEncounter"))
+                {
+
+                    if (parm.EndsWith("encounterName"))
+                    {
+                        return gv.mod.currentEncounter.encounterName.ToString();
+                    }
+                    else if (parm.EndsWith("MapImage"))
+                    {
+                        return gv.mod.currentEncounter.MapImage.ToString();
+                    }
+                    else if (parm.EndsWith("UseMapImage"))
+                    {
+                        return gv.mod.currentEncounter.UseMapImage.ToString();
+                    }
+                    else if (parm.EndsWith("UseDayNightCycle"))
+                    {
+                        return gv.mod.currentEncounter.UseDayNightCycle.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeX"))
+                    {
+                        return gv.mod.currentEncounter.MapSizeX.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeY"))
+                    {
+                        return gv.mod.currentEncounter.MapSizeY.ToString();
+                    }
+                    else if (parm.EndsWith("goldDrop"))
+                    {
+                        return gv.mod.currentEncounter.goldDrop.ToString();
+                    }
+                    else if (parm.EndsWith("AreaMusic"))
+                    {
+                        return gv.mod.currentEncounter.AreaMusic.ToString();
+                    }
+                    else if (parm.EndsWith("AreaMusicDelay"))
+                    {
+                        return gv.mod.currentEncounter.AreaMusicDelay.ToString();
+                    }
+                    else if (parm.EndsWith("AreaMusicDelayRandomAdder"))
+                    {
+                        return gv.mod.currentEncounter.AreaMusicDelayRandomAdder.ToString();
+                    }
+                    else if (parm.EndsWith("OnSetupCombatIBScript"))
+                    {
+                        return gv.mod.currentEncounter.OnSetupCombatIBScript.ToString();
+                    }
+                    else if (parm.EndsWith("OnSetupCombatIBScriptParms"))
+                    {
+                        return gv.mod.currentEncounter.OnSetupCombatIBScriptParms.ToString();
+                    }
+                    else if (parm.EndsWith("OnStartCombatRoundIBScript"))
+                    {
+                        return gv.mod.currentEncounter.OnStartCombatRoundIBScript.ToString();
+                    }
+                    else if (parm.EndsWith("OnStartCombatRoundIBScriptParms"))
+                    {
+                        return gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms.ToString();
+                    }
+                    else if (parm.EndsWith("OnStartCombatTurnIBScript"))
+                    {
+                        return gv.mod.currentEncounter.OnStartCombatTurnIBScript.ToString();
+                    }
+                    else if (parm.EndsWith("OnStartCombatTurnIBScriptParms"))
+                    {
+                        return gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms.ToString();
+                    }
+                    else if (parm.EndsWith("OnEndCombatIBScript"))
+                    {
+                        return gv.mod.currentEncounter.OnEndCombatIBScript.ToString();
+                    }
+                    else if (parm.EndsWith("OnEndCombatIBScriptParms"))
+                    {
+                        return gv.mod.currentEncounter.OnEndCombatIBScriptParms.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfEncounterTiles"))
+                    {
+                        return gv.mod.currentEncounter.encounterTiles.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfEncounterCreatureRefsList"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureRefsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfEncounterCreatureList"))
+                    {
+                        return gv.mod.currentEncounter.encounterCreatureList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfEncounterInventoryRefsList"))
+                    {
+                        return gv.mod.currentEncounter.encounterInventoryRefsList.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfEncounterPcStartLocations"))
+                    {
+                        return gv.mod.currentEncounter.encounterPcStartLocations.Count.ToString();
+                    }
+
+                }
+                 #endregion
+
+
+
                 /*#region ItemResRefParty
                 else if (parm.StartsWith("%ItemResRefParty"))
                 {
@@ -6599,6 +7057,11 @@ namespace IceBlink2
                 {
                     return gv.mod.partyInventoryRefsList.Count.ToString();
                 }
+                else if (parm.StartsWith("#numCreaturesInCurrentEncounter"))
+                {
+                    return gv.mod.currentEncounter.encounterCreatureList.Count.ToString();
+                }
+          
             }
             return parm;
         }
