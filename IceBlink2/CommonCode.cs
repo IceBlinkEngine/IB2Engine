@@ -4317,11 +4317,27 @@ namespace IceBlink2
             int lineHeight = 0;
             float xLoc = 0;
 
+            char previousChar = ' ';
+            char nextChar = ' ';
+            int charIndex = -1;
             foreach (char c in text)
             {
+                charIndex++;
+
+                //get the previous char and the next char, used to get ' < ' and ' >= '
+                if (charIndex > 0)
+                {
+                    previousChar = text[charIndex - 1];
+                }
+                if (charIndex < text.Length - 1)
+                {
+                    nextChar = text[charIndex + 1];
+                }
+                string combinedChars = previousChar.ToString() + c.ToString() + nextChar.ToString();
+
                 #region Start/Stop Tags
                 //start a tag and check for end of word
-                if (c == '<')
+                if ((c == '<') && (!combinedChars.Contains("<=")) && (!combinedChars.Equals(" < ")))
                 {
                     tagMode = true;
 
@@ -4361,7 +4377,7 @@ namespace IceBlink2
                     continue;
                 }
                 //end a tag
-                else if (c == '>')
+                else if ((c == '>') && (!combinedChars.Equals(" > ")) && (!combinedChars.Contains(">=")))
                 {
                     //check for ending type tag
                     if (tag.StartsWith("/"))
