@@ -15,6 +15,7 @@ namespace IceBlink2
         public Color color = Color.White;
         public FontStyle fontStyle = FontStyle.Normal;
         public FontWeight fontWeight = FontWeight.Normal;
+        public bool underlined = false;
         public float fontSize = 10.0f;
 
         public FormattedWord()

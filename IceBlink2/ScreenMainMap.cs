@@ -1298,7 +1298,7 @@ namespace IceBlink2
                     {
                         tglInteractionState.toggleOn = false;
                         mod.showInteractionState = false;
-                        gv.cc.addLogText("lime", "No info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
+                        gv.cc.addLogText("yellow", "Hide info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
                     }
                     else
                     {
@@ -1322,7 +1322,7 @@ namespace IceBlink2
                     {
                         tglAvoidConversation.toggleOn = true;
                         mod.avoidInteraction = true;
-                        gv.cc.addLogText("lime", "In a hurry: Party is avoiding all conversations that are not mandatory");
+                        gv.cc.addLogText("yellow", "In a hurry: Party is avoiding all conversations that are not mandatory");
                     }
                 }
 

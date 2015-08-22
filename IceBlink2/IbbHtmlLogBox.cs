@@ -13,10 +13,6 @@ namespace IceBlink2
     public class IbbHtmlLogBox
     {
         public GameView gv = null;
-        
-        //public SolidBrush brush = new SolidBrush(Color.Black);
-        //public FontFamily fontfamily;
-        //public Font font;
         public Bitmap btn_up;
         public Bitmap btn_down;
         public Bitmap btn_scroll;
@@ -60,32 +56,49 @@ namespace IceBlink2
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc - gv.oYshift, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight)
+        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
         {
             if ((y > -2) && (y <= tbHeight - fontHeight))
             {
                 //gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc - gv.oYshift);
-                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor);
+                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor, isUnderlined);
             }
         }
 
         public void AddHtmlTextToLog(string htmlText)
         {
             //Remove any '\r\n' hard returns from message
-            htmlText = htmlText.Replace("\r\n", " ");
+            htmlText = htmlText.Replace("\r\n", "<br>");
+            htmlText = htmlText.Replace("\n\n", "<br>");
             htmlText = htmlText.Replace("\"", "'");
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
+            {
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth - btn_up.PixelSize.Width, tagStack);
+                foreach (FormattedLine fl in linesList)
+                {
+                    logLinesList.Add(fl);
+                }
+            }
+            else
+            {
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.PixelSize.Width, tagStack);
+                foreach (FormattedLine fl in linesList)
+                {
+                    logLinesList.Add(fl);
+                }
+            }
+            /*if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
                 ProcessHtmlString(htmlText, tbWidth - btn_up.PixelSize.Width);
             }
             else
             {
                 ProcessHtmlString(htmlText + "<br>", tbWidth - btn_up.PixelSize.Width);
-            }            
+            }*/          
             scrollToEnd();
         }
-        public void ProcessHtmlString(string text, int width)
+        /*public void ProcessHtmlString(string text, int width)
         {
             bool tagMode = false;
             string tag = "";
@@ -231,7 +244,7 @@ namespace IceBlink2
                 }
                 #endregion
             }
-        }
+        }*/
 
         public void onDrawLogBox()
         {
@@ -256,7 +269,11 @@ namespace IceBlink2
                     gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
                     int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
-                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize);
+                    if (word.underlined)
+                    {
+                        gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
+                    }
+                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
 
                     //OLD STUFF
@@ -327,7 +344,7 @@ namespace IceBlink2
             }
         }
         
-        private Color GetColor()
+        /*private Color GetColor()
         {
             //will end up using the last color on the stack
             Color clr = Color.White;
@@ -420,7 +437,7 @@ namespace IceBlink2
                 }
             }
             return fSize;
-        }
+        }*/
 
         private bool isMouseWithinTextBox(MouseEventArgs e)
         {

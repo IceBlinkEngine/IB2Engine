@@ -12,11 +12,6 @@ namespace IceBlink2
     public class IbbHtmlTextBox
     {
         public GameView gv;
-
-        //public SolidBrush brush = new SolidBrush(Color.Black);
-        //public FontFamily fontfamily;
-        //public Font font;
-        
         public List<string> tagStack = new List<string>();
         public List<FormattedLine> logLinesList = new List<FormattedLine>();
         float xLoc = 0;
@@ -57,29 +52,40 @@ namespace IceBlink2
             IbRect dst = new IbRect(x + tbXloc, y + tbYloc, bmp.PixelSize.Width, bmp.PixelSize.Height);
             gv.DrawBitmap(bmp, src, dst);
         }
-        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight)
+        public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
         {
             if ((y > -2) && (y <= tbHeight - fontHeight))
             {
-                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor);
+                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor, isUnderlined);
             }
         }
 
         public void AddHtmlTextToLog(string htmlText)
         {
-            htmlText = htmlText.Replace("\r\n", " ");
+            htmlText = htmlText.Replace("\r\n", "<br>");
+            htmlText = htmlText.Replace("\n\n", "<br>");
             htmlText = htmlText.Replace("\"", "'");
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
-                ProcessHtmlString(htmlText, tbWidth);
+                //ProcessHtmlString(htmlText, tbWidth);
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth, tagStack);
+                foreach (FormattedLine fl in linesList)
+                {
+                    logLinesList.Add(fl);
+                }
             }
             else
             {
-                ProcessHtmlString(htmlText + "<br>", tbWidth);
+                //ProcessHtmlString(htmlText + "<br>", tbWidth);
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth, tagStack);
+                foreach (FormattedLine fl in linesList)
+                {
+                    logLinesList.Add(fl);
+                }
             }
         }
-        public void ProcessHtmlString(string text, int width)
+        /*public void ProcessHtmlString(string text, int width)
         {
             bool tagMode = false;
             string tag = "";
@@ -225,7 +231,7 @@ namespace IceBlink2
                 }
                 #endregion
             }
-        }
+        }*/
 
         public void onDrawLogBox()
         {
@@ -242,8 +248,8 @@ namespace IceBlink2
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
                     float ht = gv.textLayout.Metrics.Height;
                     float wd = gv.textLayout.Metrics.Width;
-                    int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;
-                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize);
+                    int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;                    
+                    DrawString(word.text + " ", xLoc, yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     //gv.DrawRectangle(new IbRect((int)xLoc + tbXloc, (int)yLoc + difYheight + tbYloc, (int)wd, (int)ht), SharpDX.Color.White, 1);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
 
@@ -268,7 +274,7 @@ namespace IceBlink2
             }
         }
 
-        private Color GetColor()
+        /*private Color GetColor()
         {
             //will end up using the last color on the stack
             Color clr = Color.White;
@@ -352,6 +358,6 @@ namespace IceBlink2
                 }
             }
             return fSize;
-        }
+        }*/
     }
 }

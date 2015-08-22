@@ -1095,15 +1095,15 @@ namespace IceBlink2
         }
         public void DrawText(string text, float xLoc, float yLoc)
         {
-            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White);
+            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, SharpDX.Color.White, false);
         }
         public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor)
         {
-            DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor);
+            DrawText(text, x, y, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, 1.0f, fontColor, false);
         }
         public void DrawText(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
-            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor);
+            DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
         }
         public void DrawText(string text, IbRect rect, float scaler, SharpDX.Color fontColor)
         {
@@ -1130,7 +1130,7 @@ namespace IceBlink2
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
             }
         }
-        public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor)
+        public void DrawText(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, float scaler, SharpDX.Color fontColor, bool isUnderlined)
         {
             CleanUpDrawTextResources();
             float thisFontHeight = drawFontRegHeight;
@@ -1147,6 +1147,10 @@ namespace IceBlink2
                 //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
+                if (isUnderlined)
+                {
+                    textLayout.SetUnderline(true, new TextRange(0, text.Length - 1));
+                }
                 renderTarget2D.DrawTextLayout(new Vector2(x, y + oYshift), textLayout, scb, DrawTextOptions.None);
             }
         }
