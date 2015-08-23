@@ -1269,6 +1269,7 @@ namespace IceBlink2
         public void startPcTurn()
         {
             CalculateUpperLeft();
+            gv.Render();
             isPlayerTurn = true;
             gv.touchEnabled = true;
             currentCombatMode = "move";
@@ -1586,9 +1587,16 @@ namespace IceBlink2
             //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
+            //IBMessageBox.Show(gv, "run do cretaure TURN");
+            gv.sf.SetGlobalInt("positionAtStartX", crt.combatLocX.ToString());
+            gv.sf.SetGlobalInt("positionAtStartY", crt.combatLocY.ToString());
+            gv.sf.SetGlobalInt("noMoreAdjustmentsPC", "0");
+            gv.sf.SetGlobalInt("noMoreAdjustmentsRange", "0");
+            gv.sf.SetGlobalInt("firstMoveCenterCam", "1");
+
             doCreatureNextAction();
 	    }
-        public void doCreatureNextAction()
+        public void  doCreatureNextAction()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             CalculateUpperLeftCreature();
@@ -1598,11 +1606,13 @@ namespace IceBlink2
                 playerToAnimate = null;
                 //gv.Invalidate();
                 gv.Render();
+                //IBMessageBox.Show(gv, "run do cretaure next action");
                 animationState = AnimationState.CreatureThink;
+                //IBMessageBox.Show(gv, "callling do danimation");
                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
             }
             else
-            {
+            { 
                 endCreatureTurn();
             }
         }
@@ -1743,7 +1753,12 @@ namespace IceBlink2
                         gv.Render();
 	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
 	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
-	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+                        int speed = gv.sf.GetGlobalInt("animationSpeed");
+                        if (speed == -1)
+                        {
+                            speed = 50;
+                        }
+	    	            gv.postDelayed("doAnimation", 5 * speed);
 	                }
 	                else
 	                {
@@ -1773,7 +1788,12 @@ namespace IceBlink2
                         //gv.Invalidate();
                         gv.Render();
 	    	            animationState = AnimationState.CreatureMeleeAttackAnimation;
-	    	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+                        int speed = gv.sf.GetGlobalInt("animationSpeed");
+                        if (speed == -1)
+                        {
+                            speed = 50;
+                        }
+	    	            gv.postDelayed("doAnimation", 5 * speed);
 	            	    //creatureTurnState = "attackAnim";
 	                }
 	                else
@@ -1840,7 +1860,12 @@ namespace IceBlink2
                 //gv.Invalidate();
                 gv.Render();
 	            animationState = AnimationState.CreatureCastAttackAnimation;
-	            gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
+                int speed = gv.sf.GetGlobalInt("animationSpeed");
+                if (speed == -1)
+                {
+                    speed = 50;
+                }
+	            gv.postDelayed("doAnimation", 5 * speed);
 	                    
             }
             else
@@ -2577,7 +2602,7 @@ namespace IceBlink2
 		    //row = y
 		    //col = x
 		    if (mod.currentEncounter.UseMapImage)
-		    {
+		    { 
                 int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
                 int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
                 IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * 9, sqrsizeH * 9);
@@ -3405,27 +3430,32 @@ namespace IceBlink2
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        
                         if (mod.combatAnimationSpeed == 100)
                         {
                             mod.combatAnimationSpeed = 50;
+                            gv.sf.SetGlobalInt("animationSpeed", "50");
                             gv.cc.addLogText("lime", "combat speed: 2x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
                         }
                         else if (mod.combatAnimationSpeed == 50)
                         {
                             mod.combatAnimationSpeed = 25;
+                            gv.sf.SetGlobalInt("animationSpeed", "25");
                             gv.cc.addLogText("lime", "combat speed: 4x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
                         }
                         else if (mod.combatAnimationSpeed == 25)
                         {
                             mod.combatAnimationSpeed = 10;
+                            gv.sf.SetGlobalInt("animationSpeed", "10");
                             gv.cc.addLogText("lime", "combat speed: 10x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
                         }
                         else if (mod.combatAnimationSpeed == 10)
                         {
                             mod.combatAnimationSpeed = 100;
+                            gv.sf.SetGlobalInt("animationSpeed", "100");
                             gv.cc.addLogText("lime", "combat speed: 1x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
                         }
@@ -4760,16 +4790,88 @@ namespace IceBlink2
             if (minY < 0) { minY = 0; }
             UpperLeftSquare.X = minX;
             UpperLeftSquare.Y = minY;
+            mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
+            if (mod.combatAnimationSpeed < 1)
+            {
+                mod.combatAnimationSpeed = 50;
+            }
         }
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
+            mod.combatAnimationSpeed = 10;
             int minX = crt.combatLocX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
-            UpperLeftSquare.X = minX;
-            UpperLeftSquare.Y = minY;
+            int dist = 0;
+            int deltaX = 0;
+            int deltaY = 0;
+            bool alreadyAdjustedDueToPC = false;
+
+            if (gv.sf.CheckGlobalInt("firstMoveCenterCam", "=", 1))
+            {
+                UpperLeftSquare.X = minX;
+                UpperLeftSquare.Y = minY;
+                gv.sf.SetGlobalInt("firstMoveCenterCam", "0");
+                return;
+            }
+                  
+            foreach (Player pc in mod.playerList)
+            {
+                dist = 0;
+                deltaX= 0;
+                deltaY= 0;
+
+                //get distance between the current free tile and the originally intended summon location
+                deltaX = (int)Math.Abs((pc.combatLocX - crt.combatLocX));
+                deltaY = (int)Math.Abs((pc.combatLocY - crt.combatLocY));
+                if (deltaX > deltaY)
+                {
+                     dist = deltaX;
+                }
+                else
+                {
+                     dist = deltaY;
+                }
+
+                if ((dist < 5) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsRange", "=", 0)) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsPC", "=", 0)))
+                {
+                    minX = pc.combatLocX - gv.playerOffset;
+                    if (minX < 0) { minX = 0; }
+                    minY = pc.combatLocY - gv.playerOffset;
+                    if (minY < 0) { minY = 0; }
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
+                    alreadyAdjustedDueToPC = true;
+                    gv.sf.SetGlobalInt("noMoreAdjustmentsPC", "1");
+                    break;
+                }
+            }
+
+            if (alreadyAdjustedDueToPC == false)
+            {
+                int positionAtStartX = gv.sf.GetGlobalInt("positionAtStartX");
+                int positionAtStartY = gv.sf.GetGlobalInt("positionAtStartY");
+
+                deltaX = (int)Math.Abs((positionAtStartX - crt.combatLocX));
+                deltaY = (int)Math.Abs((positionAtStartY - crt.combatLocY));
+                if (deltaX > deltaY)
+                {
+                    dist = deltaX;
+                }
+                else
+                {
+                    dist = deltaY;
+                }
+
+                if ( (dist > 4) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsRange","=",0)) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsPC","=",0)) )
+                {
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
+                    gv.sf.SetGlobalInt("noMoreAdjustmentsRange", "1");
+                }
+            }
         }
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
         {
