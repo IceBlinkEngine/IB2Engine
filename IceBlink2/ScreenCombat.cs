@@ -1588,12 +1588,6 @@ namespace IceBlink2
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
             //IBMessageBox.Show(gv, "run do cretaure TURN");
-            gv.sf.SetGlobalInt("positionAtStartX", crt.combatLocX.ToString());
-            gv.sf.SetGlobalInt("positionAtStartY", crt.combatLocY.ToString());
-            gv.sf.SetGlobalInt("noMoreAdjustmentsPC", "0");
-            gv.sf.SetGlobalInt("noMoreAdjustmentsRange", "0");
-            gv.sf.SetGlobalInt("firstMoveCenterCam", "1");
-
             doCreatureNextAction();
 	    }
         public void  doCreatureNextAction()
@@ -1754,7 +1748,7 @@ namespace IceBlink2
 	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
 	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
                         int speed = gv.sf.GetGlobalInt("animationSpeed");
-                        if (speed == -1)
+                        if (speed < 1)
                         {
                             speed = 50;
                         }
@@ -4804,73 +4798,15 @@ namespace IceBlink2
             if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
-            int dist = 0;
-            int deltaX = 0;
-            int deltaY = 0;
-            bool alreadyAdjustedDueToPC = false;
 
-            if (gv.sf.CheckGlobalInt("firstMoveCenterCam", "=", 1))
+            if ( (crt.combatLocX <= (UpperLeftSquare.X + 9)) && (crt.combatLocX >= UpperLeftSquare.X) && (crt.combatLocY <= (UpperLeftSquare.Y + 9)) && (crt.combatLocY >= UpperLeftSquare.Y) )
+            {
+                return;
+            }
+            else
             {
                 UpperLeftSquare.X = minX;
                 UpperLeftSquare.Y = minY;
-                gv.sf.SetGlobalInt("firstMoveCenterCam", "0");
-                return;
-            }
-                  
-            foreach (Player pc in mod.playerList)
-            {
-                dist = 0;
-                deltaX= 0;
-                deltaY= 0;
-
-                //get distance between the current free tile and the originally intended summon location
-                deltaX = (int)Math.Abs((pc.combatLocX - crt.combatLocX));
-                deltaY = (int)Math.Abs((pc.combatLocY - crt.combatLocY));
-                if (deltaX > deltaY)
-                {
-                     dist = deltaX;
-                }
-                else
-                {
-                     dist = deltaY;
-                }
-
-                if ((dist < 5) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsRange", "=", 0)) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsPC", "=", 0)))
-                {
-                    minX = pc.combatLocX - gv.playerOffset;
-                    if (minX < 0) { minX = 0; }
-                    minY = pc.combatLocY - gv.playerOffset;
-                    if (minY < 0) { minY = 0; }
-                    UpperLeftSquare.X = minX;
-                    UpperLeftSquare.Y = minY;
-                    alreadyAdjustedDueToPC = true;
-                    gv.sf.SetGlobalInt("noMoreAdjustmentsPC", "1");
-                    break;
-                }
-            }
-
-            if (alreadyAdjustedDueToPC == false)
-            {
-                int positionAtStartX = gv.sf.GetGlobalInt("positionAtStartX");
-                int positionAtStartY = gv.sf.GetGlobalInt("positionAtStartY");
-
-                deltaX = (int)Math.Abs((positionAtStartX - crt.combatLocX));
-                deltaY = (int)Math.Abs((positionAtStartY - crt.combatLocY));
-                if (deltaX > deltaY)
-                {
-                    dist = deltaX;
-                }
-                else
-                {
-                    dist = deltaY;
-                }
-
-                if ( (dist > 4) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsRange","=",0)) && (gv.sf.CheckGlobalInt("noMoreAdjustmentsPC","=",0)) )
-                {
-                    UpperLeftSquare.X = minX;
-                    UpperLeftSquare.Y = minY;
-                    gv.sf.SetGlobalInt("noMoreAdjustmentsRange", "1");
-                }
             }
         }
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
@@ -5414,13 +5350,15 @@ namespace IceBlink2
         }
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
+       
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
                 {
                     //if started in distance = 1 and now distance = 2 then do attackOfOpportunity
-                    if ((CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2))
+                    if ( ( (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2) ) || ( (currentMoves > 0) && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1) ) )
                     {
                         if (pc.steathModeOn)
                         {
