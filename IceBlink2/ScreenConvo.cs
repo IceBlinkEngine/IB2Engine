@@ -629,12 +629,12 @@ namespace IceBlink2
             loadNodePortrait();
         }
         private void selectedLine(int btnIndex)
-        {    	
-            //#region send choosen text to the main screen log        
+        {    	                 
             if (btnIndex < nodeIndexList.Count)
             {
         	    int index = nodeIndexList[btnIndex];
-        	    String NPCname = "";
+                #region send choosen text to the main screen log   
+        	    string NPCname = "";
 	            ContentNode selectedNod = currentConvo.GetContentNodeById(parentIdNum).subNodes[index];
 	            if ((selectedNod.NodeNpcName.Equals("")) || (selectedNod.NodeNpcName == null) || (selectedNod.NodeNpcName.Length <= 0))
 	            {
@@ -645,9 +645,16 @@ namespace IceBlink2
 	                NPCname = selectedNod.NodeNpcName;
 	            }
 	            //String npcNode = replaceText(rtxtNPC.Text);
+                string npcNode = replaceText(currentConvo.GetContentNodeById(parentIdNum).conversationText);
 	            //String pcNode = replaceText(selectedNod.conversationText);
+                string pcNode = replaceText(selectedNod.conversationText);
 	            //doScriptBasedOnFilename("dsAdventureMapConvoLog.cs", npcNode, NPCname, pcNode, mod.playerList.get(mod.selectedPartyLeader).name);
-	            //#endregion
+                //write to log
+                gv.cc.addLogText("<font color='yellow'>" + NPCname + ": </font>" +
+                                 "<font color='silver'>" + npcNode + "<br>" + "</font>" +
+                                 "<font color='aqua'>" + mod.playerList[mod.selectedPartyLeader].name + ": </font>" +
+                                 "<font color='silver'>" + pcNode + "</font>");
+	            #endregion
 	
 	            int childIdNum = currentConvo.GetContentNodeById(parentIdNum).subNodes[index].idNum;
 	            // if PC node choosen was a linked node, then return the idNum of the linked node
@@ -662,6 +669,7 @@ namespace IceBlink2
 	            }
 	            if (currentConvo.GetContentNodeById(childIdNum).subNodes.Count < 1)
 	            {
+                    gv.cc.addLogText("[end convo]<br><br>"); //add a blank line to main screen log at the end of a conversation
 	                mod.selectedPartyLeader = originalSelectedPartyLeader;
 	        	    if ((gv.screenType.Equals("shop")) || (gv.screenType.Equals("title")) || (gv.screenType.Equals("combat")))
 	        	    {

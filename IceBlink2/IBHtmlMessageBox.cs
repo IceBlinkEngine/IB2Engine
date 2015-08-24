@@ -50,7 +50,7 @@ namespace IceBlink2
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.form_MouseWheel);
             InitializeHtmlLogBox(10, 30, 580, 400);                       
             AddHtmlTextToLog(htmlstring);
-            numberOfLinesToShow = 16;
+            numberOfLinesToShow = 10;
             AddHtmlTextToLog("");
             currentTopLineIndex = 0;
         }
