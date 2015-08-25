@@ -22,8 +22,8 @@ namespace IceBlink2
         public int currentMoveOrderIndex = 0;
         public List<MoveOrder> moveOrderList = new List<MoveOrder>();
         public int initialMoveOrderListSize = 0;
-        public int currentMoves = 0;
-        public int creatureMoves = 0;
+        public float currentMoves = 0;
+        public float creatureMoves = 0;
         public Coordinate UpperLeftSquare = new Coordinate();
 	    public string currentCombatMode = "info"; //info, move, cast, attack
 	    private Coordinate targetHighlightCenterLocation = new Coordinate();
@@ -68,6 +68,8 @@ namespace IceBlink2
 	    public IbbToggleButton tglHelp = null;
 	    public IbbToggleButton tglGrid = null;
         public int mapStartLocXinPixels;
+        public float moveCost = 1;
+        public bool diagonalMoveAllowed = true;
 	
 	    public ScreenCombat(Module m, GameView g)
 	    {
@@ -798,7 +800,16 @@ namespace IceBlink2
                 gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //CreatureDoesAttack(crt);
-                creatureMoves++;
+                if (moveCost == 1.5f)
+                {
+                    creatureMoves += 1.5f;
+                    moveCost = 1f;
+                }
+                else
+                {
+                    creatureMoves++;
+                }
+                //reatureMoves++;
                 doCreatureNextAction();
                 //endCreatureTurn();
             }
@@ -1272,6 +1283,7 @@ namespace IceBlink2
             gv.Render();
             isPlayerTurn = true;
             gv.touchEnabled = true;
+            diagonalMoveAllowed = true;
             currentCombatMode = "move";
             //gv.screenType = "combat";
             //gv.cc.logScrollOffset = 0;
@@ -1633,8 +1645,13 @@ namespace IceBlink2
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
-                if (creatureMoves < crt.moveDistance)
+                diagonalMoveAllowed = true;
+                if ((creatureMoves + 0.5f) < crt.moveDistance)
                 {
+                    if ((crt.moveDistance - creatureMoves) < 1.5f)
+                    {
+                        diagonalMoveAllowed = false;
+                    }
                     CreatureMoves();
                 }
                 else
@@ -1670,24 +1687,57 @@ namespace IceBlink2
 			    	    endCreatureTurn();
 					    return;
 				    }
-				    if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
-				    {
-//TODO					    crt.token= gv.cc.flip(crt.token);
-					    crt.combatFacingLeft = true;
-				    }
-				    else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
-				    {
-//TODO					    crt.token= gv.cc.flip(crt.token);
-					    crt.combatFacingLeft = false;
-				    }
-                    //CHANGE FACING BASED ON MOVE
-                    doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-				    
-                    crt.combatLocX = newCoor.X;
-				    crt.combatLocY = newCoor.Y;                    
-				    canMove = false;
-				    animationState = AnimationState.CreatureMove;
-				    gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+				   
+                    if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
+                    {
+                        if (diagonalMoveAllowed == true)
+                        {
+                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            {
+                                //TODO					    crt.token= gv.cc.flip(crt.token);
+                                crt.combatFacingLeft = true;
+                            }
+                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            {
+                                //TODO					    crt.token= gv.cc.flip(crt.token);
+                                crt.combatFacingLeft = false;
+                            }
+                            //CHANGE FACING BASED ON MOVE
+                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            moveCost = 1.5f;
+                            crt.combatLocX = newCoor.X;
+                            crt.combatLocY = newCoor.Y;
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                        }
+                        else
+                        {
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                        }
+                    }
+                    else
+                    {
+                        if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                        {
+                            //TODO					    crt.token= gv.cc.flip(crt.token);
+                            crt.combatFacingLeft = true;
+                        }
+                        else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                        {
+                            //TODO					    crt.token= gv.cc.flip(crt.token);
+                            crt.combatFacingLeft = false;
+                        }
+                        //CHANGE FACING BASED ON MOVE
+                        doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                        crt.combatLocX = newCoor.X;
+                        crt.combatLocY = newCoor.Y;
+                        canMove = false;
+                        animationState = AnimationState.CreatureMove;
+                        gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                    }
 			    }
 			    else //no target found
 			    {
@@ -2541,7 +2591,7 @@ namespace IceBlink2
 		    btnCast.Draw();
 		    btnSkipTurn.Draw();
             Player pc = mod.playerList[currentPlayerIndex];
-            int movesLeft = pc.moveDistance - currentMoves;
+            float movesLeft = pc.moveDistance - currentMoves;
             if (movesLeft < 0) { movesLeft = 0; }
             btnMoveCounter.Text = movesLeft.ToString();
             btnMoveCounter.Draw();
@@ -4355,14 +4405,24 @@ namespace IceBlink2
         public void doUpdate(Player pc)
         {
             CalculateUpperLeft();
-            currentMoves++;
+            diagonalMoveAllowed = true;
+            if (moveCost == 1.5f)
+            {
+                currentMoves += 1.5f;
+                moveCost = 1f;
+            }
+            else
+            {
+                currentMoves++;
+            }
+            //currentMoves++;
             //refreshMap();
             //txtInfo.Text = "currentMoves = " + currentMoves.ToString();
-            int moveleft = pc.moveDistance - currentMoves;
-            if (moveleft < 0) { moveleft = 0; }
+            float moveleft = pc.moveDistance - currentMoves;
+            if (moveleft < 1) { moveleft = 0; }
             //lblMovesLeft.Text = moveleft.ToString();
-            if (currentMoves >= pc.moveDistance)
-            {
+            if ((currentMoves + 0.5f) >= pc.moveDistance)
+            { 
                 canMove = false;
                 currentCombatMode = "attack";
                 setTargetHighlightStartLocation(pc);
@@ -4373,6 +4433,10 @@ namespace IceBlink2
                 //}
                 //currentMoves = 0;
                 //BeginRound();
+            }
+            else if (moveleft < 1.5f)
+            {
+                diagonalMoveAllowed = false;
             }
         }
         public void MoveTargetHighlight(int numPadDirection)
@@ -4500,7 +4564,7 @@ namespace IceBlink2
         }
         public void MoveUpRight(Player pc)
         {
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
+            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0) && (diagonalMoveAllowed == true) )
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
                 {
@@ -4524,6 +4588,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
+                        moveCost = 1.5f;
                         doUpdate(pc);
                     }
                 }
@@ -4531,7 +4596,7 @@ namespace IceBlink2
         }
         public void MoveUpLeft(Player pc)
         {
-            if ((pc.combatLocX > 0) && (pc.combatLocY > 0))
+            if ((pc.combatLocX > 0) && (pc.combatLocY > 0) && (diagonalMoveAllowed == true))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
                 {
@@ -4555,6 +4620,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
+                        moveCost = 1.5f;
                         doUpdate(pc);
                     }
                 }
@@ -4587,7 +4653,7 @@ namespace IceBlink2
         }
         public void MoveDownRight(Player pc)
         {
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1) && (diagonalMoveAllowed == true))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
@@ -4611,6 +4677,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
+                        moveCost = 1.5f;
                         doUpdate(pc);
                     }
                 }
@@ -4618,7 +4685,7 @@ namespace IceBlink2
         }
         public void MoveDownLeft(Player pc)
         {
-            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
+            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1) && (diagonalMoveAllowed == true))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
@@ -4642,6 +4709,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
+                        moveCost = 1.5f;
                         doUpdate(pc);
                     }
                 }
@@ -4782,14 +4850,24 @@ namespace IceBlink2
             if (minX < 0) { minX = 0; }
             int minY = pc.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
-            UpperLeftSquare.X = minX;
-            UpperLeftSquare.Y = minY;
+
             mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
             if (mod.combatAnimationSpeed < 1)
             {
                 mod.combatAnimationSpeed = 50;
             }
+
+            if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
+            { 
+                return; 
+            }
+            else
+            { 
+                UpperLeftSquare.X = minX; 
+                UpperLeftSquare.Y = minY; 
+            }
         }
+
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
