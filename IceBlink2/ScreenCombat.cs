@@ -69,7 +69,7 @@ namespace IceBlink2
 	    public IbbToggleButton tglGrid = null;
         public int mapStartLocXinPixels;
         public float moveCost = 1;
-        public bool diagonalMoveAllowed = true;
+        public float diagonalMoveCost = 1.5f;
 	
 	    public ScreenCombat(Module m, GameView g)
 	    {
@@ -800,9 +800,9 @@ namespace IceBlink2
                 gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //CreatureDoesAttack(crt);
-                if (moveCost == 1.5f)
+                if (moveCost == diagonalMoveCost)
                 {
-                    creatureMoves += 1.5f;
+                    creatureMoves += diagonalMoveCost;
                     moveCost = 1f;
                 }
                 else
@@ -949,7 +949,7 @@ namespace IceBlink2
                 {
                     //change creatureIndex or currentPlayerIndex
                     currentPlayerIndex = idx;
-                    //set isPlayerTurn
+                    //set isPlayerTurn 
                     isPlayerTurn = true;
                     
                     currentCombatMode = "info";
@@ -1283,7 +1283,6 @@ namespace IceBlink2
             gv.Render();
             isPlayerTurn = true;
             gv.touchEnabled = true;
-            diagonalMoveAllowed = true;
             currentCombatMode = "move";
             //gv.screenType = "combat";
             //gv.cc.logScrollOffset = 0;
@@ -1645,13 +1644,8 @@ namespace IceBlink2
             }
             else if (gv.sf.ActionToTake.Equals("Move"))
             {
-                diagonalMoveAllowed = true;
                 if ((creatureMoves + 0.5f) < crt.moveDistance)
                 {
-                    if ((crt.moveDistance - creatureMoves) < 1.5f)
-                    {
-                        diagonalMoveAllowed = false;
-                    }
                     CreatureMoves();
                 }
                 else
@@ -1690,7 +1684,7 @@ namespace IceBlink2
 				   
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
-                        if (diagonalMoveAllowed == true)
+                        if ((crt.moveDistance - creatureMoves) >= diagonalMoveCost)
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -1704,7 +1698,7 @@ namespace IceBlink2
                             }
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                            moveCost = 1.5f;
+                            moveCost = diagonalMoveCost;
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
                             canMove = false;
@@ -4405,10 +4399,9 @@ namespace IceBlink2
         public void doUpdate(Player pc)
         {
             CalculateUpperLeft();
-            diagonalMoveAllowed = true;
-            if (moveCost == 1.5f)
+            if (moveCost == diagonalMoveCost)
             {
-                currentMoves += 1.5f;
+                currentMoves += diagonalMoveCost;
                 moveCost = 1f;
             }
             else
@@ -4421,23 +4414,6 @@ namespace IceBlink2
             float moveleft = pc.moveDistance - currentMoves;
             if (moveleft < 1) { moveleft = 0; }
             //lblMovesLeft.Text = moveleft.ToString();
-            if ((currentMoves + 0.5f) >= pc.moveDistance)
-            { 
-                canMove = false;
-                currentCombatMode = "attack";
-                setTargetHighlightStartLocation(pc);
-                //currentMoveOrderIndex++;
-                //if (currentMoveOrderIndex > com_moveOrderList.Count - 1)
-                //{
-                //    currentMoveOrderIndex = 0;
-                //}
-                //currentMoves = 0;
-                //BeginRound();
-            }
-            else if (moveleft < 1.5f)
-            {
-                diagonalMoveAllowed = false;
-            }
         }
         public void MoveTargetHighlight(int numPadDirection)
         {
@@ -4551,7 +4527,8 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY - 1);
@@ -4562,7 +4539,7 @@ namespace IceBlink2
                 }
             }
         }
-        public void MoveUpRight(Player pc)
+        /*public void MoveUpRight(Player pc)
         {
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0) && (diagonalMoveAllowed == true) )
             {
@@ -4585,7 +4562,7 @@ namespace IceBlink2
                         pc.combatLocY--;
                         if (pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
+//TODO                            pc.tok en = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         moveCost = 1.5f;
@@ -4593,22 +4570,63 @@ namespace IceBlink2
                     }
                 }
             }
+        }*/
+
+
+        public void MoveUpRight(Player pc)
+        {
+            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
+            {
+                if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
+                {
+                    Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY - 1);
+                    if (c != null)
+                    {
+
+                        targetHighlightCenterLocation.X = pc.combatLocX + 1;
+                        targetHighlightCenterLocation.Y = pc.combatLocY - 1;
+                        currentCombatMode = "attack";
+                        TargetAttackPressed(pc);
+                    }
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
+                    {
+                        //TODOcheck if leave threatened, attack of opportunity
+                        LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
+                        doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
+                        pc.combatLocX++;
+                        pc.combatLocY--;
+                        if (pc.combatFacingLeft)
+                        {
+                            //TODO                            pc.token = gv.cc.flip(pc.token);
+                            pc.combatFacingLeft = false;
+                        }
+                        moveCost = diagonalMoveCost;
+                        doUpdate(pc);
+                    }
+                }
+            }
         }
+
+
+
         public void MoveUpLeft(Player pc)
         {
-            if ((pc.combatLocX > 0) && (pc.combatLocY > 0) && (diagonalMoveAllowed == true))
+            if ((pc.combatLocX > 0) && (pc.combatLocY > 0))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY - 1))
                 {
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY - 1);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY - 1;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
@@ -4620,7 +4638,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = 1.5f;
+                        moveCost = diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4635,12 +4653,14 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX, pc.combatLocY + 1);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY + 1);
@@ -4653,19 +4673,21 @@ namespace IceBlink2
         }
         public void MoveDownRight(Player pc)
         {
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1) && (diagonalMoveAllowed == true))
+            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX + 1, pc.combatLocY + 1))
                 {
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY + 1);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
@@ -4677,7 +4699,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = 1.5f;
+                        moveCost = diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4685,19 +4707,21 @@ namespace IceBlink2
         }
         public void MoveDownLeft(Player pc)
         {
-            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1) && (diagonalMoveAllowed == true))
+            if ((pc.combatLocX > 0) && (pc.combatLocY < mod.currentEncounter.MapSizeY - 1))
             {
                 if (isWalkable(pc.combatLocX - 1, pc.combatLocY + 1))
                 {
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY + 1);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY + 1;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
@@ -4709,7 +4733,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = 1.5f;
+                        moveCost = diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4724,12 +4748,14 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX + 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY);
@@ -4754,12 +4780,14 @@ namespace IceBlink2
                     Creature c = isBumpIntoCreature(pc.combatLocX - 1, pc.combatLocY);
                     if (c != null)
                     {
+
                         targetHighlightCenterLocation.X = pc.combatLocX - 1;
                         targetHighlightCenterLocation.Y = pc.combatLocY;
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    else
+                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
+                    else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY);
