@@ -278,9 +278,12 @@ namespace IceBlink2
 			    gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
 			
 			    //DRAW RIGHT STATS
+                int actext = 0;
+                if (mod.ArmorClassAscending) { actext = pc.AC; }
+                else { actext = 20 - pc.AC; }
 			    locY = 0;
 			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-			    gv.DrawText("AC: " + pc.AC, tabX2, locY);
+			    gv.DrawText("AC: " + actext, tabX2, locY);
 			    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
 			    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
 			    gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);

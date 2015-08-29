@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace IceBlink2
 {
-    public partial class TextInputDialog : IBForm
+    public partial class TextInputDialog : IBFormGDI
     {
         GameView gv;
         public string HeaderText = "";

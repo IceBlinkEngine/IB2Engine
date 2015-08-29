@@ -383,9 +383,12 @@ namespace IceBlink2
 		    gv.DrawText("CREATE CHARACTER", pW * 40, pH * 1);
 						    
             Color color = Color.White;
-            
+
+            int actext = 0;
+            if (mod.ArmorClassAscending) { actext = pc.AC; }
+            else { actext = 20 - pc.AC; }
             gv.DrawText("STR: " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength, locX, locY += spacing);
-            gv.DrawText("AC: " + pc.AC, tabX2, locY);
+            gv.DrawText("AC: " + actext, tabX2, locY);
             gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity, locX, locY += spacing);
             gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
             gv.DrawText("CON:  " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution, locX, locY += spacing);

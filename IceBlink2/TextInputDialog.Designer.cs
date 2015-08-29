@@ -38,9 +38,9 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 37);
+            this.label1.Location = new System.Drawing.Point(15, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(335, 25);
+            this.label1.Size = new System.Drawing.Size(332, 44);
             this.label1.TabIndex = 4;
             this.label1.Text = "label1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -49,14 +49,15 @@
             // 
             this.btnReturn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReturn.AutoSize = true;
             this.btnReturn.BackColor = System.Drawing.Color.DimGray;
             this.btnReturn.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.btnReturn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.btnReturn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReturn.Location = new System.Drawing.Point(114, 179);
+            this.btnReturn.Location = new System.Drawing.Point(114, 173);
             this.btnReturn.Name = "btnReturn";
-            this.btnReturn.Size = new System.Drawing.Size(129, 23);
+            this.btnReturn.Size = new System.Drawing.Size(129, 25);
             this.btnReturn.TabIndex = 5;
             this.btnReturn.Text = "button1";
             this.btnReturn.UseVisualStyleBackColor = false;

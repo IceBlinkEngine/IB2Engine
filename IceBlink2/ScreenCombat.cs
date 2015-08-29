@@ -3417,7 +3417,10 @@ namespace IceBlink2
                             }
 
                             gv.cc.floatyText = pc.name;
-                            gv.cc.floatyText2 = "AC:" + pc.AC + " " + pc.charStatus;
+                            int actext = 0;
+                            if (mod.ArmorClassAscending) { actext = pc.AC; }
+                            else { actext = 20 - pc.AC; }
+                            gv.cc.floatyText2 = "AC:" + actext + " " + pc.charStatus;
                             gv.cc.floatyText3 = "Ammo: " + am;
                             gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
 
