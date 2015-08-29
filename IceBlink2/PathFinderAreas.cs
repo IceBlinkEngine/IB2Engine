@@ -100,6 +100,7 @@ namespace IceBlink2
         //find new point in square part of an area around a center point withhin a radius
         public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius)
         {
+            resetGrid();
             foundEnd = false;
             Coordinate newPoint = new Coordinate(-1, -1);
             //set start location value to 0
