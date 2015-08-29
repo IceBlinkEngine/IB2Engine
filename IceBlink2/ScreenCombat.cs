@@ -68,8 +68,8 @@ namespace IceBlink2
 	    public IbbToggleButton tglHelp = null;
 	    public IbbToggleButton tglGrid = null;
         public int mapStartLocXinPixels;
-        public float moveCost = 1;
-        public float diagonalMoveCost = 1.5f;
+        public float moveCost = 1.0f;
+        //public float diagonalMoveCost = 1.5f; //using the property from module instead
 	
 	    public ScreenCombat(Module m, GameView g)
 	    {
@@ -800,10 +800,10 @@ namespace IceBlink2
                 gv.Render();
                 Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
                 //CreatureDoesAttack(crt);
-                if (moveCost == diagonalMoveCost)
+                if (moveCost == mod.diagonalMoveCost)
                 {
-                    creatureMoves += diagonalMoveCost;
-                    moveCost = 1f;
+                    creatureMoves += mod.diagonalMoveCost;
+                    moveCost = 1.0f;
                 }
                 else
                 {
@@ -1684,7 +1684,7 @@ namespace IceBlink2
 				   
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
-                        if ((crt.moveDistance - creatureMoves) >= diagonalMoveCost)
+                        if ((crt.moveDistance - creatureMoves) >= mod.diagonalMoveCost)
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
@@ -1698,7 +1698,7 @@ namespace IceBlink2
                             }
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                            moveCost = diagonalMoveCost;
+                            moveCost = mod.diagonalMoveCost;
                             crt.combatLocX = newCoor.X;
                             crt.combatLocY = newCoor.Y;
                             canMove = false;
@@ -4399,10 +4399,10 @@ namespace IceBlink2
         public void doUpdate(Player pc)
         {
             CalculateUpperLeft();
-            if (moveCost == diagonalMoveCost)
+            if (moveCost == mod.diagonalMoveCost)
             {
-                currentMoves += diagonalMoveCost;
-                moveCost = 1f;
+                currentMoves += mod.diagonalMoveCost;
+                moveCost = 1.0f;
             }
             else
             {
@@ -4571,8 +4571,6 @@ namespace IceBlink2
                 }
             }
         }*/
-
-
         public void MoveUpRight(Player pc)
         {
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
@@ -4589,7 +4587,7 @@ namespace IceBlink2
                         TargetAttackPressed(pc);
                     }
                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
-                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
@@ -4601,15 +4599,12 @@ namespace IceBlink2
                             //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = diagonalMoveCost;
+                        moveCost = mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
             }
         }
-
-
-
         public void MoveUpLeft(Player pc)
         {
             if ((pc.combatLocX > 0) && (pc.combatLocY > 0))
@@ -4626,7 +4621,7 @@ namespace IceBlink2
                         TargetAttackPressed(pc);
                     }
                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
-                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
@@ -4638,7 +4633,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = diagonalMoveCost;
+                        moveCost = mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4687,7 +4682,7 @@ namespace IceBlink2
                         TargetAttackPressed(pc);
                     }
                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
-                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
@@ -4699,7 +4694,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
-                        moveCost = diagonalMoveCost;
+                        moveCost = mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4721,7 +4716,7 @@ namespace IceBlink2
                         TargetAttackPressed(pc);
                     }
                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
-                    else if ((pc.moveDistance - currentMoves) >= diagonalMoveCost)
+                    else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
                         //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
@@ -4733,7 +4728,7 @@ namespace IceBlink2
 //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
-                        moveCost = diagonalMoveCost;
+                        moveCost = mod.diagonalMoveCost;
                         doUpdate(pc);
                     }
                 }
@@ -4895,7 +4890,6 @@ namespace IceBlink2
                 UpperLeftSquare.Y = minY; 
             }
         }
-
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
