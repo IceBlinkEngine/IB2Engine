@@ -1965,8 +1965,31 @@ namespace IceBlink2
         }
         public void doUpdate()
         {
-            gv.realTimeTimer.Stop();
-            gv.realTimeTimer.Start();
+            //reset the timer interval, important for synching with party move
+            if (gv.mod.useRealTimeTimer == true)
+            {
+                gv.realTimeTimer.Stop();
+                gv.realTimeTimer.Start();
+            }
+
+            //in case whole party is unconscious and bleeding, end the game (outside combat here)
+            bool endGame = true;
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.hp >= 0)
+                {
+                    endGame = false;
+                    break;
+                }
+            }
+
+            if (endGame == true)
+            {
+                gv.resetGame();
+                gv.screenType = "title";
+                IBMessageBox.Show(gv, "Everybody is unconscious and bleeding - your party has been defeated!");
+                return;
+            }
 
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)

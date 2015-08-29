@@ -147,7 +147,11 @@ namespace IceBlink2
         public GameView()
         {
             InitializeComponent();
-            realTimeTimer.Interval = 1500;
+
+            cc = new CommonCode(this);
+            mod = new Module();
+
+            realTimeTimer.Interval = mod.realTimeTimerLengthInMilliSeconds;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -205,10 +209,13 @@ namespace IceBlink2
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
             floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
+            if (mod.useRealTimeTimer == true)
+            {
             realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
+            }
             
-            cc = new CommonCode(this);            
-            mod = new Module();
+            //cc = new CommonCode(this);            
+            //mod = new Module();
 
             log = new IbbHtmlLogBox(this, 0 * squareSize + oXshift - 3, 0 * squareSize + oYshift, 6 * squareSize, 7 * squareSize);
             log.numberOfLinesToShow = 20;
