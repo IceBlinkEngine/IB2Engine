@@ -454,7 +454,7 @@ namespace IceBlink2
                 itSel.IceBlinkButtonClose.Visible = true;
                 itSel.IceBlinkButtonClose.Enabled = true;
                 itSel.ShowDialog();
-
+             
                 if (itSel.selectedIndex == 0)
                 {
                     bool result = LoadSave("autosave.json");
@@ -1965,6 +1965,9 @@ namespace IceBlink2
         }
         public void doUpdate()
         {
+            gv.realTimeTimer.Stop();
+            gv.realTimeTimer.Start();
+
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
             {

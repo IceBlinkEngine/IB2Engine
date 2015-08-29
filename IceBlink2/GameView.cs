@@ -138,6 +138,7 @@ namespace IceBlink2
         public Timer floatyTextMainMapTimer = new Timer();
         public Timer areaMusicTimer = new Timer();
         public Timer areaSoundsTimer = new Timer();
+        public Timer realTimeTimer = new Timer();
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
@@ -145,7 +146,8 @@ namespace IceBlink2
                 
         public GameView()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            realTimeTimer.Interval = 1500;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -203,7 +205,8 @@ namespace IceBlink2
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
             floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
-
+            realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
+            
             cc = new CommonCode(this);            
             mod = new Module();
 
@@ -985,6 +988,14 @@ namespace IceBlink2
             //Invalidate();
             screenCombat.doAnimationController();
         }
+        private void realTimeTimer_Tick(object sender, EventArgs e)
+        {
+            if (screenType.Equals("main"))
+            {
+                cc.doUpdate();
+            }
+        }
+
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
             floatyTextTimer.Enabled = false;
@@ -1012,6 +1023,7 @@ namespace IceBlink2
             }
             Render();
         }
+
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
         {
             floatyTextMainMapTimer.Enabled = false;

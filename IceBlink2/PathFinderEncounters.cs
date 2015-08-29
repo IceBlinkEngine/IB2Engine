@@ -37,6 +37,14 @@ namespace IceBlink2
                     grid[p.combatLocX, p.combatLocY] = 1;
                 }
             }
+
+            if ((mod.nonAllowedDiagonalSquareX != -1) && (mod.nonAllowedDiagonalSquareY != -1))
+            {
+                grid[mod.nonAllowedDiagonalSquareX, mod.nonAllowedDiagonalSquareY] = 1;
+                mod.nonAllowedDiagonalSquareX = -1;
+                mod.nonAllowedDiagonalSquareY = -1;
+            }
+
             //find all props that have collision and set there square to 1
             /*TODO add props to encounters
             foreach (Prop prp in mod.currentEncounter.Props)

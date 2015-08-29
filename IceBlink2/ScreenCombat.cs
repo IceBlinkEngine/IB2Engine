@@ -947,6 +947,41 @@ namespace IceBlink2
             {
                 if (pc.moveOrder == currentMoveOrderIndex)
                 {
+                    //highlight the portrait of the pc whose current turn it is
+                    gv.cc.ptrPc0.glowOn = false;
+                    gv.cc.ptrPc1.glowOn = false;
+                    gv.cc.ptrPc2.glowOn = false;
+                    gv.cc.ptrPc3.glowOn = false;
+                    gv.cc.ptrPc4.glowOn = false;
+                    gv.cc.ptrPc5.glowOn = false;
+            
+                    if (idx == 0) 
+                    { 
+                        gv.cc.ptrPc0.glowOn = true;
+                    }
+                    if (idx == 1)
+                    {   gv.cc.ptrPc1.glowOn = true; 
+                    }
+                    if (idx == 2)
+                    { 
+                        gv.cc.ptrPc2.glowOn = true; 
+                    }
+                    if (idx == 3)
+                    { 
+                        gv.cc.ptrPc3.glowOn = true; 
+                    }
+                    if (idx == 4)
+                    { 
+                        gv.cc.ptrPc4.glowOn = true; 
+                    }
+                    if (idx == 5)
+                    { 
+                        gv.cc.ptrPc5.glowOn = true; 
+                    }
+
+                    //write the pc's name to log whsoe turn it is
+                    gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
+
                     //change creatureIndex or currentPlayerIndex
                     currentPlayerIndex = idx;
                     //set isPlayerTurn 
@@ -973,6 +1008,8 @@ namespace IceBlink2
             {
                 if (crt.moveOrder == currentMoveOrderIndex)
                 {
+
+                    gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
                     //change creatureIndex or currentPlayerIndex
                     creatureIndex = idx;
                     //set isPlayerTurn
@@ -1664,7 +1701,7 @@ namespace IceBlink2
 	    public void CreatureMoves()
 	    {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            if (creatureMoves < crt.moveDistance)
+            if (creatureMoves + 0.5f < crt.moveDistance)
 		    {
 			    //Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
 			    Player pc = targetClosestPC(crt);
@@ -1682,8 +1719,10 @@ namespace IceBlink2
 					    return;
 				    }
 				   
+                    //it's a diagonal move
                     if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
                     {
+                        //enough  move points availbale to do the diagonal move
                         if ((crt.moveDistance - creatureMoves) >= mod.diagonalMoveCost)
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
@@ -1705,6 +1744,43 @@ namespace IceBlink2
                             animationState = AnimationState.CreatureMove;
                             gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                         }
+                        
+                        //try to move horizontally or vertically instead if most points are not enough for diagonal move
+                        else if ((crt.moveDistance - creatureMoves) >= 1)
+                        {
+                            pf.resetGrid();
+                            //block the originial diagonal target square and calculate again
+                            mod.nonAllowedDiagonalSquareX = newCoor.X;
+                            mod.nonAllowedDiagonalSquareY = newCoor.Y;
+                            newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                            if ((newCoor.X == -1) && (newCoor.Y == -1))
+                            {
+                                //didn't find a path, don't move
+                                //gv.Invalidate();
+                                gv.Render();
+                                endCreatureTurn();
+                                return;
+                            }
+                                if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                                {
+                                    //TODO					    crt.token= gv.cc.flip(crt.token);
+                                    crt.combatFacingLeft = true;
+                                }
+                                else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                                {
+                                    //TODO					    crt.token= gv.cc.flip(crt.token);
+                                    crt.combatFacingLeft = false;
+                                }
+                                //CHANGE FACING BASED ON MOVE
+                                doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                                moveCost = 1;
+                                crt.combatLocX = newCoor.X;
+                                crt.combatLocY = newCoor.Y;
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                        }
+                        //less than one move point, no move
                         else
                         {
                             canMove = false;
@@ -1712,6 +1788,7 @@ namespace IceBlink2
                             gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                         }
                     }
+                   //it's a horizontal or vertical move
                     else
                     {
                         if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
@@ -1741,6 +1818,7 @@ namespace IceBlink2
 				    return;
 			    }
 		    }
+            //less than a move point left, no move
 		    else
 		    {
                 //gv.Invalidate();
@@ -4052,8 +4130,10 @@ namespace IceBlink2
                         {
                             TargetAttackPressed(pc);                            
                         }
-                        targetHighlightCenterLocation.Y = gridy + UpperLeftSquare.Y;
-                        targetHighlightCenterLocation.X = gridx + UpperLeftSquare.X;
+                        //targetHighlightCenterLocation.Y = gridy + UpperLeftSquare.Y;
+                        //targetHighlightCenterLocation.X = gridx + UpperLeftSquare.X;
+                        targetHighlightCenterLocation.Y = gridy;
+                        targetHighlightCenterLocation.X = gridx;
                     }
 
                     //BUTTONS
@@ -4902,7 +4982,7 @@ namespace IceBlink2
             int minY = crt.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
 
-            if ( (crt.combatLocX <= (UpperLeftSquare.X + 9)) && (crt.combatLocX >= UpperLeftSquare.X) && (crt.combatLocY <= (UpperLeftSquare.Y + 9)) && (crt.combatLocY >= UpperLeftSquare.Y) )
+            if ( (crt.combatLocX <= (UpperLeftSquare.X + 9)) && (crt.combatLocX >= (UpperLeftSquare.X)) && (crt.combatLocY <= (UpperLeftSquare.Y + 9)) && (crt.combatLocY >= (UpperLeftSquare.Y)) )
             {
                 return;
             }

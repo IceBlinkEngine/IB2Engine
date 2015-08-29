@@ -31,6 +31,8 @@ namespace IceBlink2
         public bool debugMode = false;
         public bool allowSave = true;
         public float diagonalMoveCost = 1.0f;
+        public int nonAllowedDiagonalSquareX = -1;
+        public int nonAllowedDiagonalSquareY = -1;
         public bool ArmorClassAscending = true;
         [JsonIgnore]
 		public List<Item> moduleItemsList = new List<Item>();

@@ -33,7 +33,6 @@ namespace IceBlink2
         private long timeStamp = 0;
         private bool finishedMove = true;
         
-	
 	    public ScreenMainMap(Module m, GameView g)
 	    {
 		    mod = m;
@@ -569,43 +568,138 @@ namespace IceBlink2
             }
             else
             {
-	            if (tglFullParty.toggleOn)
+	            if ( (tglFullParty.toggleOn) && (mod.playerList.Count > 1))
 	            {
-		            for (int i = mod.playerList.Count - 1; i >= 0; i--)
+                    if (mod.playerList[0].combatFacingLeft == true)
+                    {
+                        gv.oXshift = gv.oXshift + shift / 2;
+                    }
+                    else
+                    {
+                        gv.oXshift = gv.oXshift - shift / 2;
+                    }
+                    gv.squareSize = gv.squareSize * 2 / 3;
+                    for (int i = mod.playerList.Count - 1; i >= 0; i--)
 		            {		
-		        	    if (i == 0)
+		        	    if ((i == 0) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y + gv.squareSize * 47 / 100 , gv.squareSize, gv.squareSize);
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
-		        	    if (i == 1)
+		        	    if ((i == 1) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
-		        	    if (i == 2)
+		        	    if ((i == 2) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            if (mod.selectedPartyLeader == 0)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 1)
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift*175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
-		        	    if (i == 3)
+		        	    if ((i == 3) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift + (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+
+                            if (mod.selectedPartyLeader == 0)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift*175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 1)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift*175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 2)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else
+                            {
+                            dst = new IbRect(x + gv.oXshift - (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }                            
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
-		        	    if (i == 4)
+		        	    if ((i == 4) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift - (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            if (mod.selectedPartyLeader == 0)
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 1)
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 2)
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 3)
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift * 175/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }  
+      
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
-		        	    if (i == 5)
+
+		        	    if ((i == 5) && (i != mod.selectedPartyLeader))
 		        	    {
-                            dst = new IbRect(x + gv.oXshift - (shift * 3) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            if (mod.selectedPartyLeader == 0)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 1)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 2)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 3)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else if (mod.selectedPartyLeader == 4)
+                            {
+                                dst = new IbRect(x + gv.oXshift + (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }
+                            else
+                            {
+                                dst = new IbRect(x + gv.oXshift - (shift * 250/100) + mapStartLocXinPixels, y + gv.squareSize * 47 / 100, gv.squareSize, gv.squareSize);
+                            }  
+                            
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
 		        	    }
 		            }
+                    gv.squareSize = gv.squareSize * 3 / 2;
+
+                    if (mod.playerList[0].combatFacingLeft == true)
+                    {
+                        gv.oXshift = gv.oXshift - shift / 2;
+                    }
+                    else
+                    {
+                        gv.oXshift = gv.oXshift + shift / 2;
+                    }
+
+                    //gv.oXshift = gv.oXshift + shift / 2;
 	            }
 	            //always draw party leader on top
+                int storeShift = shift;
+                shift = 0;
 	            if (mod.selectedPartyLeader == 0)
 	    	    {
 	        	    if (tglFullParty.toggleOn)
@@ -678,6 +772,7 @@ namespace IceBlink2
 	        	    }
                     gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
 	    	    }
+                shift = storeShift;
             }
 	    }
 	    public void drawGrid()
@@ -1642,7 +1737,7 @@ namespace IceBlink2
                     int cnt = 0;
                     foreach (Player p in mod.playerList)
                     {
-                	    if (hasMainMapTypeSpell(p))
+                        if (hasMainMapTypeSpell(p))
                 	    {
                 		    pcNames.Add(p.name);
                 		    pcIndex.Add(cnt);
