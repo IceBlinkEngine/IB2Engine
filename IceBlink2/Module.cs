@@ -117,6 +117,8 @@ namespace IceBlink2
         public bool avoidInteraction = false;
         public bool useRealTimeTimer = false;
         public int realTimeTimerLengthInMilliSeconds = 1500;
+        public int attackFromBehindToHitModifier = 2;
+        public int attackFromBehindDamageModifier = 0;
 	
 	    public Module()
 	    {

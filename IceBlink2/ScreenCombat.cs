@@ -5672,8 +5672,11 @@ namespace IceBlink2
                 //all attacks of the PC from behind get a +2 bonus to hit            
                 if (IsAttackFromBehind(pc, crt))
                 {
-                    modifier += 2;
-                    gv.cc.addLogText("<font color='lime'> attack from behind: +2 att</font><BR>");
+                    modifier += mod.attackFromBehindToHitModifier;
+                    if (mod.attackFromBehindToHitModifier > 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                    }
                 }
             }
             else //ranged weapon used
@@ -5750,7 +5753,18 @@ namespace IceBlink2
             	    {
         			    damModifier = (pc.dexterity - 10) / 2;
             	    }
-        	    }         
+        	    }
+                
+                if (IsAttackFromBehind(pc, crt))
+                {
+                    damModifier += mod.attackFromBehindDamageModifier;
+                    if (mod.attackFromBehindDamageModifier > 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + mod.attackFromBehindDamageModifier.ToString() +  " damage." + "</font><BR>");
+                    }
+                }
+
+
             }
             else //ranged weapon used
             {
