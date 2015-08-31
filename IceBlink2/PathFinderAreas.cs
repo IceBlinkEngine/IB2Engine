@@ -147,7 +147,9 @@ namespace IceBlink2
             int minY = centerPointY - radius;
             if (minY < 0) { minY = 0; };
             int maxX = centerPointX + radius + 1;
+            if (maxX > mod.currentArea.MapSizeX - 1) { maxX = mod.currentArea.MapSizeX - 1; }
             int maxY = centerPointY + radius + 1;
+            if (maxY > mod.currentArea.MapSizeY - 1) { maxY = mod.currentArea.MapSizeY - 1; }
             int numberOfSquaresInArea = (2 * radius + 1) * (2 * radius + 1);
 
             //iterate through all values for next number and evaluate neighbors
