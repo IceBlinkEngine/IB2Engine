@@ -139,6 +139,11 @@ namespace IceBlink2
         public Timer areaMusicTimer = new Timer();
         public Timer areaSoundsTimer = new Timer();
         public Timer realTimeTimer = new Timer();
+        public Timer smoothMoveTimer = new Timer();
+
+        public bool useSmoothMovement = true;
+        public float floatPixMovedPerTick = 4f;
+        public int pixMovedPerTick = 4;
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
@@ -151,7 +156,7 @@ namespace IceBlink2
             cc = new CommonCode(this);
             mod = new Module();
 
-            realTimeTimer.Interval = mod.realTimeTimerLengthInMilliSeconds;
+            
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             mainDirectory = Directory.GetCurrentDirectory();
 
@@ -209,11 +214,7 @@ namespace IceBlink2
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
             floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
-            if (mod.useRealTimeTimer == true)
-            {
-            realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
-            }
-            
+
             //cc = new CommonCode(this);            
             //mod = new Module();
 
@@ -246,6 +247,30 @@ namespace IceBlink2
                 resetGame();
                 cc.LoadSaveListItems();
                 screenType = "title";
+            }
+
+            if (mod.useRealTimeTimer == true)
+            {
+                realTimeTimer.Interval = mod.realTimeTimerLengthInMilliSeconds;
+                realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
+            }
+            if (useSmoothMovement == true)
+            {
+                //IBMessageBox.Show(this, "using smooth movement");
+                //60 milliseconds a tick, 55ms was reported as last stable value form some random google findings :lol: ; about 16 fps
+                smoothMoveTimer.Interval = 60;
+
+                //these are the pix moved per tick, designed so that a square is traversed in 1.5 seconds
+                floatPixMovedPerTick = squareSize / 25;
+                pixMovedPerTick = (int)Math.Floor(floatPixMovedPerTick);
+                if (squareSize - (pixMovedPerTick * 16) > (2 * pixMovedPerTick))
+                {
+                    pixMovedPerTick++;
+                    smoothMoveTimer.Interval = (int)1000 / ((squareSize / ((3 / 2) * pixMovedPerTick)));
+                }
+
+                smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
+                smoothMoveTimer.Start();
             }
         }
 
@@ -1000,6 +1025,19 @@ namespace IceBlink2
             if (screenType.Equals("main"))
             {
                 cc.doUpdate();
+            }
+        }
+
+        private void smoothMoveTimer_Tick(object sender, EventArgs e)
+        {
+            if (screenType.Equals("main"))
+            {
+                //IBMessageBox.Show(this, "Smmoth move ran");
+                smoothMoveTimer.Stop();
+                Render();
+                smoothMoveTimer.Start();
+                //IBMessageBox.Show(this, "Smmoth move ran");
+
             }
         }
 

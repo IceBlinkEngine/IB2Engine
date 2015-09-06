@@ -61,6 +61,13 @@ namespace IceBlink2
         public int randomMoverTimerForNextTarget = 0;
         public int lengthOfLastPath = 0;
         public bool unavoidableConversation = false;
+        public List<int> destinationPixelPositionXList = new List<int>();
+        public List<int> destinationPixelPositionYList = new List<int>();
+        public int currentPixelPositionX = 0;
+        public int currentPixelPositionY = 0;
+        public int pixelMoveSpeed = 1;
+        public int drawAnchorX = 0;
+        public int drawAnchorY = 0;
     
         public Prop()
         {
@@ -138,6 +145,13 @@ namespace IceBlink2
             copy.randomMoverTimerForNextTarget = this.randomMoverTimerForNextTarget;
             copy.lengthOfLastPath = this.lengthOfLastPath;
             copy.unavoidableConversation = this.unavoidableConversation;
+            copy.destinationPixelPositionXList = this.destinationPixelPositionXList;
+            copy.destinationPixelPositionYList = this.destinationPixelPositionYList;
+            copy.currentPixelPositionX = this.currentPixelPositionX;
+            copy.currentPixelPositionY = this.currentPixelPositionY;
+            copy.pixelMoveSpeed = this.pixelMoveSpeed;
+            copy.drawAnchorX = this.drawAnchorX;
+            copy.drawAnchorY = this.drawAnchorY;
 		    return copy;
         }
     }

@@ -12,7 +12,7 @@ namespace IceBlink2
         public List<Coordinate> pathNodes = new List<Coordinate>();
         public bool foundEnd = false;
         public Module mod;
-        //public GameView gv;
+        public GameView gv;
 
         public PathFinderAreas(Module m)
         {
@@ -138,6 +138,85 @@ namespace IceBlink2
             pathNodes.Clear();
             return newPoint;
         }
+
+        //find new point in square part of an area around a center point withhin a radius, here: record bath, too (selected by overload)
+        public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius, bool recordPath, GameView g)
+        {
+            gv = g;
+            resetGrid();
+            foundEnd = false;
+            Coordinate newPoint = new Coordinate(-1, -1);
+            //set start location value to 0
+            values[start.X, start.Y] = 0;
+            //find all props that have collision and set there square to 1
+            foreach (Prop prp in mod.currentArea.Props)
+            {
+                //if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
+                if ((prp.HasCollision) && (prp.isActive))
+                {
+                    grid[prp.LocationX, prp.LocationY] = 1;
+                }
+            }
+            grid[start.X, start.Y] = 2; //2 marks the start point in the grid
+            grid[end.X, end.Y] = 3; //3 marks the end point in the grid
+            buildPath(start, centerPointX, centerPointY, radius);
+
+            if (!foundEnd)
+            {
+                //do not build path for now so return (-1,-1), later add code for picking a spot to move
+            }
+            else
+            {
+                pathNodes.Add(new Coordinate(end.X, end.Y));
+                for (int i = 0; i < values[end.X, end.Y]; i++)
+                {
+                    pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
+                    //Note to self: might be that the order is reverse here, check when debugging
+
+                    int xOffSetInSquares = 0;
+                    int yOffSetInSquares = 0;
+                    if (mod.PlayerLocationX >= pathNodes[pathNodes.Count - 1].X)
+                    {
+                        xOffSetInSquares = pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX;
+                    }
+                    else
+                    {
+                        xOffSetInSquares = pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX;
+                    }
+                    if (mod.PlayerLocationY >= pathNodes[pathNodes.Count - 1].Y)
+                    {
+                        yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
+                    }
+                    else
+                    {
+                        yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
+                    }
+                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
+                    int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+
+                    if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
+                    {
+                        callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                        callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+                    }
+                    
+                    //int x = ((pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX) * 100) + (4 * 100) + 10 + 600;
+                    //int y = ((pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY) * 100) + (4 * 100);
+                    //callingProp.destinationPixelPositionXList.Add(pathNodes[pathNodes.Count-1].X);
+                    //callingProp.destinationPixelPositionYList.Add(pathNodes[pathNodes.Count - 1].Y);
+                    //callingProp.pixelMoveSpeed++;
+                }
+                //build list of path points
+                //callingProp.pixelMoveSpeed--;
+                newPoint = pathNodes[pathNodes.Count - 2];
+            }
+            //string length = pathNodes.Count.ToString();
+            //gv.sf.SetGlobalInt("lengthOfLastPath", length);
+            callingProp.lengthOfLastPath = pathNodes.Count;
+            pathNodes.Clear();
+            return newPoint;
+        }
+
 
         //build path for limited area
         public void buildPath(Coordinate start, int centerPointX, int centerPointY, int radius)

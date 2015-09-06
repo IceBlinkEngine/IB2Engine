@@ -115,7 +115,7 @@ namespace IceBlink2
         public string OnHeartBeatIBScriptParms = "";
         public bool showInteractionState = false;
         public bool avoidInteraction = false;
-        public bool useRealTimeTimer = false;
+        public bool useRealTimeTimer = true;
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;

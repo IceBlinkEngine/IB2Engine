@@ -449,50 +449,185 @@ namespace IceBlink2
 	    }
 	    public void drawMovingProps()
 	    {
-		    foreach (Prop p in mod.currentArea.Props)
-		    {
-			    if ((p.isShown) && (p.isMover))
-			    {
-				    if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
-					    && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
-				    {
-					    //prop X - playerX
-					    int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-					    int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-					    //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
-                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                        IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
-			            gv.DrawBitmap(p.token, src, dst);
+            if (gv.useSmoothMovement == true)
+            {
+                //IBMessageBox.Show(gv, "drawing smooth movers");
 
-                        if(mod.showInteractionState == true)
+                foreach (Prop p in mod.currentArea.Props)
+                {
+                    if ((p.isShown) && (p.isMover))
+                    {
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
                         {
-                        if (p.EncounterWhenOnPartySquare != "none")
-                        {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                            src = new IbRect(0, 0, 50, 50);
-                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                            continue;
-                        }
+                            //prop X - playerX
+                            //int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            //int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
+                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
 
-                        if (p.unavoidableConversation == true)
+                            //XXXXXXXXXXXXXXX
+                            if (p.destinationPixelPositionXList.Count > 0)
+                            {
+                                if (p.destinationPixelPositionXList[0] == p.currentPixelPositionX)
+                            {
+                                if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
+                                {
+                                    p.currentPixelPositionY += (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                    if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
+                                    {
+                                        p.destinationPixelPositionYList.RemoveAt(0);
+                                        p.destinationPixelPositionXList.RemoveAt(0);
+                                    }
+                                    if (p.currentPixelPositionY > (gv.oYshift + (gv.squareSize * (gv.playerOffset * 2 + 1 ))))
+                                    {
+                                        p.currentPixelPositionY = (gv.oYshift + (gv.squareSize * (gv.playerOffset * 2)) - 1);
+                                    }
+                                }
+                                else
+                                {
+                                    p.currentPixelPositionY -= (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                    if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
+                                    {
+                                        p.destinationPixelPositionYList.RemoveAt(0);
+                                        p.destinationPixelPositionXList.RemoveAt(0);
+                                    }
+                                    if (p.currentPixelPositionY < (gv.oYshift+1))
+                                    {
+                                        p.currentPixelPositionY = gv.oYshift + 1;
+                                    }
+                                }
+                            }
+                                else if (p.destinationPixelPositionYList[0] == p.currentPixelPositionY)
+                                {
+                                    {
+                                        if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
+                                        {
+                                            p.currentPixelPositionX += (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                            if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
+                                            {
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
+                                            if (p.currentPixelPositionX > (gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + ((gv.playerOffset * 2 + 1)*gv.squareSize) ))
+                                            {
+                                                p.currentPixelPositionX = (gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + ((gv.playerOffset * 2 + 1) * gv.squareSize) - 1);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            p.currentPixelPositionX -= (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                            if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
+                                            {
+                                                p.destinationPixelPositionXList.RemoveAt(0);
+                                                p.destinationPixelPositionYList.RemoveAt(0);
+                                            }
+                                            if (p.currentPixelPositionX < (gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + 1))
+                                            {
+                                                p.currentPixelPositionX = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + 1;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }//end, set dst
+                            
+                            
+                            IbRect dst = new IbRect(p.currentPixelPositionX, p.currentPixelPositionY, gv.squareSize, gv.squareSize);
+                            
+
+                            //destinationXPixCoordinate = ((tileLocX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
+                            //destinationYPixCoordinate = ((tileLocY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                                    
+
+
+
+
+                            //XXXXXXXXXXXXXx
+                            if ((p.currentPixelPositionX < (p.drawAnchorX + 150)) && (p.currentPixelPositionX > (p.drawAnchorX - 150)) && (p.currentPixelPositionY < (p.drawAnchorY + 150)) && (p.currentPixelPositionY > (p.drawAnchorY - 150)))
+                            {
+                                gv.DrawBitmap(p.token, src, dst);
+                            }
+
+                            if (mod.showInteractionState == true)
+                            {
+                                if (p.EncounterWhenOnPartySquare != "none")
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+
+                                if (p.unavoidableConversation == true)
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+
+                                if (p.ConversationWhenOnPartySquare != "none")
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (Prop p in mod.currentArea.Props)
+                {
+                    if ((p.isShown) && (p.isMover))
+                    {
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
                         {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                            src = new IbRect(0, 0, 50, 50);
-                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                            continue;
+                            //prop X - playerX
+                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            //Rect src = new Rect(0, 0, squareSizeInPixels, squareSizeInPixels);
+                            IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            gv.DrawBitmap(p.token, src, dst);
+
+                            if (mod.showInteractionState == true)
+                            {
+                                if (p.EncounterWhenOnPartySquare != "none")
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+
+                                if (p.unavoidableConversation == true)
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+
+                                if (p.ConversationWhenOnPartySquare != "none")
+                                {
+                                    Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                    src = new IbRect(0, 0, 50, 50);
+                                    gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    continue;
+                                }
+                            }
                         }
-                        
-                        if (p.ConversationWhenOnPartySquare != "none")
-                        {
-                            Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                            src = new IbRect(0, 0, 50, 50);
-                            gv.DrawBitmap(interactionStateIndicator, src, dst);
-                            continue;
-                        }
-                        }
-				    }
-			    }
-		    }
+                    }
+                }
+            }
 	    }
 	    public void drawMiniMap()
 	    {
