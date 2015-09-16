@@ -65,7 +65,6 @@ namespace IceBlink2
             //find all props that have collision and set there square to 1
             foreach (Prop prp in mod.currentArea.Props)
             {
-                //if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
                 if ((prp.HasCollision) && (prp.isActive))
                 {
                     grid[prp.LocationX, prp.LocationY] = 1;
@@ -89,8 +88,6 @@ namespace IceBlink2
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
             }
-            //string length = pathNodes.Count.ToString();
-            //gv.sf.SetGlobalInt("lengthOfLastPath", length);
             callingProp.lengthOfLastPath = pathNodes.Count;
             pathNodes.Clear();
             return newPoint;
@@ -132,8 +129,6 @@ namespace IceBlink2
                 //build list of path points
                 newPoint = pathNodes[pathNodes.Count - 2];
             }
-            //string length = pathNodes.Count.ToString();
-            //gv.sf.SetGlobalInt("lengthOfLastPath", length);
             callingProp.lengthOfLastPath = pathNodes.Count;
             pathNodes.Clear();
             return newPoint;
@@ -142,6 +137,7 @@ namespace IceBlink2
         //find new point in square part of an area around a center point withhin a radius, here: record bath, too (selected by overload)
         public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius, bool recordPath, GameView g)
         {
+
             gv = g;
             resetGrid();
             foundEnd = false;
@@ -151,7 +147,6 @@ namespace IceBlink2
             //find all props that have collision and set there square to 1
             foreach (Prop prp in mod.currentArea.Props)
             {
-                //if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
                 if ((prp.HasCollision) && (prp.isActive))
                 {
                     grid[prp.LocationX, prp.LocationY] = 1;
@@ -167,14 +162,59 @@ namespace IceBlink2
             }
             else
             {
+
+                int xOffSetInSquares = 0;
+                int yOffSetInSquares = 0;
+
                 pathNodes.Add(new Coordinate(end.X, end.Y));
-                for (int i = 0; i < values[end.X, end.Y]; i++)
+
+                for (int i = 0; i < (values[end.X, end.Y] - 2); i++)
                 {
+
+                    xOffSetInSquares = 0;
+                    yOffSetInSquares = 0;
+                    int playerPositionXInPix = 0;
+                    int playerPositionYInPix = 0;
+                    
+                    if (pathNodes.Count == 1)
+                    {
+                        if (mod.PlayerLocationX >= pathNodes[pathNodes.Count - 1].X)
+                        {
+                            xOffSetInSquares = pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX;
+                            
+                        }
+                        else
+                        {
+                            xOffSetInSquares = pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX;
+                        }
+                        if (mod.PlayerLocationY >= pathNodes[pathNodes.Count - 1].Y)
+                        {
+                            yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
+                        }
+                        else
+                        {
+                            yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
+                        }
+                        playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
+                        playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                        
+                        callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                        callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+
+                    }
+
                     pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
                     //Note to self: might be that the order is reverse here, check when debugging
 
-                    int xOffSetInSquares = 0;
-                    int yOffSetInSquares = 0;
+                    int shiftXDifference = pathNodes[pathNodes.Count - 1].Y - pathNodes[pathNodes.Count - 2].Y;
+                    int shiftYDifference = pathNodes[pathNodes.Count - 1].X - pathNodes[pathNodes.Count - 2].X;
+                    pathNodes[pathNodes.Count - 1].X = pathNodes[pathNodes.Count - 2].X;
+                    pathNodes[pathNodes.Count - 1].Y = pathNodes[pathNodes.Count - 2].Y;
+                    pathNodes[pathNodes.Count - 1].X += shiftXDifference;
+                    pathNodes[pathNodes.Count - 1].Y += shiftYDifference;
+
+                    xOffSetInSquares = 0;
+                    yOffSetInSquares = 0;
                     if (mod.PlayerLocationX >= pathNodes[pathNodes.Count - 1].X)
                     {
                         xOffSetInSquares = pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX;
@@ -191,29 +231,21 @@ namespace IceBlink2
                     {
                         yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
                     }
-                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                    int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                    playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
+                    playerPositionYInPix = gv.playerOffset * gv.squareSize;
 
-                    if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
-                    {
-                        callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
-                        callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
-                    }
-                    
-                    //int x = ((pathNodes[pathNodes.Count - 1].X - mod.PlayerLocationX) * 100) + (4 * 100) + 10 + 600;
-                    //int y = ((pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY) * 100) + (4 * 100);
-                    //callingProp.destinationPixelPositionXList.Add(pathNodes[pathNodes.Count-1].X);
-                    //callingProp.destinationPixelPositionYList.Add(pathNodes[pathNodes.Count - 1].Y);
-                    //callingProp.pixelMoveSpeed++;
+                    callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
+                    callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
+
                 }
                 //build list of path points
-                //callingProp.pixelMoveSpeed--;
-                newPoint = pathNodes[pathNodes.Count - 2];
+                newPoint = pathNodes[pathNodes.Count - 1];
             }
-            //string length = pathNodes.Count.ToString();
-            //gv.sf.SetGlobalInt("lengthOfLastPath", length);
-            callingProp.lengthOfLastPath = pathNodes.Count;
+            callingProp.lengthOfLastPath = pathNodes.Count - 1;
             pathNodes.Clear();
+            callingProp.destinationPixelPositionXList.Reverse();
+            callingProp.destinationPixelPositionYList.Reverse();
+
             return newPoint;
         }
 

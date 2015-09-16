@@ -19,6 +19,7 @@ namespace IceBlink2
     {
         //this class is handled differently than Android version
         public GameView gv;
+        //public Module mod;
 
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
@@ -101,6 +102,9 @@ namespace IceBlink2
         public string stringMessageMainMap = "";
 
         public bool doOnEnterAreaUpdate = false;
+        public bool recursiveCall = false;
+        int fallBackSquareX = 0;
+        int fallBackSquareY = 0;
 
         public CommonCode(GameView g)
         {
@@ -2332,48 +2336,22 @@ namespace IceBlink2
 
             for (int i = gv.mod.currentArea.Props.Count - 1; i >= 0; i--)
             {
+                //clear the lists with pixel destination coordinates of props
                 gv.mod.currentArea.Props[i].destinationPixelPositionXList.Clear();
                 gv.mod.currentArea.Props[i].destinationPixelPositionXList = new List<int>();
                 gv.mod.currentArea.Props[i].destinationPixelPositionYList.Clear();
                 gv.mod.currentArea.Props[i].destinationPixelPositionYList = new List<int>();
+                gv.mod.currentArea.Props[i].pixelMoveSpeed = 1;
 
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-                int xOffSetInSquares = 0;
-                int yOffSetInSquares = 0;
-                if (gv.mod.PlayerLocationX >= gv.mod.currentArea.Props[i].LocationX)
-                {
-                    xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
-                }
-                else
-                {
-                    xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
-                }
-                if (gv.mod.PlayerLocationY >= gv.mod.currentArea.Props[i].LocationY)
-                {
-                    yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
-                }
-                else
-                {
-                    yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
-                }
+                //set the currentPixel position of the props
+                int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
+                int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
                 int playerPositionYInPix = gv.playerOffset * gv.squareSize;
 
-                //if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
-                //{
-                    gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
-                    gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
-                    gv.mod.currentArea.Props[i].drawAnchorX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
-                    gv.mod.currentArea.Props[i].drawAnchorY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
 
-                //}
-
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //gv.mod.currentArea.Props[i].currentPixelPositionX = gv.mod.currentArea.Props[i].LocationX;
-                //gv.mod.currentArea.Props[i].currentPixelPositionY = gv.mod.currentArea.Props[i].LocationY;
-                //gv.mod.currentArea.Props[i].pixelMoveSpeed = 1;
-                
                 if (gv.mod.currentArea.Props[i].passOneMove == true)
                 {
                     gv.mod.currentArea.Props[i].passOneMove = false;
@@ -2532,7 +2510,6 @@ namespace IceBlink2
                         else if (gv.mod.currentArea.Props[i].MoverType.Equals("patrol"))
                         {
                             bool mustWait = false;
-                            //IBMessageBox.Show(gv, "Moving props"); 
                             if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                             {
                                 //move towards next waypoint location if not already there
@@ -2653,47 +2630,7 @@ namespace IceBlink2
 
                             if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                             {
-                                //move towards next waypoint location if not already there and departure time is reached
-                                /*if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y) && (departureTimeReached == true))
-                                {
-                                    //already there so set next way point location (revert to index 0 if at last way point)
-                                    if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
-                                    {
-                                        gv.mod.currentArea.Props[i].WayPointListCurrentIndex = 0;
-
-                                        if (gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
-                                        {
-                                            gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
-                                            gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
-                                            gv.mod.currentArea.Props[i].ReturningToPost = false;
-                                            gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
-                                            registerRemoval = true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        gv.mod.currentArea.Props[i].WayPointListCurrentIndex++;
-                                        if (gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName != gv.mod.currentArea.Filename)
-                                        {
-                                            gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
-                                            gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
-                                            gv.mod.currentArea.Props[i].ReturningToPost = false;
-                                            gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
-                                            registerRemoval = true;
-                                        }
-                                    }
-                                    if (registerRemoval == false)
-                                    {
-                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
-                                        gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
-                                        gv.mod.currentArea.Props[i].ReturningToPost = false;
-                                    }
-
-                                }*/
-
-
-                                //old condition, reduced just to the tiem requirement
-                                //if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y) && (departureTimeReached == true))
+                               
                                 if (departureTimeReached == true)
                                 {
                                     //already there so set next way point location (revert to index 0 if at last way point)
@@ -2783,40 +2720,9 @@ namespace IceBlink2
             }
 
             #endregion
-            //doOnEnterAreaUpdate = false;
+
         }
         #endregion
-
-        /*public void doPropBarkString(Prop prp)
-        {
-            if (prp.WayPointList.Count > 0)
-            {
-                if ((prp.LocationX == prp.CurrentMoveToTarget.X) && (prp.LocationY == prp.CurrentMoveToTarget.Y))
-                {
-                    //do barks for waypoint
-                    foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint)
-                    {
-                        if (gv.sf.RandInt(100) < b.ChanceToShow)
-                        {
-                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, b.FloatyTextOneLiner, b.Color, b.LengthOfTimeToShowInMilliSeconds);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    //do barks for patrol, random, or chasing
-                    foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsOnTheWayToNextWayPoint)
-                    {
-                        if (gv.sf.RandInt(100) < b.ChanceToShow)
-                        {
-                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, b.FloatyTextOneLiner, b.Color, b.LengthOfTimeToShowInMilliSeconds);
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
 
         public void doPropBarkString(Prop prp)
         {
@@ -2936,15 +2842,20 @@ namespace IceBlink2
 
         public void moveToTarget(int targetX, int targetY, Prop prp, int moveDistance)
         {
-            if (gv.useSmoothMovement == true)
+            if (gv.mod.useSmoothMovement == true)
             {
+                if (recursiveCall == false)
+                {
+                    fallBackSquareX = prp.LocationX;
+                    fallBackSquareY = prp.LocationY;
+                }
                 Random rnd2 = new Random();
                 for (int i = 0; i < moveDistance; i++)
-                {//1
+                {
                     gv.pfa.resetGrid();
                     Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp);
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
-                    {//2
+                    {
                         //didn't find a path, don't move
                         //why do we eliminate the moveto target here? Was fitting for a static world (that would never open a new path anyway). In a dynamic world I think we better keep the moveto information?
                         //as props can move through each other now (or that's the plan) it might still work with theese lines
@@ -2952,197 +2863,86 @@ namespace IceBlink2
                         //prp.CurrentMoveToTarget.X = prp.LocationX;
                         //prp.CurrentMoveToTarget.Y = prp.LocationY;
                         //gv.Invalidate();
-                        gv.Render();
+                        //gv.Render();
                         return;
-                    }//2
+                    }
 
                     //new code for preventing movers from ending on the same square
                     bool nextStepSquareIsOccupied = false;
                     foreach (Prop otherProp in gv.mod.currentArea.Props)
-                    {//2
+                    {
+
                         //check whether an active mover prop is on the field found as next step on the path
                         if ((otherProp.LocationX == newCoor.X) && (otherProp.LocationY == newCoor.Y) && (otherProp.isMover == true) && (otherProp.isActive == true))
-                        {//3
+                        {
                             nextStepSquareIsOccupied = true;
                             break;
-                        }//3
-                    }//2
+                        }
+                    }
 
                     if (nextStepSquareIsOccupied == true)
-                    {//2
+                    {
+
                         bool originSquareOccupied = false;
                         //check wheter the next field found on path is the destination square, i.e. the waypoint our prop is headed to                                  
                         if ((newCoor.X == prp.CurrentMoveToTarget.X) && (newCoor.Y == prp.CurrentMoveToTarget.Y))
-                        {//3
+                        {
+                            prp.destinationPixelPositionXList.Clear();
+                            prp.destinationPixelPositionXList = new List<int>();
+                            prp.destinationPixelPositionYList.Clear();
+                            prp.destinationPixelPositionYList = new List<int>();
+ 
                             //let's find out whether our prop can stay on its origin square, i.e. skip move, or whether it already comes from an occupied square and has to "sidestep"
                             //Note: moving along path, double move, wont work when the target square is the destination square, i.e. the end of the path
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
-                            {//4
+                            {
                                 if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
-                                {//5
+                                {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
                                         originSquareOccupied = true;
                                         break;
                                     }
-                                }//5
-                            }//4
+                                }
+                            }
 
-                            int decider2 = rnd2.Next(0, 2);
+                            int decider2 = rnd2.Next(0, 10);
                             //another step forward, ie (at least) 2 steps on path
                             //check whether to stay on origin square ("step back")
-                            if ((originSquareOccupied == false) && (decider2 == 0))
-                            {//4
-                                //memo to self: check what invalidate does                                         
-                                //gv.Invalidate();
-                                gv.Render();
+                            if ((originSquareOccupied == false) && (decider2 < 9))
+                            {                   
                                 return;
-                            }//4
+                            }
 
                             //sidestep to nearby free square because destination square and origin square are both occupied
                             else
-                            {//4
-                                //find alternative target spot, as near to (occupied) destination square as possible
-                                int targetTile = newCoor.Y * gv.mod.currentArea.MapSizeX + newCoor.X;//the index of the original target spot in the current area's tiles list
-                                List<int> freeTilesByIndex = new List<int>();// a new list used to store the indices of all free tiles on current area
-                                int tileLocX = 0;//just temporary storage in for locations of tiles
-                                int tileLocY = 0;//just temporary storage in for locations of tiles
-                                double floatTileLocY = 0;//was uncertain about rounding and conversion details, therefore need this one (see below)
-                                bool tileIsFree = true;//identify a tile suited as new alternative target loaction
-                                int nearestTileByIndex = -1;//store the nearest tile by index; as the relevant loop runs this will be replaced several times likely with ever nearer tiles
-                                int dist = 0;//distance between the orignally intended target location (i.e. destination squre) and a free tile
-                                int deltaX = 0;//temporary value used for distance calculation 
-                                int deltaY = 0;//temporary value used for distance calculation 
-                                //this.MessageBoxHtml("Changed the target location because target spot was occupied");
+                            {
+                                prp.LocationX = fallBackSquareX;
+                                prp.LocationY = fallBackSquareY;
+                             
+                            }
 
-                                //FIRST PART: get all FREE tiles on the current area
-                                for (int j = 0; j < gv.mod.currentArea.Tiles.Count; j++)
-                                {//5
-                                    //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)
-                                    //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again
-                                    tileIsFree = true;
-                                    //Note: When e.g. MapsizeY is 7, the y values range from 0 to 6
-                                    tileLocX = j % gv.mod.currentArea.MapSizeY;
-                                    //Note: ensure rounding down here 
-                                    floatTileLocY = j / gv.mod.currentArea.MapSizeX;
-                                    tileLocY = (int)Math.Floor(floatTileLocY);
-
-                                    //look at content of currently checked tile, with three checks for walkable, occupied by creature, occupied by pc
-                                    //walkbale check
-                                    if (gv.mod.currentArea.Tiles[j].Walkable == false)
-                                    {//6
-                                        tileIsFree = false;
-                                    }//6
-
-                                    //party occupied check
-                                    if (tileIsFree == true)
-                                    {//6
-                                        if ((gv.mod.PlayerLocationX == tileLocX) && (gv.mod.PlayerLocationY == tileLocY))
-                                        {//7
-                                            tileIsFree = false;
-                                        }//7
-                                    }//6
-
-                                    //creature occupied check
-                                    if (tileIsFree == true)
-                                    {//6
-                                        foreach (Prop occupyingProp in gv.mod.currentArea.Props)
-                                        {//7
-                                            if ((occupyingProp.LocationX == tileLocX) && (occupyingProp.LocationY == tileLocY))
-                                            {//8
-                                                tileIsFree = false;
-                                                break;
-                                            }//8
-                                        }//7
-                                    }//6
-
-                                    //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values
-                                    //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index
-                                    if (tileIsFree == true)
-                                    {//6
-                                        freeTilesByIndex.Add(j);
-                                    }//6
-                                }//5
-
-                                //SECOND PART: find the free tile NEAREST to originally intended summon location
-                                for (int k = 0; k < freeTilesByIndex.Count; k++)
-                                {//5
-                                    dist = 0;
-
-                                    //get location x and y of the tile stored at the index number j, i.e. get the value of elment indexed with i and transform to x and y location
-                                    tileLocX = freeTilesByIndex[k] % gv.mod.currentArea.MapSizeY;
-                                    floatTileLocY = freeTilesByIndex[k] / gv.mod.currentArea.MapSizeX;
-                                    tileLocY = (int)Math.Floor(floatTileLocY);
-
-                                    //get distance between the current free tile and the originally intended target location (i.e. teh deistination square in this case, aka path end)
-                                    //deltaX = (int)Math.Abs((tileLocX - newCoor.X));
-                                    //deltaY = (int)Math.Abs((tileLocY - newCoor.Y));
-                                    deltaX = (int)Math.Abs((tileLocX - prp.LocationX));
-                                    deltaY = (int)Math.Abs((tileLocY - prp.LocationY));
-                                    if (deltaX > deltaY)
-                                    {//6
-                                        dist = deltaX;
-                                    }//6
-                                    else
-                                    {//6
-                                        dist = deltaY;
-                                    }//6
-
-
-                                    //only very close to target ti les 
-                                    if (dist < 3)
-                                    {//6
-                                        gv.pfa.resetGrid();
-                                        //public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius)
-                                        Coordinate newCoor2 = gv.pfa.findNewPoint(new Coordinate(tileLocX, tileLocY), new Coordinate(targetX, targetY), prp, tileLocX, tileLocY, 6);
-                                        //Coordinate newCoor2 = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(tileLocX, tileLocY), prp);
-                                        //IBMessageBox.Show(gv, "lenght of last path was:  " + prp.lengthOfLastPath.ToString());
-                                        if ((newCoor2.X != -1) && (newCoor2.Y != -1) && (prp.lengthOfLastPath < 4))
-                                        {
-                                            nearestTileByIndex = freeTilesByIndex[k];
-                                            newCoor2 = gv.pfa.findNewPoint(new Coordinate(tileLocX, tileLocY), new Coordinate(targetX, targetY), prp, tileLocX, tileLocY, 6, true, gv);
-                                            break;
-                                        }
-                                    }//6
-                                }//5
-
-                                if (nearestTileByIndex != -1)
-                                {//5
-                                    //get the nearest tile's x and y location and use it as target square coordinates
-                                    tileLocX = nearestTileByIndex % gv.mod.currentArea.MapSizeY;
-                                    floatTileLocY = nearestTileByIndex / gv.mod.currentArea.MapSizeX;
-                                    tileLocY = (int)Math.Floor(floatTileLocY);
-
-                                    //prp.destinationPixelPositionXList.Add(tileLocX);
-                                    //prp.destinationPixelPositionYList.Add(tileLocY);
-                                    //prp.currentPixelPositionX = prp.LocationX;
-                                    //prp.currentPixelPositionY = prp.LocationY;
-
-                                    prp.LocationX = tileLocX;
-                                    prp.LocationY = tileLocY;
-                                }//5
-                            }//4
-                        }//3 
+                        }
 
                         //the (occupied) target square is not the destination, i.e. path end, square
                         else
-                        {//3
+                        {
                             originSquareOccupied = false;
                             //check whether origin square is occupied, too 
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
-                            {//4
+                            {
                                 if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
-                                {//5
+                                {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
                                         originSquareOccupied = true;
                                         break;
                                     }
-                                }//5
-                            }//4
+                                }
+                            }
                             //origin square is occupied, waiting is no option therefore, so we must do (at least) double move forward (target square is occupied, too)
                             if (originSquareOccupied == true)
-                            {//4
+                            {
                                 //careful, watch for infinite loop, recursive calling here
                                 prp.LocationX = newCoor.X;
                                 prp.LocationY = newCoor.Y;
@@ -3168,31 +2968,24 @@ namespace IceBlink2
                                 int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
                                 int playerPositionYInPix = gv.playerOffset * gv.squareSize;
 
-                                if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
+                                if ((xOffSetInSquares <= 10) && (xOffSetInSquares >= -10) && (yOffSetInSquares <= 10) && (yOffSetInSquares >= -10))
                                 {
                                     prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                                     prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
                                 }
-
-                                //int x = ((prp.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels;
-                                //int y = ((prp.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                       
-
-                                //prp.destinationPixelPositionXList.Add(x);
-                                //prp.destinationPixelPositionYList.Add(y);
-                                //prp.pixelMoveSpeed++;
-                               
+                                recursiveCall = true;
                                 moveToTarget(targetX, targetY, prp, 1);
+                                recursiveCall = false;
                                 return;
-                            }//4
+                            }
                             //origin square not occupied, so waiting would be an alternative to double move: 50/50 situation
                             else
-                            {//4
+                            {
                                 //make random roll to randomly choose between the two next alternatives
-                                int decider = rnd2.Next(0, 2);
+                                int decider = rnd2.Next(0, 10);
                                 //another step forward, ie (at least) 2 steps on path
-                                if (decider == 0)
-                                {//5
+                                if (decider < 5)
+                                {
                                     prp.LocationX = newCoor.X;
                                     prp.LocationY = newCoor.Y;
 
@@ -3217,60 +3010,43 @@ namespace IceBlink2
                                     int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
                                     int playerPositionYInPix = gv.playerOffset * gv.squareSize;
 
-                                    if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
+                                    if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
                                     {
                                         prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                                         prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
                                     }
                                     
-                                    
-                                    //int x = ((prp.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels;
-                                    //int y = ((prp.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                                    
-                                    //prp.destinationPixelPositionXList.Add(x);
-                                    //prp.destinationPixelPositionYList.Add(y);
-                                    //prp.pixelMoveSpeed++;
-
+                                    recursiveCall = true;
                                     moveToTarget(targetX, targetY, prp, 1);
+                                    recursiveCall = false;
                                     return;
-                                }//5
+                                }
                                 //Skip whole move, ie 0 steps on path (rolled a 1 as random roll)
                                 else
-                                {//5
-                                    //memo to self: check what invalidate does
-                                    //gv.Invalidate();
-                                    gv.Render();
+                                {
                                     return;
-                                }//5
-                            }//4
-                        }//3
-                    }//2
+                                }
+                            }
+                        }
+                    }
                     //target square is (finally) not occupied
                     else
-                    {//2
+                    {
                         //WIP
                         if ((newCoor.X < prp.LocationX) && (!prp.PropFacingLeft)) //move left
-                        {//3
+                        {
                             //TODO                        prp.token = gv.cc.flip(prp.token);
                             prp.PropFacingLeft = true;
-                        }//3
+                        }
                         else if ((newCoor.X > prp.LocationX) && (prp.PropFacingLeft)) //move right
-                        {//3
+                        {
                             //TODO                        prp.token = gv.cc.flip(prp.token);
                             prp.PropFacingLeft = false;
                         }//3
-                        //int oldX = prp.LocationX;
-                        //int oldY = prp.LocationY;
-                        //int newX = newCoor.X;
-                        //int newY = newCoor.Y;
 
-                        //gv.DrawLine(prp.LocationX + gv.oXshift, prp.LocationY, newCoor.X + gv.oXshift, newCoor.Y, System.Drawing.Color.Lime, 2);
-                        //gv.DrawLine(oldX, oldY, newX, newY, SharpDX.Color.Lime, 2);
                         prp.LocationX = newCoor.X;
                         prp.LocationY = newCoor.Y;
                         
-                        //int x = ((prp.LocationX - gv.mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels;
-                        //int y = ((prp.LocationY - gv.mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                         int xOffSetInSquares = 0;
                         int yOffSetInSquares = 0;
                         if (gv.mod.PlayerLocationX >= prp.LocationX)
@@ -3292,26 +3068,25 @@ namespace IceBlink2
                         int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
                         int playerPositionYInPix = gv.playerOffset * gv.squareSize;
 
-                        if ((xOffSetInSquares <= 4) && (xOffSetInSquares >= -4) && (yOffSetInSquares <= 4) && (yOffSetInSquares >= -4))
+                        if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
                         {
                             prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                             prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
                         }
                         
-                        //gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                    }//2
-                }//1
+                    }
+                }
                 prp.pixelMoveSpeed = prp.destinationPixelPositionXList.Count;
             }
             else
             {
                 Random rnd2 = new Random();
                 for (int i = 0; i < moveDistance; i++)
-                {//1
+                {
                     gv.pfa.resetGrid();
                     Coordinate newCoor = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(targetX, targetY), prp);
                     if ((newCoor.X == -1) && (newCoor.Y == -1))
-                    {//2
+                    {
                         //didn't find a path, don't move
                         //why do we eliminate the moveto target here? Was fitting for a static world (that would never open a new path anyway). In a dynamic world I think we better keep the moveto information?
                         //as props can move through each other now (or that's the plan) it might still work with theese lines
@@ -3321,39 +3096,39 @@ namespace IceBlink2
                         //gv.Invalidate();
                         gv.Render();
                         return;
-                    }//2
+                    }
 
                     //new code for preventing movers from ending on the same square
                     bool nextStepSquareIsOccupied = false;
                     foreach (Prop otherProp in gv.mod.currentArea.Props)
-                    {//2
+                    {
                         //check whether an active mover prop is on the field found as next step on the path
                         if ((otherProp.LocationX == newCoor.X) && (otherProp.LocationY == newCoor.Y) && (otherProp.isMover == true) && (otherProp.isActive == true))
-                        {//3
+                        {
                             nextStepSquareIsOccupied = true;
                             break;
-                        }//3
-                    }//2
+                        }
+                    }
 
                     if (nextStepSquareIsOccupied == true)
-                    {//2
+                    {
                         bool originSquareOccupied = false;
                         //check wheter the next field found on path is the destination square, i.e. the waypoint our prop is headed to                                  
                         if ((newCoor.X == prp.CurrentMoveToTarget.X) && (newCoor.Y == prp.CurrentMoveToTarget.Y))
-                        {//3
+                        {
                             //let's find out whether our prop can stay on its origin square, i.e. skip move, or whether it already comes from an occupied square and has to "sidestep"
                             //Note: moving along path, double move, wont work when the target square is the destination square, i.e. the end of the path
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
-                            {//4
+                            {
                                 if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
-                                {//5
+                                {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
                                         originSquareOccupied = true;
                                         break;
                                     }
-                                }//5
-                            }//4
+                                }
+                            }
 
                             int decider2 = rnd2.Next(0, 2);
                             //another step forward, ie (at least) 2 steps on path
@@ -3380,11 +3155,10 @@ namespace IceBlink2
                                 int dist = 0;//distance between the orignally intended target location (i.e. destination squre) and a free tile
                                 int deltaX = 0;//temporary value used for distance calculation 
                                 int deltaY = 0;//temporary value used for distance calculation 
-                                //this.MessageBoxHtml("Changed the target location because target spot was occupied");
 
                                 //FIRST PART: get all FREE tiles on the current area
                                 for (int j = 0; j < gv.mod.currentArea.Tiles.Count; j++)
-                                {//5
+                                {
                                     //get the x and y location of current tile by calculation derived from index number, assuming that counting starts at top left corner of a map (0x, 0y)
                                     //and that each horizintal x-line is counted first, then counting next horizonal x-line starting from the left again
                                     tileIsFree = true;
@@ -3397,39 +3171,39 @@ namespace IceBlink2
                                     //look at content of currently checked tile, with three checks for walkable, occupied by creature, occupied by pc
                                     //walkbale check
                                     if (gv.mod.currentArea.Tiles[j].Walkable == false)
-                                    {//6
+                                    {
                                         tileIsFree = false;
-                                    }//6
+                                    }
 
                                     //party occupied check
                                     if (tileIsFree == true)
-                                    {//6
+                                    {
                                         if ((gv.mod.PlayerLocationX == tileLocX) && (gv.mod.PlayerLocationY == tileLocY))
-                                        {//7
+                                        {
                                             tileIsFree = false;
-                                        }//7
-                                    }//6
+                                        }
+                                    }
 
                                     //creature occupied check
                                     if (tileIsFree == true)
-                                    {//6
+                                    {
                                         foreach (Prop occupyingProp in gv.mod.currentArea.Props)
-                                        {//7
+                                        {
                                             if ((occupyingProp.LocationX == tileLocX) && (occupyingProp.LocationY == tileLocY))
-                                            {//8
+                                            {
                                                 tileIsFree = false;
                                                 break;
-                                            }//8
-                                        }//7
-                                    }//6
+                                            }
+                                        }
+                                    }
 
                                     //this writes all free tiles into a fresh list; please note that the values of the elements of this new list are our relevant index values
                                     //therefore it's not the index (which doesnt correalte to locations) in this list that's relevant, but the value of the element at that index
                                     if (tileIsFree == true)
-                                    {//6
+                                    {
                                         freeTilesByIndex.Add(j);
-                                    }//6
-                                }//5
+                                    }
+                                }
 
                                 //SECOND PART: find the free tile NEAREST to originally intended summon location
                                 for (int k = 0; k < freeTilesByIndex.Count; k++)
@@ -3442,38 +3216,33 @@ namespace IceBlink2
                                     tileLocY = (int)Math.Floor(floatTileLocY);
 
                                     //get distance between the current free tile and the originally intended target location (i.e. teh deistination square in this case, aka path end)
-                                    //deltaX = (int)Math.Abs((tileLocX - newCoor.X));
-                                    //deltaY = (int)Math.Abs((tileLocY - newCoor.Y));
                                     deltaX = (int)Math.Abs((tileLocX - prp.LocationX));
                                     deltaY = (int)Math.Abs((tileLocY - prp.LocationY));
                                     if (deltaX > deltaY)
-                                    {//6
+                                    {
                                         dist = deltaX;
-                                    }//6
+                                    }
                                     else
-                                    {//6
+                                    {
                                         dist = deltaY;
-                                    }//6
+                                    }
 
 
-                                    //only very close to target ti les 
+                                    //only very close to target tiles 
                                     if (dist < 3)
                                     {//6
                                         gv.pfa.resetGrid();
-                                        //public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius)
                                         Coordinate newCoor2 = gv.pfa.findNewPoint(new Coordinate(tileLocX, tileLocY), new Coordinate(targetX, targetY), prp, tileLocX, tileLocY, 6);
-                                        //Coordinate newCoor2 = gv.pfa.findNewPoint(new Coordinate(prp.LocationX, prp.LocationY), new Coordinate(tileLocX, tileLocY), prp);
-                                        //IBMessageBox.Show(gv, "lenght of last path was:  " + prp.lengthOfLastPath.ToString());
                                         if ((newCoor2.X != -1) && (newCoor2.Y != -1) && (prp.lengthOfLastPath < 4))
                                         {
                                             nearestTileByIndex = freeTilesByIndex[k];
                                             break;
                                         }
-                                    }//6
-                                }//5
+                                    }
+                                }
 
                                 if (nearestTileByIndex != -1)
-                                {//5
+                                {
                                     //get the nearest tile's x and y location and use it as target square coordinates
                                     tileLocX = nearestTileByIndex % gv.mod.currentArea.MapSizeY;
                                     floatTileLocY = nearestTileByIndex / gv.mod.currentArea.MapSizeX;
@@ -3481,86 +3250,79 @@ namespace IceBlink2
 
                                     prp.LocationX = tileLocX;
                                     prp.LocationY = tileLocY;
-                                }//5
-                            }//4
-                        }//3 
+                                }
+                            }
+                        }
 
                         //the (occupied) target square is not the destination, i.e. path end, square
                         else
-                        {//3
+                        {
                             originSquareOccupied = false;
                             //check whether origin square is occupied, too 
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
-                            {//4
+                            {
                                 if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
-                                {//5
+                                {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
                                         originSquareOccupied = true;
                                         break;
                                     }
-                                }//5
-                            }//4
+                                }
+                            }
                             //origin square is occupied, waiting is no option therefore, so we must do (at least) double move forward (target square is occupied, too)
                             if (originSquareOccupied == true)
-                            {//4
+                            {
                                 //careful, watch for infinite loop, recursive calling here
                                 prp.LocationX = newCoor.X;
                                 prp.LocationY = newCoor.Y;
                                 moveToTarget(targetX, targetY, prp, 1);
                                 return;
-                            }//4
+                            }
                             //origin square not occupied, so waiting would be an alternative to double move: 50/50 situation
                             else
-                            {//4
+                            {
                                 //make random roll to randomly choose between the two next alternatives
                                 int decider = rnd2.Next(0, 2);
                                 //another step forward, ie (at least) 2 steps on path
                                 if (decider == 0)
-                                {//5
+                                {
                                     prp.LocationX = newCoor.X;
                                     prp.LocationY = newCoor.Y;
                                     //recursive call, careful
                                     moveToTarget(targetX, targetY, prp, 1);
                                     return;
-                                }//5
+                                }
                                 //Skip whole move, ie 0 steps on path (rolled a 1 as random roll)
                                 else
-                                {//5
+                                {
                                     //memo to self: check what invalidate does
                                     //gv.Invalidate();
                                     gv.Render();
                                     return;
-                                }//5
-                            }//4
-                        }//3
-                    }//2
+                                }
+                            }
+                        }
+                    }
                     //target square is (finally) not occupied
                     else
-                    {//2
+                    {
                         //WIP
                         if ((newCoor.X < prp.LocationX) && (!prp.PropFacingLeft)) //move left
-                        {//3
+                        {
                             //TODO                        prp.token = gv.cc.flip(prp.token);
                             prp.PropFacingLeft = true;
-                        }//3
+                        }
                         else if ((newCoor.X > prp.LocationX) && (prp.PropFacingLeft)) //move right
-                        {//3
+                        {
                             //TODO                        prp.token = gv.cc.flip(prp.token);
                             prp.PropFacingLeft = false;
-                        }//3
-                        int oldX = prp.LocationX;
-                        int oldY = prp.LocationY;
-                        int newX = newCoor.X;
-                        int newY = newCoor.Y;
-
-                        //gv.DrawLine(prp.LocationX + gv.oXshift, prp.LocationY, newCoor.X + gv.oXshift, newCoor.Y, System.Drawing.Color.Lime, 2);
-                        //gv.DrawLine(oldX, oldY, newX, newY, SharpDX.Color.Lime, 2);
+                        }
                         prp.LocationX = newCoor.X;
                         prp.LocationY = newCoor.Y;
-                        //gv.DrawLine(lastX + gv.oXshift, lastY, nextPoint.X + gv.oXshift, nextPoint.Y, penColor, penWidth);
-                    }//2
-                }//1
+
+                    }
+                }
             }
         }
 

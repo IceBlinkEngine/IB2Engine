@@ -3369,6 +3369,7 @@ namespace IceBlink2
                 }
                 return false;
             }
+            
             int dist = 0;
             int deltaX = (int)Math.Abs((prp.LocationX - mod.PlayerLocationX));
             int deltaY = (int)Math.Abs((prp.LocationY - mod.PlayerLocationY));

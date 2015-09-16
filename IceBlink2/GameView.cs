@@ -141,7 +141,7 @@ namespace IceBlink2
         public Timer realTimeTimer = new Timer();
         public Timer smoothMoveTimer = new Timer();
 
-        public bool useSmoothMovement = true;
+        //public bool useSmoothMovement = true;
         public float floatPixMovedPerTick = 4f;
         public int pixMovedPerTick = 4;
 
@@ -254,19 +254,30 @@ namespace IceBlink2
                 realTimeTimer.Interval = mod.realTimeTimerLengthInMilliSeconds;
                 realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
             }
-            if (useSmoothMovement == true)
+            if (mod.useSmoothMovement == true)
             {
-                //IBMessageBox.Show(this, "using smooth movement");
                 //60 milliseconds a tick, 55ms was reported as last stable value form some random google findings :lol: ; about 16 fps
-                smoothMoveTimer.Interval = 60;
+                //smoothMoveTimer.Interval = 60;
+                //smoothMoveTimer.Interval = 30;
+                smoothMoveTimer.Interval = 25;
 
                 //these are the pix moved per tick, designed so that a square is traversed in 1.5 seconds
-                floatPixMovedPerTick = squareSize / 25;
+                //floatPixMovedPerTick = squareSize / 25;
+                //floatPixMovedPerTick = squareSize / 50;
+                //floatPixMovedPerTick = squareSize/50;
+                floatPixMovedPerTick = squareSize/50;
+
                 pixMovedPerTick = (int)Math.Floor(floatPixMovedPerTick);
-                if (squareSize - (pixMovedPerTick * 16) > (2 * pixMovedPerTick))
+                //if (squareSize - (pixMovedPerTick * 16) > (2 * pixMovedPerTick))
+                //if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
+                //if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
+                if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
                 {
                     pixMovedPerTick++;
-                    smoothMoveTimer.Interval = (int)1000 / ((squareSize / ((3 / 2) * pixMovedPerTick)));
+                    //smoothMoveTimer.Interval = (int)(1000 / (squareSize / ((3 / 2) * pixMovedPerTick)));
+                    //smoothMoveTimer.Interval = (int)(1000 / ((squareSize / ((3 / 2) * pixMovedPerTick)) * 2));
+                    smoothMoveTimer.Interval = (int)(750 / ((squareSize / ((3/2) * pixMovedPerTick))));
+                    
                 }
 
                 smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);

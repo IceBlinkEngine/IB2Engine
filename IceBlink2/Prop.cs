@@ -66,8 +66,9 @@ namespace IceBlink2
         public int currentPixelPositionX = 0;
         public int currentPixelPositionY = 0;
         public int pixelMoveSpeed = 1;
-        public int drawAnchorX = 0;
-        public int drawAnchorY = 0;
+        //public int drawAnchorX = 0;
+        //public int drawAnchorY = 0;
+        //public bool startingOnVisibleSquare = true;
     
         public Prop()
         {
@@ -150,8 +151,9 @@ namespace IceBlink2
             copy.currentPixelPositionX = this.currentPixelPositionX;
             copy.currentPixelPositionY = this.currentPixelPositionY;
             copy.pixelMoveSpeed = this.pixelMoveSpeed;
-            copy.drawAnchorX = this.drawAnchorX;
-            copy.drawAnchorY = this.drawAnchorY;
+            //copy.drawAnchorX = this.drawAnchorX;
+            //copy.drawAnchorY = this.drawAnchorY;
+            //copy.startingOnVisibleSquare = this.startingOnVisibleSquare;
 		    return copy;
         }
     }
