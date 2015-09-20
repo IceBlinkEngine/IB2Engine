@@ -170,8 +170,8 @@ namespace IceBlink2
 			    btnLevelUp.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnLevelUp.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnLevelUp.Text = "Level Up";
-                btnLevelUp.X = 8 * gv.squareSize + padW * 4 + gv.oXshift;
-			    btnLevelUp.Y = pH * 4;
+                btnLevelUp.X = 5 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnLevelUp.Y = 8 * gv.squareSize - pH * 2;
                 btnLevelUp.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLevelUp.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
@@ -397,8 +397,8 @@ namespace IceBlink2
             gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
 
             //DRAW LEVEL UP BUTTON
-            btnLevelUp.Y = (int)locY + (pH * 1);
-            btnLevelUp.X = tabX - (pW * 5);
+            //btnLevelUp.Y = (int)locY + (pH * 1);
+            //btnLevelUp.X = tabX - (pW * 5);
             if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
             {
                 btnLevelUp.Draw();
