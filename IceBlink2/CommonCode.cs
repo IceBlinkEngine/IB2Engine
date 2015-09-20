@@ -1046,6 +1046,8 @@ namespace IceBlink2
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
                 catch (Exception ex) { }
+                try { pc.portrait = LoadBitmap(pc.portraitFilename); }
+                catch (Exception ex) { }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
                 catch (Exception ex) { }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
@@ -1078,6 +1080,8 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.partyRosterList)
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
+                catch (Exception ex) { }
+                try { pc.portrait = LoadBitmap(pc.portraitFilename); }
                 catch (Exception ex) { }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
                 catch (Exception ex) { }

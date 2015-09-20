@@ -1396,7 +1396,75 @@ namespace IceBlink2
         }
         public void doLevelUp()
         {
-    	    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+    	    List<string> actionList = new List<string> { "Cancel", "LEVEL UP" };
+
+            using (ItemListSelector itSel = new ItemListSelector(gv, actionList, "Level Up Action"))
+            {
+                itSel.IceBlinkButtonClose.Enabled = true;
+                itSel.IceBlinkButtonClose.Visible = true;
+                itSel.setupAll(gv);
+                var ret = itSel.ShowDialog();                
+                if (itSel.selectedIndex == 0) // selected to Cancel
+                {
+                    //do nothing
+                }
+                else if (itSel.selectedIndex == 1) // selected to LEVEL UP
+                {
+                    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
+                    //LEVEL UP ALL STATS AND UPDATE STATS
+					pc.LevelUp();
+					gv.sf.UpdateStats(pc);
+					traitGained = "Trait Gained: ";
+					spellGained = "Spell Gained: ";
+					   
+					//if automatically learned traits or spells add them
+					foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+					{
+						if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+						{
+							traitGained += ta.name + ", ";
+							pc.knownTraitsTags.Add(ta.tag);
+						}
+					}
+					foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+					{
+						if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+						{
+							spellGained += sa.name + ", ";
+							pc.knownSpellsTags.Add(sa.tag);
+						}
+					}
+    				   
+					//check to see if have any traits to learn
+					List<String> traitTagsList = new List<string>();
+					traitTagsList = pc.getTraitsToLearn(gv.mod);
+						
+					//check to see if have any spells to learn
+					List<String> spellTagsList = new List<string>();
+					spellTagsList = pc.getSpellsToLearn();
+	   			    
+    	        	//if so then ask which one
+    	        	if (traitTagsList.Count > 0)
+    	        	{
+    	        		gv.screenTraitLevelUp.resetPC(pc);
+    	        		gv.screenType = "learnTraitLevelUp";
+                        gv.Render();
+    	        		//gv.invalidate();
+    	        	}
+    	        	else if (spellTagsList.Count > 0)
+    	        	{
+    	        		gv.screenSpellLevelUp.resetPC(pc);
+    	        		gv.screenType = "learnSpellLevelUp";
+                        gv.Render();
+    	        		//gv.invalidate();
+    	        	}
+    	        	else //no spells or traits to learn
+    	        	{
+    	        		doLevelUpSummary();
+    	        	}
+                }
+            }
+
             /*
     	    AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
     	    builder.setMessage(pc.name + " has gained enough experience to advance a level!")
@@ -1466,6 +1534,14 @@ namespace IceBlink2
     	    Player pc = mod.playerList[gv.cc.partyScreenPcIndex];
     	    int babGained = pc.playerClass.babTable[pc.classLevel] - pc.playerClass.babTable[pc.classLevel - 1];
     	
+            string text = pc.name + " has gained:<br>"
+     		       + "HP: +" + pc.playerClass.hpPerLevelUp + "<br>"
+     		       + "SP: +" + pc.playerClass.spPerLevelUp + "<br>"
+     		       + "BAB: +" + babGained + "<br>"
+     		       + traitGained + "<br>"
+     		       + spellGained;
+            gv.sf.MessageBoxHtml(text);
+
     	    //gv.TrackerSendEventOnePlayerInfo(pc,"LevelUp:"+pc.name);
 
             /*
