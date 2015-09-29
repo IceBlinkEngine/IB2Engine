@@ -966,9 +966,10 @@ namespace IceBlink2
 	    }
 	    public void PlaySound(string filenameNoExtension)
 	    {            
-            if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")))
+            if ((filenameNoExtension.Equals("none")) || (filenameNoExtension.Equals("")) || (!mod.playSoundFx))
             {
                 //play nothing
+                return;
             }
             else
             {

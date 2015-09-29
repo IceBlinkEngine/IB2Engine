@@ -3375,6 +3375,10 @@ namespace IceBlink2
                 {
                     MoveLeft(pc);
                 }
+                else if (keyData == Keys.NumPad5)
+                {
+                    CenterScreenOnPC();
+                }
                 else if (keyData == Keys.NumPad6)
                 {
                     MoveRight(pc);
@@ -4992,6 +4996,17 @@ namespace IceBlink2
                 UpperLeftSquare.X = minX;
                 UpperLeftSquare.Y = minY;
             }
+        }
+        public void CenterScreenOnPC()
+        {
+            Player pc = mod.playerList[currentPlayerIndex];
+            int minX = pc.combatLocX - gv.playerOffset;
+            if (minX < 0) { minX = 0; }
+            int minY = pc.combatLocY - gv.playerOffset;
+            if (minY < 0) { minY = 0; }
+
+            UpperLeftSquare.X = minX;
+            UpperLeftSquare.Y = minY; 
         }
         public bool IsInVisibleCombatWindow(int sqrX, int sqrY)
         {
