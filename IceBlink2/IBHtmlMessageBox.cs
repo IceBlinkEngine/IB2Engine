@@ -48,7 +48,10 @@ namespace IceBlink2
             this.IceBlinkButtonClose.Visible = false;
             this.IceBlinkButtonResize.Visible = false;
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.form_MouseWheel);
-            InitializeHtmlLogBox(10, 30, 580, 400);                       
+            //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 800 * (int)(100f/gv.squareSize));
+            //tried to adjust the size of the HtmlLogBox for my laptop resolution, tried to do in a dynamic wa
+            //this one is still used when calling the info/tutorial ingame texts
+            InitializeHtmlLogBox(10, 30, (int)(580*(1920f/gv.Width) - (gv.squareSize/2)), (int)(400*(100f/gv.squareSize)));                                                                    
             AddHtmlTextToLog(htmlstring);
             numberOfLinesToShow = 10;
             AddHtmlTextToLog("");
@@ -242,7 +245,9 @@ namespace IceBlink2
                         newWord.fontSize = GetFontSizeInPixels();
                         newWord.color = GetColor();
                         font = new Font(fontfamily, newWord.fontSize, newWord.fontStyle);
-                        int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length);
+                        //line breaks did not work correctly on laptop, tried to dynamically force earlier break
+                        int wordWidth = (int)((font.Size / fontHeightToWidthRatio) * (float)newWord.text.Length * (1920f/gv.Width));
+
                         if (font.Height > lineHeight) { lineHeight = font.Height; }
                         if (xLoc + wordWidth > width) //word wrap
                         {

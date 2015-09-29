@@ -551,12 +551,13 @@ namespace IceBlink2
 
                             int tileNumberOfPropSquare = SquareThatPixIsOnX + (SquareThatPixIsOnY * gv.mod.currentArea.MapSizeX);
 
-                            int pixDistanceOfPropToPlayerX = (p.currentPixelPositionX - playerPositionXInPix);
+                            //cast the pix position to int in order to draw it at nearly exact loc
+                            int pixDistanceOfPropToPlayerX = ((int)p.currentPixelPositionX - playerPositionXInPix);
                             if (pixDistanceOfPropToPlayerX < 0)
                             {
                                 pixDistanceOfPropToPlayerX *= -1;
                             }
-                            int pixDistanceOfPropToPlayerY = (p.currentPixelPositionY - playerPositionYInPix);
+                            int pixDistanceOfPropToPlayerY = ((int)p.currentPixelPositionY - playerPositionYInPix);
                             if (pixDistanceOfPropToPlayerY < 0)
                             {
                                 pixDistanceOfPropToPlayerY *= -1;
@@ -564,7 +565,7 @@ namespace IceBlink2
 
                             if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffset + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffset + 1) * gv.squareSize)))
                             {
-                                IbRect dst = new IbRect(p.currentPixelPositionX, p.currentPixelPositionY, gv.squareSize, gv.squareSize);
+                                IbRect dst = new IbRect((int)p.currentPixelPositionX, (int)p.currentPixelPositionY, gv.squareSize, gv.squareSize);
                                 gv.DrawBitmap(p.token, src, dst);
 
                                 if (mod.showInteractionState == true)

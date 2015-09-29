@@ -30,6 +30,7 @@ namespace IceBlink2
         public int moveDeltaY = 0;
         public int tbHeight = 200;
         public int tbWidth = 300;
+        
         public int tbXloc = 10;
         public int tbYloc = 10;
         public float fontHeightToWidthRatio = 1.0f;
@@ -44,9 +45,11 @@ namespace IceBlink2
             //fontfamily = gv.family;
             //font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             tbXloc = locX;
-            tbYloc = locY;
+            //the log box was placed to high on laptp, moved it down a bit, tried it dynamically
+            tbYloc = locY - (int)((gv.Height - 1080)/20);
             tbWidth = width;
-            tbHeight = height;
+            //had to make the box sleightly longer to get height increased text in
+            tbHeight = height + gv.oYshift;
             //brush.Color = Color.Red;
         }
         

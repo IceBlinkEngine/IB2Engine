@@ -141,9 +141,12 @@ namespace IceBlink2
         public Timer realTimeTimer = new Timer();
         public Timer smoothMoveTimer = new Timer();
 
-        //public bool useSmoothMovement = true;
         public float floatPixMovedPerTick = 4f;
         public int pixMovedPerTick = 4;
+        //activating smooth move by defult now, real time off by default
+        public int realTimeTimerLengthInMilliSeconds = 1500;
+        public bool useSmoothMovement = true;
+        public bool useRealTimeTimer = false; 
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
@@ -248,41 +251,8 @@ namespace IceBlink2
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
-
-            if (mod.useRealTimeTimer == true)
-            {
-                realTimeTimer.Interval = mod.realTimeTimerLengthInMilliSeconds;
-                realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
-            }
-            if (mod.useSmoothMovement == true)
-            {
-                //60 milliseconds a tick, 55ms was reported as last stable value form some random google findings :lol: ; about 16 fps
-                //smoothMoveTimer.Interval = 60;
-                //smoothMoveTimer.Interval = 30;
-                smoothMoveTimer.Interval = 25;
-
-                //these are the pix moved per tick, designed so that a square is traversed in 1.5 seconds
-                //floatPixMovedPerTick = squareSize / 25;
-                //floatPixMovedPerTick = squareSize / 50;
-                //floatPixMovedPerTick = squareSize/50;
-                floatPixMovedPerTick = squareSize/50;
-
-                pixMovedPerTick = (int)Math.Floor(floatPixMovedPerTick);
-                //if (squareSize - (pixMovedPerTick * 16) > (2 * pixMovedPerTick))
-                //if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
-                //if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
-                if (squareSize - (pixMovedPerTick * 32) > (2 * pixMovedPerTick))
-                {
-                    pixMovedPerTick++;
-                    //smoothMoveTimer.Interval = (int)(1000 / (squareSize / ((3 / 2) * pixMovedPerTick)));
-                    //smoothMoveTimer.Interval = (int)(1000 / ((squareSize / ((3 / 2) * pixMovedPerTick)) * 2));
-                    smoothMoveTimer.Interval = (int)(750 / ((squareSize / ((3/2) * pixMovedPerTick))));
-                    
-                }
-
-                smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
-                smoothMoveTimer.Start();
-            }
+            //moved timer blocks (realTime, smoothMove) from here to below resetGame
+            
         }
 
         public void createScreens()
@@ -339,6 +309,23 @@ namespace IceBlink2
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
+            if (mod.useRealTimeTimer == true)
+            {
+                realTimeTimer.Interval = realTimeTimerLengthInMilliSeconds;
+                realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
+            }
+            if (mod.useSmoothMovement == true)
+            {
+                //16 milliseconds a tick, equals about 60 FPS (very fluid perception of animation)
+                smoothMoveTimer.Interval = 16;
+
+                //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
+                floatPixMovedPerTick = squareSize / 90;
+                floatPixMovedPerTick /= (realTimeTimerLengthInMilliSeconds / 1000 * 2 / 3);
+
+                smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
+                smoothMoveTimer.Start();
+            }
 		    mod.debugMode = false;
 		    mod.loadAreas(this);
 		    mod.setCurrentArea(mod.startingArea, this);
@@ -387,6 +374,7 @@ namespace IceBlink2
 		    cc.nullOutControls();
 		    cc.setControlsStart();
             cc.setPortraitsStart();
+
 		    cc.setToggleButtonsStart();
 		    createScreens();
 		    initializeSounds();
@@ -1035,7 +1023,9 @@ namespace IceBlink2
         {
             if (screenType.Equals("main"))
             {
+                realTimeTimer.Stop();
                 cc.doUpdate();
+                realTimeTimer.Start();
             }
         }
 
@@ -1043,11 +1033,10 @@ namespace IceBlink2
         {
             if (screenType.Equals("main"))
             {
-                //IBMessageBox.Show(this, "Smmoth move ran");
+                
                 smoothMoveTimer.Stop();
                 Render();
                 smoothMoveTimer.Start();
-                //IBMessageBox.Show(this, "Smmoth move ran");
 
             }
         }
@@ -1618,8 +1607,9 @@ namespace IceBlink2
             else if (mirror)
             {
                 renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
+                //half a square left shift for rendering right facing party and combat cretures, those were shifted half square too far in right direction on my laptop
                 renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
+                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
                                                 target.Top,
                                                 target.Width,
                                                 target.Height),

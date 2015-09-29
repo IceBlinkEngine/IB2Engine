@@ -2767,7 +2767,8 @@ namespace IceBlink2
 		    }
 		    else //using tiles
 		    {
-                IbRect src = new IbRect(0, 0, gv.squareSizeInPixels/2, gv.squareSizeInPixels/2);
+                //I brought the pix width and height of source back to normal
+                IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                 IbRect dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);
                 for (int x = UpperLeftSquare.X; x < this.mod.currentEncounter.MapSizeX; x++)
                 {

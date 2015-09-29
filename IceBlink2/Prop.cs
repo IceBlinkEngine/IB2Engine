@@ -41,7 +41,8 @@ namespace IceBlink2
 	    public int ChanceToMove2Squares = 0;
 	    public int ChanceToMove0Squares = 0;
 	    public string MoverType = "post"; //post, random, patrol, daily, weekly, monthly, yearly
-        [JsonIgnore]
+        //[JsonIgnore]
+        //Removed save ignore for currentMoveToTarget,, othrisw all patroling props head towards 0,0 after loading a save
 	    public Coordinate CurrentMoveToTarget = new Coordinate(0,0);
 	    public bool isChaser = false;
         [JsonIgnore]
@@ -63,8 +64,9 @@ namespace IceBlink2
         public bool unavoidableConversation = false;
         public List<int> destinationPixelPositionXList = new List<int>();
         public List<int> destinationPixelPositionYList = new List<int>();
-        public int currentPixelPositionX = 0;
-        public int currentPixelPositionY = 0;
+        //Turned the 2 ints below to floats for storing pix coordinates with higher precision
+        public float currentPixelPositionX = 0;
+        public float currentPixelPositionY = 0;
         public int pixelMoveSpeed = 1;
         //public int drawAnchorX = 0;
         //public int drawAnchorY = 0;

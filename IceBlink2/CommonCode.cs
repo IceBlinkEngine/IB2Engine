@@ -3,6 +3,7 @@ using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DXGI;
 using System;
+//using System.Diagnostics;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+//using System.Threading;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
@@ -870,6 +872,31 @@ namespace IceBlink2
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
 
+            //my interim portrait solution, now redundant :-)
+            /*if (saveMod.playerList.Count > 0)
+            {
+                gv.mod.playerList[0].portrait = LoadBitmap(saveMod.playerList[0].portraitFilename);
+            }
+            if (saveMod.playerList.Count > 1)
+            {
+                gv.mod.playerList[1].portrait = LoadBitmap(saveMod.playerList[1].portraitFilename);
+            }
+            if (saveMod.playerList.Count > 2)
+            {
+                gv.mod.playerList[2].portrait = LoadBitmap(saveMod.playerList[2].portraitFilename);
+            }
+            if (saveMod.playerList.Count > 3)
+            {
+                gv.mod.playerList[3].portrait = LoadBitmap(saveMod.playerList[3].portraitFilename);
+            }
+            if (saveMod.playerList.Count > 4)
+            {
+                gv.mod.playerList[4].portrait = LoadBitmap(saveMod.playerList[4].portraitFilename);
+            }
+            if (saveMod.playerList.Count > 5)
+            {
+                gv.mod.playerList[5].portrait = LoadBitmap(saveMod.playerList[5].portraitFilename);
+            }*/
             this.updatePlayers();
             this.updatePartyRosterPlayers();
 
@@ -3401,6 +3428,11 @@ namespace IceBlink2
                             {
                                 calledConvoFromProp = true;
                                 gv.sf.ThisProp = prp;
+                                //delay trigger handling and draw the rest of move frames, so that the player sees the collision of party and prop
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    gv.Render();
+                                }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
                                 break;
                             }
@@ -3408,6 +3440,10 @@ namespace IceBlink2
                             {
                                 calledConvoFromProp = true;
                                 gv.sf.ThisProp = prp;
+                                for (int i = 0; i < 30; i++)
+                                {
+                                    gv.Render();
+                                }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
                                 break;
                             }
@@ -3422,6 +3458,11 @@ namespace IceBlink2
                         {
                             calledEncounterFromProp = true;
                             gv.sf.ThisProp = prp;
+                            for (int i = 0; i < 30; i++)
+                            {
+                                gv.Render();
+                            }
+
                             doEncounterBasedOnTag(prp.EncounterWhenOnPartySquare);
                             break;
                         }
@@ -4650,8 +4691,12 @@ namespace IceBlink2
                         gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, SharpDX.DirectWrite.FontStretch.Normal, newWord.fontSize) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
-                        float wordWidth = gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
-                        float height = gv.textLayout.Metrics.Height;
+                        //float adjustedWordDimensionsForScreenDensity = (100f / gv.squareSize);
+                        float adjustedWordWidthForScreenDensity = (1920f / gv.Width);
+                        float adjustedWordHeightForScreenDensity = (1080f / gv.Height);
+
+                        float wordWidth = (gv.textLayout.Metrics.WidthIncludingTrailingWhitespace) * adjustedWordWidthForScreenDensity;
+                        float height = gv.textLayout.Metrics.Height * adjustedWordHeightForScreenDensity;
                         if (height > lineHeight) { lineHeight = (int)height; }
 
                         if (xLoc + wordWidth > width) //word wrap
