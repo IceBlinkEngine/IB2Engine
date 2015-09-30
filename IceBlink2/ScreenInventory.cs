@@ -504,7 +504,7 @@ namespace IceBlink2
 		            	        it = mod.getItemByResRefForInfo(itRef.resref);
 		                		if (inCombat)
 		                		{
-		                			//check to see if use logic tree first
+                                    //check to see if use IBScript first
 		                			if (!it.onUseItem.Equals("none"))
 		                			{
 			                			Player pc = mod.playerList[gv.screenCombat.currentPlayerIndex];
@@ -513,9 +513,9 @@ namespace IceBlink2
 			                			gv.screenType = "combat";
 			                			gv.screenCombat.endPcTurn(false);
 		                			}
-		                			else if (!it.onUseItemLogicTree.Equals("none"))
+                                    else if (!it.onUseItemIBScript.Equals("none"))
 		                			{
-		                				doItemInventoryLogicTree(gv.screenCombat.currentPlayerIndex);
+		                				doItemInventoryIBScript(gv.screenCombat.currentPlayerIndex);
 		                				gv.screenCombat.currentCombatMode = "move";
 			                			gv.screenType = "combat";
 			                			gv.screenCombat.endPcTurn(false);
@@ -524,15 +524,15 @@ namespace IceBlink2
 		                		}
 		                		else
 		                		{
-		                			//check to see if use logic tree first
+                                    //check to see if use IBScript first
 		                			if (!it.onUseItem.Equals("none"))
 		                			{
 			                			Player pc = mod.playerList[itSel2.selectedIndex - 1];
 			                			doItemInventoryScriptBasedOnFilename(pc);
 		                			}
-		                			else if (!it.onUseItemLogicTree.Equals("none"))
+                                    else if (!it.onUseItemIBScript.Equals("none"))
 		                			{
-		                				doItemInventoryLogicTree(itSel2.selectedIndex - 1);
+                                        doItemInventoryIBScript(itSel2.selectedIndex - 1);
 		                			}
 		                		}
 		                    }
@@ -577,7 +577,7 @@ namespace IceBlink2
 		    }
             resetInventory();
         }
-	    public void doItemInventoryLogicTree(int pcIndex)
+	    public void doItemInventoryIBScript(int pcIndex)
         {
     	    if (isSelectedItemSlotInPartyInventoryRange())
 		    {
@@ -585,17 +585,12 @@ namespace IceBlink2
     		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
     		    //gv.cc.currentPlayerIndexUsingItem = pcIndex;
                 gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                //REMOVEgv.cc.doLogicTreeBasedOnTag(it.onUseItemLogicTree, it.onUseItemLogicTreeParms);
                 //do IBScript
                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
                 if (it.destroyItemAfterOnUseItemIBScript)
                 {
                     gv.sf.RemoveItemFromInventory(itRef, 1);
-                }
-    		    if (it.destroyItemAfterOnUseItemLogicTree)
-        	    {
-        		    gv.sf.RemoveItemFromInventory(itRef, 1);
-        	    }	    	
+                }	    	
 		    }
             resetInventory();
         }
