@@ -51,7 +51,9 @@ namespace IceBlink2
             //InitializeHtmlLogBox(10, 30,580 * (int)(100f/gv.squareSize), 800 * (int)(100f/gv.squareSize));
             //tried to adjust the size of the HtmlLogBox for my laptop resolution, tried to do in a dynamic wa
             //this one is still used when calling the info/tutorial ingame texts
-            InitializeHtmlLogBox(10, 30, (int)(580*(1920f/gv.Width) - (gv.squareSize/2)), (int)(400*(100f/gv.squareSize)));                                                                    
+            //InitializeHtmlLogBox(10, 30, (int)(580*(1920f/gv.Width) - (gv.squareSize/2)), (int)(400*(100f/gv.squareSize)));
+            //InitializeHtmlLogBox(10, 30, (int)(580 * (1920f / gv.Width)), (int)(400 * (100f / gv.squareSize)));                                                                                                                            
+            InitializeHtmlLogBox(10, 30, (int)(580 * (100f / gv.squareSize)), (int)(400 * (100f / gv.squareSize)));  
             AddHtmlTextToLog(htmlstring);
             numberOfLinesToShow = 10;
             AddHtmlTextToLog("");
