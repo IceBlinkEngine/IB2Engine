@@ -42,6 +42,8 @@ namespace IceBlink2
         public int ibbwidthL = 340;
         public int ibbwidthR = 100;
         public int ibbheight = 100;
+        public int ibpwidth = 110;
+        public int ibpheight = 170;
         public int playerOffset = 4;
         public int oXshift = 0;
         public int oYshift = 35;
