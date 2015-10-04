@@ -120,6 +120,7 @@ namespace IceBlink2
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;
+        public bool useOrbitronFont = false;
 	
 	    public Module()
 	    {

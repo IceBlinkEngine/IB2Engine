@@ -142,8 +142,8 @@ namespace IceBlink2
         public Timer smoothMoveTimer = new Timer();
 
         public float floatPixMovedPerTick = 4f;
-        public int pixMovedPerTick = 4;
-        //activating smooth move by defult now, real time off by default
+        //the int for pixMovedPErTick is not used anymore
+        //public int pixMovedPerTick = 4;
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public bool useSmoothMovement = true;
         public bool useRealTimeTimer = false; 
@@ -205,6 +205,7 @@ namespace IceBlink2
             //CREATES A FONTFAMILY
             //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
             family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            //family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Orbitron Light.ttf", out myFonts);
             float multiplr = (float)squareSize / 100.0f;
             drawFontLarge = new Font(family, 24.0f * multiplr);
             drawFontReg = new Font(family, 20.0f * multiplr);
@@ -251,8 +252,7 @@ namespace IceBlink2
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
-            //moved timer blocks (realTime, smoothMove) from here to below resetGame
-            
+
         }
 
         public void createScreens()
@@ -316,16 +316,39 @@ namespace IceBlink2
             }
             if (mod.useSmoothMovement == true)
             {
-                //16 milliseconds a tick, equals about 60 FPS (very fluid perception of animation)
+                //16 milliseconds a tick, equals - theoretically - about 60 FPS
                 smoothMoveTimer.Interval = 16;
 
                 //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
-                floatPixMovedPerTick = squareSize / 90;
-                floatPixMovedPerTick /= (realTimeTimerLengthInMilliSeconds / 1000 * 2 / 3);
+                //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on
+                floatPixMovedPerTick = (float)squareSize / 90f;
+                //IBMessageBox.Show(this, "floatPixMovedPerTick after first is:" + floatPixMovedPerTick.ToString());
+                //due to a mistake of mine 4 pix were moved always beforehand, trying a dynamically calculated average of 5 pix now, increases speed by 25%
+                floatPixMovedPerTick = floatPixMovedPerTick / (((float)realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 5;
+                //IBMessageBox.Show(this, "floatPixMovedPerTick after second is is:" + floatPixMovedPerTick.ToString());
+                //IBMessageBox.Show(this, "real time timer length is:" + realTimeTimerLengthInMilliSeconds.ToString());
+                
+
 
                 smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
                 smoothMoveTimer.Start();
             }
+
+
+           if (mod.useOrbitronFont == true)
+           {
+               family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Orbitron Light.ttf", out myFonts);
+               float multiplr = (float)squareSize / 100.0f;
+               drawFontLarge = new Font(family, 24.0f * multiplr);
+               drawFontReg = new Font(family, 20.0f * multiplr);
+               drawFontSmall = new Font(family, 16.0f * multiplr);
+               drawFontLargeHeight = 32.0f * multiplr;
+               drawFontRegHeight = 26.0f * multiplr;
+               drawFontSmallHeight = 20.0f * multiplr;
+               InitCustomFont();
+           }
+
+
 		    mod.debugMode = false;
 		    mod.loadAreas(this);
 		    mod.setCurrentArea(mod.startingArea, this);
@@ -404,6 +427,10 @@ namespace IceBlink2
             CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = "Metamorphous";
+            if (mod.useOrbitronFont == true)
+            {
+                FontFamilyName = "Orbitron Light";
+            }
             //comboBoxFonts.Items.Add("Pericles");
             //comboBoxFonts.Items.Add("Kootenay");
             //comboBoxFonts.SelectedIndex = 0;

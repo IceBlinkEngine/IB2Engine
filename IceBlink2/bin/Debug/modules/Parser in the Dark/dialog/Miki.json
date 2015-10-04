@@ -1,0 +1,64 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 22,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "What can I do for you, <FirstName>?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 87,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Nothing right now, Miki.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Miki",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "prp_miki.png",
+  "DefaultNpcName": "Miki",
+  "NextIdNum": 88
+}

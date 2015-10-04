@@ -467,7 +467,7 @@ namespace IceBlink2
                                 {
                                     if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
                                     {
-                                        p.currentPixelPositionY += (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                        p.currentPixelPositionY += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
                                         if (p.currentPixelPositionY >= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -478,7 +478,7 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        p.currentPixelPositionY -= (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                        p.currentPixelPositionY -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
                                         if (p.currentPixelPositionY <= p.destinationPixelPositionYList[0])
                                         {
                                             p.currentPixelPositionY = p.destinationPixelPositionYList[0];
@@ -493,7 +493,7 @@ namespace IceBlink2
                                     {
                                         if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
                                         {
-                                            p.currentPixelPositionX += (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                            p.currentPixelPositionX += (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
                                             if (p.currentPixelPositionX >= p.destinationPixelPositionXList[0])
                                             {
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];
@@ -503,7 +503,7 @@ namespace IceBlink2
                                         }
                                         else
                                         {
-                                            p.currentPixelPositionX -= (gv.pixMovedPerTick * p.pixelMoveSpeed);
+                                            p.currentPixelPositionX -= (gv.floatPixMovedPerTick * p.pixelMoveSpeed);
                                             if (p.currentPixelPositionX <= p.destinationPixelPositionXList[0])
                                             {
                                                 p.currentPixelPositionX = p.destinationPixelPositionXList[0];
