@@ -71,16 +71,16 @@ namespace IceBlink2
             }
             IbRect dstBG = new IbRect(this.X - (int)(3 * gv.screenDensity),
                                         this.Y - (int)(3 * gv.screenDensity),
-                                        (int)((float)this.Width * gv.screenDensity) + (int)(6 * gv.screenDensity),
-                                        (int)((float)this.Height * gv.screenDensity) + (int)(6 * gv.screenDensity));
-            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
-            IbRect dstLU = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
+                                        (int)((float)this.Width) + (int)(6 * gv.screenDensity),
+                                        (int)((float)this.Height) + (int)(6 * gv.screenDensity));
+            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
+            IbRect dstLU = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
 
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
                                         this.Y - (int)(7 * gv.screenDensity), 
-                                        (int)((float)this.Width * gv.screenDensity) + (int)(15 * gv.screenDensity), 
-                                        (int)((float)this.Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
+                                        (int)((float)this.Width) + (int)(15 * gv.screenDensity), 
+                                        (int)((float)this.Height) + (int)(15 * gv.screenDensity));
 
             gv.DrawBitmap(this.ImgBG, src, dstBG);
 
@@ -114,8 +114,8 @@ namespace IceBlink2
             //SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
             float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            int ulX = ((int)(this.Width * gv.screenDensity) / 2) - ((int)stringSize / 2);
-            int ulY = ((int)(this.Height * gv.screenDensity / 2) / 2) + ((int)thisFontHeight / 2);
+            int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
+            int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
             ulX = pW * 0;
             ulY = this.Height - ((int)thisFontHeight * 2);
 
@@ -133,8 +133,8 @@ namespace IceBlink2
             //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
             stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            ulX = ((int)(this.Width * gv.screenDensity / 2)) - ((int)stringSize);
-            ulY = ((int)(this.Height * gv.screenDensity / 2));
+            ulX = ((int)(this.Width / 2)) - ((int)stringSize);
+            ulY = ((int)(this.Height / 2));
             ulX = pW * 1;
             ulY = this.Height - ((int)thisFontHeight * 1);
 

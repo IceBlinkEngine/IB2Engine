@@ -1579,8 +1579,8 @@ namespace IceBlink2
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padW = gv.squareSize / 6;
-            int ptrH = 170;
-            int ptrW = 110;
+            //int ptrH = 170;
+            //int ptrW = 110;
 
             if (ptrPc0 == null)
             {
@@ -1589,8 +1589,8 @@ namespace IceBlink2
                 ptrPc0.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc0.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc0.Y = 0 * gv.squareSize + pH * 2;
-                ptrPc0.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc0.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc0.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc0.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (ptrPc1 == null)
             {
@@ -1599,8 +1599,8 @@ namespace IceBlink2
                 ptrPc1.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc1.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc1.Y = 0 * gv.squareSize + pH * 2;
-                ptrPc1.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc1.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc1.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc1.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (ptrPc2 == null)
             {
@@ -1609,8 +1609,8 @@ namespace IceBlink2
                 ptrPc2.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc2.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc2.Y = 2 * gv.squareSize + pH * 2;
-                ptrPc2.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc2.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc2.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc2.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (ptrPc3 == null)
             {
@@ -1619,8 +1619,8 @@ namespace IceBlink2
                 ptrPc3.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc3.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc3.Y = 2 * gv.squareSize + pH * 2;
-                ptrPc3.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc3.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc3.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc3.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (ptrPc4 == null)
             {
@@ -1629,8 +1629,8 @@ namespace IceBlink2
                 ptrPc4.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc4.X = gv.oXshift + 16 * gv.squareSize;
                 ptrPc4.Y = 4 * gv.squareSize + pH * 2;
-                ptrPc4.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc4.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc4.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc4.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (ptrPc5 == null)
             {
@@ -1639,8 +1639,8 @@ namespace IceBlink2
                 ptrPc5.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
                 ptrPc5.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
                 ptrPc5.Y = 4 * gv.squareSize + pH * 2;
-                ptrPc5.Height = (int)(ptrH * gv.screenDensity);
-                ptrPc5.Width = (int)(ptrW * gv.screenDensity);
+                ptrPc5.Height = (int)(gv.ibpheight * gv.screenDensity);
+                ptrPc5.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
         }
         public void setToggleButtonsStart()
