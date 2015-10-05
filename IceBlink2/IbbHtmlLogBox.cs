@@ -46,7 +46,9 @@ namespace IceBlink2
             //font = new Font(fontfamily, 20.0f * (float)gv.squareSize / 100.0f);
             tbXloc = locX;
             //the log box was placed to high on laptp, moved it down a bit, tried it dynamically
-            tbYloc = locY - (int)((gv.Height - 1080)/20);
+            //tbYloc = locY - (int)((gv.Height - 1080)/20);
+            float heightShiftAdjustment = (gv.oYshift * (gv.Height/1080f) / 3);
+            tbYloc = locY + (int)heightShiftAdjustment;
             tbWidth = width;
             //had to make the box sleightly longer to get height increased text in
             tbHeight = height + gv.oYshift;

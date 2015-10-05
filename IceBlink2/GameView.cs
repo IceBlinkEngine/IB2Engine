@@ -1637,10 +1637,12 @@ namespace IceBlink2
             else if (mirror)
             {
                 renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
-                //half a square left shift for rendering right facing party and combat cretures, those were shifted half square too far in right direction on my laptop
+                
+                //left shift for rendering right facing party and combat cretures, those were shifted about half a square too far in right direction on my laptop
+                float leftShiftAdjustment = (screenWidth / 1920f) * bitmap.PixelSize.Width; 
                 renderTarget2D.DrawBitmap(bitmap,
                                             //new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
-                                                new SharpDX.RectangleF((target.Left + (bitmap.PixelSize.Width * (screenWidth/1920) )) * -1,
+                                                new SharpDX.RectangleF((target.Left + leftShiftAdjustment) * -1,
                                                 target.Top,
                                                 target.Width,
                                                 target.Height),
