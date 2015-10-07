@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using Color = SharpDX.Color;
@@ -2767,6 +2768,26 @@ namespace IceBlink2
 		    }
 		    else //using tiles
 		    {
+                //implemented loading only those tiles that are on current encounter map here
+                gv.cc.tileBitmapList.Clear();
+                string[] files;
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles"))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles", "*.png");
+                    foreach (string file in files)
+                    {
+                        string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                        foreach (TileEnc t in gv.mod.currentEncounter.encounterTiles)
+                        {
+                            if (t.Layer1Filename == fileNameWithOutExt || t.Layer2Filename == fileNameWithOutExt || t.Layer3Filename == fileNameWithOutExt)
+                            {
+                                gv.cc.tileBitmapList.Add(fileNameWithOutExt, gv.cc.LoadBitmap(fileNameWithOutExt));
+                                break;
+                            }
+                        }
+                    }
+                }
+                
                 //I brought the pix width and height of source back to normal
                 IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
                 IbRect dst = new IbRect(0 + mapStartLocXinPixels, 0, gv.squareSize, gv.squareSize);

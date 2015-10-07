@@ -331,19 +331,22 @@ namespace IceBlink2
                     int brY = gv.squareSize;
 
                     Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    try
+                    {
+                        IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
+                        IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                        IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                        IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
+                        IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + ((gv.playerOffset + 2) * gv.squareSize), tlY, brX, brY);
 
-                    IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
-                    IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
-                    IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
-                    IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
-                    IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + gv.oXshift + ((gv.playerOffset + 2) * gv.squareSize), tlY, brX, brY);
-
-                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
-                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
-                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src3, dst);
-                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src4, dst);
-                    gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src5, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src3, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src4, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src5, dst);
+                    }
+                    catch { }
                 }
             }
         }

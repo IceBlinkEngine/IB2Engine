@@ -866,7 +866,7 @@ namespace IceBlink2
             LoadCreatures();
             //no load of encounters
             LoadJournal();
-            LoadTileBitmapList();
+            //LoadTileBitmapList();
             gv.initializeSounds();
 
             gv.mod.partyTokenFilename = "prp_party";
@@ -1321,6 +1321,7 @@ namespace IceBlink2
         public void LoadTileBitmapList()
         {
             //probably just load what is needed for each area upon area load
+            //implemented just that in the following
             tileBitmapList.Clear();
             try
             {
@@ -1338,12 +1339,20 @@ namespace IceBlink2
                             if (filename.EndsWith(".png"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if (t.Layer1Filename == fileNameWithOutExt || t.Layer2Filename == fileNameWithOutExt || t.Layer3Filename == fileNameWithOutExt || t.Layer4Filename == fileNameWithOutExt || t.Layer5Filename == fileNameWithOutExt)
+                                    {
+                                        tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        break;
+                                    }
+                                }
                             }
                         }
+                       
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            //MessageBox.Show(ex.ToString());
                         }
                     }
                 }

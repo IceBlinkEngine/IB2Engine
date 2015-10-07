@@ -325,8 +325,8 @@ namespace IceBlink2
                 //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on
                 floatPixMovedPerTick = (float)squareSize / 90f;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after first is:" + floatPixMovedPerTick.ToString());
-                //due to a mistake of mine 4 pix were moved always beforehand, trying a dynamically calculated average of 5 pix now, increases speed by 25%
-                floatPixMovedPerTick = floatPixMovedPerTick / (((float)realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 5;
+                //due to a mistake of mine 4 pix were moved always beforehand, trying a dynamically calculated average of 7.5 pix now, increases speed by 90%
+                floatPixMovedPerTick = floatPixMovedPerTick / (((float)realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 7.5f;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after second is is:" + floatPixMovedPerTick.ToString());
                 //IBMessageBox.Show(this, "real time timer length is:" + realTimeTimerLengthInMilliSeconds.ToString());
                 
@@ -369,7 +369,7 @@ namespace IceBlink2
 		    cc.LoadCreatures();
 		    cc.LoadEncounters();
 		    cc.LoadJournal();	
-		    cc.LoadTileBitmapList();
+		    //cc.LoadTileBitmapList();
 				
 		    foreach (Container c in mod.moduleContainersList)
             {

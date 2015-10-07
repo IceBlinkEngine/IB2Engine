@@ -159,6 +159,7 @@ namespace IceBlink2
                     {                    
                         this.currentArea = area;
         			    gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
+                        gv.cc.LoadTileBitmapList();
         			    foreach (Prop p in this.currentArea.Props)
         			    {
         				    p.token = gv.cc.LoadBitmap(p.ImageFileName);
