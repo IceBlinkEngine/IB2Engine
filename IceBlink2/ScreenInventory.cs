@@ -473,7 +473,7 @@ namespace IceBlink2
                 var ret = itSel.ShowDialog();
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
 	            Item it = mod.getItemByResRefForInfo(itRef.resref);
-                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemLogicTree.Equals("none")) ) )
+                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) ) )
                 {                    
 	            	// selected to USE ITEM
 	            	List<string> pcNames = new List<string>();
