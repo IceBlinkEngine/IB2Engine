@@ -82,6 +82,7 @@
     <Compile Include="AnimationState.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="BarkString.cs" />
+    <Compile Include="buttonState.cs" />
     <Compile Include="CommonCode.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Container.cs" />

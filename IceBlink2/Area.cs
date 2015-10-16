@@ -30,18 +30,18 @@ namespace IceBlink2
 	    public int AreaSoundsDelay = 0;
 	    public int AreaSoundsDelayRandomAdder = 0;
 	    public List<Tile> Tiles = new List<Tile>();
-	    //public List<Integer> TileVisible = new List<Integer>();
 	    public List<Prop> Props = new List<Prop>();
 	    public List<string> InitialAreaPropTagsList = new List<string>();
 	    public List<Trigger> Triggers = new List<Trigger>();
 	    public int NextIdNumber = 100;
-	    public string OnHeartBeatLogicTree = "none";
-	    public string OnHeartBeatParms = "";
+	    //public string OnHeartBeatLogicTree = "none";
+	    //public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
 	    public List<LocalInt> AreaLocalInts = new List<LocalInt>();
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
+        //TODO use the inGameAreaName on main map
 	
 	    public Area()
 	    {	

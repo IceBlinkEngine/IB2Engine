@@ -8,7 +8,6 @@ namespace IceBlink2
     [Serializable]
     public class Action
     {
-        //yn1 just a test tine
         public string a_script;
         public string a_parameter_1;
         public string a_parameter_2;

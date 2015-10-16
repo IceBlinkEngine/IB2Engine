@@ -104,25 +104,18 @@ namespace IceBlink2
         public ScreenShop screenShop;
         public ScreenCastSelector screenCastSelector;
         public ScreenConvo screenConvo;
-        //public LogicTreeRun logicTreeRun;
         public ScreenTitle screenTitle;
         public ScreenPcCreation screenPcCreation;
         public ScreenSpellLevelUp screenSpellLevelUp;
         public ScreenTraitLevelUp screenTraitLevelUp;
         public ScreenLauncher screenLauncher;
-        //public ScreenSplash screenSplash;
         public ScreenCombat screenCombat;
         public ScreenMainMap screenMainMap;
         public ScreenPartyBuild screenPartyBuild;
         public ScreenPartyRoster screenPartyRoster;
         public bool touchEnabled = true;
-        //public AlertDialog ItemDialog;
-        //public AlertDialog ActionDialog;
         public WMPLib.WindowsMediaPlayer areaMusic;
         public WMPLib.WindowsMediaPlayer areaSounds;
-        //public MediaPlayer playerMain = new MediaPlayer();
-        //public MediaPlayer playerAmbient = new MediaPlayer();
-        //public MediaPlayer playerCombat = new MediaPlayer();
         public SoundPlayer soundPlayer = new SoundPlayer();
         public Dictionary<string, Stream> oSoundStreams = new Dictionary<string, Stream>();
         public System.Media.SoundPlayer playerButtonEnter = new System.Media.SoundPlayer();
@@ -147,8 +140,10 @@ namespace IceBlink2
         //the int for pixMovedPErTick is not used anymore
         //public int pixMovedPerTick = 4;
         public int realTimeTimerLengthInMilliSeconds = 1500;
-        public bool useSmoothMovement = true;
-        public bool useRealTimeTimer = false; 
+        public int smoothMoveTimerLengthInMilliSeconds = 16;
+        public int smoothMoveCounter = 0;
+        //public bool useSmoothMovement = true;
+        //public bool useRealTimeTimer = false; 
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
@@ -201,7 +196,7 @@ namespace IceBlink2
             }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
-
+            
             InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             //CREATES A FONTFAMILY
@@ -319,7 +314,7 @@ namespace IceBlink2
             if (mod.useSmoothMovement == true)
             {
                 //16 milliseconds a tick, equals - theoretically - about 60 FPS
-                smoothMoveTimer.Interval = 16;
+                smoothMoveTimer.Interval = smoothMoveTimerLengthInMilliSeconds;
 
                 //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
                 //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on

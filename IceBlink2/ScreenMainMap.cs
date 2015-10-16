@@ -198,6 +198,39 @@ namespace IceBlink2
         }
 
         //MAIN SCREEN
+        public void resetMiniMapBitmap()
+        {
+            if (mod.currentArea.IsWorldMap)
+            {
+                int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
+                int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
+                int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
+                //TODO adjust this for PC 
+                /*minimap = Bitmap.createBitmap(drawW, drawH, Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(minimap);
+                for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                {
+                    for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                    {
+                        Tile tile = mod.currentArea.Tiles.get(y * mod.currentArea.MapSizeX + x);
+
+                        Rect src1 = new Rect(0, 0, gv.cc.tileBitmapList.get(tile.Layer1Filename).getWidth(), gv.cc.tileBitmapList.get(tile.Layer1Filename).getHeight());
+                        Rect src2 = new Rect(0, 0, gv.cc.tileBitmapList.get(tile.Layer2Filename).getWidth(), gv.cc.tileBitmapList.get(tile.Layer2Filename).getHeight());
+                        Rect src3 = new Rect(0, 0, gv.cc.tileBitmapList.get(tile.Layer3Filename).getWidth(), gv.cc.tileBitmapList.get(tile.Layer3Filename).getHeight());
+                        Rect src4 = new Rect(0, 0, gv.cc.tileBitmapList.get(tile.Layer4Filename).getWidth(), gv.cc.tileBitmapList.get(tile.Layer4Filename).getHeight());
+                        Rect src5 = new Rect(0, 0, gv.cc.tileBitmapList.get(tile.Layer5Filename).getWidth(), gv.cc.tileBitmapList.get(tile.Layer5Filename).getHeight());
+
+                        Rect dst = new Rect(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, minimapSquareSizeInPixels + x * minimapSquareSizeInPixels, minimapSquareSizeInPixels + y * minimapSquareSizeInPixels);
+
+                        c.drawBitmap(gv.cc.tileBitmapList.get(tile.Layer1Filename), src1, dst, null);
+                        c.drawBitmap(gv.cc.tileBitmapList.get(tile.Layer2Filename), src2, dst, null);
+                        c.drawBitmap(gv.cc.tileBitmapList.get(tile.Layer3Filename), src3, dst, null);
+                        c.drawBitmap(gv.cc.tileBitmapList.get(tile.Layer4Filename), src4, dst, null);
+                        c.drawBitmap(gv.cc.tileBitmapList.get(tile.Layer5Filename), src5, dst, null);
+                    }
+                }*/
+            }
+        }
         public void redrawMain()
         {
             setExplored();

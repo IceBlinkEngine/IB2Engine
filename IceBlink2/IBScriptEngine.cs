@@ -4146,7 +4146,7 @@ namespace IceBlink2
                     gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHitParms += val;
                 }
             }
-            else if (element[0].EndsWith("onDeathLogicTree"))
+            /*else if (element[0].EndsWith("onDeathLogicTree"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -4169,7 +4169,7 @@ namespace IceBlink2
                 {
                     gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathParms += val;
                 }
-            }
+            }*/
 
             else if (element[0].EndsWith("combatFacingLeft"))
             {
@@ -4471,7 +4471,7 @@ namespace IceBlink2
                 }
             }
 
-            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            /*else if (element[0].EndsWith("OnHeartBeatLogicTree"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -4495,7 +4495,7 @@ namespace IceBlink2
                 {
                     gv.mod.moduleAreasObjects[indexNum].OnHeartBeatParms += val;
                 }
-            }
+            }*/
 
             else if (element[0].EndsWith("OnHeartBeatIBScript"))
             {
@@ -5903,18 +5903,18 @@ namespace IceBlink2
                     {
                         return gv.mod.playerList[indexNum].knownSpellsTags.Count.ToString();
                     }
-                    else if (parm.EndsWith("SizeOfKnownSpellsList"))
+                    /*else if (parm.EndsWith("SizeOfKnownSpellsList"))
                     {
                         return gv.mod.playerList[indexNum].knownSpellsList.Count.ToString();
-                    }
+                    }*/
                     else if (parm.EndsWith("SizeOfKnownTraitsTags"))
                     {
                         return gv.mod.playerList[indexNum].knownTraitsTags.Count.ToString();
                     }
-                    else if (parm.EndsWith("SizeOfKnownTraitsList"))
+                    /*else if (parm.EndsWith("SizeOfKnownTraitsList"))
                     {
                         return gv.mod.playerList[indexNum].knownTraitsList.Count.ToString();
-                    }
+                    }*/
                     else if (parm.EndsWith("SizeOfEffectsList"))
                     {
                         return gv.mod.playerList[indexNum].effectsList.Count.ToString();
@@ -6193,14 +6193,14 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].AreaSounds.ToString();
                     }
-                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    /*else if (parm.EndsWith("OnHeartBeatLogicTree"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatLogicTree.ToString();
                     }
                     else if (parm.EndsWith("OnHeartBeatParms"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].OnHeartBeatParms.ToString();
-                    }
+                    }*/
                     else if (parm.EndsWith("SizeOfTriggers"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Triggers.Count.ToString();
@@ -6534,14 +6534,14 @@ namespace IceBlink2
                     {
                         return gv.mod.currentEncounter.encounterCreatureList[indexNum].onScoringHitParms.ToString();
                     }
-                    else if (parm.EndsWith("onDeathLogicTree"))
+                    /*else if (parm.EndsWith("onDeathLogicTree"))
                     {
                         return gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathLogicTree.ToString();
                     }
                     else if (parm.EndsWith("onDeathParms"))
                     {
                         return gv.mod.currentEncounter.encounterCreatureList[indexNum].onDeathParms.ToString();
-                    }
+                    }*/
                     else if (parm.EndsWith("knownSpellsTags"))
                     {
                         return gv.mod.currentEncounter.encounterCreatureList[indexNum].knownSpellsTags.Count.ToString();

@@ -21,8 +21,7 @@ namespace IceBlink2
     {
         //this class is handled differently than Android version
         public GameView gv;
-        //public Module mod;
-
+        
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
@@ -83,8 +82,7 @@ namespace IceBlink2
         public Bitmap facing9;
         
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
-        public Dictionary<string, Bitmap> uiBitmapList = new Dictionary<string, Bitmap>();
-
+        
         public Spell currentSelectedSpell = new Spell();
         public string floatyText = "";
         public string floatyText2 = "";
@@ -132,7 +130,7 @@ namespace IceBlink2
             }
             return toReturn;
         }
-        public void LoadCurrentArea(string filename)
+        /*public void LoadCurrentArea(string filename)
         {
             //TODO This may not be the method that is actually used
             using (StreamReader file = File.OpenText(filename))
@@ -145,7 +143,7 @@ namespace IceBlink2
                     p.token = LoadBitmap(p.ImageFileName);
                 }
             }
-        }
+        }*/
         public void LoadCurrentConvo(string filename)
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\dialog\\" + filename + ".json"))
@@ -154,14 +152,6 @@ namespace IceBlink2
                 gv.screenConvo.currentConvo = (Convo)serializer.Deserialize(file, typeof(Convo));
             }
         }
-        /*public void LoadCurrentLogicTree(string filename)
-        {
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\logictree\\" + filename + ".json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                gv.logicTreeRun.currentLogicTree = (LogicTree)serializer.Deserialize(file, typeof(LogicTree));
-            }
-        }*/
         public void AutoSave()
         {
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\autosave.json";
@@ -171,18 +161,6 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-            /*TODO
-            final GsonBuilder builder = new GsonBuilder();
-            //builder.setPrettyPrinting();
-            builder.excludeFieldsWithoutExposeAnnotation();
-            final Gson gson = builder.create();
-            String autosave = gson.toJson(gv.mod, Module.class);
-            writeToFile(autosave, "autosave.json");		
-            if (gv.mod.showAutosaveMessage)
-            {
-                Toast.makeText(gv.gameContext, "Autosaved " + gv.mod.moduleName, Toast.LENGTH_SHORT).show();
-            }
-            */
         }
         public void QuickSave()
         {
@@ -193,16 +171,6 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-            /*
-		    // added @Expose tag to fields that I want to be saved in Module class
-		    final GsonBuilder builder = new GsonBuilder();
-		    //builder.setPrettyPrinting();
-	        builder.excludeFieldsWithoutExposeAnnotation();
-	        final Gson gson = builder.create();
-		    String quicksave = gson.toJson(gv.mod, Module.class);
-		    writeToFile(quicksave, "quicksave.json");
-		    Toast.makeText(gv.gameContext, "QuickSave Completed", Toast.LENGTH_SHORT).show();
-            */
         }
         public void SaveGame(string filename)
         {
@@ -213,21 +181,9 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-            /*TODO
-		    // added @Expose tag to fields that I want to be saved in Module class
-		    final GsonBuilder builder = new GsonBuilder();
-		    //builder.setPrettyPrinting();
-	        builder.excludeFieldsWithoutExposeAnnotation();
-	        final Gson gson = builder.create();
-		    String save = gson.toJson(gv.mod, Module.class);
-		    writeToFile(save, filename);
-		    //Toast.makeText(gameContext, "Saved Game: " + mod.saveName, Toast.LENGTH_SHORT).show();
-            */
         }
         public void SaveGameInfo(string filename)
         {
-
-            // added @Expose tag to fields that I want to be saved in Module class
             ModuleInfo newModInfo = new ModuleInfo();
             newModInfo.saveName = gv.mod.saveName;
 
@@ -238,16 +194,6 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-
-            /*
-		    final GsonBuilder builder = new GsonBuilder();
-		    //builder.setPrettyPrinting();
-	        builder.excludeFieldsWithoutExposeAnnotation();
-	        final Gson gson = builder.create();
-		    String save = gson.toJson(newModInfo, ModuleInfo.class);
-		    writeToFile(save, filename);
-		    Toast.makeText(gv.gameContext, "Saved Game Info: " + newModInfo.saveName, Toast.LENGTH_SHORT).show();
-            */
         }
         public void doSavesDialog()
         {
@@ -803,7 +749,7 @@ namespace IceBlink2
             //U  "com_showGrid": false, (use all save)
             gv.mod.com_showGrid = saveMod.com_showGrid;
             gv.mod.map_showGrid = saveMod.map_showGrid;
-            gv.mod.sendProgressReport = saveMod.sendProgressReport;
+            /*gv.mod.sendProgressReport = saveMod.sendProgressReport;
             if (saveMod.uniqueSessionIdNumberTag.Equals(""))
             {
                 gv.mod.uniqueSessionIdNumberTag = gv.sf.RandInt(1000000) + "";
@@ -811,7 +757,7 @@ namespace IceBlink2
             else
             {
                 gv.mod.uniqueSessionIdNumberTag = saveMod.uniqueSessionIdNumberTag;
-            }
+            }*/
             //U  "allowAutosave": true, (use all save)
             gv.mod.allowAutosave = saveMod.allowAutosave;
             //U  "WorldTime": 24, (use all save)
@@ -851,8 +797,10 @@ namespace IceBlink2
             gv.mod.startingPlayerPositionX = saveMod.startingPlayerPositionX;
             //U  "startingPlayerPositionY": 1 (use all save)
             gv.mod.startingPlayerPositionY = saveMod.startingPlayerPositionY;
-            gv.mod.OnHeartBeatLogicTree = saveMod.OnHeartBeatLogicTree;
-            gv.mod.OnHeartBeatParms = saveMod.OnHeartBeatParms;
+            //gv.mod.OnHeartBeatLogicTree = saveMod.OnHeartBeatLogicTree;
+            //gv.mod.OnHeartBeatParms = saveMod.OnHeartBeatParms;
+            gv.mod.OnHeartBeatIBScript = saveMod.OnHeartBeatIBScript;
+            gv.mod.OnHeartBeatIBScriptParms = saveMod.OnHeartBeatIBScriptParms;
             //}
 
             LoadRaces();
@@ -871,37 +819,12 @@ namespace IceBlink2
 
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
-
-            //my interim portrait solution, now redundant :-)
-            /*if (saveMod.playerList.Count > 0)
-            {
-                gv.mod.playerList[0].portrait = LoadBitmap(saveMod.playerList[0].portraitFilename);
-            }
-            if (saveMod.playerList.Count > 1)
-            {
-                gv.mod.playerList[1].portrait = LoadBitmap(saveMod.playerList[1].portraitFilename);
-            }
-            if (saveMod.playerList.Count > 2)
-            {
-                gv.mod.playerList[2].portrait = LoadBitmap(saveMod.playerList[2].portraitFilename);
-            }
-            if (saveMod.playerList.Count > 3)
-            {
-                gv.mod.playerList[3].portrait = LoadBitmap(saveMod.playerList[3].portraitFilename);
-            }
-            if (saveMod.playerList.Count > 4)
-            {
-                gv.mod.playerList[4].portrait = LoadBitmap(saveMod.playerList[4].portraitFilename);
-            }
-            if (saveMod.playerList.Count > 5)
-            {
-                gv.mod.playerList[5].portrait = LoadBitmap(saveMod.playerList[5].portraitFilename);
-            }*/
+                        
             this.updatePlayers();
             this.updatePartyRosterPlayers();
 
             gv.createScreens();
-            //gv.TrackerSendEventFullPartyInfo("LoadSaveGame");
+            gv.screenMainMap.resetMiniMapBitmap();
             return true;
         }
         public Module LoadSaveGameModule(string filename)
@@ -1080,7 +1003,7 @@ namespace IceBlink2
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { }
                 //may not need this as it is not used anywhere, only knownspellstags is used
-                pc.knownSpellsList = new List<Spell>();
+                /*pc.knownSpellsList = new List<Spell>();
                 try
                 {
                     foreach (string s in pc.knownSpellsTags)
@@ -1088,9 +1011,9 @@ namespace IceBlink2
                         pc.knownSpellsList.Add(gv.mod.getSpellByTag(s).DeepCopy());
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { }*/
                 //may not be needed as it is not used anywhere
-                pc.knownTraitsList = new List<Trait>();
+                /*pc.knownTraitsList = new List<Trait>();
                 try
                 {
                     foreach (string t in pc.knownTraitsTags)
@@ -1098,7 +1021,7 @@ namespace IceBlink2
                         pc.knownTraitsList.Add(gv.mod.getTraitByTag(t).DeepCopy());
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { }*/
             }
         }
         public void updatePartyRosterPlayers()
@@ -1115,7 +1038,7 @@ namespace IceBlink2
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { }
                 //may not need this as it is not used anywhere, only knownspellstags is used
-                pc.knownSpellsList = new List<Spell>();
+                /*pc.knownSpellsList = new List<Spell>();
                 try
                 {
                     foreach (string s in pc.knownSpellsTags)
@@ -1123,9 +1046,9 @@ namespace IceBlink2
                         pc.knownSpellsList.Add(gv.mod.getSpellByTag(s).DeepCopy());
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { }*/
                 //may not be needed as it is not used anywhere
-                pc.knownTraitsList = new List<Trait>();
+                /*pc.knownTraitsList = new List<Trait>();
                 try
                 {
                     foreach (string t in pc.knownTraitsTags)
@@ -1133,7 +1056,7 @@ namespace IceBlink2
                         pc.knownTraitsList.Add(gv.mod.getTraitByTag(t).DeepCopy());
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex) { }*/
             }
         }
         public void setMainPc()
@@ -1149,63 +1072,6 @@ namespace IceBlink2
             {
                 gv.mod.playerList[0].mainPc = true;
             }
-        }
-
-        private void writeToFile(string data, string filename)
-        {
-            /*TODO
-            try
-            {
-                //This will get the SD Card directory and create a folder named MyFiles in it.
-                File sdCard = Environment.getExternalStorageDirectory();
-                File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG/saves/" + gv.mod.moduleName);
-                directory.mkdirs();
-
-                //Now create the file in the above directory and write the contents into it
-                File file = new File(directory, filename);
-                FileOutputStream fOut = new FileOutputStream(file);
-                OutputStreamWriter osw = new OutputStreamWriter(fOut);
-                osw.write(data);
-                osw.flush();
-                osw.close();
-            }
-            catch (IOException e) 
-            {
-                //Log.e("Exception", "File write failed: " + e.toString());
-            }*/
-        }
-        private string readFromFile(string filename)
-        {
-            string data = "";
-            /*TODO
-            try
-            {
-                //This will get the SD Card directory and create a folder named MyFiles in it.
-                File sdCard = Environment.getExternalStorageDirectory();
-                File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG/saves/" + gv.mod.moduleName);
-                File file = new File(directory, filename);
-                FileInputStream fIn = new FileInputStream(file);
-                //OutputStreamWriter osw = new OutputStreamWriter(fOut);
-                //osw.write(data);
-                //osw.flush();
-                //osw.close();
-			
-                BufferedReader r = new BufferedReader(new InputStreamReader(fIn));
-                StringBuilder total = new StringBuilder();
-                String line;
-                while ((line = r.readLine()) != null)
-                {
-                    total.append(line);
-                }
-                data = total.toString();
-                r.close();
-            }
-            catch (IOException e) 
-            {
-                //Log.e("Exception", "File write failed: " + e.toString());
-            }
-            */
-            return data;
         }
         public Module LoadModule(string folderAndFilename, bool fullPath)
         {
@@ -1341,9 +1207,16 @@ namespace IceBlink2
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
                                 foreach (Tile t in gv.mod.currentArea.Tiles)
                                 {
-                                    if (t.Layer1Filename == fileNameWithOutExt || t.Layer2Filename == fileNameWithOutExt || t.Layer3Filename == fileNameWithOutExt || t.Layer4Filename == fileNameWithOutExt || t.Layer5Filename == fileNameWithOutExt)
+                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
                                     {
-                                        tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                        {
+                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        }
                                         break;
                                     }
                                 }
@@ -1371,7 +1244,21 @@ namespace IceBlink2
                                 if (filename.EndsWith(".png"))
                                 {
                                     string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                    tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                    foreach (Tile t in gv.mod.currentArea.Tiles)
+                                    {
+                                        if ((t.Layer1Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer2Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer3Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer4Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                        {
+                                            if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                            {
+                                                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                            }
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                             catch (Exception ex)
@@ -1386,52 +1273,6 @@ namespace IceBlink2
             {
                 MessageBox.Show(ex.ToString());
             }
-
-
-
-            /*ANDROID WAY
-            File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG/" + gv.mod.moduleName + "/tiles");	
-            if (directory.exists())
-            {
-                for (File f : directory.listFiles()) 
-                {
-                    if (f.isFile())
-                    {
-                        try
-                        {
-                            String filename = f.getName();
-                            int pos = filename.lastIndexOf(".");
-                            String fileNameWithOutExt = pos > 0 ? filename.substring(0, pos) : filename;
-                            tileBitmapList.put(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                        }
-                        catch (Exception ex)
-                        {
-                            //int x = 0;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                AssetManager assetManager = gv.gameContext.getAssets();
-                String[] files;
-                try 
-                {
-                    files = assetManager.list("tiles");
-                    for (String filename : files)
-                    {
-                        //String filename = f.getName();
-                        int pos = filename.lastIndexOf(".");
-                        String fileNameWithOutExt = pos > 0 ? filename.substring(0, pos) : filename;
-                        tileBitmapList.put(fileNameWithOutExt, LoadBitmap(filename));
-                    }
-                } 
-                catch (IOException e) 
-                {
-                    e.printStackTrace();
-                }	        
-            }*/
         }
         public string GetModulePath()
         {
@@ -1671,28 +1512,6 @@ namespace IceBlink2
         {
             gv.sf.MessageBoxHtml(this.stringMessageMainMap);
         }
-
-        /*public void tutorialProgressReporting()
-        {
-            gv.TrackerSendScreenView("ViewProgressReporting");
-            //gv.sf.MessageBoxHtml(this.stringPlayersGuide);
-            gv.sf.MessageBoxHtml(
-					    "<big><b>PROGRESS REPORTING</b></big><br><br>" +
-					    "<small><i>(<b>Note:</b> Reporting is toggled on/off with the 'PR' button. 'PR' with red-slashed circle means Reporting is turned off)</i></small><br><br>" +
-			    	    "Progress Reporting is a fun way to share your play through experience with the rest of the IceBlink RPG community. The Progress Reports will be updated " +
-                        "and posted regularly on our forums (www.iceblinkengine.com/forums). " +
-                        "If you do not want to participate, just tap the 'PR' toggle button and when it shows a red-slashed circle it is turned off.<br><br>" +
-                        "<b><u>Included in the Progress Report:</u></b><br><br>" +
-					    "<b>2. Encounter (Start/End):</b> A short summary of all party members current stats before and after the encounter (NAME,LVL,XP,HP,SP,WEAPON).<br><br>"	+
-					    "<b>3. Major Milestone (ex. Start and End of Story, etc.):</b> Full stats report of all party members (NAME,RACE,CLASS,STR,DEX,INT,CHA,LVL,XP,HP,SP,WEAPON,TRAITS,SPELLS).<br><br>"	+
-			    	    "<b>4. Level Up:</b> Report the full stats of the PC that is leveling up (NAME,RACE,CLASS,STR,DEX,INT,CHA,LVL,XP,HP,SP,WEAPON,TRAITS,SPELLS).<br><br>" +
-                        "<b>4. Add Companion:</b> Report the full stats of the PC that is being added to the party (NAME,RACE,CLASS,STR,DEX,INT,CHA,LVL,XP,HP,SP,WEAPON,TRAITS,SPELLS).<br><br>" +
-                        "<b>4. Journal:</b> Report the name of the journal entry being added to your journal.<br><br>" +
-                        "<b>4. Convo:</b> Report the name of the NPC at the start of a conversation with the NPC.<br><br>" +
-                        "All event entries are stamped with the main PC's name and the game's current World Time (ex. Drinian:Time:00000902:Convo:Jaden)"
-					    );
-        }*/
-
         public void tutorialMessageParty(bool helpCall)
         {
             if ((gv.mod.showTutorialParty) || (helpCall))
@@ -2045,12 +1864,8 @@ namespace IceBlink2
             }
             //gv.logUpdated = false;
             gv.sf.dsWorldTime();
-            //do Module heartbeat
-            //REMOVEdoLogicTreeBasedOnTag(gv.mod.OnHeartBeatLogicTree, gv.mod.OnHeartBeatParms);
             //IBScript Module heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
-            //do Area heartbeat
-            //REMOVEdoLogicTreeBasedOnTag(gv.mod.currentArea.OnHeartBeatLogicTree, gv.mod.currentArea.OnHeartBeatParms);
             //IBScript Area heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.OnHeartBeatIBScript, gv.mod.currentArea.OnHeartBeatIBScriptParms);
             //apply effects
@@ -2068,20 +1883,17 @@ namespace IceBlink2
                 gv.screenMainMap.doFloatyTextLoop();
             }
         }
+        
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
             {
                 gv.sf.ThisProp = prp;
-                //logic tree
-                //REMOVEdoLogicTreeBasedOnTag(prp.OnHeartBeatLogicTree, prp.OnHeartBeatParms);
                 //IBScript Prop heartbeat
                 gv.cc.doIBScriptBasedOnFilename(prp.OnHeartBeatIBScript, prp.OnHeartBeatIBScriptParms);
                 gv.sf.ThisProp = null;
             }
         }
-
-        #region doPropMoves
         public void doPropMoves()
         {
 
@@ -2092,7 +1904,7 @@ namespace IceBlink2
             for (int i = gv.mod.moduleAreasObjects.Count - 1; i >= 0; i--)
             {
                 //the check for the two conditions itself; donOnEnterAreaUpdate is set in the region above 
-                if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate == true))
+                if ((gv.mod.moduleAreasObjects[i].Filename != gv.mod.currentArea.Filename) || (doOnEnterAreaUpdate))
                 {
                     for (int j = gv.mod.moduleAreasObjects[i].Props.Count - 1; j >= 0; j--)
                     {
@@ -2206,7 +2018,7 @@ namespace IceBlink2
                             }
 
                             //a waypint whose time has been reached has been found in above step, it's the youngest of these
-                            if (foundProp == true)
+                            if (foundProp)
                             {
                                 //activate the filter again for the next props in the loop
                                 foundProp = false;
@@ -2311,7 +2123,7 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (isOnCurrentAreaAlready == true)
+                                        if (isOnCurrentAreaAlready)
                                         {
                                             //we assign the index of next in line waypoint
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
@@ -2335,7 +2147,7 @@ namespace IceBlink2
                                             }
                                         }
 
-                                        if (isOnCurrentAreaAlready == true)
+                                        if (isOnCurrentAreaAlready)
                                         {
                                             //we assign the index of next in line waypoint
                                             gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointListCurrentIndex = listEndCheckedIndexOfNextWaypoint;
@@ -2597,7 +2409,7 @@ namespace IceBlink2
 
                                 }
                                 //move to next target
-                                if (mustWait == false)
+                                if (!mustWait)
                                 {
                                     this.moveToTarget(gv.mod.currentArea.Props[i].CurrentMoveToTarget.X, gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y, gv.mod.currentArea.Props[i], moveDist);
                                 }
@@ -2689,7 +2501,7 @@ namespace IceBlink2
                             if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                             {
                                
-                                if (departureTimeReached == true)
+                                if (departureTimeReached)
                                 {
                                     //already there so set next way point location (revert to index 0 if at last way point)
                                     if (gv.mod.currentArea.Props[i].WayPointListCurrentIndex >= gv.mod.currentArea.Props[i].WayPointList.Count - 1)
@@ -2739,7 +2551,7 @@ namespace IceBlink2
                                             registerRemoval = true;
                                         }
                                     }
-                                    if (registerRemoval == false)
+                                    if (!registerRemoval)
                                     {
                                         gv.mod.currentArea.Props[i].CurrentMoveToTarget.X = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X;
                                         gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
@@ -2749,7 +2561,7 @@ namespace IceBlink2
                                 }
 
                                 //move to next target
-                                if (registerRemoval == false)
+                                if (!registerRemoval)
                                 {
                                     if ((gv.mod.currentArea.Props[i].LocationX == gv.mod.currentArea.Props[i].CurrentMoveToTarget.X) && (gv.mod.currentArea.Props[i].LocationY == gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y))
                                     {
@@ -2761,13 +2573,13 @@ namespace IceBlink2
                                     }
                                 }
 
-                                if (gv.mod.debugMode && registerRemoval == false)
+                                if ((gv.mod.debugMode) && (!registerRemoval))
                                 {
                                     gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " moves " + moveDist + "</font><BR>");
                                     gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "(" + gv.mod.currentArea.Props[i].LocationX + "," + gv.mod.currentArea.Props[i].LocationY + ")", "yellow", 4000);
                                 }
                             }
-                            if (registerRemoval == false)
+                            if (!registerRemoval)
                             {
                                 doPropBarkString(gv.mod.currentArea.Props[i]);
                             }
@@ -2780,8 +2592,6 @@ namespace IceBlink2
             #endregion
 
         }
-        #endregion
-
         public void doPropBarkString(Prop prp)
         {
             List<BarkString> chosenBarks = new List<BarkString>();
@@ -2850,7 +2660,6 @@ namespace IceBlink2
                 }
             }
         }
-
         public int getMoveDistance(Prop prp)
         {
             if (gv.sf.RandInt(100) <= prp.ChanceToMove2Squares)
@@ -2897,12 +2706,11 @@ namespace IceBlink2
             }
             return new Coordinate(prp.LocationX, prp.LocationY);
         }
-
         public void moveToTarget(int targetX, int targetY, Prop prp, int moveDistance)
         {
-            if (gv.mod.useSmoothMovement == true)
+            if (gv.mod.useSmoothMovement)
             {
-                if (recursiveCall == false)
+                if (!recursiveCall)
                 {
                     fallBackSquareX = prp.LocationX;
                     fallBackSquareY = prp.LocationY;
@@ -2931,14 +2739,14 @@ namespace IceBlink2
                     {
 
                         //check whether an active mover prop is on the field found as next step on the path
-                        if ((otherProp.LocationX == newCoor.X) && (otherProp.LocationY == newCoor.Y) && (otherProp.isMover == true) && (otherProp.isActive == true))
+                        if ((otherProp.LocationX == newCoor.X) && (otherProp.LocationY == newCoor.Y) && (otherProp.isMover) && (otherProp.isActive))
                         {
                             nextStepSquareIsOccupied = true;
                             break;
                         }
                     }
 
-                    if (nextStepSquareIsOccupied == true)
+                    if (nextStepSquareIsOccupied)
                     {
 
                         bool originSquareOccupied = false;
@@ -2954,7 +2762,7 @@ namespace IceBlink2
                             //Note: moving along path, double move, wont work when the target square is the destination square, i.e. the end of the path
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
                             {
-                                if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
+                                if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover) && (otherProp2.isActive))
                                 {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
@@ -2967,7 +2775,7 @@ namespace IceBlink2
                             int decider2 = rnd2.Next(0, 10);
                             //another step forward, ie (at least) 2 steps on path
                             //check whether to stay on origin square ("step back")
-                            if ((originSquareOccupied == false) && (decider2 < 9))
+                            if ((!originSquareOccupied) && (decider2 < 9))
                             {                   
                                 return;
                             }
@@ -2989,7 +2797,7 @@ namespace IceBlink2
                             //check whether origin square is occupied, too 
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
                             {
-                                if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover == true) && (otherProp2.isActive == true))
+                                if ((otherProp2.LocationX == prp.LocationX) && (otherProp2.LocationY == prp.LocationY) && (otherProp2.isMover) && (otherProp2.isActive))
                                 {
                                     if (otherProp2.PropTag != prp.PropTag)
                                     {
@@ -2999,7 +2807,7 @@ namespace IceBlink2
                                 }
                             }
                             //origin square is occupied, waiting is no option therefore, so we must do (at least) double move forward (target square is occupied, too)
-                            if (originSquareOccupied == true)
+                            if (originSquareOccupied)
                             {
                                 //careful, watch for infinite loop, recursive calling here
                                 prp.LocationX = newCoor.X;
@@ -3541,10 +3349,10 @@ namespace IceBlink2
                     //iterate through each event                  
                     //#region Event1 stuff
                     //check to see if enabled and parm not "none"
-                    for (int i = 0; i < 15; i++)
+                    /*for (int i = 0; i < 15; i++)
                     {
                         gv.Render();
-                    }
+                    }*/
                     gv.triggerIndex++;
 
                     if ((gv.triggerIndex == 1) && (trig.EnabledEvent1) && (!trig.Event1FilenameOrTag.Equals("none")))
@@ -3570,11 +3378,6 @@ namespace IceBlink2
                                 doConversationBasedOnTag(trig.Event1FilenameOrTag);
                             }
                         }
-                        /*//REMOVEelse if (trig.Event1Type.Equals("logictree"))
-                        {
-                            doLogicTreeBasedOnTag(trig.Event1FilenameOrTag, trig.Event1Parm1);
-                            doTrigger();
-                        }*/
                         else if (trig.Event1Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event1FilenameOrTag);
@@ -3621,11 +3424,6 @@ namespace IceBlink2
                                 doConversationBasedOnTag(trig.Event2FilenameOrTag);
                             }
                         }
-                        /*//REMOVEelse if (trig.Event2Type.Equals("logictree"))
-                        {
-                            doLogicTreeBasedOnTag(trig.Event2FilenameOrTag, trig.Event2Parm1);
-                            doTrigger();
-                        }*/
                         else if (trig.Event2Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event2FilenameOrTag);
@@ -3672,11 +3470,6 @@ namespace IceBlink2
                                 doConversationBasedOnTag(trig.Event3FilenameOrTag);
                             }
                         }
-                        /*//REMOVEelse if (trig.Event3Type.Equals("logictree"))
-                        {
-                            doLogicTreeBasedOnTag(trig.Event3FilenameOrTag, trig.Event3Parm1);
-                            doTrigger();
-                        }*/
                         else if (trig.Event3Type.Equals("encounter"))
                         {
                             doEncounterBasedOnTag(trig.Event3FilenameOrTag);
@@ -3728,88 +3521,6 @@ namespace IceBlink2
                 Container container = gv.mod.getContainerByTag(tag);
                 gv.screenType = "itemSelector";
                 gv.screenItemSelector.resetItemSelector(container.containerItemRefs, "container", "main");
-                //foreach (ItemRefs itRef in container.containerItemRefs)
-                //{
-                //    containerItems.Add(itRef.name);
-                //}
-
-
-                /*
-                final CharSequence[] items = containerItems.toArray(new CharSequence[containerItems.size()]);
-                // Creating and Building the Dialog 
-                AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-                builder.setTitle("Container of Items");
-                builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
-				
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        if (isChecked) 
-                        {
-                            // if the user checked the item, add it to the selected items
-                            mSelectedItems.add(which);
-                        }		         
-                        else if (mSelectedItems.contains(which)) 
-                        {
-                            // else if the item is already in the array, remove it 
-                            mSelectedItems.remove(Integer.valueOf(which));
-                        }		             
-                        // you can also add other codes here, 
-                        // for example a tool tip that gives user an idea of what he is selecting
-                        // showToast("Just an example description.");                	
-                    }
-                });
-                */
-
-                /*
-                // Set the action buttons
-                builder.setPositiveButton("Take Selected", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) 
-                    {                     
-                        // user clicked OK, so save the mSelectedItems results somewhere
-                        // here we are trying to retrieve the selected items indices
-                        for(Integer i : mSelectedItems)
-                        {
-                    	    ItemRefs s = container.containerItemRefs.get(i);
-                    	    //Item it = gv.mod.getItemByResRef(s.resref);
-                    	    gv.mod.partyInventoryRefsList.add(s.DeepCopy());
-                    	    //gv.mod.partyInventoryList.add(it.DeepCopy());
-                    	    //gv.mod.partyInventoryTagList.add(it.tag);
-                            //container.containerItemTags.remove(s);
-                        }
-                        for (int x = container.containerItemRefs.size() - 1; x >= 0; x--)
-                        {
-                    	    for (Integer i : mSelectedItems)
-                    	    {
-                    		    if (x == i)
-                    		    {
-                    			    container.containerItemRefs.remove(x);
-                    			    break;
-                    		    }
-                    	    }
-                        }
-                        gv.ActionDialog.dismiss();
-                        gv.invalidate();
-                    }
-                });*/
-                /*
-                builder.setNegativeButton("Take All", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) 
-                    {
-                	    for(ItemRefs s : container.containerItemRefs)
-                        {
-                    	    //Item it = gv.mod.getItemByResRef(s.resref);
-                    	    //gv.mod.partyInventoryList.add(it.DeepCopy());
-                    	    gv.mod.partyInventoryRefsList.add(s.DeepCopy());                        
-                        }
-                	    container.containerItemRefs.clear();
-                	    gv.ActionDialog.dismiss();
-                	    gv.invalidate();
-                    }
-                });
-                gv.ActionDialog = builder.create();
-                gv.ActionDialog.show();*/
             }
             catch (Exception ex)
             {
@@ -3830,21 +3541,6 @@ namespace IceBlink2
                 gv.sf.MessageBox("failed to open conversation with tag: " + tag);
             }
         }
-        /*public void doLogicTreeBasedOnTag(string tag, string parms)
-        {
-            try
-            {
-                if (!tag.Equals("none"))
-                {
-                    LoadCurrentLogicTree(tag);
-                    gv.logicTreeRun.startLogicTree(parms);
-                }
-            }
-            catch (Exception ex)
-            {
-                gv.sf.MessageBox("failed to run LogicTree: " + tag);
-            }
-        }*/
         public void doSpellBasedOnTag(string spellTag, object source, object target)
         {
             //WIZARD SPELLS
@@ -3953,7 +3649,7 @@ namespace IceBlink2
                 gv.sf.MessageBox("failed to run IBScript: " + filename);
             }
         }
-        public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
+        /*public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
         {
             if (!filename.Equals("none"))
             {
@@ -4085,7 +3781,7 @@ namespace IceBlink2
                     //IBMessageBox.Show(game, "failed to run script");
                 }
             }
-        }
+        }*/
         public void doEncounterBasedOnTag(string name)
         {
             try
@@ -4129,6 +3825,7 @@ namespace IceBlink2
                     gv.stopAmbient();
                 }
                 gv.mod.setCurrentArea(areaFilename, gv);
+                gv.screenMainMap.resetMiniMapBitmap();
                 doOnEnterAreaUpdate = true;
                 doPropMoves();
                 doOnEnterAreaUpdate = false;
@@ -4186,17 +3883,6 @@ namespace IceBlink2
             else
                 dist = deltaY;
             return dist;
-        }
-        public void LoadBitmapUI(string filename)
-        {
-            //filename should NOT have the extension
-            //if already in list then just return
-            if (uiBitmapList.ContainsKey(filename))
-            {
-                return;
-            }
-            //add to list
-            uiBitmapList.Add(filename, LoadBitmap(filename));
         }
         public System.Drawing.Bitmap LoadBitmapGDI(string filename) //change this to LoadBitmapGDI
         {

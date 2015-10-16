@@ -178,11 +178,4 @@ namespace IceBlink2
             }
         }
     }
-
-    public enum buttonState
-    {
-        Normal,
-        On,
-        Off        
-    }
 }
