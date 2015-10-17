@@ -97,8 +97,7 @@ namespace IceBlink2
 		public int indexOfPCtoLastUseItem = 0;
 	    public bool com_showGrid = false;
 	    public bool map_showGrid = false;
-        public bool sendProgressReport = true;
-	    public bool playMusic = false;
+        public bool playMusic = false;
 	    public bool playSoundFx = false;
 	    public bool playButtonSounds = false;
 	    public bool playButtonHaptic = false;
@@ -109,8 +108,8 @@ namespace IceBlink2
 	    public bool allowAutosave = true;
 	    public int combatAnimationSpeed = 100;
 	    public float soundVolume = 1.0f;
-	    public string OnHeartBeatLogicTree = "none";
-	    public string OnHeartBeatParms = "";
+	    //public string OnHeartBeatLogicTree = "none";
+	    //public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
         public bool showInteractionState = false;
@@ -159,7 +158,7 @@ namespace IceBlink2
                     {                    
                         this.currentArea = area;
         			    gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
-                        gv.cc.LoadTileBitmapList();
+                        //TODO gv.cc.LoadTileBitmapList();
         			    foreach (Prop p in this.currentArea.Props)
         			    {
         				    p.token = gv.cc.LoadBitmap(p.ImageFileName);

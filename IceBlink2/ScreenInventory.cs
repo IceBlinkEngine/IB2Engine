@@ -21,8 +21,7 @@ namespace IceBlink2
 	    private IbbButton btnHelp = null;
 	    private IbbButton btnInfo = null;
 	    private IbbButton btnReturn = null;
-	    private bool dialogOpen = false;
-        private IbbHtmlTextBox description;
+	    private IbbHtmlTextBox description;
 	
 	    public ScreenInventory(Module m, GameView g)
 	    {
@@ -188,26 +187,19 @@ namespace IceBlink2
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
-            //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-    	    int tabX = pW * 4;
+            int tabX = pW * 4;
     	    int tabX2 = 5 * gv.squareSize + pW * 2;
     	    int leftStartY = pH * 4;
     	    int tabStartY = 5 * gv.squareSize + pW * 10;
     	
-            //gv.gCanvas.Clear(Color.Black);
-    	    //canvas.drawColor(Color.DKGRAY);
-		    
-		    //DRAW TEXT		
+            //DRAW TEXT		
 		    locY = gv.squareSize + (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-            gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY);
+		    gv.DrawText("Party", locX + (gv.squareSize * 5) + pW * 2, locY);
             gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing);
 		    locY = gv.squareSize + (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-            gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY);
+		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY);
             gv.DrawText("Gold: " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
@@ -221,26 +213,6 @@ namespace IceBlink2
 		    {
 			    if (cntSlot == inventorySlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
-			    /*if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
-			    {
-				    Item it = mod.getItemByResRefForInfo(mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
-				    //Item it = mod.partyInventoryRefsList.get(cntSlot + (inventoryPageIndex * slotsPerPage).resref);
-				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
-				    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
-				    if (itr.quantity > 1)
-				    {
-					    btn.Quantity = itr.quantity + "";
-				    }
-				    else
-				    {
-					    btn.Quantity = "";
-				    }
-			    }
-			    else
-			    {
-				    btn.Img2 = null;
-				    btn.Quantity = "";
-			    }*/
 			    btn.Draw();
 			    cntSlot++;
 		    }
@@ -278,9 +250,7 @@ namespace IceBlink2
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
-                //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-
+                
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
@@ -583,8 +553,7 @@ namespace IceBlink2
 		    {
     		    ItemRefs itRef = GetCurrentlySelectedItemRefs();
     		    Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
-    		    //gv.cc.currentPlayerIndexUsingItem = pcIndex;
-                gv.mod.indexOfPCtoLastUseItem = pcIndex;
+    		    gv.mod.indexOfPCtoLastUseItem = pcIndex;
                 //do IBScript
                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
                 if (it.destroyItemAfterOnUseItemIBScript)

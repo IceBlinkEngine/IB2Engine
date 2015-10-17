@@ -64,11 +64,7 @@ namespace IceBlink2
 	    //CONVO SCREEN
 	    public void redrawConvo()
         {
-            //gv.gCanvas.Clear(Color.Black);
-    	    //canvas.drawColor(Color.BLACK);
-    	
-		    //drawConvoControls(canvas);
-		    drawPortrait();
+            drawPortrait();
 		    drawNpcNode();
 		    drawPcNode();	 
 		
@@ -89,11 +85,12 @@ namespace IceBlink2
 		    }
         }
 	    public void drawPortrait()
-	    {		
-		    int sX = gv.squareSize * 2;
-		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
+	    {
+            int pH = (int)((float)gv.screenHeight / 100.0f);
+		    int sX = gv.squareSize * 1;
+		    int sY = pH * 4;
             IbRect src = new IbRect(0, 0, convoBitmap.PixelSize.Width, convoBitmap.PixelSize.Height);
-            IbRect dst = new IbRect(sX, sY, convoBitmap.PixelSize.Width * 2, convoBitmap.PixelSize.Height * 2);
+            IbRect dst = new IbRect(sX, sY, (int)(convoBitmap.PixelSize.Width * 2 * gv.screenDensity), (int)(convoBitmap.PixelSize.Height * 2 * gv.screenDensity));
 
             if (convoBitmap.PixelSize.Width == convoBitmap.PixelSize.Height)
             {
@@ -117,19 +114,20 @@ namespace IceBlink2
 	    }
 	    public void drawNpcNode()
 	    {
-            int startX = gv.squareSize * 5;
-		    int startY = (int)((float)gv.screenHeight / 100.0f) * 4;
-            int width = gv.squareSize * 12;
+            int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
+            int startX = gv.squareSize * 3 + (pW * 3);
+            int startY = pH * 4;
+            int width = gv.screenWidth - startX - (pW * 5);
 		
 		    if (currentConvo.Narration)
             {
                 if (!currentConvo.NpcPortraitBitmap.Equals("")) //Narration with image
                 {
                     //do narration with image setup
-                    startX = gv.squareSize * 2;
-                    startY = gv.squareSize * 4 + (pH * 10);
-                    width = gv.squareSize * 16;
+                    startX = gv.squareSize * 1;
+                    startY = gv.squareSize * 5;
+                    width = gv.screenWidth - startX - startX;
                 }
                 else //Narration without image
                 {
@@ -139,9 +137,7 @@ namespace IceBlink2
             //Node Rectangle Text
             string textToSpan = "";
             textToSpan = currentNpcNode;            
-            //IbRect rect = new IbRect(startX, startY, width, pH * 50);
-            //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-
+            
             htmltext.tbXloc = startX;
             htmltext.tbYloc = startY;
             htmltext.tbWidth = width;
@@ -162,9 +158,9 @@ namespace IceBlink2
 
             int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int pad = (int)((float)gv.screenHeight / 100.0f);
-		    int startX = gv.squareSize * 3;
+		    int startX = gv.squareSize * 1;
 		    int sY = (int)((float)gv.screenHeight / 100.0f) * 4;
-		    int startY = gv.squareSize * 5;		
+		    int startY = gv.squareSize * 4;		
 		    int width = gv.screenWidth - startX - startX;
 
 		    if (currentConvo.Narration)
@@ -187,17 +183,10 @@ namespace IceBlink2
             int cnt = 1;
             foreach (string txt in currentPcNodeList)
             {
-                //Node Rectangle Text
-                //SizeF textSize = gv.cc.MeasureString(txt, gv.drawFontReg, width);
-                //CoordinateF textSize = gv.cc.MeasureStringSize(txt, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
-                //textSize.Height += textSize.Height;
-                
-                //IbRect rect = new IbRect(startX, startY, width, pH * 50);
                 string textToSpan = txt;
                 if (pcNodeGlow == cnt)
                 {
                     textToSpan = "<font color='red'>" + txt + "</font>";
-                    //gv.DrawText(txt, rect, 1.0f, Color.Red);
                 }
                 
                 htmltext.tbXloc = startX;
@@ -219,39 +208,12 @@ namespace IceBlink2
                 startY += (int)gv.drawFontRegHeight + pad;
                 cnt++;
             }
-
-            /*TODO
-		    TextPaint tp = new TextPaint();
-            tp.setColor(Color.WHITE);
-            tp.setTextSize(gv.mUiTextPaint.getTextSize());
-            tp.setTextAlign(Align.LEFT);
-            tp.setAntiAlias(true);
-            tp.setTypeface(gv.uiFont);
-        
-            int cnt = 1;
-            foreach (string txt in currentPcNodeList)
-            {
-        	    Spanned htmlText = Html.fromHtml(txt);
-        	    if (pcNodeGlow == cnt)
-        	    {
-        		    htmlText = Html.fromHtml("<font color='red'>" + txt + "</font>");
-        	    }
-                StaticLayout sl = new StaticLayout(htmlText, tp, width, Layout.Alignment.ALIGN_NORMAL, 1, 0, false);
-                currentPcNodeRectList.add(new Rect(startX, startY, startX + sl.getWidth(), startY + sl.getHeight()));
-                canvas.translate(startX, startY);
-                sl.draw(canvas);
-                canvas.translate(-startX, -startY);
-                startY += sl.getHeight() + pad;
-                cnt++;
-            }
-            */
 	    }
 
 	    public void onTouchConvo(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
 		    pcNodeGlow = -1;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -315,7 +277,6 @@ namespace IceBlink2
 	    }
         public void onKeyUp(Keys KeyCode)
         {
-            //Toast.makeText(gv.gameContext, "pressed a keyCode: " + keyCode + " and event: " + event.toString(), Toast.LENGTH_SHORT).show();
             if (((KeyCode == Keys.D1) || (KeyCode == Keys.NumPad1)) && (1 <= nodeIndexList.Count))
             {
                 selectedLine(0);
@@ -345,9 +306,7 @@ namespace IceBlink2
 	    //methods
 	    public void startConvo()
         {
-            //gv.TrackerSendEventConvo(currentConvo.ConvoFileName);
-
-		    if (currentConvo.SpeakToMainPcOnly)
+            if (currentConvo.SpeakToMainPcOnly)
 		    {
                 int x = 0;
                 foreach (Player pc in gv.mod.playerList)
@@ -393,9 +352,6 @@ namespace IceBlink2
             }
             // load image for convo
             loadNodePortrait();              
-            //pictureBox1.Image = (Image)convoBitmap;
-            //loadConvoPlusImage();              
-            //refreshPcPortraits();        
             doActions = true;            
             doConvo(parentIdNum); // load up the text for the NPC node and all PC responses
         }
@@ -495,7 +451,6 @@ namespace IceBlink2
                         break;
                     }
                 }
-                //MessageBox.Show("script: " + conditional.c_script + "  variable: " + conditional.c_parameter_1 + "  value: " + conditional.c_parameter_2);
             }
             return check;
 	    }
@@ -633,8 +588,7 @@ namespace IceBlink2
             if (btnIndex < nodeIndexList.Count)
             {
         	    int index = nodeIndexList[btnIndex];
-                #region send choosen text to the main screen log   
-        	    string NPCname = "";
+                string NPCname = "";
 	            ContentNode selectedNod = currentConvo.GetContentNodeById(parentIdNum).subNodes[index];
 	            if ((selectedNod.NodeNpcName.Equals("")) || (selectedNod.NodeNpcName == null) || (selectedNod.NodeNpcName.Length <= 0))
 	            {
@@ -644,17 +598,13 @@ namespace IceBlink2
 	            {
 	                NPCname = selectedNod.NodeNpcName;
 	            }
-	            //String npcNode = replaceText(rtxtNPC.Text);
-                string npcNode = replaceText(currentConvo.GetContentNodeById(parentIdNum).conversationText);
-	            //String pcNode = replaceText(selectedNod.conversationText);
-                string pcNode = replaceText(selectedNod.conversationText);
-	            //doScriptBasedOnFilename("dsAdventureMapConvoLog.cs", npcNode, NPCname, pcNode, mod.playerList.get(mod.selectedPartyLeader).name);
-                //write to log
+	            string npcNode = replaceText(currentConvo.GetContentNodeById(parentIdNum).conversationText);
+	            string pcNode = replaceText(selectedNod.conversationText);
+	            //write to log
                 gv.cc.addLogText("<font color='yellow'>" + NPCname + ": </font>" +
                                  "<font color='silver'>" + npcNode + "<br>" + "</font>" +
                                  "<font color='aqua'>" + mod.playerList[mod.selectedPartyLeader].name + ": </font>" +
                                  "<font color='silver'>" + pcNode + "</font>");
-	            #endregion
 	
 	            int childIdNum = currentConvo.GetContentNodeById(parentIdNum).subNodes[index].idNum;
 	            // if PC node choosen was a linked node, then return the idNum of the linked node
@@ -698,8 +648,7 @@ namespace IceBlink2
         }    
         public string replaceText(string originalText)
         {
-            //Player pc = mod.playerList.get(mod.selectedPartyLeader);
-    	    //for The Raventhal, always assumed that main PC is talking
+            //for The Raventhal, always assumed that main PC is talking
             Player pc = mod.playerList[mod.selectedPartyLeader];
             string newString = originalText;
         

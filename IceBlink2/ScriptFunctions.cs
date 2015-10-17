@@ -4096,12 +4096,11 @@ namespace IceBlink2
             pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
             pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
             pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
-            //SD_20131124 Start
             pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
             if (pc.damageTypeResistanceTotalAcid > 100) { pc.damageTypeResistanceTotalAcid = 100; }
             pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc);
             if (pc.damageTypeResistanceTotalNormal > 100) { pc.damageTypeResistanceTotalNormal = 100; }
-            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcAcidModifiers(pc);
+            pc.damageTypeResistanceTotalCold = pc.race.damageTypeResistanceValueCold + CalcColdModifiers(pc);
             if (pc.damageTypeResistanceTotalCold > 100) { pc.damageTypeResistanceTotalCold = 100; }
             pc.damageTypeResistanceTotalElectricity = pc.race.damageTypeResistanceValueElectricity + CalcElectricityModifiers(pc);
             if (pc.damageTypeResistanceTotalElectricity > 100) { pc.damageTypeResistanceTotalElectricity = 100; }
@@ -4111,8 +4110,7 @@ namespace IceBlink2
             if (pc.damageTypeResistanceTotalMagic > 100) { pc.damageTypeResistanceTotalMagic = 100; }
             pc.damageTypeResistanceTotalPoison = pc.race.damageTypeResistanceValuePoison + CalcPoisonModifiers(pc);
             if (pc.damageTypeResistanceTotalPoison > 100) { pc.damageTypeResistanceTotalPoison = 100; }
-            //SD_20131124 End
-            //pc.BaseAttBonus = (int)((double)pc.ClassLevel * pc.Class.BabMultiplier) + CalcBABAdders(pc);
+            
             if (pc.playerClass.babTable.Length > 0)//SD_20131115
             {
                 pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
@@ -4500,7 +4498,6 @@ namespace IceBlink2
         //DEFAULT SCRIPTS
         public void dsWorldTime()
         {
-            //mod.WorldTime +=  mod.TimePerRound;
             mod.WorldTime += mod.currentArea.TimePerSquare;
             //Code: Bleed to death at -20 hp
             spCnt++;

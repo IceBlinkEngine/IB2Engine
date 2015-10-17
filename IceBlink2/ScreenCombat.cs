@@ -50,10 +50,7 @@ namespace IceBlink2
 	    private Bitmap ending_fx;	    
 	    private Bitmap mapBitmap;
 
-        public int totalStartingHp = 0;
-        public int totalStartingSp = 0;
-
-	    private IbbButton btnSelect = null;
+        private IbbButton btnSelect = null;
 	    private IbbButton btnMove = null;
 	    private IbbButton btnAttack = null;
 	    private IbbButton btnCast = null;
@@ -836,6 +833,10 @@ namespace IceBlink2
             {
                 mapBitmap = gv.cc.LoadBitmap(mod.currentEncounter.MapImage);
             }
+            else //loads only the tiles that are used on this encounter map
+            {
+                //TODO gv.cc.LoadTileBitmapList();
+            }
             //Load up all creature stuff
             foreach (CreatureRefs crf in mod.currentEncounter.encounterCreatureRefsList)
             {
@@ -881,8 +882,6 @@ namespace IceBlink2
             tutorialMessageCombat(false);
             //IBScript Setup Combat Hook (run only once)
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnSetupCombatIBScript, gv.mod.currentEncounter.OnSetupCombatIBScriptParms);
-            //LogicTree Start Combat
-            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
             //determine initiative
@@ -1048,10 +1047,8 @@ namespace IceBlink2
                 RunAllItemCombatRegenerations(pc);
             }
             applyEffectsCombat();
-            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatRoundLogicTree, gv.mod.currentEncounter.OnStartCombatRoundParms);
             //IBScript Start Combat Round Hook
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatRoundIBScript, gv.mod.currentEncounter.OnStartCombatRoundIBScriptParms);
-            //startPcTurn();
             turnController();
         }
         public void doBattleRegenTrait()
@@ -1327,8 +1324,6 @@ namespace IceBlink2
             Player pc = mod.playerList[currentPlayerIndex];
             gv.sf.UpdateStats(pc);
             currentMoves = 0;
-            //do onTurn LT
-            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
 
@@ -1397,8 +1392,6 @@ namespace IceBlink2
                         {
                             drawHitAnimation = true;
                             hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
-                            //gv.Invalidate();
                             gv.Render();
                             animationState = AnimationState.CreatureHitAnimation;
                             gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
@@ -1407,8 +1400,6 @@ namespace IceBlink2
                         {
                             drawMissAnimation = true;
                             hitAnimationLocation = new Coordinate(getPixelLocX(crtLocX), getPixelLocY(crtLocY));
-                            //hitAnimationLocation = new Coordinate(crtLocX * gv.squareSize, crtLocY * gv.squareSize);
-                            //gv.Invalidate();
                             gv.Render();
                             animationState = AnimationState.CreatureMissedAnimation;
                             gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
@@ -1443,9 +1434,8 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
                         "<BR>");
 
-                //#region onScoringHit script of creature
                 doOnHitScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).onScoringHit, crt, pc);
-                //#endregion 
+                 
                 Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
@@ -1476,8 +1466,6 @@ namespace IceBlink2
                             {
                                 try
                                 {
-                                    //do OnDeath LOGIC TREE
-                                    //REMOVEgv.cc.doLogicTreeBasedOnTag(crt.onDeathLogicTree, crt.onDeathParms);
                                     //do OnDeath IBScript
                                     gv.cc.doIBScriptBasedOnFilename(crt.onDeathIBScript, crt.onDeathIBScriptParms);
                                     mod.currentEncounter.encounterCreatureList.RemoveAt(x);
@@ -1542,24 +1530,6 @@ namespace IceBlink2
             }
             canMove = true;
             turnController();
-            /*currentPlayerIndex++;
-            if (currentPlayerIndex >= mod.playerList.Count)
-            {
-                currentPlayerIndex = 0;
-                creatureIndex = 0;
-                if (mod.currentEncounter.encounterCreatureList.Count > 0)
-                {
-                    isPlayerTurn = false;
-                    gv.touchEnabled = false;
-                    currentCombatMode = "info";
-                    doCreatureTurn();
-                }
-            }
-            else
-            {
-                currentCombatMode = "info";
-                startPcTurn();
-            }*/
         }
         public void doStealthModeCheck(Player pc)
         {
@@ -1597,19 +1567,11 @@ namespace IceBlink2
             {
                 pc.steathModeOn = true;
                 gv.cc.addLogText("<font color='lime'> stealth ON: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
-                if (mod.debugMode) //SD_20131102
-                {
-                    //gv.cc.addLogText("<font color='yellow'> stealth: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
-                }
             }
             else
             {
                 pc.steathModeOn = false;
                 gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
-                if (mod.debugMode) //SD_20131102
-                {
-                    //gv.cc.addLogText("<font color='yellow'> stealth: " + roll + "+" + attMod + "+" + skillMod + "<" + DC + "</font><BR>");
-                }
             }
         }
         public void doPlayerCombatFacing(Player pc, int tarX, int tarY)
@@ -1629,14 +1591,10 @@ namespace IceBlink2
 	    public void doCreatureTurn()
 	    {
 		    canMove = true;
-		    //gv.cc.logScrollOffset = 0;
 		    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];            
-		    //do onStartTurn LogicTree 
-            //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnStartCombatTurnLogicTree, gv.mod.currentEncounter.OnStartCombatTurnParms);
-            //do onStartTurn IBScript
+		    //do onStartTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
             creatureMoves = 0;
-            //IBMessageBox.Show(gv, "run do cretaure TURN");
             doCreatureNextAction();
 	    }
         public void  doCreatureNextAction()
@@ -1647,11 +1605,8 @@ namespace IceBlink2
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
-                //gv.Invalidate();
                 gv.Render();
-                //IBMessageBox.Show(gv, "run do cretaure next action");
                 animationState = AnimationState.CreatureThink;
-                //IBMessageBox.Show(gv, "callling do danimation");
                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
             }
             else
@@ -1704,7 +1659,6 @@ namespace IceBlink2
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             if (creatureMoves + 0.5f < crt.moveDistance)
 		    {
-			    //Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
 			    Player pc = targetClosestPC(crt);
 			    //run pathFinder to get new location
 			    if (pc != null)
@@ -1714,7 +1668,6 @@ namespace IceBlink2
 				    if ((newCoor.X == -1) && (newCoor.Y == -1))
 				    {
 					    //didn't find a path, don't move
-                        //gv.Invalidate();
                         gv.Render();
 			    	    endCreatureTurn();
 					    return;
@@ -1728,12 +1681,10 @@ namespace IceBlink2
                         {
                             if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
-                                //TODO					    crt.token= gv.cc.flip(crt.token);
                                 crt.combatFacingLeft = true;
                             }
                             else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
                             {
-                                //TODO					    crt.token= gv.cc.flip(crt.token);
                                 crt.combatFacingLeft = false;
                             }
                             //CHANGE FACING BASED ON MOVE
@@ -1757,29 +1708,26 @@ namespace IceBlink2
                             if ((newCoor.X == -1) && (newCoor.Y == -1))
                             {
                                 //didn't find a path, don't move
-                                //gv.Invalidate();
                                 gv.Render();
                                 endCreatureTurn();
                                 return;
                             }
-                                if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
-                                {
-                                    //TODO					    crt.token= gv.cc.flip(crt.token);
-                                    crt.combatFacingLeft = true;
-                                }
-                                else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
-                                {
-                                    //TODO					    crt.token= gv.cc.flip(crt.token);
-                                    crt.combatFacingLeft = false;
-                                }
-                                //CHANGE FACING BASED ON MOVE
-                                doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
-                                moveCost = 1;
-                                crt.combatLocX = newCoor.X;
-                                crt.combatLocY = newCoor.Y;
-                                canMove = false;
-                                animationState = AnimationState.CreatureMove;
-                                gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
+                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            {
+                                crt.combatFacingLeft = true;
+                            }
+                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            {
+                                crt.combatFacingLeft = false;
+                            }
+                            //CHANGE FACING BASED ON MOVE
+                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            moveCost = 1;
+                            crt.combatLocX = newCoor.X;
+                            crt.combatLocY = newCoor.Y;
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
                         }
                         //less than one move point, no move
                         else
@@ -1794,12 +1742,10 @@ namespace IceBlink2
                     {
                         if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                         {
-                            //TODO					    crt.token= gv.cc.flip(crt.token);
                             crt.combatFacingLeft = true;
                         }
                         else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
                         {
-                            //TODO					    crt.token= gv.cc.flip(crt.token);
                             crt.combatFacingLeft = false;
                         }
                         //CHANGE FACING BASED ON MOVE
@@ -1813,7 +1759,6 @@ namespace IceBlink2
 			    }
 			    else //no target found
 			    {
-                    //gv.Invalidate();
                     gv.Render();
 		    	    endCreatureTurn();
 				    return;
@@ -1822,7 +1767,6 @@ namespace IceBlink2
             //less than a move point left, no move
 		    else
 		    {
-                //gv.Invalidate();
                 gv.Render();
 	    	    endCreatureTurn();
 			    return;
@@ -1843,39 +1787,31 @@ namespace IceBlink2
 	        		    && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
 	        		    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
 	            {
-	                //Point starting = new Point((crt_pt.CombatLocation.X * gm._squareSize) + (gm._squareSize / 2), (crt_pt.CombatLocation.Y * gm._squareSize) + (gm._squareSize / 2));
-	                //Point ending = new Point((char_pt.CombatLocation.X * gm._squareSize) + (gm._squareSize / 2), (char_pt.CombatLocation.Y * gm._squareSize) + (gm._squareSize / 2));
-	                //frm.currentCombat.playCreatureAttackSound(crt_pt);
-	        	    //play attack sound for ranged
+	                //play attack sound for ranged
 	        	    gv.PlaySound(crt.cr_attackSound);
-	                //frm.currentCombat.drawProjectile(starting, ending, crt_pt.ProjectileSpriteFilename);
-	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+	                if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
         		    {
-//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = true;
         		    }
         		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
         		    {
-//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
                     //CHANGE FACING BASED ON ATTACK
                     doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
 	                if (crt.hp > 0)
 	                {
-	            	    //doStandardCreatureAttack(crt, pc);
 	            	    creatureToAnimate = crt;
 	    	            playerToAnimate = null;
-                        //gv.Invalidate();
                         gv.Render();
 	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
 	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
-                        int speed = gv.sf.GetGlobalInt("animationSpeed");
-                        if (speed < 1)
-                        {
-                            speed = 50;
-                        }
-	    	            gv.postDelayed("doAnimation", 5 * speed);
+                        //int speed = gv.sf.GetGlobalInt("animationSpeed");
+                        //if (speed < 1)
+                        //{
+                        //    speed = 50;
+                        //}
+                        gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
 	                }
 	                else
 	                {
@@ -1887,31 +1823,26 @@ namespace IceBlink2
 	            {
 	        	    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
         		    {
-//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = true;
         		    }
         		    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
         		    {
-//TODO        			    crt.token= gv.cc.flip(crt.token);
         			    crt.combatFacingLeft = false;
         		    }
                     //CHANGE FACING BASED ON ATTACK
                     doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
 	                if (crt.hp > 0)
 	                {
-	            	    //doStandardCreatureAttack(crt, pc);	            	
 	            	    creatureToAnimate = crt;
 	    	            playerToAnimate = null;
-                        //gv.Invalidate();
                         gv.Render();
 	    	            animationState = AnimationState.CreatureMeleeAttackAnimation;
-                        int speed = gv.sf.GetGlobalInt("animationSpeed");
-                        if (speed == -1)
-                        {
-                            speed = 50;
-                        }
-	    	            gv.postDelayed("doAnimation", 5 * speed);
-	            	    //creatureTurnState = "attackAnim";
+                        //int speed = gv.sf.GetGlobalInt("animationSpeed");
+                        //if (speed == -1)
+                        //{
+                        //    speed = 50;
+                        //}
+                        gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
 	                }
 	                else
 	                {
@@ -1960,29 +1891,25 @@ namespace IceBlink2
             {
                 if ((pnt.X < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
     		    {
-//TODO    			    crt.token= gv.cc.flip(crt.token);
     			    crt.combatFacingLeft = true;
     		    }
     		    else if ((pnt.X > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
     		    {
-//TODO    			    crt.token= gv.cc.flip(crt.token);
     			    crt.combatFacingLeft = false;
     		    }
                 //CHANGE FACING BASED ON ATTACK
                 doCreatureCombatFacing(crt, pnt.X, pnt.Y);
         	    creatureTargetLocation = pnt;
-        	    //touchEnabled = false;
-			    creatureToAnimate = crt;
+        	    creatureToAnimate = crt;
 	            playerToAnimate = null;
-                //gv.Invalidate();
                 gv.Render();
 	            animationState = AnimationState.CreatureCastAttackAnimation;
-                int speed = gv.sf.GetGlobalInt("animationSpeed");
+                /*int speed = gv.sf.GetGlobalInt("animationSpeed");
                 if (speed == -1)
                 {
                     speed = 50;
-                }
-	            gv.postDelayed("doAnimation", 5 * speed);
+                }*/
+                gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
 	                    
             }
             else
@@ -2014,32 +1941,26 @@ namespace IceBlink2
 
             if (crt.cr_ai.Equals("BasicAttacker"))
             {
-                /*if (sf.frm.debugMode)
+                if (gv.mod.debugMode)
                 {
-                    c.logText(crt.Name, Color.LightGray);
-                    c.logText(" is a BasicAttacker", Color.Black);
-                    c.logText(Environment.NewLine, Color.Black);
-                }*/
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                }
                 BasicAttacker(crt);
             }        
             else if (crt.cr_ai.Equals("GeneralCaster"))
             {
-                /*if (sf.frm.debugMode)
+                if (gv.mod.debugMode)
                 {
-                    c.logText(crt.Name, Color.LightGray);
-                    c.logText(" is a GeneralCaster", Color.Black);
-                    c.logText(Environment.NewLine, Color.Black);                    
-                }*/
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a GeneralCaster</font><BR>");
+                }
                 GeneralCaster(crt);
             }        
             else
             {
-                /*if (sf.frm.debugMode)
+                if (gv.mod.debugMode)
                 {
-                    c.logText(crt.Name, Color.LightGray);
-                    c.logText(" is a BasicAttacker", Color.Black);
-                    c.logText(Environment.NewLine, Color.Black);                    
-                }*/
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                }
                 BasicAttacker(crt);
             }
 	    }
@@ -2060,20 +1981,10 @@ namespace IceBlink2
                 Spell sp = mod.getSpellByTag(crt.knownSpellsTags[rnd-1]);
                 if (sp != null)
                 {
-                    /*if (sf.frm.debugMode)
-                    {
-                        c.logText("KnownSpell: " + sp.SpellName, Color.Black);
-                        c.logText(Environment.NewLine, Color.Black);
-                    }*/
                     if (sp.costSP <= crt.sp)
                     {
                 	    gv.sf.SpellToCast = sp;
-                        /*if (sf.frm.debugMode)
-                        {
-                            c.logText("SpellToCast: " + sf.SpellToCast.SpellName, Color.Black);
-                            c.logText(Environment.NewLine, Color.Black);
-                        }*/
-
+                        
                         if (gv.sf.SpellToCast.spellTargetType.Equals("Enemy"))
                         {
                             Player pc = targetClosestPC(crt);
@@ -2083,8 +1994,6 @@ namespace IceBlink2
                         }
                         else if (gv.sf.SpellToCast.spellTargetType.Equals("PointLocation"))
                         {
-                    	    //Player pc = targetClosestPC(crt);
-                    	    //gv.sf.CombatTarget = new Coordinate(pc.combatLocX, pc.combatLocY); //we are using a Coordinate type because the selected spell is looking for a Coordinate type (square location)
                     	    Coordinate bestLoc = targetBestPointLocation(crt);
                     	    if (bestLoc == new Coordinate(-1,-1))
                     	    {
@@ -2151,17 +2060,6 @@ namespace IceBlink2
                 return;
             }
             turnController();
-            /*creatureIndex++;
-            if (creatureIndex >= mod.currentEncounter.encounterCreatureList.Count)
-            {
-                //touchEnabled = true;
-                creatureIndex = 0;
-                startNextRoundStuff();
-            }
-            else
-            {
-                doCreatureTurn();
-            }*/
         }
         public void doStandardCreatureAttack()
         {
@@ -2191,7 +2089,6 @@ namespace IceBlink2
             {
                 drawHitAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
-                //gv.Invalidate();
                 gv.Render();
                 animationState = AnimationState.PcHitAnimation;
                 gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
@@ -2200,8 +2097,6 @@ namespace IceBlink2
             {
                 drawMissAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY)); 
-                //hitAnimationLocation = new Coordinate(pc.combatLocX * gv.squareSize, pc.combatLocY * gv.squareSize);
-                //gv.Invalidate();
                 gv.Render();
                 animationState = AnimationState.PcMissedAnimation;
                 gv.postDelayed("doAnimation", 4 * mod.combatAnimationSpeed);
@@ -2226,12 +2121,9 @@ namespace IceBlink2
                         "<font color='white'>" + " damage)" + "</font><BR>");
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
 
-                //#region onScoringHit script of creature
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
-                //#endregion                    	
-
+                
                 //Draw floaty text showing damage above PC
-
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
                 floatyTextOn = true;
@@ -2494,7 +2386,6 @@ namespace IceBlink2
                     gv.cc.addLogText(s + "</font>" + "<BR>");
                 }
 
-                //IBMessageBox.Show(game, "You have defeated all the creatures");
                 int giveEachXP = encounterXP / mod.playerList.Count;
                 gv.cc.addLogText("fuchsia", "Each receives " + giveEachXP + " XP");
                 foreach (Player givePcXp in mod.playerList)
@@ -2509,8 +2400,6 @@ namespace IceBlink2
                     gv.startMusic();
                     gv.startAmbient();
                 }
-                //do END ENCOUNTER LOGIC TREE
-                //REMOVEgv.cc.doLogicTreeBasedOnTag(gv.mod.currentEncounter.OnEndCombatLogicTree, gv.mod.currentEncounter.OnEndCombatParms);
                 //do END ENCOUNTER IBScript
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
                 if (gv.cc.calledEncounterFromProp)
@@ -2561,10 +2450,8 @@ namespace IceBlink2
         	    tglGrid.toggleOn = false;
             }
     	    gv.drawLog();
-    	    //gv.cc.drawBlackMap();
-		    drawCombatMap();
-		    //gv.drawBackground();
-            drawCombatCreatures();
+    	    drawCombatMap();
+		    drawCombatCreatures();
             drawCombatPlayers();
             DrawHitAnimation();
             DrawMissAnimation();
@@ -2625,41 +2512,34 @@ namespace IceBlink2
 			    if (currentCombatMode.Equals("move"))
 			    {
                     btnMove.btnState = buttonState.On;
-				    //btnMove.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 			    }
 			    else
 			    {
                     btnMove.btnState = buttonState.Normal;
-				    //btnMove.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    }
 		    }
 		    else
 		    {
                 btnMove.btnState = buttonState.Off;
-			    //btnMove.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_off);
 		    }
 		    btnMove.Draw();
 		    gv.cc.btnInventory.Draw();
 		    if (currentCombatMode.Equals("attack"))
 		    {
                 btnAttack.btnState = buttonState.On;
-			    //btnAttack.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 		    }
 		    else
 		    {
                 btnAttack.btnState = buttonState.Normal;
-			    //btnAttack.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 		    }
 		    btnAttack.Draw();
 		    if (currentCombatMode.Equals("cast"))
 		    {
                 btnCast.btnState = buttonState.On;
-			    //btnCast.Img = gv.cc.LoadBitmap("btn_small_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_on);
 		    }
 		    else
 		    {
                 btnCast.btnState = buttonState.Normal;
-			    //btnCast.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 		    }
 		    btnCast.Draw();
 		    btnSkipTurn.Draw();
@@ -2745,7 +2625,6 @@ namespace IceBlink2
                             int brY = gv.squareSize;
 
                             dst = new IbRect(tlX, tlY, brX, brY);
-                            //dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, x * gv.squareSize + gv.squareSize + gv.oXshift, y * gv.squareSize + gv.squareSize);
                             if (mod.currentEncounter.encounterTiles[y * mod.currentEncounter.MapSizeX + x].LoSBlocked)
 		                    {
 		                	    gv.DrawBitmap(gv.cc.losBlocked, src, dst);
@@ -2769,7 +2648,7 @@ namespace IceBlink2
 		    else //using tiles
 		    {
                 //implemented loading only those tiles that are on current encounter map here
-                gv.cc.tileBitmapList.Clear();
+                /*TODO gv.cc.tileBitmapList.Clear();
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles"))
                 {
@@ -2786,7 +2665,7 @@ namespace IceBlink2
                             }
                         }
                     }
-                }
+                }*/
                 
                 //I brought the pix width and height of source back to normal
                 IbRect src = new IbRect(0, 0, gv.squareSizeInPixels, gv.squareSizeInPixels);
@@ -2808,8 +2687,7 @@ namespace IceBlink2
                         int brY = gv.squareSize;
                                                 
                         dst = new IbRect(tlX, tlY, brX, brY);
-                        //dst = new IbRect(x * gv.squareSize + gv.oXshift + mapStartLocXinPixels, y * gv.squareSize, gv.squareSize, gv.squareSize); 
-	            	    //draw layer 1
+                        //draw layer 1
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
 	            	    //draw layer 2            	
                         gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
@@ -2836,30 +2714,6 @@ namespace IceBlink2
                         }
 	                }
 	            }
-
-                
-
-                //for (int x = 0; x < this.mod.currentArea.MapSizeX; x++)
-                /*for (int x = minX; x < maxX; x++)
-                {
-                    //for (int y = 0; y < this.mod.currentArea.MapSizeY; y++)
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        int brX = gv.squareSize;
-                        int brY = gv.squareSize;
-
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].Width, gv.cc.tileBitmapList[tile.Layer1Filename].Height);
-                        IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].Width, gv.cc.tileBitmapList[tile.Layer2Filename].Height);
-                        IbRect dst = new IbRect(tlX + gv.oXshift, tlY, brX, brY);
-
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
-                    }
-                }*/
 		    }
 	    }
         public void drawCombatPlayers()
@@ -2878,8 +2732,6 @@ namespace IceBlink2
 		    {
                 if (IsInVisibleCombatWindow(pc.combatLocX, pc.combatLocY))
                 {
-                    //int x = (pc.combatLocX - UpperLeftSquare.X) * gv.squareSize;
-                    //int y = (pc.combatLocY - UpperLeftSquare.Y) * gv.squareSize;
                     IbRect src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     //check if drawing animation of player
                     if ((playerToAnimate != null) && (playerToAnimate == pc))
@@ -2887,9 +2739,7 @@ namespace IceBlink2
                         src = new IbRect(0, pc.token.PixelSize.Width, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     }
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                    //dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize); 
                     gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
-                    //canvas.drawBitmap(pc.token, x, y, null);
                     src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     foreach (Effect ef in pc.effectsList)
                     {
@@ -2908,25 +2758,12 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
                     }
                     //PLAYER FACING
-                    /*Bitmap fac = gv.cc.LoadBitmap("facing4");
-                    if (pc.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
-                    else if (pc.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
-                    else if (pc.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
-                    else if (pc.combatFacing == 3) { fac = gv.cc.LoadBitmap("facing3"); }
-                    else if (pc.combatFacing == 2) { fac = gv.cc.LoadBitmap("facing2"); }
-                    else if (pc.combatFacing == 1) { fac = gv.cc.LoadBitmap("facing1"); }
-                    else if (pc.combatFacing == 4) { fac = gv.cc.LoadBitmap("facing4"); }
-                    else if (pc.combatFacing == 7) { fac = gv.cc.LoadBitmap("facing7"); }
-                    else { } //didn't find one
-                    src = new IbRect(0, 0, fac.Width, fac.Height);
-                    gv.DrawBitmap(fac, src, dst);
-                    */
                     src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                     if (pc.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                     else if (pc.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                     else if (pc.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
                     else if (pc.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                    else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                    else if (pc.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
                     else if (pc.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
                     else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                     else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
@@ -2987,7 +2824,7 @@ namespace IceBlink2
 		    Player p = mod.playerList[currentPlayerIndex];
 		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
 		    {
-                //Usess the Screen Pixel Locations
+                //Uses the Screen Pixel Locations
 			    int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
 			    int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2) + gv.oYshift;                
 			    int startX = getPixelLocX(p.combatLocX) + (gv.squareSize / 2);
@@ -3018,10 +2855,7 @@ namespace IceBlink2
                     Creature cr = mod.currentEncounter.encounterCreatureList[creatureIndex];
                     if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                     {
-                        //int x = cr.combatLocX * gv.squareSize;
-                        //int y = cr.combatLocY * gv.squareSize;
                         IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
-                        //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                         IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.turn_marker, src, dst);
                     }
@@ -3033,19 +2867,15 @@ namespace IceBlink2
                 {
                     continue;
                 }
-			    //int x = crt.combatLocX * gv.squareSize;
-			    //int y = crt.combatLocY * gv.squareSize;
-                IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+			    IbRect src = new IbRect(0, 0, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    if ((creatureToAnimate != null) && (creatureToAnimate == crt))
 			    {
                     src = new IbRect(0, crt.token.PixelSize.Width, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
 			    }
                 IbRect dst = new IbRect(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY), gv.squareSize, gv.squareSize);
-                //IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                 if (crt.token.PixelSize.Width > 100)
 			    {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
-                    //dst = new IbRect(x - (gv.squareSize / 2) + gv.oXshift + mapStartLocXinPixels, y - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
 			    }
 			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
 			    foreach (Effect ef in crt.cr_effectsList)
@@ -3055,25 +2885,12 @@ namespace IceBlink2
 				    gv.DrawBitmap(fx, src, dst);
 			    }
                 //CREATURE FACING
-                /*Bitmap fac = gv.cc.LoadBitmap("facing4");
-                if (crt.combatFacing == 8) { fac = gv.cc.LoadBitmap("facing8"); }
-                else if (crt.combatFacing == 9) { fac = gv.cc.LoadBitmap("facing9"); }
-                else if (crt.combatFacing == 6) { fac = gv.cc.LoadBitmap("facing6"); }
-                else if (crt.combatFacing == 3) { fac = gv.cc.LoadBitmap("facing3"); }
-                else if (crt.combatFacing == 2) { fac = gv.cc.LoadBitmap("facing2"); }
-                else if (crt.combatFacing == 1) { fac = gv.cc.LoadBitmap("facing1"); }
-                else if (crt.combatFacing == 4) { fac = gv.cc.LoadBitmap("facing4"); }
-                else if (crt.combatFacing == 7) { fac = gv.cc.LoadBitmap("facing7"); }
-                else { } //didn't find one
-                src = new IbRect(0, 0, fac.Width, fac.Height);
-                gv.DrawBitmap(fac, src, dst);
-                */
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
                 else if (crt.combatFacing == 9) { gv.DrawBitmap(gv.cc.facing9, src, dst); }
                 else if (crt.combatFacing == 6) { gv.DrawBitmap(gv.cc.facing6, src, dst); }
                 else if (crt.combatFacing == 3) { gv.DrawBitmap(gv.cc.facing3, src, dst); }
-                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
+                else if (crt.combatFacing == 2) { gv.DrawBitmap(gv.cc.facing2, src, dst); }
                 else if (crt.combatFacing == 1) { gv.DrawBitmap(gv.cc.facing1, src, dst); }
                 else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                 else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
@@ -3098,21 +2915,12 @@ namespace IceBlink2
 			    int cornerRadius = gv.squareSize / 10;
                 int x = getPixelLocX(targetHighlightCenterLocation.X);
                 int y = getPixelLocY(targetHighlightCenterLocation.Y);
-                //int x = targetHighlightCenterLocation.X * gv.squareSize;
-			    //int y = targetHighlightCenterLocation.Y * gv.squareSize;
                 int penWidth = 3;
-			    //canvas.drawRect(new Rect(x + oXshift, y, x + squareSize + oXshift, y + squareSize), pnt);			
-                gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
+			    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
 		    }
 		    else if (currentCombatMode.Equals("cast"))
 		    {
                 Color colr = Color.Lime;
-                //Uses Screen Pixel Locations
-			    //int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
-			    //int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2);
-			    //int startX = getPixelLocX(pc.combatLocX) + (gv.squareSize / 2);
-			    //int startY = getPixelLocY(pc.combatLocY) + (gv.squareSize / 2);
-                //Uses the Map Pixel Locations
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
                 int startX2 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
@@ -3304,15 +3112,6 @@ namespace IceBlink2
                 }
                 gv.cc.partyScreenPcIndex = currentPlayerIndex;
                 gv.screenParty.resetPartyScreen();
-                /*int cntPCs = 0;
-                foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
-                {
-                    if (cntPCs < mod.playerList.Count)
-                    {
-                        btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
-                    }
-                    cntPCs++;
-                }*/
                 gv.screenType = "combatParty";
             }
             else if (keyData == Keys.I)
@@ -3481,7 +3280,6 @@ namespace IceBlink2
         #region Mouse Input
         public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
         {
-            //TODOgv.cc.onTouchLog();
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
@@ -3579,28 +3377,24 @@ namespace IceBlink2
                         if (mod.combatAnimationSpeed == 100)
                         {
                             mod.combatAnimationSpeed = 50;
-                            gv.sf.SetGlobalInt("animationSpeed", "50");
                             gv.cc.addLogText("lime", "combat speed: 2x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
                         }
                         else if (mod.combatAnimationSpeed == 50)
                         {
                             mod.combatAnimationSpeed = 25;
-                            gv.sf.SetGlobalInt("animationSpeed", "25");
                             gv.cc.addLogText("lime", "combat speed: 4x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
                         }
                         else if (mod.combatAnimationSpeed == 25)
                         {
                             mod.combatAnimationSpeed = 10;
-                            gv.sf.SetGlobalInt("animationSpeed", "10");
                             gv.cc.addLogText("lime", "combat speed: 10x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
                         }
                         else if (mod.combatAnimationSpeed == 10)
                         {
                             mod.combatAnimationSpeed = 100;
-                            gv.sf.SetGlobalInt("animationSpeed", "100");
                             gv.cc.addLogText("lime", "combat speed: 1x");
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
                         }
@@ -4517,12 +4311,8 @@ namespace IceBlink2
             {
                 currentMoves++;
             }
-            //currentMoves++;
-            //refreshMap();
-            //txtInfo.Text = "currentMoves = " + currentMoves.ToString();
             float moveleft = pc.moveDistance - currentMoves;
             if (moveleft < 1) { moveleft = 0; }
-            //lblMovesLeft.Text = moveleft.ToString();
         }
         public void MoveTargetHighlight(int numPadDirection)
         {
@@ -4636,10 +4426,8 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                     //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY - 1);
                         pc.combatLocY--;
@@ -4648,38 +4436,6 @@ namespace IceBlink2
                 }
             }
         }
-        /*public void MoveUpRight(Player pc)
-        {
-            if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0) && (diagonalMoveAllowed == true) )
-            {
-                if (isWalkable(pc.combatLocX + 1, pc.combatLocY - 1))
-                {
-                    Creature c = isBumpIntoCreature(pc.combatLocX + 1, pc.combatLocY - 1);
-                    if (c != null)
-                    {
-                        targetHighlightCenterLocation.X = pc.combatLocX + 1;
-                        targetHighlightCenterLocation.Y = pc.combatLocY - 1;
-                        currentCombatMode = "attack";
-                        TargetAttackPressed(pc);
-                    }
-                    else
-                    {
-                        //TODOcheck if leave threatened, attack of opportunity
-                        LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
-                        doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
-                        pc.combatLocX++;
-                        pc.combatLocY--;
-                        if (pc.combatFacingLeft)
-                        {
-//TODO                            pc.tok en = gv.cc.flip(pc.token);
-                            pc.combatFacingLeft = false;
-                        }
-                        moveCost = 1.5f;
-                        doUpdate(pc);
-                    }
-                }
-            }
-        }*/
         public void MoveUpRight(Player pc)
         {
             if ((pc.combatLocX < mod.currentEncounter.MapSizeX - 1) && (pc.combatLocY > 0))
@@ -4695,17 +4451,14 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY - 1);
                         pc.combatLocX++;
                         pc.combatLocY--;
                         if (pc.combatFacingLeft)
                         {
-                            //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         moveCost = mod.diagonalMoveCost;
@@ -4729,17 +4482,14 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY - 1);
                         pc.combatLocX--;
                         pc.combatLocY--;
                         if (!pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         moveCost = mod.diagonalMoveCost;
@@ -4763,10 +4513,8 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX, pc.combatLocY + 1);
                         pc.combatLocY++;
@@ -4790,17 +4538,14 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY + 1);
                         pc.combatLocX++;
                         pc.combatLocY++;
                         if (pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         moveCost = mod.diagonalMoveCost;
@@ -4824,17 +4569,14 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= mod.diagonalMoveCost)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY + 1);
                         pc.combatLocX--;
                         pc.combatLocY++;
                         if (!pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         moveCost = mod.diagonalMoveCost;
@@ -4858,16 +4600,13 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX + 1, pc.combatLocY);
                         doPlayerCombatFacing(pc, pc.combatLocX + 1, pc.combatLocY);
                         pc.combatLocX++;
                         if (pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                         doUpdate(pc);
@@ -4890,16 +4629,13 @@ namespace IceBlink2
                         currentCombatMode = "attack";
                         TargetAttackPressed(pc);
                     }
-                    //else if ((diagonalMoveAllowed == true) && (canOnlyAttack == false))
                     else if ((pc.moveDistance - currentMoves) >= 1.0f)
                     {
-                        //TODOcheck if leave threatened, attack of opportunity
                         LeaveThreatenedCheck(pc, pc.combatLocX, pc.combatLocY);
                         doPlayerCombatFacing(pc, pc.combatLocX - 1, pc.combatLocY);
                         pc.combatLocX--;
                         if (!pc.combatFacingLeft)
                         {
-//TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                         doUpdate(pc);
@@ -4913,19 +4649,16 @@ namespace IceBlink2
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
                 {
-//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = true;
                 }
                 else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
                 {
-//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
-                //gv.Invalidate();
                 gv.Render();
                 if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                         || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
@@ -4954,20 +4687,16 @@ namespace IceBlink2
             {
                 if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
                 {
-//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = true;
                 }
                 else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
                 {
-//TODO                    pc.token = gv.cc.flip(pc.token);
                     pc.combatFacingLeft = false;
                 }
                 doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
-                //doCombatCast(pc);
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
-                //gv.Invalidate();
                 gv.Render();
                 animationState = AnimationState.PcCastAttackAnimation;
                 gv.postDelayed("doAnimation", 5 * mod.combatAnimationSpeed);
@@ -4983,11 +4712,11 @@ namespace IceBlink2
             int minY = pc.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
 
-            mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
+            /*mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
             if (mod.combatAnimationSpeed < 1)
             {
                 mod.combatAnimationSpeed = 50;
-            }
+            }*/
 
             if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
             { 
@@ -5002,7 +4731,7 @@ namespace IceBlink2
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            mod.combatAnimationSpeed = 10;
+            //mod.combatAnimationSpeed = 10;
             int minX = crt.combatLocX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffset;
@@ -5068,11 +4797,6 @@ namespace IceBlink2
 	    {
 		    if (isInRange(pc))
 		    {
-                //int endX = getPixelLocX(targetHighlightCenterLocation.X) + (gv.squareSize / 2);
-                //int endY = getPixelLocY(targetHighlightCenterLocation.Y) + (gv.squareSize / 2) + gv.oYshift;
-                //int startX = getPixelLocX(pc.combatLocX) + (gv.squareSize / 2);
-                //int startY = getPixelLocY(pc.combatLocY) + (gv.squareSize / 2) + gv.oYshift;
-
                 //Uses the Map Pixel Locations
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
@@ -5239,7 +4963,6 @@ namespace IceBlink2
         public int getMapSquareX(Coordinate nextPoint)
         {
             int gridx = (nextPoint.X / gv.squareSize);
-            //int gridx = (nextPoint.X / gv.squareSize) + UpperLeftSquare.X;
             if (gridx > mod.currentEncounter.MapSizeX - 1) { gridx = mod.currentEncounter.MapSizeX - 1; }
             if (gridx < 0) { gridx = 0; }
             return gridx;
@@ -5247,7 +4970,6 @@ namespace IceBlink2
         public int getMapSquareY(Coordinate nextPoint)
         {
             int gridy = (nextPoint.Y / gv.squareSize);
-            //int gridy = (nextPoint.Y / gv.squareSize) + UpperLeftSquare.Y;
             if (gridy > mod.currentEncounter.MapSizeY - 1) { gridy = mod.currentEncounter.MapSizeY - 1; }
             if (gridy < 0) { gridy = 0; }
             return gridy;
@@ -5538,13 +5260,6 @@ namespace IceBlink2
             {
         	    return false;
             }
-		    //foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-		    //{
-			//    if ((crt.combatLocX == x) && (crt.combatLocY == y))
-			//    {
-			//	    return false;
-			//    }
-		    //}
 		    foreach (Player p in mod.playerList)
 		    {
 			    if ((p.combatLocX == x) && (p.combatLocY == y))
@@ -5579,7 +5294,8 @@ namespace IceBlink2
                     //also do attackOfOpportunity if moving within controlled area around a creature, i.e. when distance to cerature after move is still one square
                     //the later makes it harder to circle around a cretaure or break through lines, fighters get more area control this way, allwoing them to protect other charcters with more ease
                     if ( ( (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
-                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2) ) || ( (currentMoves > 0) && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
+                        && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 2) ) 
+                        || ( (currentMoves > 0) && (CalcDistance(crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) == 1)
                         && (CalcDistance(crt.combatLocX, crt.combatLocY, futurePlayerLocationX, futurePlayerLocationY) == 1) ) )
                     {
                         if (pc.steathModeOn)
@@ -5600,59 +5316,6 @@ namespace IceBlink2
             }
         }
 	            		
-	    public Coordinate GetNextProjectileCoordinateOld(Coordinate nowCoor, Coordinate target)
-	    {
-		    Coordinate nextPoint = new Coordinate();
-		
-		    //float angle = AngleRad(nowCoor, target);
-            int deltax = Math.Abs(target.X * gv.squareSize - nowCoor.X);
-            int deltay = Math.Abs(target.Y * gv.squareSize - nowCoor.Y);
-            int ystep = gv.squareSize/5;
-            int xstep = gv.squareSize/5;
-        
-            if (deltax > deltay) //low angle version
-            {
-        	    nextPoint = nowCoor;
-                int error = deltax / 2;
-                if (target.Y * gv.squareSize < nowCoor.Y) { ystep = -1 * ystep; }
-                if (target.X * gv.squareSize > nowCoor.X)
-                {
-                    nextPoint.X += xstep;
-                    if (nextPoint.X > target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
-                    error -= deltay;
-                    if (error < 0) {nextPoint.Y += ystep;}
-                }
-                else
-                {
-            	    nextPoint.X -= xstep;
-                    if (nextPoint.X < target.X * gv.squareSize) {nextPoint.X = target.X * gv.squareSize;}
-                    error -= deltay;
-                    if (error < 0) {nextPoint.Y += ystep;}                
-                }
-            }
-            else //steep version
-            {
-                nextPoint = nowCoor;
-                int error = deltay / 2;
-                if (target.X * gv.squareSize < nowCoor.X) { xstep = -1 * xstep; }
-                if (target.Y * gv.squareSize > nowCoor.Y)
-                {
-                    nextPoint.Y += ystep;
-                    if (nextPoint.Y > target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
-                    error -= deltax;
-                    if (error < 0) {nextPoint.X += xstep;}                   
-                }
-                else
-                {
-            	    nextPoint.Y -= ystep;
-                    if (nextPoint.Y < target.Y * gv.squareSize) {nextPoint.Y = target.Y * gv.squareSize;}
-                    error -= deltax;
-                    if (error < 0) {nextPoint.X += xstep;}
-                }
-            }
-        
-		    return nextPoint;
-	    }
 	    public Coordinate GetNextProjectileCoordinate(Coordinate startCoor, Coordinate target)
 	    {
 		    Coordinate nextPoint = new Coordinate();
@@ -5883,10 +5546,6 @@ namespace IceBlink2
 	        	    }
 				    totalDam += adding;
 				    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " damage</font><BR>");
-				    if (mod.debugMode) //SD_20131102
-	                {
-	    			    //gv.cc.addLogText("<font color='yellow'> sneak attack: +" + adding + " damage</font><BR>");
-	    		    }
 			    }		        
             }
             return totalDam;
@@ -6145,18 +5804,6 @@ namespace IceBlink2
                 }
             }
             return null;
-        }
-    }
-
-    public class MoveOrder
-    {
-        public object PcOrCreature;
-        public int index = 0;
-        public int rank = 0;
-
-        public MoveOrder() 
-        {
-
         }
     }
 }

@@ -134,7 +134,7 @@ namespace IceBlink2
             return newPoint;
         }
 
-        //find new point in square part of an area around a center point withhin a radius, here: record bath, too (selected by overload)
+        //find new point in square part of an area around a center point withhin a radius, here: record path, too (selected by overload)
         public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp, int centerPointX, int centerPointY, int radius, bool recordPath, GameView g)
         {
 
@@ -336,53 +336,36 @@ namespace IceBlink2
 
         //called from outside to reset grid
         public void resetGrid()
-    {
-    	grid = new int[mod.currentArea.MapSizeX,mod.currentArea.MapSizeY];
-    	values = new int[mod.currentArea.MapSizeX,mod.currentArea.MapSizeY];
-        //create the grid with 1s and 0s
-    	for (int col = 0; col < mod.currentArea.MapSizeX;col++)
-    	{
-    		for (int row = 0; row < mod.currentArea.MapSizeY; row++)
-    		{
-    			if (isWalkable(col,row))
-    			{
-    				grid[row,col] = 0;
-    			}
-    			else
-    			{
-    				grid[row,col] = 1;
-    			}
-    		}
-    	}
-        
-        //assign 9999 to every value
-        for (int x = 0; x < mod.currentArea.MapSizeX; x++)
         {
-            for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+    	    grid = new int[mod.currentArea.MapSizeX,mod.currentArea.MapSizeY];
+    	    values = new int[mod.currentArea.MapSizeX,mod.currentArea.MapSizeY];
+            //create the grid with 1s and 0s
+    	    for (int col = 0; col < mod.currentArea.MapSizeX;col++)
+    	    {
+    		    for (int row = 0; row < mod.currentArea.MapSizeY; row++)
+    		    {
+    			    if (isWalkable(col,row))
+    			    {
+    				    grid[row,col] = 0;
+    			    }
+    			    else
+    			    {
+    				    grid[row,col] = 1;
+    			    }
+    		    }
+    	    }
+        
+            //assign 9999 to every value
+            for (int x = 0; x < mod.currentArea.MapSizeX; x++)
             {
-                values[x,y] = 9999;
+                for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                {
+                    values[x,y] = 9999;
+                }
             }
         }
-    }
 
         //helper functions
-        /*public void buildPath(Coordinate start)
-        {
-            int minX = start.X - 16;
-            if (minX < 0) { minX = 0; }
-            int minY = start.Y - 16;
-            if (minY < 0) { minY = 0; }
-            int maxX = start.X + 16;
-            if (maxX > mod.currentArea.MapSizeX) { maxX = mod.currentArea.MapSizeX; }
-            int maxY = start.Y + 16;
-            if (maxY > mod.currentArea.MapSizeY) { maxY = mod.currentArea.MapSizeY; }
-            //iterate through all values for next number and evaluate neighbors
-            int next = 0;
-            for (int cnt = 0; cnt < 1100; cnt++)
-            {
-                //1100 is used because 32*32=1024 and rounded up to 1100
-                for (int x = minX; x < maxX; x++)
-                {*/
         public void buildPath(Coordinate start)
         {
             int minX = 0;
@@ -398,7 +381,7 @@ namespace IceBlink2
                 //1100 is used because 32*32=1024 and rounded up to 1100, NOTE; old explanation, delete then
                 for (int x = minX; x < maxX; x++)
                 {            
-        for (int y = minY; y < maxY; y++)
+                    for (int y = minY; y < maxY; y++)
                     {
                         if (values[x,y] == next)
                         {

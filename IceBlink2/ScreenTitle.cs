@@ -36,7 +36,7 @@ namespace IceBlink2
 			    btnNewGame.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnNewGame.Text = "New Game";
                 btnNewGame.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnNewGame.Y = (4 * gv.squareSize) + (2 * pH);
+                btnNewGame.Y = (1 * gv.squareSize) + (2 * pH);
                 btnNewGame.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnNewGame.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
@@ -47,7 +47,7 @@ namespace IceBlink2
 			    btnLoadSavedGame.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnLoadSavedGame.Text = "Load Saved Game";
                 btnLoadSavedGame.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnLoadSavedGame.Y = (5 * gv.squareSize) + (4 * pH);
+                btnLoadSavedGame.Y = (2 * gv.squareSize) + (4 * pH);
                 btnLoadSavedGame.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnLoadSavedGame.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
@@ -58,7 +58,7 @@ namespace IceBlink2
 			    btnPlayerGuide.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnPlayerGuide.Text = "Player's Guide";
                 btnPlayerGuide.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnPlayerGuide.Y = (6 * gv.squareSize) + (6 * pH);
+                btnPlayerGuide.Y = (3 * gv.squareSize) + (6 * pH);
                 btnPlayerGuide.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnPlayerGuide.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }		
@@ -69,7 +69,7 @@ namespace IceBlink2
 			    btnBeginnerGuide.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnBeginnerGuide.Text = "Beginner's Guide";
                 btnBeginnerGuide.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnBeginnerGuide.Y = (7 * gv.squareSize) + (8 * pH);
+                btnBeginnerGuide.Y = (4 * gv.squareSize) + (8 * pH);
                 btnBeginnerGuide.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnBeginnerGuide.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }
@@ -80,7 +80,7 @@ namespace IceBlink2
 			    btnAbout.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
 			    btnAbout.Text = "Credits";
                 btnAbout.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
-                btnAbout.Y = (8 * gv.squareSize) + (10 * pH);
+                btnAbout.Y = (5 * gv.squareSize) + (10 * pH);
                 btnAbout.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAbout.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
 		    }		
@@ -89,20 +89,18 @@ namespace IceBlink2
 	    //TITLE SCREEN  
         public void redrawTitle()
         {            
-    	    //canvas.drawColor(Color.BLACK); 
-
-            //DRAW TITLE SCREEN
+    	    //DRAW TITLE SCREEN
+            float dstHeight = ((float)gv.screenWidth / (float)gv.cc.title.PixelSize.Width) * (float)gv.cc.title.PixelSize.Height;
+            //do narration with image setup    	
             IbRect src = new IbRect(0, 0, gv.cc.title.PixelSize.Width, gv.cc.title.PixelSize.Height);
-            IbRect dst = new IbRect((gv.screenWidth / 2) - (gv.squareSize * 4), 0, gv.squareSize * 8, gv.squareSize * 4);
-            
+            IbRect dst = new IbRect(0, 0, gv.screenWidth, (int)dstHeight);
             gv.DrawBitmap(gv.cc.title, src, dst);
-            /*TODO
-    	    //Draw This Module's Version Number
-    	    int xLoc = (gv.screenWidth / 2) - (int)(gv.mSheetTextPaint.getTextSize());
-    	    int pH = (int)((float)gv.screenHeight / 100.0f);
-    	    gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    canvas.drawText("v" + mod.moduleVersion, xLoc, (11 * gv.squareSize) + (pH * 4), gv.mSheetTextPaint);
-            */
+
+            //Draw This Module's Version Number
+            int xLoc = (gv.screenWidth / 2) - 4;
+            int pH = (int)((float)gv.screenHeight / 100.0f);
+            gv.DrawText("v" + mod.moduleVersion, xLoc, (7 * gv.squareSize) + (pH * 4));
+            
             drawTitleControls();
         }
         public void drawTitleControls()
@@ -110,21 +108,17 @@ namespace IceBlink2
 		    btnNewGame.Draw();		
 		    btnLoadSavedGame.Draw();		
 		    btnPlayerGuide.Draw();
-		    btnBeginnerGuide.Draw();
-            //btnMoreGames.Draw();            
+		    btnBeginnerGuide.Draw();           
 		    btnAbout.Draw();
 	    }
         public void onTouchTitle(MouseEventArgs e, MouseEventType.EventType eventType)
 	    {
     	    btnNewGame.glowOn = false;
 		    btnLoadSavedGame.glowOn = false;
-		    //btnIab.glowOn = false;
 		    btnPlayerGuide.glowOn = false;
 		    btnBeginnerGuide.glowOn = false;				
-		    //btnMoreGames.glowOn = false;
 		    btnAbout.glowOn = false;	
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseUp:
@@ -132,20 +126,16 @@ namespace IceBlink2
                 int y = (int)e.Y;
 				
 			    btnNewGame.glowOn = false;
-			    //btnMoreGames.glowOn = false;
 			    btnLoadSavedGame.glowOn = false;
 			    btnAbout.glowOn = false;
 			    btnPlayerGuide.glowOn = false;
-			    btnBeginnerGuide.glowOn = false;	
-			    //btnIab.glowOn = false;
+			    btnBeginnerGuide.glowOn = false;
 			
 			    if (btnNewGame.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    //gv.TrackerSendScreenView("NewGame");
-                    //mod.uniqueSessionIdNumberTag = gv.sf.RandInt(1000000) + "";
 				    if (gv.mod.mustUsePreMadePC)
 				    {
 					    //no spell selection offered
@@ -164,8 +154,7 @@ namespace IceBlink2
                     gv.PlaySound("btn_click");
 				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
 				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    //gv.TrackerSendScreenView("LoadSavedGame");
-				    if (gv.cc.slot5.Equals(""))
+                    if (gv.cc.slot5.Equals(""))
 				    {
 					    //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
 				    }
@@ -225,7 +214,5 @@ namespace IceBlink2
 			    break;		
 		    }
 	    }
-    
-    
     }
 }

@@ -2486,7 +2486,7 @@ namespace IceBlink2
                     gv.mod.partyTokenFilename += val;
                 }
             }
-            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            /*else if (element[0].EndsWith("OnHeartBeatLogicTree"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -2497,8 +2497,8 @@ namespace IceBlink2
                 {
                     gv.mod.OnHeartBeatLogicTree += val;
                 }
-            }
-            else if (element[0].EndsWith("OnHeartBeatParms"))
+            }*/
+            /*else if (element[0].EndsWith("OnHeartBeatParms"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -2509,7 +2509,7 @@ namespace IceBlink2
                 {
                     gv.mod.OnHeartBeatParms += val;
                 }
-            }
+            }*/
             else if (element[0].EndsWith("OnHeartBeatIBScript"))
             {
                 string val = ConcateString(element[2]);
@@ -3175,7 +3175,7 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MoverType += val;
                 }
             }
-            else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            /*else if (element[0].EndsWith("OnHeartBeatLogicTree"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -3186,8 +3186,8 @@ namespace IceBlink2
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree += val;
                 }
-            }
-            else if (element[0].EndsWith("OnHeartBeatParms"))
+            }*/
+            /*else if (element[0].EndsWith("OnHeartBeatParms"))
             {
                 string val = ConcateString(element[2]);
                 if (element[1] == "=")
@@ -3198,7 +3198,7 @@ namespace IceBlink2
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParms += val;
                 }
-            }
+            }*/
             else if (element[0].EndsWith("OnHeartBeatIBScript"))
             {
                 string val = ConcateString(element[2]);
@@ -6344,14 +6344,14 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].MoverType.ToString();
                     }
-                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    /*else if (parm.EndsWith("OnHeartBeatLogicTree"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatLogicTree.ToString();
-                    }
-                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    }*/
+                    /*else if (parm.EndsWith("OnHeartBeatParms"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].OnHeartBeatParms.ToString();
-                    }
+                    }*/
 
                     else if (parm.EndsWith("SizeOfPropLocalInts"))
                     {
@@ -6635,14 +6635,14 @@ namespace IceBlink2
                     {
                         return gv.mod.combatAnimationSpeed.ToString();
                     }
-                    else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    /*else if (parm.EndsWith("OnHeartBeatLogicTree"))
                     {
                         return gv.mod.OnHeartBeatLogicTree.ToString();
-                    }
-                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    }*/
+                    /*else if (parm.EndsWith("OnHeartBeatParms"))
                     {
                         return gv.mod.OnHeartBeatParms.ToString();
-                    }
+                    }*/
                     else if (parm.EndsWith("OnHeartBeatIBScript"))
                     {
                         return gv.mod.OnHeartBeatIBScript.ToString();

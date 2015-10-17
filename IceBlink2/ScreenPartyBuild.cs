@@ -39,7 +39,7 @@ namespace IceBlink2
 		    setControlsStart();
 		    stringMessagePartyBuild = gv.cc.loadTextToString("data/MessagePartyBuild.txt");
 		    //create a list of character .json files from saves/modulefoldername/characters and the default PC
-		    loadPlayerList();
+		    //loadPlayerList();
 	    }    
 	    public void refreshPlayerTokens()
 	    {

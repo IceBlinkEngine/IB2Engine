@@ -18,7 +18,6 @@ namespace IceBlink2
 	    private IbbButton btnInventoryLeft = null;
 	    private IbbButton btnInventoryRight = null;
 	    private IbbButton btnPageIndex = null;
-	    //private IbbButton btnHelp = null;
 	    private IbbButton btnInfo = null;
 	    private IbbButton btnAction = null;
         private IbbButton btnAction2 = null;
@@ -26,8 +25,7 @@ namespace IceBlink2
         public string itemSelectorType = "container"; //container, equip, use
         public string callingScreen = "main"; //main, party, inventory
         public List<ItemRefs> thisItemRefs;
-	    //private bool dialogOpen = false;
-        private IbbHtmlTextBox description;
+	    private IbbHtmlTextBox description;
 
         public ScreenItemSelector(Module m, GameView g)
 	    {
@@ -187,28 +185,20 @@ namespace IceBlink2
     		    setControlsStart();
     	    }
     	
-    	    //doItemStacking();
-    	
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
-            //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-    	    int tabX = pW * 4;
+            int tabX = pW * 4;
     	    int tabX2 = 5 * gv.squareSize + pW * 2;
     	    int leftStartY = pH * 4;
     	    int tabStartY = 5 * gv.squareSize + pW * 10;
     	
-            //gv.gCanvas.Clear(Color.Black);
-    	    //canvas.drawColor(Color.DKGRAY);
-		    
-		    //DRAW TEXT		
+            //DRAW TEXT		
 		    locY = (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
 		    gv.DrawText("Item Selection", locX + (gv.squareSize * 8), locY);
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
@@ -225,7 +215,6 @@ namespace IceBlink2
 			    if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < thisItemRefs.Count)
 			    {
                     Item it = mod.getItemByResRefForInfo(thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
-				    //Item it = mod.partyInventoryRefsList.get(cntSlot + (inventoryPageIndex * slotsPerPage).resref);
 				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = thisItemRefs[cntSlot + (inventoryPageIndex * slotsPerPage)];
 				    if (itr.quantity > 1)
@@ -255,8 +244,6 @@ namespace IceBlink2
 
                 //Description
 		        string textToSpan = "";
-                //textToSpan = "Description:" + "<br>";
-        	    //textToSpan += it.name + "<br>";
                 textToSpan = "<u>Description</u>" + "<BR>";
 	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
 	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
@@ -279,8 +266,6 @@ namespace IceBlink2
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	        	    textToSpan += "Tap 'INFO' for Full Description<BR>";
 	            }
-                //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 80;
@@ -380,8 +365,7 @@ namespace IceBlink2
 					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    if (inventorySlotIndex == j)
 					    {
-						    //doItemAction(false);	 
-                            if (itemSelectorType.Equals("container"))
+						    if (itemSelectorType.Equals("container"))
                             {
                                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
                                 gv.mod.partyInventoryRefsList.Add(itRef.DeepCopy());

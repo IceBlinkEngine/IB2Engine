@@ -67,9 +67,9 @@ namespace IceBlink2
         public string onScoringHitParms = "";
         public string onUseItem = "none";
         public string onWhileEquipped = "none";
-        public string onUseItemLogicTree = "none";
-        public string onUseItemLogicTreeParms = "";
-	    public bool destroyItemAfterOnUseItemLogicTree = false;
+        //public string onUseItemLogicTree = "none";
+        //public string onUseItemLogicTreeParms = "";
+	    //public bool destroyItemAfterOnUseItemLogicTree = false;
         public string onUseItemIBScript = "none";
         public string onUseItemIBScriptParms = "";
         public bool destroyItemAfterOnUseItemIBScript = false;
@@ -136,9 +136,9 @@ namespace IceBlink2
 		    copy.onScoringHitParms = this.onScoringHitParms;
 		    copy.onUseItem = this.onUseItem;
 		    copy.onWhileEquipped = this.onWhileEquipped;
-		    copy.onUseItemLogicTree = this.onUseItemLogicTree;
-		    copy.onUseItemLogicTreeParms = this.onUseItemLogicTreeParms;
-		    copy.destroyItemAfterOnUseItemLogicTree = this.destroyItemAfterOnUseItemLogicTree;
+		    //copy.onUseItemLogicTree = this.onUseItemLogicTree;
+		    //copy.onUseItemLogicTreeParms = this.onUseItemLogicTreeParms;
+		    //copy.destroyItemAfterOnUseItemLogicTree = this.destroyItemAfterOnUseItemLogicTree;
             copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;
             copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;

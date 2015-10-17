@@ -28,8 +28,6 @@ namespace IceBlink2
 	    {
 		    mod = m;
 		    gv = g;
-		    //journalBack = gv.cc.LoadBitmap("journalback"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.journalback);
-		    //setControlsStart();
 	    }
 	    public void setControlsStart()
 	    {		
@@ -106,17 +104,10 @@ namespace IceBlink2
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = pH * 5;
-            int locX = 4 * gv.squareSize + pW * 14;
-            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
-            int spacing = textH;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-    	    int leftStartY = pH * 4;
+            int locX = 4 * gv.squareSize;
+            int spacing = (int)gv.drawFontRegHeight + pH;
+            int leftStartY = pH * 4;
     	    int tabStartY = pH * 40;
-    	
-    	    //DRAW BACKGROUND COLOR
-            //gv.gCanvas.Clear(Color.DarkGray);
-    	    //canvas.drawColor(Color.DKGRAY);
     	
     	    //IF BACKGROUND IS NULL, LOAD IMAGE
     	    if (journalBack == null)
@@ -131,7 +122,8 @@ namespace IceBlink2
     	
     	    //DRAW BACKGROUND IMAGE
             IbRect src = new IbRect(0, 0, journalBack.PixelSize.Width, journalBack.PixelSize.Height);
-            IbRect dst = new IbRect(6 * gv.squareSize, 0, 7 * gv.squareSize, 9 * gv.squareSize);
+            //IbRect dst = new IbRect(6 * gv.squareSize, 0, 7 * gv.squareSize, 9 * gv.squareSize);
+            IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight - 1) * gv.squareSize);
             gv.DrawBitmap(journalBack, src, dst);
         
             //MAKE SURE NO OUT OF INDEX ERRORS
@@ -176,8 +168,6 @@ namespace IceBlink2
                 textToSpan += mod.partyJournalQuests[journalScreenQuestIndex].Entries[journalScreenEntryIndex].EntryText;
 	                            
                 int yLoc = pH * 18;
-                //IbRect rect = new IbRect(locX, locY, pW * 79, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
                 description.tbXloc = locX;
                 description.tbYloc = locY + spacing;
@@ -185,16 +175,10 @@ namespace IceBlink2
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);
-                //description.brush.Color = Color.Black;
                 description.onDrawLogBox();
     	    }
 		
-		    //DRAW INSTRUCTIONS
-            //string text = "Up-Down: view quests. <BR>"
-        	//	    + "Left-Right: view different entries of selected quest.";
-            //drawJournalInstructions(canvas, text);
-        
-            //DRAW ALL CONTROLS
+		    //DRAW ALL CONTROLS
 		    ctrlUpArrow.Draw();
 		    ctrlDownArrow.Draw();
 		    ctrlLeftArrow.Draw();
@@ -302,27 +286,6 @@ namespace IceBlink2
 			    }			
 			    break;		
 		    }
-	    }
-	    public void drawJournalInstructions(string text)
-        {
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
-		    int startX = pW * 3;
-		    int startY = (int)(8.0f * gv.squareSize);
-		/*TODO
-		    TextPaint tp = new TextPaint();
-            tp.setColor(Color.YELLOW);
-            tp.setTextSize(gv.mUiTextPaint.getTextSize() * 0.85f);
-            tp.setTextAlign(Align.LEFT);
-            tp.setAntiAlias(true);
-            tp.setTypeface(gv.uiFont);
-        
-            String textToSpan = text;        
-            Spanned htmlText = Html.fromHtml(textToSpan);
-            StaticLayout sl = new StaticLayout(htmlText, tp, pW * 50, Layout.Alignment.ALIGN_NORMAL, 1, 0, false);
-            canvas.translate(startX, startY);
-            sl.draw(canvas);
-            canvas.translate(-startX, -startY);
-            */
-        }
+	    }	    
     }
 }

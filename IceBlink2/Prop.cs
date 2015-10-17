@@ -54,8 +54,8 @@ namespace IceBlink2
 	    public int ChaserStartChasingTime = 0;
 	    public int RandomMoverRadius = 5;
 	    public bool ReturningToPost = false;
-        public string OnHeartBeatLogicTree = "none";
-        public string OnHeartBeatParms = "";
+        //public string OnHeartBeatLogicTree = "none";
+        //public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
         public bool passOneMove = false;
@@ -140,8 +140,8 @@ namespace IceBlink2
 		    copy.ChaserChaseDuration = this.ChaserChaseDuration;
 		    copy.ChaserStartChasingTime = this.ChaserStartChasingTime;
 		    copy.RandomMoverRadius = this.RandomMoverRadius;
-            copy.OnHeartBeatLogicTree = this.OnHeartBeatLogicTree;
-            copy.OnHeartBeatParms = this.OnHeartBeatParms;
+            //copy.OnHeartBeatLogicTree = this.OnHeartBeatLogicTree;
+            //copy.OnHeartBeatParms = this.OnHeartBeatParms;
             copy.OnHeartBeatIBScript = this.OnHeartBeatIBScript;
             copy.OnHeartBeatIBScriptParms = this.OnHeartBeatIBScriptParms;
             copy.passOneMove = this.passOneMove;

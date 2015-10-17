@@ -82,6 +82,7 @@ namespace IceBlink2
         public Bitmap facing9;
         
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
+        public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
         
         public Spell currentSelectedSpell = new Spell();
         public string floatyText = "";
@@ -1187,8 +1188,8 @@ namespace IceBlink2
         public void LoadTileBitmapList()
         {
             //probably just load what is needed for each area upon area load
-            //implemented just that in the following
             tileBitmapList.Clear();
+            tileGDIBitmapList.Clear();
             try
             {
                 //Load from module folder first
@@ -1196,7 +1197,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -1205,7 +1205,12 @@ namespace IceBlink2
                             if (filename.EndsWith(".png"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                foreach (Tile t in gv.mod.currentArea.Tiles)
+                                if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                {
+                                    tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                    tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                }
+                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
                                 {
                                     if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
                                         (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
@@ -1219,7 +1224,7 @@ namespace IceBlink2
                                         }
                                         break;
                                     }
-                                }
+                                }*/
                             }
                         }
                        
@@ -1244,7 +1249,12 @@ namespace IceBlink2
                                 if (filename.EndsWith(".png"))
                                 {
                                     string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                    foreach (Tile t in gv.mod.currentArea.Tiles)
+                                    if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                    {
+                                        tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                    }
+                                    /*foreach (Tile t in gv.mod.currentArea.Tiles)
                                     {
                                         if ((t.Layer1Filename.Equals(fileNameWithOutExt)) ||
                                             (t.Layer2Filename.Equals(fileNameWithOutExt)) ||
@@ -1258,7 +1268,7 @@ namespace IceBlink2
                                             }
                                             break;
                                         }
-                                    }
+                                    }*/
                                 }
                             }
                             catch (Exception ex)
@@ -4273,6 +4283,39 @@ namespace IceBlink2
                     tempStream.Position = 0;
                     return new SharpDX.Direct2D1.Bitmap(gv.renderTarget2D, size, tempStream, stride, bitmapProperties);
                 }
+            }
+        }
+        public SharpDX.Direct2D1.Bitmap ConvertGDIBitmapToD2D(System.Drawing.Bitmap gdibitmap)
+        {
+            var sourceArea = new System.Drawing.Rectangle(0, 0, gdibitmap.Width, gdibitmap.Height);
+            var bitmapProperties = new BitmapProperties(new SharpDX.Direct2D1.PixelFormat(Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied));
+            var size = new Size2(gdibitmap.Width, gdibitmap.Height);
+
+            // Transform pixels from BGRA to RGBA
+            int stride = gdibitmap.Width * sizeof(int);
+            using (var tempStream = new DataStream(gdibitmap.Height * stride, true, true))
+            {
+                // Lock System.Drawing.Bitmap
+                var bitmapData = gdibitmap.LockBits(sourceArea, ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+                // Convert all pixels 
+                for (int y = 0; y < gdibitmap.Height; y++)
+                {
+                    int offset = bitmapData.Stride * y;
+                    for (int x = 0; x < gdibitmap.Width; x++)
+                    {
+                        // Not optimized 
+                        byte B = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                        byte G = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                        byte R = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                        byte A = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                        int rgba = R | (G << 8) | (B << 16) | (A << 24);
+                        tempStream.Write(rgba);
+                    }
+                }
+                gdibitmap.UnlockBits(bitmapData);
+                tempStream.Position = 0;
+                return new SharpDX.Direct2D1.Bitmap(gv.renderTarget2D, size, tempStream, stride, bitmapProperties);
             }
         }
         public List<FormattedLine> ProcessHtmlString(string text, int width, List<string> tagStack)

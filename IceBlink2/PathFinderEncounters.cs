@@ -21,6 +21,7 @@ namespace IceBlink2
         //called from outside to get next move location
         public Coordinate findNewPoint(Creature crt, Coordinate end)
         {
+            pathNodes.Clear();
             foundEnd = false;
             Coordinate newPoint = new Coordinate(-1, -1);
             //set start value to 0
@@ -28,7 +29,9 @@ namespace IceBlink2
             foreach (Creature cr in mod.currentEncounter.encounterCreatureList)
             {
                 if (cr != crt)
+                {
                     grid[cr.combatLocX, cr.combatLocY] = 1;
+                }
             }
             foreach (Player p in mod.playerList)
             {
@@ -188,34 +191,6 @@ namespace IceBlink2
         }
         public Coordinate getLowestNeighbor(Coordinate p)
         {
-            /*
-            int maxX = mod.currentEncounter.MapSizeX;
-            int maxY = mod.currentEncounter.MapSizeY;
-            Coordinate lowest = new Coordinate();
-            int val = 1000;
-            if ((p.X + 1 < maxX) && (values[p.X + 1,p.Y] < val))
-            {
-                val = values[p.X + 1,p.Y];
-                lowest = new Coordinate(p.X + 1, p.Y);
-            }
-            if ((p.X - 1 >= 0) && (values[p.X - 1,p.Y] < val))
-            {
-                val = values[p.X - 1,p.Y];
-                lowest = new Coordinate(p.X - 1, p.Y);
-            }
-            if ((p.Y + 1 < maxY) && (values[p.X,p.Y + 1] < val))
-            {
-                val = values[p.X,p.Y + 1];
-                lowest = new Coordinate(p.X, p.Y + 1);
-            }
-            if ((p.Y - 1 >= 0) && (values[p.X,p.Y - 1] < val))
-            {
-                val = values[p.X,p.Y - 1];
-                lowest = new Coordinate(p.X, p.Y - 1);
-            }
-            return lowest;
-            */
-
             int maxX = mod.currentEncounter.MapSizeX;
             int maxY = mod.currentEncounter.MapSizeY;
             Coordinate lowest = new Coordinate();

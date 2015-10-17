@@ -364,7 +364,7 @@ namespace IceBlink2
 		    cc.LoadCreatures();
 		    cc.LoadEncounters();
 		    cc.LoadJournal();	
-		    //cc.LoadTileBitmapList();
+		    cc.LoadTileBitmapList();
 				
 		    foreach (Container c in mod.moduleContainersList)
             {

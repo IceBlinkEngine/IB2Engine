@@ -260,14 +260,6 @@ namespace IceBlink2
 	    public bool hasTraitAlready(TraitAllowed ta)
 	    {
 		    return this.knownTraitsTags.Contains(ta.tag);
-		    /*for (String s : this.knownTraitsTags)
-            {
-                if (ta.tag.equals(s))
-                {
-                    return true;
-                }
-            }
-            return false;*/
 	    }
 	
 	    public Effect getEffectByTag(String tag)
