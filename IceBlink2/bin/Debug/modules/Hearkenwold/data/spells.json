@@ -13,7 +13,7 @@
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spMageBolt"
   },
   {
@@ -47,7 +47,7 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
     "aoeRadius": 1,
-    "range": 3,
+    "range": 5,
     "spellScript": "spSleep"
   },
   {
@@ -64,7 +64,7 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
     "aoeRadius": 1,
-    "range": 4,
+    "range": 7,
     "spellScript": "spWeb"
   },
   {
@@ -81,7 +81,7 @@
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spMinorRegen"
   },
   {
@@ -98,7 +98,7 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
     "aoeRadius": 1,
-    "range": 3,
+    "range": 5,
     "spellScript": "spIceStorm"
   },
   {
@@ -115,7 +115,7 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
     "aoeRadius": 1,
-    "range": 3,
+    "range": 5,
     "spellScript": "spFireball"
   },
   {
@@ -132,7 +132,7 @@
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHeal"
   },
   {
@@ -149,7 +149,7 @@
     "spellTargetType": "Friend",
     "spellEffectType": "Buff",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spBless"
   },
   {
@@ -166,7 +166,7 @@
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spMagicStone"
   },
   {
@@ -183,7 +183,7 @@
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHeal"
   },
   {
@@ -200,7 +200,7 @@
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
     "aoeRadius": 1,
-    "range": 3,
+    "range": 5,
     "spellScript": "spBlastOfLight"
   },
   {
@@ -217,7 +217,7 @@
     "spellTargetType": "Enemy",
     "spellEffectType": "Debuff",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHold"
   },
   {
@@ -234,7 +234,7 @@
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 7,
     "spellScript": "spMassHeal"
   }
 ]

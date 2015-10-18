@@ -1,0 +1,6 @@
+//get the player index that is using the item
+@i = %Mod[0].indexOfPCtoLastUseItem
+debug("@i = " + @i)
+//set Player's BaseCon
+%Player[@i].baseCon + parm(0)
+debug("parm(0) = " + parm(0))

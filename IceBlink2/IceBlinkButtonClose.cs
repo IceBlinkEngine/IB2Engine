@@ -154,7 +154,7 @@ namespace IceBlink2
            {
                playerButtonClick.Play();
            }
-           catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+           catch { }
            this.Invalidate();
            base.OnMouseDown(e);
        }
@@ -174,7 +174,7 @@ namespace IceBlink2
            {
                playerButtonEnter.Play();
            }
-           catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+           catch { }
            this.Invalidate();
            base.OnMouseEnter(e);
        }
