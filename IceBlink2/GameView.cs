@@ -175,9 +175,16 @@ namespace IceBlink2
             }
             catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
+            //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
             this.WindowState = FormWindowState.Maximized;
             this.Width = Screen.PrimaryScreen.Bounds.Width;
             this.Height = Screen.PrimaryScreen.Bounds.Height;
+            
+            //for testing other screen sizes, manually enter a resolution here
+            //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900
+            //this.Width = 1366;
+            //this.Height = 768;
+
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
             float sqrW = (float)screenWidth / (float)squaresInWidth;
@@ -190,10 +197,10 @@ namespace IceBlink2
             {
                 squareSize = (int)(sqrW);
             }
-            if ((squareSize > 100) && (squareSize < 120))
+            /*if ((squareSize > 100) && (squareSize < 120))
             {
                 squareSize = 100;
-            }
+            }*/
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
             

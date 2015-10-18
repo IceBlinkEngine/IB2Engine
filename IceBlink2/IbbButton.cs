@@ -75,13 +75,13 @@ namespace IceBlink2
             {
                 src3 = new IbRect(0, 0, this.Img3.PixelSize.Width, this.Img3.PixelSize.Width);
             }
-            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width * gv.screenDensity), (int)((float)this.Height * gv.screenDensity));
+            IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Img.PixelSize.Width * gv.screenDensity), (int)((float)this.Img.PixelSize.Height * gv.screenDensity));
 
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
                                         this.Y - (int)(7 * gv.screenDensity), 
-                                        (int)((float)this.Width * gv.screenDensity) + (int)(15 * gv.screenDensity), 
-                                        (int)((float)this.Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
+                                        (int)((float)this.Width) + (int)(15 * gv.screenDensity), 
+                                        (int)((float)this.Height) + (int)(15 * gv.screenDensity));
 
             //draw glow first if on
             if ((this.glowOn) && (this.Glow != null))
@@ -130,8 +130,8 @@ namespace IceBlink2
             float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
             //place in the center
-            float ulX = ((this.Width * gv.screenDensity) - stringSize) / 2;
-            float ulY = ((this.Height * gv.screenDensity) - thisFontHeight) / 2;
+            float ulX = ((this.Width) - stringSize) / 2;
+            float ulY = ((this.Height) - thisFontHeight) / 2;
 
             for (int x = -2; x <= 2; x++)
             {
@@ -146,8 +146,8 @@ namespace IceBlink2
             stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
             
             //place in the bottom right quadrant
-            ulX = (((this.Width * gv.screenDensity) - stringSize) / 8) * 7;
-            ulY = (((this.Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
+            ulX = (((this.Width) - stringSize) / 8) * 7;
+            ulY = (((this.Height) - thisFontHeight) / 8) * 7;
 
             for (int x = -2; x <= 2; x++)
             {
@@ -164,8 +164,8 @@ namespace IceBlink2
                 stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the bottom center
-                ulX = ((this.Width * gv.screenDensity) - stringSize) / 2;
-                ulY = (((this.Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
+                ulX = ((this.Width) - stringSize) / 2;
+                ulY = (((this.Height) - thisFontHeight) / 4) * 3;
 
                 for (int x = -2; x <= 2; x++)
                 {
