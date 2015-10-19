@@ -495,7 +495,7 @@ namespace IceBlink2
                             IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             if (p.destinationPixelPositionXList.Count > 0)
                             {
-                                if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 20)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 20)))
+                                if ((p.destinationPixelPositionXList[0] >= (p.currentPixelPositionX - 0)) && (p.destinationPixelPositionXList[0] <= (p.currentPixelPositionX + 0)))
                                 {
                                     if (p.destinationPixelPositionYList[0] > p.currentPixelPositionY)
                                     {
@@ -520,7 +520,7 @@ namespace IceBlink2
 
                                     }
                                 }
-                                else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 20)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 20)))
+                                else if ((p.destinationPixelPositionYList[0] >= (p.currentPixelPositionY - 0)) && (p.destinationPixelPositionYList[0] <= (p.currentPixelPositionY + 0)))
                                 {
                                     {
                                         if (p.destinationPixelPositionXList[0] > p.currentPixelPositionX)
