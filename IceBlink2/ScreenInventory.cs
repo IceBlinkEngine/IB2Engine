@@ -508,7 +508,7 @@ namespace IceBlink2
 		                    }
 		                    catch (Exception ex)
 		                    {
-		                        //print error
+                                gv.errorLog(ex.ToString());
 		                    } 
                         }
                     }

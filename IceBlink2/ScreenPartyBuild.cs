@@ -75,6 +75,7 @@ namespace IceBlink2
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
+                        gv.errorLog(ex.ToString());
                     }
                 }
             }
@@ -108,7 +109,8 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-        	    MessageBox.Show("failed to load character from character folder: " + ex.ToString());    		         
+        	    MessageBox.Show("failed to load character from character folder: " + ex.ToString());
+                gv.errorLog(ex.ToString()); 
             }             
         }
 	    public Player LoadPlayer(string filename)

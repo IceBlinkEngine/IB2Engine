@@ -1821,6 +1821,7 @@ namespace IceBlink2
                             {
                                 //print error
                                 IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                gv.errorLog(ex.ToString());
                                 return;
                             }
                         }
@@ -1840,6 +1841,7 @@ namespace IceBlink2
                                 catch (Exception ex)
                                 {
                                     IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
                                     //print error
                                 }
                             }
@@ -1962,6 +1964,7 @@ namespace IceBlink2
                     {
                         //print error
                         IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                        gv.errorLog(ex.ToString());
                         return;
                     }
                 }
@@ -1981,6 +1984,7 @@ namespace IceBlink2
                         catch (Exception ex)
                         {
                             IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                            gv.errorLog(ex.ToString());
                             //print error
                         }
                     }

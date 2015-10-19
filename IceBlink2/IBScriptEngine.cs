@@ -218,6 +218,7 @@ namespace IceBlink2
                 {
                     gv.log.AddHtmlTextToLog("IBScript " + scriptFilename + " failed at line: " + currentLineNumber.ToString() + " with this Message: " + ex.Message.ToString());
                 }
+                gv.errorLog(ex.ToString());
             }
         }
 

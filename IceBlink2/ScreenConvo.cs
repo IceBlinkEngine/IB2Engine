@@ -387,6 +387,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                gv.errorLog(ex.ToString());
             }
         }
 	    private void SetNodeIsActiveFalseForAll()

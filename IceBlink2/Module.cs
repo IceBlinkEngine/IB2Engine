@@ -144,7 +144,7 @@ namespace IceBlink2
                 }
                 catch (Exception ex)
                 {
-                    //exception out
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -168,7 +168,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //exception out
+                gv.errorLog(ex.ToString());
             }
         }
 	

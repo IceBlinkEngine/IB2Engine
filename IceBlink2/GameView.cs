@@ -167,13 +167,13 @@ namespace IceBlink2
                 playerButtonClick.SoundLocation = mainDirectory + "\\default\\NewModule\\sounds\\btn_click.wav";
                 playerButtonClick.Load();
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); } 
+            catch (Exception ex) { errorLog(ex.ToString()); } 
             try
             {
                 playerButtonEnter.SoundLocation = mainDirectory + "\\default\\NewModule\\sounds\\btn_hover.wav";
                 playerButtonEnter.Load();
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+            catch (Exception ex) { errorLog(ex.ToString()); }
 
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
             this.WindowState = FormWindowState.Maximized;
@@ -197,10 +197,10 @@ namespace IceBlink2
             {
                 squareSize = (int)(sqrW);
             }
-            /*if ((squareSize > 100) && (squareSize < 120))
+            if ((squareSize > 100) && (squareSize < 105))
             {
                 squareSize = 100;
-            }*/
+            }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
             
@@ -226,7 +226,7 @@ namespace IceBlink2
             //cc = new CommonCode(this);            
             //mod = new Module();
 
-            log = new IbbHtmlLogBox(this, 0 * squareSize + oXshift - 3, 0 * squareSize + oYshift, 6 * squareSize, 7 * squareSize);
+            log = new IbbHtmlLogBox(this, oXshift + (int)(3 * screenDensity), oYshift, 6 * squareSize - (int)(6 * screenDensity), 7 * squareSize);
             log.numberOfLinesToShow = 20;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
@@ -487,6 +487,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("red","Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
+                errorLog(ex.ToString());
             }
         }
         public void startMusic()
@@ -538,6 +539,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("red", "Failed on startMusic(): " + ex.ToString());
+                errorLog(ex.ToString());
             }        
         }
         public void startAmbient()
@@ -589,6 +591,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("red", "Failed on startAmbient(): " + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         public void startCombatMusic()
@@ -640,6 +643,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("red", "Failed on playCombatAreaMusicSounds()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void AreaMusic_PlayStateChange(int NewState)
@@ -654,6 +658,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on AreaMusic_PlayStateChange()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void AreaSounds_PlayStateChange(int NewState)
@@ -668,6 +673,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on AreaSounds_PlayStateChange()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void Player_MediaError(object pMediaObject)
@@ -687,6 +693,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on delayMusic()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void areaMusicTimer_Tick(object sender, EventArgs e)
@@ -702,6 +709,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on areaMusicTimer_Tick()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void delaySounds()
@@ -717,6 +725,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on delaySounds()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         private void areaSoundsTimer_Tick(object sender, EventArgs e)
@@ -732,6 +741,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 cc.addLogText("Failed on areaSoundsTimer_Tick()" + ex.ToString());
+                errorLog(ex.ToString());
             }
         }
         #endregion
@@ -1011,6 +1021,7 @@ namespace IceBlink2
                 }
                 catch (Exception ex)
                 {
+                    errorLog(ex.ToString());
                     if (mod.debugMode) //SD_20131102
                     {
                         cc.addLogText("<font color='yellow'>failed to play sound" + filenameNoExtension + "</font><BR>");
@@ -1409,43 +1420,63 @@ namespace IceBlink2
         //DIRECT2D STUFF
         public void InitializeRenderer()
         {
-            // SwapChain description
-            var desc = new SwapChainDescription()
-            {
-                BufferCount = 1,
-                ModeDescription =
-                    new ModeDescription(this.Width, this.Height,
-                                        new Rational(60, 1), Format.R8G8B8A8_UNorm),
-                IsWindowed = true,
-                OutputHandle = this.Handle,
-                SampleDescription = new SampleDescription(1, 0),
-                SwapEffect = SwapEffect.Discard,
-                Usage = Usage.RenderTargetOutput
-            };
+            string state = "";
+            try
+            {                
+                // SwapChain description
+                state += "Creating Swap Chain:";
+                var desc = new SwapChainDescription()
+                {
+                    BufferCount = 1,
+                    ModeDescription =
+                        new ModeDescription(this.Width, this.Height,
+                                            new Rational(60, 1), Format.R8G8B8A8_UNorm),
+                    IsWindowed = true,
+                    OutputHandle = this.Handle,
+                    SampleDescription = new SampleDescription(1, 0),
+                    SwapEffect = SwapEffect.Discard,
+                    Usage = Usage.RenderTargetOutput
+                };
 
-            // Create Device and SwapChain
-            SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_11_0 }, desc, out _device, out _swapChain);
+                // Create Device and SwapChain
+                state += "Create Device:";
+                SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_11_0 }, desc, out _device, out _swapChain);
 
-            // Ignore all windows events
-            SharpDX.DXGI.Factory factory = _swapChain.GetParent<SharpDX.DXGI.Factory>();
-            factory.MakeWindowAssociation(this.Handle, WindowAssociationFlags.IgnoreAll);
+                // Ignore all windows events
+                state += "Create Factory:";
+                SharpDX.DXGI.Factory factory = _swapChain.GetParent<SharpDX.DXGI.Factory>();
+                factory.MakeWindowAssociation(this.Handle, WindowAssociationFlags.IgnoreAll);
 
-            // New RenderTargetView from the backbuffer
-            _backBuffer = Texture2D.FromSwapChain<Texture2D>(_swapChain, 0);
+                // New RenderTargetView from the backbuffer
+                state += "Creating Back Buffer:";
+                _backBuffer = Texture2D.FromSwapChain<Texture2D>(_swapChain, 0);
+                
+                state += "Create RenderTargetView:";
+                _backBufferView = new RenderTargetView(_device, _backBuffer);
+                
+                factory2D = new SharpDX.Direct2D1.Factory();
+                using (var surface = _backBuffer.QueryInterface<Surface>())
+                {
+                    renderTarget2D = new RenderTarget(factory2D, surface, new RenderTargetProperties(new SharpDX.Direct2D1.PixelFormat(Format.Unknown, AlphaMode.Premultiplied)));
+                }
+                renderTarget2D.AntialiasMode = AntialiasMode.PerPrimitive;
 
-            _backBufferView = new RenderTargetView(_device, _backBuffer);
-
-            factory2D = new SharpDX.Direct2D1.Factory();
-            using (var surface = _backBuffer.QueryInterface<Surface>())
-            {
-                renderTarget2D = new RenderTarget(factory2D, surface, new RenderTargetProperties(new SharpDX.Direct2D1.PixelFormat(Format.Unknown, AlphaMode.Premultiplied)));
+                //TEXT STUFF
+                state += "Creating Text Factory:";
+                factoryDWrite = new SharpDX.DirectWrite.Factory();
+                sceneColorBrush = new SolidColorBrush(renderTarget2D, SharpDX.Color.Blue);
+                renderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
             }
-            renderTarget2D.AntialiasMode = AntialiasMode.PerPrimitive;
-
-            //TEXT STUFF
-            factoryDWrite = new SharpDX.DirectWrite.Factory();
-            sceneColorBrush = new SolidColorBrush(renderTarget2D, SharpDX.Color.Blue);
-            renderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
+            catch (SharpDXException ex)
+            {
+                MessageBox.Show("SharpDX error message appended to IB2ErrorLog.txt");
+                this.errorLog(state + "<--->" + ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SharpDX error message appended to IB2ErrorLog.txt");
+                this.errorLog(state + "<--->" + ex.ToString());
+            }
 
             // ##### This app specific #########
             // Load D2D1Bitmap
@@ -1813,7 +1844,7 @@ namespace IceBlink2
             }
             catch (Exception ex) 
             {
-                //print exception    		
+                errorLog(ex.ToString());   		
             }		
         }
 
@@ -1850,7 +1881,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //print exception
+                errorLog(ex.ToString());
             }
         }        
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -1876,6 +1907,19 @@ namespace IceBlink2
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        public void errorLog(string text)
+        {
+            if (mainDirectory == null) 
+            { 
+                mainDirectory = Directory.GetCurrentDirectory(); 
+            }
+            using (StreamWriter writer = new StreamWriter(mainDirectory + "//IB2ErrorLog.txt", true))
+            {
+                writer.Write(DateTime.Now + ": ");
+                writer.WriteLine(text);
+            }
         }
     }
 }
