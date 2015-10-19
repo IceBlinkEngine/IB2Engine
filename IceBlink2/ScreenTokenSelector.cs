@@ -64,6 +64,7 @@ namespace IceBlink2
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.ToString());
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -71,6 +72,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
             try
             {
@@ -97,6 +99,7 @@ namespace IceBlink2
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.ToString());
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -104,6 +107,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
 

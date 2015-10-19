@@ -462,7 +462,7 @@ namespace IceBlink2
 			                        }
 			                        catch (Exception ex)
 			                        {
-			                            //print error
+                                        gv.errorLog(ex.ToString());
 			                        }        	                            	        	                        
 			            	    }
 
@@ -482,7 +482,7 @@ namespace IceBlink2
 				                        catch (Exception ex)
 				                        {
                                             IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
-				                            //print error
+                                            gv.errorLog(ex.ToString());
 				                        }        	                            	        	                        
 				                	}
                                     else if (pcSel.selectedIndex == 0) // selected "cancel"

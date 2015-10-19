@@ -139,7 +139,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                int x = 0;
+                gv.errorLog(ex.ToString());
             }
             /*
             AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(gv.gameContext);
@@ -456,6 +456,7 @@ namespace IceBlink2
                     {
                         this.MessageBoxHtml("Failed to run script (" + filename + "): " + ex.ToString());
                     }
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -674,6 +675,7 @@ namespace IceBlink2
                     {
                         this.MessageBoxHtml("Failed to run script (" + filename + "): " + ex.ToString());
                     }
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -820,6 +822,7 @@ namespace IceBlink2
                     {
                         this.MessageBoxHtml("Failed to run script (" + filename + "): " + ex.ToString());
                     }
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -1174,6 +1177,7 @@ namespace IceBlink2
                     {
                         this.MessageBoxHtml("Failed to run script (" + filename + "): " + ex.ToString());
                     }
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -2255,6 +2259,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to load character from character folder" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void RemoveCharacterFromParty(string PCtag, string index)
@@ -2300,6 +2305,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to remove character from party" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void MoveCharacterToRoster(string PCtag, string index)
@@ -2354,6 +2360,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to remove character from party" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void MoveCharacterToPartyFromRoster(string PCtag, string index)
@@ -2422,6 +2429,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to remove character from party" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void EnableDisableTriggerEvent(string tag, string evNum, string enabl)
@@ -2462,6 +2470,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find trigger due to exception error" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void EnableDisableTrigger(string tag, string enabl)
@@ -2490,6 +2499,7 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find trigger due to exception error" + "</font>" +
                             "<BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void EnableDisableTriggerAtCurrentLocation(string enabl)
@@ -2514,6 +2524,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>failed to find trigger due to exception error</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void EnableDisableTriggerEventAtCurrentLocation(string evNum, string enabl)
@@ -2551,6 +2562,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>failed to find trigger due to exception error</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void TogglePartyToken(string filename, string enabl)
@@ -2579,6 +2591,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to switch party token" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void SetPropIsShown(string tag, string show)
@@ -2645,6 +2658,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find prop due to exception error" + "</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void RemovePropByIndex(int index, string areafilename)
@@ -2677,6 +2691,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='yellow'>" + "failed to find prop due to exception error</font><BR>");
                 }
+                gv.errorLog(ex.ToString());
             }
         }
         public void GetPlayerHp(string tag, string index, string key)
@@ -4486,8 +4501,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(sf.gm, "failed running OnWhileEquipped scripts during UpdateStats()... see debug.txt");
-                //sf.gm.errorLog(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
         public bool hasTrait(Player pc, string tag)
@@ -4635,8 +4649,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(sf.gm, "failed running OnWhileEquipped scripts during UpdateStats()... see debug.txt");
-                //sf.gm.errorLog(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
         public void doRegenSp(Player pc, int rounds)
@@ -4951,18 +4964,18 @@ namespace IceBlink2
                                         mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                         mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                     }
-                                    catch (Exception e)
+                                    catch (Exception ex)
                                     {
-                                        //e.printStackTrace();
+                                        gv.errorLog(ex.ToString());
                                     }
                                 }
                             }
 
                             //mod.currentEncounter.encounterCreatureList.remove(target);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            //e.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -5332,9 +5345,9 @@ namespace IceBlink2
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                             mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            //e.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -5558,9 +5571,9 @@ namespace IceBlink2
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                             mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            //e.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -5923,17 +5936,17 @@ namespace IceBlink2
                                         mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                         mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                     }
-                                    catch (Exception e)
+                                    catch (Exception ex)
                                     {
-                                        //e.printStackTrace();
+                                        gv.errorLog(ex.ToString());
                                     }
                                 }
                             }
                             mod.currentEncounter.encounterCreatureList.Remove(target);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            //e.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -6067,9 +6080,9 @@ namespace IceBlink2
                             mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                             mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            //e.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }

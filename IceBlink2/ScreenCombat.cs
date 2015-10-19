@@ -855,9 +855,9 @@ namespace IceBlink2
                             copy.combatLocY = crf.creatureStartLocationY;
                             mod.currentEncounter.encounterCreatureList.Add(copy);
                         }
-                        catch (Exception e1)
+                        catch (Exception ex)
                         {
-                            //e1.printStackTrace();
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -1200,8 +1200,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(sf.gm, "failed running OnWhileEquipped scripts during UpdateStats()... see debug.txt");
-                //sf.gm.errorLog(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
         public void doRegenSp(Player pc, int increment)
@@ -1273,6 +1272,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 IBMessageBox.Show(gv, ex.ToString());
+                gv.errorLog(ex.ToString());
             }
             checkEndEncounter();
         }
@@ -1471,17 +1471,17 @@ namespace IceBlink2
                                     mod.currentEncounter.encounterCreatureList.RemoveAt(x);
                                     mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
                                 }
-                                catch (Exception e)
+                                catch (Exception ex)
                                 {
-                                    //e.printStackTrace();
+                                    gv.errorLog(ex.ToString());
                                 }
                             }
                         }
                         //mod.currentEncounter.encounterCreatureList.remove(crt);
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        //e.printStackTrace();
+                        gv.errorLog(ex.ToString());
                     }
                     return 2; //killed
                 }
@@ -2348,7 +2348,7 @@ namespace IceBlink2
                 }
                 catch (Exception ex)
                 {
-                    //IBMessageBox.Show(game, "failed to run script");
+                    gv.errorLog(ex.ToString());
                 }
             }
         }

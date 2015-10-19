@@ -213,9 +213,10 @@ namespace IceBlink2
                     {
                         QuickSave();
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
                 else if (itSel.selectedIndex == 1)
@@ -228,9 +229,10 @@ namespace IceBlink2
                         SaveGame("slot1.json");
                         SaveGameInfo("slot1info.json");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
                 else if (itSel.selectedIndex == 2)
@@ -243,9 +245,10 @@ namespace IceBlink2
                         SaveGame("slot2.json");
                         SaveGameInfo("slot2info.json");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
                 else if (itSel.selectedIndex == 3)
@@ -258,9 +261,10 @@ namespace IceBlink2
                         SaveGame("slot3.json");
                         SaveGameInfo("slot3info.json");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
                 else if (itSel.selectedIndex == 4)
@@ -273,9 +277,10 @@ namespace IceBlink2
                         SaveGame("slot4.json");
                         SaveGameInfo("slot4info.json");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
                 else if (itSel.selectedIndex == 5)
@@ -288,9 +293,10 @@ namespace IceBlink2
                         SaveGame("slot5.json");
                         SaveGameInfo("slot5info.json");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
                     }
                 }
             }
@@ -996,13 +1002,13 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.playerList)
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.portrait = LoadBitmap(pc.portraitFilename); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 //may not need this as it is not used anywhere, only knownspellstags is used
                 /*pc.knownSpellsList = new List<Spell>();
                 try
@@ -1031,13 +1037,13 @@ namespace IceBlink2
             foreach (Player pc in gv.mod.partyRosterList)
             {
                 try { pc.token = LoadBitmap(pc.tokenFilename); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.portrait = LoadBitmap(pc.portraitFilename); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.race = gv.mod.getRace(pc.raceTag).DeepCopy(); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
-                catch (Exception ex) { }
+                catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 //may not need this as it is not used anywhere, only knownspellstags is used
                 /*pc.knownSpellsList = new List<Spell>();
                 try
@@ -1230,7 +1236,7 @@ namespace IceBlink2
                        
                         catch (Exception ex)
                         {
-                            //MessageBox.Show(ex.ToString());
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -1274,6 +1280,7 @@ namespace IceBlink2
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.ToString());
+                                gv.errorLog(ex.ToString());
                             }
                         }
                     }
@@ -1282,6 +1289,7 @@ namespace IceBlink2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
         public string GetModulePath()
@@ -3232,7 +3240,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox().Show(com_game, ex.ToString());
+                gv.errorLog(ex.ToString());
             }
         }
         public void doEffectScript(object src, string scriptName, int currentDurationInUnits, int durationInUnits)
@@ -3346,6 +3354,7 @@ namespace IceBlink2
                 if (gv.mod.debugMode)
                 {
                     gv.sf.MessageBox("failed to do prop trigger: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -3520,6 +3529,7 @@ namespace IceBlink2
                 if (gv.mod.debugMode)
                 {
                     gv.sf.MessageBox("failed to do trigger: " + ex.ToString());
+                    gv.errorLog(ex.ToString());
                 }
             }
         }
@@ -3534,7 +3544,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(game, "failed to open conversation with tag: " + tag);
+                gv.errorLog(ex.ToString());
             }
 
         }
@@ -3820,7 +3830,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(game, "failed to open encounter");
+                gv.errorLog(ex.ToString());
             }
         }
         public void doTransitionBasedOnAreaLocation(string areaFilename, int x, int y)
@@ -3849,7 +3859,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //IBMessageBox.Show(game, "failed to transition to area");
+                gv.errorLog(ex.ToString());
             }
         }
         public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
@@ -4005,13 +4015,14 @@ namespace IceBlink2
                 //    bm = BitmapFactory.decodeResource(gv.getResources(), R.drawable.ui_missingtexture);
                 //}			
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 if (bm == null)
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\missingtexture.png");
                     return bm;
                 }
+                gv.errorLog(ex.ToString());
             }
 
             return bm;
@@ -4119,7 +4130,7 @@ namespace IceBlink2
             }
             catch (Exception ex)
             {
-                //ex.printStackTrace();
+                gv.errorLog(ex.ToString());
                 return null;
             }
             return txt;
