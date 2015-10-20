@@ -68,6 +68,12 @@ namespace IceBlink2
 	    public List<Effect> cr_effectsList = new List<Effect>();
 	    public List<LocalInt> CreatureLocalInts = new List<LocalInt>();
 	    public List<LocalString> CreatureLocalStrings = new List<LocalString>();
+        public List<int> destinationPixelPositionXList = new List<int>();
+        public List<int> destinationPixelPositionYList = new List<int>();
+        //Turned the 2 ints below to floats for storing pix coordinates with higher precision
+        public float currentPixelPositionX = 0;
+        public float currentPixelPositionY = 0;
+        public int pixelMoveSpeed = 1;
 	    
 	    public Creature()
 	    {
