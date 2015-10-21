@@ -1438,9 +1438,26 @@ namespace IceBlink2
                     Usage = Usage.RenderTargetOutput
                 };
 
-                // Create Device and SwapChain
+                // Create Device and SwapChain                
+                state += "Get Highest Feature Level:";
+                var featureLvl = SharpDX.Direct3D11.Device.GetSupportedFeatureLevel();
                 state += "Create Device:";
-                SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_11_0 }, desc, out _device, out _swapChain);
+                try
+                {
+                    SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { featureLvl }, desc, out _device, out _swapChain);
+                }
+                catch (Exception ex)
+                {
+                    this.errorLog(state + "<--->" + ex.ToString());
+                    MessageBox.Show("Failed on Create Device using a feature level of " + featureLvl.ToString() + ". Will try using feature level 'Level_9_1' and DriverType.Software instead of DriverType.Hardware");
+                    SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Software, DeviceCreationFlags.BgraSupport, new[] { SharpDX.Direct3D.FeatureLevel.Level_9_1 }, desc, out _device, out _swapChain);                    
+                }
+
+                if (_device == null)
+                {
+                    MessageBox.Show("Failed to create a device, closing IceBlink 2. Please send us your 'IB2ErrorLog.txt' file for more debugging help.");
+                    Application.Exit();
+                }
 
                 // Ignore all windows events
                 state += "Create Factory:";
