@@ -376,7 +376,47 @@ namespace IceBlink2
                 if (mod.ArmorClassAscending) { actext = pc.AC; }
                 else { actext = 20 - pc.AC; }
 			    locY = 0;
-			    gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
+                int locY2 = 0;
+                if (mod.useOrbitronFont == true)
+                {
+                    gv.DrawText("STR:   " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX - 3*gv.squareSize, locY += leftStartY);
+                    gv.DrawText("AC: " + actext, tabX2, locY2 += leftStartY);
+                    gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing);
+                    gv.DrawText("DEX:  " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing);
+                    gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX -  3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
+                    gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
+                    gv.DrawText("FORT: " + pc.fortitude, tabX2, locY2 += spacing);
+                    gv.DrawText("REF: " + pc.reflex, tabX2, locY2 += spacing);
+                    gv.DrawText("WILL: " + pc.will, tabX2, locY2 += spacing);
+                    gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
+                }
+                else
+                {
+                    gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += leftStartY);
+                    gv.DrawText("AC: " + actext, tabX2, locY2 += leftStartY);
+                    gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing);
+                    gv.DrawText("DEX:  " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing);
+                    gv.DrawText("CON:  " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
+                    gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
+                    gv.DrawText("FORT: " + pc.fortitude, tabX2, locY2 += spacing);
+                    gv.DrawText("REF: " + pc.reflex, tabX2, locY2 += spacing);
+                    gv.DrawText("WILL: " + pc.will, tabX2, locY2 += spacing);
+                    gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("CHA:  " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
+                    gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
+                }
+
+
+
+			    /*gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
 			    gv.DrawText("AC: " + actext, tabX2, locY);
 			    gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
 			    gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
@@ -385,7 +425,7 @@ namespace IceBlink2
 			    gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
 			    gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
                 gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
-                gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);
+                gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);*/
                 
 		    }            
        }
