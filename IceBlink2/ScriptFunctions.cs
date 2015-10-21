@@ -4111,6 +4111,7 @@ namespace IceBlink2
             pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
             pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
             pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
+            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierCon(pc);
             pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
             if (pc.damageTypeResistanceTotalAcid > 100) { pc.damageTypeResistanceTotalAcid = 100; }
             pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc);
