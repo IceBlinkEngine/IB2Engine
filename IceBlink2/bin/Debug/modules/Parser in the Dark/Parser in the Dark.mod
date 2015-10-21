@@ -123,7 +123,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short sicfi module.",
   "moduleCredits": "<big><b>Parser in the Dark</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 9124,
+  "nextIdNumber": 9125,
   "realTimeTimerLengthInMilliSeconds": 500,
   "WorldTime": 0,
   "startingArea": "wm_debug",

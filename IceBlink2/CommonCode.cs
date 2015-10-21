@@ -751,6 +751,8 @@ namespace IceBlink2
             //  "moduleLabelName": "Lanterna 2 (demo)", don't need to update
             //U  "combatAnimationSpeed": 100, (use all save)
             gv.mod.combatAnimationSpeed = saveMod.combatAnimationSpeed;
+            //gv.mod.combatAnimationSpeed = 100;
+
             //U  "partyGold": 70, (use all save)
             gv.mod.partyGold = saveMod.partyGold;
             //U  "com_showGrid": false, (use all save)
