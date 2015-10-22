@@ -30,6 +30,7 @@ namespace IceBlink2
         public int TimePerRound = 6;
         public bool debugMode = false;
         public bool allowSave = true;
+        public bool useLuck = false;
         public float diagonalMoveCost = 1.0f;
         public int nonAllowedDiagonalSquareX = -1;
         public int nonAllowedDiagonalSquareY = -1;
