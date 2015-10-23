@@ -14,13 +14,15 @@ namespace IceBlink2
     public class Area 
     {
 	    public string Filename = "newArea";
-	    public bool IsWorldMap = false;
+	    //public bool IsWorldMap = false;
         public bool UseMiniMapFogOfWar = false;
 	    public bool areaDark = false;
 	    public bool UseDayNightCycle = false;
 	    public int TimePerSquare = 6; //in minutes for now
 	    public string MusicFileName = "forest.mp3";
-	    public string ImageFileName = "newArea.jpg";
+	    public string ImageFileName = "none";
+        public int backgroundImageStartLocX = 0;
+        public int backgroundImageStartLocY = 0;
 	    public int MapSizeX = 16;
 	    public int MapSizeY = 16;
 	    public string AreaMusic = "none";

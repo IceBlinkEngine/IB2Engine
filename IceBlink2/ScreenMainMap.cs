@@ -197,8 +197,8 @@ namespace IceBlink2
         //MAIN SCREEN
         public void resetMiniMapBitmap()
         {
-            if (mod.currentArea.IsWorldMap)
-            {
+            //if (mod.currentArea.IsWorldMap)
+            //{
                 int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
                 int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
                 int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
@@ -206,6 +206,18 @@ namespace IceBlink2
                 {
                     using (Graphics device = Graphics.FromImage(surface))
                     {
+                        //draw background image first
+                        if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
+                        {
+                            System.Drawing.Bitmap bg = gv.cc.LoadBitmapGDI(mod.currentArea.ImageFileName);
+                            Rectangle srcBG = new Rectangle(0, 0, bg.Width, bg.Height);
+                            Rectangle dstBG = new Rectangle(mod.currentArea.backgroundImageStartLocX * minimapSquareSizeInPixels, 
+                                                            mod.currentArea.backgroundImageStartLocY * minimapSquareSizeInPixels, 
+                                                            minimapSquareSizeInPixels * (bg.Width / 50), 
+                                                            minimapSquareSizeInPixels * (bg.Height / 50));
+                            device.DrawImage(bg, dstBG, srcBG, GraphicsUnit.Pixel);
+                        }
+                        //draw any tiles
                         for (int x = 0; x < mod.currentArea.MapSizeX; x++)
                         {
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
@@ -230,21 +242,26 @@ namespace IceBlink2
                         minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
                     }
                 }
-            }
+            //}
         }
         public void redrawMain()
         {
             setExplored();
             if (!mod.currentArea.areaDark)
             {
-                if (mod.currentArea.IsWorldMap)
+                if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
+                {
+                    drawMap();
+                }
+                drawWorldMap();
+                /*if (mod.currentArea.IsWorldMap)
                 {
                     drawWorldMap();
                 }
                 else
                 {
                     drawMap();
-                }
+                }*/
                 drawProps();
                 if (mod.map_showGrid)
                 {
@@ -708,7 +725,8 @@ namespace IceBlink2
         }
         public void drawMiniMap()
         {
-            if ((mod.currentArea.IsWorldMap) && (tglMiniMap.toggleOn))
+            //if ((mod.currentArea.IsWorldMap) && (tglMiniMap.toggleOn))
+            if (tglMiniMap.toggleOn)
             {
                 int pW = (int)((float)gv.screenWidth / 100.0f);
                 int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -1215,10 +1233,10 @@ namespace IceBlink2
             btnWait.Draw();
             gv.cc.tglSound.Draw();
             tglFullParty.Draw();
-            if (mod.currentArea.IsWorldMap)
-            {
+            //if (mod.currentArea.IsWorldMap)
+            //{
                 tglMiniMap.Draw();
-            }
+            //}
             tglGrid.Draw();
             tglInteractionState.Draw();
             tglAvoidConversation.Draw();
@@ -1548,7 +1566,8 @@ namespace IceBlink2
                             gv.cc.addLogText("lime", "Show Full Party");
                         }
                     }
-                    if ((tglMiniMap.getImpact(x, y)) && (mod.currentArea.IsWorldMap))
+                    //if ((tglMiniMap.getImpact(x, y)) && (mod.currentArea.IsWorldMap))
+                    if (tglMiniMap.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
