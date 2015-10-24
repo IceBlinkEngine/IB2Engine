@@ -393,8 +393,10 @@ namespace IceBlink2
                     gv.DrawText("WILL: " + pc.will, tabX2, locY2 += spacing);
                     gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
                     gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
-                    gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
-                }
+                    if (mod.useLuck)
+                    {
+                        gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
+                    }
                 else
                 {
                     gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += leftStartY);
@@ -411,8 +413,10 @@ namespace IceBlink2
                     gv.DrawText("WILL: " + pc.will, tabX2, locY2 += spacing);
                     gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
                     gv.DrawText("CHA:  " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
-                    gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
-                }
+                    if (mod.useLuck)
+                    {
+                        gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
+                    }
 
 
 

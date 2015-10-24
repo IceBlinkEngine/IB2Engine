@@ -15,7 +15,7 @@ namespace IceBlink2
     {
 	    public string Filename = "newArea";
 	    //public bool IsWorldMap = false;
-        public bool UseMiniMapFogOfWar = false;
+        public bool UseMiniMapFogOfWar = true;
 	    public bool areaDark = false;
 	    public bool UseDayNightCycle = false;
 	    public int TimePerSquare = 6; //in minutes for now

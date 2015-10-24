@@ -411,7 +411,7 @@ namespace IceBlink2
                 gv.DrawText("WILL: " + pc.will + ", MagicResist: " + pc.damageTypeResistanceTotalMagic + "%" + ", PoisonResist: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
-                if (mod.useLuck == true)
+                if (mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }
@@ -441,7 +441,7 @@ namespace IceBlink2
                 gv.DrawText("WILL: " + pc.will + ", MagicResist: " + pc.damageTypeResistanceTotalMagic + "%" + ", PoisonResist: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
-                if (mod.useLuck == true)
+                if (mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }

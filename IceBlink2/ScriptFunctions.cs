@@ -4111,7 +4111,7 @@ namespace IceBlink2
             pc.charisma = pc.baseCha + pc.race.chaMod + CalcAttributeModifierCha(pc); //SD_20131127
             pc.wisdom = pc.baseWis + pc.race.wisMod + CalcAttributeModifierWis(pc); //SD_20131127
             pc.constitution = pc.baseCon + pc.race.conMod + CalcAttributeModifierCon(pc); //SD_20131127
-            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierCon(pc);
+            pc.luck = pc.baseLuck + pc.race.luckMod + CalcAttributeModifierLuk(pc);
             pc.damageTypeResistanceTotalAcid = pc.race.damageTypeResistanceValueAcid + CalcAcidModifiers(pc);
             if (pc.damageTypeResistanceTotalAcid > 100) { pc.damageTypeResistanceTotalAcid = 100; }
             pc.damageTypeResistanceTotalNormal = pc.race.damageTypeResistanceValueNormal + CalcNormalModifiers(pc);
@@ -4301,6 +4301,19 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
+            return attBonuses;
+        }
+        public int CalcAttributeModifierLuk(Player pc)
+        {
+            int attBonuses = 0;
+            attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
             return attBonuses;
         }
         public int CalcAcidModifiers(Player pc)
