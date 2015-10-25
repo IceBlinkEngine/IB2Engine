@@ -11,10 +11,10 @@ using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
-    public class ScreenPcCreation 
+    public class ScreenPcCreation
     {
-	    public Module mod;
-	    public GameView gv;
+        public Module mod;
+        public GameView gv;
 
         private IbbButton btnName = null;
         private IbbButton btnRace = null;
@@ -23,48 +23,48 @@ namespace IceBlink2
         private IbbPortrait btnPortrait = null;
         private IbbButton btnToken = null;
 
-	    private IbbButton btnPlayerGuideOnPcCreation = null;
-	    private IbbButton btnBeginnerGuideOnPcCreation = null;
-	    private IbbButton btnRollStats = null;
-	    private IbbButton btnFinished = null;
-	    private IbbButton btnAbort = null;
-        
+        private IbbButton btnPlayerGuideOnPcCreation = null;
+        private IbbButton btnBeginnerGuideOnPcCreation = null;
+        private IbbButton btnRollStats = null;
+        private IbbButton btnFinished = null;
+        private IbbButton btnAbort = null;
+
         private Bitmap blankItemSlot;
-	    private int pcCreationIndex = 0;
-	    private int pcTokenSelectionIndex = 0;
+        private int pcCreationIndex = 0;
+        private int pcTokenSelectionIndex = 0;
         private int pcPortraitSelectionIndex = 0;
-	    private int pcRaceSelectionIndex = 0;
-	    private int pcClassSelectionIndex = 0;
-	    public List<string> playerTokenList = new List<string>();
+        private int pcRaceSelectionIndex = 0;
+        private int pcClassSelectionIndex = 0;
+        public List<string> playerTokenList = new List<string>();
         public List<string> playerPortraitList = new List<string>();
         public List<Race> playerRaces = new List<Race>();
         public Player pc;
-	
-	    public ScreenPcCreation(Module m, GameView g)
-	    {
-		    mod = m;
-		    gv = g;
+
+        public ScreenPcCreation(Module m, GameView g)
+        {
+            mod = m;
+            gv = g;
             blankItemSlot = gv.cc.LoadBitmap("item_slot");
-		    LoadPlayerBitmapList();
-            LoadPlayerPortraitList();            
+            LoadPlayerBitmapList();
+            LoadPlayerPortraitList();
             CreateRaceList();
-		    resetPC();
+            resetPC();
             setControlsStart();
-            
-	    }
-	
-	    public void resetPC()
-	    {
-		    pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
-		    pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
+
+        }
+
+        public void resetPC()
+        {
+            pc = gv.cc.LoadPlayer(gv.mod.defaultPlayerFilename);
+            pc.token = gv.cc.LoadBitmap(pc.tokenFilename);
             pc.portrait = gv.cc.LoadBitmap(pc.portraitFilename);
-		    pc.playerClass = mod.getPlayerClass(pc.classTag);
-		    pc.race = this.getAllowedRace(pc.raceTag);
-		    pc.name = "CharacterName";
+            pc.playerClass = mod.getPlayerClass(pc.classTag);
+            pc.race = this.getAllowedRace(pc.raceTag);
+            pc.name = "CharacterName";
             pc.tag = "characterName";
-		    pcCreationIndex = 0;
+            pcCreationIndex = 0;
             reRollStats(pc);
-	    }
+        }
         public void CreateRaceList()
         {
             //Create Race List
@@ -95,11 +95,11 @@ namespace IceBlink2
             }
             return null;
         }
-	    public void LoadPlayerBitmapList()
-	    {            
-		    playerTokenList.Clear();	
-		    try
-		    {
+        public void LoadPlayerBitmapList()
+        {
+            playerTokenList.Clear();
+            try
+            {
                 //Load from module folder first
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
@@ -123,16 +123,16 @@ namespace IceBlink2
                             gv.errorLog(ex.ToString());
                         }
                     }
-                }			    			    
-		    }
-		    catch (Exception ex)
-    	    {
+                }
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
-    	    }
-		    try
-		    {
-			    //Load from PlayerTokens folder last
+            }
+            try
+            {
+                //Load from PlayerTokens folder last
                 string[] files;
                 if (Directory.Exists(gv.mainDirectory + "\\PlayerTokens"))
                 {
@@ -159,13 +159,13 @@ namespace IceBlink2
                         }
                     }
                 }
-		    }
-		    catch (Exception ex)
-    	    {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
-    	    }
-	    }
+            }
+        }
         public void LoadPlayerPortraitList()
         {
             playerPortraitList.Clear();
@@ -237,12 +237,12 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
-	
-	    public void setControlsStart()
-	    {		
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
-		    int pH = (int)((float)gv.screenHeight / 100.0f);
-		    int padW = gv.squareSize/6;
+
+        public void setControlsStart()
+        {
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pH = (int)((float)gv.screenHeight / 100.0f);
+            int padW = gv.squareSize / 6;
             int center = gv.screenWidth / 2;
 
             if (btnPortrait == null)
@@ -306,70 +306,70 @@ namespace IceBlink2
                 btnClass.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnClass.Width = (int)(gv.ibbwidthL * gv.screenDensity);
             }
-		    if (btnPlayerGuideOnPcCreation == null)
-		    {
-			    btnPlayerGuideOnPcCreation = new IbbButton(gv, 1.0f);	
-			    btnPlayerGuideOnPcCreation.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnPlayerGuideOnPcCreation.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnPlayerGuideOnPcCreation.Text = "Player's Guide";
+            if (btnPlayerGuideOnPcCreation == null)
+            {
+                btnPlayerGuideOnPcCreation = new IbbButton(gv, 1.0f);
+                btnPlayerGuideOnPcCreation.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnPlayerGuideOnPcCreation.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnPlayerGuideOnPcCreation.Text = "Player's Guide";
                 btnPlayerGuideOnPcCreation.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-			    btnPlayerGuideOnPcCreation.Y = 7 * gv.squareSize;
+                btnPlayerGuideOnPcCreation.Y = 7 * gv.squareSize;
                 btnPlayerGuideOnPcCreation.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnPlayerGuideOnPcCreation.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
-		    if (btnBeginnerGuideOnPcCreation == null)
-		    {
-			    btnBeginnerGuideOnPcCreation = new IbbButton(gv, 1.0f);	
-			    btnBeginnerGuideOnPcCreation.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnBeginnerGuideOnPcCreation.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnBeginnerGuideOnPcCreation.Text = "Beginner's Guide";
+                btnPlayerGuideOnPcCreation.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+            if (btnBeginnerGuideOnPcCreation == null)
+            {
+                btnBeginnerGuideOnPcCreation = new IbbButton(gv, 1.0f);
+                btnBeginnerGuideOnPcCreation.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnBeginnerGuideOnPcCreation.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnBeginnerGuideOnPcCreation.Text = "Beginner's Guide";
                 btnBeginnerGuideOnPcCreation.X = center - (int)(gv.ibbwidthL * gv.screenDensity) - pW * 1;
-			    btnBeginnerGuideOnPcCreation.Y = 8 * gv.squareSize + pH;
+                btnBeginnerGuideOnPcCreation.Y = 8 * gv.squareSize + pH;
                 btnBeginnerGuideOnPcCreation.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnBeginnerGuideOnPcCreation.Width = (int)(gv.ibbwidthL * gv.screenDensity);			
-		    }
-		    if (btnRollStats == null)
-		    {
-			    btnRollStats = new IbbButton(gv, 1.0f);	
-			    btnRollStats.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnRollStats.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnRollStats.Text = "Roll Stats";
+                btnBeginnerGuideOnPcCreation.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            }
+            if (btnRollStats == null)
+            {
+                btnRollStats = new IbbButton(gv, 1.0f);
+                btnRollStats.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnRollStats.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnRollStats.Text = "Roll Stats";
                 btnRollStats.X = center + pW * 1;
                 btnRollStats.Y = 7 * gv.squareSize;
                 btnRollStats.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnRollStats.Width = (int)(gv.ibbwidthL * gv.screenDensity);
-		    }
-		    if (btnFinished == null)
-		    {
-			    btnFinished = new IbbButton(gv, 1.0f);	
-			    btnFinished.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
-			    btnFinished.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
-			    btnFinished.Text = "Finished";
+            }
+            if (btnFinished == null)
+            {
+                btnFinished = new IbbButton(gv, 1.0f);
+                btnFinished.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
+                btnFinished.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
+                btnFinished.Text = "Finished";
                 btnFinished.X = center + pW * 1;
-			    btnFinished.Y = 8 * gv.squareSize + pH;
+                btnFinished.Y = 8 * gv.squareSize + pH;
                 btnFinished.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnFinished.Width = (int)(gv.ibbwidthL * gv.screenDensity);
-		    }
-		    if (btnAbort == null)
-		    {
-			    btnAbort = new IbbButton(gv, 0.8f);	
-			    btnAbort.Text = "Abort";
-			    btnAbort.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
-			    btnAbort.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnAbort.X = 8 * gv.squareSize + padW * 1 + gv.oXshift;
-			    btnAbort.Y = 9 * gv.squareSize + pH * 2;
+            }
+            if (btnAbort == null)
+            {
+                btnAbort = new IbbButton(gv, 0.8f);
+                btnAbort.Text = "Abort";
+                btnAbort.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
+                btnAbort.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
+                btnAbort.X = 8 * gv.squareSize + padW * 1 + gv.oXshift;
+                btnAbort.Y = 9 * gv.squareSize + pH * 2;
                 btnAbort.Height = (int)(gv.ibbheight * gv.screenDensity);
-                btnAbort.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
-		    }		    
-	    }
+                btnAbort.Width = (int)(gv.ibbwidthR * gv.screenDensity);
+            }
+        }
 
-	    public void redrawPcCreation()
+        public void redrawPcCreation()
         {
             //Player pc = mod.playerList.get(0);
-    	    gv.sf.UpdateStats(pc);
-    	
-    	    int pW = (int)((float)gv.screenWidth / 100.0f);
-		    int pH = (int)((float)gv.screenHeight / 100.0f);
+            gv.sf.UpdateStats(pc);
+
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pH = (int)((float)gv.screenHeight / 100.0f);
 
             int locX = 6 * gv.squareSize;
             //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
@@ -377,18 +377,18 @@ namespace IceBlink2
             int spacing = textH;
             int locY = 4 * gv.squareSize + gv.squareSize / 4;
             int locY2 = 4 * gv.squareSize + gv.squareSize / 4;
-    	    int tabX = pW * 50;
-    	    int tabX2 = pW * 50 + gv.squareSize - pW;
-    	    int leftStartY = pH * 20;
-    	    int tokenStartX = locX + (textH * 5);
-    	    int tokenStartY = pH * 5 + (spacing/2);
+            int tabX = pW * 50;
+            int tabX2 = pW * 50 + gv.squareSize - pW;
+            int leftStartY = pH * 20;
+            int tokenStartX = locX + (textH * 5);
+            int tokenStartY = pH * 5 + (spacing / 2);
             int portraitStartX = 12 * gv.squareSize + (textH * 5);
             int portraitStartY = pH * 5 + (spacing / 2);
-    	    int tokenRectPad = pW * 1;
-    	
-		    //Page Title
-		    gv.DrawText("CREATE CHARACTER", pW * 40 + gv.squareSize, pH * 1);
-						    
+            int tokenRectPad = pW * 1;
+
+            //Page Title
+            gv.DrawText("CREATE CHARACTER", pW * 40 + gv.squareSize, pH * 1);
+
             Color color = Color.White;
 
             int actext = 0;
@@ -396,82 +396,92 @@ namespace IceBlink2
             else { actext = 20 - pc.AC; }
             if (mod.useOrbitronFont == true)
             {
-                gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));                
+                if (mod.use3d6 && mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));
+                }
+                else if (mod.use3d6 && !mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing));
+                }
+                else if (!mod.use3d6 && mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing));
+                }
+                else if (!mod.use3d6 && !mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing));
+
+                }
                 gv.DrawText("STR:   " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing * 2));
-                gv.DrawText("AC: " + actext, tabX2, locY2+=(spacing*3));
+                gv.DrawText("AC: " + actext, tabX2, locY2 += (spacing * 3));
                 gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing);
                 gv.DrawText("DEX:  " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2+=spacing);
+                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing);
                 gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2+=spacing);
+                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
                 gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", locX + pW, locY += spacing);
-                //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
-                gv.DrawText("FORT: " + pc.fortitude + ", AcidResist: " + pc.damageTypeResistanceTotalAcid + "%" + ", ColdResist: " + pc.damageTypeResistanceTotalCold + "%" + ", NormalResist: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
-                gv.DrawText("REF:   " + pc.reflex + ", ElectricityResist: " + pc.damageTypeResistanceTotalElectricity + "%" + ", FireResist: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
-                gv.DrawText("WILL: " + pc.will + ", MagicResist: " + pc.damageTypeResistanceTotalMagic + "%" + ", PoisonResist: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
+                gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
+                gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
+                gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
                 if (mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }
-                /*public int damageTypeResistanceTotalAcid = 0;
-	    public int damageTypeResistanceTotalCold = 0;
-	    public int damageTypeResistanceTotalNormal = 0;
-	    public int damageTypeResistanceTotalElectricity = 0;
-	    public int damageTypeResistanceTotalFire = 0;
-	    public int damageTypeResistanceTotalMagic = 0;
-	    public int damageTypeResistanceTotalPoison = 0;*/
-
             }
             else
             {
-                gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));                
+
+                if (mod.use3d6 && mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 3d6, Luck is high for those who need it", locX + pW, locY += (spacing));
+                }
+                else if (mod.use3d6 && !mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 3d6", locX + pW, locY += (spacing));
+                }
+                else if (!mod.use3d6 && mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 6 + d12, Luck is high for those who need it", locX + pW, locY += (spacing));
+                }
+                else if (!mod.use3d6 && !mod.useLuck)
+                {
+                    gv.DrawText("Rolling: 6 + d12", locX + pW, locY += (spacing));
+
+                }
                 gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing * 2));
-                gv.DrawText("AC: " + actext, tabX2, locY2+=(spacing*3));
+                gv.DrawText("AC: " + actext, tabX2, locY2 += (spacing * 3));
                 gv.DrawText("BAB: " + pc.baseAttBonus + ", Melee to hit/damage: " + (pc.baseAttBonus + ((pc.strength - 10) / 2)) + "/" + ((pc.strength - 10) / 2) + ", Ranged to hit: " + (pc.baseAttBonus + ((pc.dexterity - 10) / 2)), tabX2, locY2 += spacing);
                 gv.DrawText("DEX: " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2+=spacing);
+                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY2 += spacing);
                 gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2+=spacing);
+                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
                 gv.DrawText("INT:  " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", locX + pW, locY += spacing);
-                //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
-                gv.DrawText("FORT: " + pc.fortitude + ", AcidResist: " + pc.damageTypeResistanceTotalAcid + "%" + ", ColdResist: " + pc.damageTypeResistanceTotalCold + "%" + ", NormalResist: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
-                gv.DrawText("REF:   " + pc.reflex + ", ElectricityResist: " + pc.damageTypeResistanceTotalElectricity + "%" + ", FireResist: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
-                gv.DrawText("WILL: " + pc.will + ", MagicResist: " + pc.damageTypeResistanceTotalMagic + "%" + ", PoisonResist: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
+                gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
+                gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
+                gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
                 gv.DrawText("WIS:  " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
                 gv.DrawText("CHA: " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
                 if (mod.useLuck)
                 {
                     gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);
                 }
-                
-                /*gv.DrawText("STR:  " + pc.baseStr + " + " + (pc.strength - pc.baseStr) + " = " + pc.strength + " (" + ((pc.strength - 10) / 2) + ")", locX + pW, locY += (spacing*2));
-                gv.DrawText("AC: " + actext, tabX2, locY);
-                gv.DrawText("DEX:  " + pc.baseDex + " + " + (pc.dexterity - pc.baseDex) + " = " + pc.dexterity + " (" + ((pc.dexterity - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-                gv.DrawText("CON:  " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-                gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-                gv.DrawText("WIS:   " + pc.baseWis + " + " + (pc.wisdom - pc.baseWis) + " = " + pc.wisdom + " (" + ((pc.wisdom - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("CHA:  " + pc.baseCha + " + " + (pc.charisma - pc.baseCha) + " = " + pc.charisma + " (" + ((pc.charisma - 10) / 2) + ")", locX + pW, locY += spacing);
-                gv.DrawText("LCK:   " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, locX + pW, locY += spacing);*/
-
 
             }
             //Description
-		    string textToSpan = "";
-            if (pcCreationIndex == 2) 
-            { 
-        	    textToSpan = "Description:" + Environment.NewLine;
-                //textToSpan = "<u>Description</u>" + "<BR>";
-        	    textToSpan += pc.race.description;
-            }
-            else if (pcCreationIndex == 4) 
+            string textToSpan = "";
+            if (pcCreationIndex == 2)
             {
                 textToSpan = "Description:" + Environment.NewLine;
-        	    textToSpan += pc.playerClass.description;
+                //textToSpan = "<u>Description</u>" + "<BR>";
+                textToSpan += pc.race.description;
+            }
+            else if (pcCreationIndex == 4)
+            {
+                textToSpan = "Description:" + Environment.NewLine;
+                textToSpan += pc.playerClass.description;
             }
             int yLoc = 3 * gv.squareSize;
             IbRect rect = new IbRect(tabX + gv.squareSize - pW, yLoc, pW * 35, pH * 50);
@@ -495,263 +505,263 @@ namespace IceBlink2
             btnGender.Draw();
             btnClass.Text = pc.playerClass.name;
             btnClass.Draw();
-            
+
             btnRollStats.Draw();
-		    btnFinished.Draw();
-		    gv.cc.btnHelp.Draw();
-		    btnAbort.Draw();
-		    btnPlayerGuideOnPcCreation.Draw();
-		    btnBeginnerGuideOnPcCreation.Draw();
-        }    
+            btnFinished.Draw();
+            gv.cc.btnHelp.Draw();
+            btnAbort.Draw();
+            btnPlayerGuideOnPcCreation.Draw();
+            btnBeginnerGuideOnPcCreation.Draw();
+        }
         public void onTouchPcCreation(MouseEventArgs e, MouseEventType.EventType eventType)
-	    {
-    	    //Player pc = mod.playerList.get(0);
-    	
-    	    //ctrlUpArrow.glowOn = false;
-    	    //ctrlDownArrow.glowOn = false;
-    	    //ctrlLeftArrow.glowOn = false;
-    	    //ctrlRightArrow.glowOn = false;
-		    btnRollStats.glowOn = false;
-		    btnFinished.glowOn = false;	
-		    btnAbort.glowOn = false;	
-		    gv.cc.btnHelp.glowOn = false;
-		    btnPlayerGuideOnPcCreation.glowOn = false;
-		    btnBeginnerGuideOnPcCreation.glowOn = false;
-		
-		    //int eventAction = event.getAction();
-		    switch (eventType)
-		    {
-		    case MouseEventType.EventType.MouseDown:
-		    case MouseEventType.EventType.MouseMove:
-			    int x = (int) e.X;
-			    int y = (int) e.Y;
-			    /*if (ctrlUpArrow.getImpact(x, y))
-			    {
-				    ctrlUpArrow.glowOn = true;
-			    }
-			    else if (ctrlDownArrow.getImpact(x, y))
-			    {
-				    ctrlDownArrow.glowOn = true;
-			    }
-			    else if (ctrlLeftArrow.getImpact(x, y))
-			    {
-				    ctrlLeftArrow.glowOn = true;
-			    }
-			    else if (ctrlRightArrow.getImpact(x, y))
-			    {
-				    ctrlRightArrow.glowOn = true;
-			    }*/	
-			    if (btnRollStats.getImpact(x, y))
-			    {
-				    btnRollStats.glowOn = true;
-			    }
-			    else if (btnFinished.getImpact(x, y))
-			    {
-				    btnFinished.glowOn = true;			
-			    }
-			    else if (btnAbort.getImpact(x, y))
-			    {
-				    btnAbort.glowOn = true;			
-			    }
-			    else if (gv.cc.btnHelp.getImpact(x, y))
-			    {
-				    gv.cc.btnHelp.glowOn = true;
-			    }
-			    else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
-			    {
-				    btnPlayerGuideOnPcCreation.glowOn = true;
-			    }
-			    else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
-			    {
-				    btnBeginnerGuideOnPcCreation.glowOn = true;
-			    }
-			    break;	
-			
-		    case MouseEventType.EventType.MouseUp:
-                x = (int)e.X;
-                y = (int)e.Y;
-			
-			    //ctrlUpArrow.glowOn = false;
-			    //ctrlDownArrow.glowOn = false;
-			    //ctrlLeftArrow.glowOn = false;
-			    //ctrlRightArrow.glowOn = false;
-			    btnRollStats.glowOn = false;
-			    btnFinished.glowOn = false;	
-			    btnAbort.glowOn = false;
-			    gv.cc.btnHelp.glowOn = false;
-			    btnPlayerGuideOnPcCreation.glowOn = false;
-			    btnBeginnerGuideOnPcCreation.glowOn = false;
-			
-                if (btnName.getImpact(x, y))
-			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    pcCreationIndex = 1;
-                    changePcName();
-			    }
-                else if (btnRace.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    pcCreationIndex = 2; 
-                    pcRaceSelectionIndex++;
-                    if (pcRaceSelectionIndex >= this.playerRaces.Count)
-                    {
-                        pcRaceSelectionIndex = 0;
-                    }
-                    pc.race = playerRaces[pcRaceSelectionIndex];
-                    pc.raceTag = pc.race.tag;
-                    resetClassSelection(pc);
-                    gv.sf.UpdateStats(pc);
-                    pc.hp = pc.hpMax;
-                    pc.sp = pc.spMax;
-                }
-                else if (btnGender.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    pcCreationIndex = 3; 
-                    if (pc.isMale)
-                    {
-                        pc.isMale = false;
-                    }
-                    else
-                    {
-                        pc.isMale = true;
-                    }
-                }
-                else if (btnClass.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    pcCreationIndex = 4;
-                    pcClassSelectionIndex++;
-                    if (pcClassSelectionIndex >= pc.race.classesAllowed.Count)
-                    {
-                        pcClassSelectionIndex = 0;
-                    }
-                    pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
-                    pc.classTag = pc.playerClass.tag;
-                    gv.sf.UpdateStats(pc);
-                    pc.hp = pc.hpMax;
-                    pc.sp = pc.spMax;
-                }
-                else if (btnPortrait.getImpact(x, y))
-                {
-                    //pass items to selector
-                    gv.screenType = "portraitSelector";
-                    gv.screenPortraitSelector.resetPortraitSelector("pcCreation", pc);
-                }
-                else if (btnToken.getImpact(x, y))
-                {
-                    gv.screenType = "tokenSelector";
-                    gv.screenTokenSelector.resetTokenSelector("pcCreation", pc);
-                }
+        {
+            //Player pc = mod.playerList.get(0);
 
-                else if (btnRollStats.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    reRollStats(pc);
-                }
-                else if (btnFinished.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+            //ctrlUpArrow.glowOn = false;
+            //ctrlDownArrow.glowOn = false;
+            //ctrlLeftArrow.glowOn = false;
+            //ctrlRightArrow.glowOn = false;
+            btnRollStats.glowOn = false;
+            btnFinished.glowOn = false;
+            btnAbort.glowOn = false;
+            gv.cc.btnHelp.glowOn = false;
+            btnPlayerGuideOnPcCreation.glowOn = false;
+            btnBeginnerGuideOnPcCreation.glowOn = false;
 
-                    //if automatically learned traits or spells add them
-                    foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+            //int eventAction = event.getAction();
+            switch (eventType)
+            {
+                case MouseEventType.EventType.MouseDown:
+                case MouseEventType.EventType.MouseMove:
+                    int x = (int)e.X;
+                    int y = (int)e.Y;
+                    /*if (ctrlUpArrow.getImpact(x, y))
                     {
-                        if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                        ctrlUpArrow.glowOn = true;
+                    }
+                    else if (ctrlDownArrow.getImpact(x, y))
+                    {
+                        ctrlDownArrow.glowOn = true;
+                    }
+                    else if (ctrlLeftArrow.getImpact(x, y))
+                    {
+                        ctrlLeftArrow.glowOn = true;
+                    }
+                    else if (ctrlRightArrow.getImpact(x, y))
+                    {
+                        ctrlRightArrow.glowOn = true;
+                    }*/
+                    if (btnRollStats.getImpact(x, y))
+                    {
+                        btnRollStats.glowOn = true;
+                    }
+                    else if (btnFinished.getImpact(x, y))
+                    {
+                        btnFinished.glowOn = true;
+                    }
+                    else if (btnAbort.getImpact(x, y))
+                    {
+                        btnAbort.glowOn = true;
+                    }
+                    else if (gv.cc.btnHelp.getImpact(x, y))
+                    {
+                        gv.cc.btnHelp.glowOn = true;
+                    }
+                    else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
+                    {
+                        btnPlayerGuideOnPcCreation.glowOn = true;
+                    }
+                    else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
+                    {
+                        btnBeginnerGuideOnPcCreation.glowOn = true;
+                    }
+                    break;
+
+                case MouseEventType.EventType.MouseUp:
+                    x = (int)e.X;
+                    y = (int)e.Y;
+
+                    //ctrlUpArrow.glowOn = false;
+                    //ctrlDownArrow.glowOn = false;
+                    //ctrlLeftArrow.glowOn = false;
+                    //ctrlRightArrow.glowOn = false;
+                    btnRollStats.glowOn = false;
+                    btnFinished.glowOn = false;
+                    btnAbort.glowOn = false;
+                    gv.cc.btnHelp.glowOn = false;
+                    btnPlayerGuideOnPcCreation.glowOn = false;
+                    btnBeginnerGuideOnPcCreation.glowOn = false;
+
+                    if (btnName.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        pcCreationIndex = 1;
+                        changePcName();
+                    }
+                    else if (btnRace.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        pcCreationIndex = 2;
+                        pcRaceSelectionIndex++;
+                        if (pcRaceSelectionIndex >= this.playerRaces.Count)
                         {
-                            pc.knownTraitsTags.Add(ta.tag);
+                            pcRaceSelectionIndex = 0;
+                        }
+                        pc.race = playerRaces[pcRaceSelectionIndex];
+                        pc.raceTag = pc.race.tag;
+                        resetClassSelection(pc);
+                        gv.sf.UpdateStats(pc);
+                        pc.hp = pc.hpMax;
+                        pc.sp = pc.spMax;
+                    }
+                    else if (btnGender.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        pcCreationIndex = 3;
+                        if (pc.isMale)
+                        {
+                            pc.isMale = false;
+                        }
+                        else
+                        {
+                            pc.isMale = true;
                         }
                     }
-                    foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                    else if (btnClass.getImpact(x, y))
                     {
-                        if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        pcCreationIndex = 4;
+                        pcClassSelectionIndex++;
+                        if (pcClassSelectionIndex >= pc.race.classesAllowed.Count)
                         {
-                            pc.knownSpellsTags.Add(sa.tag);
+                            pcClassSelectionIndex = 0;
+                        }
+                        pc.playerClass = mod.getPlayerClass(pc.race.classesAllowed[pcClassSelectionIndex]);
+                        pc.classTag = pc.playerClass.tag;
+                        gv.sf.UpdateStats(pc);
+                        pc.hp = pc.hpMax;
+                        pc.sp = pc.spMax;
+                    }
+                    else if (btnPortrait.getImpact(x, y))
+                    {
+                        //pass items to selector
+                        gv.screenType = "portraitSelector";
+                        gv.screenPortraitSelector.resetPortraitSelector("pcCreation", pc);
+                    }
+                    else if (btnToken.getImpact(x, y))
+                    {
+                        gv.screenType = "tokenSelector";
+                        gv.screenTokenSelector.resetTokenSelector("pcCreation", pc);
+                    }
+
+                    else if (btnRollStats.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        reRollStats(pc);
+                    }
+                    else if (btnFinished.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+
+                        //if automatically learned traits or spells add them
+                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        {
+                            if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                pc.knownTraitsTags.Add(ta.tag);
+                            }
+                        }
+                        foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
+                        {
+                            if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                            {
+                                pc.knownSpellsTags.Add(sa.tag);
+                            }
+                        }
+
+                        //check to see if have any traits to learn
+                        List<string> traitTagsList = new List<string>();
+                        traitTagsList = pc.getTraitsToLearn(gv.mod);
+
+                        //check to see if have any spells to learn
+                        List<string> spellTagsList = new List<string>();
+                        spellTagsList = pc.getSpellsToLearn();
+
+                        if (traitTagsList.Count > 0)
+                        {
+                            gv.screenTraitLevelUp.resetPC(pc);
+                            gv.screenType = "learnTraitCreation";
+                        }
+
+                        else if (spellTagsList.Count > 0)
+                        {
+                            gv.screenSpellLevelUp.resetPC(pc);
+                            gv.screenType = "learnSpellCreation";
+                        }
+                        else
+                        {
+                            //no spells or traits to learn
+                            //save character, add them to the pcList of screenPartyBuild, and go back to build screen
+                            this.SaveCharacter(pc);
+                            gv.screenPartyBuild.pcList.Add(pc);
+                            gv.screenType = "partyBuild";
+
+                            /* old stuff, keep for now
+                            gv.cc.tutorialMessageMainMap();
+                            gv.screenType = "main";
+                            gv.cc.doUpdate();*/
                         }
                     }
-
-                    //check to see if have any traits to learn
-                    List<string> traitTagsList = new List<string>();
-                    traitTagsList = pc.getTraitsToLearn(gv.mod);
-
-                    //check to see if have any spells to learn
-                    List<string> spellTagsList = new List<string>();
-                    spellTagsList = pc.getSpellsToLearn();
-
-                    if (traitTagsList.Count > 0)
+                    else if (btnAbort.getImpact(x, y))
                     {
-                        gv.screenTraitLevelUp.resetPC(pc);
-                        gv.screenType = "learnTraitCreation";
-                    }
-
-                    else if (spellTagsList.Count > 0)
-                    {
-                        gv.screenSpellLevelUp.resetPC(pc);
-                        gv.screenType = "learnSpellCreation";
-                    }
-                    else
-                    {
-                        //no spells or traits to learn
-                        //save character, add them to the pcList of screenPartyBuild, and go back to build screen
-                        this.SaveCharacter(pc);
-                        gv.screenPartyBuild.pcList.Add(pc);
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}				
                         gv.screenType = "partyBuild";
-
-                        /* old stuff, keep for now
-                        gv.cc.tutorialMessageMainMap();
-                        gv.screenType = "main";
-                        gv.cc.doUpdate();*/
                     }
-                }
-                else if (btnAbort.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}				
-                    gv.screenType = "partyBuild";
-                }
-                else if (gv.cc.btnHelp.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    gv.cc.tutorialPcCreation();
-                }
-                else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    //doPlayersGuideDialog();
-                    gv.cc.tutorialPlayersGuide();
-                }
-                else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
-                {
-                    gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    //doPlayersGuideDialog();
-                    gv.cc.tutorialBeginnersGuide();
-                }                
-			    break;
-		    }
-	    }
-        
+                    else if (gv.cc.btnHelp.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.cc.tutorialPcCreation();
+                    }
+                    else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //doPlayersGuideDialog();
+                        gv.cc.tutorialPlayersGuide();
+                    }
+                    else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        //doPlayersGuideDialog();
+                        gv.cc.tutorialBeginnersGuide();
+                    }
+                    break;
+            }
+        }
+
         public void tokenLoad(Player p)
         {
-    	    //p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
-    	    p.token = gv.cc.LoadBitmap(p.tokenFilename);
+            //p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
+            p.token = gv.cc.LoadBitmap(p.tokenFilename);
             btnToken.Img2 = p.token;
         }
         public void portraitLoad(Player p)
@@ -783,74 +793,110 @@ namespace IceBlink2
                     }
                 }
             }
-    	    /*AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-    	    builder.setTitle("Enter Character's Name");
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
+            builder.setTitle("Enter Character's Name");
 
-    	    // Set up the input
-    	    final EditText input = new EditText(gv.gameContext);
-    	    // Specify the type of input expected
-    	    input.setInputType(InputType.TYPE_CLASS_TEXT);
-    	    builder.setView(input);
+            // Set up the input
+            final EditText input = new EditText(gv.gameContext);
+            // Specify the type of input expected
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
 
-    	    // Set up the buttons
-    	    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() 
-    	    { 
-    	        @Override
-    	        public void onClick(DialogInterface dialog, int which) 
-    	        {
-    	    	    if (input.getText().toString().length() > 0)
-    	    	    {
-    	    		    //Player pc = mod.playerList.get(0);
-    	    		    pc.name = input.getText().toString();
-    	    		    pc.tag = pc.name.toLowerCase(Locale.ENGLISH);
-    	    	    }
-    	    	    else
-    	    	    {
-    	    		    Toast.makeText(gv.gameContext, "Entering a blank name is not allowed", Toast.LENGTH_SHORT).show();
-    	    	    }
-    	        }
-    	    });
+            // Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() 
+            { 
+                @Override
+                public void onClick(DialogInterface dialog, int which) 
+                {
+                    if (input.getText().toString().length() > 0)
+                    {
+                        //Player pc = mod.playerList.get(0);
+                        pc.name = input.getText().toString();
+                        pc.tag = pc.name.toLowerCase(Locale.ENGLISH);
+                    }
+                    else
+                    {
+                        Toast.makeText(gv.gameContext, "Entering a blank name is not allowed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
     	
-    	    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
-    	    {
-    	        @Override
-    	        public void onClick(DialogInterface dialog, int which) 
-    	        {
-    	            dialog.cancel();
-    	        }
-    	    });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which) 
+                {
+                    dialog.cancel();
+                }
+            });
     	
-    	    builder.show();
+            builder.show();
             */
         }
         public void reRollStats(Player p)
         {
-            p.baseStr = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseDex = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseInt = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseCha = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseCon = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseWis = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
-            p.baseLuck = (int)(15f - ((p.baseStr - 10) / 2) - ((p.baseDex - 10) / 2) - ((p.baseCon - 10) / 2) - ((p.baseInt - 10) / 2) - ((p.baseWis - 10) / 2) - ((p.baseCha - 10) / 2f));
-            if (p.baseLuck < 3)
+            if (mod.use3d6 == true)
             {
-                p.baseLuck = 3;
+                p.baseStr = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                p.baseDex = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                p.baseInt = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                p.baseCha = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                p.baseCon = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                p.baseWis = gv.sf.RandInt(6) + gv.sf.RandInt(6) + gv.sf.RandInt(6);
+                int sumOfAttributeBoni = ((p.baseStr - 10) / 2) + ((p.baseDex - 10) / 2) + ((p.baseCon - 10) / 2) + ((p.baseInt - 10) / 2) + ((p.baseWis - 10) / 2) + ((p.baseCha - 10) / 2);
+                if (sumOfAttributeBoni > 6)
+                {
+                    p.baseLuck = 10 - (sumOfAttributeBoni - 6);
+                }
+                else
+                {
+                    p.baseLuck = 10 + (6 - sumOfAttributeBoni);
+                }
+                //p.baseLuck = (int)(14 - ((p.baseStr - 10) / 2) - ((p.baseDex - 10) / 2) - ((p.baseCon - 10) / 2) - ((p.baseInt - 10) / 2) - ((p.baseWis - 10) / 2) - ((p.baseCha - 10) / 2));
+                if (p.baseLuck < 3)
+                {
+                    p.baseLuck = 3;
+                }
             }
-    	    gv.sf.UpdateStats(p);
-    	    p.hp = p.hpMax;
-		    p.sp = p.spMax;		
+            else
+            {
+                p.baseStr = 6 + gv.sf.RandInt(12);
+                p.baseDex = 6 + gv.sf.RandInt(12);
+                p.baseInt = 6 + gv.sf.RandInt(12);
+                p.baseCha = 6 + gv.sf.RandInt(12);
+                p.baseCon = 6 + gv.sf.RandInt(12);
+                p.baseWis = 6 + gv.sf.RandInt(12);
+                int sumOfAttributeBoni = ((p.baseStr - 10) / 2) + ((p.baseDex - 10) / 2) + ((p.baseCon - 10) / 2) + ((p.baseInt - 10) / 2) + ((p.baseWis - 10) / 2) + ((p.baseCha - 10) / 2);
+                if (sumOfAttributeBoni > 6)
+                {
+                    p.baseLuck = 10 - (sumOfAttributeBoni - 6);
+                }
+                else
+                {
+                    p.baseLuck = 10 + (6 - sumOfAttributeBoni);
+                }
+                //p.baseLuck = (int)(14 - ((p.baseStr - 10) / 2) - ((p.baseDex - 10) / 2) - ((p.baseCon - 10) / 2) - ((p.baseInt - 10) / 2) - ((p.baseWis - 10) / 2) - ((p.baseCha - 10) / 2));
+                if (p.baseLuck < 3)
+                {
+                    p.baseLuck = 3;
+                }
+            }
+
+            gv.sf.UpdateStats(p);
+            p.hp = p.hpMax;
+            p.sp = p.spMax;
         }
         public void resetClassSelection(Player p)
         {
-    	    pcClassSelectionIndex = 0;
-		    p.playerClass = mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
-		    p.classTag = p.playerClass.tag;
-		    gv.sf.UpdateStats(p);
-    	    p.hp = p.hpMax;
-		    p.sp = p.spMax;
+            pcClassSelectionIndex = 0;
+            p.playerClass = mod.getPlayerClass(p.race.classesAllowed[pcClassSelectionIndex]);
+            p.classTag = p.playerClass.tag;
+            gv.sf.UpdateStats(p);
+            p.hp = p.hpMax;
+            p.sp = p.spMax;
         }
         public void SaveCharacter(Player p)
-	    {
+        {
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\characters\\" + pc.tag + ".json";
             gv.cc.MakeDirectoryIfDoesntExist(filename);
             string json = JsonConvert.SerializeObject(pc, Newtonsoft.Json.Formatting.Indented);
@@ -858,6 +904,6 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-	    }        
+        }
     }
 }
