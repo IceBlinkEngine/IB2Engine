@@ -21,7 +21,7 @@ namespace IceBlink2
     {
         //this class is handled differently than Android version
         public GameView gv;
-        
+
         public List<FloatyText> floatyTextList = new List<FloatyText>();
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
@@ -80,10 +80,10 @@ namespace IceBlink2
         public Bitmap facing7;
         public Bitmap facing8;
         public Bitmap facing9;
-        
+
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
-        
+
         public Spell currentSelectedSpell = new Spell();
         public string floatyText = "";
         public string floatyText2 = "";
@@ -413,7 +413,7 @@ namespace IceBlink2
                 itSel.IceBlinkButtonClose.Visible = true;
                 itSel.IceBlinkButtonClose.Enabled = true;
                 itSel.ShowDialog();
-             
+
                 if (itSel.selectedIndex == 0)
                 {
                     bool result = LoadSave("autosave.json");
@@ -828,7 +828,7 @@ namespace IceBlink2
 
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
-                        
+
             this.updatePlayers();
             this.updatePartyRosterPlayers();
 
@@ -1235,7 +1235,7 @@ namespace IceBlink2
                                 }*/
                             }
                         }
-                       
+
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
@@ -1903,7 +1903,7 @@ namespace IceBlink2
                 gv.screenMainMap.doFloatyTextLoop();
             }
         }
-        
+
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
@@ -2194,7 +2194,7 @@ namespace IceBlink2
                                         gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].passOneMove = true;
                                         int xLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X;
                                         int yLocForFloaty = gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y;
-;
+                                        ;
                                         gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].PropTag, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].areaName, gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X.ToString(), gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].Y.ToString());
 
                                         //gv.mod.moduleAreasObjects[relevantAreaIndex].Props[relevantPropIndex].WayPointList[listEndCheckedIndexOfNextWaypoint].X
@@ -2203,14 +2203,14 @@ namespace IceBlink2
                                         //string shownAreaName = "";
                                         //for (int a = gv.mod.moduleAreasObjects.Count - 1; a >= 0; a--)
                                         //{
-                                            //if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
-                                            //{
-                                                //shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
-                                            //}
+                                        //if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
+                                        //{
+                                        //shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
+                                        //}
                                         //}
                                         //IBMessageBox.Show(gv, "Prop just appeared");
                                         gv.screenMainMap.addFloatyText(xLocForFloaty, yLocForFloaty, "Just arrived here", "white", 4000);
-                                            
+
                                     }
                                 }
                             }
@@ -2520,7 +2520,7 @@ namespace IceBlink2
 
                             if (gv.mod.currentArea.Props[i].WayPointList.Count > 0)
                             {
-                               
+
                                 if (departureTimeReached)
                                 {
                                     //already there so set next way point location (revert to index 0 if at last way point)
@@ -2534,14 +2534,14 @@ namespace IceBlink2
                                             gv.mod.currentArea.Props[i].CurrentMoveToTarget.Y = gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y;
                                             gv.mod.currentArea.Props[i].ReturningToPost = false;
                                             //added floaty text that announces the area transfer
-                                            string shownAreaName = ""; 
+                                            string shownAreaName = "";
                                             for (int a = gv.mod.moduleAreasObjects.Count - 1; a >= 0; a--)
-                                             {
-                                                  if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
-                                                  {
-                                                      shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
-                                                  }
-                                             }
+                                            {
+                                                if (gv.mod.moduleAreasObjects[a].Filename == gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName)
+                                                {
+                                                    shownAreaName = gv.mod.moduleAreasObjects[a].inGameAreaName;
+                                                }
+                                            }
 
                                             gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "Heading off towards " + shownAreaName, "white", 4000);
                                             gv.sf.osController("osSetPropLocationAnyArea.cs", gv.mod.currentArea.Props[i].PropTag, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].areaName, gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].X.ToString(), gv.mod.currentArea.Props[i].WayPointList[gv.mod.currentArea.Props[i].WayPointListCurrentIndex].Y.ToString());
@@ -2625,7 +2625,28 @@ namespace IceBlink2
                     //do barks for waypoint
                     //if (prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint.Count > 0)
                     //{
-                        foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint)
+                    foreach (BarkString b in prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint)
+                    {
+                        if (gv.sf.RandInt(100) < b.ChanceToShow)
+                        {
+                            chosenBarks.Add(b);
+                        }
+                    }
+                    if (chosenBarks.Count > 0)
+                    {
+                        decider = rnd3.Next(0, chosenBarks.Count);
+                        gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                    }
+                    //}
+                }
+                else
+                {
+                    //do barks for patrol, random, chasing or time driven
+                    if (prp.WayPointListCurrentIndex == 0)
+                    {
+                        //if (prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint.Count > 0)
+                        //{
+                        foreach (BarkString b in prp.WayPointList[prp.WayPointList.Count - 1].BarkStringsOnTheWayToNextWayPoint)
                         {
                             if (gv.sf.RandInt(100) < b.ChanceToShow)
                             {
@@ -2637,27 +2658,6 @@ namespace IceBlink2
                             decider = rnd3.Next(0, chosenBarks.Count);
                             gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
                         }
-                    //}
-                }
-                else
-                {
-                    //do barks for patrol, random, chasing or time driven
-                    if (prp.WayPointListCurrentIndex == 0)
-                    {
-                        //if (prp.WayPointList[prp.WayPointListCurrentIndex].BarkStringsAtWayPoint.Count > 0)
-                        //{
-                            foreach (BarkString b in prp.WayPointList[prp.WayPointList.Count-1].BarkStringsOnTheWayToNextWayPoint)
-                            {
-                                if (gv.sf.RandInt(100) < b.ChanceToShow)
-                                {
-                                    chosenBarks.Add(b);
-                                }
-                            }
-                            if (chosenBarks.Count > 0)
-                            {
-                                decider = rnd3.Next(0, chosenBarks.Count);
-                                gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
-                            }
                         //}
                     }
                     else
@@ -2777,7 +2777,7 @@ namespace IceBlink2
                             prp.destinationPixelPositionXList = new List<int>();
                             prp.destinationPixelPositionYList.Clear();
                             prp.destinationPixelPositionYList = new List<int>();
- 
+
                             //let's find out whether our prop can stay on its origin square, i.e. skip move, or whether it already comes from an occupied square and has to "sidestep"
                             //Note: moving along path, double move, wont work when the target square is the destination square, i.e. the end of the path
                             foreach (Prop otherProp2 in gv.mod.currentArea.Props)
@@ -2796,7 +2796,7 @@ namespace IceBlink2
                             //another step forward, ie (at least) 2 steps on path
                             //check whether to stay on origin square ("step back")
                             if ((!originSquareOccupied) && (decider2 < 9))
-                            {                   
+                            {
                                 return;
                             }
 
@@ -2805,7 +2805,7 @@ namespace IceBlink2
                             {
                                 prp.LocationX = fallBackSquareX;
                                 prp.LocationY = fallBackSquareY;
-                             
+
                             }
 
                         }
@@ -2901,7 +2901,7 @@ namespace IceBlink2
                                         prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                                         prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
                                     }
-                                    
+
                                     recursiveCall = true;
                                     moveToTarget(targetX, targetY, prp, 1);
                                     recursiveCall = false;
@@ -2932,7 +2932,7 @@ namespace IceBlink2
 
                         prp.LocationX = newCoor.X;
                         prp.LocationY = newCoor.Y;
-                        
+
                         int xOffSetInSquares = 0;
                         int yOffSetInSquares = 0;
                         if (gv.mod.PlayerLocationX >= prp.LocationX)
@@ -2959,7 +2959,7 @@ namespace IceBlink2
                             prp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                             prp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
                         }
-                        
+
                     }
                 }
                 prp.pixelMoveSpeed = prp.destinationPixelPositionXList.Count;
