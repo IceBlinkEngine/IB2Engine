@@ -1441,7 +1441,7 @@ namespace IceBlink2
                 // Create Device and SwapChain                
                 state += "Get Highest Feature Level:";
                 var featureLvl = SharpDX.Direct3D11.Device.GetSupportedFeatureLevel();
-                state += "Create Device:";
+                state += " Highest Feature Level is: " + featureLvl.ToString() + " :Create Device:";
                 try
                 {
                     SharpDX.Direct3D11.Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.BgraSupport, new[] { featureLvl }, desc, out _device, out _swapChain);

@@ -2,7 +2,7 @@
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
   "Filename": "wm_Movers",
-  "UseMiniMapFogOfWar": false,
+  "UseMiniMapFogOfWar": true,
   "inGameAreaName": "newArea",
   "areaDark": false,
   "UseDayNightCycle": false,

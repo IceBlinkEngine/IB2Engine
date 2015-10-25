@@ -2,7 +2,7 @@
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
   "Filename": "brinsby",
-  "UseMiniMapFogOfWar": false,
+  "UseMiniMapFogOfWar": true,
   "inGameAreaName": "Brinsby",
   "areaDark": false,
   "UseDayNightCycle": true,

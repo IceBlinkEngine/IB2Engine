@@ -2,7 +2,7 @@
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
   "Filename": "homeds",
-  "UseMiniMapFogOfWar": false,
+  "UseMiniMapFogOfWar": true,
   "inGameAreaName": "Home downstairs",
   "areaDark": false,
   "UseDayNightCycle": false,

@@ -2,7 +2,7 @@
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
   "Filename": "firebeetlecave",
-  "UseMiniMapFogOfWar": false,
+  "UseMiniMapFogOfWar": true,
   "inGameAreaName": "Firebeetle Cave",
   "areaDark": false,
   "UseDayNightCycle": false,
