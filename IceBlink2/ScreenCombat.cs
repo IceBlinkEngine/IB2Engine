@@ -2461,7 +2461,7 @@ namespace IceBlink2
             {
         	    tglGrid.toggleOn = false;
             }
-    	    gv.drawLog();
+    	    //gv.drawLog();
     	    drawCombatMap();
             if (gv.mod.useCombatSmoothMovement == false)
             {
@@ -2485,14 +2485,55 @@ namespace IceBlink2
             {
         	    drawLosTrail();
             }
+            if (mod.useUIBackground)
+            {
+                drawUIBackground();
+            }
+            gv.drawLog();
             drawFloatyText();
             drawHPText();
             drawSPText();
             drawFloatyTextList();
             drawCombatControls();
             drawPortraits();
-        }    
-	    public void drawCombatControls()
+        }
+
+        public void drawUIBackground()
+        {
+
+            try
+            {
+                //draw background for portraits (UIBackgroundPortraits)
+                IbRect src = new IbRect(0, 0, gv.cc.UIBackgroundPortraits.PixelSize.Width, gv.cc.UIBackgroundPortraits.PixelSize.Height);
+                IbRect dst = new IbRect(gv.squareSize * 15 + gv.oXshift, 0, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 7));
+                gv.DrawBitmap(gv.cc.UIBackgroundPortraits, src, dst);
+
+                //draw background for arrow control (UIBackgroundArrows)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundArrows.PixelSize.Width, gv.cc.UIBackgroundArrows.PixelSize.Height);
+                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize * 7, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 3) + gv.oYshift);
+                gv.DrawBitmap(gv.cc.UIBackgroundArrows, src, dst);
+
+                //draw background for hotkey bar (UIBackgroundHotkeys)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundHotkeys.PixelSize.Width, gv.cc.UIBackgroundHotkeys.PixelSize.Height);
+                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize * 9, gv.squareSize * 9, (gv.squareSize + gv.oYshift));
+                gv.DrawBitmap(gv.cc.UIBackgroundHotkeys, src, dst);
+
+                //draw background for toggle buttons (UIBackgroundToggles)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundToggles.PixelSize.Width, gv.cc.UIBackgroundToggles.PixelSize.Height);
+                dst = new IbRect(0, gv.squareSize * 8 - gv.oYshift + 2 * (int)((float)gv.screenHeight / 100.0f), gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 2) + 7 * (int)((float)gv.screenHeight / 100.0f));
+                gv.DrawBitmap(gv.cc.UIBackgroundToggles, src, dst);
+
+                //drawbackground for log (UIBackgroundLog)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundLog.PixelSize.Width, gv.cc.UIBackgroundLog.PixelSize.Height);
+                dst = new IbRect(0, 0, gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 8) - 3 * (int)((float)gv.screenHeight / 100.0f));
+                gv.DrawBitmap(gv.cc.UIBackgroundLog, src, dst);
+            }
+            catch
+            { }
+
+        }
+
+        public void drawCombatControls()
 	    {
 		    gv.cc.ctrlUpArrow.Draw();
 		    gv.cc.ctrlDownArrow.Draw();

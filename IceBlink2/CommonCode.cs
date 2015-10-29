@@ -72,6 +72,12 @@ namespace IceBlink2
         public Bitmap tint_sunset;
         public Bitmap tint_dusk;
         public Bitmap tint_night;
+        public Bitmap UIBackgroundPortraits;
+        public Bitmap UIBackgroundArrows;
+        public Bitmap UIBackgroundHotkeys;
+        public Bitmap UIBackgroundToggles;
+        public Bitmap UIBackgroundLog;
+        public Bitmap UIBackgroundFullscreen;
         public Bitmap facing1;
         public Bitmap facing2;
         public Bitmap facing3;
@@ -80,6 +86,8 @@ namespace IceBlink2
         public Bitmap facing7;
         public Bitmap facing8;
         public Bitmap facing9;
+        //off for now
+        //public Bitmap tint_rain;
 
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
@@ -1326,7 +1334,7 @@ namespace IceBlink2
                 ctrlUpArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpArrow.Img2 = this.LoadBitmap("ctrl_up_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_arrow);
                 ctrlUpArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpArrow.X = 17 * gv.squareSize;
+                ctrlUpArrow.X = 17 * gv.squareSize - 3*gv.oXshift;
                 ctrlUpArrow.Y = 7 * gv.squareSize + pH * 2;
                 ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1337,7 +1345,7 @@ namespace IceBlink2
                 ctrlLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlLeftArrow.Img2 = this.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_left_arrow);
                 ctrlLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlLeftArrow.X = 16 * gv.squareSize;
+                ctrlLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
                 ctrlLeftArrow.Y = 8 * gv.squareSize + pH * 2;
                 ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1348,7 +1356,7 @@ namespace IceBlink2
                 ctrlRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlRightArrow.Img2 = this.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_right_arrow);
                 ctrlRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlRightArrow.X = 18 * gv.squareSize;
+                ctrlRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
                 ctrlRightArrow.Y = 8 * gv.squareSize + pH * 2;
                 ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1359,7 +1367,7 @@ namespace IceBlink2
                 ctrlDownArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownArrow.Img2 = this.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_arrow);
                 ctrlDownArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownArrow.X = 17 * gv.squareSize;
+                ctrlDownArrow.X = 17 * gv.squareSize - 3*gv.oXshift;
                 ctrlDownArrow.Y = 9 * gv.squareSize + pH * 2;
                 ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1370,7 +1378,7 @@ namespace IceBlink2
                 ctrlUpRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpRightArrow.Img2 = this.LoadBitmap("ctrl_up_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_right_arrow);
                 ctrlUpRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpRightArrow.X = 18 * gv.squareSize;
+                ctrlUpRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
                 ctrlUpRightArrow.Y = 7 * gv.squareSize + pH * 2;
                 ctrlUpRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1381,7 +1389,7 @@ namespace IceBlink2
                 ctrlUpLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpLeftArrow.Img2 = this.LoadBitmap("ctrl_up_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_left_arrow);
                 ctrlUpLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpLeftArrow.X = 16 * gv.squareSize;
+                ctrlUpLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
                 ctrlUpLeftArrow.Y = 7 * gv.squareSize + pH * 2;
                 ctrlUpLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1392,7 +1400,7 @@ namespace IceBlink2
                 ctrlDownRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownRightArrow.Img2 = this.LoadBitmap("ctrl_down_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_right_arrow);
                 ctrlDownRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownRightArrow.X = 18 * gv.squareSize;
+                ctrlDownRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
                 ctrlDownRightArrow.Y = 9 * gv.squareSize + pH * 2;
                 ctrlDownRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1403,7 +1411,7 @@ namespace IceBlink2
                 ctrlDownLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownLeftArrow.Img2 = this.LoadBitmap("ctrl_down_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_left_arrow);
                 ctrlDownLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownLeftArrow.X = 16 * gv.squareSize;
+                ctrlDownLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
                 ctrlDownLeftArrow.Y = 9 * gv.squareSize + pH * 2;
                 ctrlDownLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -1415,8 +1423,8 @@ namespace IceBlink2
                 btnInventory.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnInventory.Img2 = this.LoadBitmap("btninventory"); // BitmapFactory.decodeResource(getResources(), R.drawable.btninventory);
                 btnInventory.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnInventory.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnInventory.Y = 9 * gv.squareSize + pH;
+                btnInventory.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnInventory.Y = 9 * gv.squareSize + (int)(1.75*pH);
                 btnInventory.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventory.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }

@@ -55,7 +55,7 @@ namespace IceBlink2
                 btnWait.Text = "WAIT";
                 btnWait.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnWait.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnWait.X = 17 * gv.squareSize;
+                btnWait.X = 17 * gv.squareSize - 3*gv.oXshift;
                 btnWait.Y = 8 * gv.squareSize + pH * 2;
                 btnWait.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnWait.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -67,8 +67,8 @@ namespace IceBlink2
                 btnParty.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnParty.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
                 btnParty.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnParty.X = 6 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnParty.Y = 9 * gv.squareSize + pH;
+                btnParty.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnParty.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnParty.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnParty.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -79,8 +79,8 @@ namespace IceBlink2
                 btnJournal.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnJournal.Img2 = gv.cc.LoadBitmap("btnjournal"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnjournal);
                 btnJournal.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnJournal.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnJournal.Y = 9 * gv.squareSize + pH;
+                btnJournal.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnJournal.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnJournal.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -90,8 +90,8 @@ namespace IceBlink2
                 btnSettings.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnSettings.Img2 = gv.cc.LoadBitmap("btnsettings"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnsettings);
                 btnSettings.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnSettings.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnSettings.Y = 9 * gv.squareSize + pH;
+                btnSettings.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnSettings.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnSettings.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSettings.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -102,8 +102,8 @@ namespace IceBlink2
                 btnCastOnMainMap.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnCastOnMainMap.Img2 = gv.cc.LoadBitmap("btnspell"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnspell);
                 btnCastOnMainMap.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnCastOnMainMap.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnCastOnMainMap.Y = 9 * gv.squareSize + pH;
+                btnCastOnMainMap.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnCastOnMainMap.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnCastOnMainMap.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCastOnMainMap.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -114,8 +114,8 @@ namespace IceBlink2
                 btnSave.ImgOff = gv.cc.LoadBitmap("btn_small_off");
                 btnSave.Img2 = gv.cc.LoadBitmap("btndisk"); // BitmapFactory.decodeResource(getResources(), R.drawable.btndisk);
                 btnSave.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnSave.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnSave.Y = 9 * gv.squareSize + pH;
+                btnSave.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
+                btnSave.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnSave.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -246,6 +246,7 @@ namespace IceBlink2
         }
         public void redrawMain()
         {
+       
             setExplored();
             if (!mod.currentArea.areaDark)
             {
@@ -281,13 +282,31 @@ namespace IceBlink2
             drawMainMapFloatyText();
             if (!mod.currentArea.areaDark)
             {
+                bool hideOverlayNeeded = false;
                 if (mod.currentArea.UseDayNightCycle)
                 {
                     drawOverlayTints();
+                    hideOverlayNeeded = true;
+                }
+
+                //off for now, later :-)
+                //if (mod.currentArea.useWeather)
+                //{
+                    //drawOverlayWeather();
+                    //hideOverlayNeeded = true;
+                //}
+
+                if (hideOverlayNeeded)
+                {
                     drawBlackTilesOverTints();
+                    hideOverlayNeeded = false;
                 }
                 drawFogOfWar();
             }
+            if (mod.useUIBackground)
+             {
+                drawUIBackground();
+             }
             drawFloatyTextPool();
             if (tglClock.toggleOn)
             {
@@ -298,6 +317,42 @@ namespace IceBlink2
             drawMiniMap();
             drawPortraits();
         }
+
+        public void drawUIBackground()
+        {
+
+            try
+            {
+                //draw background for portraits (UIBackgroundPortraits)
+                IbRect src = new IbRect(0, 0, gv.cc.UIBackgroundPortraits.PixelSize.Width, gv.cc.UIBackgroundPortraits.PixelSize.Height);
+                IbRect dst = new IbRect(gv.squareSize * 15 + gv.oXshift, 0, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 7));
+                gv.DrawBitmap(gv.cc.UIBackgroundPortraits, src, dst);
+
+                //draw background for arrow control (UIBackgroundArrows)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundArrows.PixelSize.Width, gv.cc.UIBackgroundArrows.PixelSize.Height);
+                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize*7, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 3) + (int)(gv.oYshift*0.6));
+                gv.DrawBitmap(gv.cc.UIBackgroundArrows, src, dst);
+
+                //draw background for hotkey bar (UIBackgroundHotkeys)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundHotkeys.PixelSize.Width, gv.cc.UIBackgroundHotkeys.PixelSize.Height);
+                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize*9, gv.squareSize * 9, (gv.squareSize + (int)(gv.oYshift*0.6)));
+                gv.DrawBitmap(gv.cc.UIBackgroundHotkeys, src, dst);
+
+                //draw background for toggle buttons (UIBackgroundToggles)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundToggles.PixelSize.Width, gv.cc.UIBackgroundToggles.PixelSize.Height);
+                dst = new IbRect(0, gv.squareSize * 8 - gv.oYshift + 2*(int)((float)gv.screenHeight / 100.0f), gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 2) + 6*(int)((float)gv.screenHeight / 100.0f));
+                gv.DrawBitmap(gv.cc.UIBackgroundToggles, src, dst);
+
+                //drawbackground for log (UIBackgroundLog)
+                src = new IbRect(0, 0, gv.cc.UIBackgroundLog.PixelSize.Width, gv.cc.UIBackgroundLog.PixelSize.Height);
+                dst = new IbRect(0, 0, gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 8) - 3 * (int)((float)gv.screenHeight / 100.0f));
+                gv.DrawBitmap(gv.cc.UIBackgroundLog, src, dst);
+            }
+            catch
+            { }
+
+        }
+
         public void drawPortraits()
         {
             if (mod.playerList.Count > 0)
@@ -1099,6 +1154,53 @@ namespace IceBlink2
             }
 
         }
+
+        //not used for now; later :-)
+        /*public void drawOverlayWeather()
+        {
+            //memo to self: in second step do animation by drawing two partial rectangles of same source that change size with time, upper and lower rect, and cast to same target dst, but shifted
+            //the source picture must be identical top and bottom lines, other wise we will see a clear dividing line
+            //idea that one source bitmap can be used all itself to simulate scrolling down if called in shifting chunks
+            //part that scrolls out of lower screen border appears again at top screen border
+            //second memo to self: in game settings implement several speed settings for animation speed (pixel move per call multiplier) so that players can adjust prop anim and weatehr anim speed themselves
+            //third memo to self: descripe current weather type next to current time in the game ui
+            IbRect src = new IbRect(0, 0, gv.cc.tint_rain.PixelSize.Width, gv.cc.tint_rain.PixelSize.Height);
+            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * 9), (gv.squareSize * 9));
+            int dawn = 5 * 60;
+            int sunrise = 6 * 60;
+            int day = 7 * 60;
+            int sunset = 17 * 60;
+            int dusk = 18 * 60;
+            int night = 20 * 60;
+            int time = gv.mod.WorldTime % 1440;
+            if ((time >= dawn) && (time < sunrise))
+            {
+                gv.DrawBitmap(gv.cc.tint_dawn, src, dst);
+            }
+            else if ((time >= sunrise) && (time < day))
+            {
+                gv.DrawBitmap(gv.cc.tint_sunrise, src, dst);
+            }
+            else if ((time >= day) && (time < sunset))
+            {
+                //no tint for day
+            }
+            else if ((time >= sunset) && (time < dusk))
+            {
+                gv.DrawBitmap(gv.cc.tint_sunset, src, dst);
+            }
+            else if ((time >= dusk) && (time < night))
+            {
+                gv.DrawBitmap(gv.cc.tint_dusk, src, dst);
+            }
+            else if ((time >= night) || (time < dawn))
+            {
+                gv.DrawBitmap(gv.cc.tint_night, src, dst);
+            }
+
+        }*/
+
+
         public void drawMainMapClockText()
         {
             int timeofday = mod.WorldTime % (24 * 60);

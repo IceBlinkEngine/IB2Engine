@@ -18,6 +18,24 @@ namespace IceBlink2
         public bool UseMiniMapFogOfWar = true;
 	    public bool areaDark = false;
 	    public bool UseDayNightCycle = false;
+        
+        //for later, not used right now :-)
+        public bool useWeather = true;
+        public int currentWeatherFrame = 0;
+        public string currentWeatherType = "clear";
+        public int chanceForLightRain = 0;
+        public int chanceForMediumRain = 0;
+        public int chanceForHeavyRain = 0;
+        public int chanceForThunderStorm = 0;
+        public int chanceForHeavyThunderstorm = 0;
+        public int chanceForLightSnow = 0;
+        public int chanceForMediumSnow = 0;
+        public int chanceForHeavySnow = 0;
+        public int chanceForLightFog = 0;
+        public int chanceForMediumFog = 0;
+        public int chanceForHeavyFog = 0;
+
+        public int numberOfHoursBeforeRollForWeatherChange = 0;
 	    public int TimePerSquare = 6; //in minutes for now
 	    public string MusicFileName = "forest.mp3";
 	    public string ImageFileName = "none";

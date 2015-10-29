@@ -300,6 +300,14 @@ namespace IceBlink2
             cc.tint_sunset = cc.LoadBitmap("tint_sunset");
             cc.tint_dusk = cc.LoadBitmap("tint_dusk");
             cc.tint_night = cc.LoadBitmap("tint_night");
+            //off for now
+            //cc.tint_rain = cc.LoadBitmap("tint_rain");
+            cc.UIBackgroundPortraits = cc.LoadBitmap("UIBackgroundPortraits");
+            cc.UIBackgroundArrows = cc.LoadBitmap("UIBackgroundArrows");
+            cc.UIBackgroundHotkeys = cc.LoadBitmap("UIBackgroundHotkeys");
+            cc.UIBackgroundToggles = cc.LoadBitmap("UIBackgroundToggles");
+            cc.UIBackgroundLog = cc.LoadBitmap("UIBackgroundLog");
+            cc.UIBackgroundFullscreen = cc.LoadBitmap("UIBackgroundFullscreen");
             cc.facing1 = cc.LoadBitmap("facing1");
             cc.facing2 = cc.LoadBitmap("facing2");
             cc.facing3 = cc.LoadBitmap("facing3");
@@ -1552,6 +1560,11 @@ namespace IceBlink2
           
             renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
 
+            if ( (mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")))
+              {
+                drawUIBackground();
+              }
+
             if (screenType.Equals("title"))
             {
                 screenTitle.redrawTitle();
@@ -1652,6 +1665,20 @@ namespace IceBlink2
                 screenPartyRoster.redrawPartyRoster();
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
+        }
+
+        public void drawUIBackground()
+        {
+
+            try
+            {
+                IbRect src = new IbRect(0, 0, cc.UIBackgroundFullscreen.PixelSize.Width, cc.UIBackgroundFullscreen.PixelSize.Height);
+                IbRect dst = new IbRect(0, 0, squareSize * 19 + (int)(oXshift*2), squareSize * 10 + (int)(oYshift*0.65));
+                DrawBitmap(cc.UIBackgroundFullscreen, src, dst);
+            }
+            catch
+            { }
+            
         }
 
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
