@@ -37,6 +37,7 @@ namespace IceBlink2
         public int screenHeight;
         public int squareSizeInPixels = 100;
         public int squareSize; //in dp (squareSizeInPixels * screenDensity)
+        public int pS; // = squareSize / 10 ... used for small UI and text location adjustments based on squaresize
         public int squaresInWidth = 19;
         public int squaresInHeight = 10;
         public int ibbwidthL = 340;
@@ -203,7 +204,9 @@ namespace IceBlink2
             }
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
             oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
-            
+
+            pS = squareSize / 10; //used for small UI and text location adjustments based on squaresize for consistent look on all devices/screen resolutions
+
             InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             //CREATES A FONTFAMILY
@@ -302,12 +305,12 @@ namespace IceBlink2
             cc.tint_night = cc.LoadBitmap("tint_night");
             //off for now
             //cc.tint_rain = cc.LoadBitmap("tint_rain");
-            cc.UIBackgroundPortraits = cc.LoadBitmap("UIBackgroundPortraits");
-            cc.UIBackgroundArrows = cc.LoadBitmap("UIBackgroundArrows");
-            cc.UIBackgroundHotkeys = cc.LoadBitmap("UIBackgroundHotkeys");
-            cc.UIBackgroundToggles = cc.LoadBitmap("UIBackgroundToggles");
-            cc.UIBackgroundLog = cc.LoadBitmap("UIBackgroundLog");
-            cc.UIBackgroundFullscreen = cc.LoadBitmap("UIBackgroundFullscreen");
+            cc.ui_bg_portraits = cc.LoadBitmap("ui_bg_portraits");
+            cc.ui_bg_arrows = cc.LoadBitmap("ui_bg_arrows");
+            cc.ui_bg_hotkeys = cc.LoadBitmap("ui_bg_hotkeys");
+            cc.ui_bg_toggles = cc.LoadBitmap("ui_bg_toggles");
+            cc.ui_bg_log = cc.LoadBitmap("ui_bg_log");
+            cc.ui_bg_fullscreen = cc.LoadBitmap("ui_bg_fullscreen");
             cc.facing1 = cc.LoadBitmap("facing1");
             cc.facing2 = cc.LoadBitmap("facing2");
             cc.facing3 = cc.LoadBitmap("facing3");
@@ -1560,10 +1563,10 @@ namespace IceBlink2
           
             renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
 
-            if ( (mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")))
-              {
+            if ((mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")) && (!screenType.Equals("launcher")) && (!screenType.Equals("title")))
+            {
                 drawUIBackground();
-              }
+            }
 
             if (screenType.Equals("title"))
             {
@@ -1672,9 +1675,9 @@ namespace IceBlink2
 
             try
             {
-                IbRect src = new IbRect(0, 0, cc.UIBackgroundFullscreen.PixelSize.Width, cc.UIBackgroundFullscreen.PixelSize.Height);
-                IbRect dst = new IbRect(0, 0, squareSize * 19 + (int)(oXshift*2), squareSize * 10 + (int)(oYshift*0.65));
-                DrawBitmap(cc.UIBackgroundFullscreen, src, dst);
+                IbRect src = new IbRect(0, 0, cc.ui_bg_fullscreen.PixelSize.Width, cc.ui_bg_fullscreen.PixelSize.Height);
+                IbRect dst = new IbRect(0, 0, squareSize * 19 + (pS * 2), squareSize * 10 + (pS * 3));
+                DrawBitmap(cc.ui_bg_fullscreen, src, dst);
             }
             catch
             { }
