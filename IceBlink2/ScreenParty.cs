@@ -66,8 +66,8 @@ namespace IceBlink2
                 btnPortrait.Glow = gv.cc.LoadBitmap("btn_small_glow");
                 btnPortrait.X = 2 * gv.squareSize - (pW * 2);
                 btnPortrait.Y = 1 * gv.squareSize + pH * 2;
-                btnPortrait.Height = (int)(170 * gv.screenDensity);
-                btnPortrait.Width = (int)(110 * gv.screenDensity);
+                btnPortrait.Height = (int)(gv.ibpheight * gv.screenDensity);
+                btnPortrait.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
             if (btnToken == null)
             {
@@ -531,19 +531,12 @@ namespace IceBlink2
                 textToSpan += "Tap 'INFO' for Full Description<BR>";
             }
             locY = btnBody.Y + btnBody.Height + (pH * 2);
-            //IbRect rect = new IbRect(locX, locY, pW * 80, pH * 50);
-            //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
-            //string textToSpan = "<u>Module Description</u>" + "<br><br>";
-            //textToSpan += "<b><i><big>" + moduleList[moduleIndex].moduleLabelName + "</big></i></b><br>";
-            //textToSpan += moduleList[moduleIndex].moduleDescription;
-            description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
-            description.tbYloc = startSlotsY - pH;
-            description.tbWidth = pW * 80;
-            description.tbHeight = pH * 50;
-            description.logLinesList.Clear();
-            description.AddHtmlTextToLog(textToSpan);
-            description.onDrawLogBox();
+            int xLoc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+            int yLoc = startSlotsY - pH;
+            int width = pW * 80;
+            int height = pH * 50;
+            DrawTextLayout(description, textToSpan, xLoc, yLoc, width, height);
 
             btnHelp.Draw();
             btnInfo.Draw();
@@ -664,22 +657,33 @@ namespace IceBlink2
             textToSpan2 += "Damage type: " + damageType + "<BR>";
 
             locY = btnBody.Y + btnBody.Height + (pH * 2);
-            //IbRect rect = new IbRect(locX, locY, pW * 80, pH * 50);
-            //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
-            //string textToSpan = "<u>Module Description</u>" + "<br><br>";
-            //textToSpan += "<b><i><big>" + moduleList[moduleIndex].moduleLabelName + "</big></i></b><br>";
-            //textToSpan += moduleList[moduleIndex].moduleDescription;
-            attackAndDamageInfo.tbXloc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
-            attackAndDamageInfo.tbYloc = startSlotsY - 2 * pH;
-            attackAndDamageInfo.tbWidth = pW * 80;
-            attackAndDamageInfo.tbHeight = pH * 50;
-            attackAndDamageInfo.logLinesList.Clear();
-            attackAndDamageInfo.AddHtmlTextToLog(textToSpan2);
-            attackAndDamageInfo.onDrawLogBox();
+            xLoc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+            yLoc = startSlotsY - 2 * pH;
+            width = pW * 80;
+            height = pH * 50;
+            DrawTextLayout(attackAndDamageInfo, textToSpan2, xLoc, yLoc, width, height);
+
+            //attackAndDamageInfo.tbXloc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
+            //attackAndDamageInfo.tbYloc = startSlotsY - 2 * pH;
+            //attackAndDamageInfo.tbWidth = pW * 80;
+            //attackAndDamageInfo.tbHeight = pH * 50;
+            //attackAndDamageInfo.logLinesList.Clear();
+            //attackAndDamageInfo.AddHtmlTextToLog(textToSpan2);
+            //attackAndDamageInfo.onDrawLogBox();
 
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+        }
+        public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
+        {
+            tb.tbXloc = xLoc;
+            tb.tbYloc = yLoc;
+            tb.tbWidth = width;
+            tb.tbHeight = height;
+            tb.logLinesList.Clear();
+            tb.AddHtmlTextToLog(text);
+            tb.onDrawLogBox();
         }
         public void onTouchParty(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
         {

@@ -1672,16 +1672,14 @@ namespace IceBlink2
 
         public void drawUIBackground()
         {
-
             try
             {
                 IbRect src = new IbRect(0, 0, cc.ui_bg_fullscreen.PixelSize.Width, cc.ui_bg_fullscreen.PixelSize.Height);
-                IbRect dst = new IbRect(0, 0, squareSize * 19 + (pS * 2), squareSize * 10 + (pS * 3));
+                IbRect dst = new IbRect(0, 0, squareSize * squaresInWidth + (pS * 2), squareSize * squaresInHeight + (pS * 3));
                 DrawBitmap(cc.ui_bg_fullscreen, src, dst);
             }
             catch
             { }
-            
         }
 
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target)
