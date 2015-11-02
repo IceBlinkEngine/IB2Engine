@@ -1,0 +1,110 @@
+{
+  "tokenFilename": "tkn_ian",
+  "combatFacingLeft": true,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "knownSpellsTags": [
+    "minorHealing"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [
+    "pointblankshot"
+  ],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 3,
+  "will": 1,
+  "reflex": 3,
+  "strength": 16,
+  "dexterity": 18,
+  "intelligence": 14,
+  "charisma": 12,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 3,
+  "baseAttBonusAdders": 0,
+  "hp": 33,
+  "hpMax": 33,
+  "sp": 21,
+  "spMax": 21,
+  "XPNeeded": 900,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "studdedLeather",
+    "tag": "studdedLeather_2122",
+    "name": "Studded Leather Armor",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "lbow1",
+    "tag": "lbow1_2132",
+    "name": "Long Bow",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Ian",
+  "tag": "ian",
+  "raceTag": "human",
+  "classTag": "ranger",
+  "classLevel": 3,
+  "isMale": true,
+  "baseFortitude": 3,
+  "baseWill": 1,
+  "baseReflex": 3,
+  "baseStr": 16,
+  "baseDex": 18,
+  "baseInt": 14,
+  "baseCha": 12,
+  "ACBase": 10,
+  "XP": 600
+}

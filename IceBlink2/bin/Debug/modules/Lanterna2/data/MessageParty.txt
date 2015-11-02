@@ -1,0 +1,13 @@
+<big><b>CHARACTER SHEET</b></big><br>
+<br>
+<small><i>(<b>Note:</b> The 'HELP' button will display this message box again)</i></small><br>
+<br>
+<b>1. View Party Members:</b> You can view other characters (if you have any) in your party by tapping on their image.<br>
+<br>
+<b>2. Change Equipment:</b> Tap on an item slot once to select it, tap again to do an action (equip/unequip an item).<br>
+<br>
+<b>3. Talk with Companions:</b> Tap on a character's image once to select them and then tap on them again to start a conversation with them (if the author has created a conversation for them).<br>
+<br>
+<b>4. Level Up:</b> When a character has received enough experience points (XP) to advance a level, a glowing blue '+' will appear on the 'character sheet' button (on main map screen) and a 'Level Up' button will appear here on this character sheet. Press the 'Level Up' button to perform the level up.<br>
+<br>
+<small><b>Note:</b> Also, check out the 'Player's Guide' in the settings menu (the rusty gear looking button)</small>

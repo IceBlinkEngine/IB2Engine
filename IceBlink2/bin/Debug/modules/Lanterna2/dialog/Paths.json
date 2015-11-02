@@ -1,0 +1,225 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Well <FullName>, Which way should we go?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "The Kinstan Mountain pass has always been shorter on foot, but it may be too dangerous now.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "It has to be safer than going around the mountain with all those kobolds.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Well, it will be shorter.  The sooner we can find my brother, the better.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Sounds good, over the mountain we go.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 7,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "If we want to find out what is going on with all these kobolds, I bet the South Kinstan Caves would be a great lair for them.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 8,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I agree, those caves are plenty big enough to house a bunch of those ugly critters.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 9,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "And a prime location for attacking caravans on the road or the river.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 10,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "So stay on the road it is.  Off to the South Kinstan Pass we go.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 11,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Paths",
+  "Narration": false,
+  "PartyChat": true,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "prp_blob_portrait.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 11
+}

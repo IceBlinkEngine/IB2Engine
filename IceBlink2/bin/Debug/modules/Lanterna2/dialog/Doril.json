@@ -1,0 +1,89 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello <FirstName>, It's good to see you again in Langdale. Would you like to see my wares?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, Doril.  I'd like to see what you have for sale.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaOpenShopByTag.cs",
+                  "a_parameter_1": "dorilShop",
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Not at the moment Doril.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Doril",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "prp_blacksmith.png",
+  "DefaultNpcName": "Doril",
+  "NextIdNum": 6
+}

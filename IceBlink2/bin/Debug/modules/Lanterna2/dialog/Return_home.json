@@ -1,0 +1,734 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "prp_ian.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "It looks like our work is done.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Continue",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "prp_ian.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You didn't do so bad in there, kid.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "prp_miki.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Ha, I'm only fifty something years older than you, <i>kid</i>.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "prp_ian.png",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "So you like younger men then...",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "prp_miki.png",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Give it up, Ian...you may be good with a sword, but you still don't know how to treat a lady.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "prp_ian.png",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "<FirstName>, shouldn't we be heading out...",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Yes, we should be heading back to Brinsby to see how mother is doing.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "prp_ian.png",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "I agree, let's get out of this place.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Alright, let's go...",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [
+                                                            {
+                                                              "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                              "a_parameter_1": "returnHomeTrig",
+                                                              "a_parameter_2": "1",
+                                                              "a_parameter_3": "false",
+                                                              "a_parameter_4": null
+                                                            }
+                                                          ],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 15,
+                                                      "orderNum": 1,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Not yet, there are a few more tasks I would like to resolve.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 16,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "prp_ian.png",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "Alright, but we should be heading back to Brinsby as soon as possible.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 17,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "We'll set out for Brinsby soon enough...in the mean time follow me...",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 18,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "prp_ian.png",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "agreed...let's go...",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 19,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "End Dialog",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [
+                                                            {
+                                                              "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                              "a_parameter_1": "returnHomeTrig",
+                                                              "a_parameter_2": "1",
+                                                              "a_parameter_3": "false",
+                                                              "a_parameter_4": null
+                                                            }
+                                                          ],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                },
+                {
+                  "idNum": 99999,
+                  "orderNum": 1,
+                  "pcNode": false,
+                  "linkTo": 11,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "<FirstName>, shouldn't we be heading out...",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckPcInPartyByName.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Ian",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gcCheckPcInPartyByName.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Miki",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 21,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "prp_ian.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "It looks like our work is done.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 22,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We should try and head back to Brinsby now.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 23,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "prp_ian.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Yes, we should.  Ulrind, Derik, and Boone will probably meet up with us later.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 24,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I would believe so...",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 25,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "prp_ian.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Well <brother/sister>, should we head out?",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 100000,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 12,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Yes, we should be heading back to Brinsby to see how mother is doing.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            },
+                            {
+                              "idNum": 100001,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 15,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Not yet, there are a few more tasks I would like to resolve.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": true
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckPcInPartyByName.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "Ian",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 28,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "It looks like our work is done.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 30,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, we should be heading back to Brinsby to see how mother is doing.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 31,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I agree, let's get out of this place.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 32,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Alright, let's go...",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaEnableDisableTriggerEvent.cs",
+                      "a_parameter_1": "returnHomeTrig",
+                      "a_parameter_2": "1",
+                      "a_parameter_3": "false",
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 33,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Not yet, there are a few more tasks I would like to resolve.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 34,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Alright, but we should be heading back to Brinsby as soon as possible.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 35,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "We'll set out for Brinsby soon enough...in the mean time follow me...",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 36,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "agreed...let's go...",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 37,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaEnableDisableTriggerEvent.cs",
+                      "a_parameter_1": "returnHomeTrig",
+                      "a_parameter_2": "1",
+                      "a_parameter_3": "false",
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Return_home",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": true,
+  "NpcPortraitBitmap": "prp_blob_portrait.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 37
+}

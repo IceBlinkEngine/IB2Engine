@@ -1,0 +1,111 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "conversationText": "root",
+      "subNodes": [
+        {
+          "idNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "Well, hello there.  You must be <FirstName>.  Numblin told me how you saved him and that you would be passing through here.  Would you like to see our wares?|***gc_journal_entry-->NOT::False    String::hideout    String::10    ***gc_journal_entry-->NOT::False    String::hideout    String::20    |",
+          "subNodes": [
+            {
+              "idNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "Yes. I'd like to see what you have for sale.|***ga_open_store-->String::kelv_store    Int::100    Int::100    |",
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "No, thanks!",
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "It is always good to see some friendly faces around here.  Would you like to see our wares?",
+          "subNodes": [
+            {
+              "idNum": 5,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "Yes. I'd like to see what you have for sale.|***ga_open_store-->String::kelv_store    Int::100    Int::100    |",
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 6,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "No, thanks!",
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "kelv.xml",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 7
+}

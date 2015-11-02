@@ -1,0 +1,384 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "conversationText": "root",
+      "subNodes": [
+        {
+          "idNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "|start in black||***ga_fade_to_black-->Float::0    Float::0    Int::0    ***wave_return_good-->***ga_jump_players-->String::wp_PC_bat_start    Int::1    Int::0    |",
+          "subNodes": [
+            {
+              "idNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "||",
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "conversationText": "|long shot looking down road to battle field|You destroyed all the Zornians and Bugbears.  Adwen commanded all to return to their positions.|***ga_fade_from_black-->Float::3    |",
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "conversationText": "||",
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "conversationText": "|overhead shot of Charnians in start positions||***wave3_spawn-->|",
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "conversationText": "||",
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "conversationText": "That must have been her strongest forces.",
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "conversationText": "||",
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "conversationText": "This is getting out of hand.|***ga_fade_from_black-->Float::1    ***wave_return_good-->|",
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "conversationText": "||",
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "conversationText": "They fight with great strength and resolve.",
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "conversationText": "||",
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "conversationText": "My giant friends, you have never failed me.  Finish them.",
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "conversationText": "||",
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 15,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "conversationText": "I have looked forward to this day... Attack!",
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 16,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "conversationText": "||",
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 17,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "conversationText": "|ground level shot of oncoming baddies||***wave3_move-->***wave_return_good-->|",
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 18,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "conversationText": "||",
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 19,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "conversationText": "|overhead shot of oncoming hordes|",
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 20,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "conversationText": "||",
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 21,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "conversationText": "Oh my!  This does not look good.  Brace yourselves...|***ga_destroy-->String::b_jadissan    Int::0    Float::0    |",
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 22,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "conversationText": "||",
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 23,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 0,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "conversationText": "...Attack|***wave3_start_combat-->|",
+                                                                                                  "subNodes": [
+                                                                                                    {
+                                                                                                      "idNum": 24,
+                                                                                                      "pcNode": true,
+                                                                                                      "linkTo": 0,
+                                                                                                      "ShowOnlyOnce": false,
+                                                                                                      "NodeIsActive": true,
+                                                                                                      "NodePortraitBitmap": "",
+                                                                                                      "NodeNpcName": "",
+                                                                                                      "conversationText": "",
+                                                                                                      "subNodes": [],
+                                                                                                      "actions": [],
+                                                                                                      "conditions": [],
+                                                                                                      "isLink": false
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "actions": [],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": false
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "wave3_convo.xml",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 25
+}

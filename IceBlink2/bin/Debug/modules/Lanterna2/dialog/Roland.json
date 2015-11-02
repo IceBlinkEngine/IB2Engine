@@ -1,0 +1,514 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 2,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello again, <FirstName>.  Would you like to buy or sell any items?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 31,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 19,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes. I'd like to see what you have for sale.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            },
+            {
+              "idNum": 33,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, thanks!",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "spokeToRoland",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hello there, <FirstName>.  It has been awhile since I saw you last.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 5,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Traffic has been slow lately, the road to Langdale has been too dangerous.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 11,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I hear there have been attacks on caravans by kobolds, orcs, goblins, and such.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 12,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "That's true, I don't know what is going on.  My brother, Ian, and a few others left a month ago to search for clues of our father's disappearance.  I haven't heard from him since he left. ",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 13,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "prp_vin.png",
+                          "NodeNpcName": "Vin",
+                          "NodeSound": "none",
+                          "conversationText": "I'm sorry to hear that.  I'm sure he will be OK.  He is very skilled in the wilderness, you know.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 14,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I know Vin, but I am worried and I am planning on putting together a small search party.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 16,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Be careful.  If you find that the road to Langdale is safe, would you let me know?",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 17,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I'll let you know what I find.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 18,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "You might want to have a look at some of my items for your journey.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 19,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Yes. I'd like to see what you have for sale.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [
+                                                {
+                                                  "a_script": "gaOpenShopByTag.cs",
+                                                  "a_parameter_1": "rolandShop",
+                                                  "a_parameter_2": null,
+                                                  "a_parameter_3": null,
+                                                  "a_parameter_4": null
+                                                }
+                                              ],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 20,
+                                              "orderNum": 1,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "No, thanks!  I think I have everything I need.  Bye Roland.",
+                                              "IsExpanded": true,
+                                              "subNodes": [],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 15,
+                              "orderNum": 1,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "I sure hope all those years he spent exploring the woods has served him well.",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 21,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "I'm sure it will.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 22,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "I am planning on putting together a small search party.",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 26,
+                                          "orderNum": 0,
+                                          "pcNode": true,
+                                          "linkTo": 16,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Be careful.  If you find that the road to Langdale is safe, would you let me know?",
+                                          "IsExpanded": true,
+                                          "subNodes": [],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": true
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "spokeToRoland",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 7,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "It has, Roland.  Do you have anything interesting for sale?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 8,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I have a few items, would you like to see?",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 30,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 19,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Yes. I'd like to see what you have for sale.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 32,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "No, thanks!",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "spokeToRoland",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 6,
+              "orderNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "At least a few months since you passed through last.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 27,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I know, but I hear there have been attacks on caravans by kobolds, orcs, goblins, and such.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 29,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 12,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "That's true, I don't know what is going on.  My brother, Ian, and a few others left a month ago to search for clues of our father's disappearance.  I haven't heard from him since he left. ",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "spokeToRoland",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Roland",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": true,
+  "NpcPortraitBitmap": "prp_roland.png",
+  "DefaultNpcName": "Roland",
+  "NextIdNum": 33
+}

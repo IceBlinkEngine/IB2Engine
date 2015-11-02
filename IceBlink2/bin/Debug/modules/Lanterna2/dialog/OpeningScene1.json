@@ -1,0 +1,266 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Sixty years have passed since the Great Battle for Charn.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "continue",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "The followers of Zorn grew in numbers and began to hunt down all the people of Charn who remained in the area.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Many were lost, but a number escaped through the Great Mountains and settled in the Eastern lands.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Your father and a large group journeyed back to Charn, but were never heard from again. That was ten years ago.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Recently, your older brother and a small group left in search of clues to your father's where abouts or demise. It has been a month and no word.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "You have decided to take a small group of two or three in search of your brother. Hopefully the small group size will go undetected by the recently growing threat of Zorn's minions.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "continue",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [
+                                {
+                                  "a_script": "gaEnableDisableTriggerEvent.cs",
+                                  "a_parameter_1": "openingSceneConvo",
+                                  "a_parameter_2": "1",
+                                  "a_parameter_3": "false",
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [
+                {
+                  "a_script": "gaGiveGold.cs",
+                  "a_parameter_1": "40",
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                },
+                {
+                  "a_script": "gaGiveXP.cs",
+                  "a_parameter_1": "150",
+                  "a_parameter_2": null,
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "OpeningScene1",
+  "Narration": true,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "nar_forest_nar.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 29
+}

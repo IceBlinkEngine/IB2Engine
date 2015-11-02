@@ -1,0 +1,431 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "That Lizard Queen plays dirty, poisoning our river and all.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 11,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "9",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "We lost another guild member fetching water yesterday.  That makes seven total.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 12,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "8",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "If we don't attack those lizardmen soon, I'll go crazy.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 13,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "7",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I'm worried about that Lizard Queen...she seems tough and ruthless.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 14,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "6",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 5,
+          "orderNum": 4,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Maybe joining the Glenfax Guild wasn't such a good idea.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 15,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "5",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 6,
+          "orderNum": 5,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "We need to exterminate these lizard men before our water rations run out.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 19,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "4",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 7,
+          "orderNum": 6,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I hope you guys plan on sticking around.  We could use a few more members.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 18,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "3",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 8,
+          "orderNum": 7,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I wonder what that Lizard Queen is up to in those caves.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 17,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcRand1of.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "2",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 9,
+          "orderNum": 8,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I'd stay away from the cave to the north, if I were you.  Lizardmen everywhere.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 16,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Guild_member",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 19
+}

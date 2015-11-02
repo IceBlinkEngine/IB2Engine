@@ -205,7 +205,7 @@ namespace IceBlink2
                 }
                 currentPcNodeRectList.Add(new IbRect(startX, startY + gv.oYshift, (int)totalWidth, (int)totalHeight));
 
-                startY += (int)gv.drawFontRegHeight + pad;
+                startY += (int)totalHeight + pad;
                 cnt++;
             }
 	    }

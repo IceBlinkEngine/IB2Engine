@@ -1,0 +1,876 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Well, well, look what we have here...lost adventures.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 3,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Actually, we know exactly where we are, thank you.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 5,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Things have changed, you've entered our territory now.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 6,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "prp_miki.png",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Your territory?  What are you?  A king with one ugly follower?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 9,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "prp_grack.png",
+                          "NodeNpcName": "Grack",
+                          "NodeSound": "none",
+                          "conversationText": "Who you calling ugly, you freakishly redheaded elf.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 10,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 11,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "King?  No...we're pirates...take from the rich, give to the poor...the poor being us, of course.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 12,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 13,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Anyway, I suggest you feeble looking lassies drop your valuables and scamper off to your mommies.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 14,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Continue",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 15,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "prp_fledge.png",
+                                                  "NodeNpcName": "Fledge",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "Feeble lassies?  I must assume you made that comment before noticing <i>me</i>, over here.  Either way, I think we should teach these petty pilferers a lesson.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 27,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Ease up there, Fledge.  I'm sure they are just trying to scare us, they're not really looking for a fight.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 28,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "On the contrary, we intend to claim your valuables, preferable after easily dispatching of you.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 29,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "[Intimidate] I'm sorry, you must have us confused with some other group because we can easily kick your derrières.  Now, I suggest you run away before we give your head a new home where the sun don't shine.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 32,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[Success] Easy there, brute.  You can keep your stuff.  Tell you what, you can borrow our boat, if you would like.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 34,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Continue",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 35,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "There are some pesky Forest Gnolls across the river that could use your attention.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 36,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "Fine, we'll go check it out.",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [
+                                                                            {
+                                                                              "a_script": "gaGiveXP.cs",
+                                                                              "a_parameter_1": "100",
+                                                                              "a_parameter_2": null,
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            },
+                                                                            {
+                                                                              "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                                              "a_parameter_1": "piratesTrig",
+                                                                              "a_parameter_2": "2",
+                                                                              "a_parameter_3": "false",
+                                                                              "a_parameter_4": null
+                                                                            }
+                                                                          ],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [
+                                                                    {
+                                                                      "c_script": "gcPassSkillCheck.cs",
+                                                                      "c_btnAndOr": "and",
+                                                                      "c_and": true,
+                                                                      "c_not": false,
+                                                                      "c_parameter_1": "-1",
+                                                                      "c_parameter_2": "intimidate",
+                                                                      "c_parameter_3": "20",
+                                                                      "c_parameter_4": null
+                                                                    }
+                                                                  ],
+                                                                  "isLink": false
+                                                                },
+                                                                {
+                                                                  "idNum": 33,
+                                                                  "orderNum": 1,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[Failed] Ooh, we're scared.  We'll see how tough you really are.  Let's get 'em, Grack.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 37,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Continue",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 31,
+                                                              "orderNum": 1,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "[Diplomacy] I believe we're actually doing you a favor.  All these kobolds must be bad for business.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 40,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[Success] In that case, maybe you guys are alright.  As long as you're exterminating pests, there are some annoying Forest Gnolls across the river.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 42,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Continue",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 43,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "You can borrow our boat as long as you bring it back.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 44,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "Thanks, we'll go check it out.",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [
+                                                                            {
+                                                                              "a_script": "gaGiveXP.cs",
+                                                                              "a_parameter_1": "100",
+                                                                              "a_parameter_2": null,
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            },
+                                                                            {
+                                                                              "a_script": "gaEnableDisableTriggerEvent.cs",
+                                                                              "a_parameter_1": "piratesTrig",
+                                                                              "a_parameter_2": "2",
+                                                                              "a_parameter_3": "false",
+                                                                              "a_parameter_4": null
+                                                                            }
+                                                                          ],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [
+                                                                    {
+                                                                      "c_script": "gcPassSkillCheck.cs",
+                                                                      "c_btnAndOr": "and",
+                                                                      "c_and": true,
+                                                                      "c_not": false,
+                                                                      "c_parameter_1": "-1",
+                                                                      "c_parameter_2": "diplomacy",
+                                                                      "c_parameter_3": "20",
+                                                                      "c_parameter_4": null
+                                                                    }
+                                                                  ],
+                                                                  "isLink": false
+                                                                },
+                                                                {
+                                                                  "idNum": 41,
+                                                                  "orderNum": 1,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[Failed] Sorry, we don't need any favors or 'friends'.  Let's get 'em, Grack.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 45,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Continue",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 30,
+                                                              "orderNum": 2,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Here, you can have our equipment, just leave us be.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 38,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "Ha, this is going to be too easy.  I think we'll kill you first then take your goods, if it is all the same to you.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 39,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Continue",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [
+                                                    {
+                                                      "c_script": "gcCheckPcInPartyByName.cs",
+                                                      "c_btnAndOr": "and",
+                                                      "c_and": true,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "Fledge",
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "isLink": false
+                                                },
+                                                {
+                                                  "idNum": 46,
+                                                  "orderNum": 1,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "<watching intently>",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 48,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 29,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "[Intimidate] I'm sorry, you must have us confused with some other group because we can easily kick your derrières.  Now, I suggest you run away before we give your head a new home where the sun don't shine.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": true
+                                                    },
+                                                    {
+                                                      "idNum": 50,
+                                                      "orderNum": 1,
+                                                      "pcNode": true,
+                                                      "linkTo": 31,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "[Diplomacy] I believe we're actually doing you a favor.  All these kobolds must be bad for business.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": true
+                                                    },
+                                                    {
+                                                      "idNum": 49,
+                                                      "orderNum": 2,
+                                                      "pcNode": true,
+                                                      "linkTo": 30,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Here, you can have our equipment, just leave us be.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": true
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckSelectedPcName.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "Miki",
+                          "c_parameter_2": null,
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 7,
+                      "orderNum": 1,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "prp_balen.png",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Your territory?  Big words from such an ugly half breed?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 21,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "prp_grack.png",
+                          "NodeNpcName": "Grack",
+                          "NodeSound": "none",
+                          "conversationText": "Who you calling ugly, little dwarf.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 22,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 51,
+                                  "orderNum": 0,
+                                  "pcNode": true,
+                                  "linkTo": 11,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "King?  No...we're pirates...take from the rich, give to the poor...the poor being us, of course.",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckSelectedPcName.cs",
+                          "c_btnAndOr": "and",
+                          "c_and": true,
+                          "c_not": false,
+                          "c_parameter_1": "Balen",
+                          "c_parameter_2": null,
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 8,
+                      "orderNum": 2,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 52,
+                          "orderNum": 0,
+                          "pcNode": true,
+                          "linkTo": 13,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Anyway, I suggest you feeble looking lassies drop your valuables and scamper off to your mommies.",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 4,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We're not certain, can you help us?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 20,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "We can help by lightening your load.  Why don't you feeble looking lassies just leave us your valuables and scamper off to your mommies.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 53,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 14,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "Pirates",
+  "Narration": false,
+  "PartyChat": true,
+  "NpcPortraitBitmap": "prp_tom.png",
+  "DefaultNpcName": "Tom",
+  "NextIdNum": 53
+}

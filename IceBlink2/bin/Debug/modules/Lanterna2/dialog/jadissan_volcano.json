@@ -1,0 +1,144 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "conversationText": "root",
+      "subNodes": [
+        {
+          "idNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "We meet again.  It looks like Zorn, or the body possessed by Zorn, was weaker than I thought.",
+          "subNodes": [
+            {
+              "idNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "||",
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "conversationText": "My friends here shall not be so feeble.",
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "conversationText": "||",
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "conversationText": "I'd love to stay and chat, but...|***ga_global_int-->String::unlock_civic    String::1    ***ga_global_int-->String::tomb_npc    String::1    |",
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "conversationText": "||",
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "conversationText": "I must go and prepare my troops for the final assault on Charnia.|***ga_give_xp-->Int::2000    Int::1    |",
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "conversationText": "|***ga_force_exit-->String::Jadissan_volcano    String::wp_jadissan_volcano_exit    Int::1    ***ga_group_attack-->String::c_giantfire_leader    String::witch_group    |",
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "jadissan_volcano.xml",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 9
+}

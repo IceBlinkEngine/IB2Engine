@@ -1,0 +1,814 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "conversationText": "root",
+      "subNodes": [
+        {
+          "idNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "|Balen+Miki+Ian|Never thought I'd see this place again.",
+          "subNodes": [
+            {
+              "idNum": 2,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "||",
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "conversationText": "Not too far from here is the Mountain Dwarves' mines...",
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "conversationText": "||",
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "conversationText": "The last stand against Zorn's minions took place here.",
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "conversationText": "Are we close to the exit to the Eastern Lands?",
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "conversationText": "Yes, very close.  After the mines is the Tomb of the Dwarvern Leaders and then the Great Dwarven Cavern which exits to the Eastern Lands.",
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "conversationText": "||",
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "conversationText": "||",
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "conversationText": "||",
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "conversationText": "Miki, you look so much better in the dark.",
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "conversationText": "||",
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "conversationText": "Nice, so charming.  Unfortunately for me and my perfect infravision, I can still see your beastly face.",
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "conversationText": "||",
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 15,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "conversationText": "Ha, so you finally admit that you have been fixated on my countenance.",
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 16,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "conversationText": "||",
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 17,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "conversationText": "Give it up Ian, I'd rather kiss a dwarf...no offense Balen.",
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 18,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "conversationText": "||",
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 19,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "conversationText": "None taken, Miki.",
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 20,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "conversationText": "||",
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 21,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "conversationText": "So you have thought about kissing me?",
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 22,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "conversationText": "||",
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 23,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 0,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "conversationText": "I'm starting to feel nauseous...we've wasted enough time here...let's keep moving.",
+                                                                                                  "subNodes": [
+                                                                                                    {
+                                                                                                      "idNum": 24,
+                                                                                                      "pcNode": true,
+                                                                                                      "linkTo": 0,
+                                                                                                      "ShowOnlyOnce": false,
+                                                                                                      "NodeIsActive": true,
+                                                                                                      "NodePortraitBitmap": "",
+                                                                                                      "NodeNpcName": "",
+                                                                                                      "conversationText": "",
+                                                                                                      "subNodes": [],
+                                                                                                      "actions": [],
+                                                                                                      "conditions": [],
+                                                                                                      "isLink": false
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "actions": [],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": false
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                },
+                                                {
+                                                  "idNum": 99999,
+                                                  "pcNode": false,
+                                                  "linkTo": 26,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "conversationText": "",
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        },
+                                        {
+                                          "idNum": 26,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "conversationText": "||",
+                                          "subNodes": [
+                                            {
+                                              "idNum": 27,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "conversationText": "Let's keep moving then.",
+                                              "subNodes": [],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 28,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "|Miki+Ian|I vaguely remember these caves.",
+          "subNodes": [
+            {
+              "idNum": 29,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "||",
+              "subNodes": [
+                {
+                  "idNum": 30,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "conversationText": "We passed through here after leaving the dwarven mines.",
+                  "subNodes": [
+                    {
+                      "idNum": 31,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "conversationText": "I assume this would have been the location of the Last Stand against Zorn's creatures?",
+                      "subNodes": [
+                        {
+                          "idNum": 32,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "conversationText": "I believe so...",
+                          "subNodes": [
+                            {
+                              "idNum": 33,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "conversationText": "||",
+                              "subNodes": [
+                                {
+                                  "idNum": 34,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "conversationText": "Miki, you look so much better in the dark.",
+                                  "subNodes": [
+                                    {
+                                      "idNum": 35,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "conversationText": "||",
+                                      "subNodes": [
+                                        {
+                                          "idNum": 36,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "conversationText": "Nice, so charming.  Unfortunately for me and my perfect infravision, I can still see your beastly face.",
+                                          "subNodes": [
+                                            {
+                                              "idNum": 37,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "conversationText": "||",
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 38,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "conversationText": "Ha, so you finally admit that you have been fixated on my countenance.",
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 39,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "conversationText": "||",
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 40,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "conversationText": "Give it up Ian, I'd rather kiss a troll.",
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 41,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "conversationText": "||",
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 42,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "conversationText": "So you have thought about kissing me?",
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 43,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "conversationText": "||",
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 44,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "conversationText": "I'm starting to feel nauseous...we've wasted enough time here...let's keep moving.",
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 45,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "conversationText": "",
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                },
+                                {
+                                  "idNum": 46,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "conversationText": "Shall we keep moving?",
+                                  "subNodes": [
+                                    {
+                                      "idNum": 47,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "conversationText": "Yes, let's go...",
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 48,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "conversationText": "|Fledge|I vaguely remember these caves.",
+          "subNodes": [
+            {
+              "idNum": 49,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "conversationText": "||",
+              "subNodes": [
+                {
+                  "idNum": 50,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "conversationText": "We passed through here after leaving the dwarven mines.",
+                  "subNodes": [
+                    {
+                      "idNum": 51,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "conversationText": "I assume this would have been the location of the Last Stand against Zorn's creatures?",
+                      "subNodes": [
+                        {
+                          "idNum": 52,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "conversationText": "I believe so.  Shall we keep moving?",
+                          "subNodes": [
+                            {
+                              "idNum": 53,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "conversationText": "Yes, let's go...",
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "enter_mines.xml",
+  "Narration": false,
+  "PartyChat": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 54
+}

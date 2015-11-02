@@ -106,7 +106,7 @@ namespace IceBlink2
 			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow");
 			    btnMove.Text = "MOVE";
                 btnMove.HotKey = "M";
-			    btnMove.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnMove.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnMove.Y = 9 * gv.squareSize + pH;
                 btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMove.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -131,7 +131,7 @@ namespace IceBlink2
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnAttack.Text = "ATTACK";
                 btnAttack.HotKey = "A";
-			    btnAttack.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnAttack.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnAttack.Y = 9 * gv.squareSize + pH;
                 btnAttack.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAttack.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -145,7 +145,7 @@ namespace IceBlink2
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnCast.Text = "CAST";
                 btnCast.HotKey = "C";
-			    btnCast.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnCast.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnCast.Y = 9 * gv.squareSize + pH;
                 btnCast.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCast.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -157,7 +157,7 @@ namespace IceBlink2
 			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSkipTurn.Text = "SKIP";
                 btnSkipTurn.HotKey = "S";
-			    btnSkipTurn.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnSkipTurn.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnSkipTurn.Y = 9 * gv.squareSize + pH;
                 btnSkipTurn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSkipTurn.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -169,7 +169,7 @@ namespace IceBlink2
 			    btnSwitchWeapon.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSwitchWeapon.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
 			    btnSwitchWeapon.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnSwitchWeapon.X = 6 * gv.squareSize + padW * 0 + gv.oXshift;
+			    btnSwitchWeapon.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
 			    btnSwitchWeapon.Y = 9 * gv.squareSize + pH;
                 btnSwitchWeapon.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSwitchWeapon.Width = (int)(gv.ibbwidthR * gv.screenDensity);			

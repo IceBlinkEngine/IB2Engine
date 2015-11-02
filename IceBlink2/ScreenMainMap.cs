@@ -330,22 +330,22 @@ namespace IceBlink2
 
                 //draw background for arrow control (UIBackgroundArrows)
                 src = new IbRect(0, 0, gv.cc.ui_bg_arrows.PixelSize.Width, gv.cc.ui_bg_arrows.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize*7, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 3) + (int)(gv.oYshift*0.6));
+                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize*7, gv.squareSize * 4 + gv.oXshift, gv.squareSize * 3);
                 gv.DrawBitmap(gv.cc.ui_bg_arrows, src, dst);
 
                 //draw background for hotkey bar (UIBackgroundHotkeys)
                 src = new IbRect(0, 0, gv.cc.ui_bg_hotkeys.PixelSize.Width, gv.cc.ui_bg_hotkeys.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize*9, gv.squareSize * 9, (gv.squareSize + (int)(gv.oYshift*0.6)));
+                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize*9, gv.squareSize * 9, gv.squareSize * 1);
                 gv.DrawBitmap(gv.cc.ui_bg_hotkeys, src, dst);
 
                 //draw background for toggle buttons (UIBackgroundToggles)
                 src = new IbRect(0, 0, gv.cc.ui_bg_toggles.PixelSize.Width, gv.cc.ui_bg_toggles.PixelSize.Height);
-                dst = new IbRect(0, gv.squareSize * 8 - gv.oYshift + 2*(int)((float)gv.screenHeight / 100.0f), gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 2) + 6*(int)((float)gv.screenHeight / 100.0f));
+                dst = new IbRect(0 + gv.oXshift, gv.squareSize * 7, gv.squareSize * 6 + gv.oXshift, gv.squareSize * 3);
                 gv.DrawBitmap(gv.cc.ui_bg_toggles, src, dst);
 
                 //drawbackground for log (UIBackgroundLog)
                 src = new IbRect(0, 0, gv.cc.ui_bg_log.PixelSize.Width, gv.cc.ui_bg_log.PixelSize.Height);
-                dst = new IbRect(0, 0, gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 8) - 3 * (int)((float)gv.screenHeight / 100.0f));
+                dst = new IbRect(0 + gv.oXshift, 0, gv.squareSize * 6 + gv.oXshift, gv.squareSize * 7);
                 gv.DrawBitmap(gv.cc.ui_bg_log, src, dst);
             }
             catch

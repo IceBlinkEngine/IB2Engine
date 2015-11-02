@@ -1,0 +1,200 @@
+[
+  {
+    "Name": "The Search for Ian",
+    "Tag": "ianQuest",
+    "Entries": [
+      {
+        "EntryTitle": "Begin the Search",
+        "EntryText": "You have decided to wait no longer for your brother to return.  Traveling in a small group is the only way to avoid attention of enemies.  Journey to Langdale and beyond to find your brother.",
+        "Tag": "ian1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Camp Site",
+        "EntryText": "You have discovered a camp where you suspect your brother's group spent the night.  A deck of cards, that you recognized as a set from your home, was accidentally left here.",
+        "Tag": "ian2",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "To Langdale and Lorenwaite",
+        "EntryText": "Lendel has informed you that your brother is recovering in Lorenwaite (the home of the Eastern Elves).  Travel to Langdale and then to Lorenwaite to meet him.",
+        "Tag": "ian3",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "To The Dark Woods",
+        "EntryText": "Rillian has informed you that Ian has left Lorenwaite.  Ian left a message for you and your family.  He intends to find and free his companions and friends, if they yet live.  If they have been murdered, he intends to avenge their death.  Most likely he has returned to the scene of their ambush.  Their camp, which was ambushed by orcs, was in the Dark Woods.  You should travel there to find Ian.",
+        "Tag": "ian4",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Found Ian",
+        "EntryText": "You have found Ian.",
+        "Tag": "ian5",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Kinstan Tree Spirits",
+    "Tag": "KinstanTS",
+    "Entries": [
+      {
+        "EntryTitle": "Save Tree Spirits",
+        "EntryText": "A Tree Spirit has pleaded with you to save them from the Forest Gnolls.  the Gnolls have been cutting down the trees in the area which has led to the death of many of the Tree Spirits in the area.   You have agreed to convince the Gnolls to leave the area.",
+        "Tag": "kinstanTS1",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Attempted Negotiations",
+        "EntryText": "You attempted to reason with the King of the Forest Gnolls.",
+        "Tag": "kinstanTS2",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Defeated the Gnolls",
+        "EntryText": "You have defeated the Forest Gnolls.",
+        "Tag": "kinstanTS3",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saved Tree Spirits",
+        "EntryText": "You have dealt with the Forest Gnolls and saved the Kinstan Tree Spirits.",
+        "Tag": "kinstanTS4",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Find Kylee's Kitten",
+    "Tag": "kylee",
+    "Entries": [
+      {
+        "EntryTitle": "Find Kitten",
+        "EntryText": "Kylee asked you to help her find her kitten. He is probably around town somewhere.",
+        "Tag": "kylee10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Found Kitten",
+        "EntryText": "You found Kylee's kitten. You should probably let her know where he is.",
+        "Tag": "kylee20",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Told Kylee About Kitten",
+        "EntryText": "You found Kylee's kitten and let her know where to find him.",
+        "Tag": "kylee30",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Kendra's Ring",
+    "Tag": "kendra",
+    "Entries": [
+      {
+        "EntryTitle": "Find Kendra's Ring",
+        "EntryText": "Kendra has told you of her picnic a few moths ago where they were attacked by a large flying beast.  The beast flew away with her locked chest containing a family heirloom, a ring.  If you come across the ring, you have agreed to return it to her.",
+        "Tag": "kendra10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Returned Ring",
+        "EntryText": "You have returned Kendra's ring to her.",
+        "Tag": "kendra20",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Poison for Selyna",
+    "Tag": "selyna",
+    "Entries": [
+      {
+        "EntryTitle": "Find Pure Poison",
+        "EntryText": "Selyna has asked you to find some of the poison that has caused the sickness of those who drank from the stream.  Without the source poison, she may not be able to create an antidote that will cure them.  It must be a pure amount of the poison and not diluted.",
+        "Tag": "selyna10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Delivered Poison for Antidote",
+        "EntryText": "You have collected some of the source poison and given it to Selyna.  She will now be able to create an antidote that will cure those who are sick.",
+        "Tag": "selyna20",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Dark Woods Tree Spirit",
+    "Tag": "DarkWoodsTS",
+    "Entries": [
+      {
+        "EntryTitle": "Find Water Poisoning Source",
+        "EntryText": "A Tree Spirit has pleaded with you to save them from the source of water poisoning.  You have agreed to find the source and remove it.",
+        "Tag": "darkwoodsTS10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saved Tree Spirits",
+        "EntryText": "You have removed the source of the river's poisoning by defeating the Lizard Queen. You have saved the Dark Woods Tree Spirits from the Lizard Queen's poisoning.",
+        "Tag": "darkwoodsTS20",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Lizard Queen",
+    "Tag": "lizardqueen",
+    "Entries": [
+      {
+        "EntryTitle": "Help the Guild",
+        "EntryText": "You have agreed to help the Glenfax Guild and remove the Lizardfolk threat.",
+        "Tag": "lizardqueen10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saved the Guild",
+        "EntryText": "You have helped the Glenfax Guild by defeating the Lizard Queen.",
+        "Tag": "lizardqueen20",
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Ian's Companions",
+    "Tag": "IanComps",
+    "Entries": [
+      {
+        "EntryTitle": "Find Ian's Companions",
+        "EntryText": "You have decided to search for Ian's companions who were taken prisoners by the ambushing orcs.  Ian has detected their path leading to the South Grimstan Forest.  You should travel there to search for clues.  They must be freed, if they yet live, or avenged.",
+        "Tag": "iancomps10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Freed Companion's",
+        "EntryText": "You have freed Ian's captured companions from the evil orcs.",
+        "Tag": "iancomps20",
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Return to Brinsby",
+    "Tag": "BrinsbyReturn",
+    "Entries": [
+      {
+        "EntryTitle": "Return Home",
+        "EntryText": "Now that Ian's companions have been saved, you should return home to Brinsby and your family.",
+        "Tag": "brinsbyreturn10",
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Returned Home",
+        "EntryText": "You have returned to Brinsby and reunited your family.",
+        "Tag": "brinsbyreturn20",
+        "EndPoint": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,336 @@
+[
+  {
+    "containerTag": "HomeUS1",
+    "containerItemRefs": [
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_1565",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1566",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "HomeUS2",
+    "containerItemRefs": [
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_1567",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_1568",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_2318",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_2319",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "BrinsbyInn1",
+    "containerItemRefs": [
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_1569",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BrinsbyInn2",
+    "containerItemRefs": [
+      {
+        "resref": "robes",
+        "tag": "robes_1570",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BrinsbyInn3",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1571",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "BeetleCaveShield",
+    "containerItemRefs": [
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_1572",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "KoboldCave1",
+    "containerItemRefs": [
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_1573",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1574",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_1575",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_1576",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1577",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Gnolls1",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1579",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "Gnolls2",
+    "containerItemRefs": [
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_1581",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_1582",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "goldring",
+        "tag": "goldring_1583",
+        "name": "Gold Ring",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "KendraChest",
+    "containerItemRefs": [
+      {
+        "resref": "kendraRing",
+        "tag": "kendraRing_1585",
+        "name": "Kendra's Ring",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "KoboldCaveSkele",
+    "containerItemRefs": [
+      {
+        "resref": "sling",
+        "tag": "sling_7914",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_7915",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "SouthGrimCave1",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_1590",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_1591",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_1592",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_1593",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "SouthGrimCave2",
+    "containerItemRefs": [
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_1594",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_1595",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfProtection",
+        "tag": "ringOfProtection_1596",
+        "name": "Ring of Protection",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_7943",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "SouthGrimWarRoom1",
+    "containerItemRefs": [
+      {
+        "resref": "fireLongSword",
+        "tag": "fireLongSword_1597",
+        "name": "Flaming Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfFireResist",
+        "tag": "ringOfFireResist_1598",
+        "name": "Ring of Fire Resistance",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_1599",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "lizqueenChest",
+    "containerItemRefs": [
+      {
+        "resref": "platemail",
+        "tag": "platemail_6524",
+        "name": "Platemail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_6525",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_6526",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_6527",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]
