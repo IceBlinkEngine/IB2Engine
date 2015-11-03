@@ -328,17 +328,17 @@ namespace IceBlink2
                     hideOverlayNeeded = false;
                 }
                 drawFogOfWar();
-            }
-            if (mod.useUIBackground)
-             {
-                //drawUIBackground();
-             }
+            }            
             drawFloatyTextPool();
             if (tglClock.toggleOn)
             {
                 drawMainMapClockText();
-            }            
-            drawPanels();
+            }
+            if (mod.useUIBackground)
+            {
+                //drawUIBackground();
+                drawPanels();
+            }
             gv.drawLog();
             drawControls();
             drawMiniMap();
