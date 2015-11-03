@@ -229,7 +229,7 @@ namespace IceBlink2
             //cc = new CommonCode(this);            
             //mod = new Module();
 
-            log = new IbbHtmlLogBox(this, oXshift + (int)(3 * screenDensity), oYshift, 6 * squareSize - (int)(6 * screenDensity), 7 * squareSize);
+            log = new IbbHtmlLogBox(this, oXshift + (int)(3 * screenDensity), oYshift, 6 * squareSize - (int)(12 * screenDensity) - pS, 6 * squareSize + squareSize / 2);
             log.numberOfLinesToShow = 20;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
@@ -410,10 +410,11 @@ namespace IceBlink2
             }
         
 		    cc.nullOutControls();
+            cc.setPanelsStart();
 		    cc.setControlsStart();
             cc.setPortraitsStart();
-
 		    cc.setToggleButtonsStart();
+
 		    createScreens();
 		    initializeSounds();
 		

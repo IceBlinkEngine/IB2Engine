@@ -26,6 +26,11 @@ namespace IceBlink2
         public int floatyTextCounter = 0;
         public bool floatyTextOn = false;
 
+        public IbbPanel pnlLog = null;
+        public IbbPanel pnlToggles = null;
+        public IbbPanel pnlPortraits = null;
+        public IbbPanel pnlHotkeys = null;
+        public IbbPanel pnlArrows = null;
         public IbbButton btnReturn = null;
         public IbbButton ctrlUpArrow = null;
         public IbbButton ctrlDownArrow = null;
@@ -1323,6 +1328,54 @@ namespace IceBlink2
             btnHelp = null;
             tglSound = null;
         }
+        public void setPanelsStart()
+        {
+            if (pnlLog == null)
+            {
+                pnlLog = new IbbPanel(gv);
+                pnlLog.ImgBG = this.LoadBitmap("ui_bg_log");
+                pnlLog.LocX = gv.oXshift - gv.pS;
+                pnlLog.LocY = 0;
+                pnlLog.Height = 7 * gv.squareSize;
+                pnlLog.Width = 6 * gv.squareSize;
+            }
+            if (pnlToggles == null)
+            {
+                pnlToggles = new IbbPanel(gv);
+                pnlToggles.ImgBG = this.LoadBitmap("ui_bg_toggles");
+                pnlToggles.LocX = gv.oXshift - gv.pS;
+                pnlToggles.LocY = 7 * gv.squareSize + gv.pS;
+                pnlToggles.Height = 3 * gv.squareSize;
+                pnlToggles.Width = 6 * gv.squareSize;
+            }
+            if (pnlPortraits == null)
+            {
+                pnlPortraits = new IbbPanel(gv);
+                pnlPortraits.ImgBG = this.LoadBitmap("ui_bg_portraits");
+                pnlPortraits.LocX = 15 * gv.squareSize + gv.oXshift + gv.pS;
+                pnlPortraits.LocY = 0 * gv.squareSize;
+                pnlPortraits.Height = 7 * gv.squareSize;
+                pnlPortraits.Width = 4 * gv.squareSize;
+            }
+            if (pnlArrows == null)
+            {
+                pnlArrows = new IbbPanel(gv);
+                pnlArrows.ImgBG = this.LoadBitmap("ui_bg_arrows");
+                pnlArrows.LocX = 15 * gv.squareSize + gv.oXshift + gv.pS;
+                pnlArrows.LocY = 7 * gv.squareSize + gv.pS;
+                pnlArrows.Height = 3 * gv.squareSize;
+                pnlArrows.Width = 4 * gv.squareSize;
+            }
+            if (pnlHotkeys == null)
+            {
+                pnlHotkeys = new IbbPanel(gv);
+                pnlHotkeys.ImgBG = this.LoadBitmap("ui_bg_hotkeys");
+                pnlHotkeys.LocX = 6 * gv.squareSize + gv.oXshift;
+                pnlHotkeys.LocY = 9 * gv.squareSize + gv.pS;
+                pnlHotkeys.Height = 1 * gv.squareSize;
+                pnlHotkeys.Width = 9 * gv.squareSize;
+            }
+        }
         public void setControlsStart()
         {
             int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -1334,8 +1387,8 @@ namespace IceBlink2
                 ctrlUpArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpArrow.Img2 = this.LoadBitmap("ctrl_up_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_arrow);
                 ctrlUpArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpArrow.X = 17 * gv.squareSize - 3*gv.oXshift;
-                ctrlUpArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpArrow.X = gv.cc.pnlArrows.LocX + 1 * gv.squareSize + gv.squareSize / 2;
+                ctrlUpArrow.Y = gv.cc.pnlArrows.LocY + 0 * gv.squareSize;
                 ctrlUpArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1345,8 +1398,8 @@ namespace IceBlink2
                 ctrlLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlLeftArrow.Img2 = this.LoadBitmap("ctrl_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_left_arrow);
                 ctrlLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
-                ctrlLeftArrow.Y = 8 * gv.squareSize + pH * 2;
+                ctrlLeftArrow.X = gv.cc.pnlArrows.LocX + 0 * gv.squareSize + gv.squareSize / 2;
+                ctrlLeftArrow.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize;
                 ctrlLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1356,8 +1409,8 @@ namespace IceBlink2
                 ctrlRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlRightArrow.Img2 = this.LoadBitmap("ctrl_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_right_arrow);
                 ctrlRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
-                ctrlRightArrow.Y = 8 * gv.squareSize + pH * 2;
+                ctrlRightArrow.X = gv.cc.pnlArrows.LocX + 2 * gv.squareSize + gv.squareSize / 2;
+                ctrlRightArrow.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize;
                 ctrlRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1367,8 +1420,8 @@ namespace IceBlink2
                 ctrlDownArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownArrow.Img2 = this.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_arrow);
                 ctrlDownArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownArrow.X = 17 * gv.squareSize - 3*gv.oXshift;
-                ctrlDownArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownArrow.X = gv.cc.pnlArrows.LocX + 1 * gv.squareSize + gv.squareSize / 2;
+                ctrlDownArrow.Y = gv.cc.pnlArrows.LocY + 2 * gv.squareSize;
                 ctrlDownArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1378,8 +1431,8 @@ namespace IceBlink2
                 ctrlUpRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpRightArrow.Img2 = this.LoadBitmap("ctrl_up_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_right_arrow);
                 ctrlUpRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
-                ctrlUpRightArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpRightArrow.X = gv.cc.pnlArrows.LocX + 2 * gv.squareSize + gv.squareSize / 2;
+                ctrlUpRightArrow.Y = gv.cc.pnlArrows.LocY + 0 * gv.squareSize;
                 ctrlUpRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1389,8 +1442,8 @@ namespace IceBlink2
                 ctrlUpLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlUpLeftArrow.Img2 = this.LoadBitmap("ctrl_up_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_up_left_arrow);
                 ctrlUpLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlUpLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
-                ctrlUpLeftArrow.Y = 7 * gv.squareSize + pH * 2;
+                ctrlUpLeftArrow.X = gv.cc.pnlArrows.LocX + 0 * gv.squareSize + gv.squareSize / 2;
+                ctrlUpLeftArrow.Y = gv.cc.pnlArrows.LocY + 0 * gv.squareSize;
                 ctrlUpLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlUpLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1400,8 +1453,8 @@ namespace IceBlink2
                 ctrlDownRightArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownRightArrow.Img2 = this.LoadBitmap("ctrl_down_right_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_right_arrow);
                 ctrlDownRightArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownRightArrow.X = 18 * gv.squareSize - 3*gv.oXshift;
-                ctrlDownRightArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownRightArrow.X = gv.cc.pnlArrows.LocX + 2 * gv.squareSize + gv.squareSize / 2;
+                ctrlDownRightArrow.Y = gv.cc.pnlArrows.LocY + 2 * gv.squareSize;
                 ctrlDownRightArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownRightArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1411,8 +1464,8 @@ namespace IceBlink2
                 ctrlDownLeftArrow.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 ctrlDownLeftArrow.Img2 = this.LoadBitmap("ctrl_down_left_arrow"); // BitmapFactory.decodeResource(getResources(), R.drawable.ctrl_down_left_arrow);
                 ctrlDownLeftArrow.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.arrow_glow);
-                ctrlDownLeftArrow.X = 16 * gv.squareSize - 3*gv.oXshift;
-                ctrlDownLeftArrow.Y = 9 * gv.squareSize + pH * 2;
+                ctrlDownLeftArrow.X = gv.cc.pnlArrows.LocX + 0 * gv.squareSize + gv.squareSize / 2;
+                ctrlDownLeftArrow.Y = gv.cc.pnlArrows.LocY + 2 * gv.squareSize;
                 ctrlDownLeftArrow.Height = (int)(gv.ibbheight * gv.screenDensity);
                 ctrlDownLeftArrow.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1423,8 +1476,8 @@ namespace IceBlink2
                 btnInventory.Img = this.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnInventory.Img2 = this.LoadBitmap("btninventory"); // BitmapFactory.decodeResource(getResources(), R.drawable.btninventory);
                 btnInventory.Glow = this.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnInventory.X = 8 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnInventory.Y = 9 * gv.squareSize + (int)(1.75*pH);
+                btnInventory.X = gv.cc.pnlHotkeys.LocX + 2 * gv.squareSize;
+                btnInventory.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnInventory.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnInventory.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -1465,8 +1518,8 @@ namespace IceBlink2
                 ptrPc0 = new IbbPortrait(gv, 0.8f);
                 ptrPc0.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc0.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc0.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc0.Y = 0 * gv.squareSize + pH * 2;
+                ptrPc0.X = gv.cc.pnlPortraits.LocX + 0 * gv.squareSize + gv.squareSize / 2 + gv.pS;
+                ptrPc0.Y = gv.cc.pnlPortraits.LocY + 0 * gv.squareSize + gv.squareSize / 2;
                 ptrPc0.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc0.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1475,8 +1528,8 @@ namespace IceBlink2
                 ptrPc1 = new IbbPortrait(gv, 0.8f);
                 ptrPc1.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc1.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc1.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc1.Y = 0 * gv.squareSize + pH * 2;
+                ptrPc1.X = gv.cc.pnlPortraits.LocX + 2 * gv.squareSize + gv.pS;
+                ptrPc1.Y = gv.cc.pnlPortraits.LocY + 0 * gv.squareSize + gv.squareSize / 2;
                 ptrPc1.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc1.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1485,8 +1538,8 @@ namespace IceBlink2
                 ptrPc2 = new IbbPortrait(gv, 0.8f);
                 ptrPc2.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc2.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc2.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc2.Y = 2 * gv.squareSize + pH * 2;
+                ptrPc2.X = gv.cc.pnlPortraits.LocX + 0 * gv.squareSize + gv.squareSize / 2 + gv.pS;
+                ptrPc2.Y = gv.cc.pnlPortraits.LocY + 2 * gv.squareSize + gv.squareSize / 2;
                 ptrPc2.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc2.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1495,8 +1548,8 @@ namespace IceBlink2
                 ptrPc3 = new IbbPortrait(gv, 0.8f);
                 ptrPc3.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc3.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc3.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc3.Y = 2 * gv.squareSize + pH * 2;
+                ptrPc3.X = gv.cc.pnlPortraits.LocX + 2 * gv.squareSize + gv.pS;
+                ptrPc3.Y = gv.cc.pnlPortraits.LocY + 2 * gv.squareSize + gv.squareSize / 2;
                 ptrPc3.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc3.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1505,8 +1558,8 @@ namespace IceBlink2
                 ptrPc4 = new IbbPortrait(gv, 0.8f);
                 ptrPc4.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc4.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc4.X = gv.oXshift + 16 * gv.squareSize;
-                ptrPc4.Y = 4 * gv.squareSize + pH * 2;
+                ptrPc4.X = gv.cc.pnlPortraits.LocX + 0 * gv.squareSize + gv.squareSize / 2 + gv.pS;
+                ptrPc4.Y = gv.cc.pnlPortraits.LocY + 4 * gv.squareSize + gv.squareSize / 2;
                 ptrPc4.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc4.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1515,8 +1568,8 @@ namespace IceBlink2
                 ptrPc5 = new IbbPortrait(gv, 0.8f);
                 ptrPc5.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc5.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
-                ptrPc5.X = gv.oXshift + 17 * gv.squareSize + gv.squareSize / 2;
-                ptrPc5.Y = 4 * gv.squareSize + pH * 2;
+                ptrPc5.X = gv.cc.pnlPortraits.LocX + 2 * gv.squareSize + gv.pS;
+                ptrPc5.Y = gv.cc.pnlPortraits.LocY + 4 * gv.squareSize + gv.squareSize / 2;
                 ptrPc5.Height = (int)(gv.ibpheight * gv.screenDensity);
                 ptrPc5.Width = (int)(gv.ibpwidth * gv.screenDensity);
             }
@@ -1528,8 +1581,8 @@ namespace IceBlink2
                 tglSound = new IbbToggleButton(gv);
                 tglSound.ImgOn = this.LoadBitmap("tgl_music_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sound_on);
                 tglSound.ImgOff = this.LoadBitmap("tgl_music_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sound_off);
-                tglSound.X = 3 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglSound.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                tglSound.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
+                tglSound.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
                 tglSound.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSound.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
             }

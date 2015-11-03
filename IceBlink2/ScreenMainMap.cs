@@ -14,6 +14,7 @@ namespace IceBlink2
         public Module mod;
         public GameView gv;
 
+        
         private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
         private IbbButton btnSettings = null;
@@ -42,6 +43,7 @@ namespace IceBlink2
             setToggleButtonsStart();
         }
 
+        
         public void setControlsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -55,8 +57,10 @@ namespace IceBlink2
                 btnWait.Text = "WAIT";
                 btnWait.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnWait.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnWait.X = 17 * gv.squareSize - 3*gv.oXshift;
-                btnWait.Y = 8 * gv.squareSize + pH * 2;
+                //btnWait.X = 17 * gv.squareSize - 3*gv.oXshift;
+                //btnWait.Y = 8 * gv.squareSize + pH * 2;
+                btnWait.X = gv.cc.pnlArrows.LocX + 1 * gv.squareSize + gv.squareSize / 2;
+                btnWait.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize;
                 btnWait.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnWait.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -67,8 +71,10 @@ namespace IceBlink2
                 btnParty.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnParty.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
                 btnParty.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnParty.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnParty.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                //btnParty.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
+                //btnParty.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                btnParty.X = gv.cc.pnlHotkeys.LocX + 1 * gv.squareSize;
+                btnParty.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnParty.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnParty.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -79,8 +85,10 @@ namespace IceBlink2
                 btnJournal.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnJournal.Img2 = gv.cc.LoadBitmap("btnjournal"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnjournal);
                 btnJournal.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnJournal.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnJournal.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                //btnJournal.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
+                //btnJournal.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                btnJournal.X = gv.cc.pnlHotkeys.LocX + 3 * gv.squareSize;
+                btnJournal.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnJournal.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -90,8 +98,10 @@ namespace IceBlink2
                 btnSettings.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnSettings.Img2 = gv.cc.LoadBitmap("btnsettings"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnsettings);
                 btnSettings.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnSettings.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnSettings.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                //btnSettings.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
+                //btnSettings.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                btnSettings.X = gv.cc.pnlHotkeys.LocX + 4 * gv.squareSize;
+                btnSettings.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnSettings.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSettings.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -102,8 +112,10 @@ namespace IceBlink2
                 btnCastOnMainMap.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnCastOnMainMap.Img2 = gv.cc.LoadBitmap("btnspell"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnspell);
                 btnCastOnMainMap.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnCastOnMainMap.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnCastOnMainMap.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                //btnCastOnMainMap.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
+                //btnCastOnMainMap.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                btnCastOnMainMap.X = gv.cc.pnlHotkeys.LocX + 5 * gv.squareSize;
+                btnCastOnMainMap.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnCastOnMainMap.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCastOnMainMap.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -114,8 +126,10 @@ namespace IceBlink2
                 btnSave.ImgOff = gv.cc.LoadBitmap("btn_small_off");
                 btnSave.Img2 = gv.cc.LoadBitmap("btndisk"); // BitmapFactory.decodeResource(getResources(), R.drawable.btndisk);
                 btnSave.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnSave.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnSave.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                //btnSave.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
+                //btnSave.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
+                btnSave.X = gv.cc.pnlHotkeys.LocX + 6 * gv.squareSize;
+                btnSave.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
                 btnSave.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -131,8 +145,10 @@ namespace IceBlink2
                 tglFullParty = new IbbToggleButton(gv);
                 tglFullParty.ImgOn = gv.cc.LoadBitmap("tgl_fullparty_on");
                 tglFullParty.ImgOff = gv.cc.LoadBitmap("tgl_fullparty_off");
-                tglFullParty.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglFullParty.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglFullParty.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglFullParty.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                tglFullParty.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
+                tglFullParty.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4;
                 tglFullParty.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglFullParty.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglFullParty.toggleOn = true;
@@ -142,8 +158,10 @@ namespace IceBlink2
                 tglMiniMap = new IbbToggleButton(gv);
                 tglMiniMap.ImgOn = gv.cc.LoadBitmap("tgl_minimap_on");
                 tglMiniMap.ImgOff = gv.cc.LoadBitmap("tgl_minimap_off");
-                tglMiniMap.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglMiniMap.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglMiniMap.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglMiniMap.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                tglMiniMap.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
+                tglMiniMap.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4;
                 tglMiniMap.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglMiniMap.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglMiniMap.toggleOn = false;
@@ -153,8 +171,10 @@ namespace IceBlink2
                 tglGrid = new IbbToggleButton(gv);
                 tglGrid.ImgOn = gv.cc.LoadBitmap("tgl_grid_on");
                 tglGrid.ImgOff = gv.cc.LoadBitmap("tgl_grid_off");
-                tglGrid.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglGrid.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglGrid.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglGrid.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                tglGrid.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
+                tglGrid.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
                 tglGrid.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglGrid.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglGrid.toggleOn = true;
@@ -164,8 +184,10 @@ namespace IceBlink2
                 tglClock = new IbbToggleButton(gv);
                 tglClock.ImgOn = gv.cc.LoadBitmap("tgl_clock_on");
                 tglClock.ImgOff = gv.cc.LoadBitmap("tgl_clock_off");
-                tglClock.X = 2 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglClock.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglClock.X = 2 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglClock.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
+                tglClock.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
+                tglClock.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4;
                 tglClock.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglClock.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglClock.toggleOn = true;
@@ -175,8 +197,10 @@ namespace IceBlink2
                 tglInteractionState = new IbbToggleButton(gv);
                 tglInteractionState.ImgOn = gv.cc.LoadBitmap("tgl_state_on");
                 tglInteractionState.ImgOff = gv.cc.LoadBitmap("tgl_state_off");
-                tglInteractionState.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglInteractionState.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglInteractionState.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglInteractionState.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                tglInteractionState.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
+                tglInteractionState.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
                 tglInteractionState.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglInteractionState.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglInteractionState.toggleOn = false;
@@ -186,8 +210,10 @@ namespace IceBlink2
                 tglAvoidConversation = new IbbToggleButton(gv);
                 tglAvoidConversation.ImgOn = gv.cc.LoadBitmap("tgl_avoidConvo_on");
                 tglAvoidConversation.ImgOff = gv.cc.LoadBitmap("tgl_avoidConvo_off");
-                tglAvoidConversation.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglAvoidConversation.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                //tglAvoidConversation.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
+                //tglAvoidConversation.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
+                tglAvoidConversation.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
+                tglAvoidConversation.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
                 tglAvoidConversation.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglAvoidConversation.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglAvoidConversation.toggleOn = false;
@@ -305,13 +331,14 @@ namespace IceBlink2
             }
             if (mod.useUIBackground)
              {
-                drawUIBackground();
+                //drawUIBackground();
              }
             drawFloatyTextPool();
             if (tglClock.toggleOn)
             {
                 drawMainMapClockText();
-            }
+            }            
+            drawPanels();
             gv.drawLog();
             drawControls();
             drawMiniMap();
@@ -1325,6 +1352,14 @@ namespace IceBlink2
             {
                 drawRowOfBlack(5);
             }            
+        }
+        public void drawPanels()
+        {
+            gv.cc.pnlLog.Draw();
+            gv.cc.pnlToggles.Draw();
+            gv.cc.pnlPortraits.Draw();
+            gv.cc.pnlArrows.Draw();
+            gv.cc.pnlHotkeys.Draw();
         }
         public void drawControls()
         {

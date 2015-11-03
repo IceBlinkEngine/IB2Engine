@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="GlobalInt.cs" />
     <Compile Include="GlobalString.cs" />
+    <Compile Include="IbbPanel.cs" />
     <Compile Include="IbbPortrait.cs" />
     <Compile Include="IbbButton.cs" />
     <Compile Include="IbbHtmlTextBox.cs" />
