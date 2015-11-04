@@ -60,7 +60,7 @@ namespace IceBlink2
                 //btnWait.X = 17 * gv.squareSize - 3*gv.oXshift;
                 //btnWait.Y = 8 * gv.squareSize + pH * 2;
                 btnWait.X = gv.cc.pnlArrows.LocX + 1 * gv.squareSize + gv.squareSize / 2;
-                btnWait.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize;
+                btnWait.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize + gv.pS;
                 btnWait.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnWait.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -74,7 +74,7 @@ namespace IceBlink2
                 //btnParty.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnParty.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnParty.X = gv.cc.pnlHotkeys.LocX + 1 * gv.squareSize;
-                btnParty.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
+                btnParty.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnParty.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnParty.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -88,7 +88,7 @@ namespace IceBlink2
                 //btnJournal.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnJournal.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnJournal.X = gv.cc.pnlHotkeys.LocX + 3 * gv.squareSize;
-                btnJournal.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
+                btnJournal.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnJournal.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -101,7 +101,7 @@ namespace IceBlink2
                 //btnSettings.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnSettings.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnSettings.X = gv.cc.pnlHotkeys.LocX + 4 * gv.squareSize;
-                btnSettings.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
+                btnSettings.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSettings.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSettings.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -115,7 +115,7 @@ namespace IceBlink2
                 //btnCastOnMainMap.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnCastOnMainMap.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnCastOnMainMap.X = gv.cc.pnlHotkeys.LocX + 5 * gv.squareSize;
-                btnCastOnMainMap.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
+                btnCastOnMainMap.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnCastOnMainMap.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCastOnMainMap.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -129,7 +129,7 @@ namespace IceBlink2
                 //btnSave.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnSave.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
                 btnSave.X = gv.cc.pnlHotkeys.LocX + 6 * gv.squareSize;
-                btnSave.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize;
+                btnSave.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSave.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -148,7 +148,7 @@ namespace IceBlink2
                 //tglFullParty.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglFullParty.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
                 tglFullParty.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
-                tglFullParty.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4;
+                tglFullParty.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglFullParty.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglFullParty.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglFullParty.toggleOn = true;
@@ -161,7 +161,7 @@ namespace IceBlink2
                 //tglMiniMap.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglMiniMap.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
                 tglMiniMap.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
-                tglMiniMap.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4;
+                tglMiniMap.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglMiniMap.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglMiniMap.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglMiniMap.toggleOn = false;
@@ -174,7 +174,7 @@ namespace IceBlink2
                 //tglGrid.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglGrid.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
                 tglGrid.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
-                tglGrid.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
+                tglGrid.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglGrid.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglGrid.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglGrid.toggleOn = true;
@@ -187,7 +187,7 @@ namespace IceBlink2
                 //tglClock.X = 2 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglClock.Y = 9 * (gv.squareSize) + (gv.squareSize / 2);
                 tglClock.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
-                tglClock.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4;
+                tglClock.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglClock.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglClock.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglClock.toggleOn = true;
@@ -200,7 +200,7 @@ namespace IceBlink2
                 //tglInteractionState.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglInteractionState.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
                 tglInteractionState.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
-                tglInteractionState.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
+                tglInteractionState.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglInteractionState.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglInteractionState.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglInteractionState.toggleOn = false;
@@ -213,7 +213,7 @@ namespace IceBlink2
                 //tglAvoidConversation.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
                 //tglAvoidConversation.Y = 8 * (gv.squareSize) + (gv.squareSize / 2);
                 tglAvoidConversation.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
-                tglAvoidConversation.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4;
+                tglAvoidConversation.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglAvoidConversation.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglAvoidConversation.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglAvoidConversation.toggleOn = false;
@@ -336,7 +336,6 @@ namespace IceBlink2
             }
             if (mod.useUIBackground)
             {
-                //drawUIBackground();
                 drawPanels();
             }
             gv.drawLog();
@@ -344,42 +343,6 @@ namespace IceBlink2
             drawMiniMap();
             drawPortraits();
         }
-
-        public void drawUIBackground()
-        {
-
-            try
-            {
-                //draw background for portraits (UIBackgroundPortraits)
-                IbRect src = new IbRect(0, 0, gv.cc.ui_bg_portraits.PixelSize.Width, gv.cc.ui_bg_portraits.PixelSize.Height);
-                IbRect dst = new IbRect(gv.squareSize * 15 + gv.oXshift, 0, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 7));
-                gv.DrawBitmap(gv.cc.ui_bg_portraits, src, dst);
-
-                //draw background for arrow control (UIBackgroundArrows)
-                src = new IbRect(0, 0, gv.cc.ui_bg_arrows.PixelSize.Width, gv.cc.ui_bg_arrows.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize*7, gv.squareSize * 4 + gv.oXshift, gv.squareSize * 3);
-                gv.DrawBitmap(gv.cc.ui_bg_arrows, src, dst);
-
-                //draw background for hotkey bar (UIBackgroundHotkeys)
-                src = new IbRect(0, 0, gv.cc.ui_bg_hotkeys.PixelSize.Width, gv.cc.ui_bg_hotkeys.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize*9, gv.squareSize * 9, gv.squareSize * 1);
-                gv.DrawBitmap(gv.cc.ui_bg_hotkeys, src, dst);
-
-                //draw background for toggle buttons (UIBackgroundToggles)
-                src = new IbRect(0, 0, gv.cc.ui_bg_toggles.PixelSize.Width, gv.cc.ui_bg_toggles.PixelSize.Height);
-                dst = new IbRect(0 + gv.oXshift, gv.squareSize * 7, gv.squareSize * 6 + gv.oXshift, gv.squareSize * 3);
-                gv.DrawBitmap(gv.cc.ui_bg_toggles, src, dst);
-
-                //drawbackground for log (UIBackgroundLog)
-                src = new IbRect(0, 0, gv.cc.ui_bg_log.PixelSize.Width, gv.cc.ui_bg_log.PixelSize.Height);
-                dst = new IbRect(0 + gv.oXshift, 0, gv.squareSize * 6 + gv.oXshift, gv.squareSize * 7);
-                gv.DrawBitmap(gv.cc.ui_bg_log, src, dst);
-            }
-            catch
-            { }
-
-        }
-
         public void drawPortraits()
         {
             if (mod.playerList.Count > 0)

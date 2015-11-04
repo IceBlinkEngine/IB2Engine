@@ -92,8 +92,8 @@ namespace IceBlink2
 			    btnSelect.Text = "SELECT";
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnSelect.X = 17 * gv.squareSize;
-			    btnSelect.Y = 8 * gv.squareSize + pH * 2;
+                btnSelect.X = gv.cc.pnlArrows.LocX + 1 * gv.squareSize + gv.squareSize / 2;
+                btnSelect.Y = gv.cc.pnlArrows.LocY + 1 * gv.squareSize + gv.pS;
                 btnSelect.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSelect.Width = (int)(gv.ibbwidthR * gv.screenDensity);
 		    }			
@@ -106,8 +106,8 @@ namespace IceBlink2
 			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow");
 			    btnMove.Text = "MOVE";
                 btnMove.HotKey = "M";
-			    btnMove.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
-			    btnMove.Y = 9 * gv.squareSize + pH;
+                btnMove.X = gv.cc.pnlHotkeys.LocX + 4 * gv.squareSize;
+                btnMove.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMove.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
@@ -117,8 +117,8 @@ namespace IceBlink2
                 btnMoveCounter.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnMoveCounter.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 btnMoveCounter.Text = "0";
-                btnMoveCounter.X = 14 * gv.squareSize + padW * 0 + gv.oXshift;
-                btnMoveCounter.Y = 9 * gv.squareSize + pH;
+                btnMoveCounter.X = gv.cc.pnlHotkeys.LocX + 7 * gv.squareSize;
+                btnMoveCounter.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnMoveCounter.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMoveCounter.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
@@ -131,8 +131,8 @@ namespace IceBlink2
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnAttack.Text = "ATTACK";
                 btnAttack.HotKey = "A";
-			    btnAttack.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
-			    btnAttack.Y = 9 * gv.squareSize + pH;
+                btnAttack.X = gv.cc.pnlHotkeys.LocX + 5 * gv.squareSize;
+                btnAttack.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnAttack.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAttack.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
@@ -145,8 +145,8 @@ namespace IceBlink2
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnCast.Text = "CAST";
                 btnCast.HotKey = "C";
-			    btnCast.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
-			    btnCast.Y = 9 * gv.squareSize + pH;
+                btnCast.X = gv.cc.pnlHotkeys.LocX + 6 * gv.squareSize;
+                btnCast.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnCast.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCast.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
@@ -157,8 +157,8 @@ namespace IceBlink2
 			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSkipTurn.Text = "SKIP";
                 btnSkipTurn.HotKey = "S";
-			    btnSkipTurn.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
-			    btnSkipTurn.Y = 9 * gv.squareSize + pH;
+                btnSkipTurn.X = gv.cc.pnlHotkeys.LocX + 3 * gv.squareSize;
+                btnSkipTurn.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSkipTurn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSkipTurn.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 		    }
@@ -169,8 +169,8 @@ namespace IceBlink2
 			    btnSwitchWeapon.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSwitchWeapon.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
 			    btnSwitchWeapon.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-			    btnSwitchWeapon.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
-			    btnSwitchWeapon.Y = 9 * gv.squareSize + pH;
+                btnSwitchWeapon.X = gv.cc.pnlHotkeys.LocX + 1 * gv.squareSize;
+                btnSwitchWeapon.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSwitchWeapon.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSwitchWeapon.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 					
@@ -187,8 +187,8 @@ namespace IceBlink2
 			    tglGrid = new IbbToggleButton(gv);
 			    tglGrid.ImgOn = gv.cc.LoadBitmap("tgl_grid_on");
 			    tglGrid.ImgOff = gv.cc.LoadBitmap("tgl_grid_off");
-			    tglGrid.X = 1 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglGrid.Y = 9 * (gv.squareSize) + (gv.squareSize/2);
+                tglGrid.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
+                tglGrid.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglGrid.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglGrid.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 			    tglGrid.toggleOn = true;
@@ -198,8 +198,8 @@ namespace IceBlink2
 			    tglHP = new IbbToggleButton(gv);
 			    tglHP.ImgOn = gv.cc.LoadBitmap("tgl_hp_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_hp_on);
 			    tglHP.ImgOff = gv.cc.LoadBitmap("tgl_hp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_hp_off);
-			    tglHP.X = 2 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglHP.Y = 8 * gv.squareSize + (gv.squareSize/2);
+                tglHP.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
+                tglHP.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglHP.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglHP.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -208,8 +208,8 @@ namespace IceBlink2
 			    tglSP = new IbbToggleButton(gv);
 			    tglSP.ImgOn = gv.cc.LoadBitmap("tgl_sp_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
 			    tglSP.ImgOff = gv.cc.LoadBitmap("tgl_sp_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-			    tglSP.X = 3 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglSP.Y = 8 * gv.squareSize + (gv.squareSize/2);
+                tglSP.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
+                tglSP.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglSP.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSP.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -218,8 +218,8 @@ namespace IceBlink2
                 tglMoveOrder = new IbbToggleButton(gv);
                 tglMoveOrder.ImgOn = gv.cc.LoadBitmap("tgl_mo_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
                 tglMoveOrder.ImgOff = gv.cc.LoadBitmap("tgl_mo_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-                tglMoveOrder.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize / 2);
-                tglMoveOrder.Y = 8 * gv.squareSize + (gv.squareSize / 2);
+                tglMoveOrder.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
+                tglMoveOrder.Y = gv.cc.pnlToggles.LocY + 0 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglMoveOrder.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglMoveOrder.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
             }
@@ -228,8 +228,8 @@ namespace IceBlink2
 			    tglSpeed = new IbbToggleButton(gv);
 			    tglSpeed.ImgOn = gv.cc.LoadBitmap("tgl_speed_4"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
 			    tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-			    tglSpeed.X = 4 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglSpeed.Y = 9 * gv.squareSize + (gv.squareSize/2);
+                tglSpeed.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
+                tglSpeed.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglSpeed.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSpeed.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -238,8 +238,8 @@ namespace IceBlink2
 			    tglSoundFx = new IbbToggleButton(gv);
 			    tglSoundFx.ImgOn = gv.cc.LoadBitmap("tgl_sound_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
 			    tglSoundFx.ImgOff = gv.cc.LoadBitmap("tgl_sound_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-			    tglSoundFx.X = 5 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglSoundFx.Y = 9 * gv.squareSize + (gv.squareSize/2);
+                tglSoundFx.X = gv.cc.pnlToggles.LocX + 3 * gv.squareSize + gv.squareSize / 4;
+                tglSoundFx.Y = gv.cc.pnlToggles.LocY + 1 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglSoundFx.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglSoundFx.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -248,8 +248,8 @@ namespace IceBlink2
 			    tglHelp = new IbbToggleButton(gv);
 			    tglHelp.ImgOn = gv.cc.LoadBitmap("tgl_help_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
 			    tglHelp.ImgOff = gv.cc.LoadBitmap("tgl_help_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-			    tglHelp.X = 5 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglHelp.Y = 8 * gv.squareSize + (gv.squareSize/2);
+                tglHelp.X = gv.cc.pnlToggles.LocX + 2 * gv.squareSize + gv.squareSize / 4;
+                tglHelp.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglHelp.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglHelp.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -258,8 +258,8 @@ namespace IceBlink2
 			    tglKill = new IbbToggleButton(gv);
 			    tglKill.ImgOn = gv.cc.LoadBitmap("tgl_kill_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_on);
 			    tglKill.ImgOff = gv.cc.LoadBitmap("tgl_kill_on"); // BitmapFactory.decodeResource(getResources(), R.drawable.tgl_sp_off);
-			    tglKill.X = 0 * gv.squareSize + gv.oXshift + (gv.squareSize/2);
-			    tglKill.Y = 9 * gv.squareSize + (gv.squareSize/2);
+                tglKill.X = gv.cc.pnlToggles.LocX + 1 * gv.squareSize + gv.squareSize / 4;
+                tglKill.Y = gv.cc.pnlToggles.LocY + 2 * gv.squareSize + gv.squareSize / 4 + gv.pS;
                 tglKill.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglKill.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
@@ -2487,7 +2487,7 @@ namespace IceBlink2
             }
             if (mod.useUIBackground)
             {
-                drawUIBackground();
+                drawPanels();
             }
             gv.drawLog();
             drawFloatyText();
@@ -2498,41 +2498,14 @@ namespace IceBlink2
             drawPortraits();
         }
 
-        public void drawUIBackground()
+        public void drawPanels()
         {
-
-            try
-            {
-                //draw background for portraits (UIBackgroundPortraits)
-                IbRect src = new IbRect(0, 0, gv.cc.ui_bg_portraits.PixelSize.Width, gv.cc.ui_bg_portraits.PixelSize.Height);
-                IbRect dst = new IbRect(gv.squareSize * 15 + gv.oXshift, 0, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 7));
-                gv.DrawBitmap(gv.cc.ui_bg_portraits, src, dst);
-
-                //draw background for arrow control (UIBackgroundArrows)
-                src = new IbRect(0, 0, gv.cc.ui_bg_arrows.PixelSize.Width, gv.cc.ui_bg_arrows.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 15 + gv.oXshift, gv.squareSize * 7, gv.squareSize * 4 + gv.oXshift, (gv.squareSize * 3) + gv.oYshift);
-                gv.DrawBitmap(gv.cc.ui_bg_arrows, src, dst);
-
-                //draw background for hotkey bar (UIBackgroundHotkeys)
-                src = new IbRect(0, 0, gv.cc.ui_bg_hotkeys.PixelSize.Width, gv.cc.ui_bg_hotkeys.PixelSize.Height);
-                dst = new IbRect(gv.squareSize * 6 + gv.oXshift, gv.squareSize * 9, gv.squareSize * 9, (gv.squareSize + gv.oYshift));
-                gv.DrawBitmap(gv.cc.ui_bg_hotkeys, src, dst);
-
-                //draw background for toggle buttons (UIBackgroundToggles)
-                src = new IbRect(0, 0, gv.cc.ui_bg_toggles.PixelSize.Width, gv.cc.ui_bg_toggles.PixelSize.Height);
-                dst = new IbRect(0, gv.squareSize * 8 - gv.oYshift + 2 * (int)((float)gv.screenHeight / 100.0f), gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 2) + 7 * (int)((float)gv.screenHeight / 100.0f));
-                gv.DrawBitmap(gv.cc.ui_bg_toggles, src, dst);
-
-                //drawbackground for log (UIBackgroundLog)
-                src = new IbRect(0, 0, gv.cc.ui_bg_log.PixelSize.Width, gv.cc.ui_bg_log.PixelSize.Height);
-                dst = new IbRect(0, 0, gv.squareSize * 6 + gv.oXshift, (gv.squareSize * 8) - 3 * (int)((float)gv.screenHeight / 100.0f));
-                gv.DrawBitmap(gv.cc.ui_bg_log, src, dst);
-            }
-            catch
-            { }
-
+            gv.cc.pnlLog.Draw();
+            gv.cc.pnlToggles.Draw();
+            gv.cc.pnlPortraits.Draw();
+            gv.cc.pnlArrows.Draw();
+            gv.cc.pnlHotkeys.Draw();
         }
-
         public void drawCombatControls()
 	    {
 		    gv.cc.ctrlUpArrow.Draw();

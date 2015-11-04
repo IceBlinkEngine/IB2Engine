@@ -188,8 +188,10 @@ namespace IceBlink2
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
-            float sqrW = (float)screenWidth / (float)squaresInWidth;
-            float sqrH = (float)screenHeight / (float)squaresInHeight;
+            //float sqrW = (float)screenWidth / (float)squaresInWidth;
+            float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f);
+            //float sqrH = (float)screenHeight / (float)squaresInHeight;
+            float sqrH = (float)screenHeight / (squaresInHeight + 3f/10f);
             if (sqrW > sqrH)
             {
                 squareSize = (int)(sqrH);
@@ -198,7 +200,7 @@ namespace IceBlink2
             {
                 squareSize = (int)(sqrW);
             }
-            if ((squareSize > 100) && (squareSize < 105))
+            if ((squareSize >= 99) && (squareSize < 105))
             {
                 squareSize = 100;
             }
