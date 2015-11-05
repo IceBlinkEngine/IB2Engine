@@ -83,10 +83,14 @@ namespace IceBlink2
 		    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		    int padW = gv.squareSize/6;
-		    //int shift = squareSize / 2;
-		
-		
-		    if (btnSelect == null)
+            int hotkeyShift = 0;
+            if (gv.useLargeLayout)
+            {
+                hotkeyShift = 1;
+            }
+
+
+            if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
 			    btnSelect.Text = "SELECT";
@@ -106,7 +110,7 @@ namespace IceBlink2
 			    btnMove.Glow = gv.cc.LoadBitmap("btn_small_glow");
 			    btnMove.Text = "MOVE";
                 btnMove.HotKey = "M";
-                btnMove.X = gv.cc.pnlHotkeys.LocX + 4 * gv.squareSize;
+                btnMove.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 3) * gv.squareSize;
                 btnMove.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnMove.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMove.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -117,7 +121,7 @@ namespace IceBlink2
                 btnMoveCounter.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
                 btnMoveCounter.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 btnMoveCounter.Text = "0";
-                btnMoveCounter.X = gv.cc.pnlHotkeys.LocX + 7 * gv.squareSize;
+                btnMoveCounter.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 6) * gv.squareSize;
                 btnMoveCounter.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnMoveCounter.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnMoveCounter.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -131,7 +135,7 @@ namespace IceBlink2
 			    btnAttack.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnAttack.Text = "ATTACK";
                 btnAttack.HotKey = "A";
-                btnAttack.X = gv.cc.pnlHotkeys.LocX + 5 * gv.squareSize;
+                btnAttack.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 4) * gv.squareSize;
                 btnAttack.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnAttack.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnAttack.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -145,7 +149,7 @@ namespace IceBlink2
 			    btnCast.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnCast.Text = "CAST";
                 btnCast.HotKey = "C";
-                btnCast.X = gv.cc.pnlHotkeys.LocX + 6 * gv.squareSize;
+                btnCast.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 5) * gv.squareSize;
                 btnCast.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnCast.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCast.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -157,7 +161,7 @@ namespace IceBlink2
 			    btnSkipTurn.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
 			    btnSkipTurn.Text = "SKIP";
                 btnSkipTurn.HotKey = "S";
-                btnSkipTurn.X = gv.cc.pnlHotkeys.LocX + 3 * gv.squareSize;
+                btnSkipTurn.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 2) * gv.squareSize;
                 btnSkipTurn.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSkipTurn.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSkipTurn.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
@@ -169,7 +173,7 @@ namespace IceBlink2
 			    btnSwitchWeapon.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small);
 			    btnSwitchWeapon.Img2 = gv.cc.LoadBitmap("btnparty"); // BitmapFactory.decodeResource(getResources(), R.drawable.btnparty);
 			    btnSwitchWeapon.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
-                btnSwitchWeapon.X = gv.cc.pnlHotkeys.LocX + 1 * gv.squareSize;
+                btnSwitchWeapon.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 0) * gv.squareSize;
                 btnSwitchWeapon.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSwitchWeapon.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSwitchWeapon.Width = (int)(gv.ibbwidthR * gv.screenDensity);			

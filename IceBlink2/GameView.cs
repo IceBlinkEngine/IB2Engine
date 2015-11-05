@@ -143,13 +143,14 @@ namespace IceBlink2
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int smoothMoveCounter = 0;
+        public bool useLargeLayout = true;
         //public bool useSmoothMovement = true;
         //public bool useRealTimeTimer = false; 
 
         //public bool logUpdated = false;
         //public int drawCount = 0;
         //public int mouseCount = 0;
-                
+
         public GameView()
         {
             InitializeComponent();
@@ -1678,7 +1679,7 @@ namespace IceBlink2
             try
             {
                 IbRect src = new IbRect(0, 0, cc.ui_bg_fullscreen.PixelSize.Width, cc.ui_bg_fullscreen.PixelSize.Height);
-                IbRect dst = new IbRect(0, 0, squareSize * squaresInWidth + (pS * 2), squareSize * squaresInHeight + (pS * 3));
+                IbRect dst = new IbRect(0, 0, screenWidth, screenHeight - oYshift);
                 DrawBitmap(cc.ui_bg_fullscreen, src, dst);
             }
             catch

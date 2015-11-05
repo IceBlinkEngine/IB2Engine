@@ -49,6 +49,11 @@ namespace IceBlink2
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
             int padW = gv.squareSize / 6;
+            int hotkeyShift = 0;
+            if (gv.useLargeLayout)
+            {
+                hotkeyShift = 1;
+            }
 
 
             if (btnWait == null)
@@ -73,7 +78,7 @@ namespace IceBlink2
                 btnParty.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 //btnParty.X = 7 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnParty.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
-                btnParty.X = gv.cc.pnlHotkeys.LocX + 1 * gv.squareSize;
+                btnParty.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 0) * gv.squareSize;
                 btnParty.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnParty.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnParty.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -87,7 +92,7 @@ namespace IceBlink2
                 btnJournal.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 //btnJournal.X = 9 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnJournal.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
-                btnJournal.X = gv.cc.pnlHotkeys.LocX + 3 * gv.squareSize;
+                btnJournal.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 2) * gv.squareSize;
                 btnJournal.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnJournal.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnJournal.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -100,7 +105,7 @@ namespace IceBlink2
                 btnSettings.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 //btnSettings.X = 10 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnSettings.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
-                btnSettings.X = gv.cc.pnlHotkeys.LocX + 4 * gv.squareSize;
+                btnSettings.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 3) * gv.squareSize;
                 btnSettings.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSettings.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSettings.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -114,7 +119,7 @@ namespace IceBlink2
                 btnCastOnMainMap.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 //btnCastOnMainMap.X = 11 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnCastOnMainMap.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
-                btnCastOnMainMap.X = gv.cc.pnlHotkeys.LocX + 5 * gv.squareSize;
+                btnCastOnMainMap.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 4) * gv.squareSize;
                 btnCastOnMainMap.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnCastOnMainMap.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnCastOnMainMap.Width = (int)(gv.ibbwidthR * gv.screenDensity);
@@ -128,7 +133,7 @@ namespace IceBlink2
                 btnSave.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(getResources(), R.drawable.btn_small_glow);
                 //btnSave.X = 12 * gv.squareSize + padW * 0 + gv.oXshift;
                 //btnSave.Y = 9 * gv.squareSize + +(int)(1.75 * pH);
-                btnSave.X = gv.cc.pnlHotkeys.LocX + 6 * gv.squareSize;
+                btnSave.X = gv.cc.pnlHotkeys.LocX + (hotkeyShift + 5) * gv.squareSize;
                 btnSave.Y = gv.cc.pnlHotkeys.LocY + 0 * gv.squareSize + gv.pS;
                 btnSave.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
