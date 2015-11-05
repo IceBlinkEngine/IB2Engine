@@ -665,6 +665,16 @@ namespace IceBlink2
                             if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffset + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffset + 1) * gv.squareSize)))
                             {
                                 IbRect dst = new IbRect((int)p.currentPixelPositionX, (int)p.currentPixelPositionY, gv.squareSize, gv.squareSize);
+
+                                if (gv.mod.currentArea.useSuperTinyProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 /8), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8), (int)(gv.squareSize / 4), (int)(gv.squareSize / 4));
+                                }
+                                else if (gv.mod.currentArea.useMiniProps)
+                                {
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4), (int)(gv.squareSize / 2), (int)(gv.squareSize / 2));
+                                }
+
                                 gv.DrawBitmap(p.token, src, dst);
 
                                 if (mod.showInteractionState == true)

@@ -34,6 +34,8 @@ namespace IceBlink2
         public int chanceForLightFog = 0;
         public int chanceForMediumFog = 0;
         public int chanceForHeavyFog = 0;
+        public bool useMiniProps = false;
+        public bool useSuperTinyProps = false;
 
         public int numberOfHoursBeforeRollForWeatherChange = 0;
 	    public int TimePerSquare = 6; //in minutes for now
