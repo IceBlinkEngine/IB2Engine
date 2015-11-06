@@ -1342,6 +1342,8 @@ namespace IceBlink2
                 pnlLog.LocY = 0;
                 pnlLog.Height = topPanelHeight * gv.squareSize;
                 pnlLog.Width = leftPanelWidth * gv.squareSize;
+                gv.log.tbWidth = leftPanelWidth * gv.squareSize - gv.pS - gv.pS;
+                gv.log.tbHeight = topPanelHeight * gv.squareSize - gv.pS - gv.pS;
             }
             if (pnlToggles == null)
             {
