@@ -66,7 +66,7 @@ namespace IceBlink2
             if ((y > -2) && (y <= tbHeight - fontHeight))
             {
                 //gv.DrawText(text, f, sb, x + tbXloc, y + tbYloc - gv.oYshift);
-                gv.DrawText(text, x + tbXloc, y + tbYloc, fw, fs, 1.0f, fontColor, isUnderlined);
+                gv.DrawText(text, x + tbXloc + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
             }
         }
 
@@ -339,13 +339,17 @@ namespace IceBlink2
         public void SetCurrentTopLineAbsoluteIndex(int absoluteValue)
         {
             currentTopLineIndex = absoluteValue;
-            if (currentTopLineIndex < 0)
-            {
-                currentTopLineIndex = 0;
-            }
+            //if (currentTopLineIndex < 0)
+            //{
+                //currentTopLineIndex = 0;
+            //}
             if (currentTopLineIndex > logLinesList.Count - numberOfLinesToShow)
             {
                 currentTopLineIndex = logLinesList.Count - numberOfLinesToShow;
+            }
+            if (currentTopLineIndex < 0)
+            {
+                currentTopLineIndex = 0;
             }
         }
         
