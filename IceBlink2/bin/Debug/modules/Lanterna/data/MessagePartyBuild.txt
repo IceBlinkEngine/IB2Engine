@@ -1,0 +1,15 @@
+<big><b>PARTY BUILD</b></big><br>
+<br>
+<small><i>(<b>Note:</b> The 'HELP' button will display this message box again)</i></small><br>
+<br>
+<u><b>Build Your Party</b></u><br>
+<br>
+<b>1. Party Size:</b> At the top of the screen, there will be a message defining the maximum number of player created characters that you can add to your party at this time (defined by the module's author)<br>
+<br>
+<b>2. Add:</b> pressing this button will add the currently selected PC from the PC roster list (the roster list is the the left and right arrows and the square between the arrows) to the party.<br>
+<br>
+<b>3. Remove:</b> pressing this button will remove the currently selected party member from the party and add them to the PC roster list below.<br>
+<br>
+<b>4. Create:</b> takes you to the PC Creation screen where you can create more PCs that will be added to the PC roster list. All created PCs are saved on your device for this play through and future throughs of this adventure module.<br>
+<br>
+<b>5. Press <b>'START GAME'</b> when completed.  <i>You cannot go back to this page and change your party build once you press 'Finished'.</i>

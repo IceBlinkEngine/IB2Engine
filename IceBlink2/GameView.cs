@@ -79,12 +79,6 @@ namespace IceBlink2
         public float drawFontLargeHeight;
         public float drawFontSmallHeight;
         public SolidBrush drawBrush = new SolidBrush(Color.White);
-        //public Paint mUiTextPaint = null;
-        //public Paint mSheetTextPaint = null;
-        //public Paint floatyTextPaint = null;
-        //public Context gameContext;
-        //public Paint uiFontPaint = null;
-        //public Typeface uiFont;
         public string screenType = "splash"; //launcher, title, moreGames, main, party, inventory, combatInventory, shop, journal, combat, combatCast, convo
         public AnimationState animationState = AnimationState.None;
         public int triggerIndex = 0;
@@ -138,8 +132,6 @@ namespace IceBlink2
         public Timer smoothMoveTimer = new Timer();
 
         public float floatPixMovedPerTick = 4f;
-        //the int for pixMovedPErTick is not used anymore
-        //public int pixMovedPerTick = 4;
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int smoothMoveCounter = 0;
@@ -148,9 +140,7 @@ namespace IceBlink2
         //public bool useRealTimeTimer = false; 
 
         //public bool logUpdated = false;
-        //public int drawCount = 0;
-        //public int mouseCount = 0;
-
+        
         public GameView()
         {
             InitializeComponent();
@@ -279,7 +269,6 @@ namespace IceBlink2
 		    screenShop = new ScreenShop(mod, this);
 		    screenCastSelector = new ScreenCastSelector(mod, this);
 		    screenConvo = new ScreenConvo(mod, this);
-		    //logicTreeRun = new LogicTreeRun(mod, this);
 		    screenCombat = new ScreenCombat(mod, this);
 		    screenMainMap = new ScreenMainMap(mod, this);
 		    screenTitle = new ScreenTitle(mod, this);
@@ -372,7 +361,7 @@ namespace IceBlink2
 		    mod.setCurrentArea(mod.startingArea, this);
 		    mod.PlayerLocationX = mod.startingPlayerPositionX;
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
-		    cc.title = cc.LoadBitmap("title"); // BitmapFactory.decodeResource(getResources(), R.drawable.nar_lanterna);
+		    cc.title = cc.LoadBitmap("title");
             LoadStandardImages();
 		    cc.LoadRaces();
 		    cc.LoadPlayerClasses();

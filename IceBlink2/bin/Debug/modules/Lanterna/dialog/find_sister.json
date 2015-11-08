@@ -1,0 +1,396 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 31,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "earawen2.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<Brother/Sister>, you found us.  I almost gave up hope of ever seeing you again.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 32,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I had to find you or die trying.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 33,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "earawen2.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "We must leave right away.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 34,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Any ideas?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 35,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "earawen2.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Ask Jena, she'll explain.  Oh, it is absolutely wonderful to see you again, <brother/sister>.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 36,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaAddJournalEntryByTag.cs",
+                      "a_parameter_1": "findSister",
+                      "a_parameter_2": "sister2",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckIsRace.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "-1",
+              "c_parameter_2": "elf",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 201,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "dolia2.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<Brother/Sister>, you found us.  I almost gave up hope of ever seeing you again.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 202,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I had to find you or die trying.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 203,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "dolia2.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "We must leave right away.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 204,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Any ideas?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 205,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "dolia2.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Ask Jena, she'll explain.  Oh, it is absolutely wonderful to see you again, <brother/sister>.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 206,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaAddJournalEntryByTag.cs",
+                      "a_parameter_1": "findSister",
+                      "a_parameter_2": "sister2",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckIsRace.cs",
+              "c_btnAndOr": "and",
+              "c_and": true,
+              "c_not": false,
+              "c_parameter_1": "-1",
+              "c_parameter_2": "dwarf",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 207,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "adela2.png",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "<Brother/Sister>, you found us.  I almost gave up hope of ever seeing you again.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 208,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I had to find you or die trying.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 209,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "adela2.png",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "We must leave right away.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 210,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Any ideas?",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 211,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "adela2.png",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Ask Jena, she'll explain.  Oh, it is absolutely wonderful to see you again, <brother/sister>.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 212,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaAddJournalEntryByTag.cs",
+                      "a_parameter_1": "findSister",
+                      "a_parameter_2": "sister2",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "find_sister",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": true,
+  "NpcPortraitBitmap": "prp_blob_portrait.png",
+  "DefaultNpcName": "",
+  "NextIdNum": 212
+}
