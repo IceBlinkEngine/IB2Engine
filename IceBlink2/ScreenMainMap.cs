@@ -28,6 +28,7 @@ namespace IceBlink2
         public IbbToggleButton tglAvoidConversation = null;
         public IbbToggleButton tglClock = null;
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
+        public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
         public int mapStartLocXinPixels;
         public int movementDelayInMiliseconds = 100;
         private long timeStamp = 0;
@@ -335,6 +336,11 @@ namespace IceBlink2
                 drawFogOfWar();
             }            
             drawFloatyTextPool();
+            if (gv.mod.useSmoothMovement)
+            {
+                drawFloatyTextByPixelPool();
+            }
+
             if (tglClock.toggleOn)
             {
                 drawMainMapClockText();
@@ -516,6 +522,16 @@ namespace IceBlink2
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                         IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+
+                        if (gv.mod.currentArea.useSuperTinyProps)
+                        {
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8), (int)(gv.squareSize / 4), (int)(gv.squareSize / 4));
+                        }
+                        else if (gv.mod.currentArea.useMiniProps)
+                        {
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4), (int)(gv.squareSize / 2), (int)(gv.squareSize / 2));
+                        }
+
                         gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
 
                         if (mod.showInteractionState == true)
@@ -972,6 +988,21 @@ namespace IceBlink2
                                 dst = new IbRect(x + gv.oXshift - (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
 
+                            if(mod.currentArea.useMiniProps)
+                            {
+                                dst.Top += (int)(gv.squareSize / 4);
+                                dst.Left += (int)(gv.squareSize / 4);
+                                dst.Height -= (int)(dst.Height / 2);
+                                dst.Width -= (int)(dst.Width / 2);
+                            }
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 3 / 8);
+                                dst.Left += (int)(gv.squareSize * 3 / 8);
+                                dst.Height -= (int)(dst.Height / 4);
+                                dst.Width -= (int)(dst.Width / 4);
+                            }
+
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
                         }
                     }
@@ -1001,7 +1032,7 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 1)
                 {
@@ -1013,7 +1044,7 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 2)
                 {
@@ -1025,7 +1056,7 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 3)
                 {
@@ -1037,7 +1068,7 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 4)
                 {
@@ -1049,7 +1080,7 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 5)
                 {
@@ -1061,8 +1092,24 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
+
+                if (mod.currentArea.useMiniProps)
+                {
+                    dst.Top += (int)(gv.squareSize / 4);
+                    dst.Left += (int)(gv.squareSize / 4);
+                    dst.Height -= (int)(dst.Height / 2);
+                    dst.Width -= (int)(dst.Width / 2);
+                }
+                else if (mod.currentArea.useSuperTinyProps)
+                {
+                    dst.Top += (int)(gv.squareSize * 3 / 8);
+                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                    dst.Height -= (int)(dst.Height / 4);
+                    dst.Width -= (int)(dst.Width / 4);
+                }
+                gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 shift = storeShift;
             }
         }
@@ -1426,6 +1473,71 @@ namespace IceBlink2
             }
         }
 
+        public void drawFloatyTextByPixelPool()
+        {
+            if (floatyTextByPixelPool.Count > 0)
+            {
+                int txtH = (int)gv.drawFontRegHeight;
+                int pH = (int)((float)gv.screenHeight / 200.0f);
+
+                foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
+                {
+
+                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
+                    int playerPositionYInPix = gv.playerOffset * gv.squareSize + gv.oYshift;
+
+                    float floatConvertedToSquareDistanceX = (ft.floatyCarrier2.currentPixelPositionX - playerPositionXInPix) / gv.squareSize;
+                    int ConvertedToSquareDistanceX = (int)Math.Ceiling(floatConvertedToSquareDistanceX);
+
+                    float floatConvertedToSquareDistanceY = (ft.floatyCarrier2.currentPixelPositionY - playerPositionYInPix) / gv.squareSize;
+                    int ConvertedToSquareDistanceY = (int)Math.Ceiling(floatConvertedToSquareDistanceY);
+
+                    int SquareThatPixIsOnX = mod.PlayerLocationX + ConvertedToSquareDistanceX;
+                    int SquareThatPixIsOnY = mod.PlayerLocationY + ConvertedToSquareDistanceY;
+
+
+                    if (gv.cc.getDistance(new Coordinate (SquareThatPixIsOnX, SquareThatPixIsOnY), new Coordinate(mod.PlayerLastLocationX, mod.PlayerLocationY)) > 3)
+                    {
+                        continue; //out of range from view so skip drawing floaty message
+                    }
+
+                    //location.X should be the the props actual map location in squares (not screen location)
+                    int xLoc = (int)(ft.floatyCarrier2.currentPixelPositionX);
+                    int yLoc = (int)(ft.floatyCarrier2.currentPixelPositionY) - (pH * ft.z);
+
+                    for (int x = -2; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 2; y++)
+                        {
+                            gv.DrawText(ft.value, new IbRect(xLoc + x, yLoc + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                        }
+                    }
+                    Color colr = Color.Yellow;
+                    if (ft.color.Equals("yellow"))
+                    {
+                        colr = Color.Yellow;
+                    }
+                    else if (ft.color.Equals("blue"))
+                    {
+                        colr = Color.Blue;
+                    }
+                    else if (ft.color.Equals("green"))
+                    {
+                        colr = Color.Lime;
+                    }
+                    else if (ft.color.Equals("red"))
+                    {
+                        colr = Color.Red;
+                    }
+                    else
+                    {
+                        colr = Color.White;
+                    }
+                    gv.DrawText(ft.value, new IbRect(xLoc, yLoc + txtH, gv.squareSize * 2, 1000), 0.8f, colr);
+                }
+            }
+        }
+
         public void drawColumnOfBlack(int col)
         {
             for (int y = 0; y < 9; y++)
@@ -1457,9 +1569,18 @@ namespace IceBlink2
         {
             gv.postDelayed("doFloatyTextMainMap", 100);
         }
+        public void doFloatyTextByPixelLoop()
+        {
+            gv.postDelayed("doFloatyTextMainMap", 100);
+        }
         public void addFloatyText(int sqrX, int sqrY, String value, String color, int length)
         {
             floatyTextPool.Add(new FloatyText(sqrX, sqrY, value, color, length));
+        }
+
+        public void addFloatyText(Prop floatyCarrier, String value, String color, int length)
+        {
+            floatyTextByPixelPool.Add(new FloatyTextByPixel (floatyCarrier, value, color, length));
         }
 
         public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)

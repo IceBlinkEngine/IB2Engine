@@ -4833,10 +4833,12 @@ namespace IceBlink2
             int minY = crt.combatLocY - gv.playerOffset;
             if (minY < 0) { minY = 0; }
 
-            if ((crt.combatLocX <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && (crt.combatLocX >= (UpperLeftSquare.X)) && (crt.combatLocY <= (UpperLeftSquare.Y + (gv.playerOffset*2))) && (crt.combatLocY >= (UpperLeftSquare.Y)))
+            //do not adjust view port if creature is on screen already and ends move at least one square away from border
+            if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffset * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
             {
                 return;
             }
+
             else
             {
                 UpperLeftSquare.X = minX;
