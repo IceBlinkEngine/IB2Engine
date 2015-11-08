@@ -1985,6 +1985,10 @@ namespace IceBlink2
             {
                 gv.screenMainMap.doFloatyTextLoop();
             }
+            if (gv.screenMainMap.floatyTextByPixelPool.Count > 0)
+            {
+                gv.screenMainMap.doFloatyTextByPixelLoop();
+            }
         }
 
         public void doPropHeartBeat()
@@ -2718,7 +2722,17 @@ namespace IceBlink2
                     if (chosenBarks.Count > 0)
                     {
                         decider = rnd3.Next(0, chosenBarks.Count);
-                        gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                        if (!gv.mod.useSmoothMovement)
+                        {
+                            gv.screenMainMap.addFloatyText(prp.LocationY, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                        }
+                        else
+                        {
+                            gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+
+                        }
+
+                        //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
                     }
                     //}
                 }
@@ -2739,7 +2753,17 @@ namespace IceBlink2
                         if (chosenBarks.Count > 0)
                         {
                             decider = rnd3.Next(0, chosenBarks.Count);
-                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                            if (!gv.mod.useSmoothMovement)
+                            {
+                                gv.screenMainMap.addFloatyText(prp.LocationY, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                            }
+                            else
+                            {
+                                gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+
+                            }
+
+                            //gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
                         }
                         //}
                     }
@@ -2757,7 +2781,15 @@ namespace IceBlink2
                         if (chosenBarks.Count > 0)
                         {
                             decider = rnd3.Next(0, chosenBarks.Count);
-                            gv.screenMainMap.addFloatyText(prp.LocationX, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                            if (!gv.mod.useSmoothMovement)
+                            {
+                                gv.screenMainMap.addFloatyText(prp.LocationY, prp.LocationY, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+                            }
+                            else
+                            {
+                                gv.screenMainMap.addFloatyText(prp, chosenBarks[decider].FloatyTextOneLiner, chosenBarks[decider].Color, chosenBarks[decider].LengthOfTimeToShowInMilliSeconds);
+
+                            }
                         }
                     }
                 }

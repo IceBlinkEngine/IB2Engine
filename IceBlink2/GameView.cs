@@ -1132,7 +1132,29 @@ namespace IceBlink2
             floatyTextMainMapTimer.Enabled = false;
             floatyTextMainMapTimer.Stop();
             //Invalidate();
-            Render();
+            //likely remove this render here
+            //Render();
+
+            if (mod.useSmoothMovement)
+            {
+
+                if (screenMainMap.floatyTextByPixelPool.Count > 0)
+                {
+                    for (int i = screenMainMap.floatyTextByPixelPool.Count - 1; i >= 0; i--)
+                    {
+                        if (screenMainMap.floatyTextByPixelPool[i].timer > screenMainMap.floatyTextByPixelPool[i].timerLength)
+                        {
+                            screenMainMap.floatyTextByPixelPool.RemoveAt(i);
+                        }
+                        else
+                        {
+                            screenMainMap.floatyTextByPixelPool[i].z++; //increase float height multiplier
+                            screenMainMap.floatyTextByPixelPool[i].timer += 400;
+                        }
+                    }
+                    screenMainMap.doFloatyTextByPixelLoop();
+                }
+            }
 
             if (screenMainMap.floatyTextPool.Count > 0)
             {
