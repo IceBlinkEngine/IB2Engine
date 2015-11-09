@@ -116,6 +116,7 @@ namespace IceBlink2
     	    //DRAW DESCRIPTION BOX
             if ((moduleList.Count > 0) && (moduleIndex < moduleList.Count))
 		    {
+                
                 string textToSpan = "<u>Module Description</u>" + "<br>";
                 //textToSpan += "<b><i><big>" + moduleList[moduleIndex].moduleLabelName + "</big></i></b><br>";
                 textToSpan += moduleList[moduleIndex].moduleDescription;

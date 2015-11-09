@@ -97,6 +97,7 @@
     <Compile Include="Encounter.cs" />
     <Compile Include="EventObjEditorReturnObject.cs" />
     <Compile Include="FloatyText.cs" />
+    <Compile Include="FloatyTextByPixel.cs" />
     <Compile Include="FormattedLineGDI.cs" />
     <Compile Include="FormattedLine.cs" />
     <Compile Include="FormattedWordGDI.cs" />

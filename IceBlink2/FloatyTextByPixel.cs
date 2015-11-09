@@ -13,7 +13,7 @@ namespace IceBlink2
         public int timer = 0;
         public int timerLength = 4000; //time in ms
         public int z = 0; //float height multiplier
-        
+
         //begin implementing floaty text that moves with prop
         public string tagOfCallingProp = "";
         public Prop floatyCarrier2 = new Prop();

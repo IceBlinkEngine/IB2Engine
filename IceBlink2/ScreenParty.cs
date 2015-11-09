@@ -295,6 +295,11 @@ namespace IceBlink2
             {
                 if (cntPCs < mod.playerList.Count)
                 {
+                    if (btn.Img2 != null)
+                    {
+                        btn.Img2.Dispose();
+                        btn.Img2 = null;
+                    }
                     btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
                 }
                 cntPCs++;
@@ -458,17 +463,62 @@ namespace IceBlink2
             else { btnRing2.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 8) { btnAmmo.glowOn = true; }
             else { btnAmmo.glowOn = false; }
-
+            
+            if (btnMainHand.Img2 != null)
+            {
+                btnMainHand.Img2.Dispose();
+                btnMainHand.Img2 = null;
+            }
             btnMainHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemImage);
+            if (btnHead.Img2 != null)
+            {
+                btnHead.Img2.Dispose();
+                btnHead.Img2 = null;
+            }
             btnHead.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.HeadRefs.resref).itemImage);
+            if (btnNeck.Img2 != null)
+            {
+                btnNeck.Img2.Dispose();
+                btnNeck.Img2 = null;
+            }
             btnNeck.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.NeckRefs.resref).itemImage);
+            if (btnOffHand.Img2 != null)
+            {
+                btnOffHand.Img2.Dispose();
+                btnOffHand.Img2 = null;
+            }
             btnOffHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemImage);
+            if (btnRing.Img2 != null)
+            {
+                btnRing.Img2.Dispose();
+                btnRing.Img2 = null;
+            }
             btnRing.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.RingRefs.resref).itemImage);
+            if (btnBody.Img2 != null)
+            {
+                btnBody.Img2.Dispose();
+                btnBody.Img2 = null;
+            }
             btnBody.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.BodyRefs.resref).itemImage);
+            if (btnFeet.Img2 != null)
+            {
+                btnFeet.Img2.Dispose();
+                btnFeet.Img2 = null;
+            }
             btnFeet.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.FeetRefs.resref).itemImage);
+            if (btnRing2.Img2 != null)
+            {
+                btnRing2.Img2.Dispose();
+                btnRing2.Img2 = null;
+            }
             btnRing2.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
+            if (btnAmmo.Img2 != null)
+            {
+                btnAmmo.Img2.Dispose();
+                btnAmmo.Img2 = null;
+            }
             btnAmmo.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
-
+            
             ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
             if (itr != null)
             {
@@ -478,7 +528,7 @@ namespace IceBlink2
             {
                 btnAmmo.Quantity = "";
             }
-
+            
             btnMainHand.Draw();
             btnHead.Draw();
             btnNeck.Draw();
@@ -496,7 +546,7 @@ namespace IceBlink2
             {
                 btnPartyRoster.Draw();
             }
-
+            
             //DRAW DESCRIPTION BOX
             Item it = new Item();
             if (gv.cc.partyItemSlotIndex == 0) { it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref); }
@@ -676,14 +726,16 @@ namespace IceBlink2
 
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
-        {
+        {            
+            /*
             tb.tbXloc = xLoc;
             tb.tbYloc = yLoc;
             tb.tbWidth = width;
             tb.tbHeight = height;
             tb.logLinesList.Clear();
             tb.AddHtmlTextToLog(text);
-            tb.onDrawLogBox();
+            tb.onDrawLogBox(); 
+            */           
         }
         public void onTouchParty(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
         {
