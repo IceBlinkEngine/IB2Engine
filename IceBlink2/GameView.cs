@@ -297,11 +297,12 @@ namespace IceBlink2
             cc.tint_night = cc.LoadBitmap("tint_night");
             //off for now
             //cc.tint_rain = cc.LoadBitmap("tint_rain");
-            cc.ui_bg_portraits = cc.LoadBitmap("ui_bg_portraits");
-            cc.ui_bg_arrows = cc.LoadBitmap("ui_bg_arrows");
-            cc.ui_bg_hotkeys = cc.LoadBitmap("ui_bg_hotkeys");
-            cc.ui_bg_toggles = cc.LoadBitmap("ui_bg_toggles");
-            cc.ui_bg_log = cc.LoadBitmap("ui_bg_log");
+            //cc.ui_bg_portraits = cc.LoadBitmap("ui_bg_portraits");
+            cc.ui_portrait_frame = cc.LoadBitmap("ui_portrait_frame");
+            //cc.ui_bg_arrows = cc.LoadBitmap("ui_bg_arrows");
+            //cc.ui_bg_hotkeys = cc.LoadBitmap("ui_bg_hotkeys");
+            //cc.ui_bg_toggles = cc.LoadBitmap("ui_bg_toggles");
+            //cc.ui_bg_log = cc.LoadBitmap("ui_bg_log");
             cc.ui_bg_fullscreen = cc.LoadBitmap("ui_bg_fullscreen");
             cc.facing1 = cc.LoadBitmap("facing1");
             cc.facing2 = cc.LoadBitmap("facing2");

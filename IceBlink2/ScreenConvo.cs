@@ -110,7 +110,16 @@ namespace IceBlink2
 		    if (convoBitmap != null)
 		    {
 			    gv.DrawBitmap(convoBitmap, src, dst);
-		    }
+                if ((gv.mod.useUIBackground) && (!currentConvo.Narration))
+                {
+                    IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
+                    IbRect dstFrame = new IbRect(dst.Left - (int)(10 * gv.screenDensity),
+                                            dst.Top - (int)(10 * gv.screenDensity),
+                                            (int)((float)dst.Width) + (int)(20 * gv.screenDensity),
+                                            (int)((float)dst.Height) + (int)(20 * gv.screenDensity));
+                    gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
+                }
+            }
 	    }
 	    public void drawNpcNode()
 	    {

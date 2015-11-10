@@ -14,7 +14,7 @@ namespace IceBlink2
         //this class is handled differently than Android version
         public Bitmap ImgBG = null;
         public Bitmap Img = null;
-        public Bitmap ImgLU = null;
+        public Bitmap ImgLU = null; //used for level up icon
         public Bitmap Glow = null;
         public bool glowOn = false;
         public string TextHP = "";
@@ -97,6 +97,16 @@ namespace IceBlink2
             if (this.ImgLU != null)
             {
                 gv.DrawBitmap(this.ImgLU, src3, dst);
+            }
+
+            if (gv.mod.useUIBackground)
+            {
+                IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
+                IbRect dstFrame = new IbRect(this.X - (int)(5 * gv.screenDensity),
+                                        this.Y - (int)(5 * gv.screenDensity),
+                                        (int)((float)this.Width) + (int)(10 * gv.screenDensity),
+                                        (int)((float)this.Height) + (int)(10 * gv.screenDensity));
+                gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame);
             }
 
             float thisFontHeight = gv.drawFontRegHeight;

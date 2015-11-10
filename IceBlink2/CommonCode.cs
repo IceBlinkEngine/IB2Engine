@@ -77,12 +77,13 @@ namespace IceBlink2
         public Bitmap tint_sunset;
         public Bitmap tint_dusk;
         public Bitmap tint_night;
-        public Bitmap ui_bg_portraits;
-        public Bitmap ui_bg_arrows;
-        public Bitmap ui_bg_hotkeys;
-        public Bitmap ui_bg_toggles;
-        public Bitmap ui_bg_log;
+        //public Bitmap ui_bg_portraits;
+        //public Bitmap ui_bg_arrows;
+        //public Bitmap ui_bg_hotkeys;
+        //public Bitmap ui_bg_toggles;
+        //public Bitmap ui_bg_log;
         public Bitmap ui_bg_fullscreen;
+        public Bitmap ui_portrait_frame;
         public Bitmap facing1;
         public Bitmap facing2;
         public Bitmap facing3;
