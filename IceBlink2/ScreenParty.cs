@@ -726,16 +726,14 @@ namespace IceBlink2
 
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
-        {            
-            /*
+        {
             tb.tbXloc = xLoc;
             tb.tbYloc = yLoc;
             tb.tbWidth = width;
             tb.tbHeight = height;
             tb.logLinesList.Clear();
             tb.AddHtmlTextToLog(text);
-            tb.onDrawLogBox(); 
-            */           
+            tb.onDrawLogBox();                       
         }
         public void onTouchParty(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
         {

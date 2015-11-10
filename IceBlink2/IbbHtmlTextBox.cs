@@ -61,7 +61,7 @@ namespace IceBlink2
         }
 
         public void AddHtmlTextToLog(string htmlText)
-        {
+        {            
             htmlText = htmlText.Replace("\r\n", "<br>");
             htmlText = htmlText.Replace("\n\n", "<br>");
             htmlText = htmlText.Replace("\"", "'");

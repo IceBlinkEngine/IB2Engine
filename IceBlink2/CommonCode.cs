@@ -4487,6 +4487,17 @@ namespace IceBlink2
                         newWord.underlined = GetIsUnderlined(tagStack);
                         newWord.fontSize = GetFontSizeInPixels(tagStack);
                         newWord.color = GetColor(tagStack);
+                        if (gv.textFormat != null)
+                        {
+                            gv.textFormat.Dispose();
+                            gv.textFormat = null;
+                        }
+
+                        if (gv.textLayout != null)
+                        {
+                            gv.textLayout.Dispose();
+                            gv.textLayout = null;
+                        }
                         gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, SharpDX.DirectWrite.FontStretch.Normal, newWord.fontSize) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
@@ -4580,6 +4591,17 @@ namespace IceBlink2
                         newWord.underlined = GetIsUnderlined(tagStack);
                         newWord.fontSize = GetFontSizeInPixels(tagStack);
                         newWord.color = GetColor(tagStack);
+                        if (gv.textFormat != null)
+                        {
+                            gv.textFormat.Dispose();
+                            gv.textFormat = null;
+                        }
+
+                        if (gv.textLayout != null)
+                        {
+                            gv.textLayout.Dispose();
+                            gv.textLayout = null;
+                        }
                         gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, newWord.fontWeight, newWord.fontStyle, SharpDX.DirectWrite.FontStretch.Normal, newWord.fontSize) { TextAlignment = SharpDX.DirectWrite.TextAlignment.Leading, ParagraphAlignment = SharpDX.DirectWrite.ParagraphAlignment.Near };
                         gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, newWord.text + " ", gv.textFormat, gv.Width, gv.Height);
                         //font = new Font(gv.family, newWord.fontSize, newWord.fontStyle);
@@ -4617,7 +4639,7 @@ namespace IceBlink2
                 }
                 #endregion
             }
-
+            tagStack.Clear();
             return logLinesList;
         }
         private SharpDX.Color GetColor(List<string> tagStack)

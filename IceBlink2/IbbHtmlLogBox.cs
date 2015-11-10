@@ -271,6 +271,17 @@ namespace IceBlink2
                 //loop through each line and print each word
                 foreach (FormattedWord word in logLinesList[i].wordsList)
                 {
+                    if (gv.textFormat != null)
+                    {
+                        gv.textFormat.Dispose();
+                        gv.textFormat = null;
+                    }
+
+                    if (gv.textLayout != null)
+                    {
+                        gv.textLayout.Dispose();
+                        gv.textLayout = null;
+                    }
                     gv.textFormat = new SharpDX.DirectWrite.TextFormat(gv.factoryDWrite, gv.family.Name, gv.CurrentFontCollection, word.fontWeight, word.fontStyle, FontStretch.Normal, word.fontSize) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                     gv.textLayout = new SharpDX.DirectWrite.TextLayout(gv.factoryDWrite, word.text + " ", gv.textFormat, gv.Width, gv.Height);
                     int difYheight = logLinesList[i].lineHeight - (int)word.fontSize;

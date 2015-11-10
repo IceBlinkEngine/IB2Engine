@@ -188,6 +188,10 @@ namespace IceBlink2
                 {
                     textToSpan = "<font color='red'>" + txt + "</font>";
                 }
+                else
+                {
+                    textToSpan = "<font color='white'>" + txt + "</font>";
+                }
                 
                 htmltext.tbXloc = startX;
                 htmltext.tbYloc = startY;
