@@ -4334,6 +4334,14 @@ namespace IceBlink2
         }
 
         //DIRECT2D STUFF
+        public void DisposeOfBitmap(ref SharpDX.Direct2D1.Bitmap bmp)
+        {
+            if (bmp != null)
+            {
+                bmp.Dispose();
+                bmp = null;
+            }
+        }
         /// <summary>
         /// Loads a Direct2D Bitmap from a file using System.Drawing.Image.FromFile(...)
         /// </summary>

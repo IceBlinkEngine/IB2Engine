@@ -295,11 +295,7 @@ namespace IceBlink2
             {
                 if (cntPCs < mod.playerList.Count)
                 {
-                    if (btn.Img2 != null)
-                    {
-                        btn.Img2.Dispose();
-                        btn.Img2 = null;
-                    }
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
                 }
                 cntPCs++;
@@ -463,15 +459,24 @@ namespace IceBlink2
             else { btnRing2.glowOn = false; }
             if (gv.cc.partyItemSlotIndex == 8) { btnAmmo.glowOn = true; }
             else { btnAmmo.glowOn = false; }
-            
+
+            gv.cc.DisposeOfBitmap(ref btnMainHand.Img2);
             btnMainHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnHead.Img2);
             btnHead.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.HeadRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnNeck.Img2);
             btnNeck.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.NeckRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnOffHand.Img2);
             btnOffHand.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnRing.Img2);
             btnRing.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.RingRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnBody.Img2);
             btnBody.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.BodyRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnFeet.Img2);
             btnFeet.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.FeetRefs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnRing2.Img2);
             btnRing2.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.Ring2Refs.resref).itemImage);
+            gv.cc.DisposeOfBitmap(ref btnAmmo.Img2);
             btnAmmo.Img2 = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).itemImage);
             
             ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc.AmmoRefs.resref);
