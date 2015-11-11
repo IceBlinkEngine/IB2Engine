@@ -39,7 +39,8 @@ namespace IceBlink2
 		    {
 			    if (cntPCs < mod.playerList.Count)
 			    {
-				    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
 			    }
 			    else
 			    {
@@ -55,6 +56,7 @@ namespace IceBlink2
             {
                 if (cntPCs < mod.partyRosterList.Count)
                 {
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(mod.partyRosterList[cntPCs].tokenFilename);
                 }
                 else
@@ -73,9 +75,11 @@ namespace IceBlink2
 		
 		    for (int x = 0; x < mod.MaxPartySize; x++)
 		    {
-			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    IbbButton btnNew = new IbbButton(gv, 1.0f);
+                gv.cc.DisposeOfBitmap(ref btnNew.Img);
+                btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
+                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
 			    btnNew.Y = (gv.squareSize / 2) + (pH * 1);
                 btnNew.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -86,7 +90,9 @@ namespace IceBlink2
             for (int x = 0; x < 6; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
+                gv.cc.DisposeOfBitmap(ref btnNew.Img);
                 btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnNew.X = ((x+5) * gv.squareSize) + (padW * (x+1)) + gv.oXshift;
                 btnNew.Y = (3 * gv.squareSize) + (pH * 2);
@@ -97,7 +103,9 @@ namespace IceBlink2
             for (int x = 0; x < 6; x++)
             {
                 IbbButton btnNew = new IbbButton(gv, 1.0f);
+                gv.cc.DisposeOfBitmap(ref btnNew.Img);
                 btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
                 btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnNew.X = ((x+5) * gv.squareSize) + (padW * (x + 1)) + gv.oXshift;
                 btnNew.Y = (4 * gv.squareSize) + (pH * 3);
@@ -108,9 +116,9 @@ namespace IceBlink2
 		    if (btnDown == null)
 		    {
 			    btnDown = new IbbButton(gv, 1.0f);
-			    btnDown.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnDown.Img2 = gv.cc.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
-			    btnDown.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+                btnDown.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnDown.Img2 = gv.cc.LoadBitmap("ctrl_down_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_left_arrow);
+                btnDown.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnDown.X = 7 * gv.squareSize + (gv.squareSize/2) - (pW * 1);
 			    btnDown.Y = 2 * gv.squareSize - (pH * 2);
                 btnDown.Height = (int)(gv.ibbheight * gv.screenDensity);
@@ -119,7 +127,7 @@ namespace IceBlink2
 		    if (btnUp == null)
 		    {
 			    btnUp = new IbbButton(gv, 1.0f);
-			    btnUp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                btnUp.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
 			    btnUp.Img2 = gv.cc.LoadBitmap("ctrl_up_arrow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.ctrl_right_arrow);
 			    btnUp.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			    btnUp.X = 8 * gv.squareSize + (gv.squareSize/2) + (pW * 1);
@@ -344,7 +352,9 @@ namespace IceBlink2
 				    if ((mod.partyRosterList.Count > 0) && (mod.playerList.Count < mod.MaxPartySize))
 				    {
 					    Player copyPC = mod.partyRosterList[partyRosterPcIndex].DeepCopy();
-					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        gv.cc.DisposeOfBitmap(ref copyPC.token);
+                        copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        gv.cc.DisposeOfBitmap(ref copyPC.portrait);
                         copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
@@ -361,7 +371,9 @@ namespace IceBlink2
 				    if (mod.playerList.Count > 0)
 				    {
 					    Player copyPC = mod.playerList[partyScreenPcIndex].DeepCopy();
-					    copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        gv.cc.DisposeOfBitmap(ref copyPC.token);
+                        copyPC.token = gv.cc.LoadBitmap(copyPC.tokenFilename);
+                        gv.cc.DisposeOfBitmap(ref copyPC.portrait);
                         copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);

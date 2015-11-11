@@ -84,9 +84,11 @@ namespace IceBlink2
 		    }
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
-			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    IbbButton btnNew = new IbbButton(gv, 1.0f);
+                gv.cc.DisposeOfBitmap(ref btnNew.Img);
+                btnNew.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
+                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
+                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    int x = y % 5;
 			    int yy = y / 5;
@@ -179,26 +181,33 @@ namespace IceBlink2
 				
 				    if (pc.knownTraitsTags.Contains(tr.tag)) //check to see if already known, if so turn off button
 				    {
-					    btn.Img = gv.cc.LoadBitmap("btn_small_off");
-					    btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");				
+                        gv.cc.DisposeOfBitmap(ref btn.Img);
+                        btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");				
 				    }
 				    else //trait not known yet
 				    {
 					    if (isAvailableToLearn(tr.tag)) //if available to learn, turn on button
 					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small"); 				
-						    btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small");
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(tr.traitImage);
 					    }
 					    else //not available to learn, turn off button
 					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small_off"); 
-						    btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");	
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(tr.traitImage + "_off");	
 					    }
 				    }				
 			    }
 			    else //slot is not in traits allowed index range
 			    {
-				    btn.Img = gv.cc.LoadBitmap("btn_small_off"); 
+                    gv.cc.DisposeOfBitmap(ref btn.Img);
+                    btn.Img = gv.cc.LoadBitmap("btn_small_off"); 
 				    btn.Img2 = null;
 			    }			
 			    btn.Draw();

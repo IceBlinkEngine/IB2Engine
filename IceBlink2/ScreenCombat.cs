@@ -272,18 +272,22 @@ namespace IceBlink2
         {
             if (mod.combatAnimationSpeed == 100)
             {
+                gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
             }
             else if (mod.combatAnimationSpeed == 50)
             {
+                gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
             }
             else if (mod.combatAnimationSpeed == 25)
             {
+                gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
             }
             else if (mod.combatAnimationSpeed == 10)
             {
+                gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                 tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
             }
 
@@ -435,6 +439,7 @@ namespace IceBlink2
                 drawProjectileAnimation = true;
                 projectileAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //load projectile image
+                gv.cc.DisposeOfBitmap(ref projectile);
                 projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
@@ -465,6 +470,7 @@ namespace IceBlink2
                     drawEndingAnimation = true;
                     endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
+                    gv.cc.DisposeOfBitmap(ref ending_fx);
                     ending_fx = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).spriteEndingFilename);
                     //gv.Invalidate();
                     gv.Render();
@@ -524,6 +530,7 @@ namespace IceBlink2
                 drawProjectileAnimation = true;
                 projectileAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //load projectile image
+                gv.cc.DisposeOfBitmap(ref projectile);
                 projectile = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteFilename);
                 if (pc.combatLocY < targetHighlightCenterLocation.Y)
                 {
@@ -556,6 +563,7 @@ namespace IceBlink2
                     drawEndingAnimation = true;
                     endingAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
                     animationFrameIndex = 0;
+                    gv.cc.DisposeOfBitmap(ref ending_fx);
                     ending_fx = gv.cc.LoadBitmap(gv.cc.currentSelectedSpell.spriteEndingFilename);
                     //gv.Invalidate();
                     gv.Render();
@@ -616,6 +624,7 @@ namespace IceBlink2
                 drawProjectileAnimation = true;
                 projectileAnimationLocation = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                 //load projectile image
+                gv.cc.DisposeOfBitmap(ref projectile);
                 projectile = gv.cc.LoadBitmap(crt.cr_projSpriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
@@ -646,6 +655,7 @@ namespace IceBlink2
                     drawEndingAnimation = true;
                     endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
+                    gv.cc.DisposeOfBitmap(ref ending_fx);
                     ending_fx = gv.cc.LoadBitmap(crt.cr_spriteEndingFilename);
                     //gv.Invalidate();
                     gv.Render();
@@ -704,6 +714,7 @@ namespace IceBlink2
                 drawProjectileAnimation = true;
                 projectileAnimationLocation = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
                 //load projectile image
+                gv.cc.DisposeOfBitmap(ref projectile);
                 projectile = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteFilename);
                 if (crt.combatLocY < creatureTargetLocation.Y)
                 {
@@ -736,6 +747,7 @@ namespace IceBlink2
                     drawEndingAnimation = true;
                     endingAnimationLocation = new Coordinate(getPixelLocX(creatureTargetLocation.X), getPixelLocY(creatureTargetLocation.Y));
                     animationFrameIndex = 0;
+                    gv.cc.DisposeOfBitmap(ref ending_fx);
                     ending_fx = gv.cc.LoadBitmap(gv.sf.SpellToCast.spriteEndingFilename);
                     //gv.Invalidate();
                     gv.Render();
@@ -835,6 +847,7 @@ namespace IceBlink2
             //Load map if used
             if (mod.currentEncounter.UseMapImage)
             {
+                gv.cc.DisposeOfBitmap(ref mapBitmap);
                 mapBitmap = gv.cc.LoadBitmap(mod.currentEncounter.MapImage);
             }
             else //loads only the tiles that are used on this encounter map
@@ -854,6 +867,7 @@ namespace IceBlink2
                         {
                             Creature copy = c.DeepCopy();
                             copy.cr_tag = crf.creatureTag;
+                            gv.cc.DisposeOfBitmap(ref copy.token);
                             copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                             copy.combatLocX = crf.creatureStartLocationX;
                             copy.combatLocY = crf.creatureStartLocationY;
@@ -2783,6 +2797,7 @@ namespace IceBlink2
                         Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                         src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                         gv.DrawBitmap(fx, src, dst);
+                        gv.cc.DisposeOfBitmap(ref fx);
                     }
                     if ((pc.charStatus.Equals("Dead")) || (pc.hp < 0))
                     {
@@ -2920,7 +2935,8 @@ namespace IceBlink2
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                     src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
 				    gv.DrawBitmap(fx, src, dst);
-			    }
+                    gv.cc.DisposeOfBitmap(ref fx);
+                }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
@@ -2978,6 +2994,7 @@ namespace IceBlink2
                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                     src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                     gv.DrawBitmap(fx, src, dst);
+                    gv.cc.DisposeOfBitmap(ref fx);
                 }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
@@ -3474,24 +3491,28 @@ namespace IceBlink2
                         {
                             mod.combatAnimationSpeed = 50;
                             gv.cc.addLogText("lime", "combat speed: 2x");
+                            gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_2");
                         }
                         else if (mod.combatAnimationSpeed == 50)
                         {
                             mod.combatAnimationSpeed = 25;
                             gv.cc.addLogText("lime", "combat speed: 4x");
+                            gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_4");
                         }
                         else if (mod.combatAnimationSpeed == 25)
                         {
                             mod.combatAnimationSpeed = 10;
                             gv.cc.addLogText("lime", "combat speed: 10x");
+                            gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_10");
                         }
                         else if (mod.combatAnimationSpeed == 10)
                         {
                             mod.combatAnimationSpeed = 100;
                             gv.cc.addLogText("lime", "combat speed: 1x");
+                            gv.cc.DisposeOfBitmap(ref tglSpeed.ImgOff);
                             tglSpeed.ImgOff = gv.cc.LoadBitmap("tgl_speed_1");
                         }
                     }
