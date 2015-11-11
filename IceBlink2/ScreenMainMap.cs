@@ -248,7 +248,9 @@ namespace IceBlink2
                                                             minimapSquareSizeInPixels * (bg.Width / 50), 
                                                             minimapSquareSizeInPixels * (bg.Height / 50));
                             device.DrawImage(bg, dstBG, srcBG, GraphicsUnit.Pixel);
-                        }
+                            bg.Dispose();
+                            bg = null;
+                    }
                         //draw any tiles
                         for (int x = 0; x < mod.currentArea.MapSizeX; x++)
                         {
@@ -541,6 +543,7 @@ namespace IceBlink2
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
                                 src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator); 
                                 continue;
                             }
 
@@ -549,6 +552,7 @@ namespace IceBlink2
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                 src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
                             }
 
@@ -557,6 +561,7 @@ namespace IceBlink2
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                 src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
                             }
                         }
@@ -700,6 +705,7 @@ namespace IceBlink2
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
                                         src = new IbRect(0, 0, 50, 50);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
                                     }
 
@@ -708,6 +714,7 @@ namespace IceBlink2
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                         src = new IbRect(0, 0, 50, 50);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
                                     }
 
@@ -716,6 +723,7 @@ namespace IceBlink2
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                         src = new IbRect(0, 0, 50, 50);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                        gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
                                     }
                                 }
@@ -775,6 +783,7 @@ namespace IceBlink2
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
                                     src = new IbRect(0, 0, 50, 50);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
                                 }
 
@@ -783,6 +792,7 @@ namespace IceBlink2
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
                                     src = new IbRect(0, 0, 50, 50);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
                                 }
 
@@ -791,6 +801,7 @@ namespace IceBlink2
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
                                     src = new IbRect(0, 0, 50, 50);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                    gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
                                 }
                             }
@@ -2666,10 +2677,12 @@ namespace IceBlink2
             }
             if (levelup)
             {
+                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
                 btnParty.Img2 = gv.cc.LoadBitmap("btnpartyplus");
             }
             else
             {
+                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
                 btnParty.Img2 = gv.cc.LoadBitmap("btnparty");
             }
         }
