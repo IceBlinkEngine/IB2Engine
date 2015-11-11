@@ -175,9 +175,11 @@ namespace IceBlink2
             }
 		    for (int y = 0; y < slotsPerPage; y++)
 		    {
-			    IbbButton btnNew = new IbbButton(gv, 1.0f);	
-			    btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
-			    btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
+			    IbbButton btnNew = new IbbButton(gv, 1.0f);
+                gv.cc.DisposeOfBitmap(ref btnNew.Img);
+                btnNew.Img = gv.cc.LoadBitmap("item_slot"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.item_slot);
+                gv.cc.DisposeOfBitmap(ref btnNew.Glow);
+                btnNew.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
 			
 			    if (y < 5)
 			    {
@@ -253,6 +255,7 @@ namespace IceBlink2
 			    else {btn.glowOn = false;}
 			    if ((cntSlot + (tknPageIndex * slotsPerPage)) < playerTokenList.Count)
 			    {
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(playerTokenList[cntSlot + (tknPageIndex * slotsPerPage)]);
 			    }
 			    else

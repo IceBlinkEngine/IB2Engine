@@ -48,6 +48,7 @@ namespace IceBlink2
             {
                 if (cntPCs < mod.playerList.Count)
                 {
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
                 }
                 else
@@ -314,6 +315,7 @@ namespace IceBlink2
 
             if (pcList.Count > 0)
             {
+                gv.cc.DisposeOfBitmap(ref btnPcListIndex.Img2);
                 btnPcListIndex.Img2 = gv.cc.LoadBitmap(pcList[pcIndex].tokenFilename);
             }
             else
