@@ -1211,7 +1211,7 @@
       },
       {
         "Layer1Filename": "t_grass",
-        "Layer2Filename": "t_blank",
+        "Layer2Filename": "t_house01",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
@@ -1491,7 +1491,7 @@
       },
       {
         "Layer1Filename": "t_grass",
-        "Layer2Filename": "t_blank",
+        "Layer2Filename": "t_bed04",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
@@ -1659,7 +1659,7 @@
       },
       {
         "Layer1Filename": "t_grass",
-        "Layer2Filename": "t_blank",
+        "Layer2Filename": "t_home01",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
@@ -1667,7 +1667,7 @@
       {
         "Layer1Filename": "t_grass",
         "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
+        "Layer3Filename": "t_home01",
         "Walkable": true,
         "LoSBlocked": false
       },
@@ -2100,7 +2100,7 @@
       },
       {
         "Layer1Filename": "t_grass",
-        "Layer2Filename": "t_blank",
+        "Layer2Filename": "t_bed03",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
