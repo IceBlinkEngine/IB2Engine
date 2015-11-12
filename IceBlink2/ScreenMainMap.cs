@@ -228,55 +228,110 @@ namespace IceBlink2
 
         //MAIN SCREEN
         public void resetMiniMapBitmap()
-        {
-            //if (mod.currentArea.IsWorldMap)
-            //{
-                int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
-                int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
-                int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
-                using (System.Drawing.Bitmap surface = new System.Drawing.Bitmap(drawW, drawH))
+        {            
+            int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
+            int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
+            int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
+            using (System.Drawing.Bitmap surface = new System.Drawing.Bitmap(drawW, drawH))
+            {
+                using (Graphics device = Graphics.FromImage(surface))
                 {
-                    using (Graphics device = Graphics.FromImage(surface))
+                    //draw background image first
+                    if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
                     {
-                        //draw background image first
-                        if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
-                        {
-                            System.Drawing.Bitmap bg = gv.cc.LoadBitmapGDI(mod.currentArea.ImageFileName);
-                            Rectangle srcBG = new Rectangle(0, 0, bg.Width, bg.Height);
-                            Rectangle dstBG = new Rectangle(mod.currentArea.backgroundImageStartLocX * minimapSquareSizeInPixels, 
-                                                            mod.currentArea.backgroundImageStartLocY * minimapSquareSizeInPixels, 
-                                                            minimapSquareSizeInPixels * (bg.Width / 50), 
-                                                            minimapSquareSizeInPixels * (bg.Height / 50));
-                            device.DrawImage(bg, dstBG, srcBG, GraphicsUnit.Pixel);
-                            bg.Dispose();
-                            bg = null;
+                        System.Drawing.Bitmap bg = gv.cc.LoadBitmapGDI(mod.currentArea.ImageFileName);
+                        Rectangle srcBG = new Rectangle(0, 0, bg.Width, bg.Height);
+                        Rectangle dstBG = new Rectangle(mod.currentArea.backgroundImageStartLocX * minimapSquareSizeInPixels, 
+                                                        mod.currentArea.backgroundImageStartLocY * minimapSquareSizeInPixels, 
+                                                        minimapSquareSizeInPixels * (bg.Width / 50), 
+                                                        minimapSquareSizeInPixels * (bg.Height / 50));
+                        device.DrawImage(bg, dstBG, srcBG, GraphicsUnit.Pixel);
+                        bg.Dispose();
+                        bg = null;
                     }
-                        //draw any tiles
-                        for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    #region Draw Layer 1
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                         {
-                            for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                            {
-                                Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                                                
-                                Rectangle src1 = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
-                                Rectangle src2 = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
-                                Rectangle src3 = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
-                                Rectangle src4 = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
-                                Rectangle src5 = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
-                                
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
-
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer1Filename], dst, src1, GraphicsUnit.Pixel);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer2Filename], dst, src1, GraphicsUnit.Pixel);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer3Filename], dst, src1, GraphicsUnit.Pixel);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer4Filename], dst, src1, GraphicsUnit.Pixel);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer5Filename], dst, src1, GraphicsUnit.Pixel);
-                            }
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer1Filename], dst, src, GraphicsUnit.Pixel);
                         }
-                        minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
                     }
+                    #endregion
+                    #region Draw Layer 2
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height / 100;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer2Filename], dst, src, GraphicsUnit.Pixel);
+                        }
+                    }
+                    #endregion
+                    #region Draw Layer 3
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height / 100;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer3Filename], dst, src, GraphicsUnit.Pixel);
+                        }
+                    }
+                    #endregion
+                    #region Draw Layer 4
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height / 100;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer4Filename], dst, src, GraphicsUnit.Pixel);
+                        }
+                    }
+                    #endregion
+                    #region Draw Layer 5
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100;
+                            int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                            int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                            Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+                            device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer5Filename], dst, src, GraphicsUnit.Pixel);
+                        }
+                    }
+                    #endregion
+                    minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
                 }
-            //}
+            }
         }
         public void redrawMain()
         {
@@ -415,9 +470,9 @@ namespace IceBlink2
         }
         public void drawWorldMap()
         {
-            int minX = mod.PlayerLocationX - gv.playerOffset;
+            int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
             if (minX < 0) { minX = 0; }
-            int minY = mod.PlayerLocationY - gv.playerOffset;
+            int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
             if (minY < 0) { minY = 0; }
 
             int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
@@ -425,35 +480,166 @@ namespace IceBlink2
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
+            #region Draw Layer 1
             for (int x = minX; x < maxX; x++)
             {
                 for (int y = minY; y < maxY; y++)
                 {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                     int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                     int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                    int brX = gv.squareSize;
-                    int brY = gv.squareSize;
-
-                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                    float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+                                        
                     try
                     {
-                        IbRect src1 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
-                        IbRect src2 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
-                        IbRect src3 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
-                        IbRect src4 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
-                        IbRect src5 = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
-
+                        IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
                         IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src1, dst);
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src2, dst);
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src3, dst);
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src4, dst);
-                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src5, dst);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
                     }
                     catch { }
                 }
             }
+            #endregion
+            #region Draw Layer 2
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                    float scalerX = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width / 100;
+                    float scalerY = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+
+                    try
+                    {
+                        IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
+            #region Draw Layer 3
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                    float scalerX = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width / 100;
+                    float scalerY = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+
+                    try
+                    {
+                        IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src, dst);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
+            #region Draw Layer 4
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                    float scalerX = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width / 100;
+                    float scalerY = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+
+                    try
+                    {
+                        IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src, dst);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
+            #region Draw Layer 5
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                    float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100;
+                    float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100;
+                    int brX = (int)(gv.squareSize * scalerX);
+                    int brY = (int)(gv.squareSize * scalerY);
+
+                    try
+                    {
+                        IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
+                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                        gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src, dst);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
+
+            #region Draw Black Squares
+            //draw black squares to make sure and hide any large tiles that have over drawn outside the visible map area
+            int mapStartLocationInSquares = 6;
+            int mapSizeInSquares = gv.playerOffset + gv.playerOffset + 1;
+            int mapRightEndSquare = mapStartLocationInSquares + mapSizeInSquares;
+            if (!gv.useLargeLayout) { mapStartLocationInSquares = 4; }
+            IbRect srcBlackTile = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+
+            //draw left side squares
+            for (int x = mapStartLocationInSquares - 2; x < mapStartLocationInSquares; x++)
+            {
+                for (int y = 0; y < mapSizeInSquares; y++)
+                {                    
+                    IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
+                }
+            }
+            //draw right side squares
+            for (int x = mapRightEndSquare; x < mapRightEndSquare + 2; x++)
+            {
+                for (int y = 0; y < mapSizeInSquares; y++)
+                {
+                    IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
+                }
+            }
+            //draw top squares
+            for (int x = mapStartLocationInSquares - 2; x < mapRightEndSquare + 2; x++)
+            {
+                IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, -1 * gv.squareSize, gv.squareSize, gv.squareSize);
+                gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
+            }
+            //draw bottom squares
+            for (int x = mapStartLocationInSquares - 2; x < mapRightEndSquare + 2; x++)
+            {
+                for (int y = mapSizeInSquares; y < mapSizeInSquares + 2; y++)
+                {
+                    IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
+                }
+            }
+            //draw black tiles over large tiles when party is near edges of map
+            drawBlackTilesOverTints();
+            #endregion
         }
         public void drawMap()
         {
