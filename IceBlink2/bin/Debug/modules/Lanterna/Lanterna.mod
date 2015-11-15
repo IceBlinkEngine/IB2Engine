@@ -174,7 +174,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Lanterna - The Exile",
   "moduleCredits": "<big><b>Lanterna - The Exile by slowdive_fan</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 11135,
+  "nextIdNumber": 11139,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "WorldTime": 300,
   "startingArea": "charn",

@@ -57,6 +57,7 @@
   "ConvoFileName": "Marissa",
   "Narration": false,
   "PartyChat": false,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "prp_marissa.png",
   "DefaultNpcName": "",
   "NextIdNum": 2

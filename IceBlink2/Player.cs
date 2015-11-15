@@ -37,12 +37,8 @@ namespace IceBlink2
         [JsonIgnore]
 	    public PlayerClass playerClass = new PlayerClass();
 	    public List<string> knownSpellsTags = new List<string>();
-        [JsonIgnore]
-	    //public List<Spell> knownSpellsList = new List<Spell>();	
         public List<string> knownTraitsTags = new List<string>();
-        [JsonIgnore]
-	    //public List<Trait> knownTraitsList = new List<Trait>();	
-	    public List<Effect> effectsList = new List<Effect>();
+        public List<Effect> effectsList = new List<Effect>();
 	    public int classLevel = 1;
 	    public bool isMale = true;
 	    public string charStatus = "Alive"; //Alive, Dead, Held

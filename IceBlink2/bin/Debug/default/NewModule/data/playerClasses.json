@@ -2,6 +2,7 @@
   {
     "name": "Fighter",
     "tag": "fighter",
+    "UsableByPlayer": true,
     "description": "Skilled warrior. Gains the Cleave trait at level 2 and two attacks per round at level 4.",
     "startingHP": 10,
     "startingSP": 0,
@@ -327,6 +328,7 @@
   {
     "name": "Cleric",
     "tag": "cleric",
+    "UsableByPlayer": true,
     "description": "A capable combatant with divine magic as well.",
     "startingHP": 8,
     "startingSP": 10,
@@ -611,6 +613,7 @@
   {
     "name": "Ranger",
     "tag": "ranger",
+    "UsableByPlayer": true,
     "description": "Adept for survival in the wild, skilled with a bow, and learns a few spells at later levels. Gains Point Blank Shot trait at level 2.",
     "startingHP": 8,
     "startingSP": 5,
@@ -951,6 +954,7 @@
   {
     "name": "Wizard",
     "tag": "wizard",
+    "UsableByPlayer": true,
     "description": "The Wizard class is capable of casting powerful arcane spells.",
     "startingHP": 4,
     "startingSP": 20,
@@ -1228,6 +1232,7 @@
   {
     "name": "Thief",
     "tag": "thief",
+    "UsableByPlayer": true,
     "description": "The thief uses agility and stealth to manage a battle field and is useful in finding and disarming traps.",
     "startingHP": 6,
     "startingSP": 5,

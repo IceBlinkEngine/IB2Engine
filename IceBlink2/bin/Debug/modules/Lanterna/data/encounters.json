@@ -10335,343 +10335,343 @@
     "MapSizeY": 7,
     "encounterTiles": [
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
@@ -10805,840 +10805,840 @@
     "MapSizeY": 10,
     "encounterTiles": [
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
@@ -11790,1176 +11790,1176 @@
     "MapSizeY": 14,
     "encounterTiles": [
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_webs_2",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_brick0",
         "Layer3Filename": "t_w_brick3",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_brkwn0",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_webs_2",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_campfire_on",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_webs_2",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_brick3",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_webs_2",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_w_brick3",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_furn3_U",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_webs_0",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_campfire_on",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_w_furn4_U",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_campfire_on",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate_3",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel_1",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel04",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
@@ -13111,1009 +13111,1009 @@
     "MapSizeY": 12,
     "encounterTiles": [
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": false,
-        "LoSBlocked": true
-      },
-      {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": false,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_water01",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_water01",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_water01",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_water01",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_water01",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_water01",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
-        "Layer2Filename": "t_blank",
-        "Layer3Filename": "t_blank",
-        "Walkable": true,
-        "LoSBlocked": false
-      },
-      {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_rock02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_campfire_on",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel_1",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate_2",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate_3",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate_2",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate_3",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_crate02",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_blank",
         "Layer3Filename": "t_blank",
         "Walkable": true,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel04",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_barrel03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": false
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_mountain03",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_mud",
+        "Layer1Filename": "t_mudfloor02",
         "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_w_brick2_U",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
       },
       {
-        "Layer1Filename": "t_black_tile",
-        "Layer2Filename": "t_blank",
+        "Layer1Filename": "t_mudfloor02",
+        "Layer2Filename": "t_black_tile",
         "Layer3Filename": "t_blank",
         "Walkable": false,
         "LoSBlocked": true
