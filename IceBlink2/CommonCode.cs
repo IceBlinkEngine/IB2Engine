@@ -1966,8 +1966,17 @@ namespace IceBlink2
                 gv.screenPcCreation = null;
                 gv.screenTitle = null;
             }
-            //gv.logUpdated = false;
-            gv.sf.dsWorldTime();
+
+            if ((gv.mod.PlayerLocationX != gv.mod.arrivalSquareX) || (gv.mod.PlayerLocationY != gv.mod.arrivalSquareY))
+            {
+                gv.mod.justTransitioned = false;
+                gv.mod.arrivalSquareX = 1000000;
+                gv.mod.arrivalSquareY = 1000000;
+            }
+       
+
+        //gv.logUpdated = false;
+        gv.sf.dsWorldTime();
             //IBScript Module heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
             //IBScript Area heartbeat
@@ -3955,25 +3964,32 @@ namespace IceBlink2
         {
             try
             {
-                gv.mod.PlayerLocationX = x;
-                gv.mod.PlayerLocationY = y;
-                if (gv.mod.playMusic)
+
+                if (gv.mod.justTransitioned == false)
                 {
-                    gv.stopMusic();
-                    gv.stopAmbient();
+                    gv.mod.PlayerLocationX = x;
+                    gv.mod.PlayerLocationY = y;
+                    gv.mod.justTransitioned = true;
+                    gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
+                    gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
+                    if (gv.mod.playMusic)
+                    {
+                        gv.stopMusic();
+                        gv.stopAmbient();
+                    }
+                    gv.mod.setCurrentArea(areaFilename, gv);
+                    gv.screenMainMap.resetMiniMapBitmap();
+                    doOnEnterAreaUpdate = true;
+                    doPropMoves();
+                    doOnEnterAreaUpdate = false;
+                    if (gv.mod.playMusic)
+                    {
+                        gv.startMusic();
+                        gv.startAmbient();
+                    }
+                    gv.triggerIndex = 0;
+                    doTrigger();
                 }
-                gv.mod.setCurrentArea(areaFilename, gv);
-                gv.screenMainMap.resetMiniMapBitmap();
-                doOnEnterAreaUpdate = true;
-                doPropMoves();
-                doOnEnterAreaUpdate = false;
-                if (gv.mod.playMusic)
-                {
-                    gv.startMusic();
-                    gv.startAmbient();
-                }
-                gv.triggerIndex = 0;
-                doTrigger();
             }
             catch (Exception ex)
             {

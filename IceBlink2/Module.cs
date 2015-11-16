@@ -125,6 +125,9 @@ namespace IceBlink2
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;
         public bool useOrbitronFont = false;
+        public bool justTransitioned = false;
+        public int arrivalSquareX = 1000000;
+        public int arrivalSquareY = 1000000;
 
         public Module()
         {
