@@ -1063,10 +1063,58 @@ namespace IceBlink2
             int x = gv.playerOffset * gv.squareSize;
             int y = gv.playerOffset * gv.squareSize;
             int shift = gv.squareSize / 3;
-            IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
+            if (mod.currentArea.useMiniProps)
+            {
+                shift = (int)shift / 2;
+            }
+            else if (mod.currentArea.useSuperTinyProps)
+            {
+                shift = (int)shift / 4;
+            }
+                IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
             if (mod.showPartyToken)
             {
+
+                if (mod.currentArea.useMiniProps)
+                {
+                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                    {
+                        dst.Left += (int)(gv.squareSize / 4);
+                    }
+                    else
+                    {
+                        dst.Left -= (int)(gv.squareSize / 4);
+                    }
+                    dst.Height -= (int)(dst.Height / 2);
+                    dst.Width -= (int)(dst.Width / 2);
+
+                    /*dst.Top += (int)(gv.squareSize / 4);
+                    dst.Left += (int)(gv.squareSize / 4);
+                    dst.Height -= (int)(dst.Height / 2);
+                    dst.Width -= (int)(dst.Width / 2);*/
+                }
+                else if (mod.currentArea.useSuperTinyProps)
+                {
+                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                    {
+                        dst.Left += (int)(gv.squareSize * 3 / 8);
+                    }
+                    else
+                    {
+                        dst.Left -= (int)(gv.squareSize * 3 / 8);
+                    }
+                    dst.Height -= (int)(dst.Height * 3 / 4);
+                    dst.Width -= (int)(dst.Width * 3 / 4);
+
+                    /*dst.Top += (int)(gv.squareSize * 3 / 8);
+                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                    dst.Height -= (int)(dst.Height / 4);
+                    dst.Width -= (int)(dst.Width / 4);*/
+                }
+
                 gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft, false);
             }
             else
@@ -1088,11 +1136,72 @@ namespace IceBlink2
                         if ((i == 0) && (i != mod.selectedPartyLeader))
                         {
                             dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+
+                            if (mod.currentArea.useMiniProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize / 4);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize / 4);
+                                }
+                                dst.Height -= (int)(dst.Height / 2);
+                                dst.Width -= (int)(dst.Width / 2);
+                            }
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
+                            }
+
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
                         }
                         if ((i == 1) && (i != mod.selectedPartyLeader))
                         {
                             dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+
+                            if (mod.currentArea.useMiniProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize / 4);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize / 4);
+                                }
+                                dst.Height -= (int)(dst.Height / 2);
+                                dst.Width -= (int)(dst.Width / 2);
+                            }
+
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
+                            }
+
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
                         }
                         if ((i == 2) && (i != mod.selectedPartyLeader))
@@ -1109,6 +1218,36 @@ namespace IceBlink2
                             {
                                 dst = new IbRect(x + gv.oXshift + (shift * 175 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
+
+                            if (mod.currentArea.useMiniProps)
+                            {
+                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                    {
+                                        dst.Left += (int)(gv.squareSize / 4);
+                                    }
+                                    else
+                                    {
+                                        dst.Left -= (int)(gv.squareSize / 4);
+                                    }
+                                    dst.Height -= (int)(dst.Height / 2);
+                                    dst.Width -= (int)(dst.Width / 2);
+                                }
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
+                            }
+
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
                         }
                         if ((i == 3) && (i != mod.selectedPartyLeader))
@@ -1130,6 +1269,36 @@ namespace IceBlink2
                             {
                                 dst = new IbRect(x + gv.oXshift - (shift * 175 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
+
+                            if (mod.currentArea.useMiniProps)
+                            {
+                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                    {
+                                        dst.Left += (int)(gv.squareSize / 4);
+                                    }
+                                    else
+                                    {
+                                        dst.Left -= (int)(gv.squareSize / 4);
+                                    }
+                                    dst.Height -= (int)(dst.Height / 2);
+                                    dst.Width -= (int)(dst.Width / 2);
+                                }
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
+                            }
+
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
                         }
                         if ((i == 4) && (i != mod.selectedPartyLeader))
@@ -1153,6 +1322,35 @@ namespace IceBlink2
                             else
                             {
                                 dst = new IbRect(x + gv.oXshift + (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
+                            }
+
+                            if (mod.currentArea.useMiniProps)
+                            {
+                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                    {
+                                        dst.Left += (int)(gv.squareSize / 4);
+                                    }
+                                    else
+                                    {
+                                        dst.Left -= (int)(gv.squareSize / 4);
+                                    }
+                                    dst.Height -= (int)(dst.Height / 2);
+                                    dst.Width -= (int)(dst.Width / 2);
+                                }
+                            else if (mod.currentArea.useSuperTinyProps)
+                            {
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
@@ -1185,19 +1383,33 @@ namespace IceBlink2
                                 dst = new IbRect(x + gv.oXshift - (shift * 250 / 100) + mapStartLocXinPixels, y + reducedSquareSize * 47 / 100, reducedSquareSize, reducedSquareSize);
                             }
 
-                            if(mod.currentArea.useMiniProps)
+                            if (mod.currentArea.useMiniProps)
                             {
-                                dst.Top += (int)(gv.squareSize / 4);
-                                dst.Left += (int)(gv.squareSize / 4);
-                                dst.Height -= (int)(dst.Height / 2);
-                                dst.Width -= (int)(dst.Width / 2);
-                            }
+                                    dst.Top += (int)(gv.squareSize * 1 / 8);
+                                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                    {
+                                        dst.Left += (int)(gv.squareSize / 4);
+                                    }
+                                    else
+                                    {
+                                        dst.Left -= (int)(gv.squareSize / 4);
+                                    }
+                                    dst.Height -= (int)(dst.Height / 2);
+                                    dst.Width -= (int)(dst.Width / 2);
+                                }
                             else if (mod.currentArea.useSuperTinyProps)
                             {
-                                dst.Top += (int)(gv.squareSize * 3 / 8);
-                                dst.Left += (int)(gv.squareSize * 3 / 8);
-                                dst.Height -= (int)(dst.Height / 4);
-                                dst.Width -= (int)(dst.Width / 4);
+                                dst.Top += (int)(gv.squareSize * 1 / 8);
+                                if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                                {
+                                    dst.Left += (int)(gv.squareSize * 3 / 8);
+                                }
+                                else
+                                {
+                                    dst.Left -= (int)(gv.squareSize * 3 / 8);
+                                }
+                                dst.Height -= (int)(dst.Height * 3 / 4);
+                                dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
@@ -1212,6 +1424,15 @@ namespace IceBlink2
                     else
                     {
                         gv.oXshift = gv.oXshift + shift / 2;
+                        //if (mod.currentArea.useMiniProps)
+                        //{
+                        //gv.oXshift -= gv.squareSize;
+                        //}
+                        //else if (mod.currentArea.useSuperTinyProps)
+                        //{
+
+                        //}
+
                     }
 
                     //gv.oXshift = gv.oXshift + shift / 2;

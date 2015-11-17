@@ -122,7 +122,7 @@
   "useSmoothMovement": true,
   "useOrbitronFont": true,
   "useUIBackground": true,
-  "numberOfPlayerMadePcsAllowed": 1,
+  "numberOfPlayerMadePcsAllowed": 6,
   "MaxPartySize": 6,
   "moduleDescription": "Short sicfi module.",
   "moduleCredits": "<big><b>Parser in the Dark</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
