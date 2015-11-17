@@ -5,7 +5,7 @@
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "Crowded Plains",
   "useMiniProps": false,
-  "useSuperTinyProps": false,
+  "useSuperTinyProps": true,
   "areaDark": false,
   "UseDayNightCycle": true,
   "TimePerSquare": 6,

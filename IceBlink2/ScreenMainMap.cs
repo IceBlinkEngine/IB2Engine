@@ -1295,16 +1295,30 @@ namespace IceBlink2
                 if (mod.currentArea.useMiniProps)
                 {
                     dst.Top += (int)(gv.squareSize / 4);
-                    dst.Left += (int)(gv.squareSize / 4);
+                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                    {
+                        dst.Left += (int)(gv.squareSize / 4);
+                    }
+                    else
+                    {
+                        dst.Left -= (int)(gv.squareSize / 4);
+                    }
                     dst.Height -= (int)(dst.Height / 2);
                     dst.Width -= (int)(dst.Width / 2);
                 }
                 else if (mod.currentArea.useSuperTinyProps)
                 {
                     dst.Top += (int)(gv.squareSize * 3 / 8);
-                    dst.Left += (int)(gv.squareSize * 3 / 8);
-                    dst.Height -= (int)(dst.Height / 4);
-                    dst.Width -= (int)(dst.Width / 4);
+                    if (mod.playerList[mod.selectedPartyLeader].combatFacingLeft == true)
+                    {
+                        dst.Left += (int)(gv.squareSize * 3 /8);
+                    }
+                    else
+                    {
+                        dst.Left -= (int)(gv.squareSize * 3 / 8);
+                    }
+                    dst.Height -= (int)(dst.Height * 3 / 4);
+                    dst.Width -= (int)(dst.Width * 3 / 4);
                 }
                 gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 shift = storeShift;
