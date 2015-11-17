@@ -331,16 +331,22 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gaTransitionPartyToMapLocation.cs"))
                     {
-                        int parm2 = Convert.ToInt32(p2);
-                        int parm3 = Convert.ToInt32(p3);
-                        if (gv.mod.currentArea.Filename.Equals(p1))
+                        if (gv.mod.justTransitioned == false)
                         {
-                            gv.mod.PlayerLocationX = parm2;
-                            gv.mod.PlayerLocationY = parm3;
-                        }
-                        else
-                        {
-                            gv.cc.doTransitionBasedOnAreaLocation(p1, parm2, parm3);
+                            int parm2 = Convert.ToInt32(p2);
+                            int parm3 = Convert.ToInt32(p3);
+                            if (gv.mod.currentArea.Filename.Equals(p1))
+                            {
+                                gv.mod.PlayerLocationX = parm2;
+                                gv.mod.PlayerLocationY = parm3;
+                                gv.mod.justTransitioned = true;
+                                gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
+                                gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
+                            }
+                            else
+                            {
+                                gv.cc.doTransitionBasedOnAreaLocation(p1, parm2, parm3);
+                            }
                         }
                     }
                     else if (filename.Equals("gaAddPartyMember.cs"))
