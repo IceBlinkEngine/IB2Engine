@@ -933,6 +933,7 @@ namespace IceBlink2
                             Prop prp2 = prp.DeepCopy();
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
+                            gv.cc.DisposeOfBitmap(ref prp2.token);
                             prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                            
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
@@ -978,6 +979,7 @@ namespace IceBlink2
                                 //fetch the data for our creature by making a blueprint(object) copy
                                 Creature copy = c.DeepCopy();
                                 //crucial for loading the creature token
+                                gv.cc.DisposeOfBitmap(ref copy.token);
                                 copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                                 
                                 //Automaically create a unique tag
@@ -2584,6 +2586,7 @@ namespace IceBlink2
                 {
                     gv.mod.partyTokenFilename = filename;
                 }
+                gv.cc.DisposeOfBitmap(ref gv.mod.partyTokenBitmap);
                 gv.mod.partyTokenBitmap = gv.cc.LoadBitmap(gv.mod.partyTokenFilename);
                 if (!mod.playerList[0].combatFacingLeft)
                 {

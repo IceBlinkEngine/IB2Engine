@@ -182,26 +182,33 @@ namespace IceBlink2
 				
 				    if (pc.knownSpellsTags.Contains(sp.tag)) //check to see if already known, if so turn off button
 				    {
-					    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-					    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");				
+                        gv.cc.DisposeOfBitmap(ref btn.Img);
+                        btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                        gv.cc.DisposeOfBitmap(ref btn.Img2);
+                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");				
 				    }
 				    else //spell not known yet
 				    {
 					    if (isAvailableToLearn(sp.tag)) //if available to learn, turn on button
 					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);				
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
 					    }
 					    else //not available to learn, turn off button
 					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");	
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");	
 					    }
 				    }				
 			    }
 			    else //slot is not in spells allowed index range
 			    {
-				    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                    gv.cc.DisposeOfBitmap(ref btn.Img);
+                    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
 				    btn.Img2 = null;
 			    }			
 			    btn.Draw();

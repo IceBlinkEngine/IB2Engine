@@ -152,6 +152,7 @@ namespace IceBlink2
                 if ((cntSlot + (inventoryPageIndex * slotsPerPage)) < mod.partyInventoryRefsList.Count)
                 {
                     Item it = mod.getItemByResRefForInfo(mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)].resref);
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
                     btn.Img2 = gv.cc.LoadBitmap(it.itemImage);
                     ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * slotsPerPage)];
                     if (itr.quantity > 1)

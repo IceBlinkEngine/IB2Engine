@@ -342,7 +342,8 @@ namespace IceBlink2
 		    {
 			    if (cntPCs < mod.playerList.Count)
 			    {
-				    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);						
 			    }
 			    cntPCs++;
 		    }
@@ -379,10 +380,12 @@ namespace IceBlink2
             	    string filename = currentConvo.NpcPortraitBitmap;
                     int lastPeriodPos = filename.LastIndexOf('.');
                     string filenameNoExt = filename.Substring(0, lastPeriodPos);
+                    gv.cc.DisposeOfBitmap(ref convoBitmap);
                     convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
                     if (convoBitmap == null)
                     {
-                	    convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                        gv.cc.DisposeOfBitmap(ref convoBitmap);
+                        convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
                     }
                 }
                 else
@@ -390,15 +393,18 @@ namespace IceBlink2
                     string filename = currentConvo.GetContentNodeById(parentIdNum).NodePortraitBitmap;
                     int lastPeriodPos = filename.LastIndexOf('.');
                     string filenameNoExt = filename.Substring(0, lastPeriodPos);
+                    gv.cc.DisposeOfBitmap(ref convoBitmap);
                     convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
                     if (convoBitmap == null)
                     {
-                	    convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                        gv.cc.DisposeOfBitmap(ref convoBitmap);
+                        convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
                     }
                 }
             }
             catch (Exception ex)
             {
+                gv.cc.DisposeOfBitmap(ref convoBitmap);
                 convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
                 gv.errorLog(ex.ToString());
             }
@@ -585,7 +591,8 @@ namespace IceBlink2
                     else //new options available so show bubble plus marker
                     {
                         btnPartyIndex[PcIndx].btnNotificationOn = true;
-                	    btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
+                        gv.cc.DisposeOfBitmap(ref btnPartyIndex[PcIndx].Img3);
+                        btnPartyIndex[PcIndx].Img3 = gv.cc.LoadBitmap("convoplus");
                     }
                 }
                 PcIndx++;
