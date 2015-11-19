@@ -34,6 +34,9 @@ namespace IceBlink2
         private long timeStamp = 0;
         private bool finishedMove = true;
         public Bitmap minimap = null;
+        public Bitmap fullScreenEffect1 = null;
+        public Bitmap fullScreenEffect2 = null;
+        public Bitmap fullScreenEffect3 = null;
 
         public ScreenMainMap(Module m, GameView g)
         {
@@ -406,6 +409,7 @@ namespace IceBlink2
             {
                 drawPanels();
             }
+            drawFullScreenEffects();
             gv.drawLog();
             drawControls();
             drawMiniMap();
@@ -641,6 +645,271 @@ namespace IceBlink2
             drawBlackTilesOverTints();
             #endregion
         }
+
+
+        public void drawFullScreenEffects()
+        {
+            int minX = mod.PlayerLocationX - gv.playerOffset; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+            if (minX < 0) { minX = 0; }
+            int minY = mod.PlayerLocationY - gv.playerOffset; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+            if (minY < 0) { minY = 0; }
+
+            int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+            if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
+            int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+            if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
+
+            //using three layers, so one could e.g. combine rain, fog and occassional lightning
+            //or green fog, red alarm lights and stars flying by on the outer side of the space ship hull 
+            #region Draw full screen layer 1
+            if (gv.mod.currentArea.useFullScreenEffectLayer1)
+            {
+                //new SharpDX.Direct2D1.Bitmap
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
+                //use weather system per area specific later on
+                //use animation frame number 1 to 10 specific later on, utilizing weather type defined by area weather settings
+                //add check for square spcific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+                fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        
+                        float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                        float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                        int brX = (int)(gv.squareSize * scalerX);
+                        int brY = (int)(gv.squareSize * scalerY);
+                        
+                        float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                        float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
+
+                        //code sction for handling right and bottom border of area
+                        int modX = x;
+                        int modY = y;
+                        if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 1;
+                        }
+                        if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 2;
+                        }
+                        if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                        { 
+                            modX += 3;
+                        }
+                        if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 4;
+                        }
+
+
+                        if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 1;
+                        }
+                        if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 2;
+                        }
+                        if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 3;
+                        }
+                        if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 4;
+                        }
+
+                        //get the correct chunk on source
+                        float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                        int srcCoordY = (int)floatSourceChunkCoordY;
+                        int srcCoordX = (int)floatSourceChunkCoordX;
+                        int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
+
+                        try
+                        {
+                            IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                            gv.DrawBitmap(fullScreenEffect1, src, dst);
+                        }
+                        catch { }
+                    }
+                }
+            }
+            #endregion
+            #region Draw full screen layer 2
+            if (gv.mod.currentArea.useFullScreenEffectLayer2)
+            {
+                //new SharpDX.Direct2D1.Bitmap
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect2);
+                //use weather system per area specific later on
+                //use animation frame number 1 to 10 specific later on, utilizing weather type defined by area weather settings
+                //add check for square spcific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+                fullScreenEffect2 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName2);
+
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        
+                        float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                        float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                        int brX = (int)(gv.squareSize * scalerX);
+                        int brY = (int)(gv.squareSize * scalerY);
+                        
+                        float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                        float sizeOfWholeSource = fullScreenEffect2.PixelSize.Width;
+
+                        //code sction for handling right and bottom border of area
+                        int modX = x;
+                        int modY = y;
+                        if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 1;
+                        }
+                        if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 2;
+                        }
+                        if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                        { 
+                            modX += 3;
+                        }
+                        if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 4;
+                        }
+
+
+                        if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 1;
+                        }
+                        if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 2;
+                        }
+                        if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 3;
+                        }
+                        if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 4;
+                        }
+
+                        //get the correct chunk on source
+                        float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                        int srcCoordY = (int)floatSourceChunkCoordY;
+                        int srcCoordX = (int)floatSourceChunkCoordX;
+                        int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
+
+                        try
+                        {
+                            IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                            gv.DrawBitmap(fullScreenEffect2, src, dst);
+                        }
+                        catch { }
+                    }
+                }
+            }
+            #endregion
+
+            #region Draw full screen layer 3
+            if (gv.mod.currentArea.useFullScreenEffectLayer3)
+            {
+                //new SharpDX.Direct2D1.Bitmap
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect3);
+                //use weather system per area specific later on
+                //use animation frame number 1 to 10 specific later on, utilizing weather type defined by area weather settings
+                //add check for square spcific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+                fullScreenEffect3 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName3);
+
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                        float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                        float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                        int brX = (int)(gv.squareSize * scalerX);
+                        int brY = (int)(gv.squareSize * scalerY);
+
+                        float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                        float sizeOfWholeSource = fullScreenEffect3.PixelSize.Width;
+
+                        //code sction for handling right and bottom border of area
+                        int modX = x;
+                        int modY = y;
+                        if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 1;
+                        }
+                        if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 2;
+                        }
+                        if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 3;
+                        }
+                        if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                        {
+                            modX += 4;
+                        }
+
+
+                        if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 1;
+                        }
+                        if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 2;
+                        }
+                        if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 3;
+                        }
+                        if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                        {
+                            modY += 4;
+                        }
+
+                        //get the correct chunk on source
+                        float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                        int srcCoordY = (int)floatSourceChunkCoordY;
+                        int srcCoordX = (int)floatSourceChunkCoordX;
+                        int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
+
+                        try
+                        {
+                            IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                            gv.DrawBitmap(fullScreenEffect3, src, dst);
+                        }
+                        catch { }
+                    }
+                }
+            }
+            #endregion
+        }
+
         public void drawMap()
         {
             int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
