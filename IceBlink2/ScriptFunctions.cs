@@ -455,6 +455,20 @@ namespace IceBlink2
                             gv.screenMainMap.addFloatyText(mod.PlayerLocationX, mod.PlayerLastLocationY, "need light!", "white", 4000);
                         }
                     }
+                    else if (filename.Equals("gaToggleAreaSquareLoSBlocking.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].LoSBlocked = enable;
+                    }
+                    else if (filename.Equals("gaToggleAreaSquareCollidable.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Walkable = enable;
+                    }
                 }
                 catch (Exception ex)
                 {
