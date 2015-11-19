@@ -455,6 +455,20 @@ namespace IceBlink2
                             gv.screenMainMap.addFloatyText(mod.PlayerLocationX, mod.PlayerLastLocationY, "need light!", "white", 4000);
                         }
                     }
+                    else if (filename.Equals("gaToggleAreaSquareLoSBlocking.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].LoSBlocked = enable;
+                    }
+                    else if (filename.Equals("gaToggleAreaSquareCollidable.cs"))
+                    {
+                        int x = Convert.ToInt32(p1);
+                        int y = Convert.ToInt32(p2);
+                        bool enable = Boolean.Parse(p3);
+                        gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].Walkable = enable;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -933,6 +947,7 @@ namespace IceBlink2
                             Prop prp2 = prp.DeepCopy();
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
+                            gv.cc.DisposeOfBitmap(ref prp2.token);
                             prp2.token = gv.cc.LoadBitmap(prp.ImageFileName);
                            
                             for (int i2 = 0; i2 < gv.mod.moduleAreasObjects.Count; i2++)
@@ -978,6 +993,7 @@ namespace IceBlink2
                                 //fetch the data for our creature by making a blueprint(object) copy
                                 Creature copy = c.DeepCopy();
                                 //crucial for loading the creature token
+                                gv.cc.DisposeOfBitmap(ref copy.token);
                                 copy.token = gv.cc.LoadBitmap(copy.cr_tokenFilename);
                                 
                                 //Automaically create a unique tag
@@ -2584,6 +2600,7 @@ namespace IceBlink2
                 {
                     gv.mod.partyTokenFilename = filename;
                 }
+                gv.cc.DisposeOfBitmap(ref gv.mod.partyTokenBitmap);
                 gv.mod.partyTokenBitmap = gv.cc.LoadBitmap(gv.mod.partyTokenFilename);
                 if (!mod.playerList[0].combatFacingLeft)
                 {

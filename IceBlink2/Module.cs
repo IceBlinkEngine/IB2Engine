@@ -165,10 +165,12 @@ namespace IceBlink2
                     if (area.Filename.Equals(filename))
                     {
                         this.currentArea = area;
+                        gv.cc.DisposeOfBitmap(ref gv.cc.bmpMap);
                         gv.cc.bmpMap = gv.cc.LoadBitmap(this.currentArea.ImageFileName);
                         //TODO gv.cc.LoadTileBitmapList();
                         foreach (Prop p in this.currentArea.Props)
                         {
+                            gv.cc.DisposeOfBitmap(ref p.token);
                             p.token = gv.cc.LoadBitmap(p.ImageFileName);
                         }
                     }

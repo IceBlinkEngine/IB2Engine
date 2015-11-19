@@ -219,7 +219,8 @@ namespace IceBlink2
 			    {
 				    ItemRefs itrs = currentShop.shopItemRefs[cntSlot + (shopPageIndex * 10)];
 				    Item it = mod.getItemByResRefForInfo(itrs.resref);
-				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
 				    if (itrs.quantity < it.groupSizeForSellingStackableItems)
     			    {
     				    //less than the stack size for selling
@@ -316,7 +317,8 @@ namespace IceBlink2
 			    {
 				    ItemRefs itr = mod.partyInventoryRefsList[cntSlot + (inventoryPageIndex * 10)];
 				    Item it = mod.getItemByResRefForInfo(itr.resref);
-				    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
+                    gv.cc.DisposeOfBitmap(ref btn.Img2);
+                    btn.Img2 = gv.cc.LoadBitmap(it.itemImage);	
 				    if (itr.quantity < it.groupSizeForSellingStackableItems)
     			    {
     				    //less than the stack size for selling

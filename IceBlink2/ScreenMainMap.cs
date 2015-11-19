@@ -977,16 +977,20 @@ namespace IceBlink2
                         //prop X - playerX
                         int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                        int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstXshift = (dstW - gv.squareSize) / 2;
+                        int dstYshift = (dstH - gv.squareSize) / 2;
                         IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                        IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                        IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                         if (gv.mod.currentArea.useSuperTinyProps)
                         {
-                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8), (int)(gv.squareSize / 4), (int)(gv.squareSize / 4));
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
                         }
                         else if (gv.mod.currentArea.useMiniProps)
                         {
-                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4), (int)(gv.squareSize / 2), (int)(gv.squareSize / 2));
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
                         }
 
                         gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
@@ -996,7 +1000,7 @@ namespace IceBlink2
                             if (!p.EncounterWhenOnPartySquare.Equals("none"))
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 gv.cc.DisposeOfBitmap(ref interactionStateIndicator); 
                                 continue;
@@ -1005,7 +1009,7 @@ namespace IceBlink2
                             if (p.unavoidableConversation)
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
@@ -1014,7 +1018,7 @@ namespace IceBlink2
                             if (!p.ConversationWhenOnPartySquare.Equals("none"))
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                src = new IbRect(0, 0, p.token.PixelSize.Width / 2, p.token.PixelSize.Width / 2);
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
                                 gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
@@ -1140,15 +1144,19 @@ namespace IceBlink2
 
                             if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffset + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffset + 1) * gv.squareSize)))
                             {
-                                IbRect dst = new IbRect((int)p.currentPixelPositionX, (int)p.currentPixelPositionY, gv.squareSize, gv.squareSize);
+                                int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstXshift = (dstW - gv.squareSize) / 2;
+                                int dstYshift = (dstH - gv.squareSize) / 2;
+                                IbRect dst = new IbRect((int)p.currentPixelPositionX - dstXshift, (int)p.currentPixelPositionY - dstYshift, dstW, dstH);
 
                                 if (gv.mod.currentArea.useSuperTinyProps)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 /8), (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8), (int)(gv.squareSize / 4), (int)(gv.squareSize / 4));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 /8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
                                 }
                                 else if (gv.mod.currentArea.useMiniProps)
                                 {
-                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4), (int)p.currentPixelPositionY + (int)(gv.squareSize / 4), (int)(gv.squareSize / 2), (int)(gv.squareSize / 2));
+                                    dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
                                 }
 
                                 gv.DrawBitmap(p.token, src, dst);
@@ -1158,7 +1166,7 @@ namespace IceBlink2
                                     if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                        src = new IbRect(0, 0, 50, 50);
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
@@ -1167,7 +1175,7 @@ namespace IceBlink2
                                     if (p.unavoidableConversation)
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                        src = new IbRect(0, 0, 50, 50);
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
@@ -1176,7 +1184,7 @@ namespace IceBlink2
                                     if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                     {
                                         Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                        src = new IbRect(0, 0, 50, 50);
+                                        src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                         gv.DrawBitmap(interactionStateIndicator, src, dst);
                                         gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                         continue;
@@ -1227,8 +1235,12 @@ namespace IceBlink2
                             //prop X - playerX
                             int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                             int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                            int dstXshift = (dstW - gv.squareSize) / 2;
+                            int dstYshift = (dstH - gv.squareSize) / 2;
                             IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
-                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
+                            IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                             gv.DrawBitmap(p.token, src, dst);
 
                             if (mod.showInteractionState)
@@ -1236,7 +1248,7 @@ namespace IceBlink2
                                 if (!p.EncounterWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
-                                    src = new IbRect(0, 0, 50, 50);
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
@@ -1245,7 +1257,7 @@ namespace IceBlink2
                                 if (p.unavoidableConversation)
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
-                                    src = new IbRect(0, 0, 50, 50);
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
@@ -1254,7 +1266,7 @@ namespace IceBlink2
                                 if (!p.ConversationWhenOnPartySquare.Equals("none"))
                                 {
                                     Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
-                                    src = new IbRect(0, 0, 50, 50);
+                                    src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                     gv.DrawBitmap(interactionStateIndicator, src, dst);
                                     gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                     continue;
@@ -1952,8 +1964,7 @@ namespace IceBlink2
             }
 
         }*/
-
-
+        
         public void drawMainMapClockText()
         {
             int timeofday = mod.WorldTime % (24 * 60);

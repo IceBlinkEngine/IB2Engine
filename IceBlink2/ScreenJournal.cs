@@ -112,7 +112,8 @@ namespace IceBlink2
     	    //IF BACKGROUND IS NULL, LOAD IMAGE
     	    if (journalBack == null)
     	    {
-    		    journalBack = gv.cc.LoadBitmap("journalback");
+                gv.cc.DisposeOfBitmap(ref journalBack);
+                journalBack = gv.cc.LoadBitmap("journalback");
     	    }
     	    //IF BUTTONS ARE NULL, LOAD BUTTONS
     	    if (btnReturnJournal == null)
