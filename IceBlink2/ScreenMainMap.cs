@@ -649,6 +649,7 @@ namespace IceBlink2
 
         public void drawFullScreenEffects()
         {
+            
             int minX = mod.PlayerLocationX - gv.playerOffset; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
             if (minX < 0) { minX = 0; }
             int minY = mod.PlayerLocationY - gv.playerOffset; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
@@ -670,6 +671,16 @@ namespace IceBlink2
                 //use animation frame number 1 to 10 specific later on, utilizing weather type defined by area weather settings
                 //add check for square spcific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
                 fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                gv.mod.fullScreenAnimationFrameCounter1 += 1;
+                if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
+                {
+                    gv.mod.fullScreenAnimationFrameCounter1 = 0;
+                }
+                //assuming a square shaped source here
+                float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
+                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
+                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier));
+                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncrease;
 
                 for (int x = minX; x < maxX; x++)
                 {
@@ -685,9 +696,9 @@ namespace IceBlink2
                         int brY = (int)(gv.squareSize * scalerY);
                         
                         float numberOfPictureParts = gv.playerOffset * 2 + 1;
-                        float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
+                        
 
-                        //code sction for handling right and bottom border of area
+                        //code section for handling right and bottom border of area
                         int modX = x;
                         int modY = y;
                         if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -726,8 +737,18 @@ namespace IceBlink2
                         }
 
                         //get the correct chunk on source
+                        //scroll vertically down
                         float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                        if (floatSourceChunkCoordY < 0)
+                        {
+                            floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
+                        }
+
+                            //to do: add more scroll directions and corresponding properties of area for each layer in the toolset
+
+
+
                         int srcCoordY = (int)floatSourceChunkCoordY;
                         int srcCoordX = (int)floatSourceChunkCoordX;
                         int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);

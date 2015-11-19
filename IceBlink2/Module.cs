@@ -128,6 +128,13 @@ namespace IceBlink2
         public bool justTransitioned = false;
         public int arrivalSquareX = 1000000;
         public int arrivalSquareY = 1000000;
+        public int fullScreenAnimationFrameCounter1 = 0;
+        public int fullScreenAnimationFrameCounter2 = 0;
+        public int fullScreenAnimationFrameCounter3 = 0;
+        //this one can be set from ingame by palyer eventually (options menu), higher is fast
+        //likely use for smooth moving props, too
+        //later on maybe also use for animated props, like camp fires flickering
+        public float allAnimationSpeedMultiplier = 1;
 
         public Module()
         {
