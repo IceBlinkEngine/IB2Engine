@@ -459,7 +459,7 @@
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "prp_verto.png",
+  "NpcPortraitBitmap": "ptr_verto.png",
   "DefaultNpcName": "",
   "NextIdNum": 100
 }

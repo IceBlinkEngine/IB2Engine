@@ -315,7 +315,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "\"Get them my friends\"...two large wolves appear out of the darkness and attack.",
+                          "conversationText": "'Get them my friends'...four large wolves appear out of the darkness and attack.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -457,7 +457,7 @@
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "prp_lily.png",
+  "NpcPortraitBitmap": "ptr_lily.png",
   "DefaultNpcName": "",
   "NextIdNum": 26
 }

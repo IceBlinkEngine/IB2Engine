@@ -1,6 +1,6 @@
 {
   "tokenFilename": "tkn_dalin",
-  "portraitFilename": "blank",
+  "portraitFilename": "ptr_dalin",
   "combatFacingLeft": true,
   "combatFacing": 4,
   "combatLocX": 0,

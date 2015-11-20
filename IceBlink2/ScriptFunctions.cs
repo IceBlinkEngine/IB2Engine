@@ -462,7 +462,7 @@ namespace IceBlink2
                         bool enable = Boolean.Parse(p3);
                         gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x].LoSBlocked = enable;
                     }
-                    else if (filename.Equals("gaToggleAreaSquareCollidable.cs"))
+                    else if (filename.Equals("gaToggleAreaSquareWalkable.cs"))
                     {
                         int x = Convert.ToInt32(p1);
                         int y = Convert.ToInt32(p2);
