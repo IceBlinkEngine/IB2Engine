@@ -26,7 +26,7 @@ namespace IceBlink2
         public bool Walkable = true;
         public bool LoSBlocked = false;
         public bool Visible = false;
-        public bool blockFullScreenEffectLayer1 = true;
+        public bool blockFullScreenEffectLayer1 = false;
         public bool blockFullScreenEffectLayer2 = false;
         public bool blockFullScreenEffectLayer3 = false;
 

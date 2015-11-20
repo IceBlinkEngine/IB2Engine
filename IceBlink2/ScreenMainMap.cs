@@ -740,13 +740,53 @@ namespace IceBlink2
                             }
 
                             //get the correct chunk on source
-                            //scroll vertically down
-                            float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                            float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                            if (floatSourceChunkCoordY < 0)
+                            float floatSourceChunkCoordX = 0;
+                            float floatSourceChunkCoordY = 0;
+
+                            //scroll down
+                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "down")
                             {
-                                floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
+                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                                if (floatSourceChunkCoordY < 0)
+                                {
+                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
+                                }
                             }
+
+                            //scroll up
+                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "up")
+                            {
+                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
+                                if (floatSourceChunkCoordY > sizeOfWholeSource)
+                                {
+                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
+                                }
+                            }
+
+                            //scroll right
+                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "right")
+                            {
+                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                                if (floatSourceChunkCoordX < 0)
+                                {
+                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
+                                }
+                            }
+
+                            //scroll left
+                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "left")
+                            {
+                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
+                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
+                                if (floatSourceChunkCoordX > sizeOfWholeSource)
+                                {
+                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
+                                }
+                            }
+
 
                             //to do: add more scroll directions and corresponding properties of area for each layer in the toolset
 
