@@ -64,8 +64,18 @@ namespace IceBlink2
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
         //TODO use the inGameAreaName on main map
-	
-	    public Area()
+        public bool useFullScreenEffectLayer1 = false;
+        public bool useFullScreenEffectLayer2 = false;
+        public bool useFullScreenEffectLayer3 = false;
+        public string fullScreenEffectLayerName1 = "full_screen_effect_layer1";
+        public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
+        public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
+        //these three are set by author in toolset for supposedly slow or fast effects, higher is faster
+        public float fullScreenAnimationSpeed1 = 1;
+        public float fullScreenAnimationSpeed2 = 1;
+        public float fullScreenAnimationSpeed3 = 1;
+
+        public Area()
 	    {	
 	    }
 	
