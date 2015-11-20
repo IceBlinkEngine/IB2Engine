@@ -771,14 +771,20 @@ namespace IceBlink2
 
                     if (btnPortrait.getImpact(x, y))
                     {
-                        //pass items to selector
-                        gv.screenType = "portraitSelector";
-                        gv.screenPortraitSelector.resetPortraitSelector("party", pc);
+                        if (!inCombat)
+                        {
+                            //pass items to selector
+                            gv.screenType = "portraitSelector";
+                            gv.screenPortraitSelector.resetPortraitSelector("party", pc);
+                        }
                     }
                     else if (btnToken.getImpact(x, y))
                     {
-                        gv.screenType = "tokenSelector";
-                        gv.screenTokenSelector.resetTokenSelector("party", pc);
+                        if (!inCombat)
+                        {
+                            gv.screenType = "tokenSelector";
+                            gv.screenTokenSelector.resetTokenSelector("party", pc);
+                        }
                     }
                     else if (btnSpells.getImpact(x, y))
                     {
@@ -1026,11 +1032,7 @@ namespace IceBlink2
                     {
                         if (!inCombat)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             gv.screenType = "partyRoster";
-                            //gv.TrackerSendScreenView("PartyRoster");
-                            //gv.TrackerSendEventPartyRoster("Open");
                         }
                     }
                     if (!inCombat)
@@ -1039,8 +1041,6 @@ namespace IceBlink2
                         {
                             if (btnPartyIndex[j].getImpact(x, y))
                             {
-                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                                 mod.selectedPartyLeader = j;
                                 gv.cc.addLogText("lime", mod.playerList[j].name + " is Party Leader");
                                 if (gv.cc.partyScreenPcIndex == j)
