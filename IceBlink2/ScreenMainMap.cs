@@ -668,7 +668,7 @@ namespace IceBlink2
                 //new SharpDX.Direct2D1.Bitmap
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
                 //use weather system per area specific later on
-                //use animation frame number 1 to 10 specific later on, utilizing weather type defined by area weather settings
+                //utilizing weather type defined by area weather settings
                 //add check for square spcific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
                 fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
                 gv.mod.fullScreenAnimationFrameCounter1 += 1;
@@ -687,79 +687,83 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                        int brX = (int)(gv.squareSize * scalerX);
-                        int brY = (int)(gv.squareSize * scalerY);
-                        
-                        float numberOfPictureParts = gv.playerOffset * 2 + 1;
-                        
 
-                        //code section for handling right and bottom border of area
-                        int modX = x;
-                        int modY = y;
-                        if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                        if (!tile.blockFullScreenEffectLayer1)
                         {
-                            modX += 1;
-                        }
-                        if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                        {
-                            modX += 2;
-                        }
-                        if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                        { 
-                            modX += 3;
-                        }
-                        if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                        {
-                            modX += 4;
-                        }
+                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
+                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                            int brX = (int)(gv.squareSize * scalerX);
+                            int brY = (int)(gv.squareSize * scalerY);
+
+                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
 
-                        if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                        {
-                            modY += 1;
-                        }
-                        if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                        {
-                            modY += 2;
-                        }
-                        if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                        {
-                            modY += 3;
-                        }
-                        if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                        {
-                            modY += 4;
-                        }
+                            //code section for handling right and bottom border of area
+                            int modX = x;
+                            int modY = y;
+                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                            {
+                                modX += 1;
+                            }
+                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                            {
+                                modX += 2;
+                            }
+                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                            {
+                                modX += 3;
+                            }
+                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                            {
+                                modX += 4;
+                            }
 
-                        //get the correct chunk on source
-                        //scroll vertically down
-                        float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                        float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                        if (floatSourceChunkCoordY < 0)
-                        {
-                            floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                        }
+
+                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                            {
+                                modY += 1;
+                            }
+                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                            {
+                                modY += 2;
+                            }
+                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                            {
+                                modY += 3;
+                            }
+                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                            {
+                                modY += 4;
+                            }
+
+                            //get the correct chunk on source
+                            //scroll vertically down
+                            float floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
+                            float floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                            if (floatSourceChunkCoordY < 0)
+                            {
+                                floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
+                            }
 
                             //to do: add more scroll directions and corresponding properties of area for each layer in the toolset
 
 
 
-                        int srcCoordY = (int)floatSourceChunkCoordY;
-                        int srcCoordX = (int)floatSourceChunkCoordX;
-                        int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
+                            int srcCoordY = (int)floatSourceChunkCoordY;
+                            int srcCoordX = (int)floatSourceChunkCoordX;
+                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
 
-                        try
-                        {
-                            IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(fullScreenEffect1, src, dst);
+                            try
+                            {
+                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                gv.DrawBitmap(fullScreenEffect1, src, dst);
+                            }
+                            catch { }
                         }
-                        catch { }
                     }
                 }
             }
