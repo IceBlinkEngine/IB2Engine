@@ -22,7 +22,8 @@ namespace IceBlink2
 	    private IbbButton btnExit = null;
 	    List<string> spellsToLearnTagsList = new List<string>();
 	    private Player pc;
-	    private string stringMessageSpellLevelUp = "";
+        public bool infoOnly = false; //set to true when called for info only
+        private string stringMessageSpellLevelUp = "";
         private IbbHtmlTextBox description;
 	
 	
@@ -35,10 +36,11 @@ namespace IceBlink2
 		    stringMessageSpellLevelUp = gv.cc.loadTextToString("data/MessageSpellLevelUp.txt");
 	    }
 	
-	    public void resetPC(Player p)
+	    public void resetPC(bool info_only, Player p)
 	    {
 		    pc = p;
-	    }
+            infoOnly = info_only;
+        }
 	
 	    public void setControlsStart()
 	    {			
@@ -121,49 +123,52 @@ namespace IceBlink2
     	    //int tabX2 = 5 * gv.squareSize + pW * 2;
     	    //int leftStartY = pH * 3;
     	    int tabStartY = 4 * gv.squareSize + pW * 10;
-    	
-    	    //canvas.drawColor(Color.DKGRAY);
-		
-		    //DRAW TEXT		
-		    locY = (gv.squareSize * 0) + (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    //canvas.drawText("Select One Spell to Learn", noticeX, pH * 3, gv.mSheetTextPaint);
-            gv.DrawText("Select One Spell to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-		    //canvas.drawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, gv.mSheetTextPaint);
-            gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
 
-		    //DRAW NOTIFICATIONS
-		    if (isSelectedSpellSlotInKnownSpellsRange())
-		    {
-			    Spell sp = GetCurrentlySelectedSpell();
-			    Player pc = getCastingPlayer();	
-			
-			    //check to see if already known
-			    if (pc.knownSpellsTags.Contains(sp.tag))
-			    {
-				    //say that you already know this one
-				    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-				    //canvas.drawText("Already Known", noticeX, noticeY, gv.mSheetTextPaint);
-                    gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
-			    }
-			    else //spell not known
-			    {
-				    //check if available to learn
-				    if (isAvailableToLearn(sp.tag))
-				    {
-					    //gv.mSheetTextPaint.setColor(Color.GREEN);
-					    //canvas.drawText("Available to Learn", noticeX, noticeY, gv.mSheetTextPaint);
-                        gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
-				    }
-				    else //not available yet
-				    {
-					    //gv.mSheetTextPaint.setColor(Color.RED);
-					    //canvas.drawText("Spell Not Available to Learn Yet", noticeX, noticeY, gv.mSheetTextPaint);
-                        gv.DrawText("Spell Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
-				    }			
-			    }
-		    }		
+            //canvas.drawColor(Color.DKGRAY);
+
+            if (!infoOnly)
+            {
+                //DRAW TEXT		
+                locY = (gv.squareSize * 0) + (pH * 2);
+                //gv.mSheetTextPaint.setColor(Color.LTGRAY);
+                //canvas.drawText("Select One Spell to Learn", noticeX, pH * 3, gv.mSheetTextPaint);
+                gv.DrawText("Select One Spell to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
+                //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                //canvas.drawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, gv.mSheetTextPaint);
+                gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
+
+                //DRAW NOTIFICATIONS
+                if (isSelectedSpellSlotInKnownSpellsRange())
+                {
+                    Spell sp = GetCurrentlySelectedSpell();
+                    Player pc = getCastingPlayer();
+
+                    //check to see if already known
+                    if (pc.knownSpellsTags.Contains(sp.tag))
+                    {
+                        //say that you already know this one
+                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                        //canvas.drawText("Already Known", noticeX, noticeY, gv.mSheetTextPaint);
+                        gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
+                    }
+                    else //spell not known
+                    {
+                        //check if available to learn
+                        if (isAvailableToLearn(sp.tag))
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.GREEN);
+                            //canvas.drawText("Available to Learn", noticeX, noticeY, gv.mSheetTextPaint);
+                            gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
+                        }
+                        else //not available yet
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.RED);
+                            //canvas.drawText("Spell Not Available to Learn Yet", noticeX, noticeY, gv.mSheetTextPaint);
+                            gv.DrawText("Spell Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
+                        }
+                    }
+                }
+            }	
 		
 		    //DRAW ALL SPELL SLOTS		
 		    int cntSlot = 0;
@@ -178,32 +183,52 @@ namespace IceBlink2
 			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
 			    {
 				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-				    Spell sp = mod.getSpellByTag(sa.tag);				
-				
-				    if (pc.knownSpellsTags.Contains(sp.tag)) //check to see if already known, if so turn off button
-				    {
-                        gv.cc.DisposeOfBitmap(ref btn.Img);
-                        btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-                        gv.cc.DisposeOfBitmap(ref btn.Img2);
-                        btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");				
-				    }
-				    else //spell not known yet
-				    {
-					    if (isAvailableToLearn(sp.tag)) //if available to learn, turn on button
-					    {
+				    Spell sp = mod.getSpellByTag(sa.tag);
+
+                    if (infoOnly)
+                    {
+                        if (pc.knownSpellsTags.Contains(sp.tag)) //check to see if already known, if so turn on button
+                        {
                             gv.cc.DisposeOfBitmap(ref btn.Img);
-                            btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
+                            btn.Img = gv.cc.LoadBitmap("btn_small");
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
                             btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-					    }
-					    else //not available to learn, turn off button
-					    {
+                        }
+                        else //spell not known yet
+                        {
+                            gv.cc.DisposeOfBitmap(ref btn.Img);
+                            btn.Img = gv.cc.LoadBitmap("btn_small_off");
+                            gv.cc.DisposeOfBitmap(ref btn.Img2);
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");                            
+                        }
+                    }
+                    else
+                    {
+                        if (pc.knownSpellsTags.Contains(sp.tag)) //check to see if already known, if so turn off button
+                        {
                             gv.cc.DisposeOfBitmap(ref btn.Img);
                             btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
                             gv.cc.DisposeOfBitmap(ref btn.Img2);
-                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");	
-					    }
-				    }				
+                            btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                        }
+                        else //spell not known yet
+                        {
+                            if (isAvailableToLearn(sp.tag)) //if available to learn, turn on button
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img);
+                                btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
+                                gv.cc.DisposeOfBitmap(ref btn.Img2);
+                                btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
+                            }
+                            else //not available to learn, turn off button
+                            {
+                                gv.cc.DisposeOfBitmap(ref btn.Img);
+                                btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
+                                gv.cc.DisposeOfBitmap(ref btn.Img2);
+                                btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
+                            }
+                        }
+                    }				
 			    }
 			    else //slot is not in spells allowed index range
 			    {
@@ -251,7 +276,7 @@ namespace IceBlink2
                 description.onDrawLogBox();
             }
 
-		    /*OLD WAY //DRAW DESCRIPTION BOX
+            /*OLD WAY //DRAW DESCRIPTION BOX
 		    locY = tabStartY;		
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
@@ -277,10 +302,19 @@ namespace IceBlink2
 	            sl.draw(canvas);
 	            canvas.translate(-tabX, -locY);
 		    }*/
-		
-		    btnHelp.Draw();	
-		    btnExit.Draw();	
-		    btnSelect.Draw();
+
+            if (infoOnly)
+            {
+                btnSelect.Text = "RETURN";
+                btnSelect.Draw();
+            }
+            else
+            {
+                btnSelect.Text = "LEARN SELECTED SPELL";
+                btnHelp.Draw();
+                btnExit.Draw();
+                btnSelect.Draw();
+            }
         }
         public void onTouchSpellLevelUp(MouseEventArgs e, MouseEventType.EventType eventType, bool inPcCreation)
 	    {
@@ -329,31 +363,44 @@ namespace IceBlink2
 			    }
 			    if (btnHelp.getImpact(x, y))
 			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    tutorialMessageCastingScreen();
+                    if (!infoOnly)
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        tutorialMessageCastingScreen();
+                    }
 			    }
 			    else if (btnSelect.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    doSelectedSpellToLearn(inPcCreation);
+                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                    if (infoOnly)
+                    {
+                        gv.screenType = "party";
+                    }
+                    else
+                    {
+                        doSelectedSpellToLearn(inPcCreation);
+                    }
 			    }
 			    else if (btnExit.getImpact(x, y))
 			    {
-                    gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				    if (inPcCreation)
-				    {
-					    gv.screenType = "pcCreation";
-				    }
-				    else
-				    {
-					    gv.screenType = "party";	
-				    }							
+                    if (!infoOnly)
+                    {
+                        gv.PlaySound("btn_click");
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (inPcCreation)
+                        {
+                            gv.screenType = "pcCreation";
+                        }
+                        else
+                        {
+                            gv.screenType = "party";
+                        }
+                    }						
 			    }
 			    break;		
 		    }

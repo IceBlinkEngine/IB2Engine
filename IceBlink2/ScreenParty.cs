@@ -771,38 +771,52 @@ namespace IceBlink2
 
                     if (btnPortrait.getImpact(x, y))
                     {
-                        //pass items to selector
-                        gv.screenType = "portraitSelector";
-                        gv.screenPortraitSelector.resetPortraitSelector("party", pc);
+                        if (!inCombat)
+                        {
+                            //pass items to selector
+                            gv.screenType = "portraitSelector";
+                            gv.screenPortraitSelector.resetPortraitSelector("party", pc);
+                        }
                     }
                     else if (btnToken.getImpact(x, y))
                     {
-                        gv.screenType = "tokenSelector";
-                        gv.screenTokenSelector.resetTokenSelector("party", pc);
+                        if (!inCombat)
+                        {
+                            gv.screenType = "tokenSelector";
+                            gv.screenTokenSelector.resetTokenSelector("party", pc);
+                        }
                     }
                     else if (btnSpells.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        string spellList = "";
+                        gv.screenSpellLevelUp.resetPC(true, pc);
+                        gv.screenType = "learnSpellLevelUp";
+                        gv.Render();
+                        
+                        /*string spellList = "";
                         foreach (string s in pc.knownSpellsTags)
                         {
                             Spell sp = mod.getSpellByTag(s);
                             spellList += sp.name + "<br>";
                         }
-                        gv.sf.MessageBoxHtml("<big><b>KNOWN SPELLS</b></big><br><br>" + spellList);
+                        gv.sf.MessageBoxHtml("<big><b>KNOWN SPELLS</b></big><br><br>" + spellList);*/
                     }
                     else if (btnTraits.getImpact(x, y))
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        string traitList = "";
+                        gv.screenTraitLevelUp.resetPC(true, pc);
+                        gv.screenType = "learnTraitLevelUp";
+                        gv.Render();
+
+                        /*string traitList = "";
                         foreach (string s in pc.knownTraitsTags)
                         {
                             Trait tr = mod.getTraitByTag(s);
                             traitList += tr.name + "<br>";
                         }
-                        gv.sf.MessageBoxHtml("<big><b>KNOWN TRAITS</b></big><br><br>" + traitList);
+                        gv.sf.MessageBoxHtml("<big><b>KNOWN TRAITS</b></big><br><br>" + traitList);*/
                     }
                     else if (btnEffects.getImpact(x, y))
                     {
@@ -1026,11 +1040,7 @@ namespace IceBlink2
                     {
                         if (!inCombat)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             gv.screenType = "partyRoster";
-                            //gv.TrackerSendScreenView("PartyRoster");
-                            //gv.TrackerSendEventPartyRoster("Open");
                         }
                     }
                     if (!inCombat)
@@ -1039,8 +1049,6 @@ namespace IceBlink2
                         {
                             if (btnPartyIndex[j].getImpact(x, y))
                             {
-                                //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                                //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                                 mod.selectedPartyLeader = j;
                                 gv.cc.addLogText("lime", mod.playerList[j].name + " is Party Leader");
                                 if (gv.cc.partyScreenPcIndex == j)
@@ -1631,14 +1639,14 @@ namespace IceBlink2
                     //if so then ask which one
                     if (traitTagsList.Count > 0)
                     {
-                        gv.screenTraitLevelUp.resetPC(pc);
+                        gv.screenTraitLevelUp.resetPC(false, pc);
                         gv.screenType = "learnTraitLevelUp";
                         gv.Render();
                         //gv.invalidate();
                     }
                     else if (spellTagsList.Count > 0)
                     {
-                        gv.screenSpellLevelUp.resetPC(pc);
+                        gv.screenSpellLevelUp.resetPC(false, pc);
                         gv.screenType = "learnSpellLevelUp";
                         gv.Render();
                         //gv.invalidate();
