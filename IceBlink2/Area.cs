@@ -74,9 +74,15 @@ namespace IceBlink2
         public float fullScreenAnimationSpeed1 = 1;
         public float fullScreenAnimationSpeed2 = 1;
         public float fullScreenAnimationSpeed3 = 1;
-        public string fullScreenAnimationMovePattern1 = "left";
+        public string fullScreenAnimationMovePattern1 = "down";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
+        public int fullScreenAnimationNumberOfFramesIndividual1 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual1 = 10;
+        public int fullScreenAnimationNumberOfFramesIndividual2 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual2 = 10;
+        public int fullScreenAnimationNumberOfFramesIndividual3 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual3 = 10;
 
 
         public Area()
