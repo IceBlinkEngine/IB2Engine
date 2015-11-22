@@ -71,9 +71,9 @@ namespace IceBlink2
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
         //these three are set by author in toolset for supposedly slow or fast effects, higher is faster
-        public float fullScreenAnimationSpeed1 = 1;
-        public float fullScreenAnimationSpeed2 = 1;
-        public float fullScreenAnimationSpeed3 = 1;
+        public float fullScreenAnimationSpeed1 = 1.0f;
+        public float fullScreenAnimationSpeed2 = 1.35f;
+        public float fullScreenAnimationSpeed3 = 1.7f;
         public string fullScreenAnimationMovePattern1 = "down";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
