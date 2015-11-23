@@ -131,6 +131,9 @@ namespace IceBlink2
         public int fullScreenAnimationFrameCounter1 = 0;
         public int fullScreenAnimationFrameCounter2 = 0;
         public int fullScreenAnimationFrameCounter3 = 0;
+        public int fullScreenAnimationFrameCounter4 = 0;
+        public int fullScreenAnimationFrameCounter5 = 0;
+        public int fullScreenAnimationFrameCounter6 = 0;
         //this one can be set from ingame by palyer eventually (options menu), higher is fast
         //likely use for smooth moving props, too
         //later on maybe also use for animated props, like camp fires flickering
