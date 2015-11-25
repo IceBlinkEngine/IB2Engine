@@ -2,7 +2,7 @@
   {
     "name": "Flame Fingers",
     "tag": "flameFingers",
-    "spellImage": "sp_fireball",
+    "spellImage": "sp_flamefingers",
     "description": "A cone of flames launch from the casters hands and automatically hit all targets in the area of effect for 1d3 points of damage per caster level.",
     "useableInSituation": "InCombat",
     "spriteFilename": "fx_fireball",

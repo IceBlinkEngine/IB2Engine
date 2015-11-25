@@ -5107,26 +5107,47 @@ namespace IceBlink2
             }
             #endregion
         }
-        public void CreateAoeTargetsList()
+        public void CreateAoeTargetsList(object src)
         {
             AoeTargetsList.Clear();
 
+            int startX2 = 0;
+            int startY2 = 0;
+            if (src is Player)
+            {
+                Player pcs = (Player)src;
+                startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            }
+            else //source is a Creature
+            {
+                Coordinate pnt = (Coordinate)gv.sf.CombatTarget;
+                startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+            }
+
             foreach (Coordinate coor in AoeSquaresList)
             {
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
+                int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
+                
+                if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
                 {
-                    //if in range of radius of x and radius of y
-                    if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
-                        AoeTargetsList.Add(crt);
+                        //if in range of radius of x and radius of y
+                        if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                        {
+                            AoeTargetsList.Add(crt);
+                        }
                     }
-                }
-                foreach (Player pc in mod.playerList)
-                {
-                    //if in range of radius of x and radius of y
-                    if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
+                    foreach (Player pc in mod.playerList)
                     {
-                        AoeTargetsList.Add(pc);
+                        //if in range of radius of x and radius of y
+                        if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
+                        {
+                            AoeTargetsList.Add(pc);
+                        }
                     }
                 }
             }
@@ -5139,7 +5160,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg);
             
             //set target list
-            CreateAoeTargetsList();
+            CreateAoeTargetsList(src);
             
             //get casting source information
             int classLevel = 0;

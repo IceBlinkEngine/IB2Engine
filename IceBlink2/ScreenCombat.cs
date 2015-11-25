@@ -27,7 +27,7 @@ namespace IceBlink2
         public float creatureMoves = 0;
         public Coordinate UpperLeftSquare = new Coordinate();
 	    public string currentCombatMode = "info"; //info, move, cast, attack
-	    private Coordinate targetHighlightCenterLocation = new Coordinate();
+	    public Coordinate targetHighlightCenterLocation = new Coordinate();
 	    public Coordinate creatureTargetLocation = new Coordinate();
 	    private int encounterXP = 0;
 	    private Creature creatureToAnimate = null;
@@ -3168,20 +3168,43 @@ namespace IceBlink2
                 int penWidth = 3;
 			    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
 		    }
-		    /*W.I.P. else if (currentCombatMode.Equals("cast"))
+		    else if (currentCombatMode.Equals("cast"))
 		    {
                 //set squares list
                 gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation);
                 foreach (Coordinate coor in gv.sf.AoeSquaresList)
                 {
+                    if (!IsInVisibleCombatWindow(coor.X,coor.Y))
+                    {
+                        continue;
+                    }
                     Color colr = Color.Lime;
                     int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
                     int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
-                    int startX2 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                    int startY2 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                    int startY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
 
-                    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))) { colr = Color.Lime; }
-                    else { colr = Color.Red; }
+                    if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2))))
+                    {
+                        colr = Color.Lime;
+                    }
+                    else
+                    {
+                        colr = Color.Red;
+                    }
+                    if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                    {
+                        int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                        int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                        if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
+                        {
+                            colr = Color.Lime;
+                        }
+                        else
+                        {
+                            colr = Color.Red;
+                        }
+                    }
 
                     int cornerRadius = gv.squareSize / 5;
                     int penWidth = 3;
@@ -3189,8 +3212,8 @@ namespace IceBlink2
                     int y = getPixelLocY(coor.Y);
                     gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
                 }                
-		    }*/
-            else if (currentCombatMode.Equals("cast")) //old way of doing it
+		    }
+            /*else if (currentCombatMode.Equals("cast")) //old way of doing it
             {
                 Color colr = Color.Lime;
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
@@ -3210,7 +3233,7 @@ namespace IceBlink2
                 int x = getPixelLocX(targetHighlightCenterLocation.X) - spellAoEinPixels;
                 int y = getPixelLocY(targetHighlightCenterLocation.Y) - spellAoEinPixels;
                 gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize + (2 * spellAoEinPixels), gv.squareSize + (2 * spellAoEinPixels)), cornerRadius, colr, penWidth);
-            }
+            }*/
         }	            
         public void drawFloatyText()
 	    {            
