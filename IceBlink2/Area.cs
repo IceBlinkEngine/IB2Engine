@@ -67,22 +67,50 @@ namespace IceBlink2
         public bool useFullScreenEffectLayer1 = false;
         public bool useFullScreenEffectLayer2 = false;
         public bool useFullScreenEffectLayer3 = false;
+        public bool useFullScreenEffectLayer4 = false;
+        public bool useFullScreenEffectLayer5 = false;
+        public bool useFullScreenEffectLayer6 = false;
+        //up to six anmation layers to be freely sred at bottom or top level of the draw stackpile
+        //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
+        // for 5 or 6 layers at the same time better use 100x100
         public string fullScreenEffectLayerName1 = "full_screen_effect_layer1";
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
-        //these three are set by author in toolset for supposedly slow or fast effects, higher is faster
+        public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
+        public string fullScreenEffectLayerName5 = "full_screen_effect_layer5";
+        public string fullScreenEffectLayerName6 = "full_screen_effect_layer6";
+        //these six are set by author in toolset for supposedly slow or fast effects, higher is faster
         public float fullScreenAnimationSpeed1 = 1.0f;
         public float fullScreenAnimationSpeed2 = 1.35f;
         public float fullScreenAnimationSpeed3 = 1.7f;
+        public float fullScreenAnimationSpeed4 = 1.0f;
+        public float fullScreenAnimationSpeed5 = 1.0f;
+        public float fullScreenAnimationSpeed6 = 1.0f;
         public string fullScreenAnimationMovePattern1 = "down";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
+        public string fullScreenAnimationMovePattern4 = "down";
+        public string fullScreenAnimationMovePattern5 = "down";
+        public string fullScreenAnimationMovePattern6 = "down";
         public int fullScreenAnimationNumberOfFramesIndividual1 = 10;
         public int fullScreenAnimationDelayBetweenFramesIndividual1 = 10;
         public int fullScreenAnimationNumberOfFramesIndividual2 = 10;
         public int fullScreenAnimationDelayBetweenFramesIndividual2 = 10;
         public int fullScreenAnimationNumberOfFramesIndividual3 = 10;
         public int fullScreenAnimationDelayBetweenFramesIndividual3 = 10;
+        public int fullScreenAnimationNumberOfFramesIndividual4 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual4 = 10;
+        public int fullScreenAnimationNumberOfFramesIndividual5 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual5 = 10;
+        public int fullScreenAnimationNumberOfFramesIndividual6 = 10;
+        public int fullScreenAnimationDelayBetweenFramesIndividual6 = 10;
+        public bool FullScreenEffectLayer1IsTop = false;
+        public bool FullScreenEffectLayer2IsTop = false;
+        public bool FullScreenEffectLayer3IsTop = true;
+        public bool FullScreenEffectLayer4IsTop = true;
+        public bool FullScreenEffectLayer5IsTop = true;
+        public bool FullScreenEffectLayer6IsTop = true;
+
 
 
         public Area()
