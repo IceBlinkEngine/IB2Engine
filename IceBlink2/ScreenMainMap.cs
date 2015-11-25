@@ -669,14 +669,35 @@ namespace IceBlink2
             if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
-                gv.mod.fullScreenAnimationFrameCounter1 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
+
+                if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
+                { 
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+                    fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                    gv.mod.fullScreenAnimationFrameCounter1 += 1;
+                    if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
+                    {
+                        gv.mod.fullScreenAnimationFrameCounter1 = 0;
+                    }
+                }
+
+                else
                 {
-                    gv.mod.fullScreenAnimationFrameCounter1 = 0;
+                    //to do: reset all full screen animation relevant counters on switching area
+                    gv.mod.currentArea.individualDelayCounter1 += 1;
+                    if (gv.mod.currentArea.individualDelayCounter1 > gv.mod.currentArea.individualDelayBetweenFrames1)
+                    {
+                        gv.mod.currentArea.individualDelayCounter1 = 0;
+                        //fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
+                        gv.mod.currentArea.individualFrameCounter1 += 1;
+                        if (gv.mod.currentArea.individualFrameCounter1 > gv.mod.currentArea.individualNumberOfFrames1)
+                        {
+                            gv.mod.currentArea.individualFrameCounter1 = 1;
+                        }
+                    }
+                    fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
                 }
                 //assuming a square shaped source here
                 float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
@@ -2487,9 +2508,6 @@ namespace IceBlink2
             }
             #endregion
 
-
-
-
         }
 
         public void drawBottomFullScreenEffects()
@@ -2514,11 +2532,30 @@ namespace IceBlink2
                 //use weather system per area specific later on
                 //utilizing weather type defined by area weather settings
                 //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
-                gv.mod.fullScreenAnimationFrameCounter1 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
+                if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
                 {
-                    gv.mod.fullScreenAnimationFrameCounter1 = 0;
+                    
+                    fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                    gv.mod.fullScreenAnimationFrameCounter1 += 1;
+                    if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
+                    {
+                        gv.mod.fullScreenAnimationFrameCounter1 = 0;
+                    }
+                }
+                else
+                {
+                    //to do: reset all full screen animation relevant counters on switching area
+                    gv.mod.currentArea.individualDelayCounter1 += 1;
+                    if (gv.mod.currentArea.individualDelayCounter1 > gv.mod.currentArea.individualDelayBetweenFrames1)
+                    {
+                        gv.mod.currentArea.individualDelayCounter1 = 0;
+                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
+                        gv.mod.currentArea.individualFrameCounter1 += 1;
+                        if (gv.mod.currentArea.individualFrameCounter1 > gv.mod.currentArea.individualNumberOfFrames1)
+                        {
+                            gv.mod.currentArea.individualFrameCounter1 = 1;
+                        }
+                    }
                 }
                 //assuming a square shaped source here
                 float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
@@ -2785,7 +2822,7 @@ namespace IceBlink2
                             //WIP
                             if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")
                             {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
+                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
                                 floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
                                 if (floatSourceChunkCoordX > sizeOfWholeSource)
                                 {
