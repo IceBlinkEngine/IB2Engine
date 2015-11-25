@@ -73,7 +73,7 @@ namespace IceBlink2
         //up to six anmation layers to be freely sred at bottom or top level of the draw stackpile
         //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
         // for 5 or 6 layers at the same time better use 100x100
-        public string fullScreenEffectLayerName1 = "full_screen_effect_layer1";
+        public string fullScreenEffectLayerName1 = "testAnim";
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
         public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
@@ -86,32 +86,43 @@ namespace IceBlink2
         public float fullScreenAnimationSpeed4 = 1.0f;
         public float fullScreenAnimationSpeed5 = 1.0f;
         public float fullScreenAnimationSpeed6 = 1.0f;
-        public string fullScreenAnimationMovePattern1 = "down";
+        public string fullScreenAnimationMovePattern1 = "individual";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
         public string fullScreenAnimationMovePattern4 = "down";
         public string fullScreenAnimationMovePattern5 = "down";
         public string fullScreenAnimationMovePattern6 = "down";
-        public int fullScreenAnimationNumberOfFramesIndividual1 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual1 = 10;
-        public int fullScreenAnimationNumberOfFramesIndividual2 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual2 = 10;
-        public int fullScreenAnimationNumberOfFramesIndividual3 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual3 = 10;
-        public int fullScreenAnimationNumberOfFramesIndividual4 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual4 = 10;
-        public int fullScreenAnimationNumberOfFramesIndividual5 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual5 = 10;
-        public int fullScreenAnimationNumberOfFramesIndividual6 = 10;
-        public int fullScreenAnimationDelayBetweenFramesIndividual6 = 10;
-        public bool FullScreenEffectLayer1IsTop = false;
+        
+        public int individualDelayBetweenFrames1 = 30;
+        public int individualDelayBetweenFrames2 = 10;
+        public int individualDelayBetweenFrames3 = 10;
+        public int individualDelayBetweenFrames4 = 10;
+        public int individualDelayBetweenFrames5 = 10;
+        public int individualDelayBetweenFrames6 = 10;
+        public int individualFrameCounter1 = 1;
+        public int individualNumberOfFrames1 = 4;
+        public int individualDelayCounter1 = 10000;
+        public int individualFrameCounter2 = 1;
+        public int individualNumberOfFrames2 = 1;
+        public int individualDelayCounter2 = 10000;
+        public int individualFrameCounter3 = 1;
+        public int individualNumberOfFrames3 = 1;
+        public int individualDelayCounter3 = 10000;
+        public int individualFrameCounter4 = 1;
+        public int individualNumberOfFrames4 = 1;
+        public int individualDelayCounter4= 10000;
+        public int individualFrameCounter5 = 1;
+        public int individualNumberOfFrames5 = 1;
+        public int individualDelayCounter5 = 10000;
+        public int individualFrameCounter6 = 1;
+        public int individualNumberOfFrames6 = 1;
+        public int individualDelayCounter6 = 10000;
+        public bool FullScreenEffectLayer1IsTop = true;
         public bool FullScreenEffectLayer2IsTop = false;
         public bool FullScreenEffectLayer3IsTop = true;
         public bool FullScreenEffectLayer4IsTop = true;
         public bool FullScreenEffectLayer5IsTop = true;
         public bool FullScreenEffectLayer6IsTop = true;
-
-
 
         public Area()
 	    {	
