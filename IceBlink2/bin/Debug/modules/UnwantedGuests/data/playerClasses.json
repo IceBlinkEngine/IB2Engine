@@ -1263,11 +1263,18 @@
     ],
     "spellsAllowed": [
       {
-        "name": "Mage Bolt",
-        "tag": "mageBolt",
+        "name": "Flame Fingers",
+        "tag": "flameFingers",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
         "allow": true
+      },
+      {
+						  "name": "Mage Bolt",
+						  "tag": "mageBolt",
+						  "atWhatLevelIsAvailable": 1,
+						  "automaticallyLearned": false,
+						  "allow": true
       },
       {
         "name": "Mage Armor",

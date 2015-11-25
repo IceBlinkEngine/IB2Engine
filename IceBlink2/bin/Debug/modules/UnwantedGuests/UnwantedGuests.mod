@@ -126,7 +126,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 9040,
+  "nextIdNumber": 9044,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "WorldTime": 0,
   "startingArea": "wm_debug",
