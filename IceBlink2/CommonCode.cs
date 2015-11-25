@@ -3690,8 +3690,13 @@ namespace IceBlink2
         }
         public void doSpellBasedOnTag(string spellTag, object source, object target)
         {
+            gv.sf.AoeTargetsList.Clear();
             //WIZARD SPELLS
-            if (spellTag.Equals("mageBolt"))
+            if (spellTag.Equals("flameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target);
+            }
+            else if (spellTag.Equals("mageBolt"))
             {
                 gv.sf.spMageBolt(source, target);
             }

@@ -16,7 +16,9 @@ namespace IceBlink2
         public object CombatTarget = null;
         public GameView gv;
         public int spCnt = 0;
-        Random rand;
+        public Random rand;
+        public List<object> AoeTargetsList = new List<object>();
+        public List<Coordinate> AoeSquaresList = new List<Coordinate>();
 
         public ScriptFunctions(Module m, GameView g)
         {
@@ -4959,7 +4961,311 @@ namespace IceBlink2
             }
         }
 
+        public float GetDistanceF(int sX, int sY, int eX, int eY)
+        {
+            double y = Math.Abs(eY - sY);
+            double x = Math.Abs(eX - sX);
+            double dist = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+            return (float)dist;
+        }
+        public void CreateAoeSquaresList(object src, object trg)
+        {
+            AoeSquaresList.Clear();
+
+            //target type assumed to be PointLocation 
+            Coordinate target = (Coordinate)trg;
+
+            //define AoE Radius
+            int aoeRad = 0;
+            int srcX = 0;
+            int srcY = 0;
+            if (src is Player)
+            {
+                Player pcs = (Player)src;
+                aoeRad = gv.cc.currentSelectedSpell.aoeRadius;
+                srcX = pcs.combatLocX;
+                srcY = pcs.combatLocY;
+            }
+            else if (src is Creature)
+            {
+                Creature crts = (Creature)src;
+                aoeRad = SpellToCast.aoeRadius;
+                srcX = crts.combatLocX;
+                srcY = crts.combatLocY;
+            }
+
+            //shape and radius
+            #region Circle
+            if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Circle)
+            {
+                for (int x = target.X - aoeRad; x <= target.X + aoeRad; x++)
+                {
+                    for (int y = target.Y - aoeRad; y <= target.Y + aoeRad; y++)
+                    {
+                        //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                        AoeSquaresList.Add(new Coordinate(x, y));
+                    }
+                }                
+            }
+            #endregion
+            #region Cone
+            else if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Cone)
+            {
+                int signX = target.X - srcX;
+                int signY = target.Y - srcY;
+                int incY = 0;
+                if (signY < 0) { incY = -1; }
+                else { incY = 1; }
+                int incX = 0;
+                if (signX < 0) { incX = -1; }
+                else { incX = 1; }
+
+                //non-diagnols
+                if ((signX == 0) || (signY == 0))
+                {
+                    if (signY == 0) //right or left
+                    {
+                        for (int x = 0; Math.Abs(x) <= gv.cc.currentSelectedSpell.aoeRadius; x += incX)
+                        {
+                            for (int y = -Math.Abs(x); y <= Math.Abs(x); y++)
+                            {
+                                float r = GetDistanceF(0, 0, x, y);
+                                if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                                {
+                                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
+                            }
+                        }
+                    }
+                    else //up or down
+                    {
+                        for (int y = 0; Math.Abs(y) <= gv.cc.currentSelectedSpell.aoeRadius; y += incY)
+                        {
+                            for (int x = -Math.Abs(y); x <= Math.Abs(y); x++)
+                            {
+                                float r = GetDistanceF(0, 0, x, y);
+                                if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                                {
+                                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                    AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                                }
+                            }
+                        }
+                    }
+                }
+                //diagnols
+                else
+                {
+                    for (int x = 0; Math.Abs(x) <= gv.cc.currentSelectedSpell.aoeRadius; x += incX)
+                    {
+                        for (int y = 0; Math.Abs(y) <= gv.cc.currentSelectedSpell.aoeRadius; y += incY)
+                        {
+                            float r = GetDistanceF(0, 0, x, y);
+                            if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                            {
+                                //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                                AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region Line
+            else if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Line)
+            {
+                int rise = target.Y - srcY;
+                int incY = 0;
+                if (rise < 0) { incY = -1; }
+                else { incY = 1; }
+                int run = target.X - srcX;
+                int incX = 0;
+                if (run < 0) { incX = -1; }
+                else { incX = 1; }
+                int currentX = target.X;
+                int currentY = target.Y;
+                int riseCnt = 0;
+                for (int i = 0; i < gv.cc.currentSelectedSpell.aoeRadius; i++)
+                {
+                    //TODO check for LoS from (target.X, target.Y) center location to (x,y)
+                    AoeSquaresList.Add(new Coordinate(currentX, currentY));
+
+                    //do the increments for the next location
+                    if (Math.Abs(riseCnt) < Math.Abs(rise)) //do rise increment only
+                    {
+                        currentY += incY;
+                        riseCnt += incY;
+                    }
+                    else //do rise and run then reset riseCnt = 0
+                    {
+                        currentY += incY;
+                        currentX += incX;
+                        riseCnt = 0;
+                    }
+                }
+            }
+            #endregion
+        }
+        public void CreateAoeTargetsList()
+        {
+            AoeTargetsList.Clear();
+
+            foreach (Coordinate coor in AoeSquaresList)
+            {
+                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                {
+                    //if in range of radius of x and radius of y
+                    if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                    {
+                        AoeTargetsList.Add(crt);
+                    }
+                }
+                foreach (Player pc in mod.playerList)
+                {
+                    //if in range of radius of x and radius of y
+                    if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
+                    {
+                        AoeTargetsList.Add(pc);
+                    }
+                }
+            }
+        }
+
         //SPELLS WIZARD
+        public void spFlameFingers(object src, object trg)
+        {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+            
+            //set target list
+            CreateAoeTargetsList();
+            
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
+            if (src is Player) //player casting
+            {
+                Player source = (Player)src;
+                classLevel = source.classLevel;
+                sourceName = source.name;
+                source.sp -= gv.cc.currentSelectedSpell.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+            else //creature casting
+            {
+                Creature source = (Creature)src;
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
+                source.sp -= SpellToCast.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+            
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
+            {
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    float damage = classLevel * RandInt(3);
+                    int fireDam = (int)(damage * resist);
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        fireDam = fireDam / 2;
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    crt.hp -= fireDam;
+                    if (crt.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.cc.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
+                    //gv.postDelayed(gv.doFloatyText, 100);
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+                    float damage = classLevel * RandInt(3);
+                    int fireDam = (int)(damage * resist);
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            fireDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Flame Fingers spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            fireDam = fireDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= fireDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.cc.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
+                    //gv.postDelayed(gv.doFloatyText, 100);
+                }
+            }
+            
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            {
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+        }
         public void spMageBolt(object src, object trg)
         {
             if (src is Player) //player casting
@@ -5315,6 +5621,10 @@ namespace IceBlink2
         }
         public void spIceStorm(object src, object trg)
         {
+            //populate TargetsList
+            //iterate over TargetsList and do damage and floaty text
+            //remove dead creatures
+            //decrement SP
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
