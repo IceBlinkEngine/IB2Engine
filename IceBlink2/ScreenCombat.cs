@@ -2996,20 +2996,23 @@ namespace IceBlink2
 			    gv.DrawBitmap(projectile, src, dst, false, !projectileFacingUp);		
 		    }
 	    }
-	    public void DrawEndingAnimation()
-	    {
-		    if ((drawEndingAnimation) && (ending_fx != null))
-		    {
-                int height = ending_fx.PixelSize.Height;
-                IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
-                IbRect dst = new IbRect(endingAnimationLocation.X, endingAnimationLocation.Y, gv.squareSize, gv.squareSize);
-			    if (height > 50)
-			    {
-                    dst = new IbRect(endingAnimationLocation.X - gv.squareSize, endingAnimationLocation.Y - gv.squareSize, gv.squareSize * 3, gv.squareSize * 3);
-			    }
-			    gv.DrawBitmap(ending_fx, src, dst);							
-		    }
-	    }
+        public void DrawEndingAnimation()
+        {
+            if ((drawEndingAnimation) && (ending_fx != null))
+            {
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        continue;
+                    }
+                    int height = ending_fx.PixelSize.Height;
+                    IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
+                    IbRect dst = new IbRect(getPixelLocX(coor.X), getPixelLocY(coor.Y), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(ending_fx, src, dst);
+                }
+            }
+        }
 	    public void drawLosTrail()
 	    {
 		    Player p = mod.playerList[currentPlayerIndex];

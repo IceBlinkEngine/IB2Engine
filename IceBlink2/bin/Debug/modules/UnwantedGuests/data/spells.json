@@ -144,6 +144,24 @@
     "spellScript": "spFireball"
   },
   {
+		    "name": "Lightning",
+		    "tag": "lightning",
+		    "spellImage": "sp_icestorm",
+		    "description": "A lightning bolt launches from the casters hands and automatically hits all targets in the area of effect for 1d6 points of damage per caster level.",
+		    "useableInSituation": "InCombat",
+		    "spriteFilename": "fx_iceball",
+		    "spriteEndingFilename": "fx_iceball3x3end",
+		    "spellStartSound": "fireballstart",
+		    "spellEndSound": "fireballend",
+		    "costSP": 20,
+		    "spellTargetType": "PointLocation",
+		    "spellEffectType": "Damage",
+		    "aoeShape": "Line",
+		    "aoeRadius": 5,
+		    "range": 3,
+		    "spellScript": "spLightning"
+  },
+  {
     "name": "Minor Healing",
     "tag": "minorHealing",
     "spellImage": "sp_minorheal",
