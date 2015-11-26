@@ -72,6 +72,7 @@ namespace IceBlink2
         public Bitmap turn_marker;
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
+        public Bitmap death_fx;
         public Bitmap tint_dawn;
         public Bitmap tint_sunrise;
         public Bitmap tint_sunset;

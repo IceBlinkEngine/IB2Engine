@@ -27,6 +27,7 @@ namespace IceBlink2
         CreatureCastProjectileAnimation,
         CreatureCastEndingAnimation,
         CreatureThink,
-        CreatureMove
+        CreatureMove,
+        DeathAnimation
     }
 }

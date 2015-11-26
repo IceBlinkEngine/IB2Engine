@@ -36,19 +36,21 @@ namespace IceBlink2
 	    private bool drawMissAnimation = false;
 	    private Coordinate hitAnimationLocation = new Coordinate();
 	    public int spellSelectorIndex = 0;
-	    public List<String> spellSelectorSpellTagList = new List<String>();
+	    public List<string> spellSelectorSpellTagList = new List<string>();
 	    private bool drawProjectileAnimation = false;
 	    private Coordinate projectileAnimationLocation = new Coordinate();
 	    private bool drawEndingAnimation = false;
 	    private Coordinate endingAnimationLocation = new Coordinate();
+        public bool drawDeathAnimation = true;
+        public List<Coordinate> deathAnimationLocations = new List<Coordinate>();
 	    private int animationFrameIndex = 0;
 	    public PathFinderEncounters pf;
 	    public bool floatyTextOn = false;
 	    public AnimationState animationState = AnimationState.None;
 	    private Bitmap projectile;
         private bool projectileFacingUp = true;
-	    private Bitmap ending_fx;	    
-	    private Bitmap mapBitmap;
+	    private Bitmap ending_fx;
+        private Bitmap mapBitmap;
 
         private IbbButton btnSelect = null;
 	    private IbbButton btnMove = null;
@@ -372,12 +374,24 @@ namespace IceBlink2
         	    hitAnimationLocation = new Coordinate();
                 //gv.Invalidate();
                 gv.Render();
-	    	    //check for end of encounter
-                checkEndEncounter();
-			    //end PC's turn
-                gv.touchEnabled = true;
-                animationState = AnimationState.None;
-                endPcTurn(true);
+                if (deathAnimationLocations.Count > 0)
+                {
+                    drawDeathAnimation = true;
+                    animationFrameIndex = 0;
+                    animationState = AnimationState.DeathAnimation;
+                    gv.postDelayed("doAnimation", (mod.combatAnimationSpeed));
+                    //play death ending sound
+                    //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+                }
+                else
+                {
+                    //check for end of encounter
+                    checkEndEncounter();
+                    //end PC's turn
+                    gv.touchEnabled = true;
+                    animationState = AnimationState.None;
+                    endPcTurn(true);
+                }
             }
             #endregion
             #region CreatureMissedAnimation
@@ -412,8 +426,20 @@ namespace IceBlink2
         	    hitAnimationLocation = new Coordinate();
                 //gv.Invalidate();
                 gv.Render();
-	    	    animationState = AnimationState.None;
-	    	    endCreatureTurn();
+                if (deathAnimationLocations.Count > 0)
+                {
+                    drawDeathAnimation = true;
+                    animationFrameIndex = 0;
+                    animationState = AnimationState.DeathAnimation;
+                    gv.postDelayed("doAnimation", (mod.combatAnimationSpeed));
+                    //play death ending sound
+                    //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+                }
+                else
+                {
+                    animationState = AnimationState.None;
+                    endCreatureTurn();
+                }
             }
             #endregion
             #region PcMissedAnimation
@@ -828,7 +854,40 @@ namespace IceBlink2
                 //endCreatureTurn();
             }
             #endregion
-        }	
+            #region DeathAnimation
+            else if (animationState == AnimationState.DeathAnimation)
+            {
+                if (animationFrameIndex < 3) //keep animating
+                {
+                    animationFrameIndex++;
+                    gv.Render();
+                    animationState = AnimationState.DeathAnimation;
+                    gv.postDelayed("doAnimation", (int)(1 * mod.combatAnimationSpeed));
+                }
+                else //done with death animations
+                {
+                    drawDeathAnimation = false;
+                    deathAnimationLocations.Clear();
+                    animationFrameIndex = 0;
+                    gv.Render();
+                    if (isPlayerTurn)
+                    {
+                        //check for end of encounter
+                        checkEndEncounter();
+                        //end PC's turn
+                        gv.touchEnabled = true;
+                        animationState = AnimationState.None;
+                        endPcTurn(true);
+                    }
+                    else
+                    {
+                        animationState = AnimationState.None;
+                        endCreatureTurn();
+                    }
+                }
+            }
+            #endregion
+        }
         public void doFloatyTextLoop()
 	    {
 		    gv.postDelayed("doFloatyText", 200);
@@ -1475,6 +1534,7 @@ namespace IceBlink2
 
                 if (crt.hp <= 0)
                 {
+                    deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                     gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
                     try
                     {
@@ -2494,12 +2554,13 @@ namespace IceBlink2
             DrawMissAnimation();
             DrawProjectileAnimation();
             DrawEndingAnimation();
+            DrawDeathAnimation();
             if (mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
             }
             drawTargetHighlight();
-            if ((!drawProjectileAnimation) && (!drawEndingAnimation) && (!drawHitAnimation) && (!drawMissAnimation))
+            if ((!drawProjectileAnimation) && (!drawEndingAnimation) && (!drawHitAnimation) && (!drawMissAnimation) && (!drawDeathAnimation))
             {
         	    drawLosTrail();
             }
@@ -3013,7 +3074,24 @@ namespace IceBlink2
                 }
             }
         }
-	    public void drawLosTrail()
+        public void DrawDeathAnimation()
+        {
+            if ((drawDeathAnimation) && (gv.cc.death_fx != null))
+            {
+                foreach (Coordinate coor in deathAnimationLocations)
+                {
+                    if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        continue;
+                    }
+                    int height = gv.cc.death_fx.PixelSize.Height;
+                    IbRect src = new IbRect(animationFrameIndex * height, 0, height, height);
+                    IbRect dst = new IbRect(getPixelLocX(coor.X), getPixelLocY(coor.Y), gv.squareSize, gv.squareSize);
+                    gv.DrawBitmap(gv.cc.death_fx, src, dst);
+                }
+            }
+        }
+        public void drawLosTrail()
 	    {
 		    Player p = mod.playerList[currentPlayerIndex];
 		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
@@ -6003,7 +6081,7 @@ namespace IceBlink2
                     selectedPoint = new Coordinate(crt.combatLocX + x, crt.combatLocY + y);
                 
                     //check if selected point is a valid location on combat map
-                    if ((selectedPoint.X < 0) || (selectedPoint.X > 6) || (selectedPoint.Y < 0) || (selectedPoint.Y > 6))
+                    if ((selectedPoint.X < 0) || (selectedPoint.X > mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > mod.currentEncounter.MapSizeY - 1))
                     {
                 	    continue;
                     }
