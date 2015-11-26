@@ -9,11 +9,11 @@
     "spriteEndingFilename": "fx_fireball3x3end",
     "spellStartSound": "fireballstart",
     "spellEndSound": "fireballend",
-    "costSP": 5,
+    "costSP": 7,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
     "aoeShape": "Cone",
-    "aoeRadius": 3,
+    "aoeRadius": 2,
     "range": 1,
     "spellScript": "spFlameFingers"
   },
