@@ -3733,6 +3733,10 @@ namespace IceBlink2
             {
                 gv.sf.spFireball(source, target);
             }
+            else if (spellTag.Equals("lightning"))
+            {
+                gv.sf.spLightning(source, target);
+            }
             else if (spellTag.Equals("breatheFire"))
             {
                 gv.sf.spBlastOfLight(source, target);

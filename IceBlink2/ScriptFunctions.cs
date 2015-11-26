@@ -5079,54 +5079,109 @@ namespace IceBlink2
                 int incY = 0;
                 if (rise < 0) { incY = -1; }
                 else { incY = 1; }
+                if (rise == 0) { incY = 0; }
                 int run = target.X - srcX;
                 int incX = 0;
                 if (run < 0) { incX = -1; }
                 else { incX = 1; }
+                if (run == 0) { incX = 0; }
+                int slope = 1;
+                if (Math.Abs(rise) > Math.Abs(run))
+                {
+                    if (run != 0)
+                    {
+                        slope = rise / run;
+                    }
+                }
+                else
+                {
+                    if (rise != 0)
+                    {
+                        slope = run / rise;
+                    }
+                }
                 int currentX = target.X;
                 int currentY = target.Y;
-                int riseCnt = 0;
+                int riseCnt = 1;
                 for (int i = 0; i < gv.cc.currentSelectedSpell.aoeRadius; i++)
                 {
                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                     AoeSquaresList.Add(new Coordinate(currentX, currentY));
 
                     //do the increments for the next location
-                    if (Math.Abs(riseCnt) < Math.Abs(rise)) //do rise increment only
+                    if (Math.Abs(rise) > Math.Abs(run))
                     {
-                        currentY += incY;
-                        riseCnt += incY;
+                        if (riseCnt < Math.Abs(slope)) //do rise increment only
+                        {
+                            currentY += incY;
+                            riseCnt++;
+                        }
+                        else //do rise and run then reset riseCnt = 0
+                        {
+                            currentY += incY;
+                            currentX += incX;
+                            riseCnt = 1;
+                        }
                     }
-                    else //do rise and run then reset riseCnt = 0
+                    else
                     {
-                        currentY += incY;
-                        currentX += incX;
-                        riseCnt = 0;
+                        if (riseCnt < Math.Abs(slope)) //do rise increment only
+                        {
+                            currentX += incX;
+                            riseCnt++;
+                        }
+                        else //do rise and run then reset riseCnt = 0
+                        {
+                            currentY += incY;
+                            currentX += incX;
+                            riseCnt = 1;
+                        }
                     }
                 }
             }
             #endregion
         }
-        public void CreateAoeTargetsList()
+        public void CreateAoeTargetsList(object src)
         {
             AoeTargetsList.Clear();
 
+            int startX2 = 0;
+            int startY2 = 0;
+            if (src is Player)
+            {
+                Player pcs = (Player)src;
+                startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            }
+            else //source is a Creature
+            {
+                Coordinate pnt = (Coordinate)gv.sf.CombatTarget;
+                startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+            }
+
             foreach (Coordinate coor in AoeSquaresList)
             {
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
+                int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
+                
+                if (gv.screenCombat.isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
                 {
-                    //if in range of radius of x and radius of y
-                    if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                     {
-                        AoeTargetsList.Add(crt);
+                        //if in range of radius of x and radius of y
+                        if ((crt.combatLocX == coor.X) && (crt.combatLocY == coor.Y))
+                        {
+                            AoeTargetsList.Add(crt);
+                        }
                     }
-                }
-                foreach (Player pc in mod.playerList)
-                {
-                    //if in range of radius of x and radius of y
-                    if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
+                    foreach (Player pc in mod.playerList)
                     {
-                        AoeTargetsList.Add(pc);
+                        //if in range of radius of x and radius of y
+                        if ((pc.combatLocX == coor.X) && (pc.combatLocY == coor.Y))
+                        {
+                            AoeTargetsList.Add(pc);
+                        }
                     }
                 }
             }
@@ -5139,7 +5194,7 @@ namespace IceBlink2
             CreateAoeSquaresList(src, trg);
             
             //set target list
-            CreateAoeTargetsList();
+            CreateAoeTargetsList(src);
             
             //get casting source information
             int classLevel = 0;
@@ -5194,9 +5249,8 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.cc.floatyTextOn = true;
-                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
-                    //gv.postDelayed(gv.doFloatyText, 100);
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");                    
                 }
                 else //target is Player
                 {
@@ -5241,9 +5295,8 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.cc.floatyTextOn = true;
+                    gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
-                    //gv.postDelayed(gv.doFloatyText, 100);
                 }
             }
             
@@ -5265,6 +5318,7 @@ namespace IceBlink2
                     }
                 }
             }
+            gv.postDelayed("doFloatyText", 100);
         }
         public void spMageBolt(object src, object trg)
         {
@@ -5323,9 +5377,9 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.cc.floatyTextOn = true;
+                gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
+                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -5359,9 +5413,9 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.cc.floatyTextOn = true;
+                gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
+                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -5377,85 +5431,73 @@ namespace IceBlink2
         }
         public void spSleep(object src, object trg)
         {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((crt.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((crt.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + crt.will;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the sleep spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.will + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            else //failed check
-                            {
-                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a sleep spell" + "</font><BR>");
-                                crt.cr_status = "Held";
-                                Effect ef = mod.getEffectByTag("sleep");
-                                crt.AddEffectByObject(ef, mod.WorldTime);
-                            }
-                        }
-                    }
-                }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Creature) //creature casting
+            else //creature casting
             {
                 Creature source = (Creature)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - SpellToCast.aoeRadius) && (pc.combatLocX <= target.X + SpellToCast.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - SpellToCast.aoeRadius) && (pc.combatLocY <= target.Y + SpellToCast.aoeRadius))
-                        {
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.will;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the sleep spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.will + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            else //failed check
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a sleep spell" + "</font><BR>");
-                                pc.charStatus = "Held";
-                                Effect ef = mod.getEffectByTag("sleep");
-                                pc.AddEffectByObject(ef, mod.WorldTime);
-                            }
-                        }
-                    }
-                }
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Coordinate)
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
             {
-                //Toast.makeText(gv.gameContext, "source is not a PC or Creature", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.will;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the sleep spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.will + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    else //failed check
+                    {
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a sleep spell" + "</font><BR>");
+                        crt.cr_status = "Held";
+                        Effect ef = mod.getEffectByTag("sleep");
+                        crt.AddEffectByObject(ef, mod.WorldTime);
+                    }
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.will;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the sleep spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.will + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    else //failed check
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a sleep spell" + "</font><BR>");
+                        pc.charStatus = "Held";
+                        Effect ef = mod.getEffectByTag("sleep");
+                        pc.AddEffectByObject(ef, mod.WorldTime);
+                    }
+                }
             }
         }
         public void spMageArmor(object src, object trg)
@@ -5538,541 +5580,476 @@ namespace IceBlink2
         }
         public void spWeb(object src, object trg)
         {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((crt.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((crt.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + crt.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the web spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            else //failed check
-                            {
-                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a web spell" + "</font><BR>");
-                                crt.cr_status = "Held";
-                                Effect ef = mod.getEffectByTag("web");
-                                crt.AddEffectByObject(ef, mod.WorldTime);
-                            }
-                        }
-                    }
-                }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Creature) //creature casting
+            else //creature casting
             {
                 Creature source = (Creature)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - SpellToCast.aoeRadius) && (pc.combatLocX <= target.X + SpellToCast.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - SpellToCast.aoeRadius) && (pc.combatLocY <= target.Y + SpellToCast.aoeRadius))
-                        {
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the web spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            else //failed check
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a web spell" + "</font><BR>");
-                                pc.charStatus = "Held";
-                                Effect ef = mod.getEffectByTag("web");
-                                pc.AddEffectByObject(ef, mod.WorldTime);
-                            }
-                        }
-                    }
-                }
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Coordinate)
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
             {
-                //Toast.makeText(gv.gameContext, "source is not a PC or Creature", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the web spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    else //failed check
+                    {
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a web spell" + "</font><BR>");
+                        crt.cr_status = "Held";
+                        Effect ef = mod.getEffectByTag("web");
+                        crt.AddEffectByObject(ef, mod.WorldTime);
+                    }
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the web spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    else //failed check
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a web spell" + "</font><BR>");
+                        pc.charStatus = "Held";
+                        Effect ef = mod.getEffectByTag("web");
+                        pc.AddEffectByObject(ef, mod.WorldTime);
+                    }
+                }
             }
         }
         public void spIceStorm(object src, object trg)
         {
-            //populate TargetsList
-            //iterate over TargetsList and do damage and floaty text
-            //remove dead creatures
-            //decrement SP
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((crt.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((crt.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
-                            float damage = source.classLevel * RandInt(3);
-                            int iceDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + crt.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                iceDam = iceDam / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Ice Storm spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " iceDam = " + iceDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + crt.cr_name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + iceDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            crt.hp -= iceDam;
-                            if (crt.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), iceDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-                {
-                    if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                    {
-                        try
-                        {
-                            //do OnDeath LOGIC TREE
-                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
-                            //do OnDeath IBScript
-                            gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                            mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                            mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }
-                    }
-                }
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f));
-                            float damage = source.classLevel * RandInt(3);
-                            int iceDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    iceDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Ice Storm spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    iceDam = iceDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Ice Storm spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " iceDam = " + iceDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + iceDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= iceDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), iceDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.classLevel;
+                sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Creature) //creature casting
+            else //creature casting
             {
                 Creature source = (Creature)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - SpellToCast.aoeRadius) && (pc.combatLocX <= target.X + SpellToCast.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - SpellToCast.aoeRadius) && (pc.combatLocY <= target.Y + SpellToCast.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f));
-                            float damage = source.cr_level * RandInt(3);
-                            int iceDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    iceDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Ice Storm spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    iceDam = iceDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Ice Storm spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " iceDam = " + iceDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.cr_name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + iceDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= iceDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), iceDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Coordinate)
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
             {
-                //Toast.makeText(gv.gameContext, "source is not a PC or Creature", Toast.LENGTH_SHORT).show();
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f));
+                    float damage = classLevel * RandInt(3);
+                    int iceDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        iceDam = iceDam / 2;
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Ice Storm spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " iceDam = " + iceDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='lime'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    crt.hp -= iceDam;
+                    if (crt.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), iceDam + "");
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f));
+                    float damage = classLevel * RandInt(3);
+                    int iceDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            iceDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Ice Storm spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            iceDam = iceDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Ice Storm spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " iceDam = " + iceDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='lime'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= iceDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), iceDam + "");                    
+                }
             }
-            else
+
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
-                //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
             }
+            gv.postDelayed("doFloatyText", 100);
         }
         public void spFireball(object src, object trg)
         {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((crt.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((crt.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-                            float damage = source.classLevel * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + crt.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                fireDam = fireDam / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Fireball spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + crt.cr_name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            crt.hp -= fireDam;
-                            if (crt.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-                {
-                    if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                    {
-                        try
-                        {
-                            //do OnDeath LOGIC TREE
-                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
-                            //do OnDeath IBScript
-                            gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                            mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                            mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }
-                    }
-                }
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
-                            float damage = source.classLevel * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    fireDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Fireball spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    fireDam = fireDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Fireball spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= fireDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.classLevel;
+                sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Creature) //creature casting
+            else //creature casting
             {
                 Creature source = (Creature)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - SpellToCast.aoeRadius) && (pc.combatLocX <= target.X + SpellToCast.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - SpellToCast.aoeRadius) && (pc.combatLocY <= target.Y + SpellToCast.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
-                            float damage = source.cr_level * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    fireDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Fireball spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    fireDam = fireDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Fireball spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.cr_name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= fireDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Coordinate)
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
             {
-                //Toast.makeText(gv.gameContext, "source is not a PC or Creature", Toast.LENGTH_SHORT).show();
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    float damage = classLevel * RandInt(6);
+                    int fireDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        fireDam = fireDam / 2;
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Fireball spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    crt.hp -= fireDam;
+                    if (crt.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+                    float damage = classLevel * RandInt(6);
+                    int fireDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            fireDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Fireball spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            fireDam = fireDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Fireball spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= fireDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
+                }
             }
-            else
+
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
-                //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
             }
+            gv.postDelayed("doFloatyText", 100);
+        }
+        public void spLightning(object src, object trg)
+        {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
+            if (src is Player) //player casting
+            {
+                Player source = (Player)src;
+                classLevel = source.classLevel;
+                sourceName = source.name;
+                source.sp -= gv.cc.currentSelectedSpell.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+            else //creature casting
+            {
+                Creature source = (Creature)src;
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
+                source.sp -= SpellToCast.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
+            {
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f));
+                    float damage = classLevel * RandInt(6);
+                    int elecDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        elecDam = elecDam / 2;
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Lightning spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " elecDam = " + elecDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='lime'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    crt.hp -= elecDam;
+                    if (crt.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), elecDam + "");
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f));
+                    float damage = classLevel * RandInt(6);
+                    int elecDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            elecDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Lightning spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            elecDam = elecDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Lightning spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " elecDam = " + elecDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='lime'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= elecDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), elecDam + "");
+                }
+            }
+
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            {
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+            gv.postDelayed("doFloatyText", 100);
         }
 
         //SPELLS CLERIC
@@ -6298,9 +6275,9 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.cc.floatyTextOn = true;
+                gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
+                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -6342,9 +6319,9 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.cc.floatyTextOn = true;
+                gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
+                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -6360,228 +6337,139 @@ namespace IceBlink2
         }
         public void spBlastOfLight(Object src, Object trg)
         {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((crt.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((crt.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (crt.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-                            float damage = 2 * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + crt.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                fireDam = fireDam / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Blast of Light spell" + "</font><BR>");
-                                if (mod.debugMode)
-                                {
-                                    gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + crt.cr_name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            crt.hp -= fireDam;
-                            if (crt.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
-                {
-                    if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
-                    {
-                        try
-                        {
-                            //do OnDeath LOGIC TREE
-                            //REMOVEgv.cc.doLogicTreeBasedOnTag(mod.currentEncounter.encounterCreatureList[x].onDeathLogicTree, mod.currentEncounter.encounterCreatureList[x].onDeathParms);
-                            //do OnDeath IBScript
-                            gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
-                            mod.currentEncounter.encounterCreatureList.RemoveAt(x);
-                            mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }
-                    }
-                }
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocX <= target.X + gv.cc.currentSelectedSpell.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - gv.cc.currentSelectedSpell.aoeRadius) && (pc.combatLocY <= target.Y + gv.cc.currentSelectedSpell.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
-                            float damage = 2 * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    fireDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Blast of Light spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    fireDam = fireDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Blast of Light spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= fireDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.classLevel;
+                sourceName = source.name;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Creature) //creature casting
+            else //creature casting
             {
                 Creature source = (Creature)src;
-                Coordinate target = (Coordinate)trg;
-
-                foreach (Player pc in mod.playerList)
-                {
-                    // if in range of radius of x and radius of y
-                    if ((pc.combatLocX >= target.X - SpellToCast.aoeRadius) && (pc.combatLocX <= target.X + SpellToCast.aoeRadius))
-                    {
-                        if ((pc.combatLocY >= target.Y - SpellToCast.aoeRadius) && (pc.combatLocY <= target.Y + SpellToCast.aoeRadius))
-                        {
-                            float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
-                            float damage = 2 * RandInt(6);
-                            int fireDam = (int)(damage * resist);
-
-                            int saveChkRoll = RandInt(20);
-                            int saveChk = saveChkRoll + pc.reflex;
-                            int DC = 13;
-                            if (saveChk >= DC) //passed save check
-                            {
-                                if (this.hasTrait(pc, "evasion"))
-                                {
-                                    fireDam = 0;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Blast of Light spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                                else
-                                {
-                                    fireDam = fireDam / 2;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Blast of Light spell" + "</font><BR>");
-                                    if (mod.debugMode)
-                                    {
-                                        gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
-                                    }
-                                }
-                            }
-                            if (mod.debugMode)
-                            {
-                                gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                            + " fireDam = " + fireDam + "</font>" +
-                                            "<BR>");
-                            }
-                            gv.cc.addLogText("<font color='aqua'>" + source.cr_name + "</font>" +
-                                    "<font color='white'>" + " attacks " + "</font>" +
-                                    "<font color='silver'>" + pc.name + "</font>" +
-                                    "<BR>");
-                            gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>");
-                            gv.cc.addLogText("<font color='lime'>" + fireDam + "</font>" +
-                                    "<font color='white'>" + " damage)" + "</font>" +
-                                    "<BR>");
-                            pc.hp -= fireDam;
-                            if (pc.hp <= 0)
-                            {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
-                                pc.charStatus = "Dead";
-                            }
-                            //Do floaty text damage
-                            gv.cc.floatyTextOn = true;
-                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
-                            //gv.postDelayed(gv.doFloatyText, 100);
-                        }
-                    }
-                }
-                //Do floaty text damage
-                //TODOgv.postDelayed(gv.screenCombat.doFloatyText, 100);
-
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
-            else if (src is Coordinate)
+
+            //iterate over targets and do damage
+            foreach (object target in AoeTargetsList)
             {
-                //Toast.makeText(gv.gameContext, "source is not a PC or Creature", Toast.LENGTH_SHORT).show();
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
+                    float damage = 2 * RandInt(6);
+                    int fireDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + crt.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        fireDam = fireDam / 2;
+                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Blast of Light spell" + "</font><BR>");
+                        if (mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    crt.hp -= fireDam;
+                    if (crt.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+                    float damage = 2 * RandInt(6);
+                    int fireDam = (int)(damage * resist);
+
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            fireDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Blast of Light spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            fireDam = fireDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Blast of Light spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                                    + " fireDam = " + fireDam + "</font>" +
+                                    "<BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= fireDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");                    
+                }
             }
-            else
+
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
-                //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
             }
+            gv.postDelayed("doFloatyText", 100);
         }
         public void spHold(Object src, Object trg)
         {
