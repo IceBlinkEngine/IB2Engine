@@ -687,7 +687,7 @@ namespace IceBlink2
 
                     if (gv.mod.currentArea.cycleCounter1 >= gv.mod.currentArea.numberOfCyclesPerOccurence1)
                     {
-                        gv.mod.currentArea.useFullScreenEffectLayer1 = false;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
                         gv.mod.currentArea.cycleCounter1 = 0;
                         gv.mod.currentArea.individualFrameCounter1 = 1;
                         gv.mod.fullScreenAnimationFrameCounter1 = 0;
@@ -695,7 +695,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (gv.mod.currentArea.useFullScreenEffectLayer1 == true)
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
                     if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
                     {
