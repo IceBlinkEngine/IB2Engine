@@ -70,6 +70,13 @@ namespace IceBlink2
         public bool useFullScreenEffectLayer4 = false;
         public bool useFullScreenEffectLayer5 = false;
         public bool useFullScreenEffectLayer6 = false;
+        public bool fullScreenEffectLayerIsActive1 = true;
+        public bool fullScreenEffectLayerIsActive2 = true;
+        public bool fullScreenEffectLayerIsActive3 = true;
+        public bool fullScreenEffectLayerIsActive4 = true;
+        public bool fullScreenEffectLayerIsActive5 = true;
+        public bool fullScreenEffectLayerIsActive6 = true;
+
         //up to six anmation layers to be freely sred at bottom or top level of the draw stackpile
         //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
         // for 5 or 6 layers at the same time better use 100x100
@@ -130,7 +137,7 @@ namespace IceBlink2
         public int fullScreenEffectChanceToOccur5 = 100;
         public int fullScreenEffectChanceToOccur6 = 100;
         //zero signifies an endlessly running animation
-        public int numberOfCyclesPerOccurence1 = 0;
+        public int numberOfCyclesPerOccurence1 = 2;
         public int numberOfCyclesPerOccurence2 = 0;
         public int numberOfCyclesPerOccurence3 = 0;
         public int numberOfCyclesPerOccurence4 = 0;
