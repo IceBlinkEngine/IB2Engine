@@ -329,7 +329,7 @@ namespace IceBlink2
 
                 //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
                 //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on
-                floatPixMovedPerTick = (float)squareSize / 90f;
+                floatPixMovedPerTick = ((float)squareSize / 90f) * mod.allAnimationSpeedMultiplier;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after first is:" + floatPixMovedPerTick.ToString());
                 //due to a mistake of mine 4 pix were moved always beforehand, trying a dynamically calculated average of 7.5 pix now, increases speed by 90%
                 floatPixMovedPerTick = floatPixMovedPerTick / (((float)realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 6.675f;

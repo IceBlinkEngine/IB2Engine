@@ -134,8 +134,10 @@ namespace IceBlink2
         public int fullScreenAnimationFrameCounter4 = 0;
         public int fullScreenAnimationFrameCounter5 = 0;
         public int fullScreenAnimationFrameCounter6 = 0;
-        //this one can be set from ingame by palyer eventually (options menu), higher is fast
-        //likely use for smooth moving props, too
+
+
+        //this one can be set from ingame by player eventually (options menu), higher is fast
+        //is used for smooth moving props and full screen animation, each on main map, right now
         //later on maybe also use for animated props, like camp fires flickering
         public float allAnimationSpeedMultiplier = 1;
 

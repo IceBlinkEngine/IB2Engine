@@ -1958,6 +1958,15 @@ namespace IceBlink2
                 return;
             }
 
+            //handling chances for full screen animation effects
+            if ((gv.mod.currentArea.useFullScreenEffectLayer1 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur1)
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer1 = true;
+                }
+            }
+
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
             {

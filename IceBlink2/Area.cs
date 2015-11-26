@@ -93,36 +93,65 @@ namespace IceBlink2
         public string fullScreenAnimationMovePattern5 = "down";
         public string fullScreenAnimationMovePattern6 = "down";
         
-        public int individualDelayBetweenFrames1 = 30;
+        public int individualDelayBetweenFrames1 = 40;
         public int individualDelayBetweenFrames2 = 10;
         public int individualDelayBetweenFrames3 = 10;
         public int individualDelayBetweenFrames4 = 10;
         public int individualDelayBetweenFrames5 = 10;
         public int individualDelayBetweenFrames6 = 10;
-        public int individualFrameCounter1 = 1;
+        public int individualFrameCounter1 = 0;
         public int individualNumberOfFrames1 = 4;
-        public int individualDelayCounter1 = 10000;
+        public float individualDelayCounter1 = 10000;
         public int individualFrameCounter2 = 1;
         public int individualNumberOfFrames2 = 1;
-        public int individualDelayCounter2 = 10000;
+        public float individualDelayCounter2 = 10000;
         public int individualFrameCounter3 = 1;
         public int individualNumberOfFrames3 = 1;
-        public int individualDelayCounter3 = 10000;
+        public float individualDelayCounter3 = 10000;
         public int individualFrameCounter4 = 1;
         public int individualNumberOfFrames4 = 1;
-        public int individualDelayCounter4= 10000;
+        public float individualDelayCounter4= 10000;
         public int individualFrameCounter5 = 1;
         public int individualNumberOfFrames5 = 1;
-        public int individualDelayCounter5 = 10000;
+        public float individualDelayCounter5 = 10000;
         public int individualFrameCounter6 = 1;
         public int individualNumberOfFrames6 = 1;
-        public int individualDelayCounter6 = 10000;
+        public float individualDelayCounter6 = 10000;
         public bool FullScreenEffectLayer1IsTop = true;
         public bool FullScreenEffectLayer2IsTop = false;
         public bool FullScreenEffectLayer3IsTop = true;
         public bool FullScreenEffectLayer4IsTop = true;
         public bool FullScreenEffectLayer5IsTop = true;
         public bool FullScreenEffectLayer6IsTop = true;
+        public int fullScreenEffectChanceToOccur1 = 15;
+        public int fullScreenEffectChanceToOccur2 = 100;
+        public int fullScreenEffectChanceToOccur3 = 100;
+        public int fullScreenEffectChanceToOccur4 = 100;
+        public int fullScreenEffectChanceToOccur5 = 100;
+        public int fullScreenEffectChanceToOccur6 = 100;
+        //zero signifies an endlessly running animation
+        public int numberOfCyclesPerOccurence1 = 0;
+        public int numberOfCyclesPerOccurence2 = 0;
+        public int numberOfCyclesPerOccurence3 = 0;
+        public int numberOfCyclesPerOccurence4 = 0;
+        public int numberOfCyclesPerOccurence5 = 0;
+        public int numberOfCyclesPerOccurence6 = 0;
+        public float cycleCounter1 = 0;
+        public float cycleCounter2 = 0;
+        public float cycleCounter3 = 0;
+        public float cycleCounter4 = 0;
+        public float cycleCounter5 = 0;
+        public float cycleCounter6 = 0;
+
+        //only relevant for movement pattern "random"
+        //to do: actually implement this
+        public int numberOfRenderCallsBeforeRedirection1 = 120;
+        public int numberOfRenderCallsBeforeRedirection2 = 120;
+        public int numberOfRenderCallsBeforeRedirection3 = 120;
+        public int numberOfRenderCallsBeforeRedirection4 = 120;
+        public int numberOfRenderCallsBeforeRedirection5 = 120;
+        public int numberOfRenderCallsBeforeRedirection6 = 120;
+
 
         public Area()
 	    {	
