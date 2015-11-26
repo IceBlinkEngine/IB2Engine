@@ -5246,6 +5246,7 @@ namespace IceBlink2
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -5291,6 +5292,7 @@ namespace IceBlink2
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -5345,6 +5347,7 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
                         try
                         {
@@ -5408,6 +5411,7 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
@@ -5708,6 +5712,7 @@ namespace IceBlink2
                     crt.hp -= iceDam;
                     if (crt.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -5754,6 +5759,7 @@ namespace IceBlink2
                     pc.hp -= iceDam;
                     if (pc.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -5842,6 +5848,7 @@ namespace IceBlink2
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -5888,6 +5895,7 @@ namespace IceBlink2
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -5976,6 +5984,7 @@ namespace IceBlink2
                     crt.hp -= elecDam;
                     if (crt.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -6022,6 +6031,7 @@ namespace IceBlink2
                     pc.hp -= elecDam;
                     if (pc.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
@@ -6244,6 +6254,7 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
                         try
                         {
@@ -6314,6 +6325,7 @@ namespace IceBlink2
                             "<BR>");
                     if (target.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
@@ -6394,6 +6406,7 @@ namespace IceBlink2
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
@@ -6433,15 +6446,14 @@ namespace IceBlink2
                     }
                     if (mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                    + " fireDam = " + fireDam + "</font>" +
-                                    "<BR>");
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
                     gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
                     gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }

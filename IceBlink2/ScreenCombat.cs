@@ -1590,8 +1590,24 @@ namespace IceBlink2
         {
             object target = getCastTarget(pc);
             gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
-            checkEndEncounter();
-            endPcTurn(true);
+            if (deathAnimationLocations.Count > 0)
+            {
+                drawDeathAnimation = true;
+                animationFrameIndex = 0;
+                animationState = AnimationState.DeathAnimation;
+                gv.postDelayed("doAnimation", (mod.combatAnimationSpeed));
+                //play death ending sound
+                //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+            }
+            else
+            {
+                //check for end of encounter
+                checkEndEncounter();
+                //end PC's turn
+                gv.touchEnabled = true;
+                animationState = AnimationState.None;
+                endPcTurn(true);
+            }
         }
         public void endPcTurn(bool endStealthMode)
         {
@@ -1675,7 +1691,7 @@ namespace IceBlink2
             creatureMoves = 0;
             doCreatureNextAction();
 	    }
-        public void  doCreatureNextAction()
+        public void doCreatureNextAction()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             CalculateUpperLeftCreature();
@@ -2014,7 +2030,19 @@ namespace IceBlink2
         {
     	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
     	    gv.cc.doSpellBasedOnTag(gv.sf.SpellToCast.tag, crt, gv.sf.CombatTarget);
-    	    endCreatureTurn();
+            if (deathAnimationLocations.Count > 0)
+            {
+                drawDeathAnimation = true;
+                animationFrameIndex = 0;
+                animationState = AnimationState.DeathAnimation;
+                gv.postDelayed("doAnimation", (mod.combatAnimationSpeed));
+                //play death ending sound
+                //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
+            }
+            else
+            {
+                endCreatureTurn();
+            }
         }
 	    public void doCreatureAI(Creature crt)
 	    {
@@ -2222,6 +2250,7 @@ namespace IceBlink2
 
                 if (pc.hp <= 0)
                 {
+                    deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                     gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font><BR>");
                     pc.charStatus = "Dead";
                 }
