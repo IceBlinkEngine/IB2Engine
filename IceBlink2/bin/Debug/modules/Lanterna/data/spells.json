@@ -12,9 +12,28 @@
     "costSP": 5,
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spMageBolt"
+  },
+  {
+		    "name": "Flame Fingers",
+		    "tag": "flameFingers",
+		    "spellImage": "sp_flamefingers",
+		    "description": "A cone of flames launch from the casters hands and automatically hit all targets in the area of effect for 1d3 points of damage per caster level.",
+		    "useableInSituation": "InCombat",
+		    "spriteFilename": "fx_fireball",
+		    "spriteEndingFilename": "fx_fireball3x3end",
+		    "spellStartSound": "fireballstart",
+		    "spellEndSound": "fireballend",
+		    "costSP": 7,
+		    "spellTargetType": "PointLocation",
+		    "spellEffectType": "Damage",
+		    "aoeShape": "Cone",
+		    "aoeRadius": 2,
+		    "range": 1,
+		    "spellScript": "spFlameFingers"
   },
   {
     "name": "Mage Armor",
@@ -29,6 +48,7 @@
     "costSP": 7,
     "spellTargetType": "Self",
     "spellEffectType": "Buff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 0,
     "spellScript": "spMageArmor"
@@ -46,6 +66,7 @@
     "costSP": 10,
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
     "spellScript": "spSleep"
@@ -63,6 +84,7 @@
     "costSP": 15,
     "spellTargetType": "PointLocation",
     "spellEffectType": "DeBuff",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 4,
     "spellScript": "spWeb"
@@ -80,6 +102,7 @@
     "costSP": 5,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spMinorRegen"
@@ -97,9 +120,28 @@
     "costSP": 10,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
     "spellScript": "spIceStorm"
+  },
+  {
+		    "name": "Lightning",
+		    "tag": "lightning",
+		    "spellImage": "sp_lightning",
+		    "description": "A lightning bolt launches from the casters hands and automatically hits all targets in the area of effect for 1d6 points of damage per caster level.",
+		    "useableInSituation": "InCombat",
+		    "spriteFilename": "fx_lightning",
+		    "spriteEndingFilename": "fx_lightning",
+		    "spellStartSound": "fireballstart",
+		    "spellEndSound": "fireballend",
+		    "costSP": 20,
+		    "spellTargetType": "PointLocation",
+		    "spellEffectType": "Damage",
+		    "aoeShape": "Line",
+		    "aoeRadius": 5,
+		    "range": 3,
+		    "spellScript": "spLightning"
   },
   {
     "name": "Fireball",
@@ -114,6 +156,7 @@
     "costSP": 20,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
     "spellScript": "spFireball"
@@ -131,6 +174,7 @@
     "costSP": 7,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spHeal"
@@ -148,6 +192,7 @@
     "costSP": 7,
     "spellTargetType": "Friend",
     "spellEffectType": "Buff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spBless"
@@ -165,6 +210,7 @@
     "costSP": 7,
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spMagicStone"
@@ -182,6 +228,7 @@
     "costSP": 15,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spHeal"
@@ -199,6 +246,7 @@
     "costSP": 15,
     "spellTargetType": "PointLocation",
     "spellEffectType": "Damage",
+    "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
     "spellScript": "spBlastOfLight"
@@ -216,6 +264,7 @@
     "costSP": 10,
     "spellTargetType": "Enemy",
     "spellEffectType": "Debuff",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spHold"
@@ -233,6 +282,7 @@
     "costSP": 20,
     "spellTargetType": "Friend",
     "spellEffectType": "Heal",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
     "spellScript": "spMassHeal"
