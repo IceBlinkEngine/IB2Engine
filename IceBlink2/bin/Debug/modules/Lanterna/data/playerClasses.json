@@ -1,345 +1,5 @@
 [
   {
-    "name": "Fighter",
-    "tag": "fighter",
-    "UsableByPlayer": true,
-    "description": "Skilled warrior. Gains the Cleave trait at level 2 and two attacks per round at level 4.",
-    "startingHP": 10,
-    "startingSP": 0,
-    "hpPerLevelUp": 10,
-    "spPerLevelUp": 0,
-    "hpRegenTimeNeeded": 0,
-    "spRegenTimeNeeded": 0,
-    "baseFortitudeAtLevel": [
-      0,
-      2,
-      3,
-      3,
-      4,
-      4,
-      5,
-      5,
-      6
-    ],
-    "baseWillAtLevel": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      2,
-      2,
-      2
-    ],
-    "baseReflexAtLevel": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      2,
-      2,
-      2
-    ],
-    "babTable": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9
-    ],
-    "xpTable": [
-      0,
-      200,
-      400,
-      800,
-      1600,
-      3200,
-      6500,
-      12500,
-      25000,
-      50000
-    ],
-    "itemsAllowed": [
-      {
-        "resref": "chainmail",
-        "tag": "chainmail_10176",
-        "name": "Chainmail Armor",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "largeshield",
-        "tag": "largeshield_10177",
-        "name": "Large Shield",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "larmor1",
-        "tag": "larmor1_10178",
-        "name": "Leather Armor",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "studdedLeather",
-        "tag": "studdedLeather_10179",
-        "name": "Studded Leather Armor",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "platemail",
-        "tag": "platemail_10180",
-        "name": "Platemail Armor",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "robes",
-        "tag": "robes_10181",
-        "name": "Robes",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "campingKit",
-        "tag": "campingKit_10182",
-        "name": "Camping Kit",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10183",
-        "name": "Ring of Protection",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10184",
-        "name": "Ring of Fire Resistance",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "healingPotion",
-        "tag": "healingPotion_10185",
-        "name": "Healing Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10186",
-        "name": "Extra Healing Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "spPotion",
-        "tag": "spPotion_10187",
-        "name": "Spell Points Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "battleaxe",
-        "tag": "battleaxe_10188",
-        "name": "Battle Axe",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "crossbow",
-        "tag": "crossbow_10189",
-        "name": "Crossbow",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "dagger01",
-        "tag": "dagger01_10190",
-        "name": "Dagger",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "elvishshortsword",
-        "tag": "elvishshortsword_10191",
-        "name": "Elvish Short Sword +1",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "fireDagger",
-        "tag": "fireDagger_10192",
-        "name": "Fire Dagger",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "fireLongSword",
-        "tag": "fireLongSword_10193",
-        "name": "Flaming Long Sword",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "handaxe",
-        "tag": "handaxe_10194",
-        "name": "Hand Axe",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "lsword01",
-        "tag": "lsword01_10195",
-        "name": "Long Sword",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "mace",
-        "tag": "mace_10196",
-        "name": "Mace",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "shortBow",
-        "tag": "shortBow_10197",
-        "name": "Short Bow",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "ssword01",
-        "tag": "ssword01_10198",
-        "name": "Short Sword",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "sling",
-        "tag": "sling_10199",
-        "name": "Sling",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "fireSling",
-        "tag": "fireSling_10200",
-        "name": "Sling of Fire",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "spear",
-        "tag": "spear_10201",
-        "name": "Spear",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "arrow",
-        "tag": "arrow_10202",
-        "name": "Arrow",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "stone",
-        "tag": "stone_10203",
-        "name": "Stone",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "stonefire",
-        "tag": "stonefire_10204",
-        "name": "Stone of Fire",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "magicamulet",
-        "tag": "magicamulet_10205",
-        "name": "Magic Amulet",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "magicbook",
-        "tag": "magicbook_10206",
-        "name": "Magic Book",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "bolt",
-        "tag": "bolt_10207",
-        "name": "Bolt",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "maceofstunning",
-        "tag": "maceofstunning_10208",
-        "name": "Mace of Stunning",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "thsworddefender",
-        "tag": "thsworddefender_10209",
-        "name": "Two Handed Sword of the Defender",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      }
-    ],
-    "traitsAllowed": [
-      {
-        "name": "Cleave",
-        "tag": "cleave",
-        "atWhatLevelIsAvailable": 2,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Two Attacks",
-        "tag": "twoAttack",
-        "atWhatLevelIsAvailable": 4,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Intimidate (L2)",
-        "tag": "intimidate2",
-        "atWhatLevelIsAvailable": 4,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Intimidate (L1)",
-        "tag": "intimidate",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
-      }
-    ],
-    "spellsAllowed": []
-  },
-  {
     "name": "Cleric",
     "tag": "cleric",
     "UsableByPlayer": true,
@@ -410,161 +70,161 @@
     "itemsAllowed": [
       {
         "resref": "chainmail",
-        "tag": "chainmail_10101",
+        "tag": "chainmail_12587",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "largeshield",
-        "tag": "largeshield_10102",
+        "tag": "largeshield_12588",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "larmor1",
-        "tag": "larmor1_10103",
+        "tag": "larmor1_12589",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_10104",
+        "tag": "studdedLeather_12590",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "platemail",
-        "tag": "platemail_10105",
+        "tag": "platemail_12591",
         "name": "Platemail Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "robes",
-        "tag": "robes_10106",
+        "tag": "robes_12592",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_10107",
+        "tag": "campingKit_12593",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10108",
+        "tag": "ringOfProtection_12594",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10109",
+        "tag": "ringOfFireResist_12595",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_10110",
+        "tag": "healingPotion_12596",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10111",
+        "tag": "healingPotionExtra_12597",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_10112",
+        "tag": "spPotion_12598",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_10113",
+        "tag": "dagger01_12599",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_10114",
+        "tag": "fireDagger_12600",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "mace",
-        "tag": "mace_10115",
+        "tag": "mace_12601",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "sling",
-        "tag": "sling_10116",
+        "tag": "sling_12602",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_10117",
+        "tag": "fireSling_12603",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "stone",
-        "tag": "stone_10118",
+        "tag": "stone_12604",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_10119",
+        "tag": "stonefire_12605",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "magicamulet",
-        "tag": "magicamulet_10120",
+        "tag": "magicamulet_12606",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "magicbook",
-        "tag": "magicbook_10121",
+        "tag": "magicbook_12607",
         "name": "Magic Book",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "lilyringofpower",
-        "tag": "lilyringofpower_10122",
+        "tag": "lilyringofpower_12608",
         "name": "Lily's Ring of Power",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "maceofstunning",
-        "tag": "maceofstunning_10123",
+        "tag": "maceofstunning_12609",
         "name": "Mace of Stunning",
         "canNotBeUnequipped": false,
         "quantity": 1
@@ -633,6 +293,708 @@
         "name": "Mass Minor Healing",
         "tag": "massMinorHealing",
         "atWhatLevelIsAvailable": 5,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ]
+  },
+  {
+    "name": "Fighter",
+    "tag": "fighter",
+    "UsableByPlayer": true,
+    "description": "Skilled warrior. Gains the Cleave trait at level 2 and two attacks per round at level 4.",
+    "startingHP": 10,
+    "startingSP": 0,
+    "hpPerLevelUp": 10,
+    "spPerLevelUp": 0,
+    "hpRegenTimeNeeded": 0,
+    "spRegenTimeNeeded": 0,
+    "baseFortitudeAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseWillAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "baseReflexAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "babTable": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "xpTable": [
+      0,
+      200,
+      400,
+      800,
+      1600,
+      3200,
+      6500,
+      12500,
+      25000,
+      50000
+    ],
+    "itemsAllowed": [
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_12610",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_12611",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_12612",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_12613",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "platemail",
+        "tag": "platemail_12614",
+        "name": "Platemail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "robes",
+        "tag": "robes_12615",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_12616",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfProtection",
+        "tag": "ringOfProtection_12617",
+        "name": "Ring of Protection",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfFireResist",
+        "tag": "ringOfFireResist_12618",
+        "name": "Ring of Fire Resistance",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_12619",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_12620",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_12621",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_12622",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "crossbow",
+        "tag": "crossbow_12623",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_12624",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "elvishshortsword",
+        "tag": "elvishshortsword_12625",
+        "name": "Elvish Short Sword +1",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireDagger",
+        "tag": "fireDagger_12626",
+        "name": "Fire Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireLongSword",
+        "tag": "fireLongSword_12627",
+        "name": "Flaming Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "handaxe",
+        "tag": "handaxe_12628",
+        "name": "Hand Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_12629",
+        "name": "Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace",
+        "tag": "mace_12630",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_12631",
+        "name": "Short Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_12632",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sling",
+        "tag": "sling_12633",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireSling",
+        "tag": "fireSling_12634",
+        "name": "Sling of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spear",
+        "tag": "spear_12635",
+        "name": "Spear",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_12636",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_12637",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_12638",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "magicamulet",
+        "tag": "magicamulet_12639",
+        "name": "Magic Amulet",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "magicbook",
+        "tag": "magicbook_12640",
+        "name": "Magic Book",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_12641",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "maceofstunning",
+        "tag": "maceofstunning_12642",
+        "name": "Mace of Stunning",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "thsworddefender",
+        "tag": "thsworddefender_12643",
+        "name": "Two Handed Sword of the Defender",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Cleave",
+        "tag": "cleave",
+        "atWhatLevelIsAvailable": 2,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Two Attacks",
+        "tag": "twoAttack",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Intimidate (L2)",
+        "tag": "intimidate2",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Intimidate (L1)",
+        "tag": "intimidate",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ],
+    "spellsAllowed": []
+  },
+  {
+    "name": "Paladin",
+    "tag": "paladin",
+    "UsableByPlayer": true,
+    "description": "destroy all evil",
+    "startingHP": 10,
+    "startingSP": 5,
+    "hpPerLevelUp": 10,
+    "spPerLevelUp": 5,
+    "hpRegenTimeNeeded": 0,
+    "spRegenTimeNeeded": 0,
+    "baseFortitudeAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseWillAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseReflexAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "babTable": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "xpTable": [
+      0,
+      225,
+      450,
+      900,
+      1800,
+      3600,
+      7500,
+      15000,
+      30000,
+      45000
+    ],
+    "itemsAllowed": [
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_13268",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_13269",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_13270",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_13271",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "platemail",
+        "tag": "platemail_13272",
+        "name": "Platemail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "robes",
+        "tag": "robes_13273",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_13274",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfProtection",
+        "tag": "ringOfProtection_13275",
+        "name": "Ring of Protection",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfFireResist",
+        "tag": "ringOfFireResist_13276",
+        "name": "Ring of Fire Resistance",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_13277",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_13278",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_13279",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_13280",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "crossbow",
+        "tag": "crossbow_13281",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_13282",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "elvishshortsword",
+        "tag": "elvishshortsword_13283",
+        "name": "Elvish Short Sword +1",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireDagger",
+        "tag": "fireDagger_13284",
+        "name": "Fire Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireLongSword",
+        "tag": "fireLongSword_13285",
+        "name": "Flaming Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "handaxe",
+        "tag": "handaxe_13286",
+        "name": "Hand Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_13287",
+        "name": "Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace",
+        "tag": "mace_13288",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_13289",
+        "name": "Short Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_13290",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sling",
+        "tag": "sling_13291",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireSling",
+        "tag": "fireSling_13292",
+        "name": "Sling of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spear",
+        "tag": "spear_13293",
+        "name": "Spear",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13294",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_13295",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_13296",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "magicamulet",
+        "tag": "magicamulet_13297",
+        "name": "Magic Amulet",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "magicbook",
+        "tag": "magicbook_13298",
+        "name": "Magic Book",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_13299",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "lilyringofpower",
+        "tag": "lilyringofpower_13300",
+        "name": "Lily's Ring of Power",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "maceofstunning",
+        "tag": "maceofstunning_13301",
+        "name": "Mace of Stunning",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "thsworddefender",
+        "tag": "thsworddefender_13302",
+        "name": "Two Handed Sword of the Defender",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Diplomacy (L1)",
+        "tag": "diplomacy",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Diplomacy (L2)",
+        "tag": "diplomacy2",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ],
+    "spellsAllowed": [
+      {
+        "name": "Minor Healing",
+        "tag": "minorHealing",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Bless",
+        "tag": "bless",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Moderate Healing",
+        "tag": "moderateHealing",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Blast of Light",
+        "tag": "blastOfLight",
+        "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
         "allow": true
       }
@@ -709,231 +1071,231 @@
     "itemsAllowed": [
       {
         "resref": "larmor1",
-        "tag": "larmor1_10273",
+        "tag": "larmor1_13235",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_10274",
+        "tag": "studdedLeather_13236",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "robes",
-        "tag": "robes_10275",
+        "tag": "robes_13237",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_10276",
+        "tag": "campingKit_13238",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10277",
+        "tag": "ringOfProtection_13239",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10278",
+        "tag": "ringOfFireResist_13240",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_10279",
+        "tag": "healingPotion_13241",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10280",
+        "tag": "healingPotionExtra_13242",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_10281",
+        "tag": "spPotion_13243",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "battleaxe",
-        "tag": "battleaxe_10282",
+        "tag": "battleaxe_13244",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "crossbow",
-        "tag": "crossbow_10283",
+        "tag": "crossbow_13245",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_10284",
+        "tag": "dagger01_13246",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "elvishshortsword",
-        "tag": "elvishshortsword_10285",
+        "tag": "elvishshortsword_13247",
         "name": "Elvish Short Sword +1",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_10286",
+        "tag": "fireDagger_13248",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireLongSword",
-        "tag": "fireLongSword_10287",
+        "tag": "fireLongSword_13249",
         "name": "Flaming Long Sword",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "handaxe",
-        "tag": "handaxe_10288",
+        "tag": "handaxe_13250",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "lbow1",
-        "tag": "lbow1_10289",
+        "tag": "lbow1_13251",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "lsword01",
-        "tag": "lsword01_10290",
+        "tag": "lsword01_13252",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "mace",
-        "tag": "mace_10291",
+        "tag": "mace_13253",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "shortBow",
-        "tag": "shortBow_10292",
+        "tag": "shortBow_13254",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ssword01",
-        "tag": "ssword01_10293",
+        "tag": "ssword01_13255",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "sling",
-        "tag": "sling_10294",
+        "tag": "sling_13256",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_10295",
+        "tag": "fireSling_13257",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "spear",
-        "tag": "spear_10296",
+        "tag": "spear_13258",
         "name": "Spear",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "arrow",
-        "tag": "arrow_10297",
+        "tag": "arrow_13259",
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "stone",
-        "tag": "stone_10298",
+        "tag": "stone_13260",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_10299",
+        "tag": "stonefire_13261",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "magicamulet",
-        "tag": "magicamulet_10300",
+        "tag": "magicamulet_13262",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "magicbook",
-        "tag": "magicbook_10301",
+        "tag": "magicbook_13263",
         "name": "Magic Book",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "bolt",
-        "tag": "bolt_10302",
+        "tag": "bolt_13264",
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "lilyringofpower",
-        "tag": "lilyringofpower_10303",
+        "tag": "lilyringofpower_13265",
         "name": "Lily's Ring of Power",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "maceofstunning",
-        "tag": "maceofstunning_10304",
+        "tag": "maceofstunning_13266",
         "name": "Mace of Stunning",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "thsworddefender",
-        "tag": "thsworddefender_10305",
+        "tag": "thsworddefender_13267",
         "name": "Two Handed Sword of the Defender",
         "canNotBeUnequipped": false,
         "quantity": 1
@@ -1020,297 +1382,19 @@
         "allow": true
       },
       {
-        "name": "Web",
-        "tag": "web",
-        "atWhatLevelIsAvailable": 4,
-        "automaticallyLearned": false,
-        "allow": true
-      }
-    ]
-  },
-  {
-    "name": "Wizard",
-    "tag": "wizard",
-    "UsableByPlayer": true,
-    "description": "The Wizard class is capable of casting powerful arcane spells.",
-    "startingHP": 4,
-    "startingSP": 20,
-    "hpPerLevelUp": 4,
-    "spPerLevelUp": 20,
-    "hpRegenTimeNeeded": 0,
-    "spRegenTimeNeeded": 0,
-    "baseFortitudeAtLevel": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      2,
-      2,
-      2
-    ],
-    "baseWillAtLevel": [
-      0,
-      2,
-      3,
-      3,
-      4,
-      4,
-      5,
-      5,
-      6
-    ],
-    "baseReflexAtLevel": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      2,
-      2,
-      2
-    ],
-    "babTable": [
-      0,
-      0,
-      1,
-      1,
-      2,
-      2,
-      3,
-      3,
-      4,
-      4
-    ],
-    "xpTable": [
-      0,
-      250,
-      500,
-      1000,
-      2000,
-      4000,
-      6000,
-      9000,
-      13500,
-      20000
-    ],
-    "itemsAllowed": [
-      {
-        "resref": "robes",
-        "tag": "robes_10254",
-        "name": "Robes",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "campingKit",
-        "tag": "campingKit_10255",
-        "name": "Camping Kit",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10256",
-        "name": "Ring of Protection",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10257",
-        "name": "Ring of Fire Resistance",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "healingPotion",
-        "tag": "healingPotion_10258",
-        "name": "Healing Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10259",
-        "name": "Extra Healing Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "spPotion",
-        "tag": "spPotion_10260",
-        "name": "Spell Points Potion",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "crossbow",
-        "tag": "crossbow_10261",
-        "name": "Crossbow",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "dagger01",
-        "tag": "dagger01_10262",
-        "name": "Dagger",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "fireDagger",
-        "tag": "fireDagger_10263",
-        "name": "Fire Dagger",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "sling",
-        "tag": "sling_10264",
-        "name": "Sling",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "fireSling",
-        "tag": "fireSling_10265",
-        "name": "Sling of Fire",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "arrow",
-        "tag": "arrow_10266",
-        "name": "Arrow",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "stone",
-        "tag": "stone_10267",
-        "name": "Stone",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "stonefire",
-        "tag": "stonefire_10268",
-        "name": "Stone of Fire",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "magicamulet",
-        "tag": "magicamulet_10269",
-        "name": "Magic Amulet",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "magicbook",
-        "tag": "magicbook_10270",
-        "name": "Magic Book",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      },
-      {
-        "resref": "bolt",
-        "tag": "bolt_10271",
-        "name": "Bolt",
-        "canNotBeUnequipped": false,
-        "quantity": 20
-      },
-      {
-        "resref": "lilyringofpower",
-        "tag": "lilyringofpower_10272",
-        "name": "Lily's Ring of Power",
-        "canNotBeUnequipped": false,
-        "quantity": 1
-      }
-    ],
-    "traitsAllowed": [
-      {
-        "name": "Bluff (L1)",
-        "tag": "bluff",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Bluff (L2)",
-        "tag": "bluff2",
-        "atWhatLevelIsAvailable": 4,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Diplomacy (L1)",
-        "tag": "diplomacy",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Diplomacy (L2)",
-        "tag": "diplomacy2",
-        "atWhatLevelIsAvailable": 4,
-        "automaticallyLearned": false,
-        "allow": true
-      }
-    ],
-    "spellsAllowed": [
-      {
-        "name": "Mage Bolt",
-        "tag": "mageBolt",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Mage Armor",
-        "tag": "mageArmor",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Sleep",
-        "tag": "sleep",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": false,
-        "allow": true
+						        "name": "Flame Fingers",
+						        "tag": "flameFingers",
+						        "atWhatLevelIsAvailable": 3,
+						        "automaticallyLearned": false,
+						        "allow": true
       },
       {
         "name": "Web",
         "tag": "web",
-        "atWhatLevelIsAvailable": 3,
+        "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
         "allow": true
-      },
-      {
-        "name": "Ice Storm",
-        "tag": "iceStorm",
-        "atWhatLevelIsAvailable": 3,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Minor Regeneration",
-        "tag": "minorRegen",
-        "atWhatLevelIsAvailable": 3,
-        "automaticallyLearned": false,
-        "allow": true
-      },
-      {
-        "name": "Fireball",
-        "tag": "fireball",
-        "atWhatLevelIsAvailable": 5,
-        "automaticallyLearned": false,
-        "allow": true
-      }
+      }      
     ]
   },
   {
@@ -1384,175 +1468,175 @@
     "itemsAllowed": [
       {
         "resref": "larmor1",
-        "tag": "larmor1_10229",
+        "tag": "larmor1_12494",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_10230",
+        "tag": "studdedLeather_12495",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "robes",
-        "tag": "robes_10231",
+        "tag": "robes_12496",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_10232",
+        "tag": "campingKit_12497",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_10233",
+        "tag": "ringOfProtection_12498",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_10234",
+        "tag": "ringOfFireResist_12499",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_10235",
+        "tag": "healingPotion_12500",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_10236",
+        "tag": "healingPotionExtra_12501",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_10237",
+        "tag": "spPotion_12502",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "crossbow",
-        "tag": "crossbow_10238",
+        "tag": "crossbow_12503",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_10239",
+        "tag": "dagger01_12504",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "elvishshortsword",
-        "tag": "elvishshortsword_10240",
+        "tag": "elvishshortsword_12505",
         "name": "Elvish Short Sword +1",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_10241",
+        "tag": "fireDagger_12506",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "handaxe",
-        "tag": "handaxe_10242",
+        "tag": "handaxe_12507",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "mace",
-        "tag": "mace_10243",
+        "tag": "mace_12508",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "shortBow",
-        "tag": "shortBow_10244",
+        "tag": "shortBow_12509",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "ssword01",
-        "tag": "ssword01_10245",
+        "tag": "ssword01_12510",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "sling",
-        "tag": "sling_10246",
+        "tag": "sling_12511",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_10247",
+        "tag": "fireSling_12512",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "arrow",
-        "tag": "arrow_10248",
+        "tag": "arrow_12513",
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "stone",
-        "tag": "stone_10249",
+        "tag": "stone_12514",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_10250",
+        "tag": "stonefire_12515",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "quantity": 20
       },
       {
         "resref": "magicamulet",
-        "tag": "magicamulet_10251",
+        "tag": "magicamulet_12516",
         "name": "Magic Amulet",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "magicbook",
-        "tag": "magicbook_10252",
+        "tag": "magicbook_12517",
         "name": "Magic Book",
         "canNotBeUnequipped": false,
         "quantity": 1
       },
       {
         "resref": "bolt",
-        "tag": "bolt_10253",
+        "tag": "bolt_12518",
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "quantity": 20
@@ -1666,5 +1750,304 @@
       }
     ],
     "spellsAllowed": []
+  },
+  {
+    "name": "Wizard",
+    "tag": "wizard",
+    "UsableByPlayer": true,
+    "description": "The Wizard class is capable of casting powerful arcane spells.",
+    "startingHP": 4,
+    "startingSP": 20,
+    "hpPerLevelUp": 4,
+    "spPerLevelUp": 20,
+    "hpRegenTimeNeeded": 0,
+    "spRegenTimeNeeded": 0,
+    "baseFortitudeAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "baseWillAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseReflexAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "babTable": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4
+    ],
+    "xpTable": [
+      0,
+      250,
+      500,
+      1000,
+      2000,
+      4000,
+      6000,
+      9000,
+      13500,
+      20000
+    ],
+    "itemsAllowed": [
+      {
+        "resref": "robes",
+        "tag": "robes_13045",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_13046",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfProtection",
+        "tag": "ringOfProtection_13047",
+        "name": "Ring of Protection",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfFireResist",
+        "tag": "ringOfFireResist_13048",
+        "name": "Ring of Fire Resistance",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_13049",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_13050",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_13051",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "crossbow",
+        "tag": "crossbow_13052",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_13053",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireDagger",
+        "tag": "fireDagger_13054",
+        "name": "Fire Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sling",
+        "tag": "sling_13055",
+        "name": "Sling",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fireSling",
+        "tag": "fireSling_13056",
+        "name": "Sling of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_13057",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_13058",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_13059",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "magicamulet",
+        "tag": "magicamulet_13060",
+        "name": "Magic Amulet",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "magicbook",
+        "tag": "magicbook_13061",
+        "name": "Magic Book",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "bolt",
+        "tag": "bolt_13062",
+        "name": "Bolt",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "lilyringofpower",
+        "tag": "lilyringofpower_13063",
+        "name": "Lily's Ring of Power",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Bluff (L1)",
+        "tag": "bluff",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Bluff (L2)",
+        "tag": "bluff2",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Diplomacy (L1)",
+        "tag": "diplomacy",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Diplomacy (L2)",
+        "tag": "diplomacy2",
+        "atWhatLevelIsAvailable": 4,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ],
+    "spellsAllowed": [
+      {
+        "name": "Mage Bolt",
+        "tag": "mageBolt",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+						        "name": "Flame Fingers",
+						        "tag": "flameFingers",
+						        "atWhatLevelIsAvailable": 1,
+						        "automaticallyLearned": false,
+						        "allow": true
+      },
+      {
+        "name": "Mage Armor",
+        "tag": "mageArmor",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Sleep",
+        "tag": "sleep",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Web",
+        "tag": "web",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Ice Storm",
+        "tag": "iceStorm",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Minor Regeneration",
+        "tag": "minorRegen",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Fireball",
+        "tag": "fireball",
+        "atWhatLevelIsAvailable": 5,
+        "automaticallyLearned": false,
+        "allow": true
+      },      
+      {
+        "name": "Lightning",
+        "tag": "lightning",
+        "atWhatLevelIsAvailable": 5,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ]
   }
 ]

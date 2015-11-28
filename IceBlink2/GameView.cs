@@ -1122,7 +1122,6 @@ namespace IceBlink2
         {
             floatyTextMainMapTimer.Enabled = false;
             floatyTextMainMapTimer.Stop();
-            //Invalidate();
             //likely remove this render here
             //Render();
 
@@ -1168,7 +1167,7 @@ namespace IceBlink2
         //DRAW ROUTINES
         public void drawBlackMap()
         {
-            /*
+            /*android only
             Paint paint = new Paint();
             Rect r = new Rect(0, 0, 7 * gv.squareSize, (8 * gv.squareSize) + (int)(10 * gv.screenDensity));
             paint.setStyle(Paint.Style.FILL);

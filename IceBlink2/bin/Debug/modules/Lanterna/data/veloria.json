@@ -11,7 +11,8 @@
     "sleep",
     "web",
     "minorRegen",
-    "iceStorm"
+    "iceStorm",
+    "lightning"
   ],
   "knownSpellsList": [],
   "knownTraitsTags": [
