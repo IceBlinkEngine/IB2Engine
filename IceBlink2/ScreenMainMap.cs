@@ -698,6 +698,35 @@ namespace IceBlink2
 
                 if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
+                    float fullScreenEffectOpacity = 1f;
+                    
+                    //fade in within first cycle of cyclic, non-individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    {
+                        fullScreenEffectOpacity = 1f / ((60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)) /gv.mod.fullScreenAnimationFrameCounter1);
+                    }
+
+                    //fade out within last cycle of cyclic, non-individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    {
+                        fullScreenEffectOpacity =  1f - (1f / ((60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)) / gv.mod.fullScreenAnimationFrameCounter1));
+                    }
+
+                    //fade in within first cycle of cyclic, individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
+                    {
+                        float fractionOfFramesReached = ((gv.mod.currentArea.individualFrameCounter1 - 1f) / gv.mod.currentArea.individualNumberOfFrames1) + ((gv.mod.currentArea.individualDelayCounter1 / gv.mod.currentArea.individualDelayBetweenFrames1) * ( 1 / gv.mod.currentArea.individualNumberOfFrames1));
+                        fullScreenEffectOpacity = 1f * fractionOfFramesReached;
+                    }
+
+                    //fade out within last cycle of cyclic, individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
+                    {
+                        float fractionOfFramesReached = ((gv.mod.currentArea.individualFrameCounter1 - 1f) / gv.mod.currentArea.individualNumberOfFrames1) + ((gv.mod.currentArea.individualDelayCounter1 / gv.mod.currentArea.individualDelayBetweenFrames1) * (1 / gv.mod.currentArea.individualNumberOfFrames1));
+                        fullScreenEffectOpacity = 1f * (1f -fractionOfFramesReached);
+               
+                    }
+
                     if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
                     {
                         //use weather system per area specific later on
@@ -823,7 +852,7 @@ namespace IceBlink2
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
                                             //public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, bool flip, float opac) //change this to DrawBitmap
 
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -836,7 +865,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -872,7 +901,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -885,7 +914,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -920,7 +949,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -933,7 +962,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -968,7 +997,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -981,7 +1010,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -1011,7 +1040,7 @@ namespace IceBlink2
                                 {
                                     IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                    gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                    gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                 }
                                 catch { }
                             }

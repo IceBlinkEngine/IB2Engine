@@ -81,7 +81,7 @@ namespace IceBlink2
         //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
         // for 5 or 6 layers at the same time better use 100x100
         //testAnim
-        public string fullScreenEffectLayerName1 = "full_screen_effect_layer1";
+        public string fullScreenEffectLayerName1 = "testAnim";
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
         public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
@@ -95,37 +95,37 @@ namespace IceBlink2
         public float fullScreenAnimationSpeed5 = 1.0f;
         public float fullScreenAnimationSpeed6 = 1.0f;
         //up, down, left, right, individual
-        public string fullScreenAnimationMovePattern1 = "down";
+        public string fullScreenAnimationMovePattern1 = "individual";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
         public string fullScreenAnimationMovePattern4 = "down";
         public string fullScreenAnimationMovePattern5 = "down";
         public string fullScreenAnimationMovePattern6 = "down";
         
-        public int individualDelayBetweenFrames1 = 40;
+        public int individualDelayBetweenFrames1 = 20;
         public int individualDelayBetweenFrames2 = 10;
         public int individualDelayBetweenFrames3 = 10;
         public int individualDelayBetweenFrames4 = 10;
         public int individualDelayBetweenFrames5 = 10;
         public int individualDelayBetweenFrames6 = 10;
-        public int individualFrameCounter1 = 0;
+        public int individualFrameCounter1 = 1;
         public int individualNumberOfFrames1 = 4;
-        public float individualDelayCounter1 = 10000;
+        public float individualDelayCounter1 = 0;
         public int individualFrameCounter2 = 1;
         public int individualNumberOfFrames2 = 1;
-        public float individualDelayCounter2 = 10000;
+        public float individualDelayCounter2 = 0;
         public int individualFrameCounter3 = 1;
         public int individualNumberOfFrames3 = 1;
-        public float individualDelayCounter3 = 10000;
+        public float individualDelayCounter3 = 0;
         public int individualFrameCounter4 = 1;
         public int individualNumberOfFrames4 = 1;
-        public float individualDelayCounter4= 10000;
+        public float individualDelayCounter4= 0;
         public int individualFrameCounter5 = 1;
         public int individualNumberOfFrames5 = 1;
-        public float individualDelayCounter5 = 10000;
+        public float individualDelayCounter5 = 0;
         public int individualFrameCounter6 = 1;
         public int individualNumberOfFrames6 = 1;
-        public float individualDelayCounter6 = 10000;
+        public float individualDelayCounter6 = 0;
         public bool FullScreenEffectLayer1IsTop = true;
         public bool FullScreenEffectLayer2IsTop = false;
         public bool FullScreenEffectLayer3IsTop = true;
@@ -139,7 +139,7 @@ namespace IceBlink2
         public int fullScreenEffectChanceToOccur5 = 100;
         public int fullScreenEffectChanceToOccur6 = 100;
         //zero signifies an endlessly running animation
-        public int numberOfCyclesPerOccurence1 = 6;
+        public int numberOfCyclesPerOccurence1 = 4;
         public int numberOfCyclesPerOccurence2 = 0;
         public int numberOfCyclesPerOccurence3 = 0;
         public int numberOfCyclesPerOccurence4 = 0;
