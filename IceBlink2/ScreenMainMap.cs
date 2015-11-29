@@ -703,28 +703,28 @@ namespace IceBlink2
                     //fade in within first cycle of cyclic, non-individual animation
                     if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
                     {
-                        fullScreenEffectOpacity = 1f / ((60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)) /gv.mod.fullScreenAnimationFrameCounter1);
+                        fullScreenEffectOpacity = 1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) /(float)gv.mod.fullScreenAnimationFrameCounter1);
                     }
 
                     //fade out within last cycle of cyclic, non-individual animation
                     if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
                     {
-                        fullScreenEffectOpacity =  1f - (1f / ((60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)) / gv.mod.fullScreenAnimationFrameCounter1));
+                        fullScreenEffectOpacity =  1f - (1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.fullScreenAnimationFrameCounter1));
                     }
 
                     //fade in within first cycle of cyclic, individual animation
                     if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
                     {
-                        float fractionOfFramesReached = ((gv.mod.currentArea.individualFrameCounter1 - 1f) / gv.mod.currentArea.individualNumberOfFrames1) + ((gv.mod.currentArea.individualDelayCounter1 / gv.mod.currentArea.individualDelayBetweenFrames1) * ( 1 / gv.mod.currentArea.individualNumberOfFrames1));
+                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * ( 1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
                         fullScreenEffectOpacity = 1f * fractionOfFramesReached;
                     }
 
                     //fade out within last cycle of cyclic, individual animation
                     if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
                     {
-                        float fractionOfFramesReached = ((gv.mod.currentArea.individualFrameCounter1 - 1f) / gv.mod.currentArea.individualNumberOfFrames1) + ((gv.mod.currentArea.individualDelayCounter1 / gv.mod.currentArea.individualDelayBetweenFrames1) * (1 / gv.mod.currentArea.individualNumberOfFrames1));
-                        fullScreenEffectOpacity = 1f * (1f -fractionOfFramesReached);
-               
+                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * (1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
+                        fullScreenEffectOpacity = 1f - (1f * fractionOfFramesReached);
+
                     }
 
                     if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
