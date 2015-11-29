@@ -81,7 +81,7 @@ namespace IceBlink2
         //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
         // for 5 or 6 layers at the same time better use 100x100
         //testAnim
-        public string fullScreenEffectLayerName1 = "testAnim";
+        public string fullScreenEffectLayerName1 = "testAnim1";
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
         public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
@@ -95,7 +95,7 @@ namespace IceBlink2
         public float fullScreenAnimationSpeed5 = 1.0f;
         public float fullScreenAnimationSpeed6 = 1.0f;
         //up, down, left, right, individual
-        public string fullScreenAnimationMovePattern1 = "individual";
+        public string fullScreenAnimationMovePattern1 = "down";
         public string fullScreenAnimationMovePattern2 = "down";
         public string fullScreenAnimationMovePattern3 = "down";
         public string fullScreenAnimationMovePattern4 = "down";
@@ -139,7 +139,7 @@ namespace IceBlink2
         public int fullScreenEffectChanceToOccur5 = 100;
         public int fullScreenEffectChanceToOccur6 = 100;
         //zero signifies an endlessly running animation
-        public int numberOfCyclesPerOccurence1 = 4;
+        public int numberOfCyclesPerOccurence1 = 5;
         public int numberOfCyclesPerOccurence2 = 0;
         public int numberOfCyclesPerOccurence3 = 0;
         public int numberOfCyclesPerOccurence4 = 0;
@@ -151,6 +151,13 @@ namespace IceBlink2
         public float cycleCounter4 = 0;
         public float cycleCounter5 = 0;
         public float cycleCounter6 = 0;
+
+        public bool containEffectInsideAreaBorders1 = false;
+        public bool containEffectInsideAreaBorders2 = false;
+        public bool containEffectInsideAreaBorders3 = false;
+        public bool containEffectInsideAreaBorders4 = false;
+        public bool containEffectInsideAreaBorders5 = false;
+        public bool containEffectInsideAreaBorders6 = false;
 
         //only relevant for movement pattern "random"
         //to do: actually implement this

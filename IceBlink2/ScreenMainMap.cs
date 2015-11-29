@@ -781,42 +781,88 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
-                                //code section for handling right and bottom border of area
+                                //preparatory code section for handling borders of the area
                                 int modX = x;
                                 int modY = y;
-                                if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders1)
                                 {
-                                    modX += 1;
-                                }
-                                if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 2;
-                                }
-                                if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 3;
-                                }
-                                if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 4;
-                                }
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
 
 
-                                if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 1;
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
                                 }
-                                if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+
+                                else
                                 {
-                                    modY += 2;
-                                }
-                                if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 3;
-                                }
-                                if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 4;
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
                                 }
 
                                 //get the correct chunk on source
@@ -826,8 +872,8 @@ namespace IceBlink2
                                 //scroll down
                                 if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "down")
                                 {
-                                    floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                    floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
                                     if (floatSourceChunkCoordY < 0)
                                     {
                                         floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
