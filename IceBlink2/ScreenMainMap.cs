@@ -670,6 +670,30 @@ namespace IceBlink2
             {
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
+                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 ++;
+                if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
+                {
+                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                    int rollRandom = gv.sf.RandInt(4);
+                    if (rollRandom == 1)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "down";
+                    }
+                    if (rollRandom == 2)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "up";
+                    }
+                    if (rollRandom == 3)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "right";
+                    }
+                    if (rollRandom == 4)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "left";
+                    }
+                }
+                  
+
                 //check whether we got an effect that is supposed to happen only once in a while
                 if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
                 {
