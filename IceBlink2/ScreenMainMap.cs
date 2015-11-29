@@ -732,7 +732,28 @@ namespace IceBlink2
                         //use weather system per area specific later on
                         //utilizing weather type defined by area weather settings
                         //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+
+                        if (gv.mod.currentArea.isChanging1)
+                        {
+                            gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                            if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
+                            {
+                                gv.mod.currentArea.changeCounter1 = 0;
+                                gv.mod.currentArea.changeFrameCounter1 += 1;
+                                if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
+                                {
+                                    gv.mod.currentArea.changeFrameCounter1 = 1;
+                                }
+                            }
+                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
+                        }
+                        else
+                        {
+
+                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+
+                        }
+
                         gv.mod.fullScreenAnimationFrameCounter1 += 1;
                         if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
                         {

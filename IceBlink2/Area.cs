@@ -81,7 +81,7 @@ namespace IceBlink2
         //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
         // for 5 or 6 layers at the same time better use 100x100
         //testAnim
-        public string fullScreenEffectLayerName1 = "testAnim1";
+        public string fullScreenEffectLayerName1 = "testAnim";
         public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
         public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
         public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
@@ -167,6 +167,12 @@ namespace IceBlink2
         public int numberOfRenderCallsBeforeRedirection4 = 120;
         public int numberOfRenderCallsBeforeRedirection5 = 120;
         public int numberOfRenderCallsBeforeRedirection6 = 120;
+
+        public bool isChanging1 = true;
+        public float changeCounter1 = 0;
+        public float changeLimit1 = 5;
+        public float changeFrameCounter1 = 1;
+        public float changeNumberOfFrames1 = 4;
 
 
         public Area()
