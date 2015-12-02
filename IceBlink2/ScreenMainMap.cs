@@ -670,6 +670,30 @@ namespace IceBlink2
             {
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
+                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 ++;
+                if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
+                {
+                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                    int rollRandom = gv.sf.RandInt(4);
+                    if (rollRandom == 1)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "down";
+                    }
+                    if (rollRandom == 2)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "up";
+                    }
+                    if (rollRandom == 3)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "right";
+                    }
+                    if (rollRandom == 4)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationMovePattern1 = "left";
+                    }
+                }
+                  
+
                 //check whether we got an effect that is supposed to happen only once in a while
                 if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
                 {
@@ -698,12 +722,62 @@ namespace IceBlink2
 
                 if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
+                    float fullScreenEffectOpacity = 1f;
+                    
+                    //fade in within first cycle of cyclic, non-individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    {
+                        fullScreenEffectOpacity = 1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) /(float)gv.mod.fullScreenAnimationFrameCounter1);
+                    }
+
+                    //fade out within last cycle of cyclic, non-individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    {
+                        fullScreenEffectOpacity =  1f - (1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.fullScreenAnimationFrameCounter1));
+                    }
+
+                    //fade in within first cycle of cyclic, individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
+                    {
+                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * ( 1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
+                        fullScreenEffectOpacity = 1f * fractionOfFramesReached;
+                    }
+
+                    //fade out within last cycle of cyclic, individual animation
+                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
+                    {
+                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * (1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
+                        fullScreenEffectOpacity = 1f - (1f * fractionOfFramesReached);
+
+                    }
+
                     if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
                     {
                         //use weather system per area specific later on
                         //utilizing weather type defined by area weather settings
                         //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+
+                        if (gv.mod.currentArea.isChanging1)
+                        {
+                            gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                            if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
+                            {
+                                gv.mod.currentArea.changeCounter1 = 0;
+                                gv.mod.currentArea.changeFrameCounter1 += 1;
+                                if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
+                                {
+                                    gv.mod.currentArea.changeFrameCounter1 = 1;
+                                }
+                            }
+                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
+                        }
+                        else
+                        {
+
+                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+
+                        }
+
                         gv.mod.fullScreenAnimationFrameCounter1 += 1;
                         if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
                         {
@@ -752,42 +826,88 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
-                                //code section for handling right and bottom border of area
+                                //preparatory code section for handling borders of the area
                                 int modX = x;
                                 int modY = y;
-                                if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders1)
                                 {
-                                    modX += 1;
-                                }
-                                if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 2;
-                                }
-                                if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 3;
-                                }
-                                if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                                {
-                                    modX += 4;
-                                }
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
 
 
-                                if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 1;
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
                                 }
-                                if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+
+                                else
                                 {
-                                    modY += 2;
-                                }
-                                if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 3;
-                                }
-                                if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                                {
-                                    modY += 4;
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
                                 }
 
                                 //get the correct chunk on source
@@ -797,8 +917,8 @@ namespace IceBlink2
                                 //scroll down
                                 if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "down")
                                 {
-                                    floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                    floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
                                     if (floatSourceChunkCoordY < 0)
                                     {
                                         floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
@@ -823,7 +943,7 @@ namespace IceBlink2
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
                                             //public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, bool flip, float opac) //change this to DrawBitmap
 
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -836,7 +956,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -872,7 +992,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -885,7 +1005,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -920,7 +1040,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -933,7 +1053,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -968,7 +1088,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -981,7 +1101,7 @@ namespace IceBlink2
                                         {
                                             IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
                                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                         }
                                         catch { }
 
@@ -1011,7 +1131,7 @@ namespace IceBlink2
                                 {
                                     IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                    gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, 0.25f);
+                                    gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                 }
                                 catch { }
                             }
