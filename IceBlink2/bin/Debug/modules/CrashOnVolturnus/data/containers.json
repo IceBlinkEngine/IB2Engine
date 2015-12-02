@@ -1,0 +1,266 @@
+[
+  {
+    "containerTag": "meliaChest",
+    "containerItemRefs": [
+      {
+        "resref": "meliaKit",
+        "tag": "meliaKit_8345",
+        "name": "Melia's Healing Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_8346",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_8347",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_8348",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lanternaHistory",
+        "tag": "lanternaHistory_8349",
+        "name": "Lanterna History",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "tindraChest",
+    "containerItemRefs": [
+      {
+        "resref": "tindraLetter",
+        "tag": "tindraLetter_8350",
+        "name": "Letter to Tindra",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotion",
+        "tag": "healingPotion_8351",
+        "name": "Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ringOfFireResist",
+        "tag": "ringOfFireResist_8352",
+        "name": "Ring of Fire Resistance",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "stonefire",
+        "tag": "stonefire_8353",
+        "name": "Stone of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      }
+    ]
+  },
+  {
+    "containerTag": "forestChest1",
+    "containerItemRefs": [
+      {
+        "resref": "campingKit",
+        "tag": "campingKit_8354",
+        "name": "Camping Kit",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_8355",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_8356",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_8357",
+        "name": "Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_8358",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "castleChest1",
+    "containerItemRefs": [
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_8359",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_8360",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "goblet",
+        "tag": "goblet_8361",
+        "name": "Golden Goblet",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "castleChest2",
+    "containerItemRefs": [
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_8362",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_8363",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "goldring",
+        "tag": "goldring_8364",
+        "name": "Gold Ring",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "vertoLetter",
+        "tag": "vertoLetter_8365",
+        "name": "Letter to Verto",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "voltLetter",
+        "tag": "voltLetter_8366",
+        "name": "Letter to Volt",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "cavesChest1",
+    "containerItemRefs": [
+      {
+        "resref": "emerald",
+        "tag": "emerald_8367",
+        "name": "Emerald",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "elvishshortsword",
+        "tag": "elvishshortsword_8368",
+        "name": "Elvish Short Sword +1",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "skelebeetles",
+    "containerItemRefs": [
+      {
+        "resref": "maceofstunning",
+        "tag": "maceofstunning_9600",
+        "name": "Mace of Stunning",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_9608",
+        "name": "Large Shield",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "healingPotionExtra",
+        "tag": "healingPotionExtra_9609",
+        "name": "Extra Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "koboldChest",
+    "containerItemRefs": [
+      {
+        "resref": "lilyring",
+        "tag": "lilyring_9591",
+        "name": "Lily's Ring",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "thsworddefender",
+        "tag": "thsworddefender_9604",
+        "name": "Two Handed Sword of the Defender",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_9605",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "stone",
+        "tag": "stone_9606",
+        "name": "Stone",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "spPotion",
+        "tag": "spPotion_9607",
+        "name": "Spell Points Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

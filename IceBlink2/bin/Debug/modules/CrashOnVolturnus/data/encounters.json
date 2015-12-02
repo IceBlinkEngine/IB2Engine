@@ -1,0 +1,4117 @@
+[
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "MapSizeX": 12,
+    "MapSizeY": 12,
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal05",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal05",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "pirateF00",
+        "creatureTag": "pirateF_115",
+        "creatureStartLocationX": 2,
+        "creatureStartLocationY": 2
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "potion01",
+        "tag": "potion01_116",
+        "name": "Stimdose",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 7,
+        "Y": 2
+      },
+      {
+        "X": 7,
+        "Y": 3
+      },
+      {
+        "X": 8,
+        "Y": 2
+      },
+      {
+        "X": 8,
+        "Y": 3
+      },
+      {
+        "X": 9,
+        "Y": 2
+      },
+      {
+        "X": 9,
+        "Y": 3
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "ship01",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "none",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": "",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
+  },
+  {
+    "encounterMapLayout": [
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ],
+      [
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000",
+        "\u0000"
+      ]
+    ],
+    "MapSizeX": 20,
+    "MapSizeY": 20,
+    "encounterTiles": [
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_blank",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_wall_metal04",
+        "Layer3Filename": "t_blank",
+        "Walkable": false,
+        "LoSBlocked": true
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      },
+      {
+        "Layer1Filename": "t_floor_metal02",
+        "Layer2Filename": "t_black_tile",
+        "Layer3Filename": "t_blank",
+        "Walkable": true,
+        "LoSBlocked": false
+      }
+    ],
+    "encounterCreatureRefsList": [
+      {
+        "creatureResRef": "pirateG00",
+        "creatureTag": "pirateG_119",
+        "creatureStartLocationX": 9,
+        "creatureStartLocationY": 1
+      },
+      {
+        "creatureResRef": "pirateH00",
+        "creatureTag": "pirateH_120",
+        "creatureStartLocationX": 11,
+        "creatureStartLocationY": 16
+      },
+      {
+        "creatureResRef": "pirateI00",
+        "creatureTag": "pirateI_121",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 9
+      }
+    ],
+    "encounterCreatureList": [],
+    "encounterInventoryRefsList": [
+      {
+        "resref": "knife01",
+        "tag": "knife01_122",
+        "name": "Vibroknife",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "potion01",
+        "tag": "potion01_123",
+        "name": "Stimdose",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "potion01",
+        "tag": "potion01_124",
+        "name": "Stimdose",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "pistol2",
+        "tag": "pistol2_125",
+        "name": "Needler Pistol",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ],
+    "encounterPcStartLocations": [
+      {
+        "X": 14,
+        "Y": 9
+      },
+      {
+        "X": 14,
+        "Y": 11
+      },
+      {
+        "X": 15,
+        "Y": 8
+      },
+      {
+        "X": 15,
+        "Y": 12
+      },
+      {
+        "X": 16,
+        "Y": 9
+      },
+      {
+        "X": 16,
+        "Y": 11
+      }
+    ],
+    "goldDrop": 0,
+    "encounterName": "ship02",
+    "MapImage": "none",
+    "UseMapImage": false,
+    "UseDayNightCycle": false,
+    "AreaMusic": "none",
+    "AreaMusicDelay": 0,
+    "AreaMusicDelayRandomAdder": 0,
+    "OnStartCombatRoundLogicTree": "none",
+    "OnStartCombatRoundParms": "",
+    "OnStartCombatTurnLogicTree": "none",
+    "OnStartCombatTurnParms": "",
+    "OnEndCombatLogicTree": "none",
+    "OnEndCombatParms": "",
+    "OnSetupCombatIBScript": "none",
+    "OnSetupCombatIBScriptParms": "",
+    "OnStartCombatRoundIBScript": "none",
+    "OnStartCombatRoundIBScriptParms": "",
+    "OnStartCombatTurnIBScript": "none",
+    "OnStartCombatTurnIBScriptParms": "",
+    "OnEndCombatIBScript": "none",
+    "OnEndCombatIBScriptParms": ""
+  }
+]

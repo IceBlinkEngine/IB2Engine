@@ -55,7 +55,7 @@ namespace IceBlink2
                         try
                         {
                             string filename = Path.GetFileName(file);
-                            if (filename.EndsWith("_pc.png"))
+                            if (filename.EndsWith(".png"))
                             {
                                 string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
                                 playerTokenList.Add(fileNameWithOutExt);
