@@ -89,6 +89,8 @@ namespace IceBlink2
         public string fullScreenEffectLayerName6 = "full_screen_effect_layer6";
         //these six are set by author in toolset for supposedly slow or fast effects, higher is faster
         public float fullScreenAnimationSpeed1 = 1.0f;
+        public float fullScreenAnimationSpeedX1 = -1.5f;
+        public float fullScreenAnimationSpeedY1 = 1.5f;
         public float fullScreenAnimationSpeed2 = 1.35f;
         public float fullScreenAnimationSpeed3 = 1.7f;
         public float fullScreenAnimationSpeed4 = 1.0f;
@@ -102,7 +104,7 @@ namespace IceBlink2
         public string fullScreenAnimationMovePattern5 = "down";
         public string fullScreenAnimationMovePattern6 = "down";
         
-        public int individualDelayBetweenFrames1 = 20;
+        public int individualDelayBetweenFrames1 = 60;
         public int individualDelayBetweenFrames2 = 10;
         public int individualDelayBetweenFrames3 = 10;
         public int individualDelayBetweenFrames4 = 10;
@@ -132,7 +134,7 @@ namespace IceBlink2
         public bool FullScreenEffectLayer4IsTop = true;
         public bool FullScreenEffectLayer5IsTop = true;
         public bool FullScreenEffectLayer6IsTop = true;
-        public int fullScreenEffectChanceToOccur1 = 15;
+        public int fullScreenEffectChanceToOccur1 = 100;
         public int fullScreenEffectChanceToOccur2 = 100;
         public int fullScreenEffectChanceToOccur3 = 100;
         public int fullScreenEffectChanceToOccur4 = 100;
@@ -161,7 +163,7 @@ namespace IceBlink2
 
         //only relevant for movement pattern "random"
         //to do: actually implement this
-        public int numberOfRenderCallsBeforeRedirection1 = 15;
+        public int numberOfRenderCallsBeforeRedirection1 = 100;
         public int numberOfRenderCallsBeforeRedirection2 = 120;
         public int numberOfRenderCallsBeforeRedirection3 = 120;
         public int numberOfRenderCallsBeforeRedirection4 = 120;
@@ -171,11 +173,18 @@ namespace IceBlink2
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
-        public float changeLimit1 = 5;
+        public float changeLimit1 = 60;
         public float changeFrameCounter1 = 1;
         public float changeNumberOfFrames1 = 4;
 
         public int numberOfRenderCallsforRandomCounter1 = 0;
+        public bool useRand1 = false;
+        public bool diagonalSwitch1 = false;
+        public float xCoord1 = -1000000;
+        public float yCoord1 = -1000000;
+
+        public float fullScreenAnimationFrameCounterX1 = 0;
+        public float fullScreenAnimationFrameCounterY1 = 0;
 
         public Area()
 	    {	

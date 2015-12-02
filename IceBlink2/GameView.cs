@@ -1342,6 +1342,15 @@ namespace IceBlink2
             //calling new overloaded draw that takes in opacity, too
             DrawD2DBitmap(bitmap, src, tar, mirror, flip, opac);
         }
+
+        //add opacity overload and use float rects
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRectF source, IbRectF target, bool mirror, bool flip, float opac) //change this to DrawBitmap
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            //calling new overloaded draw that takes in opacity, too
+            DrawD2DBitmap(bitmap, src, tar, mirror, flip, opac);
+        }
         protected override void OnPaint(PaintEventArgs e)
 	    {
             Render();
