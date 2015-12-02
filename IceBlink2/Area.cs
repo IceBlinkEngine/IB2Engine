@@ -64,112 +64,23 @@ namespace IceBlink2
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
         //TODO use the inGameAreaName on main map
-        public bool useFullScreenEffectLayer1 = false;
-        public bool useFullScreenEffectLayer2 = false;
-        public bool useFullScreenEffectLayer3 = false;
-        public bool useFullScreenEffectLayer4 = false;
-        public bool useFullScreenEffectLayer5 = false;
-        public bool useFullScreenEffectLayer6 = false;
-        public bool fullScreenEffectLayerIsActive1 = true;
-        public bool fullScreenEffectLayerIsActive2 = true;
-        public bool fullScreenEffectLayerIsActive3 = true;
-        public bool fullScreenEffectLayerIsActive4 = true;
-        public bool fullScreenEffectLayerIsActive5 = true;
-        public bool fullScreenEffectLayerIsActive6 = true;
 
-        //up to six anmation layers to be freely sred at bottom or top level of the draw stackpile
-        //bmp size of animation sources is free, but I found 150x150 is a good size, using more than four of these will slightly slow down though
-        // for 5 or 6 layers at the same time better use 100x100
-        //testAnim
+        //properties for the full screen animation system (for 6 layrs)
+        #region full screen effect layer 1
+        //full screen effect layer 1
+        public bool useFullScreenEffectLayer1 = false;
+        public bool fullScreenEffectLayerIsActive1 = true;
         public string fullScreenEffectLayerName1 = "testAnim1";
-        public string fullScreenEffectLayerName2 = "full_screen_effect_layer2";
-        public string fullScreenEffectLayerName3 = "full_screen_effect_layer3";
-        public string fullScreenEffectLayerName4 = "full_screen_effect_layer4";
-        public string fullScreenEffectLayerName5 = "full_screen_effect_layer5";
-        public string fullScreenEffectLayerName6 = "full_screen_effect_layer6";
-        //these six are set by author in toolset for supposedly slow or fast effects, higher is faster
         public float fullScreenAnimationSpeed1 = 1.0f;
-        public float fullScreenAnimationSpeedX1 = -1.5f;
-        public float fullScreenAnimationSpeedY1 = 1.5f;
-        public float fullScreenAnimationSpeed2 = 1.35f;
-        public float fullScreenAnimationSpeed3 = 1.7f;
-        public float fullScreenAnimationSpeed4 = 1.0f;
-        public float fullScreenAnimationSpeed5 = 1.0f;
-        public float fullScreenAnimationSpeed6 = 1.0f;
-        //up, down, left, right, individual
-        public string fullScreenAnimationMovePattern1 = "down";
-        public string fullScreenAnimationMovePattern2 = "down";
-        public string fullScreenAnimationMovePattern3 = "down";
-        public string fullScreenAnimationMovePattern4 = "down";
-        public string fullScreenAnimationMovePattern5 = "down";
-        public string fullScreenAnimationMovePattern6 = "down";
-        
-        public int individualDelayBetweenFrames1 = 60;
-        public int individualDelayBetweenFrames2 = 10;
-        public int individualDelayBetweenFrames3 = 10;
-        public int individualDelayBetweenFrames4 = 10;
-        public int individualDelayBetweenFrames5 = 10;
-        public int individualDelayBetweenFrames6 = 10;
-        public int individualFrameCounter1 = 1;
-        public int individualNumberOfFrames1 = 4;
-        public float individualDelayCounter1 = 0;
-        public int individualFrameCounter2 = 1;
-        public int individualNumberOfFrames2 = 1;
-        public float individualDelayCounter2 = 0;
-        public int individualFrameCounter3 = 1;
-        public int individualNumberOfFrames3 = 1;
-        public float individualDelayCounter3 = 0;
-        public int individualFrameCounter4 = 1;
-        public int individualNumberOfFrames4 = 1;
-        public float individualDelayCounter4= 0;
-        public int individualFrameCounter5 = 1;
-        public int individualNumberOfFrames5 = 1;
-        public float individualDelayCounter5 = 0;
-        public int individualFrameCounter6 = 1;
-        public int individualNumberOfFrames6 = 1;
-        public float individualDelayCounter6 = 0;
+        public float fullScreenAnimationSpeedX1 = 0.5f;
+        public float fullScreenAnimationSpeedY1 = 0.5f;
         public bool FullScreenEffectLayer1IsTop = true;
-        public bool FullScreenEffectLayer2IsTop = false;
-        public bool FullScreenEffectLayer3IsTop = true;
-        public bool FullScreenEffectLayer4IsTop = true;
-        public bool FullScreenEffectLayer5IsTop = true;
-        public bool FullScreenEffectLayer6IsTop = true;
-        public int fullScreenEffectChanceToOccur1 = 100;
-        public int fullScreenEffectChanceToOccur2 = 100;
-        public int fullScreenEffectChanceToOccur3 = 100;
-        public int fullScreenEffectChanceToOccur4 = 100;
-        public int fullScreenEffectChanceToOccur5 = 100;
-        public int fullScreenEffectChanceToOccur6 = 100;
+        public int fullScreenEffectChanceToOccur1 = 20;
         //zero signifies an endlessly running animation
         public int numberOfCyclesPerOccurence1 = 0;
-        public int numberOfCyclesPerOccurence2 = 0;
-        public int numberOfCyclesPerOccurence3 = 0;
-        public int numberOfCyclesPerOccurence4 = 0;
-        public int numberOfCyclesPerOccurence5 = 0;
-        public int numberOfCyclesPerOccurence6 = 0;
         public float cycleCounter1 = 0;
-        public float cycleCounter2 = 0;
-        public float cycleCounter3 = 0;
-        public float cycleCounter4 = 0;
-        public float cycleCounter5 = 0;
-        public float cycleCounter6 = 0;
-
         public bool containEffectInsideAreaBorders1 = false;
-        public bool containEffectInsideAreaBorders2 = false;
-        public bool containEffectInsideAreaBorders3 = false;
-        public bool containEffectInsideAreaBorders4 = false;
-        public bool containEffectInsideAreaBorders5 = false;
-        public bool containEffectInsideAreaBorders6 = false;
-
-        //only relevant for movement pattern "random"
-        //to do: actually implement this
-        public int numberOfRenderCallsBeforeRedirection1 = 100;
-        public int numberOfRenderCallsBeforeRedirection2 = 120;
-        public int numberOfRenderCallsBeforeRedirection3 = 120;
-        public int numberOfRenderCallsBeforeRedirection4 = 120;
-        public int numberOfRenderCallsBeforeRedirection5 = 120;
-        public int numberOfRenderCallsBeforeRedirection6 = 120;
-
+        public int numberOfRenderCallsBeforeRedirection1 = 350;
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
@@ -177,14 +88,16 @@ namespace IceBlink2
         public float changeFrameCounter1 = 1;
         public float changeNumberOfFrames1 = 4;
 
-        public int numberOfRenderCallsforRandomCounter1 = 0;
+        public int numberOfRenderCallsforRandomCounter1 = 10000000;
         public bool useRand1 = false;
-        public bool diagonalSwitch1 = false;
-        public float xCoord1 = -1000000;
-        public float yCoord1 = -1000000;
+        public float randomSpeed1 = 0.5f;
+        public bool useCyclicFade1 = true;
 
         public float fullScreenAnimationFrameCounterX1 = 0;
         public float fullScreenAnimationFrameCounterY1 = 0;
+        public int fullScreenAnimationFrameCounter1 = 0;
+        #endregion
+
 
         public Area()
 	    {	

@@ -652,7 +652,8 @@ namespace IceBlink2
 
         public void drawTopFullScreenEffects()
         {
-
+            #region dst tile preparation (min and max)  
+            //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
             int minY = mod.PlayerLocationY - gv.playerOffset;
@@ -662,110 +663,135 @@ namespace IceBlink2
             if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
-
-            //using three layers, so one could e.g. combine rain, fog and occassional lightning
-            //or green fog, red alarm lights and stars flying by on the outer side of the space ship hull 
+            #endregion
+ 
             #region Draw full screen layer 1
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
             if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
+               
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
-                #region old random code
-                /*
+                #region random effect movement code
+                
                 gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 ++;
                 if ((gv.mod.currentArea.useRand1) && (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1))
                 {
                     gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
-                    int rollRandom = gv.sf.RandInt(4);
+                    int rollRandom = gv.sf.RandInt(8);
+                    //right
                     if (rollRandom == 1)
                     {
-                        animDirection = "down";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
                     }
+                    //left
                     if (rollRandom == 2)
                     {
-                        animDirection = "up";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
                     }
+                    //up
                     if (rollRandom == 3)
                     {
-                        animDirection = "right";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
                     }
+                    //down
                     if (rollRandom == 4)
                     {
-                        animDirection = "left";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
                     }
+                    //up right
+                    if (rollRandom == 5)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                    }
+                    //upleft
+                    if (rollRandom == 6)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                    }
+                    //downright
+                    if (rollRandom == 7)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                    }
+                    //downleft
+                    if (rollRandom == 8)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                    }
+
+
                 }
-                */
+                
                 #endregion
+               
                 #region limited cycle animation
                 //check whether we got an effect that is supposed to happen only once in a while
                 if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
                 {
-                    //for simple diretional move pattern
-                    if  ( ( gv.mod.fullScreenAnimationFrameCounter1 > ( 60f / ( gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) -  1) ) && (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual") )
+                    
+                    //added speed
+                    gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedX1;
+
+                    //based on subjective trial and error
+                    if  ( ( gv.mod.currentArea.fullScreenAnimationFrameCounter1 > ( 250f / ( gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) -  1) ))
                     {
                         gv.mod.currentArea.cycleCounter1 += 1;
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
                     }
-
-                    //for individual move pattern
-                    if ((gv.mod.currentArea.individualFrameCounter1 == (gv.mod.currentArea.individualNumberOfFrames1)) && ((gv.mod.currentArea.individualDelayCounter1 + (1 * gv.mod.allAnimationSpeedMultiplier)) > gv.mod.currentArea.individualDelayBetweenFrames1) && (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual"))
+                    
+                    //a little extra delay added by on intuition how long a cycle takes here
+                    if (gv.mod.currentArea.cycleCounter1 >= (gv.mod.currentArea.numberOfCyclesPerOccurence1))
                     {
-                        gv.mod.currentArea.cycleCounter1 += 1;
-                    }
-
-                    //for both
-                    if (gv.mod.currentArea.cycleCounter1 >= gv.mod.currentArea.numberOfCyclesPerOccurence1)
-                    {
+                        //turn the animation off, in common code's doudate metod a chance per turn is rolled for turning on again
                         gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                        //counts how often/long the aniamtion is displayed before stop
                         gv.mod.currentArea.cycleCounter1 = 0;
-                        gv.mod.currentArea.individualFrameCounter1 = 1;
-                        gv.mod.fullScreenAnimationFrameCounter1 = 0;
-                        gv.mod.currentArea.individualDelayCounter1 = 0;
+                        //just keeping track how often render calls have run through
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                        //for changing a shape changing anim
+                        gv.mod.currentArea.changeCounter1 = 0;
+                        //for changing a shape changing anim
+                        gv.mod.currentArea.changeFrameCounter1 = 1;
                     }
                 }
                 #endregion
 
                 if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
-                    #region opacity code
                     float fullScreenEffectOpacity = 1f;
-                    
-                    //fade in within first cycle of cyclic, non-individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade1)
                     {
-                        fullScreenEffectOpacity = 1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) /(float)gv.mod.fullScreenAnimationFrameCounter1);
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
+                        }
                     }
-
-                    //fade out within last cycle of cyclic, non-individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
-                    {
-                        fullScreenEffectOpacity =  1f - (1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.fullScreenAnimationFrameCounter1));
-                    }
-
-                    //fade in within first cycle of cyclic, individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
-                    {
-                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * ( 1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
-                        fullScreenEffectOpacity = 1f * fractionOfFramesReached;
-                    }
-
-                    //fade out within last cycle of cyclic, individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
-                    {
-                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * (1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
-                        fullScreenEffectOpacity = 1f - (1f * fractionOfFramesReached);
-
-                    }
-
-                    //fullScreenEffectOpacity = 1f;
                     #endregion
-
-                    if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
-                    {
+                        
                         //use weather system per area specific later on
                         //utilizing weather type defined by area weather settings
                         //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
 
-                        #region only for changing animation
+                        #region only for shape changing animation
                         if (gv.mod.currentArea.isChanging1)
                         {
                             gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
@@ -780,88 +806,29 @@ namespace IceBlink2
                             }
                             fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
                         }
-                        #endregion
-                        else
-                        {
-
-                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
-
-                        }
-
-                        gv.mod.fullScreenAnimationFrameCounter1 += 1;
-                        //if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
-                        //{
-                            //gv.mod.fullScreenAnimationFrameCounter1 = 0;
-                        //}
-                    }
-
-                    #region old individual code
-                    //individual (old)
-                    else
-                    {
-                        //to do: reset all full screen animation relevant counters on switching area
-                        gv.mod.currentArea.individualDelayCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
-                        if (gv.mod.currentArea.individualDelayCounter1 > gv.mod.currentArea.individualDelayBetweenFrames1)
-                        {
-                            gv.mod.currentArea.individualDelayCounter1 = 0;
-                            //fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
-                            //note: the frame counter starts with default 1
-                            gv.mod.currentArea.individualFrameCounter1 += 1;
-                            if (gv.mod.currentArea.individualFrameCounter1 > gv.mod.currentArea.individualNumberOfFrames1)
-                            {
-                                gv.mod.currentArea.individualFrameCounter1 = 1;
-                            }
-                        }
-                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
-                    }
                     #endregion
 
+                        else
+                        {
+                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
+                    
                     #region handle framecounter
                     //assuming a square shaped source here
                     float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
-                    //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                    //float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier));
 
-                    //float numberOfPixToMovePerCounterIncreaseX1 = numberOfPixToMovePerCounterIncrease * gv.mod.currentArea.fullScreenAnimationSpeedX1;
-                    //float numberOfPixToMovePerCounterIncreaseY1 = numberOfPixToMovePerCounterIncrease * gv.mod.currentArea.fullScreenAnimationSpeedY1;
-
-                    //float pixShiftOnThisFrameX = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncreaseX1;
-                    //float pixShiftOnThisFrameY = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncreaseY1;
-                    //gv.mod.currentArea.fullScreenAnimationFrameCounterX1 += gv.mod.currentArea.fullScreenAnimationSpeedX1;
-                    //gv.mod.currentArea.fullScreenAnimationFrameCounterY1 += gv.mod.currentArea.fullScreenAnimationSpeedY1;
-
-                    /*
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterX1 >= ((2*gv.playerOffset)*gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterY1 >= ((2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterX1 <= ((-2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterY1 < ((-2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = 0;
-                    }
-                    */
-
-
-                    //float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
-                    //float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
-
+                    //reading the frames moved and added up in the last seconds
                     float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
                     float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
 
+                    //increase by this call's movement
                     pixShiftOnThisFrameX += gv.mod.currentArea.fullScreenAnimationSpeedX1;
                     pixShiftOnThisFrameY += gv.mod.currentArea.fullScreenAnimationSpeedY1;
 
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
                     if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
                     {
                         pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
@@ -886,12 +853,14 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = pixShiftOnThisFrameY;
                     #endregion
 
+                    #region iterate through the dst tiles
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
                             Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
@@ -904,7 +873,8 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
-                                //preparatory code section for handling borders of the area
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
                                 int modX = x;
                                 int modY = y;
                                 int modMinX = minX;
@@ -987,67 +957,50 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                #endregion
 
                                 //get the correct chunk on source
-                                //this is stored after each render call
-                                //float floatSourceChunkCoordX = gv.mod.currentArea.xCoord1;
-                                ///float floatSourceChunkCoordY = gv.mod.currentArea.yCoord1;
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                //if ((floatSourceChunkCoordX == -1000000) && (floatSourceChunkCoordY == -1000000))
-                                //{
-                                    float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
-                                //}
-                                //else
-                                //{
-                                    //floatSourceChunkCoordX +=  numberOfPixToMovePerCounterIncreaseX1;
-                                    //floatSourceChunkCoordY +=  numberOfPixToMovePerCounterIncreaseY1;
-                                //}  
-                                    //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
-                                    //leave source in negative direction (vertical)
-                                    if (floatSourceChunkCoordY < 0)
-                                    {
-                                    //floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+                                
+                                //leave source in negative direction (vertical)
+                                if (floatSourceChunkCoordY < 0)
+                                {
                                     floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
                                     floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
                                     floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
                                 }
 
-                                    //leave source in positive direction (vertical)
-                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
-                                    {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
+                                //leave source in positive direction (vertical)
+                                if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                {
                                     floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
                                 }
 
                                 //leave source in negative direction (horizontal)
                                 if (floatSourceChunkCoordX < 0)
-                                    {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
+                                { 
                                     floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
                                     floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
                                     floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
                                 }
 
-                                    //leave source in positive direction (horizontal)
-                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
-                                    {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
+                                //leave source in positive direction (horizontal)
+                                if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                {
                                     floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
-
                                 }
+                                #endregion
 
-                                //gv.mod.currentArea.xCoord1 = floatSourceChunkCoordX;
-                                //gv.mod.currentArea.yCoord1 = floatSourceChunkCoordY;
-
+                                #region handle the four different draw situations, based on position of chunk on source
                                 //next task is to actaully draw up to four pieces of  square source to one target dst
-                                //let's go through the differnt situations that can occur
+                                //let's go through the differdnt situations that can occur
 
-
+                                #region Situation 1 (complex, 4 to 1)
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
@@ -1069,30 +1022,23 @@ namespace IceBlink2
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
                                     
                                         //second: top right corner
                                         float oldWidth = (brX * dstScalerX);
                                         availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
                                         availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                        //dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
                                         dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         srcCoordY2 = floatSourceChunkCoordY;
                                         srcCoordX2 = 0;
-                                        //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        //IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, brX,(brY * dstScalerY));
-                                        //if (dstScalerX < 0.0001f)
-                                        //{
-                                            //srcCoordX2 = 0;
-                                        //}
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
                                     
                                         //third: bottom left corner
@@ -1100,17 +1046,15 @@ namespace IceBlink2
                                         availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                         availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
                                         dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        //dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         srcCoordY2 = 0;
                                         srcCoordX2 = floatSourceChunkCoordX;
-                                        //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY-(brY * dstScalerY)));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
                                     
                                         //fourth: bottom right corner
@@ -1121,24 +1065,23 @@ namespace IceBlink2
                                         dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         srcCoordY2 = 0;
                                         srcCoordX2 = 0;
-                                        //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
-                                        //this continue makes sure we dont do the normal drawing below
                                         
                                     continue;
                                         
                                     }
+                                #endregion
 
-                                    
-                                    //Situation 2: only x is near right border, y is high/small enough
-                                    else if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
                                     {
                                         
                                         //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -1150,46 +1093,42 @@ namespace IceBlink2
                                         float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         float srcCoordY2 = floatSourceChunkCoordY;
                                         float srcCoordX2 = floatSourceChunkCoordX;
-                                        //int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
 
                                         //second: right hand side
                                         float oldWidth = (brX * dstScalerX);
                                         availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
                                         availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                        //dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
                                         dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         srcCoordY2 = floatSourceChunkCoordY;
                                         srcCoordX2 = 0;
-                                        //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY,(brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
-
-                                        //this continue makes sure we dont do the normal drawing below
                                         continue;
                                         
                                     }
+                                #endregion
 
-                                    //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                    else if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
                                     {
                                     
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
-                                    
                                     //first: top square
                                     float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
@@ -1197,7 +1136,6 @@ namespace IceBlink2
                                     float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    //int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1207,41 +1145,30 @@ namespace IceBlink2
                                     }
                                     catch { }
 
-
-                                    //float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    //float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    //float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    //float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-
-
-
                                     //second: bottom square
                                         float oldLength = 0;
                                         oldLength = (float)(brY * dstScalerY);
                                         availableLengthX = (sizeOfWholeSource / numberOfPictureParts); 
                                         availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
                                         dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        //dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                         srcCoordY2 = 0;
                                         srcCoordX2 = floatSourceChunkCoordX;
-                                        //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                         try
                                         {
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-                                       
-                                        continue;
-                                       
                                     }
+                                        catch { }
+                                        continue;
+                                    }
+                                #endregion
 
-                                    
-                                    //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
-                                    else
-                                    {
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
                                     
                                         float srcCoordY2 = floatSourceChunkCoordY;
                                         float srcCoordX2 = floatSourceChunkCoordX;
@@ -1252,39 +1179,26 @@ namespace IceBlink2
                                             IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                             IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                             gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
+                                    }
                                         catch { }
                                         
                                     }
-                                    
-                                 
-                                 /*
-                                //old code,liekly delete
-                                //use individual animation frames
-                                //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                                //WIP
-                                if (animDirection == "individual")
-                                {
-                                    floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                    floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                    if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                    {
-                                        floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                    }
-                                }
-                                */
+                                #endregion
+
                             }
                         }
                     }
                 }
+                #endregion
             }
             #endregion
-            
+            #endregion
         }
 
-        public void drawTopFullScreenEffectsBACKUP()
+        public void drawBottomFullScreenEffects()
         {
-
+            #region dst tile preparation (min and max)  
+            //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
             int minY = mod.PlayerLocationY - gv.playerOffset;
@@ -1294,206 +1208,172 @@ namespace IceBlink2
             if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
+            #endregion
 
-            //using three layers, so one could e.g. combine rain, fog and occassional lightning
-            //or green fog, red alarm lights and stars flying by on the outer side of the space ship hull 
             #region Draw full screen layer 1
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
             if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
+
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
-                #region old random code
-                /*
-                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 ++;
+                #region random effect movement code
+
+                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1++;
                 if ((gv.mod.currentArea.useRand1) && (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1))
                 {
                     gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
-                    int rollRandom = gv.sf.RandInt(4);
+                    int rollRandom = gv.sf.RandInt(8);
+                    //right
                     if (rollRandom == 1)
                     {
-                        animDirection = "down";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
                     }
+                    //left
                     if (rollRandom == 2)
                     {
-                        animDirection = "up";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
                     }
+                    //up
                     if (rollRandom == 3)
                     {
-                        animDirection = "right";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
                     }
+                    //down
                     if (rollRandom == 4)
                     {
-                        animDirection = "left";
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
                     }
+                    //up right
+                    if (rollRandom == 5)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                    }
+                    //upleft
+                    if (rollRandom == 6)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                    }
+                    //downright
+                    if (rollRandom == 7)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                    }
+                    //downleft
+                    if (rollRandom == 8)
+                    {
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                    }
+
+
                 }
-                */
+
                 #endregion
+
                 #region limited cycle animation
                 //check whether we got an effect that is supposed to happen only once in a while
                 if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
                 {
-                    //for simple diretional move pattern
-                    if ((gv.mod.fullScreenAnimationFrameCounter1 > (60f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)) && (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual"))
+
+                    //added speed
+                    gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedX1;
+
+                    //based on subjective trial and error
+                    if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                     {
                         gv.mod.currentArea.cycleCounter1 += 1;
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
                     }
 
-                    //for individual move pattern
-                    if ((gv.mod.currentArea.individualFrameCounter1 == (gv.mod.currentArea.individualNumberOfFrames1)) && ((gv.mod.currentArea.individualDelayCounter1 + (1 * gv.mod.allAnimationSpeedMultiplier)) > gv.mod.currentArea.individualDelayBetweenFrames1) && (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual"))
+                    //a little extra delay added by on intuition how long a cycle takes here
+                    if (gv.mod.currentArea.cycleCounter1 >= (gv.mod.currentArea.numberOfCyclesPerOccurence1))
                     {
-                        gv.mod.currentArea.cycleCounter1 += 1;
-                    }
-
-                    //for both
-                    if (gv.mod.currentArea.cycleCounter1 >= gv.mod.currentArea.numberOfCyclesPerOccurence1)
-                    {
+                        //turn the animation off, in common code's doudate metod a chance per turn is rolled for turning on again
                         gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                        //counts how often/long the aniamtion is displayed before stop
                         gv.mod.currentArea.cycleCounter1 = 0;
-                        gv.mod.currentArea.individualFrameCounter1 = 1;
-                        gv.mod.fullScreenAnimationFrameCounter1 = 0;
-                        gv.mod.currentArea.individualDelayCounter1 = 0;
+                        //just keeping track how often render calls have run through
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                        //for changing a shape changing anim
+                        gv.mod.currentArea.changeCounter1 = 0;
+                        //for changing a shape changing anim
+                        gv.mod.currentArea.changeFrameCounter1 = 1;
                     }
                 }
                 #endregion
 
                 if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
-                    #region opacity code
                     float fullScreenEffectOpacity = 1f;
-
-                    //fade in within first cycle of cyclic, non-individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade1)
                     {
-                        fullScreenEffectOpacity = 1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.fullScreenAnimationFrameCounter1);
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
+                        }
                     }
-
-                    //fade out within last cycle of cyclic, non-individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")))
-                    {
-                        fullScreenEffectOpacity = 1f - (1f / ((60f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.fullScreenAnimationFrameCounter1));
-                    }
-
-                    //fade in within first cycle of cyclic, individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
-                    {
-                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * (1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
-                        fullScreenEffectOpacity = 1f * fractionOfFramesReached;
-                    }
-
-                    //fade out within last cycle of cyclic, individual animation
-                    if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0) && ((gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")))
-                    {
-                        float fractionOfFramesReached = (((float)gv.mod.currentArea.individualFrameCounter1 - 1f) / (float)gv.mod.currentArea.individualNumberOfFrames1) + (((float)gv.mod.currentArea.individualDelayCounter1 / (float)gv.mod.currentArea.individualDelayBetweenFrames1) * (1f / (float)(gv.mod.currentArea.individualNumberOfFrames1)));
-                        fullScreenEffectOpacity = 1f - (1f * fractionOfFramesReached);
-
-                    }
-
-                    //fullScreenEffectOpacity = 1f;
                     #endregion
 
-                    if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging1)
                     {
-                        //use weather system per area specific later on
-                        //utilizing weather type defined by area weather settings
-                        //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-
-                        #region only for changing animation
-                        if (gv.mod.currentArea.isChanging1)
+                        gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
                         {
-                            gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
-                            if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            gv.mod.currentArea.changeFrameCounter1 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
                             {
-                                gv.mod.currentArea.changeCounter1 = 0;
-                                gv.mod.currentArea.changeFrameCounter1 += 1;
-                                if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
-                                {
-                                    gv.mod.currentArea.changeFrameCounter1 = 1;
-                                }
+                                gv.mod.currentArea.changeFrameCounter1 = 1;
                             }
-                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
                         }
-                        #endregion
-                        else
-                        {
-
-                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
-
-                        }
-
-                        gv.mod.fullScreenAnimationFrameCounter1 += 1;
-                        //if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
-                        //{
-                        //gv.mod.fullScreenAnimationFrameCounter1 = 0;
-                        //}
+                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
                     }
+                    #endregion
 
-                    #region old individual code
-                    //individual (old)
                     else
                     {
-                        //to do: reset all full screen animation relevant counters on switching area
-                        gv.mod.currentArea.individualDelayCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
-                        if (gv.mod.currentArea.individualDelayCounter1 > gv.mod.currentArea.individualDelayBetweenFrames1)
-                        {
-                            gv.mod.currentArea.individualDelayCounter1 = 0;
-                            //fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
-                            //note: the frame counter starts with default 1
-                            gv.mod.currentArea.individualFrameCounter1 += 1;
-                            if (gv.mod.currentArea.individualFrameCounter1 > gv.mod.currentArea.individualNumberOfFrames1)
-                            {
-                                gv.mod.currentArea.individualFrameCounter1 = 1;
-                            }
-                        }
-                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
+                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
                     }
-                    #endregion
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
 
                     #region handle framecounter
                     //assuming a square shaped source here
                     float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
-                    //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                    //float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier));
 
-                    //float numberOfPixToMovePerCounterIncreaseX1 = numberOfPixToMovePerCounterIncrease * gv.mod.currentArea.fullScreenAnimationSpeedX1;
-                    //float numberOfPixToMovePerCounterIncreaseY1 = numberOfPixToMovePerCounterIncrease * gv.mod.currentArea.fullScreenAnimationSpeedY1;
-
-                    //float pixShiftOnThisFrameX = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncreaseX1;
-                    //float pixShiftOnThisFrameY = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncreaseY1;
-                    //gv.mod.currentArea.fullScreenAnimationFrameCounterX1 += gv.mod.currentArea.fullScreenAnimationSpeedX1;
-                    //gv.mod.currentArea.fullScreenAnimationFrameCounterY1 += gv.mod.currentArea.fullScreenAnimationSpeedY1;
-
-                    /*
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterX1 >= ((2*gv.playerOffset)*gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterY1 >= ((2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterX1 <= ((-2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
-                    }
-
-                    if (gv.mod.currentArea.fullScreenAnimationFrameCounterY1 < ((-2 * gv.playerOffset) * gv.squareSize))
-                    {
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = 0;
-                    }
-                    */
-
-
-                    //float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
-                    //float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
-
+                    //reading the frames moved and added up in the last seconds
                     float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
                     float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
 
+                    //increase by this call's movement
                     pixShiftOnThisFrameX += gv.mod.currentArea.fullScreenAnimationSpeedX1;
                     pixShiftOnThisFrameY += gv.mod.currentArea.fullScreenAnimationSpeedY1;
 
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
                     if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
                     {
                         pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
@@ -1518,12 +1398,14 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = pixShiftOnThisFrameY;
                     #endregion
 
+                    #region iterate through the dst tiles
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
                             Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
@@ -1536,7 +1418,8 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
-                                //preparatory code section for handling borders of the area
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
                                 int modX = x;
                                 int modY = y;
                                 int modMinX = minX;
@@ -1619,28 +1502,19 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                #endregion
 
                                 //get the correct chunk on source
-                                //this is stored after each render call
-                                //float floatSourceChunkCoordX = gv.mod.currentArea.xCoord1;
-                                ///float floatSourceChunkCoordY = gv.mod.currentArea.yCoord1;
-
-                                //if ((floatSourceChunkCoordX == -1000000) && (floatSourceChunkCoordY == -1000000))
-                                //{
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
-                                //}
-                                //else
-                                //{
-                                //floatSourceChunkCoordX +=  numberOfPixToMovePerCounterIncreaseX1;
-                                //floatSourceChunkCoordY +=  numberOfPixToMovePerCounterIncreaseY1;
-                                //}  
+
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
                                 //leave source in negative direction (vertical)
                                 if (floatSourceChunkCoordY < 0)
                                 {
-                                    //floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
                                     floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
                                     floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
                                     floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
@@ -1649,16 +1523,12 @@ namespace IceBlink2
                                 //leave source in positive direction (vertical)
                                 if (floatSourceChunkCoordY >= sizeOfWholeSource)
                                 {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
                                     floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
                                 }
 
                                 //leave source in negative direction (horizontal)
                                 if (floatSourceChunkCoordX < 0)
                                 {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
                                     floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
                                     floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
                                     floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
@@ -1667,19 +1537,15 @@ namespace IceBlink2
                                 //leave source in positive direction (horizontal)
                                 if (floatSourceChunkCoordX >= sizeOfWholeSource)
                                 {
-                                    //gv.mod.fullScreenAnimationFrameCounter1 = 1;
-                                    //floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
                                     floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
-
                                 }
+                                #endregion
 
-                                //gv.mod.currentArea.xCoord1 = floatSourceChunkCoordX;
-                                //gv.mod.currentArea.yCoord1 = floatSourceChunkCoordY;
-
+                                #region handle the four different draw situations, based on position of chunk on source
                                 //next task is to actaully draw up to four pieces of  square source to one target dst
-                                //let's go through the differnt situations that can occur
+                                //let's go through the differdnt situations that can occur
 
-
+                                #region Situation 1 (complex, 4 to 1)
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
@@ -1708,21 +1574,14 @@ namespace IceBlink2
                                     float oldWidth = (brX * dstScalerX);
                                     availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    //dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
                                     dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
-                                    //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        //IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, brX,(brY * dstScalerY));
-                                        //if (dstScalerX < 0.0001f)
-                                        //{
-                                        //srcCoordX2 = 0;
-                                        //}
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
@@ -1732,10 +1591,8 @@ namespace IceBlink2
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
                                     dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    //dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
-                                    //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1753,7 +1610,6 @@ namespace IceBlink2
                                     dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
-                                    //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1762,13 +1618,13 @@ namespace IceBlink2
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
-                                    //this continue makes sure we dont do the normal drawing below
 
                                     continue;
 
                                 }
+                                #endregion
 
-
+                                #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
                                 else if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
                                 {
@@ -1782,7 +1638,6 @@ namespace IceBlink2
                                     float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    //int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1796,11 +1651,9 @@ namespace IceBlink2
                                     float oldWidth = (brX * dstScalerX);
                                     availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
                                     availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    //dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
                                     dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
-                                    //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1809,18 +1662,17 @@ namespace IceBlink2
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
                                     continue;
 
                                 }
+                                #endregion
 
+                                #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
                                 else if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
-
 
                                     //first: top square
                                     float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
@@ -1829,7 +1681,6 @@ namespace IceBlink2
                                     float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    //int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1839,24 +1690,14 @@ namespace IceBlink2
                                     }
                                     catch { }
 
-
-                                    //float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    //float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    //float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    //float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-
-
-
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
                                     availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
                                     availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
                                     dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    //dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
-                                    //sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
 
                                     try
                                     {
@@ -1865,12 +1706,11 @@ namespace IceBlink2
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
-
                                     continue;
-
                                 }
+                                #endregion
 
-
+                                #region Situation 4 (default, neither x or y near border)
                                 //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
                                 else
                                 {
@@ -1888,1892 +1728,16 @@ namespace IceBlink2
                                     catch { }
 
                                 }
+                                #endregion
 
-
-                                /*
-                               //old code,liekly delete
-                               //use individual animation frames
-                               //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                               //WIP
-                               if (animDirection == "individual")
-                               {
-                                   floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                   floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                   if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                   {
-                                       floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                   }
-                               }
-                               */
                             }
                         }
                     }
                 }
+                #endregion
             }
             #endregion
-
-        }
-
-
-        public void drawBottomFullScreenEffects()
-        {
-            
-            int minX = mod.PlayerLocationX - gv.playerOffset; 
-            if (minX < 0) { minX = 0; }
-            int minY = mod.PlayerLocationY - gv.playerOffset;
-            if (minY < 0) { minY = 0; }
-
-            int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
-            if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-            int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
-            if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
-
-            //using three layers, so one could e.g. combine rain, fog and occassional lightning
-            //or green fog, red alarm lights and stars flying by on the outer side of the space ship hull 
-            #region Draw full screen layer 1
-            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (!gv.mod.currentArea.FullScreenEffectLayer1IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                if (gv.mod.currentArea.fullScreenAnimationMovePattern1 != "individual")
-                {
-                    
-                    fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
-                    gv.mod.fullScreenAnimationFrameCounter1 += 1;
-                    if (gv.mod.fullScreenAnimationFrameCounter1 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier)))
-                    {
-                        gv.mod.fullScreenAnimationFrameCounter1 = 0;
-                    }
-                }
-                else
-                {
-                    //to do: reset all full screen animation relevant counters on switching area
-                    gv.mod.currentArea.individualDelayCounter1 += 1;
-                    if (gv.mod.currentArea.individualDelayCounter1 > gv.mod.currentArea.individualDelayBetweenFrames1)
-                    {
-                        gv.mod.currentArea.individualDelayCounter1 = 0;
-                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.individualFrameCounter1.ToString());
-                        gv.mod.currentArea.individualFrameCounter1 += 1;
-                        if (gv.mod.currentArea.individualFrameCounter1 > gv.mod.currentArea.individualNumberOfFrames1)
-                        {
-                            gv.mod.currentArea.individualFrameCounter1 = 1;
-                        }
-                    }
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter1 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer1)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts) ) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern1 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect1, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
             #endregion
-            #region Draw fullscreen layer 2
-            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (!gv.mod.currentArea.FullScreenEffectLayer2IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect2);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect2 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName2);
-                gv.mod.fullScreenAnimationFrameCounter2 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter2 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier)))
-                {
-                    gv.mod.fullScreenAnimationFrameCounter2 = 0;
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect2.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter2 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer2)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern2 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern2 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern2 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern2 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern2 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect2, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
-            #endregion
-            #region Draw fullscreen layer 3
-            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (!gv.mod.currentArea.FullScreenEffectLayer3IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect3);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect3 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName3);
-                gv.mod.fullScreenAnimationFrameCounter3 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter3 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier)))
-                {
-                    gv.mod.fullScreenAnimationFrameCounter3 = 0;
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect3.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter3 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer3)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern3 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern3 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern3 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern3 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern3 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect3, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
-            #endregion
-            #region Draw fullscreen layer 4
-            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (!gv.mod.currentArea.FullScreenEffectLayer4IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect4);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect4 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName4);
-                gv.mod.fullScreenAnimationFrameCounter4 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter4 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier)))
-                {
-                    gv.mod.fullScreenAnimationFrameCounter4 = 0;
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect4.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter4 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer4)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern4 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern4 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern4 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern4 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern4 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect4, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
-            #endregion
-            #region Draw fullscreen layer 5
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect5 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName5);
-                gv.mod.fullScreenAnimationFrameCounter5 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter5 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier)))
-                {
-                    gv.mod.fullScreenAnimationFrameCounter5 = 0;
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect5.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter5 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer5)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern5 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern5 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern5 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern5 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern5 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect5, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
-            #endregion
-
-            #region Draw fullscreen layer 6
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop))
-            {
-                gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
-                //use weather system per area specific later on
-                //utilizing weather type defined by area weather settings
-                //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-                fullScreenEffect6 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName6);
-                gv.mod.fullScreenAnimationFrameCounter6 += 1;
-                if (gv.mod.fullScreenAnimationFrameCounter6 > (60 / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier)))
-                {
-                    gv.mod.fullScreenAnimationFrameCounter6 = 0;
-                }
-                //assuming a square shaped source here
-                float sizeOfWholeSource = fullScreenEffect6.PixelSize.Width;
-                //takes about two seconds for an animation to run completely through on my laptop with this default set up, all speeds at 1
-                float numberOfPixToMovePerCounterIncrease = sizeOfWholeSource / (60 / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier));
-                float pixShiftOnThisFrame = gv.mod.fullScreenAnimationFrameCounter6 * numberOfPixToMovePerCounterIncrease;
-
-                for (int x = minX; x < maxX; x++)
-                {
-                    for (int y = minY; y < maxY; y++)
-                    {
-                        Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-
-                        if (!tile.blockFullScreenEffectLayer6)
-                        {
-                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                            float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                            float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
-                            int brX = (int)(gv.squareSize * scalerX);
-                            int brY = (int)(gv.squareSize * scalerY);
-
-                            float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                            //code section for handling right and bottom border of area
-                            int modX = x;
-                            int modY = y;
-                            if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 1;
-                            }
-                            if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 2;
-                            }
-                            if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 3;
-                            }
-                            if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                            {
-                                modX += 4;
-                            }
-
-
-                            if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 1;
-                            }
-                            if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 2;
-                            }
-                            if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 3;
-                            }
-                            if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                            {
-                                modY += 4;
-                            }
-
-                            //get the correct chunk on source
-                            float floatSourceChunkCoordX = 0;
-                            float floatSourceChunkCoordY = 0;
-
-                            //scroll down
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern6 == "down")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY < 0)
-                                {
-                                    floatSourceChunkCoordY = sizeOfWholeSource + floatSourceChunkCoordY;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll up
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern6 == "up")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                if (floatSourceChunkCoordY > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY - sizeOfWholeSource;
-                                }
-
-                                if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = 0;
-                                    srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, (int)availableLength);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY + (int)(brY * dstScaler), brX, brY - (int)(brY * dstScaler));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll right
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern6 == "right")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource - (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = sizeOfWholeSource + floatSourceChunkCoordX;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //scroll left
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern6 == "left")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource + (pixShiftOnThisFrame);
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                                if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) > sizeOfWholeSource)
-                                {
-                                    //need to use parts from two source chunks and draw them onto the dst square
-
-                                    //first render the existing part of chunk1 (ie cut off blank space) 
-                                    //to the part of dst that is closer to scroll direction
-                                    float availableLength = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float dstScaler = availableLength / (sizeOfWholeSource / numberOfPictureParts);
-
-                                    int srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    int srcCoordX2 = (int)floatSourceChunkCoordX;
-                                    int sizeOfSourceChunk2 = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //now lets draw the escond part of dst, using a part of chunk2
-                                    srcCoordY2 = (int)floatSourceChunkCoordY;
-                                    srcCoordX2 = 0;
-                                    availableLength = (sizeOfWholeSource / numberOfPictureParts) - availableLength;
-
-                                    try
-                                    {
-                                        IbRect src = new IbRect(srcCoordX2, srcCoordY2, (int)availableLength, sizeOfSourceChunk2);
-                                        IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + (int)(brX * dstScaler), tlY, brX - (int)(brX * dstScaler), brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst);
-                                    }
-                                    catch { }
-
-                                    //this continue makes sure we dont do the normal drawing below
-                                    continue;
-                                }
-                            }
-
-                            //use individual animation frames
-                            //using umberOfFrames and delayBetweenFrames as properties of the layer in area
-                            //WIP
-                            if (gv.mod.currentArea.fullScreenAnimationMovePattern6 == "individual")
-                            {
-                                floatSourceChunkCoordX = ((float)(modX - minX) / numberOfPictureParts) * sizeOfWholeSource;
-                                floatSourceChunkCoordY = ((float)(modY - minY) / numberOfPictureParts) * sizeOfWholeSource;
-                                if (floatSourceChunkCoordX > sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX - sizeOfWholeSource;
-                                }
-                            }
-
-
-
-                            int srcCoordY = (int)floatSourceChunkCoordY;
-                            int srcCoordX = (int)floatSourceChunkCoordX;
-                            int sizeOfSourceChunk = (int)(sizeOfWholeSource / numberOfPictureParts);
-
-                            try
-                            {
-                                IbRect src = new IbRect(srcCoordX, srcCoordY, sizeOfSourceChunk, sizeOfSourceChunk);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                gv.DrawBitmap(fullScreenEffect6, src, dst);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-            }
-            #endregion
-
-
-
-
         }
 
         public void drawMap()
