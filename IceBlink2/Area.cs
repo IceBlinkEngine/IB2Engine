@@ -80,7 +80,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence1 = 0;
         public float cycleCounter1 = 0;
         public bool containEffectInsideAreaBorders1 = false;
-        public int numberOfRenderCallsBeforeRedirection1 = 350;
+        public int numberOfRenderCallsBeforeRedirection1 = 100;
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
@@ -89,7 +89,8 @@ namespace IceBlink2
         public float changeNumberOfFrames1 = 4;
 
         public int numberOfRenderCallsforRandomCounter1 = 10000000;
-        public bool useRand1 = false;
+        //so far: randStraight, randOrganic
+        public string directionalOverride = "";
         public float randomSpeed1 = 0.5f;
         public bool useCyclicFade1 = true;
 
