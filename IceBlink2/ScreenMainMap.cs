@@ -675,64 +675,96 @@ namespace IceBlink2
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
                 #region random effect movement code
-                
+
+                if (gv.mod.currentArea.directionalOverride == "randStraight")
+                { 
                 gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 ++;
-                if ((gv.mod.currentArea.useRand1) && (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1))
+                if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
                 {
-                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
-                    int rollRandom = gv.sf.RandInt(8);
-                    //right
-                    if (rollRandom == 1)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
-                    }
-                    //left
-                    if (rollRandom == 2)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
-                    }
-                    //up
-                    if (rollRandom == 3)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //down
-                    if (rollRandom == 4)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
-                    //up right
-                    if (rollRandom == 5)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //upleft
-                    if (rollRandom == 6)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //downright
-                    if (rollRandom == 7)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
-                    //downleft
-                    if (rollRandom == 8)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
+                        gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
+                        }
+                        }
+                        if (gv.mod.currentArea.directionalOverride == "randOrganic")
+                        {
+                            gv.mod.currentArea.numberOfRenderCallsforRandomCounter1++;
+                            if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
+                            {
 
+                                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                                //for x
+                                int rollRandom = gv.sf.RandInt(100);
+                                int rollRandom2 = gv.sf.RandInt(2);
+                                int directional = 1;
+                                if (rollRandom2 == 1)
+                                {
+                                    rollRandom = rollRandom * -1;
+                                    directional = -1;
+                                }
+                                float decider = rollRandom / 100f;
+                                gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * gv.mod.currentArea.randomSpeed1 * 0.5f)) * (0.5f);
 
-                }
-                
+                                //for y
+                                rollRandom = gv.sf.RandInt(100);
+                                rollRandom2 = gv.sf.RandInt(2);
+                                directional = 1;
+                                if (rollRandom2 == 1)
+                                {
+                                    rollRandom = rollRandom * -1;
+                                    directional = -1;
+                                }
+                                decider = rollRandom / 100f;
+                                gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * gv.mod.currentArea.randomSpeed1 * 0.5f)) * (0.5f);
+                            }
+                        }
                 #endregion
                
                 #region limited cycle animation
@@ -741,7 +773,7 @@ namespace IceBlink2
                 {
                     
                     //added speed
-                    gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                    gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedY1;
 
                     //based on subjective trial and error
                     if  ( ( gv.mod.currentArea.fullScreenAnimationFrameCounter1 > ( 250f / ( gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) -  1) ))
@@ -1214,70 +1246,102 @@ namespace IceBlink2
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
             //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
             //that's for my laptop
-            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (!gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
 
                 #region random effect movement code
 
-                gv.mod.currentArea.numberOfRenderCallsforRandomCounter1++;
-                if ((gv.mod.currentArea.useRand1) && (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1))
+                if (gv.mod.currentArea.directionalOverride == "randStraight")
                 {
-                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
-                    int rollRandom = gv.sf.RandInt(8);
-                    //right
-                    if (rollRandom == 1)
+                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1++;
+                    if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
                     {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
+                        }
                     }
-                    //left
-                    if (rollRandom == 2)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
-                    }
-                    //up
-                    if (rollRandom == 3)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //down
-                    if (rollRandom == 4)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = 0.0f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
-                    //up right
-                    if (rollRandom == 5)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //upleft
-                    if (rollRandom == 6)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.currentArea.randomSpeed1;
-                    }
-                    //downright
-                    if (rollRandom == 7)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
-                    //downleft
-                    if (rollRandom == 8)
-                    {
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = -gv.mod.currentArea.randomSpeed1;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = -gv.mod.currentArea.randomSpeed1;
-                    }
-
-
                 }
+                if (gv.mod.currentArea.directionalOverride == "randOrganic")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsforRandomCounter1++;
+                    if (gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 > gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1)
+                    {
 
+                        gv.mod.currentArea.numberOfRenderCallsforRandomCounter1 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * gv.mod.currentArea.randomSpeed1 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * gv.mod.currentArea.randomSpeed1 * 0.5f)) * (0.5f);
+                    }
+                }
                 #endregion
 
                 #region limited cycle animation
