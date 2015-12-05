@@ -8,7 +8,6 @@
   "useSuperTinyProps": false,
   "useFullScreenEffectLayer1": true,
   "useFullScreenEffectLayer2": true,
-  "useFullScreenEffectLayer3": false,
   "areaDark": false,
   "UseDayNightCycle": true,
   "TimePerSquare": 6,

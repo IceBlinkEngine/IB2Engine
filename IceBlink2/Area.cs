@@ -65,22 +65,24 @@ namespace IceBlink2
         public string inGameAreaName = "newArea";
         //TODO use the inGameAreaName on main map
 
-        //properties for the full screen animation system (for 6 layrs)
+        #region full screen effect layers
+        //properties for the full screen animation system (for 6 layers)
         #region full screen effect layer 1
         //full screen effect layer 1
         public bool useFullScreenEffectLayer1 = false;
         public bool fullScreenEffectLayerIsActive1 = true;
-        public string fullScreenEffectLayerName1 = "testAnim1";
+        public string fullScreenEffectLayerName1 = "fogLayerA";
+        //public string fullScreenEffectLayerName1 = "testAnim1";
         public float fullScreenAnimationSpeed1 = 1.0f;
         public float fullScreenAnimationSpeedX1 = 0.5f;
-        public float fullScreenAnimationSpeedY1 = 0.5f;
+        public float fullScreenAnimationSpeedY1 = -1.15f;
         public bool FullScreenEffectLayer1IsTop = true;
         public int fullScreenEffectChanceToOccur1 = 20;
         //zero signifies an endlessly running animation
         public int numberOfCyclesPerOccurence1 = 0;
         public float cycleCounter1 = 0;
         public bool containEffectInsideAreaBorders1 = false;
-        public int numberOfRenderCallsBeforeRedirection1 = 100;
+        public int numberOfRenderCallsBeforeRedirection1 = 150;
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
@@ -88,15 +90,79 @@ namespace IceBlink2
         public float changeFrameCounter1 = 1;
         public float changeNumberOfFrames1 = 4;
 
-        public int numberOfRenderCallsforRandomCounter1 = 10000000;
-        //so far: randStraight, randOrganic
-        public string directionalOverride = "";
-        public float randomSpeed1 = 0.5f;
+        //public int numberOfRenderCallsforRandomCounter1 = 10000000;
+       
+        
         public bool useCyclicFade1 = true;
 
         public float fullScreenAnimationFrameCounterX1 = 0;
         public float fullScreenAnimationFrameCounterY1 = 0;
         public int fullScreenAnimationFrameCounter1 = 0;
+
+        //setting up the override movement patterns
+        //a value of -100 means that the default setting of the overide animation pattern for this parameter shall be used
+        //so ar existing directionaloverrides: snow, clouds, rain, fog
+        public string directionalOverride1 = "fog";
+        public float overrideSpeedX1 = -100;
+        public float overrideSpeedY1 = -100;
+        public int overrideDelayLimit1 = -100;
+        public int overrideDelayCounter1 = 10000;
+
+        public bool overrideIsNoScrollSource1 = true;
+        public bool bounceBack1 = false;
+
+
+        #endregion
+
+        #region full screen effect layer 2
+        //full screen effect layer 2
+        public bool useFullScreenEffectLayer2 = false;
+        public bool fullScreenEffectLayerIsActive2 = true;
+        public string fullScreenEffectLayerName2 = "fogLayerB";
+        //public string fullScreenEffectLayerName2 = "testAnim1";
+        public float fullScreenAnimationSpeed2 = 1.0f;
+        public float fullScreenAnimationSpeedX2 = 0.5f;
+        public float fullScreenAnimationSpeedY2 = -1.15f;
+        public bool FullScreenEffectLayer2IsTop = true;
+        public int fullScreenEffectChanceToOccur2 = 20;
+        //zero signifies an endlessly running animation
+        public int numberOfCyclesPerOccurence2 = 0;
+        public float cycleCounter2 = 0;
+        public bool containEffectInsideAreaBorders2 = false;
+        public int numberOfRenderCallsBeforeRedirection2 = 150;
+
+        public bool isChanging2 = false;
+        public float changeCounter2 = 0;
+        public float changeLimit2 = 60;
+        public float changeFrameCounter2 = 1;
+        public float changeNumberOfFrames2 = 4;
+
+        //public int numberOfRenderCallsforRandomCounter1 = 10000000;
+
+
+        public bool useCyclicFade2 = true;
+
+        public float fullScreenAnimationFrameCounterX2 = 0;
+        public float fullScreenAnimationFrameCounterY2 = 0;
+        public int fullScreenAnimationFrameCounter2 = 0;
+
+        //setting up the override movement patterns
+        //a value of -100 means that the default setting of the overide animation pattern for this parameter shall be used
+        //so ar existing directionaloverrides: snow, clouds, rain, fog
+        public string directionalOverride2 = "fog";
+        public float overrideSpeedX2 = -100;
+        public float overrideSpeedY2 = -100;
+        public int overrideDelayLimit2 = -100;
+        public int overrideDelayCounter2 = 10000;
+
+        public bool overrideIsNoScrollSource2 = true;
+        public bool bounceBack2 = false;
+
+        #endregion
+
+
+
+
         #endregion
 
 
