@@ -20,6 +20,7 @@
 using System.Collections.Generic;
 using SharpDX;
 using SharpDX.DirectWrite;
+using System.IO;
 
 namespace IceBlink2
 {
@@ -38,14 +39,46 @@ namespace IceBlink2
         /// Initializes a new instance of the <see cref="ResourceFontLoader"/> class.
         /// </summary>
         /// <param name="factory">The factory.</param>
-        public ResourceFontLoader(Factory factory)
+        public ResourceFontLoader(Factory factory, string folderPath)
+        {
+            _factory = factory;
+
+            if (Directory.Exists(folderPath))
+            {
+                var files = Directory.GetFiles(folderPath, "*.ttf");
+                foreach (string file in files)
+                {
+                    if (file.EndsWith(".ttf"))
+                    {
+                        var fontBytes = File.ReadAllBytes(file); //Utilities.ReadStream(typeof(ResourceFontLoader).Assembly.GetManifestResourceStream(name));
+                        var stream = new DataStream(fontBytes.Length, true, true);
+                        stream.Write(fontBytes, 0, fontBytes.Length);
+                        stream.Position = 0;
+                        _fontStreams.Add(new ResourceFontFileStream(stream));
+                    }
+                }
+            }
+
+            // Build a Key storage that stores the index of the font
+            _keyStream = new DataStream(sizeof(int) * _fontStreams.Count, true, true);
+            for (int i = 0; i < _fontStreams.Count; i++)
+            {
+                _keyStream.Write((int)i);
+            }
+            _keyStream.Position = 0;
+
+            // Register the 
+            _factory.RegisterFontFileLoader(this);
+            _factory.RegisterFontCollectionLoader(this);
+        }
+        /*public ResourceFontLoaderOld(Factory factory)
         {
             _factory = factory;
             foreach (var name in typeof(ResourceFontLoader).Assembly.GetManifestResourceNames())
             {
                 if (name.EndsWith(".ttf"))
                 {
-                    var fontBytes = Utilities.ReadStream(typeof (ResourceFontLoader).Assembly.GetManifestResourceStream(name));
+                    var fontBytes = Utilities.ReadStream(typeof(ResourceFontLoader).Assembly.GetManifestResourceStream(name));
                     var stream = new DataStream(fontBytes.Length, true, true);
                     stream.Write(fontBytes, 0, fontBytes.Length);
                     stream.Position = 0;
@@ -55,14 +88,14 @@ namespace IceBlink2
 
             // Build a Key storage that stores the index of the font
             _keyStream = new DataStream(sizeof(int) * _fontStreams.Count, true, true);
-            for (int i = 0; i < _fontStreams.Count; i++ )
+            for (int i = 0; i < _fontStreams.Count; i++)
                 _keyStream.Write((int)i);
             _keyStream.Position = 0;
 
             // Register the 
             _factory.RegisterFontFileLoader(this);
             _factory.RegisterFontCollectionLoader(this);
-        }
+        }*/
 
 
         /// <summary>

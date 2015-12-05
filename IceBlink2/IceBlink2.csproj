@@ -254,6 +254,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Metamorphous-Regular.ttf" />
     <None Include="app.config" />
+    <EmbeddedResource Include="Orbitron Light.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

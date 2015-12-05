@@ -434,16 +434,22 @@ namespace IceBlink2
         }
         private void InitCustomFont()
         {
-            CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite);
+            string folderPath = "";
+            if (Directory.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts"))
+            {
+                folderPath = mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts";
+            }
+            else
+            {
+                folderPath = mainDirectory + "\\default\\NewModule\\fonts";
+            }
+            CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = "Metamorphous";
             if (mod.useOrbitronFont == true)
             {
-                FontFamilyName = "Orbitron Light";
+                FontFamilyName = "Orbitron";
             }
-            //comboBoxFonts.Items.Add("Pericles");
-            //comboBoxFonts.Items.Add("Kootenay");
-            //comboBoxFonts.SelectedIndex = 0;
         }
 
 	    //MUSIC AND SOUNDS	    
