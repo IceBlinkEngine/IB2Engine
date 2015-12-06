@@ -54,6 +54,14 @@ namespace IceBlink2
             tbHeight = height + gv.oYshift;
             //brush.Color = Color.Red;
         }
+
+        public void ResetLogBoxUiBitmaps()
+        {
+            btn_up = gv.cc.LoadBitmap("btn_up.png");
+            btn_down = gv.cc.LoadBitmap("btn_down.png");
+            btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
+            bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
+        }
         
         public void DrawBitmap(Bitmap bmp, int x, int y)
         {

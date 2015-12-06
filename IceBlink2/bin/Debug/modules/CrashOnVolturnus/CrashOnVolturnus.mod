@@ -84,7 +84,7 @@
   "useSmoothMovement": true,
   "useOrbitronFont": true,
   "useUIBackground": true,
-  "numberOfPlayerMadePcsAllowed": 1,
+  "numberOfPlayerMadePcsAllowed": 6,
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Crash on Volturnus",
   "moduleCredits": "<big><b>Crash on Volturnus</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",

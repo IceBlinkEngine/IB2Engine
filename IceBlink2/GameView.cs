@@ -346,7 +346,7 @@ namespace IceBlink2
 
            if (mod.useOrbitronFont == true)
            {
-               family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Orbitron Light.ttf", out myFonts);
+               family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\StarFrontiers.ttf", out myFonts);
                float multiplr = (float)squareSize / 100.0f;
                drawFontLarge = new Font(family, 24.0f * multiplr);
                drawFontReg = new Font(family, 20.0f * multiplr);
@@ -408,6 +408,7 @@ namespace IceBlink2
 		    cc.setControlsStart();
             cc.setPortraitsStart();
 		    cc.setToggleButtonsStart();
+            log.ResetLogBoxUiBitmaps();
 
 		    createScreens();
 		    initializeSounds();
@@ -448,7 +449,7 @@ namespace IceBlink2
             FontFamilyName = "Metamorphous";
             if (mod.useOrbitronFont == true)
             {
-                FontFamilyName = "Orbitron";
+                FontFamilyName = "StarFrontiers";
             }
         }
 
