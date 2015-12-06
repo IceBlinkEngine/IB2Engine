@@ -204,7 +204,7 @@ namespace IceBlink2
 
             //CREATES A FONTFAMILY
             //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
-            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\" + mod.fontFilename, out myFonts);
             //family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Orbitron Light.ttf", out myFonts);
             float multiplr = (float)squareSize / 100.0f;
             drawFontLarge = new Font(family, 24.0f * multiplr);
@@ -343,21 +343,23 @@ namespace IceBlink2
                 smoothMoveTimer.Start();
             }
 
-
-           if (mod.useOrbitronFont == true)
-           {
-               family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\StarFrontiers.ttf", out myFonts);
-               float multiplr = (float)squareSize / 100.0f;
-               drawFontLarge = new Font(family, 24.0f * multiplr);
-               drawFontReg = new Font(family, 20.0f * multiplr);
-               drawFontSmall = new Font(family, 16.0f * multiplr);
-               drawFontLargeHeight = 32.0f * multiplr;
-               drawFontRegHeight = 26.0f * multiplr;
-               drawFontSmallHeight = 20.0f * multiplr;
-               InitCustomFont();
-           }
-
-
+            if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename))
+            {
+                family = LoadFontFamily(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename, out myFonts);
+            }
+            else
+            {
+                family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            }            
+            float multiplr = (float)squareSize / 100.0f;
+            drawFontLarge = new Font(family, 24.0f * multiplr);
+            drawFontReg = new Font(family, 20.0f * multiplr);
+            drawFontSmall = new Font(family, 16.0f * multiplr);
+            drawFontLargeHeight = 32.0f * multiplr;
+            drawFontRegHeight = 26.0f * multiplr;
+            drawFontSmallHeight = 20.0f * multiplr;
+            InitCustomFont();
+                        
 		    mod.debugMode = false;
 		    mod.loadAreas(this);
 		    mod.setCurrentArea(mod.startingArea, this);
@@ -446,11 +448,12 @@ namespace IceBlink2
             }
             CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
-            FontFamilyName = "Metamorphous";
-            if (mod.useOrbitronFont == true)
-            {
-                FontFamilyName = "StarFrontiers";
-            }
+            FontFamilyName = mod.fontName;
+            //FontFamilyName = "Metamorphous";
+            //if (mod.useOrbitronFont == true)
+            //{
+            //    FontFamilyName = "StarFrontiers";
+            //}
         }
 
 	    //MUSIC AND SOUNDS	    

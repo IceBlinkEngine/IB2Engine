@@ -34,6 +34,8 @@ namespace IceBlink2
         public bool hideRoster = false;
         public bool use3d6 = false;
         public bool useUIBackground = false;
+        public string fontName = "Metamorphous";
+        public string fontFilename = "Metamorphous-Regular.ttf";
         public float diagonalMoveCost = 1.0f;
         public int nonAllowedDiagonalSquareX = -1;
         public int nonAllowedDiagonalSquareY = -1;
