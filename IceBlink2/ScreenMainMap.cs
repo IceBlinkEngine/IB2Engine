@@ -691,6 +691,12 @@ namespace IceBlink2
                         float defaultOverrideSpeedX1 = 0.5f;
                         float defaultOverrideSpeedY1 = 0.5f;
                         int defaultOverrideDelayLimit1 = 15;
+                        string defaultOverrideIsNoScrollSource1 = "false";
+
+                        if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                        {
+                            gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                        }
 
                         if (gv.mod.currentArea.overrideSpeedX1 != -100)
                         {
@@ -768,6 +774,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX1 = 0.5f;
                     float defaultOverrideSpeedY1 = 0.5f;
                     int defaultOverrideDelayLimit1 = 750;
+                    string defaultOverrideIsNoScrollSource1 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -819,6 +831,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX1 = 1.0f;
                     float defaultOverrideSpeedY1 = 1.0f;
                     int defaultOverrideDelayLimit1 = 125;
+                    string defaultOverrideIsNoScrollSource1 = "true";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -872,6 +890,13 @@ namespace IceBlink2
                     float defaultOverrideSpeedX1 = 0.5f;
                     float defaultOverrideSpeedY1 = -0.65f;
                     int defaultOverrideDelayLimit1 = 15;
+                    string defaultOverrideIsNoScrollSource1 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
+
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -909,8 +934,14 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX1 = 0.5f;
-                    float defaultOverrideSpeedY1 = -2.5f;
+                    float defaultOverrideSpeedY1 = -6.2f;
                     int defaultOverrideDelayLimit1 = 100;
+                    string defaultOverrideIsNoScrollSource1 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -1038,7 +1069,7 @@ namespace IceBlink2
                         pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX1 * gv.mod.allAnimationSpeedMultiplier);
                         pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
 
-                    if (gv.mod.currentArea.overrideIsNoScrollSource1)
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "true")
                     {
                         if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
                         {
@@ -1205,7 +1236,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2)
+                                if (gv.mod.currentArea.overrideIsNoScrollSource1 == "true")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -1285,7 +1316,7 @@ namespace IceBlink2
                                     //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                     //there will be two more 2 source square situations, one for x and one for y direction
                                     //also there's of course the standard situation that we just need one coherent source
-                                    if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (!gv.mod.currentArea.overrideIsNoScrollSource1))
+                                    if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 == "false"))
                                     {
 
                                         //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -1362,7 +1393,7 @@ namespace IceBlink2
 
                                     #region Situation 2 (2 to 1, x near border)
                                     //Situation 2: only x is near right border, y is high/small enough
-                                    else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)  && (!gv.mod.currentArea.overrideIsNoScrollSource1))
+                                    else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)  && (gv.mod.currentArea.overrideIsNoScrollSource1 == "false"))
                                     {
 
                                         //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -1405,7 +1436,7 @@ namespace IceBlink2
 
                                     #region Situation 3 (2 to 1, y near border)
                                     //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                    else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (!gv.mod.currentArea.overrideIsNoScrollSource1))
+                                    else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 == ""))
                                     {
 
                                         //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -1454,7 +1485,7 @@ namespace IceBlink2
                                         float srcCoordY2 = floatSourceChunkCoordY;
                                         float srcCoordX2 = floatSourceChunkCoordX;
                                         float sizeOfSourceChunk2 = 0;
-                                        if (!gv.mod.currentArea.overrideIsNoScrollSource1)
+                                        if (gv.mod.currentArea.overrideIsNoScrollSource1 == "false")
                                         {
                                             sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                         }
@@ -1509,6 +1540,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX2 = 0.5f;
                     float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 15;
+                    string defaultOverrideIsNoScrollSource2 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1587,6 +1624,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX2 = 0.5f;
                     float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 750;
+                    string defaultOverrideIsNoScrollSource2 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1638,6 +1681,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX2 = 1.0f;
                     float defaultOverrideSpeedY2 = 1.0f;
                     int defaultOverrideDelayLimit2 = 125;
+                    string defaultOverrideIsNoScrollSource2 = "true";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1690,6 +1739,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX2 = 0.5f;
                     float defaultOverrideSpeedY2 = -0.65f;
                     int defaultOverrideDelayLimit2 = 15;
+                    string defaultOverrideIsNoScrollSource2 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1727,8 +1782,14 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY2 = -3.1f;
+                    float defaultOverrideSpeedY2 = -6.2f;
                     int defaultOverrideDelayLimit2 = 100;
+                    string defaultOverrideIsNoScrollSource2 = "false";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1857,7 +1918,7 @@ namespace IceBlink2
                     pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX2 * gv.mod.allAnimationSpeedMultiplier);
                     pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY2 * gv.mod.allAnimationSpeedMultiplier);
 
-                    if (gv.mod.currentArea.overrideIsNoScrollSource2)
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "true")
                     {
                         if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f)- 1))
                         {
@@ -2027,7 +2088,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2)
+                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "true")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -2112,7 +2173,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (!gv.mod.currentArea.overrideIsNoScrollSource2))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 == "false"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -2189,7 +2250,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if  (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (!gv.mod.currentArea.overrideIsNoScrollSource2))
+                                else if  (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 == "false"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -2232,7 +2293,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (!gv.mod.currentArea.overrideIsNoScrollSource2))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 == "false"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -2281,7 +2342,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (!gv.mod.currentArea.overrideIsNoScrollSource2)
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "false")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
