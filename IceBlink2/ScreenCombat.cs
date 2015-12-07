@@ -2487,7 +2487,7 @@ namespace IceBlink2
                 // give gold drop
                 if (mod.currentEncounter.goldDrop > 0)
                 {
-                    gv.cc.addLogText("<font color='yellow'>The party finds " + mod.currentEncounter.goldDrop + " gold.<BR></font>");
+                    gv.cc.addLogText("<font color='yellow'>The party finds " + mod.currentEncounter.goldDrop + " " + mod.goldLabelPlural + ".<BR></font>");
                 }
                 mod.partyGold += mod.currentEncounter.goldDrop;
                 // give InventoryList
