@@ -36,6 +36,10 @@ namespace IceBlink2
         public bool useUIBackground = false;
         public string fontName = "Metamorphous";
         public string fontFilename = "Metamorphous-Regular.ttf";
+        public string spellLabelSingular = "Spell";
+        public string spellLabelPlural = "Spells";
+        public string goldLabelSingular = "Gold";
+        public string goldLabelPlural = "Gold";
         public float diagonalMoveCost = 1.0f;
         public int nonAllowedDiagonalSquareX = -1;
         public int nonAllowedDiagonalSquareY = -1;

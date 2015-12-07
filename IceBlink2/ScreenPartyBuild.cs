@@ -361,7 +361,7 @@ namespace IceBlink2
                     allSpells += sp.name + ", ";
                 }
                 //TODOcanvas.drawText("Spells: " + allSpells, locX, locY += spacing, gv.mSheetTextPaint);
-                gv.DrawText("Spells: " + allSpells, locX, locY += spacing);
+                gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 
                 //draw traits known list
                 string allTraits = "";

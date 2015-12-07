@@ -43,7 +43,7 @@ namespace IceBlink2
 		    if (btnSelect == null)
 		    {
 			    btnSelect = new IbbButton(gv, 0.8f);	
-			    btnSelect.Text = "CAST SELECTED SPELL";
+			    btnSelect.Text = "CAST SELECTED " + mod.spellLabelSingular.ToUpper();
 			    btnSelect.Img = gv.cc.LoadBitmap("btn_large"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large);
 			    btnSelect.Glow = gv.cc.LoadBitmap("btn_large_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_large_glow);
                 btnSelect.X = (gv.screenWidth / 2) - (int)(gv.ibbwidthL * gv.screenDensity / 2.0f);
@@ -174,7 +174,7 @@ namespace IceBlink2
             //DRAW TEXT		
 		    locY = (gv.squareSize * 0) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText("Select a Spell to Cast", noticeX, pH * 3);
+		    gv.DrawText("Select a " + mod.spellLabelSingular + " to Cast", noticeX, pH * 3);
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
 		    gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY);
 		
@@ -225,7 +225,7 @@ namespace IceBlink2
 			    {
 				    //if unknown spell, "Spell Not Known Yet" in red
 				    //gv.mSheetTextPaint.setColor(Color.RED);
-                    gv.DrawText("Spell Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
+                    gv.DrawText(mod.spellLabelSingular + " Not Known Yet", noticeX, noticeY, 1.0f, Color.Red);
 			    }
 		    }		
 		
@@ -466,7 +466,7 @@ namespace IceBlink2
 			                        }        	                            	        	                        
 			            	    }
 
-                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Spell Target"))
+                                using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, mod.spellLabelSingular + " Target"))
                                 {
                                     pcSel.ShowDialog();                                                                        
                                     Player pc = getCastingPlayer();

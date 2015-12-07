@@ -274,7 +274,7 @@ namespace IceBlink2
 				    Spell sp = mod.getSpellByTag(s);
 				    allSpells += sp.name + ", ";
 			    }
-			    gv.DrawText("Spells: " + allSpells, locX, locY += spacing);
+			    gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 			
 			    //draw traits known list
 			    string allTraits = "";

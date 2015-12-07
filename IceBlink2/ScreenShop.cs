@@ -305,7 +305,7 @@ namespace IceBlink2
 		    locY = (5 * gv.squareSize) + (pH * 2);
 		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
             gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, 1.0f, Color.Yellow);
-            gv.DrawText("Gold: " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, 1.0f, Color.Yellow);
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, 1.0f, Color.Yellow);
 		
 		    //DRAW ALL INVENTORY SLOTS		
 		    cntSlot = 0;

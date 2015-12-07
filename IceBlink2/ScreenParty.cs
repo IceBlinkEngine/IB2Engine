@@ -83,7 +83,7 @@ namespace IceBlink2
             if (btnSpells == null)
             {
                 btnSpells = new IbbButton(gv, 0.6f);
-                btnSpells.Text = "SPELLS";
+                btnSpells.Text = mod.spellLabelPlural.ToUpper();
                 btnSpells.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
                 btnSpells.Glow = gv.cc.LoadBitmap("btn_small_glow"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_glow);
                 btnSpells.X = 6 * gv.squareSize + padW * 1 + gv.oXshift + (int)(gv.squareSize * 0.75f);

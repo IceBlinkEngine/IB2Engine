@@ -3363,17 +3363,20 @@ namespace IceBlink2
                 gv.DrawBitmap(minimap, src, dst);
 
                 //draw Fog of War
-                for (int x = 0; x < this.mod.currentArea.MapSizeX; x++)                
+                if (mod.currentArea.UseMiniMapFogOfWar)
                 {
-                    for (int y = 0; y < this.mod.currentArea.MapSizeY; y++)                    
+                    for (int x = 0; x < this.mod.currentArea.MapSizeX; x++)
                     {
-                        int xx = x * minimapSquareSizeInPixels;
-                        int yy = y * minimapSquareSizeInPixels;
-                        src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                        dst = new IbRect(pW + xx, pH + yy, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
-                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].Visible)
+                        for (int y = 0; y < this.mod.currentArea.MapSizeY; y++)
                         {
-                            gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                            int xx = x * minimapSquareSizeInPixels;
+                            int yy = y * minimapSquareSizeInPixels;
+                            src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                            dst = new IbRect(pW + xx, pH + yy, minimapSquareSizeInPixels, minimapSquareSizeInPixels);
+                            if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].Visible)
+                            {
+                                gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                            }
                         }
                     }
                 }

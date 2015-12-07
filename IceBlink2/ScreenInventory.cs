@@ -201,7 +201,7 @@ namespace IceBlink2
             gv.DrawText("Inventory", locX + (gv.squareSize * 5) + pW * 2, locY += spacing);
 		    locY = gv.squareSize + (pH * 2);
 		    gv.DrawText("Party", tabX2 + (gv.squareSize * 6), locY);
-            gv.DrawText("Gold: " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
+            gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + (gv.squareSize * 6), locY += spacing);
 
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
 		    btnPageIndex.Draw();
