@@ -682,7 +682,8 @@ namespace IceBlink2
                     //basically it works like the override would call scripts whose paratmeters can be set by the authors
                     //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
                     //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
-                    #region override movement patterns
+
+                #region override movement patterns
 
                     if (gv.mod.currentArea.directionalOverride1 == "randStraight")
                     {
@@ -815,9 +816,9 @@ namespace IceBlink2
                 if (gv.mod.currentArea.directionalOverride1 == "fog")
                 {
                     //set up the default values and allow individiual override based on toolset values
-                    float defaultOverrideSpeedX1 = 0.05f;
-                    float defaultOverrideSpeedY1 = 0.05f;
-                    int defaultOverrideDelayLimit1 = 150;
+                    float defaultOverrideSpeedX1 = 1.0f;
+                    float defaultOverrideSpeedY1 = 1.0f;
+                    int defaultOverrideDelayLimit1 = 125;
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -839,27 +840,29 @@ namespace IceBlink2
                         gv.mod.currentArea.overrideDelayCounter1 = 0;
                         //for x
                         int rollRandom = gv.sf.RandInt(100);
-                        int rollRandom2 = gv.sf.RandInt(2);
+                        int rollRandom2 = gv.sf.RandInt(100);
                         int directional = 1;
-                        if (rollRandom2 == 1)
+                        if (rollRandom2 >= 50)
                         {
                             rollRandom = rollRandom * -1;
                             directional = -1;
                         }
                         float decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.5f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.075f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.09f);
 
                         //for y
-                        rollRandom = gv.sf.RandInt(100);
-                        rollRandom2 = gv.sf.RandInt(2);
+                        int rollRandom3  = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
                         directional = 1;
-                        if (rollRandom2 == 1)
+                        if (rollRandom4 >= 50)
                         {
-                            rollRandom = rollRandom * -1;
+                            rollRandom3 = rollRandom3 * -1;
                             directional = -1;
                         }
-                        decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -906,7 +909,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX1 = 0.5f;
-                    float defaultOverrideSpeedY1 = -4.1f;
+                    float defaultOverrideSpeedY1 = -2.5f;
                     int defaultOverrideDelayLimit1 = 100;
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
@@ -932,8 +935,8 @@ namespace IceBlink2
                         int directional = 1;
                         if (rollRandom2 == 1)
                         {
-                            rollRandom = rollRandom * -1;
-                            directional = -1;
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
@@ -1632,9 +1635,9 @@ namespace IceBlink2
                 if (gv.mod.currentArea.directionalOverride2 == "fog")
                 {
                     //set up the default values and allow individiual override based on toolset values
-                    float defaultOverrideSpeedX2 = 0.05f;
-                    float defaultOverrideSpeedY2 = 0.05f;
-                    int defaultOverrideDelayLimit2 = 200;
+                    float defaultOverrideSpeedX2 = 1.0f;
+                    float defaultOverrideSpeedY2 = 1.0f;
+                    int defaultOverrideDelayLimit2 = 125;
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
                     {
@@ -1655,28 +1658,29 @@ namespace IceBlink2
 
                         gv.mod.currentArea.overrideDelayCounter2 = 0;
                         //for x
-                        int rollRandom = gv.sf.RandInt(100);
-                        int rollRandom2 = gv.sf.RandInt(2);
+                        int rollRandom5 = gv.sf.RandInt(100);
+                        int rollRandom6 = gv.sf.RandInt(100);
                         int directional = 1;
-                        if (rollRandom2 == 1)
+                        if (rollRandom6 <= 50)
                         {
-                            rollRandom = rollRandom * -1;
+                            rollRandom5 = rollRandom5 * -1;
                             directional = -1;
                         }
-                        float decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (0.5f);
+                        float decider = rollRandom5 / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.075f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (0.09f);
 
                         //for y
-                        rollRandom = gv.sf.RandInt(100);
-                        rollRandom2 = gv.sf.RandInt(2);
+                        int rollRandom7 = gv.sf.RandInt(100);
+                        int rollRandom8 = gv.sf.RandInt(100);
                         directional = 1;
-                        if (rollRandom2 == 1)
+                        if (rollRandom8 <= 50)
                         {
-                            rollRandom = rollRandom * -1;
+                            rollRandom7 = rollRandom7 * -1;
                             directional = -1;
                         }
-                        decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        decider = rollRandom7 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -1723,7 +1727,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY2 = -4.1f;
+                    float defaultOverrideSpeedY2 = -3.1f;
                     int defaultOverrideDelayLimit2 = 100;
 
                     if (gv.mod.currentArea.overrideSpeedX2 != -100)
@@ -1749,8 +1753,8 @@ namespace IceBlink2
                         int directional = 1;
                         if (rollRandom2 == 1)
                         {
-                            rollRandom = rollRandom * -1;
-                            directional = -1;
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
