@@ -71,9 +71,12 @@ namespace IceBlink2
         //full screen effect layer 1
         public bool useFullScreenEffectLayer1 = false;
         public bool fullScreenEffectLayerIsActive1 = true;
-        //public string fullScreenEffectLayerName1 = "full_screen_effect_layer1";
+        //public string fullScreenEffectLayerName1 = "full_screen_effect_layer2x";
         //public string fullScreenEffectLayerName1 = "testAnim1";
-        public string fullScreenEffectLayerName1 = "fogLayerA";
+        //public string fullScreenEffectLayerName1 = "fogLayerA";
+        public string fullScreenEffectLayerName1 = "cloudLayerA";
+        //public string fullScreenEffectLayerName1 = "snowLayerA";
+        //public string fullScreenEffectLayerName1 = "rainLayerA";
         public float fullScreenAnimationSpeed1 = 1.0f;
         public float fullScreenAnimationSpeedX1 = 0.5f;
         public float fullScreenAnimationSpeedY1 = -1.15f;
@@ -97,13 +100,17 @@ namespace IceBlink2
         public bool useCyclicFade1 = true;
 
         public float fullScreenAnimationFrameCounterX1 = 0;
-        public float fullScreenAnimationFrameCounterY1 = 0;
+        public float fullScreenAnimationFrameCounterY1 = 1.5f;
         public int fullScreenAnimationFrameCounter1 = 0;
 
         //setting up the override movement patterns
-        //a value of -100 means that the default setting of the overide animation pattern for this parameter shall be used
-        //so ar existing directionaloverrides: snow, clouds, rain, fog
-        public string directionalOverride1 = "fog";
+        //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+        //so far existing directional overrides: 
+        //rain (2 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+        //clouds, 
+        //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+        //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
+        public string directionalOverride1 = "clouds";
         public float overrideSpeedX1 = -100;
         public float overrideSpeedY1 = -100;
         public int overrideDelayLimit1 = -100;
@@ -114,9 +121,11 @@ namespace IceBlink2
         #region full screen effect layer 2
         //full screen effect layer 2
         public bool useFullScreenEffectLayer2 = false;
-        public bool fullScreenEffectLayerIsActive2 = true;
-        //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1";
+        public bool fullScreenEffectLayerIsActive2 = false;
+        //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1x";
         public string fullScreenEffectLayerName2 = "fogLayerB";
+        //public string fullScreenEffectLayerName2 = "snowLayerB";
+        //public string fullScreenEffectLayerName2 = "rainLayerB";
         //public string fullScreenEffectLayerName2 = "testAnim1";
         public float fullScreenAnimationSpeed2 = 1.0f;
         public float fullScreenAnimationSpeedX2 = 0.5f;
@@ -135,22 +144,19 @@ namespace IceBlink2
         public float changeFrameCounter2 = 1;
         public float changeNumberOfFrames2 = 4;
 
-        //public int numberOfRenderCallsforRandomCounter1 = 10000000;
-
-
         public bool useCyclicFade2 = true;
 
         public float fullScreenAnimationFrameCounterX2 = 0;
-        public float fullScreenAnimationFrameCounterY2 = 0;
+        public float fullScreenAnimationFrameCounterY2 = 1;
         public int fullScreenAnimationFrameCounter2 = 0;
 
         //setting up the override movement patterns
-        //a value of -100 means that the default setting of the overide animation pattern for this parameter shall be used
+        //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
         //so far existing directional overrides: 
-        //rain (2 layers recommended; make one layer's y speed a little slower than default -6.2, like -5.2; overrideIsNoScrollSource2 to false) 
+        //rain (2 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
         //clouds, 
-        //snow, 
-        //fog (2 layers recommended; must set overrideIsNoScrollSource2 to true)
+        //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+        //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
         public string directionalOverride2 = "fog";
         public float overrideSpeedX2 = -100;
         public float overrideSpeedY2 = - 100;
