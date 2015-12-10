@@ -58,7 +58,7 @@
   "Narration": true,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "",
+  "NpcPortraitBitmap": "nar_blob.png",
   "DefaultNpcName": "",
   "NextIdNum": 20
 }
