@@ -203,17 +203,8 @@ namespace IceBlink2
             InitializeRenderer(); //uncomment this for DIRECT2D ADDITIONS
 
             //CREATES A FONTFAMILY
-            //(LOOK THE out word in the parameter sent to the method, that will modify myFonts object)
-            family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\" + mod.fontFilename, out myFonts);
-            //family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Orbitron Light.ttf", out myFonts);
-            float multiplr = (float)squareSize / 100.0f;
-            drawFontLarge = new Font(family, 24.0f * multiplr);
-            drawFontReg = new Font(family, 20.0f * multiplr);
-            drawFontSmall = new Font(family, 16.0f * multiplr);
-            drawFontLargeHeight = 32.0f * multiplr;
-            drawFontRegHeight = 26.0f * multiplr;
-            drawFontSmallHeight = 20.0f * multiplr;
-            InitCustomFont();
+            ResetGDIFont();
+            ResetDirect2DFont();
             
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
             floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
@@ -343,22 +334,11 @@ namespace IceBlink2
                 smoothMoveTimer.Start();
             }
 
-            if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename))
-            {
-                family = LoadFontFamily(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename, out myFonts);
-            }
-            else
-            {
-                family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
-            }            
-            float multiplr = (float)squareSize / 100.0f;
-            drawFontLarge = new Font(family, 24.0f * multiplr);
-            drawFontReg = new Font(family, 20.0f * multiplr);
-            drawFontSmall = new Font(family, 16.0f * multiplr);
-            drawFontLargeHeight = 32.0f * multiplr;
-            drawFontRegHeight = 26.0f * multiplr;
-            drawFontSmallHeight = 20.0f * multiplr;
-            InitCustomFont();
+            //reset fonts
+            ResetGDIFont();
+            ResetDirect2DFont();
+            //reset log number of lines based on the value from the Module's mod file
+            log.numberOfLinesToShow = mod.logNumberOfLines;            
                         
 		    mod.debugMode = false;
 		    mod.loadAreas(this);
@@ -427,7 +407,25 @@ namespace IceBlink2
 		    cc.stringMessageParty = cc.loadTextToString("MessageParty.txt");
 		    cc.stringMessageMainMap = cc.loadTextToString("MessageMainMap.txt");
 	    }
-        
+
+        public void ResetGDIFont()
+        {
+            if (File.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename))
+            {
+                family = LoadFontFamily(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts\\" + mod.fontFilename, out myFonts);
+            }
+            else
+            {
+                family = LoadFontFamily(mainDirectory + "\\default\\NewModule\\fonts\\Metamorphous-Regular.ttf", out myFonts);
+            }
+            float multiplr = (float)squareSize / 100.0f;
+            drawFontLarge = new Font(family, 24.0f * multiplr);
+            drawFontReg = new Font(family, 20.0f * multiplr);
+            drawFontSmall = new Font(family, 16.0f * multiplr);
+            drawFontLargeHeight = 32.0f * multiplr * mod.fontD2DScaleMultiplier;
+            drawFontRegHeight = 26.0f * multiplr * mod.fontD2DScaleMultiplier;
+            drawFontSmallHeight = 20.0f * multiplr * mod.fontD2DScaleMultiplier;
+        }
         private FontFamily LoadFontFamily(string fileName, out PrivateFontCollection _myFonts)
         {
             //IN MEMORY _myFonts point to the myFonts created in the load event.
@@ -435,7 +433,7 @@ namespace IceBlink2
             _myFonts.AddFontFile(fileName);//we add the full path of the ttf file
             return _myFonts.Families[0];//returns the family object as usual.
         }
-        private void InitCustomFont()
+        private void ResetDirect2DFont()
         {
             string folderPath = "";
             if (Directory.Exists(mainDirectory + "\\modules\\" + mod.moduleName + "\\fonts"))
@@ -449,11 +447,6 @@ namespace IceBlink2
             CurrentResourceFontLoader = new ResourceFontLoader(factoryDWrite, folderPath);
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = mod.fontName;
-            //FontFamilyName = "Metamorphous";
-            //if (mod.useOrbitronFont == true)
-            //{
-            //    FontFamilyName = "StarFrontiers";
-            //}
         }
 
 	    //MUSIC AND SOUNDS	    

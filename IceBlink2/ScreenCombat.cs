@@ -950,6 +950,7 @@ namespace IceBlink2
             creatureIndex = 0;
             currentMoveOrderIndex = 0;
             currentCombatMode = "info";
+            drawDeathAnimation = false;
             encounterXP = 0;
             foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
             {
