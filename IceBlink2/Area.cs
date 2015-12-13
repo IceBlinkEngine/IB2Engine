@@ -69,13 +69,13 @@ namespace IceBlink2
         //properties for the full screen animation system (for 6 layers)
         #region full screen effect layer 1
         //full screen effect layer 1
-        public bool useFullScreenEffectLayer1 = false;
+        public bool useFullScreenEffectLayer1 = true;
         public bool fullScreenEffectLayerIsActive1 = true;
         //public string fullScreenEffectLayerName1 = "full_screen_effect_layer2x";
         //public string fullScreenEffectLayerName1 = "testAnim1";
         //public string fullScreenEffectLayerName1 = "fogLayerA";
-        public string fullScreenEffectLayerName1 = "cloudLayerA";
-        //public string fullScreenEffectLayerName1 = "snowLayerA";
+        //public string fullScreenEffectLayerName1 = "cloudLayerA";
+        public string fullScreenEffectLayerName1 = "snowLayerA";
         //public string fullScreenEffectLayerName1 = "rainLayerA";
         public float fullScreenAnimationSpeed1 = 1.0f;
         public float fullScreenAnimationSpeedX1 = 0.5f;
@@ -107,24 +107,26 @@ namespace IceBlink2
         //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
         //so far existing directional overrides: 
         //rain (2 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
-        //clouds, 
+        //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
         //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
-        public string directionalOverride1 = "clouds";
+        public string directionalOverride1 = "snow";
         public float overrideSpeedX1 = -100;
         public float overrideSpeedY1 = -100;
         public int overrideDelayLimit1 = -100;
         public int overrideDelayCounter1 = 10000;
         public string overrideIsNoScrollSource1 = "";
+
+        public bool changebaleByWeatherScript1 = true;
         #endregion
 
         #region full screen effect layer 2
         //full screen effect layer 2
-        public bool useFullScreenEffectLayer2 = false;
-        public bool fullScreenEffectLayerIsActive2 = false;
+        public bool useFullScreenEffectLayer2 = true;
+        public bool fullScreenEffectLayerIsActive2 = true;
         //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1x";
-        public string fullScreenEffectLayerName2 = "fogLayerB";
-        //public string fullScreenEffectLayerName2 = "snowLayerB";
+        //public string fullScreenEffectLayerName2 = "fogLayerB";
+        public string fullScreenEffectLayerName2 = "snowLayerB";
         //public string fullScreenEffectLayerName2 = "rainLayerB";
         //public string fullScreenEffectLayerName2 = "testAnim1";
         public float fullScreenAnimationSpeed2 = 1.0f;
@@ -154,22 +156,20 @@ namespace IceBlink2
         //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
         //so far existing directional overrides: 
         //rain (2 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
-        //clouds, 
+        //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
         //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
-        public string directionalOverride2 = "fog";
+        public string directionalOverride2 = "snow";
         public float overrideSpeedX2 = -100;
         public float overrideSpeedY2 = - 100;
         public int overrideDelayLimit2 = -100;
         public int overrideDelayCounter2 = 10000;
         public string overrideIsNoScrollSource2 = "";
-        //public bool bounceBack2 = false;
+
+        public bool changebaleByWeatherScript2 = true;
+
 
         #endregion
-
-
-
-
         #endregion
 
 
