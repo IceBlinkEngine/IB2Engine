@@ -271,7 +271,7 @@ namespace IceBlink2
             }
             //only draw lines needed to fill textbox
             float xLoc = 0;
-            float yLoc = 0;
+            float yLoc = 3.0f;
             int maxLines = currentTopLineIndex + numberOfLinesToShow;
             if (maxLines > logLinesList.Count) { maxLines = logLinesList.Count; }
             for (int i = currentTopLineIndex; i < maxLines; i++)
