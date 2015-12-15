@@ -63,13 +63,17 @@ namespace IceBlink2
 	    public List<LocalInt> AreaLocalInts = new List<LocalInt>();
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
+        public string areaWeatherScript = "";
+        public string areaWeatherScriptParms = "";
+        public int weatherDurationMultiplierForScale = 1;
+
         //TODO use the inGameAreaName on main map
 
         #region full screen effect layers
         //properties for the full screen animation system (for 6 layers)
         #region full screen effect layer 1
         //full screen effect layer 1
-        public bool useFullScreenEffectLayer1 = true;
+        public bool useFullScreenEffectLayer1 = false;
         public bool fullScreenEffectLayerIsActive1 = true;
         //public string fullScreenEffectLayerName1 = "full_screen_effect_layer2x";
         //public string fullScreenEffectLayerName1 = "testAnim1";
@@ -118,11 +122,12 @@ namespace IceBlink2
         public string overrideIsNoScrollSource1 = "";
 
         public bool changebaleByWeatherScript1 = true;
+
         #endregion
 
         #region full screen effect layer 2
         //full screen effect layer 2
-        public bool useFullScreenEffectLayer2 = true;
+        public bool useFullScreenEffectLayer2 = false;
         public bool fullScreenEffectLayerIsActive2 = true;
         //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1x";
         //public string fullScreenEffectLayerName2 = "fogLayerB";

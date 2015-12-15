@@ -5613,6 +5613,7 @@ namespace IceBlink2
             }
             return retString;
         }
+
         public string GetBetweenFunctionParms(string str)
         {
             int posA = str.IndexOf("(");
