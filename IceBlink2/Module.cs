@@ -143,11 +143,34 @@ namespace IceBlink2
         public int fullScreenAnimationFrameCounter5 = 0;
         public int fullScreenAnimationFrameCounter6 = 0;
 
-
         //this one can be set from ingame by player eventually (options menu), higher is fast
         //is used for smooth moving props and full screen animation, each on main map, right now
         //later on maybe also use for animated props, like camp fires flickering
         public float allAnimationSpeedMultiplier = 1;
+
+        public List<string> listOfEntryWeatherNames = new List<string>();
+        public List<int> listOfEntryWeatherChances = new List<int>();
+        public List<int> listOfEntryWeatherDurations = new List<int>();
+        public List<string> listOfExitWeatherNames = new List<string>();
+        public List<int> listOfExitWeatherChances = new List<int>();
+        public List<int> listOfExitWeatherDurations = new List<int>();
+
+        public string currentWeatherName = "";
+        public int currentWeatherDuration = 0;
+        public string longEntryWeathersList = "";
+        public string longExitWeathersList = "";
+        public bool useFirstPartOfWeatherScript = true;
+
+        //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
+        //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
+        //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)
+        //listOfExitWeatherName (a list of strings containing exit weather names in exact order)
+        //listOfEntryWeatherChances (a list of ints containing exit weather chances in exact order)
+        //listOfExitWeatherDurations (a list of durations in exact same order as the exit weather list)
+
+
+
+
 
         public Module()
         {

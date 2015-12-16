@@ -1995,6 +1995,9 @@ namespace IceBlink2
             applyEffects();
             //do Prop heartbeat
             doPropHeartBeat();
+            //script hook for the weather script
+            //commented out till weather system is finished
+            //doWeatherScript();
             //move any props that are active and only if they are not on the party location
             doPropMoves();
             //do Conversation and/or Encounter if on Prop
@@ -2021,6 +2024,306 @@ namespace IceBlink2
                 gv.sf.ThisProp = null;
             }
         }
+
+        public void doWeatherScript()
+        {
+            //we will need a noWeather script to shut down all still existing full effect channels 5 to 10 (name of current weather and duration are left intact though)
+
+            //what will the weather script look like:
+            //1. Conditional check using "gv.mod.useFirstPartOfWeatherScript", dividing the script into two parts
+            //FIRST PART (entry list and exit lists)
+            //2. Assign value to "gv.mod.longEntryWeathersList" (entry list)
+            //3. Assign values to a number of global strings with name "name of weather type" (exit lists) 
+            //SECOND PART (set up the channels for the current weather, clean all other channels from 5 to 10)
+            //4. Assign values for each channel's properties in current area ( thats 6 x about 10 properties,like 60 values (also null non used channels, like just set used property to false) 
+
+            //this makes sure that only the first part of the weather script is used at this point
+            //the second part will be made usable after the current weather has been set (see below) by an additional script call
+            gv.mod.useFirstPartOfWeatherScript = true;
+             
+            //call the weather script to set up the longEntryList
+            //the entry list is a property of the module itself
+            //weathr script amkes no use of parms, well, for now at least
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
+
+            //clear the old weather lists
+            gv.mod.listOfEntryWeatherNames.Clear();
+            gv.mod.listOfEntryWeatherChances.Clear();
+            gv.mod.listOfEntryWeatherDurations.Clear();
+            gv.mod.listOfExitWeatherNames.Clear();
+            gv.mod.listOfExitWeatherChances.Clear();
+            gv.mod.listOfExitWeatherDurations.Clear();
+
+            //just a safety net for preparing input data coming from script; need to have more of these later
+            //gv.mod.longEntryWeathersList = gv.mod.longEntryWeathersList.TrimStart(' ');
+            //gv.mod.longExitWeathersList = gv.mod.longExitWeathersList.TrimStart(' ');
+
+            //fill the weather lists again with fresh data from the long lists
+            SetUpEntryLists(gv.mod.longEntryWeathersList);
+
+            bool doesCurrentWeatherExistHere = false;
+            #region check if current weather exists in this area
+            //it would be a good practice to  have all weathers of the area listed in the entry list
+            if (gv.mod.currentWeatherName != "")
+            {
+
+                foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
+                {
+                    if (weatherName == gv.mod.currentWeatherName)
+                    {
+                        doesCurrentWeatherExistHere = true;
+                        break;
+                    }
+                }
+
+                /*
+                if (doesCurrentWeatherExistHere == false)
+                {
+                    foreach (string weatherName in gv.mod.listOfExitWeatherNames)
+                    {
+                        if (weatherName == gv.mod.currentWeatherName)
+                        {
+                            doesCurrentWeatherExistHere = true;
+                            break;
+                        }
+                    }
+                }
+                */
+            }
+            #endregion
+
+            if ((gv.mod.currentWeatherName == "") || (doesCurrentWeatherExistHere == false))
+            {
+                //determine random number between 1 and 100 for choosing entry weather type
+                int rollRandom = gv.sf.RandInt(100);
+                int addedChances = 0;
+
+                for (int i = 0; i < gv.mod.listOfEntryWeatherChances.Count; i++)
+                {
+                    addedChances += gv.mod.listOfEntryWeatherChances[i];
+                    if (rollRandom <= addedChances)
+                    {
+                        //indexOfChosenWeather = i;
+                        //nameOfChosenWeather = gv.mod.listOfEntryWeatherNames[i];
+                        gv.mod.currentWeatherName = gv.mod.listOfEntryWeatherNames[i];
+                        gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
+                        float rollRandom2 = gv.sf.RandInt(100);
+                        gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                        break;
+                    }
+                }
+            }
+
+            //reduce duration 1, more for areas that consume more time per step
+            gv.mod.currentWeatherDuration -= (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+
+            //add fade out check here later, starting some multiplies of Scaler bfore zero here
+
+            if (gv.mod.currentWeatherDuration <= 0)
+            {
+                //the single longEntrList is one of the exit lists fitting to the current weather type
+                gv.mod.longExitWeathersList = gv.sf.GetGlobalString(gv.mod.currentWeatherName);
+
+                SetUpExitLists(gv.mod.longExitWeathersList);
+
+                //determine random number between 1 and 100 for choosing entry weather type
+                int rollRandom = gv.sf.RandInt(100);
+                int addedChances = 0;
+
+                for (int i = 0; i < gv.mod.listOfExitWeatherChances.Count; i++)
+                {
+                    addedChances += gv.mod.listOfExitWeatherChances[i];
+                    if (rollRandom <= addedChances)
+                    {
+                        gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[i];
+                        gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
+                        float rollRandom2 = gv.sf.RandInt(100);
+                        gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                        break;
+                    }
+                }
+            }
+            
+            //prepare for reading in the second part of the weather script: setup of the full effect channels based on current weather
+            //note: also null all channels not used by the current weater, overwriting old channel settings
+            gv.mod.useFirstPartOfWeatherScript = false;
+
+            //call the weather script to set up the channels
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
+
+
+            //1. read in the weather script of current area and store it in a set of globals
+            //these would be:
+            //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
+            //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
+            //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)
+            //listOfExitWeatherName (a list of strings containing exit weather names in exact order)
+            //listOfEntryWeatherChances (a list of ints containing exit weather chances in exact order)
+            //listOfExitWeatherDurations (a list of durations in exact same order as the exit weather list)
+            //2. (if no current weather already stored) or (if current weather not existent in current area's weather scripts, entry or any exit list,): roll on entry weather table and set curent weather global name and global Duration
+            //3. Store the remaining time in a global
+            //4. reduce the remaining duration global  by 1 (multiplied by area MultiplierForScale)  
+            //5. if duration of stored weather is zero or lower: roll on exit weather table and set curent weather global name and global Duration
+            //6. The weather script itself sets now directly all full channel attributes for the channels belonging to the weather
+            //note: by default the weather script will overwrite the existing channel value, author's can set e.g. for channel 1 property: changebaleByWeatherScript1 to true to block a channel from weather though
+            
+        }
+
+        public void SetUpEntryLists(string str)
+        {
+            //this method expects input data in the following format
+            //(SunnyWithClouds),Chance:[30],Duration:{123};(RainyWithFog),Chance:[50],Duration:{123},...
+            // the important stuff here are the brackets, so you could also write actually:
+            //(SunnyWithClouds)[30]{123}(RainyWithFog)[50]{123}...
+            //it will store the three different items in brackets to three different lists in the same order
+            string retString = "";
+            bool startRecording = false;
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '('))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == ')')
+                {
+                    gv.mod.listOfEntryWeatherNames.Add(retString);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '['))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == ']')
+                {
+                    int chance = Convert.ToInt32(retString);
+                    gv.mod.listOfEntryWeatherChances.Add(chance);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '{'))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == '}')
+                {
+                    int duration = Convert.ToInt32(retString);
+                    gv.mod.listOfEntryWeatherDurations.Add(duration);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+        }
+
+        public void SetUpExitLists(string str)
+        {
+            //this method expects input data in the following format
+            //(SunnyWithClouds),Chance:[30],Duration:{123};(RainyWithFog),Chance:[50],Duration:{123},...
+            // the important stuff here are the brackets, so you could also write actually:
+            //(SunnyWithClouds)[30]{123}(RainyWithFog)[50]{123}...
+            //it will store the three different items in brackets to three different lists in the same order
+
+            string retString = "";
+            bool startRecording = false;
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '('))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == ')')
+                {
+                    gv.mod.listOfExitWeatherNames.Add(retString);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '['))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == ']')
+                {
+                    int chance = Convert.ToInt32(retString);
+                    gv.mod.listOfExitWeatherChances.Add(chance);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+            foreach (char c in str)
+            {
+                if ((!startRecording) && (c == '{'))
+                {
+                    startRecording = true;
+                    continue;
+                }
+
+                if (c == '}')
+                {
+                    int duration = Convert.ToInt32(retString);
+                    gv.mod.listOfExitWeatherDurations.Add(duration);
+                    retString = "";
+                    startRecording = false;
+                }
+
+                if (startRecording)
+                {
+                    retString += c;
+                }
+            }
+
+        }
+
         public void doPropMoves()
         {
 
