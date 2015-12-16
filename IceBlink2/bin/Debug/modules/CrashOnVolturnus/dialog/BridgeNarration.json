@@ -75,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "You see four armed space pirates on the bridge. The first holds an automatic pistol, the second holds a needler pistol, the third holds an electrostunner, and the last holds a laser pistol.",
+                          "conversationText": "You see four armed space pirates on the bridge. The first holds a needler pistol, the second holds a laser pistol, the third holds a needler pistol, and the last holds a laser pistol.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
