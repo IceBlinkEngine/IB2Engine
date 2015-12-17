@@ -393,6 +393,10 @@ namespace IceBlink2
             {
                 CurrentEncounterAssignment(element);
             }
+            else if (element[0].StartsWith("%CurrentArea"))
+            {
+                //CurrentAreaAssignment(element);
+            }
 
         }
         public void DoMessage(string line)
@@ -4273,6 +4277,7 @@ namespace IceBlink2
                 }
             }
         }
+
         public void AreaAssignment(string[] element, int indexNum)
         {
             if (element[0].EndsWith("TimePerSquare"))
@@ -4535,7 +4540,13534 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].inGameAreaName += val;
                 }
             }
+
+            #region full screen layer 1
+            else if (element[0].EndsWith("useFullScreenEffectLayer1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer1 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive1 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders1 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer1IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer1IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer1IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging1 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade1 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript1 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript1 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName1 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride1 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource1 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 2
+            else if (element[0].EndsWith("useFullScreenEffectLayer2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer2 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive2 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders2 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer2IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer2IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer2IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging2 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade2 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript2 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript2 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName2 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride2 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource2 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 3
+            else if (element[0].EndsWith("useFullScreenEffectLayer3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer3 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive3 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders3 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer3IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer3IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer3IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging3 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade3 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript3 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript3 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName3 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride3 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource3 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 4
+            else if (element[0].EndsWith("useFullScreenEffectLayer4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer4 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive4 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders4 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer4IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer4IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer4IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging4 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade4 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript4 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript4 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName4 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride4 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource4 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 5
+            else if (element[0].EndsWith("useFullScreenEffectLayer5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer5 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive5 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders5 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer5IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer5IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer5IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging5 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade5 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript5 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript5 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName5 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride5 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource5 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 6
+            else if (element[0].EndsWith("useFullScreenEffectLayer6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer6 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive6 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders6 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer6IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer6IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer6IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging6 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade6 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript6 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript6 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName6 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride6 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource6 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 7
+            else if (element[0].EndsWith("useFullScreenEffectLayer7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer7 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive7 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders7 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer7IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer7IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer7IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging7 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade7 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript7 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript7 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName7 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride7 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource7 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 8
+            else if (element[0].EndsWith("useFullScreenEffectLayer8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer8 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive8 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders8 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer8IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer8IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer8IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging8 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade8 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript8 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript8 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName8 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride8 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource8 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 9
+            else if (element[0].EndsWith("useFullScreenEffectLayer9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer9 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive9 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders9 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer9IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer9IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer9IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging9 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade9 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript9 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript9 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName9 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride9 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource9 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 10
+            else if (element[0].EndsWith("useFullScreenEffectLayer10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer10 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive10 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders10 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer10IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer10IsTop = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer10IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].isChanging10 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].useCyclicFade10 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript10 = true;
+                }
+                else
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript10 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName10 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].directionalOverride10 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource10 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].cycleCounter10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].cycleCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeCounter10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeLimit10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeLimit10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 %= val;
+                }
+            }
+            #endregion
         }
+
+        public void CurrentAreaAssignment(string[] element, int indexNum)
+        {
+            if (element[0].EndsWith("TimePerSquare"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.TimePerSquare = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.TimePerSquare += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.TimePerSquare -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.TimePerSquare *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.TimePerSquare;
+                    helpResult /= val;
+                    gv.mod.currentArea.TimePerSquare = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.TimePerSquare %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("MapSizeX"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.MapSizeX = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.MapSizeX += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.MapSizeX -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.MapSizeX *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.MapSizeX;
+                    helpResult /= val;
+                    gv.mod.currentArea.MapSizeX = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.MapSizeX %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("MapSizeY"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.MapSizeY = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.MapSizeY += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.MapSizeY -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.MapSizeY *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.MapSizeY;
+                    helpResult /= val;
+                    gv.mod.currentArea.MapSizeY = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.MapSizeY %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("UseMiniMapFogOfWar"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.UseMiniMapFogOfWar = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.UseMiniMapFogOfWar = false;
+                }
+            }
+
+            else if (element[0].EndsWith("areaDark"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.areaDark = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.areaDark = false;
+                }
+            }
+
+            else if (element[0].EndsWith("UseDayNightCycle"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.UseDayNightCycle = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.UseDayNightCycle = false;
+                }
+            }
+
+            else if (element[0].EndsWith("Filename"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.Filename = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.Filename += val;
+                }
+            }
+
+            else if (element[0].EndsWith("MusicFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.MusicFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.MusicFileName += val;
+                }
+            }
+
+            else if (element[0].EndsWith("ImageFileName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.ImageFileName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.ImageFileName += val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaMusic"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.AreaMusic = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.AreaMusic += val;
+                }
+            }
+
+            else if (element[0].EndsWith("AreaSounds"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.AreaSounds = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.AreaSounds += val;
+                }
+            }
+
+            /*else if (element[0].EndsWith("OnHeartBeatLogicTree"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.OnHeartBeatLogicTree = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.OnHeartBeatLogicTree += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnHeartBeatParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.OnHeartBeatParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.OnHeartBeatParms += val;
+                }
+            }*/
+
+            else if (element[0].EndsWith("OnHeartBeatIBScript"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.OnHeartBeatIBScript = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.OnHeartBeatIBScript += val;
+                }
+            }
+
+            else if (element[0].EndsWith("OnHeartBeatIBScriptParms"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.OnHeartBeatIBScriptParms = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.OnHeartBeatIBScriptParms += val;
+                }
+            }
+            else if (element[0].EndsWith("inGameAreaName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.inGameAreaName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.inGameAreaName += val;
+                }
+            }
+            #region full screen layer 1
+            else if (element[0].EndsWith("useFullScreenEffectLayer1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer1= false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive1= false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders1= false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer1IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer1IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer1IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging1= false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade1= false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript1"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript1= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript1= false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName1+= val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride1+= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource1+= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed1%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1%= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter1;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter1%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter1;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter1%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit1;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit1%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter1;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter1%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames1;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames1%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX1;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX1%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY1"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY1;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY1= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY1%= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur1%= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence1;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence1%= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter1;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit1;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit1%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter1= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter1+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter1-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter1*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter1;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter1= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter1%= val;
+                }
+            }
+            #endregion
+            #region full screen layer 2
+            else if (element[0].EndsWith("useFullScreenEffectLayer2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer2= false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive2= false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders2= false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer2IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer2IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer2IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging2= false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade2= false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript2"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript2= true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript2= false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName2+= val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride2+= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource2+= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed2%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2%= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter2;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter2%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter2;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter2%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit2;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit2%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter2;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter2%= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames2;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames2%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX2;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX2%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY2"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY2;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY2= helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY2%= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur2%= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence2;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence2%= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2%= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter2;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit2;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit2%= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter2= val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter2+= val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter2-= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter2*= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter2;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter2= (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter2%= val;
+                }
+            }
+            #endregion
+            #region full screen layer 3
+            else if (element[0].EndsWith("useFullScreenEffectLayer3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer3 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive3 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders3 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer3IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer3IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer3IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging3 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade3 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript3"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript3 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript3 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName3 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride3 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource3 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter3;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter3;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit3;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter3;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames3;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX3;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY3"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY3;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY3 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY3 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence3;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter3;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit3;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter3;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter3 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 4
+            else if (element[0].EndsWith("useFullScreenEffectLayer4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer4 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive4 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders4 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer4IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer4IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer4IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging4 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade4 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript4"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript4 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript4 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName4 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride4 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource4 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter4;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter4;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit4;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter4;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames4;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX4;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY4"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY4;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY4 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY4 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence4;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter4;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit4;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter4;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter4 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 5
+            else if (element[0].EndsWith("useFullScreenEffectLayer5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders5 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer5IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer5IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer5IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging5 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade5 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript5"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript5 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript5 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName5 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride5 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource5"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource5 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter5;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter5;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit5;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter5;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames5;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX5;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY5"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY5;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY5 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY5 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence5;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter5;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit5;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter5;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter5 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 6
+            else if (element[0].EndsWith("useFullScreenEffectLayer6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders6 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer6IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer6IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer6IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging6 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade6 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript6"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript6 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript6 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName6 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride6 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource6"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource6 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter6;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter6;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit6;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter6;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames6;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX6;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY6"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY6;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY6 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY6 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence6;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter6;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit6;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter6;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter6 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 7
+            else if (element[0].EndsWith("useFullScreenEffectLayer7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders7 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer7IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer7IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer7IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging7 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade7 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript7"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript7 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript7 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName7 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride7 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource7"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource7 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter7;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter7;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit7;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter7;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames7;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX7;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY7"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY7;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY7 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY7 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence7;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter7;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit7;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit7 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter7;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter7 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 8
+            else if (element[0].EndsWith("useFullScreenEffectLayer8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders8 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer8IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer8IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer8IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging8 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade8 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript8"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript8 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript8 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName8 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride8 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource8"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource8 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter8;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter8;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit8;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter8;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames8;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX8;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY8"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY8;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY8 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY8 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence8;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter8;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit8;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter8;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter8 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 9
+            else if (element[0].EndsWith("useFullScreenEffectLayer9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders9 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer9IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer9IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer9IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging9 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade9 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript9"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript9 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript9 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName9 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride9 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource9"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource9 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter9;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter9;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit9;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter9;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames9;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX9;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY9"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY9;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY9 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY9 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence9;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter9;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit9;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit9 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter9;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter9 %= val;
+                }
+            }
+            #endregion
+            #region full screen layer 10
+            else if (element[0].EndsWith("useFullScreenEffectLayer10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerIsActive10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = false;
+                }
+            }
+            else if (element[0].EndsWith("containEffectInsideAreaBorders10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.containEffectInsideAreaBorders10 = false;
+                }
+            }
+            else if (element[0].EndsWith("FullScreenEffectLayer10IsTop"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer10IsTop = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.FullScreenEffectLayer10IsTop = false;
+                }
+            }
+            else if (element[0].EndsWith("isChanging10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.isChanging10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.isChanging10 = false;
+                }
+            }
+            else if (element[0].EndsWith("useCyclicFade10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.useCyclicFade10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.useCyclicFade10 = false;
+                }
+            }
+            else if (element[0].EndsWith("changebaleByWeatherScript10"))
+            {
+                string val = ConcateString(element[2]);
+                if (val == "true")
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript10 = true;
+                }
+                else
+                {
+                    gv.mod.currentArea.changebaleByWeatherScript10 = false;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenEffectLayerName10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerName10 += val;
+                }
+            }
+            else if (element[0].EndsWith("directionalOverride10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.directionalOverride10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.directionalOverride10 += val;
+                }
+            }
+            else if (element[0].EndsWith("overrideIsNoScrollSource10"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideIsNoScrollSource10 += val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeed10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeed10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeed10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedX10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationSpeedY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationSpeedY10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("cycleCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.cycleCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.cycleCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.cycleCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.cycleCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.cycleCounter10;
+                    helpResult /= val;
+                    gv.mod.currentArea.cycleCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.cycleCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeCounter10;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeLimit10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeLimit10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeLimit10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeLimit10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeLimit10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeLimit10;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeLimit10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeLimit10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeFrameCounter10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeFrameCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeFrameCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeFrameCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeFrameCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeFrameCounter10;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeFrameCounter10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("changeNumberOfFrames10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.changeNumberOfFrames10;
+                    helpResult /= val;
+                    gv.mod.currentArea.changeNumberOfFrames10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.changeNumberOfFrames10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterX10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounterY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounterY10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedX10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedX10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedX10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedX10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedX10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedX10;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedX10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedX10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideSpeedY10"))
+            {
+                float val = CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideSpeedY10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideSpeedY10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideSpeedY10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideSpeedY10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideSpeedY10;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideSpeedY10 = helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideSpeedY10 %= val;
+                }
+            }
+
+            else if (element[0].EndsWith("fullScreenEffectChanceToOccur10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenEffectChanceToOccur10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfCyclesPerOccurence10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfCyclesPerOccurence10;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfCyclesPerOccurence10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10;
+                    helpResult /= val;
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("fullScreenAnimationFrameCounter10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.fullScreenAnimationFrameCounter10;
+                    helpResult /= val;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayLimit10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayLimit10;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayLimit10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayLimit10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("overrideDelayCounter10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.overrideDelayCounter10;
+                    helpResult /= val;
+                    gv.mod.currentArea.overrideDelayCounter10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.overrideDelayCounter10 %= val;
+                }
+            }
+            #endregion
+
+        }
+
         public void EncounterAssignment(string[] element, int indexNum)
         {
             if (element[0].EndsWith("MapSizeX"))
