@@ -14,7 +14,7 @@
     "spellEffectType": "Buff",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spBless"
   },
   {
@@ -32,7 +32,7 @@
     "spellEffectType": "Debuff",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHold"
   },
   {
@@ -50,7 +50,7 @@
     "spellEffectType": "Heal",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spMassHeal"
   },
   {
@@ -68,7 +68,7 @@
     "spellEffectType": "Heal",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHeal"
   },
   {
@@ -86,7 +86,7 @@
     "spellEffectType": "Heal",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spMinorRegen"
   },
   {
@@ -104,7 +104,43 @@
     "spellEffectType": "Heal",
     "aoeShape": "Circle",
     "aoeRadius": 0,
-    "range": 3,
+    "range": 5,
     "spellScript": "spHeal"
+  },
+  {
+    "name": "Blast Grenade",
+    "tag": "blastOfLight",
+    "spellImage": "sp_blastoflight",
+    "description": "A blast of light launches from the casters hands and automatically hits all targets in the area of effect for 2d6 points of damage.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_fireball",
+    "spriteEndingFilename": "fx_fireball3x3end",
+    "spellStartSound": "fireballstart",
+    "spellEndSound": "fireballend",
+    "costSP": 15,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "Damage",
+    "aoeShape": "Circle",
+    "aoeRadius": 1,
+    "range": 5,
+    "spellScript": "spBlastOfLight"
+  },
+  {
+    "name": "Sleep Grenade",
+    "tag": "sleep",
+    "spellImage": "sp_sleep",
+    "description": "Puts creatures to sleep for 2 rounds.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_iceball",
+    "spriteEndingFilename": "fx_iceball3x3end",
+    "spellStartSound": "buffer",
+    "spellEndSound": "buffer",
+    "costSP": 10,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "DeBuff",
+    "aoeShape": "Circle",
+    "aoeRadius": 1,
+    "range": 5,
+    "spellScript": "spSleep"
   }
 ]

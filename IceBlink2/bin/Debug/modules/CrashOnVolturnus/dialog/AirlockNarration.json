@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "There are two pirates in this airlock chamber. One holds a grenade, and the other holds a sonic stunner. They move to attack you immediately.",
+          "conversationText": "There are two pirates in this airlock chamber. One holds a grenade, and the other holds a laser pistol. They move to attack you immediately.",
           "IsExpanded": true,
           "subNodes": [
             {

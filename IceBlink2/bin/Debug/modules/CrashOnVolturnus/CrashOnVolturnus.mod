@@ -96,7 +96,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Crash on Volturnus",
   "moduleCredits": "<big><b>Crash on Volturnus</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 738,
+  "nextIdNumber": 746,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "WorldTime": 300,
   "startingArea": "ship",

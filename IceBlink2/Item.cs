@@ -31,6 +31,7 @@ namespace IceBlink2
         public string projectileSpriteFilename = "none"; //sprite to use for projectiles
         public string spriteEndingFilename = "none"; //sprite to use for end effect of projectiles
         public string itemOnUseSound = "none"; //Filename of sound to play when the item is used (no extension)
+        public string itemEndSound = "none"; //Filename of sound to play upon end use of item like explosion from thrown grenade (no extension)
         public string category = "Armor"; //catergory type (Armor, Ranged, Melee, General, Ring, Shield, Ammo)
 	    public bool plotItem = false;
 	    public int value = 0; //cost in credits
@@ -43,8 +44,9 @@ namespace IceBlink2
 	    public bool isStackable = false; 
 	    public int attackBonus = 0; //attack bonus
 	    public int attackRange = 1; //attack range
-	    public int AreaOfEffect = 0; //AoE
-	    public int damageNumDice = 1; //number of dice to roll for damage
+	    public int AreaOfEffect = 0; //AoE radius
+        public string spellTag = "none";
+        public int damageNumDice = 1; //number of dice to roll for damage
 	    public int damageDie = 2; //type of dice to roll for damage
 	    public int damageAdder = 0; //the adder like 2d4+1 where "1" is the adder
 	    public int armorBonus = 0; //armor bonus
@@ -68,9 +70,6 @@ namespace IceBlink2
         public string onScoringHitParms = "";
         public string onUseItem = "none";
         public string onWhileEquipped = "none";
-        //public string onUseItemLogicTree = "none";
-        //public string onUseItemLogicTreeParms = "";
-	    //public bool destroyItemAfterOnUseItemLogicTree = false;
         public string onUseItemIBScript = "none";
         public string onUseItemIBScriptParms = "";
         public bool destroyItemAfterOnUseItemIBScript = false;
@@ -114,7 +113,8 @@ namespace IceBlink2
 		    copy.attackBonus = this.attackBonus;
 		    copy.attackRange = this.attackRange;
 		    copy.AreaOfEffect = this.AreaOfEffect;
-		    copy.damageNumDice = this.damageNumDice;
+            copy.spellTag = this.spellTag;
+            copy.damageNumDice = this.damageNumDice;
 		    copy.damageDie = this.damageDie;
 		    copy.damageAdder = this.damageAdder;
 		    copy.armorBonus = this.armorBonus;

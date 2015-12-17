@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "The first pirate, carrying a bullwhip, stands at the top end of the corridor.",
+                  "conversationText": "The first pirate, carrying a club, stands at the top end of the corridor.",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -75,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "The second pirate, carrying a club, stands at the junction of the corridor leading from the airlock and the corridor running between the passenger-class cabins.",
+                          "conversationText": "The second pirate, carrying needler pistol, stands at the junction of the corridor leading from the airlock and the corridor running between the passenger-class cabins.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -101,7 +101,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "The third pirate, wearing shock gloves and a power belt, is at the bottom end of the corridor.",
+                                  "conversationText": "The third pirate, carrying a vibroknife, is at the bottom end of the corridor.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
