@@ -168,10 +168,6 @@ namespace IceBlink2
         //listOfEntryWeatherChances (a list of ints containing exit weather chances in exact order)
         //listOfExitWeatherDurations (a list of durations in exact same order as the exit weather list)
 
-
-
-
-
         public Module()
         {
 

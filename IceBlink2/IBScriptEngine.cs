@@ -330,14 +330,20 @@ namespace IceBlink2
         {
             string[] element = GetLeftMiddleRightSides(line);
 
-            //get index of object in its List
-            string index = GetBetween(element[0], '[', ']');
-            string indexReplaced = ReplaceParameter(index);
-            int indexNum = (int)Convert.ToDouble(indexReplaced);
-
+            int indexNum = 0;
             int indexNum2 = 0;
             int indexNum3 = 0;
             int indexNum4 = 0;
+
+            
+                //get index of object in its List
+                string index = GetBetween(element[0], '[', ']');
+            if (index != element[0])
+            {
+                string indexReplaced = ReplaceParameter(index);
+                indexNum = (int)Convert.ToDouble(indexReplaced);
+            }
+           
 
             string index2 = GetBetween(element[0], '{', '}');
             if (index2 != element[0])
@@ -395,7 +401,7 @@ namespace IceBlink2
             }
             else if (element[0].StartsWith("%CurrentArea"))
             {
-                //CurrentAreaAssignment(element);
+                CurrentAreaAssignment(element);
             }
 
         }
@@ -1968,7 +1974,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("combatFacingLeft"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.playerList[indexNum].combatFacingLeft = true;
                 }
@@ -1980,7 +1986,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("steathModeOn"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.playerList[indexNum].steathModeOn = true;
                 }
@@ -1992,7 +1998,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("mainPc"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.playerList[indexNum].mainPc = true;
                 }
@@ -2004,7 +2010,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("nonRemoveablePc"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.playerList[indexNum].nonRemoveablePc = true;
                 }
@@ -2016,7 +2022,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isMale"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.playerList[indexNum].isMale = true;
                 }
@@ -2543,7 +2549,7 @@ namespace IceBlink2
             {
 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.allowSave = true;
                 }
@@ -2556,7 +2562,7 @@ namespace IceBlink2
             {
 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.debugMode = true;
                 }
@@ -2569,7 +2575,7 @@ namespace IceBlink2
             {
 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.showPartyToken = true;
                 }
@@ -2582,7 +2588,7 @@ namespace IceBlink2
             {
 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.PlayerFacingLeft = true;
                 }
@@ -2595,13 +2601,80 @@ namespace IceBlink2
             {
 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.allowAutosave = true;
                 }
                 else
                 {
                     gv.mod.allowAutosave = false;
+                }
+            }
+            else if (element[0].EndsWith("currentWeatherDuration"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentWeatherDuration = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentWeatherDuration += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentWeatherDuration -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentWeatherDuration *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentWeatherDuration;
+                    helpResult /= val;
+                    gv.mod.currentWeatherDuration = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentWeatherDuration %= val;
+                }
+            }
+            else if (element[0].EndsWith("useFirstPartOfWeatherScript"))
+            {
+
+                string val = ConcateString(element[2]);
+                if (val == "True")
+                {
+                    gv.mod.useFirstPartOfWeatherScript = true;
+                }
+                else
+                {
+                    gv.mod.useFirstPartOfWeatherScript = false;
+                }
+            }
+            else if (element[0].EndsWith("currentWeatherName"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentWeatherName = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentWeatherName += val;
+                }
+            }
+            else if (element[0].EndsWith("longEntryWeathersList"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.longEntryWeathersList = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.longEntryWeathersList += val;
                 }
             }
 
@@ -2612,7 +2685,7 @@ namespace IceBlink2
             {
                 
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isShown = true;
                 }
@@ -2996,7 +3069,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("PropFacingLeft"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].PropFacingLeft = true;
                 }
@@ -3009,7 +3082,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("HasCollision"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].HasCollision = true;
                 }
@@ -3022,7 +3095,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isActive"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isActive = true;
                 }
@@ -3035,7 +3108,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("DeletePropWhenThisEncounterIsWon"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].DeletePropWhenThisEncounterIsWon = true;
                 }
@@ -3048,7 +3121,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isMover"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isMover = true;
                 }
@@ -3061,7 +3134,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChaser"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].isChaser = true;
                 }
@@ -3087,7 +3160,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("ReturningToPost"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].Props[indexNum2].ReturningToPost = true;
                 }
@@ -4179,7 +4252,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("combatFacingLeft"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentEncounter.encounterCreatureList[indexNum].combatFacingLeft = true;
                 }
@@ -4376,7 +4449,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseMiniMapFogOfWar"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].UseMiniMapFogOfWar = true;
                 }
@@ -4389,7 +4462,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("areaDark"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].areaDark = true;
                 }
@@ -4402,7 +4475,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseDayNightCycle"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].UseDayNightCycle = true;
                 }
@@ -4545,7 +4618,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer1 = true;
                 }
@@ -4557,7 +4630,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive1 = true;
                 }
@@ -4569,7 +4642,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders1 = true;
                 }
@@ -4581,7 +4654,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer1IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer1IsTop = true;
                 }
@@ -4593,7 +4666,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging1 = true;
                 }
@@ -4605,7 +4678,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade1 = true;
                 }
@@ -4614,16 +4687,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade1 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript1"))
+            else if (element[0].EndsWith("changeableByWeatherScript1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript1 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript1 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript1 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript1 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName1"))
@@ -5083,36 +5156,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection1"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection1 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter1"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -5208,7 +5251,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer2 = true;
                 }
@@ -5220,7 +5263,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive2 = true;
                 }
@@ -5232,7 +5275,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders2 = true;
                 }
@@ -5244,7 +5287,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer2IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer2IsTop = true;
                 }
@@ -5256,7 +5299,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging2 = true;
                 }
@@ -5268,7 +5311,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade2 = true;
                 }
@@ -5277,16 +5320,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade2 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript2"))
+            else if (element[0].EndsWith("changeableByWeatherScript2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript2 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript2 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript2 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript2 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName2"))
@@ -5746,36 +5789,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection2"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection2 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter2"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -5871,7 +5884,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer3 = true;
                 }
@@ -5883,7 +5896,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive3 = true;
                 }
@@ -5895,7 +5908,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders3 = true;
                 }
@@ -5907,7 +5920,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer3IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer3IsTop = true;
                 }
@@ -5919,7 +5932,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging3 = true;
                 }
@@ -5931,7 +5944,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade3 = true;
                 }
@@ -5940,16 +5953,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade3 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript3"))
+            else if (element[0].EndsWith("changeableByWeatherScript3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript3 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript3 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript3 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript3 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName3"))
@@ -6409,36 +6422,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection3"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection3 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter3"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -6534,7 +6517,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer4 = true;
                 }
@@ -6546,7 +6529,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive4 = true;
                 }
@@ -6558,7 +6541,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders4 = true;
                 }
@@ -6570,7 +6553,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer4IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer4IsTop = true;
                 }
@@ -6582,7 +6565,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging4 = true;
                 }
@@ -6594,7 +6577,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade4 = true;
                 }
@@ -6603,16 +6586,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade4 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript4"))
+            else if (element[0].EndsWith("changeableByWeatherScript4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript4 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript4 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript4 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript4 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName4"))
@@ -7072,36 +7055,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection4"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection4 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter4"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -7197,7 +7150,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer5 = true;
                 }
@@ -7209,7 +7162,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive5 = true;
                 }
@@ -7221,7 +7174,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders5 = true;
                 }
@@ -7233,7 +7186,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer5IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer5IsTop = true;
                 }
@@ -7245,7 +7198,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging5 = true;
                 }
@@ -7257,7 +7210,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade5 = true;
                 }
@@ -7266,16 +7219,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade5 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript5"))
+            else if (element[0].EndsWith("changeableByWeatherScript5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript5 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript5 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript5 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript5 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName5"))
@@ -7735,36 +7688,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection5"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection5 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter5"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -7860,7 +7783,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer6 = true;
                 }
@@ -7872,7 +7795,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive6 = true;
                 }
@@ -7884,7 +7807,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders6 = true;
                 }
@@ -7896,7 +7819,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer6IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer6IsTop = true;
                 }
@@ -7908,7 +7831,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging6 = true;
                 }
@@ -7920,7 +7843,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade6 = true;
                 }
@@ -7929,16 +7852,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade6 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript6"))
+            else if (element[0].EndsWith("changeableByWeatherScript6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript6 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript6 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript6 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript6 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName6"))
@@ -8398,36 +8321,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection6"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection6 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter6"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -8523,7 +8416,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer7 = true;
                 }
@@ -8535,7 +8428,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive7 = true;
                 }
@@ -8547,7 +8440,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders7 = true;
                 }
@@ -8559,7 +8452,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer7IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer7IsTop = true;
                 }
@@ -8571,7 +8464,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging7 = true;
                 }
@@ -8583,7 +8476,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade7 = true;
                 }
@@ -8592,16 +8485,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade7 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript7"))
+            else if (element[0].EndsWith("changeableByWeatherScript7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript7 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript7 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript7 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript7 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName7"))
@@ -9061,36 +8954,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection7"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection7 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter7"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -9186,7 +9049,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer8 = true;
                 }
@@ -9198,7 +9061,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive8 = true;
                 }
@@ -9210,7 +9073,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders8 = true;
                 }
@@ -9222,7 +9085,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer8IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer8IsTop = true;
                 }
@@ -9234,7 +9097,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging8 = true;
                 }
@@ -9246,7 +9109,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade8 = true;
                 }
@@ -9255,16 +9118,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade8 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript8"))
+            else if (element[0].EndsWith("changeableByWeatherScript8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript8 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript8 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript8 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript8 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName8"))
@@ -9724,36 +9587,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection8"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection8 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter8"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -9849,7 +9682,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer9 = true;
                 }
@@ -9861,7 +9694,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive9 = true;
                 }
@@ -9873,7 +9706,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders9 = true;
                 }
@@ -9885,7 +9718,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer9IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer9IsTop = true;
                 }
@@ -9897,7 +9730,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging9 = true;
                 }
@@ -9909,7 +9742,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade9 = true;
                 }
@@ -9918,16 +9751,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade9 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript9"))
+            else if (element[0].EndsWith("changeableByWeatherScript9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript9 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript9 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript9 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript9 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName9"))
@@ -10387,36 +10220,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection9"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection9 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter9"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -10512,7 +10315,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer10 = true;
                 }
@@ -10524,7 +10327,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerIsActive10 = true;
                 }
@@ -10536,7 +10339,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders10 = true;
                 }
@@ -10548,7 +10351,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer10IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer10IsTop = true;
                 }
@@ -10560,7 +10363,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].isChanging10 = true;
                 }
@@ -10572,7 +10375,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade10 = true;
                 }
@@ -10581,16 +10384,16 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].useCyclicFade10 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript10"))
+            else if (element[0].EndsWith("changeableByWeatherScript10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript10 = true;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript10 = true;
                 }
                 else
                 {
-                    gv.mod.moduleAreasObjects[indexNum].changebaleByWeatherScript10 = false;
+                    gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript10 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName10"))
@@ -11050,36 +10853,6 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection10"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10;
-                    helpResult /= val;
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.moduleAreasObjects[indexNum].numberOfRenderCallsBeforeRedirection10 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter10"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -11173,7 +10946,7 @@ namespace IceBlink2
             #endregion
         }
 
-        public void CurrentAreaAssignment(string[] element, int indexNum)
+        public void CurrentAreaAssignment(string[] element)
         {
             if (element[0].EndsWith("TimePerSquare"))
             {
@@ -11271,7 +11044,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseMiniMapFogOfWar"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.UseMiniMapFogOfWar = true;
                 }
@@ -11284,7 +11057,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("areaDark"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.areaDark = true;
                 }
@@ -11297,7 +11070,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseDayNightCycle"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.UseDayNightCycle = true;
                 }
@@ -11439,7 +11212,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer1= true;
                 }
@@ -11451,7 +11224,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive1= true;
                 }
@@ -11463,7 +11236,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders1= true;
                 }
@@ -11475,7 +11248,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer1IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer1IsTop = true;
                 }
@@ -11487,7 +11260,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging1= true;
                 }
@@ -11499,7 +11272,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade1= true;
                 }
@@ -11508,16 +11281,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade1= false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript1"))
+            else if (element[0].EndsWith("changeableByWeatherScript1"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript1= true;
+                    gv.mod.currentArea.changeableByWeatherScript1= true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript1= false;
+                    gv.mod.currentArea.changeableByWeatherScript1= false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName1"))
@@ -11977,36 +11750,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence1%= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection1"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1= val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1+= val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1-= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1*= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1= (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection1%= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter1"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -12102,7 +11845,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer2= true;
                 }
@@ -12114,7 +11857,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive2= true;
                 }
@@ -12126,7 +11869,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders2= true;
                 }
@@ -12138,7 +11881,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer2IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer2IsTop = true;
                 }
@@ -12150,7 +11893,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging2= true;
                 }
@@ -12162,7 +11905,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade2= true;
                 }
@@ -12171,16 +11914,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade2= false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript2"))
+            else if (element[0].EndsWith("changeableByWeatherScript2"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript2= true;
+                    gv.mod.currentArea.changeableByWeatherScript2= true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript2= false;
+                    gv.mod.currentArea.changeableByWeatherScript2= false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName2"))
@@ -12640,36 +12383,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence2%= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection2"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2= val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2+= val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2-= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2*= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2= (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection2%= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter2"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -12765,7 +12478,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer3 = true;
                 }
@@ -12777,7 +12490,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
                 }
@@ -12789,7 +12502,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders3 = true;
                 }
@@ -12801,7 +12514,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer3IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer3IsTop = true;
                 }
@@ -12813,7 +12526,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging3 = true;
                 }
@@ -12825,7 +12538,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade3 = true;
                 }
@@ -12834,16 +12547,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade3 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript3"))
+            else if (element[0].EndsWith("changeableByWeatherScript3"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript3 = true;
+                    gv.mod.currentArea.changeableByWeatherScript3 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript3 = false;
+                    gv.mod.currentArea.changeableByWeatherScript3 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName3"))
@@ -13303,36 +13016,7 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence3 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection3"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection3 %= val;
-                }
-            }
+            
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter3"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -13428,7 +13112,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer4 = true;
                 }
@@ -13440,7 +13124,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
                 }
@@ -13452,7 +13136,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders4 = true;
                 }
@@ -13464,7 +13148,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer4IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer4IsTop = true;
                 }
@@ -13476,7 +13160,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging4 = true;
                 }
@@ -13488,7 +13172,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade4 = true;
                 }
@@ -13497,16 +13181,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade4 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript4"))
+            else if (element[0].EndsWith("changeableByWeatherScript4"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript4 = true;
+                    gv.mod.currentArea.changeableByWeatherScript4 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript4 = false;
+                    gv.mod.currentArea.changeableByWeatherScript4 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName4"))
@@ -13966,36 +13650,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence4 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection4"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection4 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter4"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -14091,7 +13745,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer5 = true;
                 }
@@ -14103,7 +13757,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
                 }
@@ -14115,7 +13769,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders5 = true;
                 }
@@ -14127,7 +13781,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer5IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer5IsTop = true;
                 }
@@ -14139,7 +13793,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging5 = true;
                 }
@@ -14151,7 +13805,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade5 = true;
                 }
@@ -14160,16 +13814,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade5 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript5"))
+            else if (element[0].EndsWith("changeableByWeatherScript5"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript5 = true;
+                    gv.mod.currentArea.changeableByWeatherScript5 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript5 = false;
+                    gv.mod.currentArea.changeableByWeatherScript5 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName5"))
@@ -14544,6 +14198,7 @@ namespace IceBlink2
                 if (element[1] == "=")
                 {
                     gv.mod.currentArea.overrideSpeedY5 = val;
+                    gv.log.AddHtmlTextToLog(gv.mod.currentArea.overrideSpeedY5.ToString());
                 }
                 else if (element[1] == "+=")
                 {
@@ -14627,36 +14282,6 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.currentArea.numberOfCyclesPerOccurence5 %= val;
-                }
-            }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection5"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection5 %= val;
                 }
             }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter5"))
@@ -14754,7 +14379,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer6 = true;
                 }
@@ -14766,7 +14391,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
                 }
@@ -14778,7 +14403,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders6 = true;
                 }
@@ -14790,7 +14415,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer6IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer6IsTop = true;
                 }
@@ -14802,7 +14427,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging6 = true;
                 }
@@ -14814,7 +14439,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade6 = true;
                 }
@@ -14823,16 +14448,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade6 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript6"))
+            else if (element[0].EndsWith("changeableByWeatherScript6"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript6 = true;
+                    gv.mod.currentArea.changeableByWeatherScript6 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript6 = false;
+                    gv.mod.currentArea.changeableByWeatherScript6 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName6"))
@@ -15292,36 +14917,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence6 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection6"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection6 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter6"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -15417,7 +15012,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer7 = true;
                 }
@@ -15429,7 +15024,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
                 }
@@ -15441,7 +15036,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders7 = true;
                 }
@@ -15453,7 +15048,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer7IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer7IsTop = true;
                 }
@@ -15465,7 +15060,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging7 = true;
                 }
@@ -15477,7 +15072,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade7 = true;
                 }
@@ -15486,16 +15081,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade7 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript7"))
+            else if (element[0].EndsWith("changeableByWeatherScript7"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript7 = true;
+                    gv.mod.currentArea.changeableByWeatherScript7 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript7 = false;
+                    gv.mod.currentArea.changeableByWeatherScript7 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName7"))
@@ -15955,36 +15550,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence7 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection7"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection7 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter7"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -16080,7 +15645,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer8 = true;
                 }
@@ -16092,7 +15657,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
                 }
@@ -16104,7 +15669,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders8 = true;
                 }
@@ -16116,7 +15681,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer8IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer8IsTop = true;
                 }
@@ -16128,7 +15693,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging8 = true;
                 }
@@ -16140,7 +15705,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade8 = true;
                 }
@@ -16149,16 +15714,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade8 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript8"))
+            else if (element[0].EndsWith("changeableByWeatherScript8"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript8 = true;
+                    gv.mod.currentArea.changeableByWeatherScript8 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript8 = false;
+                    gv.mod.currentArea.changeableByWeatherScript8 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName8"))
@@ -16618,36 +16183,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence8 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection8"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection8 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter8"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -16743,7 +16278,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer9 = true;
                 }
@@ -16755,7 +16290,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
                 }
@@ -16767,7 +16302,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders9 = true;
                 }
@@ -16779,7 +16314,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer9IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer9IsTop = true;
                 }
@@ -16791,7 +16326,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging9 = true;
                 }
@@ -16803,7 +16338,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade9 = true;
                 }
@@ -16812,16 +16347,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade9 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript9"))
+            else if (element[0].EndsWith("changeableByWeatherScript9"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript9 = true;
+                    gv.mod.currentArea.changeableByWeatherScript9 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript9 = false;
+                    gv.mod.currentArea.changeableByWeatherScript9 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName9"))
@@ -17281,36 +16816,7 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence9 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection9"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection9 %= val;
-                }
-            }
+            
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter9"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -17406,7 +16912,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useFullScreenEffectLayer10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useFullScreenEffectLayer10 = true;
                 }
@@ -17418,7 +16924,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("fullScreenEffectLayerIsActive10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
                 }
@@ -17430,7 +16936,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("containEffectInsideAreaBorders10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.containEffectInsideAreaBorders10 = true;
                 }
@@ -17442,7 +16948,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("FullScreenEffectLayer10IsTop"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.FullScreenEffectLayer10IsTop = true;
                 }
@@ -17454,7 +16960,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("isChanging10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.isChanging10 = true;
                 }
@@ -17466,7 +16972,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("useCyclicFade10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentArea.useCyclicFade10 = true;
                 }
@@ -17475,16 +16981,16 @@ namespace IceBlink2
                     gv.mod.currentArea.useCyclicFade10 = false;
                 }
             }
-            else if (element[0].EndsWith("changebaleByWeatherScript10"))
+            else if (element[0].EndsWith("changeableByWeatherScript10"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript10 = true;
+                    gv.mod.currentArea.changeableByWeatherScript10 = true;
                 }
                 else
                 {
-                    gv.mod.currentArea.changebaleByWeatherScript10 = false;
+                    gv.mod.currentArea.changeableByWeatherScript10 = false;
                 }
             }
             else if (element[0].EndsWith("fullScreenEffectLayerName10"))
@@ -17944,36 +17450,6 @@ namespace IceBlink2
                     gv.mod.currentArea.numberOfCyclesPerOccurence10 %= val;
                 }
             }
-            else if (element[0].EndsWith("numberOfRenderCallsBeforeRedirection10"))
-            {
-                int val = (int)CalcualteNumberEquation(element[2]);
-                if (element[1] == "=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 = val;
-                }
-                else if (element[1] == "+=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 += val;
-                }
-                else if (element[1] == "-=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 -= val;
-                }
-                else if (element[1] == "*=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 *= val;
-                }
-                else if (element[1] == "/=")
-                {
-                    helpResult = gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10;
-                    helpResult /= val;
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 = (int)helpResult;
-                }
-                else if (element[1] == "./.=")
-                {
-                    gv.mod.currentArea.numberOfRenderCallsBeforeRedirection10 %= val;
-                }
-            }
             else if (element[0].EndsWith("fullScreenAnimationFrameCounter10"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -18229,7 +17705,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseMapImage"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleEncountersList[indexNum].UseMapImage = true;
                 }
@@ -18241,7 +17717,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseDayNightCycle"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.moduleEncountersList[indexNum].UseDayNightCycle = true;
                 }
@@ -18555,7 +18031,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseMapImage"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentEncounter.UseMapImage = true;
                 }
@@ -18567,7 +18043,7 @@ namespace IceBlink2
             else if (element[0].EndsWith("UseDayNightCycle"))
             {
                 string val = ConcateString(element[2]);
-                if (val == "true")
+                if (val == "True")
                 {
                     gv.mod.currentEncounter.UseDayNightCycle = true;
                 }
@@ -19223,14 +18699,18 @@ namespace IceBlink2
             else if (parm.StartsWith("%"))
             {
                 string index = GetBetween(parm, '[', ']');
-                string indexTrimmed = index.Trim();
-                string indexReplaced = ReplaceParameter(indexTrimmed);
-                int indexNum = (int)Convert.ToDouble(indexReplaced);
 
+                int indexNum = 0;
                 int indexNum2 = 0;
                 int indexNum3 = 0;
                 int indexNum4 = 0;
 
+                if (index != parm)
+                {
+                    string indexTrimmed = index.Trim();
+                    string indexReplaced = ReplaceParameter(indexTrimmed);
+                    indexNum = (int)Convert.ToDouble(indexReplaced);
+                }
 
                 string index2 = GetBetween(parm, '{', '}');
                 if (index2 != parm)
@@ -19759,10 +19239,2239 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].inGameAreaName.ToString();
                     }
+                    
+                    #region full screen effect layer 1
+                    else if (parm.EndsWith("useFullScreenEffectLayer1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY1.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer1IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer1IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur1.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence1.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders1.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging1.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit1.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames1.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource1.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript1.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 2
+                    else if (parm.EndsWith("useFullScreenEffectLayer2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY2.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer2IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer2IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur2.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence2.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders2.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging2.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit2.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames2.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource2.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript2.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 3
+                    else if (parm.EndsWith("useFullScreenEffectLayer3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY3.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer3IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer3IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur3.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence3.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders3.ToString();
+                    }
+
+                    else if (parm.EndsWith("isChanging3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging3.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit3.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames3.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource3.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript3.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 4
+                    else if (parm.EndsWith("useFullScreenEffectLayer4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY4.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer4IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer4IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur4.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence4.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders4.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging4.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit4.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames4.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource4.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript4.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 5
+                    else if (parm.EndsWith("useFullScreenEffectLayer5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY5.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer5IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer5IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur5.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence5.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders5.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging5.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit5.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames5.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource5.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript5.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 6
+                    else if (parm.EndsWith("useFullScreenEffectLayer6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY6.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer6IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer6IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur6.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence6.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders6.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging6.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit6.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames6.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource6.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript6.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 7
+                    else if (parm.EndsWith("useFullScreenEffectLayer7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY7.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer7IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer7IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur7.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence7.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders7.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging7.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit7.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames7.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource7.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript7.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 8
+                    else if (parm.EndsWith("useFullScreenEffectLayer8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY8.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer8IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer8IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur8.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence8.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders8.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging8.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit8.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames8.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource8.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript8.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 9
+                    else if (parm.EndsWith("useFullScreenEffectLayer9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY9.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer9IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer9IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur9.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence9.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders9.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging9.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit9.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames9.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource9.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript9.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 100
+                    else if (parm.EndsWith("useFullScreenEffectLayer10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useFullScreenEffectLayer10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectLayerName10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeed10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedX10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationSpeedY10.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer10IsTop"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].FullScreenEffectLayer10IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenEffectChanceToOccur10.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].numberOfCyclesPerOccurence10.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].cycleCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].containEffectInsideAreaBorders10.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].isChanging10.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeLimit10.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeNumberOfFrames10.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].useCyclicFade10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterX10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounterY10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].directionalOverride10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedX10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideSpeedY10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayLimit10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].overrideIsNoScrollSource10.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript10.ToString();
+                    }
+                    #endregion
                 }
 
                 #endregion
-                 
+
+                #region currentArea
+                else if (parm.StartsWith("%CurrentArea"))
+                {
+                    if (parm.EndsWith("SizeOfProps"))
+                    {
+                        return gv.mod.currentArea.Props.Count.ToString();
+                    }
+                    else if (parm.EndsWith("Filename"))
+                    {
+                        return gv.mod.currentArea.Filename.ToString();
+                    }
+                    else if (parm.EndsWith("UseMiniMapFogOfWar"))
+                    {
+                        return gv.mod.currentArea.UseMiniMapFogOfWar.ToString();
+                    }
+                    else if (parm.EndsWith("areaDark"))
+                    {
+                        return gv.mod.currentArea.areaDark.ToString();
+                    }
+                    else if (parm.EndsWith("UseDayNightCycle"))
+                    {
+                        return gv.mod.currentArea.UseDayNightCycle.ToString();
+                    }
+                    else if (parm.EndsWith("TimePerSquare"))
+                    {
+                        return gv.mod.currentArea.TimePerSquare.ToString();
+                    }
+                    else if (parm.EndsWith("MusicFileName"))
+                    {
+                        return gv.mod.currentArea.MusicFileName.ToString();
+                    }
+                    else if (parm.EndsWith("ImageFileName"))
+                    {
+                        return gv.mod.currentArea.ImageFileName.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeX"))
+                    {
+                        return gv.mod.currentArea.MapSizeX.ToString();
+                    }
+                    else if (parm.EndsWith("MapSizeY"))
+                    {
+                        return gv.mod.currentArea.MapSizeY.ToString();
+                    }
+                    else if (parm.EndsWith("AreaMusic"))
+                    {
+                        return gv.mod.currentArea.AreaMusic.ToString();
+                    }
+                    else if (parm.EndsWith("AreaSounds"))
+                    {
+                        return gv.mod.currentArea.AreaSounds.ToString();
+                    }
+                    /*else if (parm.EndsWith("OnHeartBeatLogicTree"))
+                    {
+                        return gv.mod.currentArea.OnHeartBeatLogicTree.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatParms"))
+                    {
+                        return gv.mod.currentArea.OnHeartBeatParms.ToString();
+                    }*/
+                    else if (parm.EndsWith("SizeOfTriggers"))
+                    {
+                        return gv.mod.currentArea.Triggers.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOFAreaLocalInts"))
+                    {
+                        return gv.mod.currentArea.AreaLocalInts.Count.ToString();
+                    }
+                    else if (parm.EndsWith("SizeOfAreaLocalStrings"))
+                    {
+                        return gv.mod.currentArea.AreaLocalStrings.Count.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatIBScript"))
+                    {
+                        return gv.mod.currentArea.OnHeartBeatIBScript.ToString();
+                    }
+                    else if (parm.EndsWith("OnHeartBeatIBScriptParms"))
+                    {
+                        return gv.mod.currentArea.OnHeartBeatIBScriptParms.ToString();
+                    }
+                    else if (parm.EndsWith("inGameAreaName"))
+                    {
+                        return gv.mod.currentArea.inGameAreaName.ToString();
+                    }
+
+                    #region full screen effect layer 1
+                    else if (parm.EndsWith("useFullScreenEffectLayer1"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName1"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY1.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer1IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer1IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur1"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur1.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence1"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence1.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter1"))
+                    {
+                        return gv.mod.currentArea.cycleCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders1"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders1.ToString();
+                    }
+                   
+                    else if (parm.EndsWith("isChanging1"))
+                    {
+                        return gv.mod.currentArea.isChanging1.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter1"))
+                    {
+                        return gv.mod.currentArea.changeCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit1"))
+                    {
+                        return gv.mod.currentArea.changeLimit1.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter1"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames1"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames1.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade1"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY1.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter1"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride1"))
+                    {
+                        return gv.mod.currentArea.directionalOverride1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX1"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY1"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit1"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter1"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter1.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource1"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource1.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript1"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript1.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 2
+                    else if (parm.EndsWith("useFullScreenEffectLayer2"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName2"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY2.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer2IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer2IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur2"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur2.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence2"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence2.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter2"))
+                    {
+                        return gv.mod.currentArea.cycleCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders2"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders2.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging2"))
+                    {
+                        return gv.mod.currentArea.isChanging2.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter2"))
+                    {
+                        return gv.mod.currentArea.changeCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit2"))
+                    {
+                        return gv.mod.currentArea.changeLimit2.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter2"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames2"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames2.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade2"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY2.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter2"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride2"))
+                    {
+                        return gv.mod.currentArea.directionalOverride2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX2"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY2"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit2"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter2"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource2"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource2.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript2"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript2.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 3
+                    else if (parm.EndsWith("useFullScreenEffectLayer3"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName3"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY3.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer3IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer3IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur3"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur3.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence3"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence3.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter3"))
+                    {
+                        return gv.mod.currentArea.cycleCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders3"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders3.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging3"))
+                    {
+                        return gv.mod.currentArea.isChanging3.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter3"))
+                    {
+                        return gv.mod.currentArea.changeCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit3"))
+                    {
+                        return gv.mod.currentArea.changeLimit3.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter3"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames3"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames3.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade3"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY3.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter3"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride3"))
+                    {
+                        return gv.mod.currentArea.directionalOverride3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX3"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY3"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit3"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter3"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter3.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource3"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource3.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript3"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript3.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 4
+                    else if (parm.EndsWith("useFullScreenEffectLayer4"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName4"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY4.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer4IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer4IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur4"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur4.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence4"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence4.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter4"))
+                    {
+                        return gv.mod.currentArea.cycleCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders4"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders4.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging4"))
+                    {
+                        return gv.mod.currentArea.isChanging4.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter4"))
+                    {
+                        return gv.mod.currentArea.changeCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit4"))
+                    {
+                        return gv.mod.currentArea.changeLimit4.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter4"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames4"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames4.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade4"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY4.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter4"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride4"))
+                    {
+                        return gv.mod.currentArea.directionalOverride4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX4"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY4"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit4"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter4"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource4"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource4.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript4"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript4.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 5
+                    else if (parm.EndsWith("useFullScreenEffectLayer5"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName5"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY5.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer5IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer5IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur5"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur5.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence5"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence5.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter5"))
+                    {
+                        return gv.mod.currentArea.cycleCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders5"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders5.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging5"))
+                    {
+                        return gv.mod.currentArea.isChanging5.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter5"))
+                    {
+                        return gv.mod.currentArea.changeCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit5"))
+                    {
+                        return gv.mod.currentArea.changeLimit5.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter5"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames5"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames5.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade5"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY5.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter5"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride5"))
+                    {
+                        return gv.mod.currentArea.directionalOverride5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX5"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY5"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit5"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter5"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter5.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource5"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource5.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript5"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript5.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 6
+                    else if (parm.EndsWith("useFullScreenEffectLayer6"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName6"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY6.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer6IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer6IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur6"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur6.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence6"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence6.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter6"))
+                    {
+                        return gv.mod.currentArea.cycleCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders6"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders6.ToString();
+                    }
+                   
+                    else if (parm.EndsWith("isChanging6"))
+                    {
+                        return gv.mod.currentArea.isChanging6.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter6"))
+                    {
+                        return gv.mod.currentArea.changeCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit6"))
+                    {
+                        return gv.mod.currentArea.changeLimit6.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter6"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames6"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames6.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade6"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY6.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter6"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride6"))
+                    {
+                        return gv.mod.currentArea.directionalOverride6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX6"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY6"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit6"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter6"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource6"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource6.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript6"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript6.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 7
+                    else if (parm.EndsWith("useFullScreenEffectLayer7"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName7"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY7.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer7IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer7IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur7"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur7.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence7"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence7.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter7"))
+                    {
+                        return gv.mod.currentArea.cycleCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders7"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders7.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging7"))
+                    {
+                        return gv.mod.currentArea.isChanging7.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter7"))
+                    {
+                        return gv.mod.currentArea.changeCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit7"))
+                    {
+                        return gv.mod.currentArea.changeLimit7.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter7"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames7"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames7.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade7"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY7.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter7"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride7"))
+                    {
+                        return gv.mod.currentArea.directionalOverride7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX7"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY7"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit7"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter7"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter7.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource7"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource7.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript7"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript7.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 8
+                    else if (parm.EndsWith("useFullScreenEffectLayer8"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName8"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY8.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer8IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer8IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur8"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur8.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence8"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence8.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter8"))
+                    {
+                        return gv.mod.currentArea.cycleCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders8"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders8.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging8"))
+                    {
+                        return gv.mod.currentArea.isChanging8.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter8"))
+                    {
+                        return gv.mod.currentArea.changeCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit8"))
+                    {
+                        return gv.mod.currentArea.changeLimit8.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter8"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames8"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames8.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade8"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY8.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter8"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride8"))
+                    {
+                        return gv.mod.currentArea.directionalOverride8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX8"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY8"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit8"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter8"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource8"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource8.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript8"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript8.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 9
+                    else if (parm.EndsWith("useFullScreenEffectLayer9"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName9"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY9.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer9IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer9IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur9"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur9.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence9"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence9.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter9"))
+                    {
+                        return gv.mod.currentArea.cycleCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders9"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders9.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging9"))
+                    {
+                        return gv.mod.currentArea.isChanging9.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter9"))
+                    {
+                        return gv.mod.currentArea.changeCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit9"))
+                    {
+                        return gv.mod.currentArea.changeLimit9.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter9"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames9"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames9.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade9"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY9.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter9"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride9"))
+                    {
+                        return gv.mod.currentArea.directionalOverride9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX9"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY9"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit9"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter9"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter9.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource9"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource9.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript9"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript9.ToString();
+                    }
+                    #endregion
+                    #region full screen effect layer 10
+                    else if (parm.EndsWith("useFullScreenEffectLayer10"))
+                    {
+                        return gv.mod.currentArea.useFullScreenEffectLayer10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectLayerName10"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectLayerName10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeed10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeed10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedX10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedX10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationSpeedY10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationSpeedY10.ToString();
+                    }
+                    else if (parm.EndsWith("FullScreenEffectLayer10IsTop"))
+                    {
+                        return gv.mod.currentArea.FullScreenEffectLayer10IsTop.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenEffectChanceToOccur10"))
+                    {
+                        return gv.mod.currentArea.fullScreenEffectChanceToOccur10.ToString();
+                    }
+                    else if (parm.EndsWith("numberOfCyclesPerOccurence10"))
+                    {
+                        return gv.mod.currentArea.numberOfCyclesPerOccurence10.ToString();
+                    }
+                    else if (parm.EndsWith("cycleCounter10"))
+                    {
+                        return gv.mod.currentArea.cycleCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("containEffectInsideAreaBorders10"))
+                    {
+                        return gv.mod.currentArea.containEffectInsideAreaBorders10.ToString();
+                    }
+                    
+                    else if (parm.EndsWith("isChanging10"))
+                    {
+                        return gv.mod.currentArea.isChanging10.ToString();
+                    }
+                    else if (parm.EndsWith("changeCounter10"))
+                    {
+                        return gv.mod.currentArea.changeCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("changeLimit10"))
+                    {
+                        return gv.mod.currentArea.changeLimit10.ToString();
+                    }
+                    else if (parm.EndsWith("changeFrameCounter10"))
+                    {
+                        return gv.mod.currentArea.changeFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("changeNumberOfFrames10"))
+                    {
+                        return gv.mod.currentArea.changeNumberOfFrames10.ToString();
+                    }
+                    else if (parm.EndsWith("useCyclicFade10"))
+                    {
+                        return gv.mod.currentArea.useCyclicFade10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterX10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterX10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounterY10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounterY10.ToString();
+                    }
+                    else if (parm.EndsWith("fullScreenAnimationFrameCounter10"))
+                    {
+                        return gv.mod.currentArea.fullScreenAnimationFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("directionalOverride10"))
+                    {
+                        return gv.mod.currentArea.directionalOverride10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedX10"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedX10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideSpeedY10"))
+                    {
+                        return gv.mod.currentArea.overrideSpeedY10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayLimit10"))
+                    {
+                        return gv.mod.currentArea.overrideDelayLimit10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideDelayCounter10"))
+                    {
+                        return gv.mod.currentArea.overrideDelayCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("overrideIsNoScrollSource10"))
+                    {
+                        return gv.mod.currentArea.overrideIsNoScrollSource10.ToString();
+                    }
+                    else if (parm.EndsWith("changeableByWeatherScript10"))
+                    {
+                        return gv.mod.currentArea.changeableByWeatherScript10.ToString();
+                    }
+                    #endregion
+                }
+
+                #endregion
+
                 #region Prop
                 if (parm.StartsWith("%Prop"))
                 {
@@ -20288,6 +21997,22 @@ namespace IceBlink2
                     else if (parm.EndsWith("SizeOfPartyJournalCompleted"))
                     {
                         return gv.mod.partyJournalCompleted.Count.ToString();
+                    }
+                    else if (parm.EndsWith("currentWeatherName"))
+                    {
+                        return gv.mod.currentWeatherName.ToString();
+                    }
+                    else if (parm.EndsWith("currentWeatherDuration"))
+                    {
+                        return gv.mod.currentWeatherDuration.ToString();
+                    }
+                    else if (parm.EndsWith("longEntryWeathersList"))
+                    {
+                        return gv.mod.longEntryWeathersList.ToString();
+                    }
+                    else if (parm.EndsWith("useFirstPartOfWeatherScript"))
+                    {
+                        return gv.mod.useFirstPartOfWeatherScript.ToString();
                     }
                 }
 
