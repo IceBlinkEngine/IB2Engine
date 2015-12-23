@@ -1997,7 +1997,7 @@ namespace IceBlink2
             doPropHeartBeat();
             //script hook for the weather script
             //commented out till weather system is finished
-            //doWeatherScript();
+            doWeatherScript();
             //move any props that are active and only if they are not on the party location
             doPropMoves();
             //do Conversation and/or Encounter if on Prop
@@ -2059,7 +2059,8 @@ namespace IceBlink2
             //gv.mod.longExitWeathersList = gv.mod.longExitWeathersList.TrimStart(' ');
 
             //fill the weather lists again with fresh data from the long lists
-            SetUpEntryLists(gv.mod.longEntryWeathersList);
+            string entryWeathers = gv.sf.GetGlobalString("EntryWeathers");
+            SetUpEntryLists(entryWeathers);
 
             bool doesCurrentWeatherExistHere = false;
             #region check if current weather exists in this area
@@ -2097,6 +2098,7 @@ namespace IceBlink2
                 //determine random number between 1 and 100 for choosing entry weather type
                 int rollRandom = gv.sf.RandInt(100);
                 int addedChances = 0;
+                int test = gv.mod.listOfEntryWeatherChances.Count;
 
                 for (int i = 0; i < gv.mod.listOfEntryWeatherChances.Count; i++)
                 {
@@ -2125,6 +2127,12 @@ namespace IceBlink2
                 gv.mod.longExitWeathersList = gv.sf.GetGlobalString(gv.mod.currentWeatherName);
 
                 SetUpExitLists(gv.mod.longExitWeathersList);
+                gv.mod.currentArea.overrideDelayCounter5 = 10000;
+                gv.mod.currentArea.overrideDelayCounter6 = 10000;
+                gv.mod.currentArea.overrideDelayCounter7 = 10000;
+                gv.mod.currentArea.overrideDelayCounter8 = 10000;
+                gv.mod.currentArea.overrideDelayCounter9 = 10000;
+                gv.mod.currentArea.overrideDelayCounter10 = 10000;
 
                 //determine random number between 1 and 100 for choosing entry weather type
                 int rollRandom = gv.sf.RandInt(100);
@@ -4309,6 +4317,43 @@ namespace IceBlink2
                         gv.stopAmbient();
                     }
                     gv.mod.setCurrentArea(areaFilename, gv);
+
+                    //weather related inserts
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = 0;
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY2 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = 0;
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+
+                    doWeatherScript();
+
                     gv.screenMainMap.resetMiniMapBitmap();
                     doOnEnterAreaUpdate = true;
                     doPropMoves();

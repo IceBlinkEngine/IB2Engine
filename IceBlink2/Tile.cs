@@ -32,6 +32,10 @@ namespace IceBlink2
         public bool blockFullScreenEffectLayer4 = false;
         public bool blockFullScreenEffectLayer5 = false;
         public bool blockFullScreenEffectLayer6 = false;
+        public bool blockFullScreenEffectLayer7 = false;
+        public bool blockFullScreenEffectLayer8 = false;
+        public bool blockFullScreenEffectLayer9 = false;
+        public bool blockFullScreenEffectLayer10 = false;
 
         public Tile()
         {

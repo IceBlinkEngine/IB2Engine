@@ -43,6 +43,7 @@ namespace IceBlink2
 	    public List<LocalInt> AreaLocalInts = new List<LocalInt>();
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
+        //public string areaWeatherScript = "scotishAutumn";
         public string areaWeatherScript = "";
         public string areaWeatherScriptParms = "";
         public int weatherDurationMultiplierForScale = 1;
@@ -70,7 +71,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence1 = 0;
         public float cycleCounter1 = 0;
         public bool containEffectInsideAreaBorders1 = false;
-        public int numberOfRenderCallsBeforeRedirection1 = 150;
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
@@ -96,7 +96,7 @@ namespace IceBlink2
         public int overrideDelayLimit1 = -100;
         public int overrideDelayCounter1 = 10000;
         public string overrideIsNoScrollSource1 = "";
-        public bool changebaleByWeatherScript1 = true;
+        public bool changeableByWeatherScript1 = true;
 
         #endregion
         #region full screen effect layer 2
@@ -117,7 +117,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence2 = 0;
         public float cycleCounter2 = 0;
         public bool containEffectInsideAreaBorders2 = false;
-        public int numberOfRenderCallsBeforeRedirection2 = 150;
 
         public bool isChanging2 = false;
         public float changeCounter2 = 0;
@@ -144,7 +143,7 @@ namespace IceBlink2
         public int overrideDelayLimit2 = -100;
         public int overrideDelayCounter2 = 10000;
         public string overrideIsNoScrollSource2 = "";
-        public bool changebaleByWeatherScript2 = true;
+        public bool changeableByWeatherScript2 = true;
 
         #endregion
         #region full screen effect layer 3
@@ -153,19 +152,19 @@ namespace IceBlink2
         public bool fullScreenEffectLayerIsActive3 = true;
         //public string fullScreenEffectLayerName3 = "full_screen_effect_layer1x";
         //public string fullScreenEffectLayerName3 = "fogLayerB";
-        public string fullScreenEffectLayerName3 = "snowLayerB";
+        public string fullScreenEffectLayerName3 = "cloudLayerA";
         //public string fullScreenEffectLayerName3 = "rainLayerB";
         //public string fullScreenEffectLayerName3 = "testAnim1";
         public float fullScreenAnimationSpeed3 = 1.0f;
         public float fullScreenAnimationSpeedX3 = 0.5f;
         public float fullScreenAnimationSpeedY3 = -1.15f;
         public bool FullScreenEffectLayer3IsTop = true;
-        public int fullScreenEffectChanceToOccur3 = 20;
+        public int fullScreenEffectChanceToOccur3 = 100;
         //zero signifies an endlessly running animation
         public int numberOfCyclesPerOccurence3 = 0;
         public float cycleCounter3 = 0;
         public bool containEffectInsideAreaBorders3 = false;
-        public int numberOfRenderCallsBeforeRedirection3 = 150;
+
 
         public bool isChanging3 = false;
         public float changeCounter3 = 0;
@@ -186,13 +185,13 @@ namespace IceBlink2
         //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         //snow (3 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
         //fog (3 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
-        public string directionalOverride3 = "snow";
+        public string directionalOverride3 = "clouds";
         public float overrideSpeedX3 = -100;
         public float overrideSpeedY3 = -100;
         public int overrideDelayLimit3 = -100;
         public int overrideDelayCounter3 = 10000;
         public string overrideIsNoScrollSource3 = "";
-        public bool changebaleByWeatherScript3 = true;
+        public bool changeableByWeatherScript3 = true;
 
         #endregion
         #region full screen effect layer 4
@@ -213,7 +212,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence4 = 0;
         public float cycleCounter4 = 0;
         public bool containEffectInsideAreaBorders4 = false;
-        public int numberOfRenderCallsBeforeRedirection4 = 150;
+        
 
         public bool isChanging4 = false;
         public float changeCounter4 = 0;
@@ -240,7 +239,7 @@ namespace IceBlink2
         public int overrideDelayLimit4 = -100;
         public int overrideDelayCounter4 = 10000;
         public string overrideIsNoScrollSource4 = "";
-        public bool changebaleByWeatherScript4 = true;
+        public bool changeableByWeatherScript4 = true;
 
         #endregion
         #region full screen effect layer 5
@@ -261,7 +260,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence5 = 0;
         public float cycleCounter5 = 0;
         public bool containEffectInsideAreaBorders5 = false;
-        public int numberOfRenderCallsBeforeRedirection5 = 150;
 
         public bool isChanging5 = false;
         public float changeCounter5 = 0;
@@ -288,7 +286,7 @@ namespace IceBlink2
         public int overrideDelayLimit5 = -100;
         public int overrideDelayCounter5 = 10000;
         public string overrideIsNoScrollSource5 = "";
-        public bool changebaleByWeatherScript5 = true;
+        public bool changeableByWeatherScript5 = true;
 
         #endregion
         #region full screen effect layer 6
@@ -309,7 +307,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence6 = 0;
         public float cycleCounter6 = 0;
         public bool containEffectInsideAreaBorders6 = false;
-        public int numberOfRenderCallsBeforeRedirection6 = 150;
 
         public bool isChanging6 = false;
         public float changeCounter6 = 0;
@@ -336,7 +333,7 @@ namespace IceBlink2
         public int overrideDelayLimit6 = -100;
         public int overrideDelayCounter6 = 10000;
         public string overrideIsNoScrollSource6 = "";
-        public bool changebaleByWeatherScript6 = true;
+        public bool changeableByWeatherScript6 = true;
 
         #endregion
         #region full screen effect layer 7
@@ -357,7 +354,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence7 = 0;
         public float cycleCounter7 = 0;
         public bool containEffectInsideAreaBorders7 = false;
-        public int numberOfRenderCallsBeforeRedirection7 = 150;
 
         public bool isChanging7 = false;
         public float changeCounter7 = 0;
@@ -384,7 +380,7 @@ namespace IceBlink2
         public int overrideDelayLimit7 = -100;
         public int overrideDelayCounter7 = 10000;
         public string overrideIsNoScrollSource7 = "";
-        public bool changebaleByWeatherScript7 = true;
+        public bool changeableByWeatherScript7 = true;
 
         #endregion
         #region full screen effect layer 8
@@ -405,7 +401,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence8 = 0;
         public float cycleCounter8 = 0;
         public bool containEffectInsideAreaBorders8 = false;
-        public int numberOfRenderCallsBeforeRedirection8 = 150;
 
         public bool isChanging8 = false;
         public float changeCounter8 = 0;
@@ -432,7 +427,7 @@ namespace IceBlink2
         public int overrideDelayLimit8 = -100;
         public int overrideDelayCounter8 = 10000;
         public string overrideIsNoScrollSource8 = "";
-        public bool changebaleByWeatherScript8 = true;
+        public bool changeableByWeatherScript8 = true;
 
         #endregion
         #region full screen effect layer 9
@@ -453,7 +448,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence9 = 0;
         public float cycleCounter9 = 0;
         public bool containEffectInsideAreaBorders9 = false;
-        public int numberOfRenderCallsBeforeRedirection9 = 150;
 
         public bool isChanging9 = false;
         public float changeCounter9 = 0;
@@ -480,7 +474,7 @@ namespace IceBlink2
         public int overrideDelayLimit9 = -100;
         public int overrideDelayCounter9 = 10000;
         public string overrideIsNoScrollSource9 = "";
-        public bool changebaleByWeatherScript9 = true;
+        public bool changeableByWeatherScript9 = true;
 
         #endregion
         #region full screen effect layer 10
@@ -501,7 +495,6 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence10 = 0;
         public float cycleCounter10 = 0;
         public bool containEffectInsideAreaBorders10 = false;
-        public int numberOfRenderCallsBeforeRedirection10 = 150;
 
         public bool isChanging10 = false;
         public float changeCounter10 = 0;
@@ -528,7 +521,7 @@ namespace IceBlink2
         public int overrideDelayLimit10 = -100;
         public int overrideDelayCounter10 = 10000;
         public string overrideIsNoScrollSource10 = "";
-        public bool changebaleByWeatherScript10 = true;
+        public bool changeableByWeatherScript10 = true;
 
         #endregion
         #endregion
