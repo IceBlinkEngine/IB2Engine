@@ -4589,6 +4589,12 @@ namespace IceBlink2
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
                         }
                     }
+
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+
                     #endregion
 
                     //use weather system per area specific later on
@@ -5469,6 +5475,10 @@ namespace IceBlink2
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
                         }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
                     }
                     #endregion
 
@@ -6351,6 +6361,10 @@ namespace IceBlink2
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
                         }
                     }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
                     #endregion
 
                     //use weather system per area specific later on
@@ -7231,6 +7245,10 @@ namespace IceBlink2
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
                         }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
                     }
                     #endregion
 
@@ -8113,6 +8131,10 @@ namespace IceBlink2
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
                         }
                     }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
                     #endregion
 
                     //use weather system per area specific later on
@@ -8993,6 +9015,10 @@ namespace IceBlink2
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
                         }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
                     }
                     #endregion
 

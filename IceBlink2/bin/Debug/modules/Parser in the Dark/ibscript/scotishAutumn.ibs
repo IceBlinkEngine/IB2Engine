@@ -26,22 +26,22 @@ msg("in first part")
 		//if (%Mod.useFirstPartOfWeatherScript = "True")
 		//let's set the entry weather list
 		//$EntryList = "Hello why"
-$EntryList = "(SunnyWithClouds)[50]{20}(RainyWithFog)[50]{20}"
+$EntryList = "(SunnyWithClouds)[50]{50}(RainyWithFog)[50]{50}"
 	//$EntryList = "Entry list works"
 //%Mod.longEntryWeathersList = $EntryList
 $Name = "EntryWeathers"
-$Value = "(SunnyWithClouds)[50]{20}(RainyWithFog)[50]{20}"
+$Value = "(SunnyWithClouds)[50]{50}(RainyWithFog)[50]{50}"
 ~gaSetGlobalString($Name,$Value)
 msg($EntryList)
 	//%Mod.longEntryWeathersList = "(SunnyWithClouds)[50]{20}(RainyWithFog)[50]{20}"
 
 		//let's set the exit weathers with name of the weathertype first and then its exit weathers
 $Name = "SunnyWithClouds"
-$Value = "(RainyWithFog)[100]{20}"
+$Value = "(RainyWithFog)[100]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "RainyWithFog"
-$Value = "(SunnyWithClouds)[100]{20}"
+$Value = "(SunnyWithClouds)[100]{50}"
 ~gaSetGlobalString($Name,$Value)
 endif
 		//2. second part: set the properties for a max of 6_ channels per weather type,set the non-used channels of the 6_ weather channels to false

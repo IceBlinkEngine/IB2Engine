@@ -160,7 +160,9 @@ namespace IceBlink2
         public string longEntryWeathersList = "";
         public string longExitWeathersList = "";
         public bool useFirstPartOfWeatherScript = true;
-
+        public float howLongWeatherHasRun = 0;
+        public float fullScreenEffectOpacityWeather = 1;
+    
         //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
         //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
         //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)

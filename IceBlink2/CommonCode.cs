@@ -2116,13 +2116,33 @@ namespace IceBlink2
                 }
             }
 
-            //reduce duration 1, more for areas that consume more time per step
+            //reduce duration by 1, more for areas that consume more time per step, also for fade out
             gv.mod.currentWeatherDuration -= (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
 
-            //add fade out check here later, starting some multiplies of Scaler bfore zero here
+            //fade in counter
+            gv.mod.howLongWeatherHasRun += (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
 
-            if (gv.mod.currentWeatherDuration <= 0)
+            //Fade in
+            if (gv.mod.howLongWeatherHasRun <= 5)
             {
+                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.howLongWeatherHasRun / 5f);
+            }
+
+            if (gv.mod.howLongWeatherHasRun > 5)
+            {
+                gv.mod.fullScreenEffectOpacityWeather = 1f;
+            }
+
+                //add fade out check here later, starting some multiplies of Scaler bfore zero here
+                if (gv.mod.currentWeatherDuration <= 5)
+            {
+                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / 5f);
+            }
+
+                if (gv.mod.currentWeatherDuration <= 0)
+            {
+                gv.mod.howLongWeatherHasRun = 0;
+                gv.mod.fullScreenEffectOpacityWeather = 0;
                 //the single longEntrList is one of the exit lists fitting to the current weather type
                 gv.mod.longExitWeathersList = gv.sf.GetGlobalString(gv.mod.currentWeatherName);
 
