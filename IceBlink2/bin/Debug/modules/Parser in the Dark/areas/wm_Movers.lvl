@@ -6,8 +6,6 @@
   "inGameAreaName": "newArea",
   "useMiniProps": false,
   "useSuperTinyProps": false,
-"useFullScreenEffectLayer1": true,
-  "useFullScreenEffectLayer2": true,
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,

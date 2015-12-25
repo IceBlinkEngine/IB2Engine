@@ -5186,6 +5186,38 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1 %= val;
                 }
             }
+
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1 %= val;
+                }
+            }
+
             else if (element[0].EndsWith("overrideDelayLimit1"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -5817,6 +5849,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit2"))
@@ -6452,6 +6514,36 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit3"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -7083,6 +7175,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit4"))
@@ -7718,6 +7840,36 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit5"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -8349,6 +8501,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit6"))
@@ -8984,6 +9166,36 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit7"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -9615,6 +9827,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit8"))
@@ -10250,6 +10492,36 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit9"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -10881,6 +11153,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10;
+                    helpResult /= val;
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit10"))
@@ -11629,6 +11931,36 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounterY1%= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel1"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideSpeedX1"))
             {
                 float val = CalcualteNumberEquation(element[2]);
@@ -12262,6 +12594,7 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounterY2%= val;
                 }
             }
+            
             else if (element[0].EndsWith("overrideSpeedX2"))
             {
                 float val = CalcualteNumberEquation(element[2]);
@@ -12413,6 +12746,37 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter2%= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel2"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 %= val;
+                }
+            }
+
             else if (element[0].EndsWith("overrideDelayLimit2"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -13045,6 +13409,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.currentArea.fullScreenAnimationFrameCounter3 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel3"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit3"))
@@ -13680,6 +14074,36 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter4 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel4"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit4"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -14198,7 +14622,7 @@ namespace IceBlink2
                 if (element[1] == "=")
                 {
                     gv.mod.currentArea.overrideSpeedY5 = val;
-                    gv.log.AddHtmlTextToLog(gv.mod.currentArea.overrideSpeedY5.ToString());
+                    
                 }
                 else if (element[1] == "+=")
                 {
@@ -14312,6 +14736,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.currentArea.fullScreenAnimationFrameCounter5 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel5"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit5"))
@@ -14947,6 +15401,36 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter6 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel6"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit6"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -15580,6 +16064,36 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter7 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel7"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit7"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -16211,6 +16725,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.currentArea.fullScreenAnimationFrameCounter8 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel8"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit8"))
@@ -16847,6 +17391,36 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter9 %= val;
                 }
             }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel9"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 %= val;
+                }
+            }
             else if (element[0].EndsWith("overrideDelayLimit9"))
             {
                 int val = (int)CalcualteNumberEquation(element[2]);
@@ -17478,6 +18052,36 @@ namespace IceBlink2
                 else if (element[1] == "./.=")
                 {
                     gv.mod.currentArea.fullScreenAnimationFrameCounter10 %= val;
+                }
+            }
+            else if (element[0].EndsWith("activateTargetChannelInParallelToThisChannel10"))
+            {
+                int val = (int)CalcualteNumberEquation(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 += val;
+                }
+                else if (element[1] == "-=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 -= val;
+                }
+                else if (element[1] == "*=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 *= val;
+                }
+                else if (element[1] == "/=")
+                {
+                    helpResult = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10;
+                    helpResult /= val;
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 = (int)helpResult;
+                }
+                else if (element[1] == "./.=")
+                {
+                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 %= val;
                 }
             }
             else if (element[0].EndsWith("overrideDelayLimit10"))
@@ -19318,6 +19922,10 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter1.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel1.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride1"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].directionalOverride1.ToString();
@@ -19424,6 +20032,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter2"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel2.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride2"))
                     {
@@ -19532,6 +20144,10 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter3.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel3.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride3"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].directionalOverride3.ToString();
@@ -19638,6 +20254,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter4"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel4.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride4"))
                     {
@@ -19746,6 +20366,10 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter5.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel5"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel5.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride5"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].directionalOverride5.ToString();
@@ -19852,6 +20476,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter6"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel6"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel6.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride6"))
                     {
@@ -19960,6 +20588,10 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter7.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel7"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel7.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride7"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].directionalOverride7.ToString();
@@ -20066,6 +20698,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter8"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel8"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel8.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride8"))
                     {
@@ -20174,6 +20810,10 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter9.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel9"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel9.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride9"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].directionalOverride9.ToString();
@@ -20280,6 +20920,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter10"))
                     {
                         return gv.mod.moduleAreasObjects[indexNum].fullScreenAnimationFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel10"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].activateTargetChannelInParallelToThisChannel10.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride10"))
                     {
@@ -20476,6 +21120,10 @@ namespace IceBlink2
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter1.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel1"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride1"))
                     {
                         return gv.mod.currentArea.directionalOverride1.ToString();
@@ -20582,6 +21230,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter2"))
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter2.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel2"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride2"))
                     {
@@ -20690,6 +21342,10 @@ namespace IceBlink2
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter3.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel3"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride3"))
                     {
                         return gv.mod.currentArea.directionalOverride3.ToString();
@@ -20796,6 +21452,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter4"))
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter4.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel4"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride4"))
                     {
@@ -20904,6 +21564,10 @@ namespace IceBlink2
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter5.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel5"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride5"))
                     {
                         return gv.mod.currentArea.directionalOverride5.ToString();
@@ -21010,6 +21674,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter6"))
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter6.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel6"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride6"))
                     {
@@ -21118,6 +21786,10 @@ namespace IceBlink2
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter7.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel7"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride7"))
                     {
                         return gv.mod.currentArea.directionalOverride7.ToString();
@@ -21224,6 +21896,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter8"))
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter8.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel8"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride8"))
                     {
@@ -21332,6 +22008,10 @@ namespace IceBlink2
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter9.ToString();
                     }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel9"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9.ToString();
+                    }
                     else if (parm.EndsWith("directionalOverride9"))
                     {
                         return gv.mod.currentArea.directionalOverride9.ToString();
@@ -21438,6 +22118,10 @@ namespace IceBlink2
                     else if (parm.EndsWith("fullScreenAnimationFrameCounter10"))
                     {
                         return gv.mod.currentArea.fullScreenAnimationFrameCounter10.ToString();
+                    }
+                    else if (parm.EndsWith("activateTargetChannelInParallelToThisChannel10"))
+                    {
+                        return gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10.ToString();
                     }
                     else if (parm.EndsWith("directionalOverride10"))
                     {

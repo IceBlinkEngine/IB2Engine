@@ -1019,10 +1019,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter1 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
@@ -1056,13 +1066,13 @@ namespace IceBlink2
                             //fade in within first cycle of cyclic animation
                             if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
                             {
-                                fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
+                                fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
                             }
 
                             //fade out within last cycle of cyclic animation
                             if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
                             {
-                                fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
+                                fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
                             }
                         }
                         #endregion
@@ -1900,10 +1910,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed2 = gv.mod.currentArea.fullScreenAnimationSpeedX2 + gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX2;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY2;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed2 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter2 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
@@ -1937,13 +1957,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2));
                         }
                     }
                     #endregion
@@ -2781,10 +2801,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed3 = gv.mod.currentArea.fullScreenAnimationSpeedX3 + gv.mod.currentArea.fullScreenAnimationSpeedY3;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX3;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY3;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed3 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter3 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
@@ -2818,13 +2848,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3));
                         }
                     }
                     #endregion
@@ -3662,10 +3692,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed4 = gv.mod.currentArea.fullScreenAnimationSpeedX4 + gv.mod.currentArea.fullScreenAnimationSpeedY4;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX4;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY4;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed4 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter4 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
@@ -3699,13 +3739,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4));
                         }
                     }
                     #endregion
@@ -4543,10 +4583,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed5 = gv.mod.currentArea.fullScreenAnimationSpeedX5 + gv.mod.currentArea.fullScreenAnimationSpeedY5;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX5;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY5;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed5 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter5 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
@@ -4580,13 +4630,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
                         }
                     }
 
@@ -5430,10 +5480,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed6 = gv.mod.currentArea.fullScreenAnimationSpeedX6 + gv.mod.currentArea.fullScreenAnimationSpeedY6;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX6;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY6;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed6 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter6 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
@@ -5467,13 +5527,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
                         }
                     }
                     if (gv.mod.fullScreenEffectOpacityWeather != 1)
@@ -6315,10 +6375,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed7 = gv.mod.currentArea.fullScreenAnimationSpeedX7 + gv.mod.currentArea.fullScreenAnimationSpeedY7;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX7;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY7;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed7 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter7 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
@@ -6352,13 +6422,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
                         }
                     }
                     if (gv.mod.fullScreenEffectOpacityWeather != 1)
@@ -7200,10 +7270,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed8 = gv.mod.currentArea.fullScreenAnimationSpeedX8 + gv.mod.currentArea.fullScreenAnimationSpeedY8;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX8;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY8;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed8 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter8 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
@@ -7237,13 +7317,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
                         }
                     }
                     if (gv.mod.fullScreenEffectOpacityWeather != 1)
@@ -8085,10 +8165,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed9 = gv.mod.currentArea.fullScreenAnimationSpeedX9 + gv.mod.currentArea.fullScreenAnimationSpeedY9;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX9;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY9;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed9 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter9 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
@@ -8122,13 +8212,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
                         }
                     }
                     if (gv.mod.fullScreenEffectOpacityWeather != 1)
@@ -8970,10 +9060,20 @@ namespace IceBlink2
                     {
 
                         //added speed
-                        gv.mod.currentArea.fullScreenAnimationSpeed10 = gv.mod.currentArea.fullScreenAnimationSpeedX10 + gv.mod.currentArea.fullScreenAnimationSpeedY10;
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX10;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY10;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed10 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter10 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
@@ -9007,13 +9107,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
                         }
                     }
                     if (gv.mod.fullScreenEffectOpacityWeather != 1)
@@ -9707,11 +9807,21 @@ namespace IceBlink2
                 if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
                 {
 
-                    //added speed
-                    gv.mod.currentArea.fullScreenAnimationSpeed1 = gv.mod.currentArea.fullScreenAnimationSpeedX1 + gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                    //added speed xx
+                    float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                    if (speedComponentX < 0)
+                    {
+                        speedComponentX *= -1;
+                    }
+                    float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                    if (speedComponentY < 0)
+                    {
+                        speedComponentY *= -1;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
 
                     //based on subjective trial and error
-                    if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (250f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                    if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                     {
                         gv.mod.currentArea.cycleCounter1 += 1;
                         gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
@@ -9743,13 +9853,13 @@ namespace IceBlink2
                         //fade in within first cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
                         {
-                            fullScreenEffectOpacity = 1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
                         }
 
                         //fade out within last cycle of cyclic animation
                         if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
                         {
-                            fullScreenEffectOpacity = 1f - (1f / ((250f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
                         }
                     }
                     #endregion

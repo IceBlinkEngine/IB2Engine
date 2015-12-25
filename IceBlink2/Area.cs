@@ -43,7 +43,7 @@ namespace IceBlink2
 	    public List<LocalInt> AreaLocalInts = new List<LocalInt>();
 	    public List<LocalString> AreaLocalStrings = new List<LocalString>();
         public string inGameAreaName = "newArea";
-        //public string areaWeatherScript = "scotishAutumn";
+        //public string areaWeatherScript = "scottishAutumn";
         public string areaWeatherScript = "";
         public string areaWeatherScriptParms = "";
         public int weatherDurationMultiplierForScale = 1;
@@ -71,6 +71,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence1 = 0;
         public float cycleCounter1 = 0;
         public bool containEffectInsideAreaBorders1 = false;
+        public int activateTargetChannelInParallelToThisChannel1 = 0;
 
         public bool isChanging1 = false;
         public float changeCounter1 = 0;
@@ -117,6 +118,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence2 = 0;
         public float cycleCounter2 = 0;
         public bool containEffectInsideAreaBorders2 = false;
+        public int activateTargetChannelInParallelToThisChannel2 = 0;
 
         public bool isChanging2 = false;
         public float changeCounter2 = 0;
@@ -164,7 +166,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence3 = 0;
         public float cycleCounter3 = 0;
         public bool containEffectInsideAreaBorders3 = false;
-
+        public int activateTargetChannelInParallelToThisChannel3 = 0;
 
         public bool isChanging3 = false;
         public float changeCounter3 = 0;
@@ -212,7 +214,8 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence4 = 0;
         public float cycleCounter4 = 0;
         public bool containEffectInsideAreaBorders4 = false;
-        
+        public int activateTargetChannelInParallelToThisChannel4 = 0;
+
 
         public bool isChanging4 = false;
         public float changeCounter4 = 0;
@@ -260,6 +263,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence5 = 0;
         public float cycleCounter5 = 0;
         public bool containEffectInsideAreaBorders5 = false;
+        public int activateTargetChannelInParallelToThisChannel5 = 0;
 
         public bool isChanging5 = false;
         public float changeCounter5 = 0;
@@ -307,6 +311,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence6 = 0;
         public float cycleCounter6 = 0;
         public bool containEffectInsideAreaBorders6 = false;
+        public int activateTargetChannelInParallelToThisChannel6 = 0;
 
         public bool isChanging6 = false;
         public float changeCounter6 = 0;
@@ -354,6 +359,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence7 = 0;
         public float cycleCounter7 = 0;
         public bool containEffectInsideAreaBorders7 = false;
+        public int activateTargetChannelInParallelToThisChannel7 = 0;
 
         public bool isChanging7 = false;
         public float changeCounter7 = 0;
@@ -401,6 +407,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence8 = 0;
         public float cycleCounter8 = 0;
         public bool containEffectInsideAreaBorders8 = false;
+        public int activateTargetChannelInParallelToThisChannel8 = 0;
 
         public bool isChanging8 = false;
         public float changeCounter8 = 0;
@@ -448,6 +455,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence9 = 0;
         public float cycleCounter9 = 0;
         public bool containEffectInsideAreaBorders9 = false;
+        public int activateTargetChannelInParallelToThisChannel9 = 0;
 
         public bool isChanging9 = false;
         public float changeCounter9 = 0;
@@ -495,6 +503,7 @@ namespace IceBlink2
         public int numberOfCyclesPerOccurence10 = 0;
         public float cycleCounter10 = 0;
         public bool containEffectInsideAreaBorders10 = false;
+        public int activateTargetChannelInParallelToThisChannel10 = 0;
 
         public bool isChanging10 = false;
         public float changeCounter10 = 0;

@@ -6,8 +6,6 @@
   "inGameAreaName": "Crowded Plains",
   "useMiniProps": true,
   "useSuperTinyProps": false,
-  "useFullScreenEffectLayer1": true,
-  "useFullScreenEffectLayer2": true,
   "areaDark": false,
   "UseDayNightCycle": true,
   "TimePerSquare": 6,

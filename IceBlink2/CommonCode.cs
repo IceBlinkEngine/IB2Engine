@@ -1959,12 +1959,476 @@ namespace IceBlink2
                 return;
             }
 
-            //handling chances for full screen animation effects
+            //handling chances for full screen animation effects, edit: for all 10 channels now
             if ((gv.mod.currentArea.fullScreenEffectLayerIsActive1 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
             {
                 if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur1)
                 {
                     gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel1 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive2 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur2)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel2 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive3 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur3)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel3 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive4 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur4)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel4 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive5 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur5)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive6 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur6)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive7 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur7)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive8 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur8)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive9 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur9)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
+                }
+            }
+            if ((gv.mod.currentArea.fullScreenEffectLayerIsActive10 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+            {
+                if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur10)
+                {
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 1)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 2)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 3)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 4)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 5)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 6)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 7)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 8)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 9)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    }
+                    if (gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 == 10)
+                    {
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    }
                 }
             }
 
@@ -2122,21 +2586,23 @@ namespace IceBlink2
             //fade in counter
             gv.mod.howLongWeatherHasRun += (1 * gv.mod.currentArea.weatherDurationMultiplierForScale);
 
+            float changeThreshold = (5 * gv.mod.currentArea.weatherDurationMultiplierForScale);
+                 
             //Fade in
-            if (gv.mod.howLongWeatherHasRun <= 5)
+            if (gv.mod.howLongWeatherHasRun <= changeThreshold)
             {
-                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.howLongWeatherHasRun / 5f);
+                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.howLongWeatherHasRun / changeThreshold);
             }
 
-            if (gv.mod.howLongWeatherHasRun > 5)
+            if (gv.mod.howLongWeatherHasRun > changeThreshold)
             {
                 gv.mod.fullScreenEffectOpacityWeather = 1f;
             }
 
                 //add fade out check here later, starting some multiplies of Scaler bfore zero here
-                if (gv.mod.currentWeatherDuration <= 5)
+                if (gv.mod.currentWeatherDuration <= changeThreshold)
             {
-                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / 5f);
+                gv.mod.fullScreenEffectOpacityWeather = 1f * (gv.mod.currentWeatherDuration / changeThreshold);
             }
 
                 if (gv.mod.currentWeatherDuration <= 0)
