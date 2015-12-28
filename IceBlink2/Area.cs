@@ -54,31 +54,31 @@ namespace IceBlink2
         //properties for the full screen animation system (for 10 layers)
         #region full screen effect layer 1
         //full screen effect layer 1
-        public bool useFullScreenEffectLayer1 = false;
+        public bool useFullScreenEffectLayer1 = true;
         public bool fullScreenEffectLayerIsActive1 = true;
         //public string fullScreenEffectLayerName1 = "full_screen_effect_layer2x";
         //public string fullScreenEffectLayerName1 = "testAnim1";
         //public string fullScreenEffectLayerName1 = "fogLayerA";
         //public string fullScreenEffectLayerName1 = "cloudLayerA";
-        public string fullScreenEffectLayerName1 = "snowLayerA";
+        public string fullScreenEffectLayerName1 = "sea";
         //public string fullScreenEffectLayerName1 = "rainLayerA";
         public float fullScreenAnimationSpeed1 = 1.0f;
         public float fullScreenAnimationSpeedX1 = 0.5f;
         public float fullScreenAnimationSpeedY1 = -1.15f;
-        public bool FullScreenEffectLayer1IsTop = true;
-        public int fullScreenEffectChanceToOccur1 = 20;
+        public bool FullScreenEffectLayer1IsTop = false;
+        public int fullScreenEffectChanceToOccur1 = 100;
         //zero signifies an endlessly running animation
         public int numberOfCyclesPerOccurence1 = 0;
         public float cycleCounter1 = 0;
         public bool containEffectInsideAreaBorders1 = false;
         public int activateTargetChannelInParallelToThisChannel1 = 0;
 
-        public bool isChanging1 = false;
+        public bool isChanging1 = true;
         public float changeCounter1 = 0;
-        public float changeLimit1 = 60;
+        public float changeLimit1 = 15;
         public float changeFrameCounter1 = 1;
-        public float changeNumberOfFrames1 = 4;        
-        public bool useCyclicFade1 = true;
+        public float changeNumberOfFrames1 = 6;        
+        public bool useCyclicFade1 = false;
 
         public float fullScreenAnimationFrameCounterX1 = 0;
         public float fullScreenAnimationFrameCounterY1 = 1.5f;
@@ -91,27 +91,27 @@ namespace IceBlink2
         //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
         //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
-        public string directionalOverride1 = "snow";
-        public float overrideSpeedX1 = -100;
+        public string directionalOverride1 = "fog";
+        public float overrideSpeedX1 = -100f;
         public float overrideSpeedY1 = -100;
-        public int overrideDelayLimit1 = -100;
+        public int overrideDelayLimit1 = 40;
         public int overrideDelayCounter1 = 10000;
         public string overrideIsNoScrollSource1 = "";
-        public bool changeableByWeatherScript1 = true;
+        public bool changeableByWeatherScript1 = false;
 
         #endregion
         #region full screen effect layer 2
         //full screen effect layer 2
-        public bool useFullScreenEffectLayer2 = false;
+        public bool useFullScreenEffectLayer2 = true;
         public bool fullScreenEffectLayerIsActive2 = true;
         //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1x";
         //public string fullScreenEffectLayerName2 = "fogLayerB";
-        public string fullScreenEffectLayerName2 = "snowLayerB";
+        public string fullScreenEffectLayerName2 = "pixShadow";
         //public string fullScreenEffectLayerName2 = "rainLayerB";
         //public string fullScreenEffectLayerName2 = "testAnim1";
         public float fullScreenAnimationSpeed2 = 1.0f;
-        public float fullScreenAnimationSpeedX2 = 0.5f;
-        public float fullScreenAnimationSpeedY2 = -1.15f;
+        public float fullScreenAnimationSpeedX2 = 0f;
+        public float fullScreenAnimationSpeedY2 = 0f;
         public bool FullScreenEffectLayer2IsTop = true;
         public int fullScreenEffectChanceToOccur2 = 20;
         //zero signifies an endlessly running animation
@@ -120,13 +120,13 @@ namespace IceBlink2
         public bool containEffectInsideAreaBorders2 = false;
         public int activateTargetChannelInParallelToThisChannel2 = 0;
 
-        public bool isChanging2 = false;
+        public bool isChanging2 = true;
         public float changeCounter2 = 0;
-        public float changeLimit2 = 60;
+        public float changeLimit2 = 4;
         public float changeFrameCounter2 = 1;
-        public float changeNumberOfFrames2 = 4;
+        public float changeNumberOfFrames2 = 10;
 
-        public bool useCyclicFade2 = true;
+        public bool useCyclicFade2 = false;
 
         public float fullScreenAnimationFrameCounterX2 = 0;
         public float fullScreenAnimationFrameCounterY2 = 1;
@@ -139,13 +139,13 @@ namespace IceBlink2
         //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         //snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
         //fog (2 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
-        public string directionalOverride2 = "snow";
-        public float overrideSpeedX2 = -100;
-        public float overrideSpeedY2 = - 100;
+        public string directionalOverride2 = "linear";
+        public float overrideSpeedX2 = 0f;
+        public float overrideSpeedY2 = 0f;
         public int overrideDelayLimit2 = -100;
         public int overrideDelayCounter2 = 10000;
         public string overrideIsNoScrollSource2 = "";
-        public bool changeableByWeatherScript2 = true;
+        public bool changeableByWeatherScript2 = false;
 
         #endregion
         #region full screen effect layer 3
