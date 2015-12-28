@@ -54,7 +54,7 @@ namespace IceBlink2
         //properties for the full screen animation system (for 10 layers)
         #region full screen effect layer 1
         //full screen effect layer 1
-        public bool useFullScreenEffectLayer1 = true;
+        public bool useFullScreenEffectLayer1 = false;
         public bool fullScreenEffectLayerIsActive1 = true;
         //public string fullScreenEffectLayerName1 = "full_screen_effect_layer2x";
         //public string fullScreenEffectLayerName1 = "testAnim1";
@@ -102,7 +102,7 @@ namespace IceBlink2
         #endregion
         #region full screen effect layer 2
         //full screen effect layer 2
-        public bool useFullScreenEffectLayer2 = true;
+        public bool useFullScreenEffectLayer2 = false;
         public bool fullScreenEffectLayerIsActive2 = true;
         //public string fullScreenEffectLayerName2 = "full_screen_effect_layer1x";
         //public string fullScreenEffectLayerName2 = "fogLayerB";
