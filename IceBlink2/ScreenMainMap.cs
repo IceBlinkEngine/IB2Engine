@@ -417,6 +417,7 @@ namespace IceBlink2
             {
                 drawPanels();
             }
+            //drawBottomFullScreenEffects();
             drawTopFullScreenEffects();
             gv.drawLog();
             drawControls();
@@ -1584,7 +1585,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 15;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -1597,9 +1598,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -1628,37 +1629,37 @@ namespace IceBlink2
                         if (rollRandom == 3)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //down
                         if (rollRandom == 4)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //up right
                         if (rollRandom == 5)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //upleft
                         if (rollRandom == 6)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //downright
                         if (rollRandom == 7)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //downleft
                         if (rollRandom == 8)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                     }
                 }
@@ -1667,7 +1668,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 750;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -1680,9 +1681,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -1716,7 +1717,7 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
                     }
                 }
 
@@ -1724,7 +1725,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1.0f;
-                    float defaultOverrideSpeedY1 = 1.0f;
+                    float defaultOverrideSpeedY2 = 1.0f;
                     int defaultOverrideDelayLimit2 = 110;
                     string defaultOverrideIsNoScrollSource2 = "True";
 
@@ -1737,9 +1738,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -1774,8 +1775,8 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom3 / 100f;
-                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -1783,7 +1784,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.45f;
-                    float defaultOverrideSpeedY1 = -0.55f;
+                    float defaultOverrideSpeedY2 = -0.55f;
                     int defaultOverrideDelayLimit2 = 470;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -1797,9 +1798,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -1821,7 +1822,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -1829,7 +1830,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = -2.8f;
+                    float defaultOverrideSpeedY2 = -2.8f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -1842,9 +1843,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -1866,7 +1867,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -1874,7 +1875,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1f;
-                    float defaultOverrideSpeedY1 = 1f;
+                    float defaultOverrideSpeedY2 = 1f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -1887,16 +1888,16 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
                         defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
                     }
                     gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                 }
 
 
@@ -9621,15 +9622,24 @@ namespace IceBlink2
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
             #endregion
-
+            //hurgh
             #region Draw full screen layer 1
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
             //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
             //that's for my laptop
+
+            //check whether the layer1 is activated and set to top level
             if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (!gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
 
                 #region override movement patterns
 
@@ -9639,6 +9649,12 @@ namespace IceBlink2
                     float defaultOverrideSpeedX1 = 0.5f;
                     float defaultOverrideSpeedY1 = 0.5f;
                     int defaultOverrideDelayLimit1 = 15;
+                    string defaultOverrideIsNoScrollSource1 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -9710,12 +9726,18 @@ namespace IceBlink2
                     }
                 }
 
-                if (gv.mod.currentArea.directionalOverride1 == "randOrganic")
+                if (gv.mod.currentArea.directionalOverride1 == "clouds")
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX1 = 0.5f;
                     float defaultOverrideSpeedY1 = 0.5f;
-                    int defaultOverrideDelayLimit1 = 15;
+                    int defaultOverrideDelayLimit1 = 750;
+                    string defaultOverrideIsNoScrollSource1 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -9761,12 +9783,78 @@ namespace IceBlink2
                     }
                 }
 
+                if (gv.mod.currentArea.directionalOverride1 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX1 = 1.0f;
+                    float defaultOverrideSpeedY1 = 1.0f;
+                    int defaultOverrideDelayLimit1 = 110;
+                    string defaultOverrideIsNoScrollSource1 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX1 != -100)
+                    {
+                        defaultOverrideSpeedX1 = gv.mod.currentArea.overrideSpeedX1;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit1 != -100)
+                    {
+                        defaultOverrideDelayLimit1 = gv.mod.currentArea.overrideDelayLimit1;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter1++;
+                    if (gv.mod.currentArea.overrideDelayCounter1 > defaultOverrideDelayLimit1)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter1 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.075f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
+                    }
+                }
+
                 if (gv.mod.currentArea.directionalOverride1 == "snow")
                 {
                     //set up the default values and allow individiual override based on toolset values
-                    float defaultOverrideSpeedX1 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
-                    int defaultOverrideDelayLimit1 = 15;
+                    float defaultOverrideSpeedX1 = 0.45f;
+                    float defaultOverrideSpeedY1 = -0.55f;
+                    int defaultOverrideDelayLimit1 = 470;
+                    string defaultOverrideIsNoScrollSource1 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
+
 
                     if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
@@ -9795,57 +9883,136 @@ namespace IceBlink2
                             directional = -1;
                         }
                         float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.15f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride1 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX1 = 0.5f;
+                    float defaultOverrideSpeedY1 = -2.8f;
+                    int defaultOverrideDelayLimit1 = 100;
+                    string defaultOverrideIsNoScrollSource1 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX1 != -100)
+                    {
+                        defaultOverrideSpeedX1 = gv.mod.currentArea.overrideSpeedX1;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit1 != -100)
+                    {
+                        defaultOverrideDelayLimit1 = gv.mod.currentArea.overrideDelayLimit1;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter1++;
+                    if (gv.mod.currentArea.overrideDelayCounter1 > defaultOverrideDelayLimit1)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter1 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
                         gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
                     }
                 }
 
-                #endregion
-
-                #region limited cycle animation
-                //check whether we got an effect that is supposed to happen only once in a while
-                if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
+                if (gv.mod.currentArea.directionalOverride1 == "linear")
                 {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX1 = 1f;
+                    float defaultOverrideSpeedY1 = 1f;
+                    int defaultOverrideDelayLimit1 = 100;
+                    string defaultOverrideIsNoScrollSource1 = "False";
 
-                    //added speed xx
-                    float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX1;
-                    if (speedComponentX < 0)
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
                     {
-                        speedComponentX *= -1;
-                    }
-                    float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY1;
-                    if (speedComponentY < 0)
-                    {
-                        speedComponentY *= -1;
-                    }
-                    gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
-
-                    //based on subjective trial and error
-                    if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
-                    {
-                        gv.mod.currentArea.cycleCounter1 += 1;
-                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
                     }
 
-                    //a little extra delay added by on intuition how long a cycle takes here
-                    if (gv.mod.currentArea.cycleCounter1 >= (gv.mod.currentArea.numberOfCyclesPerOccurence1))
+                    if (gv.mod.currentArea.overrideSpeedX1 != -100)
                     {
-                        //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
-                        gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
-                        //counts how often/long the aniamtion is displayed before stop
-                        gv.mod.currentArea.cycleCounter1 = 0;
-                        //just keeping track how often render calls have run through
-                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
-                        //for changing a shape changing anim
-                        gv.mod.currentArea.changeCounter1 = 0;
-                        //for changing a shape changing anim
-                        gv.mod.currentArea.changeFrameCounter1 = 1;
+                        defaultOverrideSpeedX1 = gv.mod.currentArea.overrideSpeedX1;
                     }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit1 != -100)
+                    {
+                        defaultOverrideDelayLimit1 = gv.mod.currentArea.overrideDelayLimit1;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX1 = defaultOverrideSpeedX1;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
                 }
+
+
                 #endregion
 
                 if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                 {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX1;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY1;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter1 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter1 >= (gv.mod.currentArea.numberOfCyclesPerOccurence1))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter1 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter1 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
+                    //{
                     float fullScreenEffectOpacity = 1f;
                     #region opacity code
                     if (gv.mod.currentArea.useCyclicFade1)
@@ -9890,8 +10057,6 @@ namespace IceBlink2
                         fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
                     }
 
-                    gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
-
                     #region handle framecounter
                     //assuming a square shaped source here
                     float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
@@ -9903,6 +10068,33 @@ namespace IceBlink2
                     //increase by this call's movement
                     pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX1 * gv.mod.allAnimationSpeedMultiplier);
                     pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX1 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                        }
+                    }
 
                     //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
                     //the actual reset happens later below
@@ -10044,32 +10236,75 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                //leave source in negative direction (vertical)
-                                if (floatSourceChunkCoordY < 0)
+                                if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
                                 {
-                                    floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
-                                    floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
                                 }
 
-                                //leave source in positive direction (vertical)
-                                if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                else
                                 {
-                                    floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
-                                }
 
-                                //leave source in negative direction (horizontal)
-                                if (floatSourceChunkCoordX < 0)
-                                {
-                                    floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
-                                    floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                }
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
 
-                                //leave source in positive direction (horizontal)
-                                if (floatSourceChunkCoordX >= sizeOfWholeSource)
-                                {
-                                    floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
                                 }
                                 #endregion
 
@@ -10081,7 +10316,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -10158,7 +10393,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -10201,7 +10436,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if ((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -10249,7 +10484,15 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource1 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
 
                                     try
                                     {
@@ -10267,6 +10510,8052 @@ namespace IceBlink2
                     }
                 }
                 #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 2
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer2 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (!gv.mod.currentArea.FullScreenEffectLayer2IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect2);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride2 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 0.5f;
+                    float defaultOverrideSpeedY1 = 0.5f;
+                    int defaultOverrideDelayLimit2 = 15;
+                    string defaultOverrideIsNoScrollSource2 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter2++;
+                    if (gv.mod.currentArea.overrideDelayCounter2 > defaultOverrideDelayLimit2)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter2 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride2 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 0.5f;
+                    float defaultOverrideSpeedY1 = 0.5f;
+                    int defaultOverrideDelayLimit2 = 750;
+                    string defaultOverrideIsNoScrollSource2 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter2++;
+                    if (gv.mod.currentArea.overrideDelayCounter2 > defaultOverrideDelayLimit2)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter2 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride2 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 1.0f;
+                    float defaultOverrideSpeedY1 = 1.0f;
+                    int defaultOverrideDelayLimit2 = 110;
+                    string defaultOverrideIsNoScrollSource2 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter2++;
+                    if (gv.mod.currentArea.overrideDelayCounter2 > defaultOverrideDelayLimit2)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter2 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.075f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride2 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 0.45f;
+                    float defaultOverrideSpeedY1 = -0.55f;
+                    int defaultOverrideDelayLimit2 = 470;
+                    string defaultOverrideIsNoScrollSource2 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter2++;
+                    if (gv.mod.currentArea.overrideDelayCounter2 > defaultOverrideDelayLimit2)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter2 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride2 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 0.5f;
+                    float defaultOverrideSpeedY1 = -2.8f;
+                    int defaultOverrideDelayLimit2 = 100;
+                    string defaultOverrideIsNoScrollSource2 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter2++;
+                    if (gv.mod.currentArea.overrideDelayCounter2 > defaultOverrideDelayLimit2)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter2 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride2 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX2 = 1f;
+                    float defaultOverrideSpeedY1 = 1f;
+                    int defaultOverrideDelayLimit2 = 100;
+                    string defaultOverrideIsNoScrollSource2 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource2 = defaultOverrideIsNoScrollSource2;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX2 != -100)
+                    {
+                        defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit2 != -100)
+                    {
+                        defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive2 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX2;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY2;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed2 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter2 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter2 >= (gv.mod.currentArea.numberOfCyclesPerOccurence2))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive2 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter2 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter2 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter2 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive2 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade2)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2));
+                        }
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging2)
+                    {
+                        gv.mod.currentArea.changeCounter2 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter2 > gv.mod.currentArea.changeLimit2)
+                        {
+                            gv.mod.currentArea.changeCounter2 = 0;
+                            gv.mod.currentArea.changeFrameCounter2 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter2 > gv.mod.currentArea.changeNumberOfFrames2)
+                            {
+                                gv.mod.currentArea.changeFrameCounter2 = 1;
+                            }
+                        }
+                        fullScreenEffect2 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName2 + gv.mod.currentArea.changeFrameCounter2.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect2 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName2);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect2.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX2;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX2 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX2 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX2 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer2)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 3
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer3 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (!gv.mod.currentArea.FullScreenEffectLayer3IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect3);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride3 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 0.5f;
+                    float defaultOverrideSpeedY3 = 0.5f;
+                    int defaultOverrideDelayLimit3 = 15;
+                    string defaultOverrideIsNoScrollSource3 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter3++;
+                    if (gv.mod.currentArea.overrideDelayCounter3 > defaultOverrideDelayLimit3)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter3 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = -defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = -defaultOverrideSpeedY3;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = -defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = -defaultOverrideSpeedY3;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 = -defaultOverrideSpeedX3;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 = -defaultOverrideSpeedY3;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride3 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 0.5f;
+                    float defaultOverrideSpeedY3 = 0.5f;
+                    int defaultOverrideDelayLimit3 = 750;
+                    string defaultOverrideIsNoScrollSource3 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter3++;
+                    if (gv.mod.currentArea.overrideDelayCounter3 > defaultOverrideDelayLimit3)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter3 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.25f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = ((0.25f * directional) + (decider * defaultOverrideSpeedY3 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride3 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 1.0f;
+                    float defaultOverrideSpeedY3 = 1.0f;
+                    int defaultOverrideDelayLimit3 = 110;
+                    string defaultOverrideIsNoScrollSource3 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter3++;
+                    if (gv.mod.currentArea.overrideDelayCounter3 > defaultOverrideDelayLimit3)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter3 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.25f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.075f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY3 = ((0.25f * directional) + (decider * defaultOverrideSpeedY3 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = ((0.075f * directional) + (decider * defaultOverrideSpeedY3 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride3 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 0.45f;
+                    float defaultOverrideSpeedY3 = -0.55f;
+                    int defaultOverrideDelayLimit3 = 470;
+                    string defaultOverrideIsNoScrollSource3 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter3++;
+                    if (gv.mod.currentArea.overrideDelayCounter3 > defaultOverrideDelayLimit3)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter3 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.15f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride3 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 0.5f;
+                    float defaultOverrideSpeedY3 = -2.8f;
+                    int defaultOverrideDelayLimit3 = 100;
+                    string defaultOverrideIsNoScrollSource3 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter3++;
+                    if (gv.mod.currentArea.overrideDelayCounter3 > defaultOverrideDelayLimit3)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter3 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.25f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride3 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX3 = 1f;
+                    float defaultOverrideSpeedY3 = 1f;
+                    int defaultOverrideDelayLimit3 = 100;
+                    string defaultOverrideIsNoScrollSource3 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource3 = defaultOverrideIsNoScrollSource3;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX3 != -100)
+                    {
+                        defaultOverrideSpeedX3 = gv.mod.currentArea.overrideSpeedX3;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY3 != -100)
+                    {
+                        defaultOverrideSpeedY3 = gv.mod.currentArea.overrideSpeedY3;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit3 != -100)
+                    {
+                        defaultOverrideDelayLimit3 = gv.mod.currentArea.overrideDelayLimit3;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX3 = defaultOverrideSpeedX3;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive3 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX3;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY3;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed3 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter3 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter3 >= (gv.mod.currentArea.numberOfCyclesPerOccurence3))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive3 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter3 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter3 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter3 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive3 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade3)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3));
+                        }
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging3)
+                    {
+                        gv.mod.currentArea.changeCounter3 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter3 > gv.mod.currentArea.changeLimit3)
+                        {
+                            gv.mod.currentArea.changeCounter3 = 0;
+                            gv.mod.currentArea.changeFrameCounter3 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter3 > gv.mod.currentArea.changeNumberOfFrames3)
+                            {
+                                gv.mod.currentArea.changeFrameCounter3 = 1;
+                            }
+                        }
+                        fullScreenEffect3 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName3 + gv.mod.currentArea.changeFrameCounter3.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect3 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName3);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect3.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX3;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY3;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX3 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY3 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX3 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY3 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY3 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer3)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders3)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource3 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 4
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer4 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (!gv.mod.currentArea.FullScreenEffectLayer4IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect4);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride4 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 0.5f;
+                    float defaultOverrideSpeedY4 = 0.5f;
+                    int defaultOverrideDelayLimit4 = 15;
+                    string defaultOverrideIsNoScrollSource4 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter4++;
+                    if (gv.mod.currentArea.overrideDelayCounter4 > defaultOverrideDelayLimit4)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter4 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = -defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = -defaultOverrideSpeedY4;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = -defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = -defaultOverrideSpeedY4;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 = -defaultOverrideSpeedX4;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 = -defaultOverrideSpeedY4;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride4 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 0.5f;
+                    float defaultOverrideSpeedY4 = 0.5f;
+                    int defaultOverrideDelayLimit4 = 750;
+                    string defaultOverrideIsNoScrollSource4 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter4++;
+                    if (gv.mod.currentArea.overrideDelayCounter4 > defaultOverrideDelayLimit4)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter4 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.25f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = ((0.25f * directional) + (decider * defaultOverrideSpeedY4 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride4 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 1.0f;
+                    float defaultOverrideSpeedY4 = 1.0f;
+                    int defaultOverrideDelayLimit4 = 110;
+                    string defaultOverrideIsNoScrollSource4 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter4++;
+                    if (gv.mod.currentArea.overrideDelayCounter4 > defaultOverrideDelayLimit4)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter4 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.25f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.075f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY4 = ((0.25f * directional) + (decider * defaultOverrideSpeedY4 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = ((0.075f * directional) + (decider * defaultOverrideSpeedY4 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride4 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 0.45f;
+                    float defaultOverrideSpeedY4 = -0.55f;
+                    int defaultOverrideDelayLimit4 = 470;
+                    string defaultOverrideIsNoScrollSource4 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter4++;
+                    if (gv.mod.currentArea.overrideDelayCounter4 > defaultOverrideDelayLimit4)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter4 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.15f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride4 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 0.5f;
+                    float defaultOverrideSpeedY4 = -2.8f;
+                    int defaultOverrideDelayLimit4 = 100;
+                    string defaultOverrideIsNoScrollSource4 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter4++;
+                    if (gv.mod.currentArea.overrideDelayCounter4 > defaultOverrideDelayLimit4)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter4 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.25f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride4 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX4 = 1f;
+                    float defaultOverrideSpeedY4 = 1f;
+                    int defaultOverrideDelayLimit4 = 100;
+                    string defaultOverrideIsNoScrollSource4 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource4 = defaultOverrideIsNoScrollSource4;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX4 != -100)
+                    {
+                        defaultOverrideSpeedX4 = gv.mod.currentArea.overrideSpeedX4;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY4 != -100)
+                    {
+                        defaultOverrideSpeedY4 = gv.mod.currentArea.overrideSpeedY4;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit4 != -100)
+                    {
+                        defaultOverrideDelayLimit4 = gv.mod.currentArea.overrideDelayLimit4;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX4 = defaultOverrideSpeedX4;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive4 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX4;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY4;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed4 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter4 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter4 >= (gv.mod.currentArea.numberOfCyclesPerOccurence4))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive4 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter4 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter4 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter4 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive4 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade4)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4));
+                        }
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging4)
+                    {
+                        gv.mod.currentArea.changeCounter4 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter4 > gv.mod.currentArea.changeLimit4)
+                        {
+                            gv.mod.currentArea.changeCounter4 = 0;
+                            gv.mod.currentArea.changeFrameCounter4 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter4 > gv.mod.currentArea.changeNumberOfFrames4)
+                            {
+                                gv.mod.currentArea.changeFrameCounter4 = 1;
+                            }
+                        }
+                        fullScreenEffect4 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName4 + gv.mod.currentArea.changeFrameCounter4.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect4 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName4);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect4.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX4;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY4;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX4 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY4 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX4 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY4 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX4 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY4 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer4)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders4)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource4 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 5
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer5 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride5 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 0.5f;
+                    float defaultOverrideSpeedY5 = 0.5f;
+                    int defaultOverrideDelayLimit5 = 15;
+                    string defaultOverrideIsNoScrollSource5 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter5++;
+                    if (gv.mod.currentArea.overrideDelayCounter5 > defaultOverrideDelayLimit5)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter5 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = -defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = -defaultOverrideSpeedY5;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = -defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = -defaultOverrideSpeedY5;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 = -defaultOverrideSpeedX5;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 = -defaultOverrideSpeedY5;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride5 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 0.5f;
+                    float defaultOverrideSpeedY5 = 0.5f;
+                    int defaultOverrideDelayLimit5 = 750;
+                    string defaultOverrideIsNoScrollSource5 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter5++;
+                    if (gv.mod.currentArea.overrideDelayCounter5 > defaultOverrideDelayLimit5)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter5 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.25f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = ((0.25f * directional) + (decider * defaultOverrideSpeedY5 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride5 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 1.0f;
+                    float defaultOverrideSpeedY5 = 1.0f;
+                    int defaultOverrideDelayLimit5 = 110;
+                    string defaultOverrideIsNoScrollSource5 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter5++;
+                    if (gv.mod.currentArea.overrideDelayCounter5 > defaultOverrideDelayLimit5)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter5 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.25f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.075f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY5 = ((0.25f * directional) + (decider * defaultOverrideSpeedY5 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = ((0.075f * directional) + (decider * defaultOverrideSpeedY5 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride5 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 0.45f;
+                    float defaultOverrideSpeedY5 = -0.55f;
+                    int defaultOverrideDelayLimit5 = 470;
+                    string defaultOverrideIsNoScrollSource5 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter5++;
+                    if (gv.mod.currentArea.overrideDelayCounter5 > defaultOverrideDelayLimit5)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter5 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.15f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride5 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 0.5f;
+                    float defaultOverrideSpeedY5 = -2.8f;
+                    int defaultOverrideDelayLimit5 = 100;
+                    string defaultOverrideIsNoScrollSource5 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter5++;
+                    if (gv.mod.currentArea.overrideDelayCounter5 > defaultOverrideDelayLimit5)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter5 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.25f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride5 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX5 = 1f;
+                    float defaultOverrideSpeedY5 = 1f;
+                    int defaultOverrideDelayLimit5 = 100;
+                    string defaultOverrideIsNoScrollSource5 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource5 = defaultOverrideIsNoScrollSource5;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX5 != -100)
+                    {
+                        defaultOverrideSpeedX5 = gv.mod.currentArea.overrideSpeedX5;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY5 != -100)
+                    {
+                        defaultOverrideSpeedY5 = gv.mod.currentArea.overrideSpeedY5;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit5 != -100)
+                    {
+                        defaultOverrideDelayLimit5 = gv.mod.currentArea.overrideDelayLimit5;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX5 = defaultOverrideSpeedX5;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX5;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY5;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed5 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter5 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter5 >= (gv.mod.currentArea.numberOfCyclesPerOccurence5))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter5 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter5 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter5 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade5)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
+                        }
+                    }
+
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging5)
+                    {
+                        gv.mod.currentArea.changeCounter5 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter5 > gv.mod.currentArea.changeLimit5)
+                        {
+                            gv.mod.currentArea.changeCounter5 = 0;
+                            gv.mod.currentArea.changeFrameCounter5 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter5 > gv.mod.currentArea.changeNumberOfFrames5)
+                            {
+                                gv.mod.currentArea.changeFrameCounter5 = 1;
+                            }
+                        }
+                        fullScreenEffect5 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName5 + gv.mod.currentArea.changeFrameCounter5.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect5 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName5);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect5.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX5;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY5;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX5 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY5 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX5 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY5 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer5)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders5)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource5 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 6
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer6 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride6 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 0.5f;
+                    float defaultOverrideSpeedY6 = 0.5f;
+                    int defaultOverrideDelayLimit6 = 15;
+                    string defaultOverrideIsNoScrollSource6 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter6++;
+                    if (gv.mod.currentArea.overrideDelayCounter6 > defaultOverrideDelayLimit6)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter6 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = -defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = -defaultOverrideSpeedY6;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = -defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = -defaultOverrideSpeedY6;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 = -defaultOverrideSpeedX6;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 = -defaultOverrideSpeedY6;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride6 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 0.5f;
+                    float defaultOverrideSpeedY6 = 0.5f;
+                    int defaultOverrideDelayLimit6 = 750;
+                    string defaultOverrideIsNoScrollSource6 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter6++;
+                    if (gv.mod.currentArea.overrideDelayCounter6 > defaultOverrideDelayLimit6)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter6 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.25f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = ((0.25f * directional) + (decider * defaultOverrideSpeedY6 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride6 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 1.0f;
+                    float defaultOverrideSpeedY6 = 1.0f;
+                    int defaultOverrideDelayLimit6 = 110;
+                    string defaultOverrideIsNoScrollSource6 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter6++;
+                    if (gv.mod.currentArea.overrideDelayCounter6 > defaultOverrideDelayLimit6)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter6 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.25f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.075f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY6 = ((0.25f * directional) + (decider * defaultOverrideSpeedY6 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = ((0.075f * directional) + (decider * defaultOverrideSpeedY6 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride6 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 0.45f;
+                    float defaultOverrideSpeedY6 = -0.55f;
+                    int defaultOverrideDelayLimit6 = 470;
+                    string defaultOverrideIsNoScrollSource6 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter6++;
+                    if (gv.mod.currentArea.overrideDelayCounter6 > defaultOverrideDelayLimit6)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter6 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.15f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride6 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 0.5f;
+                    float defaultOverrideSpeedY6 = -2.8f;
+                    int defaultOverrideDelayLimit6 = 100;
+                    string defaultOverrideIsNoScrollSource6 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter6++;
+                    if (gv.mod.currentArea.overrideDelayCounter6 > defaultOverrideDelayLimit6)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter6 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.25f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride6 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX6 = 1f;
+                    float defaultOverrideSpeedY6 = 1f;
+                    int defaultOverrideDelayLimit6 = 100;
+                    string defaultOverrideIsNoScrollSource6 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource6 = defaultOverrideIsNoScrollSource6;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX6 != -100)
+                    {
+                        defaultOverrideSpeedX6 = gv.mod.currentArea.overrideSpeedX6;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY6 != -100)
+                    {
+                        defaultOverrideSpeedY6 = gv.mod.currentArea.overrideSpeedY6;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit6 != -100)
+                    {
+                        defaultOverrideDelayLimit6 = gv.mod.currentArea.overrideDelayLimit6;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX6 = defaultOverrideSpeedX6;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX6;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY6;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed6 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter6 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter6 >= (gv.mod.currentArea.numberOfCyclesPerOccurence6))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter6 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter6 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter6 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade6)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
+                        }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging6)
+                    {
+                        gv.mod.currentArea.changeCounter6 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter6 > gv.mod.currentArea.changeLimit6)
+                        {
+                            gv.mod.currentArea.changeCounter6 = 0;
+                            gv.mod.currentArea.changeFrameCounter6 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter6 > gv.mod.currentArea.changeNumberOfFrames6)
+                            {
+                                gv.mod.currentArea.changeFrameCounter6 = 1;
+                            }
+                        }
+                        fullScreenEffect6 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName6 + gv.mod.currentArea.changeFrameCounter6.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect6 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName6);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect6.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX6;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY6;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX6 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY6 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX6 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY6 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer6)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders6)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource6 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 7
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer7 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (!gv.mod.currentArea.FullScreenEffectLayer7IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect7);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride7 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 0.5f;
+                    float defaultOverrideSpeedY7 = 0.5f;
+                    int defaultOverrideDelayLimit7 = 15;
+                    string defaultOverrideIsNoScrollSource7 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter7++;
+                    if (gv.mod.currentArea.overrideDelayCounter7 > defaultOverrideDelayLimit7)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter7 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = -defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = -defaultOverrideSpeedY7;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = -defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = -defaultOverrideSpeedY7;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 = -defaultOverrideSpeedX7;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 = -defaultOverrideSpeedY7;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride7 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 0.5f;
+                    float defaultOverrideSpeedY7 = 0.5f;
+                    int defaultOverrideDelayLimit7 = 750;
+                    string defaultOverrideIsNoScrollSource7 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter7++;
+                    if (gv.mod.currentArea.overrideDelayCounter7 > defaultOverrideDelayLimit7)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter7 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.25f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = ((0.25f * directional) + (decider * defaultOverrideSpeedY7 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride7 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 1.0f;
+                    float defaultOverrideSpeedY7 = 1.0f;
+                    int defaultOverrideDelayLimit7 = 110;
+                    string defaultOverrideIsNoScrollSource7 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter7++;
+                    if (gv.mod.currentArea.overrideDelayCounter7 > defaultOverrideDelayLimit7)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter7 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.25f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.075f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY7 = ((0.25f * directional) + (decider * defaultOverrideSpeedY7 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = ((0.075f * directional) + (decider * defaultOverrideSpeedY7 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride7 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 0.45f;
+                    float defaultOverrideSpeedY7 = -0.55f;
+                    int defaultOverrideDelayLimit7 = 470;
+                    string defaultOverrideIsNoScrollSource7 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter7++;
+                    if (gv.mod.currentArea.overrideDelayCounter7 > defaultOverrideDelayLimit7)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter7 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.15f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride7 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 0.5f;
+                    float defaultOverrideSpeedY7 = -2.8f;
+                    int defaultOverrideDelayLimit7 = 100;
+                    string defaultOverrideIsNoScrollSource7 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter7++;
+                    if (gv.mod.currentArea.overrideDelayCounter7 > defaultOverrideDelayLimit7)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter7 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.25f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride7 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX7 = 1f;
+                    float defaultOverrideSpeedY7 = 1f;
+                    int defaultOverrideDelayLimit7 = 100;
+                    string defaultOverrideIsNoScrollSource7 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource7 = defaultOverrideIsNoScrollSource7;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX7 != -100)
+                    {
+                        defaultOverrideSpeedX7 = gv.mod.currentArea.overrideSpeedX7;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY7 != -100)
+                    {
+                        defaultOverrideSpeedY7 = gv.mod.currentArea.overrideSpeedY7;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit7 != -100)
+                    {
+                        defaultOverrideDelayLimit7 = gv.mod.currentArea.overrideDelayLimit7;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX7 = defaultOverrideSpeedX7;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX7;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY7;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed7 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter7 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter7 >= (gv.mod.currentArea.numberOfCyclesPerOccurence7))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter7 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter7 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter7 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade7)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
+                        }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging7)
+                    {
+                        gv.mod.currentArea.changeCounter7 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter7 > gv.mod.currentArea.changeLimit7)
+                        {
+                            gv.mod.currentArea.changeCounter7 = 0;
+                            gv.mod.currentArea.changeFrameCounter7 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter7 > gv.mod.currentArea.changeNumberOfFrames7)
+                            {
+                                gv.mod.currentArea.changeFrameCounter7 = 1;
+                            }
+                        }
+                        fullScreenEffect7 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName7 + gv.mod.currentArea.changeFrameCounter7.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect7 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName7);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect7.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX7;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY7;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX7 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY7 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX7 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY7 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer7)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders7)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource7 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 8
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100X800 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer8 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (!gv.mod.currentArea.FullScreenEffectLayer8IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect8);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride8 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 0.5f;
+                    float defaultOverrideSpeedY8 = 0.5f;
+                    int defaultOverrideDelayLimit8 = 15;
+                    string defaultOverrideIsNoScrollSource8 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter8++;
+                    if (gv.mod.currentArea.overrideDelayCounter8 > defaultOverrideDelayLimit8)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter8 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = -defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = -defaultOverrideSpeedY8;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = -defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = -defaultOverrideSpeedY8;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 = -defaultOverrideSpeedX8;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 = -defaultOverrideSpeedY8;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride8 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 0.5f;
+                    float defaultOverrideSpeedY8 = 0.5f;
+                    int defaultOverrideDelayLimit8 = 750;
+                    string defaultOverrideIsNoScrollSource8 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter8++;
+                    if (gv.mod.currentArea.overrideDelayCounter8 > defaultOverrideDelayLimit8)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter8 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.25f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = ((0.25f * directional) + (decider * defaultOverrideSpeedY8 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride8 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 1.0f;
+                    float defaultOverrideSpeedY8 = 1.0f;
+                    int defaultOverrideDelayLimit8 = 110;
+                    string defaultOverrideIsNoScrollSource8 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter8++;
+                    if (gv.mod.currentArea.overrideDelayCounter8 > defaultOverrideDelayLimit8)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter8 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.25f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.075f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY8 = ((0.25f * directional) + (decider * defaultOverrideSpeedY8 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = ((0.075f * directional) + (decider * defaultOverrideSpeedY8 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride8 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 0.45f;
+                    float defaultOverrideSpeedY8 = -0.55f;
+                    int defaultOverrideDelayLimit8 = 470;
+                    string defaultOverrideIsNoScrollSource8 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter8++;
+                    if (gv.mod.currentArea.overrideDelayCounter8 > defaultOverrideDelayLimit8)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter8 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.15f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride8 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 0.5f;
+                    float defaultOverrideSpeedY8 = -2.8f;
+                    int defaultOverrideDelayLimit8 = 100;
+                    string defaultOverrideIsNoScrollSource8 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter8++;
+                    if (gv.mod.currentArea.overrideDelayCounter8 > defaultOverrideDelayLimit8)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter8 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.25f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride8 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX8 = 1f;
+                    float defaultOverrideSpeedY8 = 1f;
+                    int defaultOverrideDelayLimit8 = 100;
+                    string defaultOverrideIsNoScrollSource8 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource8 = defaultOverrideIsNoScrollSource8;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX8 != -100)
+                    {
+                        defaultOverrideSpeedX8 = gv.mod.currentArea.overrideSpeedX8;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY8 != -100)
+                    {
+                        defaultOverrideSpeedY8 = gv.mod.currentArea.overrideSpeedY8;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit8 != -100)
+                    {
+                        defaultOverrideDelayLimit8 = gv.mod.currentArea.overrideDelayLimit8;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX8 = defaultOverrideSpeedX8;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX8;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY8;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed8 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter8 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter8 >= (gv.mod.currentArea.numberOfCyclesPerOccurence8))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter8 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter8 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter8 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade8)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
+                        }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging8)
+                    {
+                        gv.mod.currentArea.changeCounter8 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter8 > gv.mod.currentArea.changeLimit8)
+                        {
+                            gv.mod.currentArea.changeCounter8 = 0;
+                            gv.mod.currentArea.changeFrameCounter8 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter8 > gv.mod.currentArea.changeNumberOfFrames8)
+                            {
+                                gv.mod.currentArea.changeFrameCounter8 = 1;
+                            }
+                        }
+                        fullScreenEffect8 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName8 + gv.mod.currentArea.changeFrameCounter8.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect8 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName8);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect8.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX8;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY8;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX8 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY8 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX8 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY8 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer8)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders8)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource8 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 9
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100X900 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer9 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (!gv.mod.currentArea.FullScreenEffectLayer9IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect9);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride9 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 0.5f;
+                    float defaultOverrideSpeedY9 = 0.5f;
+                    int defaultOverrideDelayLimit9 = 15;
+                    string defaultOverrideIsNoScrollSource9 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter9++;
+                    if (gv.mod.currentArea.overrideDelayCounter9 > defaultOverrideDelayLimit9)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter9 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = -defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = -defaultOverrideSpeedY9;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = -defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = -defaultOverrideSpeedY9;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 = -defaultOverrideSpeedX9;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 = -defaultOverrideSpeedY9;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride9 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 0.5f;
+                    float defaultOverrideSpeedY9 = 0.5f;
+                    int defaultOverrideDelayLimit9 = 750;
+                    string defaultOverrideIsNoScrollSource9 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter9++;
+                    if (gv.mod.currentArea.overrideDelayCounter9 > defaultOverrideDelayLimit9)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter9 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.25f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = ((0.25f * directional) + (decider * defaultOverrideSpeedY9 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride9 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 1.0f;
+                    float defaultOverrideSpeedY9 = 1.0f;
+                    int defaultOverrideDelayLimit9 = 110;
+                    string defaultOverrideIsNoScrollSource9 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter9++;
+                    if (gv.mod.currentArea.overrideDelayCounter9 > defaultOverrideDelayLimit9)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter9 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.25f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.075f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY9 = ((0.25f * directional) + (decider * defaultOverrideSpeedY9 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = ((0.075f * directional) + (decider * defaultOverrideSpeedY9 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride9 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 0.45f;
+                    float defaultOverrideSpeedY9 = -0.55f;
+                    int defaultOverrideDelayLimit9 = 470;
+                    string defaultOverrideIsNoScrollSource9 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter9++;
+                    if (gv.mod.currentArea.overrideDelayCounter9 > defaultOverrideDelayLimit9)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter9 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.15f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride9 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 0.5f;
+                    float defaultOverrideSpeedY9 = -2.8f;
+                    int defaultOverrideDelayLimit9 = 100;
+                    string defaultOverrideIsNoScrollSource9 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter9++;
+                    if (gv.mod.currentArea.overrideDelayCounter9 > defaultOverrideDelayLimit9)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter9 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.25f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride9 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX9 = 1f;
+                    float defaultOverrideSpeedY9 = 1f;
+                    int defaultOverrideDelayLimit9 = 100;
+                    string defaultOverrideIsNoScrollSource9 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource9 = defaultOverrideIsNoScrollSource9;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX9 != -100)
+                    {
+                        defaultOverrideSpeedX9 = gv.mod.currentArea.overrideSpeedX9;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY9 != -100)
+                    {
+                        defaultOverrideSpeedY9 = gv.mod.currentArea.overrideSpeedY9;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit9 != -100)
+                    {
+                        defaultOverrideDelayLimit9 = gv.mod.currentArea.overrideDelayLimit9;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX9 = defaultOverrideSpeedX9;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX9;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY9;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed9 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter9 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter9 >= (gv.mod.currentArea.numberOfCyclesPerOccurence9))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter9 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter9 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter9 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade9)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
+                        }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging9)
+                    {
+                        gv.mod.currentArea.changeCounter9 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter9 > gv.mod.currentArea.changeLimit9)
+                        {
+                            gv.mod.currentArea.changeCounter9 = 0;
+                            gv.mod.currentArea.changeFrameCounter9 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter9 > gv.mod.currentArea.changeNumberOfFrames9)
+                            {
+                                gv.mod.currentArea.changeFrameCounter9 = 1;
+                            }
+                        }
+                        fullScreenEffect9 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName9 + gv.mod.currentArea.changeFrameCounter9.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect9 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName9);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect9.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX9;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY9;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX9 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY9 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX9 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY9 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer9)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders9)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource9 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+            }
+            #endregion
+            #endregion
+            #region Draw full screen layer 10
+            //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
+            //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100X1000 source bitmaps or fewer, but with higer resolution
+            //that's for my laptop
+
+            //check whether the layer10 is activated and set to top level
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (!gv.mod.currentArea.FullScreenEffectLayer10IsTop))
+            {
+
+                gv.cc.DisposeOfBitmap(ref fullScreenEffect10);
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                #region override movement patterns
+
+                if (gv.mod.currentArea.directionalOverride10 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 0.5f;
+                    float defaultOverrideSpeedY10 = 0.5f;
+                    int defaultOverrideDelayLimit10 = 15;
+                    string defaultOverrideIsNoScrollSource10 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter10++;
+                    if (gv.mod.currentArea.overrideDelayCounter10 > defaultOverrideDelayLimit10)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter10 = 0;
+                        int rollRandom = gv.sf.RandInt(8);
+                        //right
+                        if (rollRandom == 1)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = 0.0f;
+                        }
+                        //left
+                        if (rollRandom == 2)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = -defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = 0.0f;
+                        }
+                        //up
+                        if (rollRandom == 3)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                        }
+                        //down
+                        if (rollRandom == 4)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = -defaultOverrideSpeedY10;
+                        }
+                        //up right
+                        if (rollRandom == 5)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                        }
+                        //upleft
+                        if (rollRandom == 6)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = -defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                        }
+                        //downright
+                        if (rollRandom == 7)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = -defaultOverrideSpeedY10;
+                        }
+                        //downleft
+                        if (rollRandom == 8)
+                        {
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 = -defaultOverrideSpeedX10;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 = -defaultOverrideSpeedY10;
+                        }
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride10 == "clouds")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 0.5f;
+                    float defaultOverrideSpeedY10 = 0.5f;
+                    int defaultOverrideDelayLimit10 = 750;
+                    string defaultOverrideIsNoScrollSource10 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter10++;
+                    if (gv.mod.currentArea.overrideDelayCounter10 > defaultOverrideDelayLimit10)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter10 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.25f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = ((0.25f * directional) + (decider * defaultOverrideSpeedY10 * 0.5f)) * (0.5f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride10 == "fog")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 1.0f;
+                    float defaultOverrideSpeedY10 = 1.0f;
+                    int defaultOverrideDelayLimit10 = 110;
+                    string defaultOverrideIsNoScrollSource10 = "True";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter10++;
+                    if (gv.mod.currentArea.overrideDelayCounter10 > defaultOverrideDelayLimit10)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter10 = 0;
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(100);
+                        int directional = 1;
+                        if (rollRandom2 >= 50)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.25f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.075f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (0.09f);
+
+                        //for y
+                        int rollRandom3 = gv.sf.RandInt(100);
+                        int rollRandom4 = gv.sf.RandInt(100);
+                        directional = 1;
+                        if (rollRandom4 >= 50)
+                        {
+                            rollRandom3 = rollRandom3 * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom3 / 100f;
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY10 = ((0.25f * directional) + (decider * defaultOverrideSpeedY10 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = ((0.075f * directional) + (decider * defaultOverrideSpeedY10 * 0.5f)) * (0.09f);
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride10 == "snow")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 0.45f;
+                    float defaultOverrideSpeedY10 = -0.55f;
+                    int defaultOverrideDelayLimit10 = 470;
+                    string defaultOverrideIsNoScrollSource10 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter10++;
+                    if (gv.mod.currentArea.overrideDelayCounter10 > defaultOverrideDelayLimit10)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter10 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.15f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride10 == "rain")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 0.5f;
+                    float defaultOverrideSpeedY10 = -2.8f;
+                    int defaultOverrideDelayLimit10 = 100;
+                    string defaultOverrideIsNoScrollSource10 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+
+                    gv.mod.currentArea.overrideDelayCounter10++;
+                    if (gv.mod.currentArea.overrideDelayCounter10 > defaultOverrideDelayLimit10)
+                    {
+
+                        gv.mod.currentArea.overrideDelayCounter10 = 0;
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            //rollRandom = rollRandom * -1;
+                            //directional = -1;
+                        }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.25f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                    }
+                }
+
+                if (gv.mod.currentArea.directionalOverride10 == "linear")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX10 = 1f;
+                    float defaultOverrideSpeedY10 = 1f;
+                    int defaultOverrideDelayLimit10 = 100;
+                    string defaultOverrideIsNoScrollSource10 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "")
+                    {
+                        gv.mod.currentArea.overrideIsNoScrollSource10 = defaultOverrideIsNoScrollSource10;
+                    }
+
+                    if (gv.mod.currentArea.overrideSpeedX10 != -100)
+                    {
+                        defaultOverrideSpeedX10 = gv.mod.currentArea.overrideSpeedX10;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY10 != -100)
+                    {
+                        defaultOverrideSpeedY10 = gv.mod.currentArea.overrideSpeedY10;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit10 != -100)
+                    {
+                        defaultOverrideDelayLimit10 = gv.mod.currentArea.overrideDelayLimit10;
+                    }
+                    gv.mod.currentArea.fullScreenAnimationSpeedX10 = defaultOverrideSpeedX10;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                }
+
+
+                #endregion
+
+                if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
+                {
+                    #region limited cycle animation
+                    //check whether we got an effect that is supposed to happen only once in a while
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0)
+                    {
+
+                        //added speed
+                        float speedComponentX = gv.mod.currentArea.fullScreenAnimationSpeedX10;
+                        if (speedComponentX < 0)
+                        {
+                            speedComponentX *= -1;
+                        }
+                        float speedComponentY = gv.mod.currentArea.fullScreenAnimationSpeedY10;
+                        if (speedComponentY < 0)
+                        {
+                            speedComponentY *= -1;
+                        }
+                        gv.mod.currentArea.fullScreenAnimationSpeed10 = speedComponentX + speedComponentY;
+
+                        //based on subjective trial and error
+                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        {
+                            gv.mod.currentArea.cycleCounter10 += 1;
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                        }
+
+                        //a little extra delay added by on intuition how long a cycle takes here
+                        if (gv.mod.currentArea.cycleCounter10 >= (gv.mod.currentArea.numberOfCyclesPerOccurence10))
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter10 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter10 = 1;
+                        }
+
+                        gv.mod.currentArea.fullScreenAnimationFrameCounter10 += 1;
+                    }
+                    #endregion
+
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade10)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10);
+                        }
+
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
+                        }
+                    }
+                    if (gv.mod.fullScreenEffectOpacityWeather != 1)
+                    {
+                        fullScreenEffectOpacity = gv.mod.fullScreenEffectOpacityWeather;
+                    }
+                    #endregion
+
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
+
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging10)
+                    {
+                        gv.mod.currentArea.changeCounter10 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter10 > gv.mod.currentArea.changeLimit10)
+                        {
+                            gv.mod.currentArea.changeCounter10 = 0;
+                            gv.mod.currentArea.changeFrameCounter10 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter10 > gv.mod.currentArea.changeNumberOfFrames10)
+                            {
+                                gv.mod.currentArea.changeFrameCounter10 = 1;
+                            }
+                        }
+                        fullScreenEffect10 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName10 + gv.mod.currentArea.changeFrameCounter10.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect10 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName10);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect10.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX10;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY10;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX10 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY10 * gv.mod.allAnimationSpeedMultiplier);
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
+                    {
+                        if (pixShiftOnThisFrameX > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameX = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
+                        {
+                            pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameX < 0)
+                        {
+                            pixShiftOnThisFrameX = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedX10 *= -1;
+                        }
+
+                        if (pixShiftOnThisFrameY < 0)
+                        {
+                            pixShiftOnThisFrameY = 0;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY10 *= -1;
+                        }
+                    }
+
+                    //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
+                    //the actual reset happens later below
+                    if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
+
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = pixShiftOnThisFrameY;
+                    #endregion
+
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer10)
+                            {
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders10)
+                                {
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 1;
+                                    }
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
+
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                #region handle border situations on source (bottom and right)     
+                                //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
+
+                                if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
+                                {
+                                    sizeOfWholeSource = 0.5f * sizeOfWholeSource;
+                                    //get the correct chunk on source
+                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+
+                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    sizeOfWholeSource = 2.0f * sizeOfWholeSource;
+                                    /*
+                                    //stop at border
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = 0;
+                                        
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordY >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordY = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = 0;
+                                    }
+
+                                    //stop at border
+                                    if (floatSourceChunkCoordX >= (sizeOfWholeSource - smallSourceChunk - 1))
+                                    {
+                                        floatSourceChunkCoordX = sizeOfWholeSource - smallSourceChunk - 1;
+                                    }
+                                    */
+
+                                }
+
+                                else
+                                {
+
+                                    //leave source in negative direction (vertical)
+                                    if (floatSourceChunkCoordY < 0)
+                                    {
+                                        floatSourceChunkCoordY = (floatSourceChunkCoordY * -1f);
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                        floatSourceChunkCoordY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    }
+
+                                    //leave source in positive direction (vertical)
+                                    if (floatSourceChunkCoordY >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordY = floatSourceChunkCoordY % sizeOfWholeSource;
+                                    }
+
+                                    //leave source in negative direction (horizontal)
+                                    if (floatSourceChunkCoordX < 0)
+                                    {
+                                        floatSourceChunkCoordX = (floatSourceChunkCoordX * -1f);
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                        floatSourceChunkCoordX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    }
+
+                                    //leave source in positive direction (horizontal)
+                                    if (floatSourceChunkCoordX >= sizeOfWholeSource)
+                                    {
+                                        floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
+                                    }
+                                }
+                                #endregion
+
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
+
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                {
+
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
+
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource10 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
+                            }
+                        }
+                    }
+                }
+                #endregion
+
             }
             #endregion
             #endregion
