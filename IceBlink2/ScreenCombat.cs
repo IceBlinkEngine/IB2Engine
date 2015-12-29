@@ -3269,6 +3269,7 @@ namespace IceBlink2
 		    Player pc = mod.playerList[currentPlayerIndex];
 		    if (currentCombatMode.Equals("attack"))
 		    {
+                /*
                 Color colr = Color.Lime;
 			    //check if target is within attack distance, use green if true, red if false
 			    if (isValidAttackTarget(pc)) {colr = Color.Lime;}
@@ -3277,8 +3278,21 @@ namespace IceBlink2
                 int x = getPixelLocX(targetHighlightCenterLocation.X);
                 int y = getPixelLocY(targetHighlightCenterLocation.Y);
                 int penWidth = 3;
-			    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);	
-		    }
+			    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
+                */
+                int x = getPixelLocX(targetHighlightCenterLocation.X);
+                int y = getPixelLocY(targetHighlightCenterLocation.Y);
+                IbRect src = new IbRect(0, 0, gv.cc.highlight_green.PixelSize.Width, gv.cc.highlight_green.PixelSize.Height);
+                IbRect dst = new IbRect(x, y, gv.squareSize, gv.squareSize);
+                if (isValidAttackTarget(pc))
+                {
+                    gv.DrawBitmap(gv.cc.highlight_green, src, dst);
+                }
+                else
+                {
+                    gv.DrawBitmap(gv.cc.highlight_red, src, dst);
+                }
+            }
 		    else if (currentCombatMode.Equals("cast"))
 		    {
                 //set squares list
@@ -3289,7 +3303,8 @@ namespace IceBlink2
                     {
                         continue;
                     }
-                    Color colr = Color.Lime;
+                    //Color colr = Color.Lime;
+                    bool hl_green = true;
                     int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
                     int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
                     int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
@@ -3297,11 +3312,13 @@ namespace IceBlink2
 
                     if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2))))
                     {
-                        colr = Color.Lime;
+                        //colr = Color.Lime;
+                        hl_green = true;
                     }
                     else
                     {
-                        colr = Color.Red;
+                        //colr = Color.Red;
+                        hl_green = false;
                     }
                     if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
                     {
@@ -3309,42 +3326,33 @@ namespace IceBlink2
                         int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
                         if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
                         {
-                            colr = Color.Lime;
+                            //colr = Color.Lime;
+                            hl_green = true;
                         }
                         else
                         {
-                            colr = Color.Red;
+                            //colr = Color.Red;
+                            hl_green = false;
                         }
                     }
 
-                    int cornerRadius = gv.squareSize / 5;
-                    int penWidth = 3;
+                    //int cornerRadius = gv.squareSize / 5;
+                    //int penWidth = 3;                    
                     int x = getPixelLocX(coor.X);
                     int y = getPixelLocY(coor.Y);
-                    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
+                    //gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
+                    IbRect src = new IbRect(0, 0, gv.cc.highlight_green.PixelSize.Width, gv.cc.highlight_green.PixelSize.Height);
+                    IbRect dst = new IbRect(x, y, gv.squareSize, gv.squareSize);
+                    if (hl_green)
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_green, src, dst);
+                    }
+                    else
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_red, src, dst);
+                    }
                 }                
 		    }
-            /*else if (currentCombatMode.Equals("cast")) //old way of doing it
-            {
-                Color colr = Color.Lime;
-                int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
-                int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
-                int startX2 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
-                int startY2 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
-
-                if ((isValidCastTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))) { colr = Color.Lime; }
-                else { colr = Color.Red; }
-                int spellAoEinPixels = 0;
-                if (gv.cc.currentSelectedSpell != null)
-                {
-                    spellAoEinPixels = gv.cc.currentSelectedSpell.aoeRadius * gv.squareSize;
-                }
-                int cornerRadius = gv.squareSize / 5;
-                int penWidth = 3;
-                int x = getPixelLocX(targetHighlightCenterLocation.X) - spellAoEinPixels;
-                int y = getPixelLocY(targetHighlightCenterLocation.Y) - spellAoEinPixels;
-                gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize + (2 * spellAoEinPixels), gv.squareSize + (2 * spellAoEinPixels)), cornerRadius, colr, penWidth);
-            }*/
         }	            
         public void drawFloatyText()
 	    {            

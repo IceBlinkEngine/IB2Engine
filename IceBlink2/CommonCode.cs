@@ -68,6 +68,8 @@ namespace IceBlink2
         public Bitmap losBlocked;
         public Bitmap hitSymbol;
         public Bitmap missSymbol;
+        public Bitmap highlight_green;
+        public Bitmap highlight_red;
         public Bitmap black_tile;
         public Bitmap turn_marker;
         public Bitmap pc_dead;

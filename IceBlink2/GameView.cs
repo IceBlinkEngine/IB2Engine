@@ -282,6 +282,8 @@ namespace IceBlink2
             cc.death_fx = cc.LoadBitmap("death_fx");
             cc.hitSymbol = cc.LoadBitmap("hit_symbol");
             cc.missSymbol = cc.LoadBitmap("miss_symbol");
+            cc.highlight_green = cc.LoadBitmap("highlight_green");
+            cc.highlight_red = cc.LoadBitmap("highlight_red");
             cc.tint_dawn = cc.LoadBitmap("tint_dawn");
             cc.tint_sunrise = cc.LoadBitmap("tint_sunrise");
             cc.tint_sunset = cc.LoadBitmap("tint_sunset");
