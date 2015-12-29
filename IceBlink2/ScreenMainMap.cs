@@ -10538,7 +10538,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 15;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10551,9 +10551,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10582,37 +10582,37 @@ namespace IceBlink2
                         if (rollRandom == 3)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //down
                         if (rollRandom == 4)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //up right
                         if (rollRandom == 5)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //upleft
                         if (rollRandom == 6)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //downright
                         if (rollRandom == 7)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //downleft
                         if (rollRandom == 8)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                     }
                 }
@@ -10621,7 +10621,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 750;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10634,9 +10634,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10670,7 +10670,7 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
                     }
                 }
 
@@ -10678,7 +10678,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1.0f;
-                    float defaultOverrideSpeedY1 = 1.0f;
+                    float defaultOverrideSpeedY2 = 1.0f;
                     int defaultOverrideDelayLimit2 = 110;
                     string defaultOverrideIsNoScrollSource2 = "True";
 
@@ -10691,9 +10691,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10728,8 +10728,8 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom3 / 100f;
-                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -10737,7 +10737,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.45f;
-                    float defaultOverrideSpeedY1 = -0.55f;
+                    float defaultOverrideSpeedY2 = -0.55f;
                     int defaultOverrideDelayLimit2 = 470;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10751,9 +10751,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10775,7 +10775,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -10783,7 +10783,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = -2.8f;
+                    float defaultOverrideSpeedY2 = -2.8f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10796,9 +10796,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10820,7 +10820,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -10828,7 +10828,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1f;
-                    float defaultOverrideSpeedY1 = 1f;
+                    float defaultOverrideSpeedY2 = 1f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10841,16 +10841,16 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
                         defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
                     }
                     gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                 }
 
 

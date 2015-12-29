@@ -46,6 +46,15 @@ namespace IceBlink2
         //public string areaWeatherScript = "scottishAutumn";
         public string areaWeatherScript = "";
         public string areaWeatherScriptParms = "";
+        public string effectChannelScript1 = "";
+        public string effectChannelScript2 = "";
+        public string effectChannelScript3 = "";
+        public string effectChannelScript4 = "";
+        public string effectChannelScriptParms1 = "";
+        public string effectChannelScriptParms2 = "";
+        public string effectChannelScriptParms3 = "";
+        public string effectChannelScriptParms4 = "";
+
         public int weatherDurationMultiplierForScale = 1;
 
         //TODO use the inGameAreaName on main map
@@ -53,6 +62,7 @@ namespace IceBlink2
         #region full screen effect layers
         //properties for the full screen animation system (for 10 layers)
         #region full screen effect layer 1
+        //this layer is best used for very bottom level animation, typically the sea, but could e.g. be a scrolling starfield in space, too 
         //full screen effect layer 1
         public bool useFullScreenEffectLayer1 = false;
         public bool fullScreenEffectLayerIsActive1 = true;
@@ -129,7 +139,7 @@ namespace IceBlink2
         public bool useCyclicFade2 = false;
 
         public float fullScreenAnimationFrameCounterX2 = 0;
-        public float fullScreenAnimationFrameCounterY2 = 1;
+        public float fullScreenAnimationFrameCounterY2 = 0;
         public int fullScreenAnimationFrameCounter2 = 0;
 
         //setting up the override movement patterns
@@ -177,7 +187,7 @@ namespace IceBlink2
         public bool useCyclicFade3 = true;
 
         public float fullScreenAnimationFrameCounterX3 = 0;
-        public float fullScreenAnimationFrameCounterY3 = 1;
+        public float fullScreenAnimationFrameCounterY3 = 0;
         public int fullScreenAnimationFrameCounter3 = 0;
 
         //setting up the override movement patterns
@@ -226,7 +236,7 @@ namespace IceBlink2
         public bool useCyclicFade4 = true;
 
         public float fullScreenAnimationFrameCounterX4 = 0;
-        public float fullScreenAnimationFrameCounterY4 = 1;
+        public float fullScreenAnimationFrameCounterY4 = 0;
         public int fullScreenAnimationFrameCounter4 = 0;
 
         //setting up the override movement patterns
@@ -274,7 +284,7 @@ namespace IceBlink2
         public bool useCyclicFade5 = true;
 
         public float fullScreenAnimationFrameCounterX5 = 0;
-        public float fullScreenAnimationFrameCounterY5 = 1;
+        public float fullScreenAnimationFrameCounterY5 = 0;
         public int fullScreenAnimationFrameCounter5 = 0;
 
         //setting up the override movement patterns
@@ -322,7 +332,7 @@ namespace IceBlink2
         public bool useCyclicFade6 = true;
 
         public float fullScreenAnimationFrameCounterX6 = 0;
-        public float fullScreenAnimationFrameCounterY6 = 1;
+        public float fullScreenAnimationFrameCounterY6 = 0;
         public int fullScreenAnimationFrameCounter6 = 0;
 
         //setting up the override movement patterns
@@ -370,7 +380,7 @@ namespace IceBlink2
         public bool useCyclicFade7 = true;
 
         public float fullScreenAnimationFrameCounterX7 = 0;
-        public float fullScreenAnimationFrameCounterY7 = 1;
+        public float fullScreenAnimationFrameCounterY7 = 0;
         public int fullScreenAnimationFrameCounter7 = 0;
 
         //setting up the override movement patterns
@@ -418,7 +428,7 @@ namespace IceBlink2
         public bool useCyclicFade8 = true;
 
         public float fullScreenAnimationFrameCounterX8 = 0;
-        public float fullScreenAnimationFrameCounterY8 = 1;
+        public float fullScreenAnimationFrameCounterY8 = 0;
         public int fullScreenAnimationFrameCounter8 = 0;
 
         //setting up the override movement patterns
@@ -466,7 +476,7 @@ namespace IceBlink2
         public bool useCyclicFade9 = true;
 
         public float fullScreenAnimationFrameCounterX9 = 0;
-        public float fullScreenAnimationFrameCounterY9 = 1;
+        public float fullScreenAnimationFrameCounterY9 = 0;
         public int fullScreenAnimationFrameCounter9 = 0;
 
         //setting up the override movement patterns
@@ -514,7 +524,7 @@ namespace IceBlink2
         public bool useCyclicFade10 = true;
 
         public float fullScreenAnimationFrameCounterX10 = 0;
-        public float fullScreenAnimationFrameCounterY10 = 1;
+        public float fullScreenAnimationFrameCounterY10 = 0;
         public int fullScreenAnimationFrameCounter10 = 0;
 
         //setting up the override movement patterns

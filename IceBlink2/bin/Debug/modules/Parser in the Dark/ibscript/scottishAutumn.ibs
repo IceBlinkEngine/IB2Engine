@@ -454,7 +454,7 @@ if ($currentWeatherName  = "SunnyWithClouds")
 if (%CurrentArea.changeableByWeatherScript5 = "True")
 			//known layer.png names (feel free to add more grapics): fogLayerA, fogLayerB, cloudLayerA, rainLayerA, rainLayerB, snowLayerA, snowLayerB
 			//see special naming rules for thse .png below under shape changing animations
-%CurrentArea.fullScreenEffectLayerName5  = "cloudLayerA"	
+%CurrentArea.fullScreenEffectLayerName5  = "cloudLayerB"	
  			//setting up the override movement patterns
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default setting of the overide animation pattern for this parameter shall be used
         		//so far existing directional overrides:
