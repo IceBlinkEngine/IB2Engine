@@ -1056,11 +1056,29 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence1 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter1 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter1 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter1 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                     //{
-                        float fullScreenEffectOpacity = 1f;
+                    float fullScreenEffectOpacity = 1f;
                         #region opacity code
                         if (gv.mod.currentArea.useCyclicFade1)
                         {
@@ -1946,6 +1964,23 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter2 += 1;
+                    }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence2 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter2 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive2 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter2 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter2 = 1;
+                        }
                     }
                     #endregion
 
@@ -2838,6 +2873,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter3 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence3 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter3 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive3 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter3 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter3 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive3 == true)
@@ -3729,6 +3782,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter4 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence4 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter4 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive4 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter4 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter4 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive4 == true)
@@ -4619,6 +4690,23 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter5 += 1;
+                    }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence5 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter5 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter5 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter5 = 1;
+                        }
                     }
                     #endregion
 
@@ -5517,6 +5605,23 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter6 += 1;
                     }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence6 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter6 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter6 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter6 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true)
@@ -6411,6 +6516,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter7 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence7 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter7 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter7 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter7 = 1;
+                        }
                     }
                     #endregion
 
@@ -7307,6 +7430,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter8 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence8 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter8 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter8 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter8 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true)
@@ -8201,6 +8342,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter9 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence9 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter9 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter9 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter9 = 1;
+                        }
                     }
                     #endregion
 
