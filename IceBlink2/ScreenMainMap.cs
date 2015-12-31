@@ -9628,7 +9628,7 @@ namespace IceBlink2
 
         public void drawBottomFullScreenEffects()
         {
-            #region dst tile preparation (min and max)  
+            #region dst tile preparation (min and max)
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
@@ -10251,7 +10251,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
@@ -10527,10 +10527,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 2
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -11142,7 +11142,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
@@ -11418,10 +11418,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 3
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -12033,7 +12033,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
@@ -12309,10 +12309,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 4
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -12924,7 +12924,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
@@ -13200,10 +13200,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 5
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -13821,7 +13821,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
@@ -14097,10 +14097,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 6
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -14716,7 +14716,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
@@ -14992,10 +14992,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 7
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -15611,7 +15611,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
@@ -15887,10 +15887,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 8
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -16506,7 +16506,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
@@ -16782,10 +16782,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 9
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -17401,7 +17401,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
@@ -17677,10 +17677,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 10
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -18069,12 +18069,28 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationFrameCounter10 += 1;
                     }
 
-                    
-                        #endregion
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence10 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter10 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter10 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter10 = 1;
+                        }
+                    }
+                    #endregion
 
-                        //if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
-                        //{
-                        float fullScreenEffectOpacity = 1f;
+                    //if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
+                    //{
+                    float fullScreenEffectOpacity = 1f;
                     #region opacity code
                     if (gv.mod.currentArea.useCyclicFade10)
                     {
@@ -18298,7 +18314,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
@@ -18574,10 +18590,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
         }
 

@@ -74,7 +74,7 @@ if ($currentWeatherName  = "RainyWithFog")
 %CurrentArea.useFullScreenEffectLayer6 = "True"
 %CurrentArea.useFullScreenEffectLayer7 = "False"
 %CurrentArea.useFullScreenEffectLayer8 = "False"
-%CurrentArea.useFullScreenEffectLayer9 = "False"
+%CurrentArea.useFullScreenEffectLayer9 = "True"
 %CurrentArea.useFullScreenEffectLayer10 = "True"
 		
 			//XXXXXXXXXXfull screen effect layer 5XXXXXXXXXXXXX
@@ -319,7 +319,7 @@ endif
 if (%CurrentArea.changeableByWeatherScript9 = "True")
 			//known layer.png names (feel free to add more grapics): fogLayerA, fogLayerB, cloudLayerA, rainLayerA, rainLayerB, snowLayerA, snowLayerB
 			//see special naming rules for thse .png below under shape changing animations
-%CurrentArea.fullScreenEffectLayerName9  = "cloudLayerB"	
+%CurrentArea.fullScreenEffectLayerName9  = "lightningLayerB"	
  			//setting up the override movement patterns
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default setting of the overide animation pattern for this parameter shall be used
         		//so far existing directional overrides:
@@ -328,11 +328,11 @@ if (%CurrentArea.changeableByWeatherScript9 = "True")
         		//clouds (1_ layer recommended; defaults at 0.5y, 0.5x, 750 delay)
         		//snow (2 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.49 to e.g. 0.4), and overrideDelayLimit9  a little less than defaut 470, like 380) 
         		//fog (2 layers recommended, make one layer's overrideDelayLimit9  a little less than default 125, like 110)
-%CurrentArea.directionalOverride9  = "clouds"
+%CurrentArea.directionalOverride9  = "linear"
 			//float, horizontal speed, negative values mean move down
-%CurrentArea.overrideSpeedX9  = -100
+%CurrentArea.overrideSpeedX9  = 0
 			//float, vertical speed
-%CurrentArea.overrideSpeedY9  = -100
+%CurrentArea.overrideSpeedY9  = 0
 			//int, only relevant for effects that have a randomized change going on, this determines the rate of random change
 			//the higher, the slower, only positive numbers        
 %CurrentArea.overrideDelayLimit9  = -100
@@ -345,27 +345,27 @@ if (%CurrentArea.changeableByWeatherScript9 = "True")
 			//the names of the .png associated with this effect will be fullScreenEffectLayerName1+1,fullScreenEffectLayerName1+2...
 			//Example: fullScreenEffectLayerName9  above is set to "changingPuffyCloud"
 			//the .png in graphics folder might be named: changingPuffyCloud1, changingPuffyCloud2, changingPuffyCloud3,...    
-%CurrentArea.isChanging9  = "False"
+%CurrentArea.isChanging9  = "True"
         		//float, the counter for this is increased by 1_ each render call, when the limit is reached, the frame is changed to the next one
-%CurrentArea.changeLimit9  = 60
+%CurrentArea.changeLimit9  = 0
 			//float, the number of different frames existing for the shape changing animation
-%CurrentArea.changeNumberOfFrames9  = 4  
+%CurrentArea.changeNumberOfFrames9  = 8  
      
 			//XXXXX Settings for animation that happen only randomly/frequently XXXXX 
 			//int, this out of 100 chance is rolled for on each call of the doupdate() method, ie och each step (or realTimeInterval if used)         
-%CurrentArea.fullScreenEffectChanceToOccur9  = 100
+%CurrentArea.fullScreenEffectChanceToOccur9  = 30
 			//int, the target channel will be set to active when the random chance for current channel is rolled;
 			//set target channel chance to occur to zero and and let it have the same number of cycles as this channel to make them act totally in parallel 
 %CurrentArea.activateTargetChannelInParallelToThisChannel9 = 0 
 			//int, counted upward on each render and determines the point which animation ceases (and can be reactivte by random roll for chance t occur)
 			//zero as value for numberOfCyclesPerOccurence9  signifies an endlessly running animation, also means no random rolls for activation        
-%CurrentArea.numberOfCyclesPerOccurence9  = 0
+%CurrentArea.numberOfCyclesPerOccurence9  = -8
 			//If set to True, the cyclic effect is fading in as well as fading out at the start and end of its lifetime
-%CurrentArea.useCyclicFade9  = "True"
+%CurrentArea.useCyclicFade9  = "False"
 
 			//XXXXX Other settings XXXXX
 			//If set to false the animation is always centered above party, even near map border (usually best), otherwise it looses this focus when approaching border, retaining itself fully on map 
-%CurrentArea.containEffectInsideAreaBorders9  = "False"
+%CurrentArea.containEffectInsideAreaBorders9  = "True"
 			//as weather usually happens above party, this set to True by default; can be set to false to display stuff below the party
 			//note on effect draw order: top is always drawn over bottom, within each group higher number is drawn over lower number
 %CurrentArea.FullScreenEffectLayer9IsTop = "True"
@@ -408,7 +408,7 @@ if (%CurrentArea.changeableByWeatherScript10 = "True")
         		//float, the counter for this is increased by 1_ each render call, when the limit is reached, the frame is changed to the next one
 %CurrentArea.changeLimit10  = 0
 			//float, the number of different frames existing for the shape changing animation
-%CurrentArea.changeNumberOfFrames10  = 7  
+%CurrentArea.changeNumberOfFrames10  = 8  
      
 			//XXXXX Settings for animation that happen only randomly/frequently XXXXX 
 			//int, this out of 100 chance is rolled for on each call of the doupdate() method, ie och each step (or realTimeInterval if used)         
@@ -418,7 +418,7 @@ if (%CurrentArea.changeableByWeatherScript10 = "True")
 %CurrentArea.activateTargetChannelInParallelToThisChannel10 = 0 
 			//int, counted upward on each render and determines the point which animation ceases (and can be reactivte by random roll for chance t occur)
 			//zero as value for numberOfCyclesPerOccurence10  signifies an endlessly running animation, also means no random rolls for activation        
-%CurrentArea.numberOfCyclesPerOccurence10  = -7
+%CurrentArea.numberOfCyclesPerOccurence10  = -8
 			//If set to True, the cyclic effect is fading in as well as fading out at the start and end of its lifetime
 %CurrentArea.useCyclicFade10  = "False"
 
