@@ -2588,11 +2588,11 @@ namespace IceBlink2
             if (mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
-            }
-            drawTargetHighlight();
+            }            
             if ((!drawProjectileAnimation) && (!drawEndingAnimation) && (!drawHitAnimation) && (!drawMissAnimation) && (!drawDeathAnimation))
             {
-        	    drawLosTrail();
+                drawTargetHighlight();
+                drawLosTrail();
             }
             if (mod.useUIBackground)
             {
