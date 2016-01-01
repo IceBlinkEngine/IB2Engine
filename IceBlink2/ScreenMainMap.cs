@@ -1016,7 +1016,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0)
                     {
 
                         //added speed
@@ -1056,22 +1056,40 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence1 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter1 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter1 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter1 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                     //{
-                        float fullScreenEffectOpacity = 1f;
+                    float fullScreenEffectOpacity = 1f;
                         #region opacity code
                         if (gv.mod.currentArea.useCyclicFade1)
                         {
                             //fade in within first cycle of cyclic animation
-                            if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                            if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
                             {
                                 fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
                             }
 
                             //fade out within last cycle of cyclic animation
-                            if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                            if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
                             {
                                 fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
                             }
@@ -1907,7 +1925,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0)
                     {
 
                         //added speed
@@ -1947,6 +1965,23 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter2 += 1;
                     }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence2 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter2 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive2 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter2 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter2 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive2 == true)
@@ -1956,13 +1991,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade2)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2));
                         }
@@ -2798,7 +2833,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0)
                     {
 
                         //added speed
@@ -2838,6 +2873,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter3 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence3 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter3 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive3 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter3 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter3 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive3 == true)
@@ -2847,13 +2900,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade3)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3));
                         }
@@ -3689,7 +3742,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0)
                     {
 
                         //added speed
@@ -3729,6 +3782,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter4 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence4 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter4 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive4 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter4 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter4 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive4 == true)
@@ -3738,13 +3809,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade4)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4));
                         }
@@ -4580,7 +4651,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0)
                     {
 
                         //added speed
@@ -4620,6 +4691,23 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter5 += 1;
                     }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence5 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter5 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter5 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter5 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true)
@@ -4629,13 +4717,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade5)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
                         }
@@ -5477,7 +5565,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0)
                     {
 
                         //added speed
@@ -5517,6 +5605,23 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter6 += 1;
                     }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence6 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter6 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter6 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter6 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true)
@@ -5526,13 +5631,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade6)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
                         }
@@ -6372,7 +6477,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0)
                     {
 
                         //added speed
@@ -6412,6 +6517,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter7 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence7 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter7 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter7 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter7 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true)
@@ -6421,13 +6544,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade7)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
                         }
@@ -7267,7 +7390,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0)
                     {
 
                         //added speed
@@ -7307,6 +7430,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter8 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence8 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter8 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter8 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter8 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true)
@@ -7316,13 +7457,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade8)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
                         }
@@ -8162,7 +8303,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0)
                     {
 
                         //added speed
@@ -8202,6 +8343,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter9 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence9 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter9 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter9 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter9 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true)
@@ -8211,13 +8370,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade9)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
                         }
@@ -9057,7 +9216,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0)
                     {
 
                         //added speed
@@ -9097,6 +9256,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter10 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence10 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter10 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter10 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter10 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
@@ -9106,13 +9283,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade10)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
                         }
@@ -9610,7 +9787,7 @@ namespace IceBlink2
 
         public void drawBottomFullScreenEffects()
         {
-            #region dst tile preparation (min and max)  
+            #region dst tile preparation (min and max)
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
             if (minX < 0) { minX = 0; }
@@ -9969,7 +10146,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0)
                     {
 
                         //added speed
@@ -10018,13 +10195,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade1)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
+                        if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
                         }
@@ -10233,7 +10410,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
@@ -10509,10 +10686,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 2
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -10538,7 +10715,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 15;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10551,9 +10728,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10582,37 +10759,37 @@ namespace IceBlink2
                         if (rollRandom == 3)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //down
                         if (rollRandom == 4)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //up right
                         if (rollRandom == 5)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //upleft
                         if (rollRandom == 6)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                         }
                         //downright
                         if (rollRandom == 7)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                         //downleft
                         if (rollRandom == 8)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
                         }
                     }
                 }
@@ -10621,7 +10798,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = 0.5f;
+                    float defaultOverrideSpeedY2 = 0.5f;
                     int defaultOverrideDelayLimit2 = 750;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10634,9 +10811,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10670,7 +10847,7 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
                     }
                 }
 
@@ -10678,7 +10855,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1.0f;
-                    float defaultOverrideSpeedY1 = 1.0f;
+                    float defaultOverrideSpeedY2 = 1.0f;
                     int defaultOverrideDelayLimit2 = 110;
                     string defaultOverrideIsNoScrollSource2 = "True";
 
@@ -10691,9 +10868,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10728,8 +10905,8 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom3 / 100f;
-                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.09f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -10737,7 +10914,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.45f;
-                    float defaultOverrideSpeedY1 = -0.55f;
+                    float defaultOverrideSpeedY2 = -0.55f;
                     int defaultOverrideDelayLimit2 = 470;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10751,9 +10928,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10775,7 +10952,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -10783,7 +10960,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 0.5f;
-                    float defaultOverrideSpeedY1 = -2.8f;
+                    float defaultOverrideSpeedY2 = -2.8f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10796,9 +10973,9 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
@@ -10820,7 +10997,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -10828,7 +11005,7 @@ namespace IceBlink2
                 {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX2 = 1f;
-                    float defaultOverrideSpeedY1 = 1f;
+                    float defaultOverrideSpeedY2 = 1f;
                     int defaultOverrideDelayLimit2 = 100;
                     string defaultOverrideIsNoScrollSource2 = "False";
 
@@ -10841,16 +11018,16 @@ namespace IceBlink2
                     {
                         defaultOverrideSpeedX2 = gv.mod.currentArea.overrideSpeedX2;
                     }
-                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    if (gv.mod.currentArea.overrideSpeedY2 != -100)
                     {
-                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                        defaultOverrideSpeedY2 = gv.mod.currentArea.overrideSpeedY2;
                     }
                     if (gv.mod.currentArea.overrideDelayLimit2 != -100)
                     {
                         defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
                     }
                     gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
                 }
 
 
@@ -10860,7 +11037,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0)
                     {
 
                         //added speed
@@ -10909,13 +11086,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade2)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        if ((gv.mod.currentArea.cycleCounter2 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 != 0))
+                        if ((gv.mod.currentArea.cycleCounter2 == (gv.mod.currentArea.numberOfCyclesPerOccurence2 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence2 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed2 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter2));
                         }
@@ -11124,7 +11301,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
@@ -11400,10 +11577,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 3
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -11751,7 +11928,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0)
                     {
 
                         //added speed
@@ -11800,13 +11977,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade3)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        if ((gv.mod.currentArea.cycleCounter3 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 != 0))
+                        if ((gv.mod.currentArea.cycleCounter3 == (gv.mod.currentArea.numberOfCyclesPerOccurence3 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence3 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed3 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter3));
                         }
@@ -12015,7 +12192,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
@@ -12291,10 +12468,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 4
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -12642,7 +12819,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0)
                     {
 
                         //added speed
@@ -12691,13 +12868,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade4)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        if ((gv.mod.currentArea.cycleCounter4 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 != 0))
+                        if ((gv.mod.currentArea.cycleCounter4 == (gv.mod.currentArea.numberOfCyclesPerOccurence4 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence4 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed4 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter4));
                         }
@@ -12906,7 +13083,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
@@ -13182,10 +13359,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 5
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -13533,7 +13710,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0)
                     {
 
                         //added speed
@@ -13582,13 +13759,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade5)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        if ((gv.mod.currentArea.cycleCounter5 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 != 0))
+                        if ((gv.mod.currentArea.cycleCounter5 == (gv.mod.currentArea.numberOfCyclesPerOccurence5 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence5 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed5 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter5));
                         }
@@ -13803,7 +13980,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
@@ -14079,10 +14256,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 6
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -14430,7 +14607,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0)
                     {
 
                         //added speed
@@ -14479,13 +14656,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade6)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        if ((gv.mod.currentArea.cycleCounter6 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 != 0))
+                        if ((gv.mod.currentArea.cycleCounter6 == (gv.mod.currentArea.numberOfCyclesPerOccurence6 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence6 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed6 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter6));
                         }
@@ -14698,7 +14875,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
@@ -14974,10 +15151,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 7
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -15325,7 +15502,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0)
                     {
 
                         //added speed
@@ -15374,13 +15551,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade7)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        if ((gv.mod.currentArea.cycleCounter7 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 != 0))
+                        if ((gv.mod.currentArea.cycleCounter7 == (gv.mod.currentArea.numberOfCyclesPerOccurence7 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence7 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed7 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter7));
                         }
@@ -15593,7 +15770,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
@@ -15869,10 +16046,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 8
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -16220,7 +16397,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0)
                     {
 
                         //added speed
@@ -16269,13 +16446,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade8)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        if ((gv.mod.currentArea.cycleCounter8 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 != 0))
+                        if ((gv.mod.currentArea.cycleCounter8 == (gv.mod.currentArea.numberOfCyclesPerOccurence8 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence8 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed8 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter8));
                         }
@@ -16488,7 +16665,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
@@ -16764,10 +16941,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 9
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -17115,7 +17292,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0)
                     {
 
                         //added speed
@@ -17164,13 +17341,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade9)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        if ((gv.mod.currentArea.cycleCounter9 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 != 0))
+                        if ((gv.mod.currentArea.cycleCounter9 == (gv.mod.currentArea.numberOfCyclesPerOccurence9 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence9 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed9 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter9));
                         }
@@ -17383,7 +17560,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
@@ -17659,10 +17836,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
             #region Draw full screen layer 10
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -18010,7 +18187,7 @@ namespace IceBlink2
                 {
                     #region limited cycle animation
                     //check whether we got an effect that is supposed to happen only once in a while
-                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0)
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0)
                     {
 
                         //added speed
@@ -18050,6 +18227,24 @@ namespace IceBlink2
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter10 += 1;
                     }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence10 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence10 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter10 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter10 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter10 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter10 = 1;
+                        }
+                    }
                     #endregion
 
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true)
@@ -18059,13 +18254,13 @@ namespace IceBlink2
                     if (gv.mod.currentArea.useCyclicFade10)
                     {
                         //fade in within first cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        if ((gv.mod.currentArea.cycleCounter10 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0))
                         {
                             fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10);
                         }
 
                         //fade out within last cycle of cyclic animation
-                        if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 != 0))
+                        if ((gv.mod.currentArea.cycleCounter10 == (gv.mod.currentArea.numberOfCyclesPerOccurence10 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence10 > 0))
                         {
                             fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed10 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter10));
                         }
@@ -18278,7 +18473,7 @@ namespace IceBlink2
                                 float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
                                 float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)     
+                                #region handle border situations on source (bottom and right)
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
@@ -18554,10 +18749,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                #endregion
+                                #endregion
 
             }
-            #endregion
+                    #endregion
             #endregion
         }
 

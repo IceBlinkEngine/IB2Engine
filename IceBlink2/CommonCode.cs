@@ -2461,9 +2461,10 @@ namespace IceBlink2
             applyEffects();
             //do Prop heartbeat
             doPropHeartBeat();
-            //script hook for the weather script
-            //commented out till weather system is finished
+            //script hook for the weather script (channels 5 to 10)
             doWeatherScript();
+            //script hook for full screen effects on channels 1 to 4 
+            doChannelScripts();
             //move any props that are active and only if they are not on the party location
             doPropMoves();
             //do Conversation and/or Encounter if on Prop
@@ -2489,6 +2490,15 @@ namespace IceBlink2
                 gv.cc.doIBScriptBasedOnFilename(prp.OnHeartBeatIBScript, prp.OnHeartBeatIBScriptParms);
                 gv.sf.ThisProp = null;
             }
+        }
+
+        public void doChannelScripts()
+        {
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript1, gv.mod.currentArea.effectChannelScriptParms1);
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript2, gv.mod.currentArea.effectChannelScriptParms2);
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript3, gv.mod.currentArea.effectChannelScriptParms3);
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript4, gv.mod.currentArea.effectChannelScriptParms4);
+
         }
 
         public void doWeatherScript()
@@ -4840,6 +4850,18 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
                     gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
 
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive1 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive2 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive3 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive4 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+
+                    doChannelScripts();
                     doWeatherScript();
 
                     gv.screenMainMap.resetMiniMapBitmap();

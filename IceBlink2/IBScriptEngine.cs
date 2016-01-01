@@ -11245,6 +11245,54 @@ namespace IceBlink2
                     gv.mod.moduleAreasObjects[indexNum].overrideDelayCounter10 %= val;
                 }
             }
+            else if (element[0].EndsWith("effectChannelScript1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript1 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript2 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript3 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.moduleAreasObjects[indexNum].effectChannelScript4 += val;
+                }
+            }
             #endregion
         }
 
@@ -18144,6 +18192,54 @@ namespace IceBlink2
                     gv.mod.currentArea.overrideDelayCounter10 %= val;
                 }
             }
+            else if (element[0].EndsWith("effectChannelScript1"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.effectChannelScript1 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.effectChannelScript1 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript2"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.effectChannelScript2 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.effectChannelScript2 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript3"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.effectChannelScript3 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.effectChannelScript3 += val;
+                }
+            }
+            else if (element[0].EndsWith("effectChannelScript4"))
+            {
+                string val = ConcateString(element[2]);
+                if (element[1] == "=")
+                {
+                    gv.mod.currentArea.effectChannelScript4 = val;
+                }
+                else if (element[1] == "+=")
+                {
+                    gv.mod.currentArea.effectChannelScript4 += val;
+                }
+            }
             #endregion
 
         }
@@ -20953,6 +21049,22 @@ namespace IceBlink2
                     {
                         return gv.mod.moduleAreasObjects[indexNum].changeableByWeatherScript10.ToString();
                     }
+                    else if (parm.EndsWith("effectChannelScript1"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].effectChannelScript1.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript2"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].effectChannelScript2.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript3"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].effectChannelScript3.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript4"))
+                    {
+                        return gv.mod.moduleAreasObjects[indexNum].effectChannelScript4.ToString();
+                    }
                     #endregion
                 }
 
@@ -20964,6 +21076,22 @@ namespace IceBlink2
                     if (parm.EndsWith("SizeOfProps"))
                     {
                         return gv.mod.currentArea.Props.Count.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript1"))
+                    {
+                        return gv.mod.currentArea.effectChannelScript1.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript2"))
+                    {
+                        return gv.mod.currentArea.effectChannelScript2.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript3"))
+                    {
+                        return gv.mod.currentArea.effectChannelScript3.ToString();
+                    }
+                    else if (parm.EndsWith("effectChannelScript4"))
+                    {
+                        return gv.mod.currentArea.effectChannelScript4.ToString();
                     }
                     else if (parm.EndsWith("Filename"))
                     {
