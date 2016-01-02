@@ -2516,7 +2516,8 @@ namespace IceBlink2
             //this makes sure that only the first part of the weather script is used at this point
             //the second part will be made usable after the current weather has been set (see below) by an additional script call
             gv.mod.useFirstPartOfWeatherScript = true;
-             
+            gv.sf.SetGlobalString("EntryWeathers", "");
+
             //call the weather script to set up the longEntryList
             //the entry list is a property of the module itself
             //weathr script amkes no use of parms, well, for now at least
@@ -2652,12 +2653,27 @@ namespace IceBlink2
             
             //prepare for reading in the second part of the weather script: setup of the full effect channels based on current weather
             //note: also null all channels not used by the current weater, overwriting old channel settings
-            gv.mod.useFirstPartOfWeatherScript = false;
+            
+            //gv.mod.useFirstPartOfWeatherScript = false;
 
             //call the weather script to set up the channels
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
+            
+            //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
 
-
+                if ((gv.mod.currentWeatherName == "")  || (doesCurrentWeatherExistHere == false))
+                {
+                    gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                    gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                    gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                    gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                    gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                    gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                }
+                else
+                {
+                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
+                }
+             
             //1. read in the weather script of current area and store it in a set of globals
             //these would be:
             //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
