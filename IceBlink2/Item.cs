@@ -138,10 +138,7 @@ namespace IceBlink2
 		    copy.onScoringHitParms = this.onScoringHitParms;
 		    copy.onUseItem = this.onUseItem;
 		    copy.onWhileEquipped = this.onWhileEquipped;
-		    //copy.onUseItemLogicTree = this.onUseItemLogicTree;
-		    //copy.onUseItemLogicTreeParms = this.onUseItemLogicTreeParms;
-		    //copy.destroyItemAfterOnUseItemLogicTree = this.destroyItemAfterOnUseItemLogicTree;
-            copy.onUseItemIBScript = this.onUseItemIBScript;
+		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;
             copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;
 		    copy.damageTypeResistanceValueAcid = this.damageTypeResistanceValueAcid;

@@ -8,7 +8,6 @@ using System.IO;
 using System.Drawing;
 using System.ComponentModel;
 using Newtonsoft.Json;
-//using IceBlink;
 
 namespace IceBlink2
 {
@@ -22,16 +21,84 @@ namespace IceBlink2
 	    public int durationInUnits = 0;
 	    public int currentDurationInUnits = 0;
 	    public int startingTimeInUnits = 0;
-	    public int babModifier = 0;
-	    public int acModifier = 0;
-	    public bool isStackableEffect = false;
+	    public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
+        public int acModifier = 0;
+        public bool isStackableEffect = false;
 	    public bool isStackableDuration = false;
 	    public bool usedForUpdateStats = false;
 	    public string effectLetter = "A";
 	    public string effectLetterColor = "White";
 	    public string effectScript = "none";
-	
-	    public Effect()
+        public string saveCheckType = "none"; //none, reflex, will, fortitude
+        public int saveCheckDC = 10;
+        
+        //* = marks properties that only work on PCs, not Creatures
+        //The below modifiers will be cumulative over each round of the Effects duration if usedForUpdateStats = false
+        
+        //if you want the effect to be cumulative such as damage per round due to poison, set usedForUpdateStats = false
+        //if you want the effect to NOT be cumulative such as AC bonus, set usedForUpdateStats = true
+
+        public bool instantaneous = false; //this determines if the effect is either an instantaneous and permanent effect (damage, heal, etc.) or a duration effect which can be permanent (poison) or temporary (AC bonus, held)
+        
+        //DAMAGE (hp)
+        public string damType = ""; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
+        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+        public int damNumOfDice = 0; //(A)how many dice to roll
+        public int damDie = 0; //(B)type of die to roll such as 4 sided or 10 sided, etc.
+        public int damAdder = 0; //(C)integer adder to total damage such as the "1" in 2d4+1
+        public int damAttacksEveryNLevels = 0; //(D)
+        public int damAttacksAfterLevelN = 0; //(E)
+        public int damAttacksUpToNLevelsTotal = 0; //(F)
+        //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total
+        public int damNumberOfAttacks = 0; //(A)
+        public int damNumberOfAttacksForEveryNLevels = 0; //(B)
+        public int damNumberOfAttacksAfterLevelN = 0; //(C)
+        public int damNumberOfAttacksUpToNAttacksTotal = 0; //(D)
+
+        //HEAL (hp)
+        public string healType = ""; //Organic (living things), NonOrganic (robots, constructs)
+        //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
+        public int healNumOfDice = 0; //(A)how many dice to roll
+        public int healDie = 0; //(B)type of die to roll such as 4 sided or 10 sided, etc.
+        public int healAdder = 0; //(C)integer adder to total damage such as the "1" in 2d4+1
+        public int healActionsEveryNLevels = 0; //(D)
+        public int healActionsAfterLevelN = 0; //(E)
+        public int healActionsUpToNLevelsTotal = 0; //(F)
+        //(for reference) NumOfHealActions: A of these attacks for every B levels after level C up to D attacks total
+        public int healNumberOfActions = 0; //(A)
+        public int healNumberOfActionsForEveryNLevels = 0; //(B)
+        public int healNumberOfActionsAfterLevelN = 0; //(C)
+        public int healNumberOfActionsUpToNActionsTotal = 0; //(D)
+
+        //BUFF and DEBUFF
+        public string addStatusType = ""; //Alive, Dead, Held, Immobile, Invisible, Silenced, Poisoned, etc.
+        public int modifyFortitude = 0;
+        public int modifyWill = 0;
+        public int modifyReflex = 0;
+        //For PC only
+        public int modifyStr = 0;
+        public int modifyDex = 0;
+        public int modifyInt = 0;
+        public int modifyCha = 0;
+        public int modifyCon = 0;
+        public int modifyWis = 0;
+        public int modifyLuk = 0;
+        //end PC only
+        public int modifyMoveDistance = 0;
+        public int modifyHpMax = 0;
+        public int modifySpMax = 0;
+        public int modifySp = 0;
+        public int modifyDamageTypeResistanceAcid = 0;
+        public int modifyDamageTypeResistanceCold = 0;
+        public int modifyDamageTypeResistanceNormal = 0;
+        public int modifyDamageTypeResistanceElectricity = 0;
+        public int modifyDamageTypeResistanceFire = 0;
+        public int modifyDamageTypeResistanceMagic = 0;
+        public int modifyDamageTypeResistancePoison = 0;
+        public int modifyNumberOfMeleeAttacks = 0;
+        public int modifyNumberOfRangedAttacks = 0;
+
+        public Effect()
 	    {
 		
 	    }
@@ -53,7 +120,56 @@ namespace IceBlink2
 		    copy.usedForUpdateStats = this.usedForUpdateStats;
 		    copy.effectLetter = this.effectLetter;
 		    copy.effectLetterColor = this.effectLetterColor;
-		    copy.effectScript = this.effectScript;		
+		    copy.effectScript = this.effectScript;
+            copy.saveCheckType = this.saveCheckType;
+            copy.saveCheckDC = this.saveCheckDC;
+            copy.instantaneous = false;
+            copy.damType = this.damType;
+            copy.damNumOfDice = this.damNumOfDice;
+            copy.damDie = this.damDie;
+            copy.damAdder = this.damAdder;
+            copy.damAttacksEveryNLevels = this.damAttacksEveryNLevels;
+            copy.damAttacksAfterLevelN = this.damAttacksAfterLevelN;
+            copy.damAttacksUpToNLevelsTotal = this.damAttacksUpToNLevelsTotal;
+            copy.damNumberOfAttacks = this.damNumberOfAttacks;
+            copy.damNumberOfAttacksForEveryNLevels = this.damNumberOfAttacksForEveryNLevels;
+            copy.damNumberOfAttacksAfterLevelN = this.damNumberOfAttacksAfterLevelN;
+            copy.damNumberOfAttacksUpToNAttacksTotal = this.damNumberOfAttacksUpToNAttacksTotal;
+            copy.healType = this.healType;
+            copy.healNumOfDice = this.healNumOfDice;
+            copy.healDie = this.healDie;
+            copy.healAdder = this.healAdder;
+            copy.healActionsEveryNLevels = this.healActionsEveryNLevels;
+            copy.healActionsAfterLevelN = this.healActionsAfterLevelN;
+            copy.healActionsUpToNLevelsTotal = this.healActionsUpToNLevelsTotal;
+            copy.healNumberOfActions = this.healNumberOfActions;
+            copy.healNumberOfActionsForEveryNLevels = this.healNumberOfActionsForEveryNLevels;
+            copy.healNumberOfActionsAfterLevelN = this.healNumberOfActionsAfterLevelN;
+            copy.healNumberOfActionsUpToNActionsTotal = this.healNumberOfActionsUpToNActionsTotal;
+            copy.addStatusType = this.addStatusType;
+            copy.modifyFortitude = this.modifyFortitude;
+            copy.modifyWill = this.modifyWill;
+            copy.modifyReflex = this.modifyReflex;
+            copy.modifyStr = this.modifyStr;
+            copy.modifyDex = this.modifyDex;
+            copy.modifyInt = this.modifyInt;
+            copy.modifyCha = this.modifyCha;
+            copy.modifyCon = this.modifyCon;
+            copy.modifyWis = this.modifyWis;
+            copy.modifyLuk = this.modifyLuk;
+            copy.modifyMoveDistance = this.modifyMoveDistance;
+            copy.modifyHpMax = this.modifyHpMax;
+            copy.modifySpMax = this.modifySpMax;
+            copy.modifySp = this.modifySp;
+            copy.modifyDamageTypeResistanceAcid = this.modifyDamageTypeResistanceAcid;
+            copy.modifyDamageTypeResistanceCold = this.modifyDamageTypeResistanceCold;
+            copy.modifyDamageTypeResistanceNormal = this.modifyDamageTypeResistanceNormal;
+            copy.modifyDamageTypeResistanceElectricity = this.modifyDamageTypeResistanceElectricity;
+            copy.modifyDamageTypeResistanceFire = this.modifyDamageTypeResistanceFire;
+            copy.modifyDamageTypeResistanceMagic = this.modifyDamageTypeResistanceMagic;
+            copy.modifyDamageTypeResistancePoison = this.modifyDamageTypeResistancePoison;
+            copy.modifyNumberOfMeleeAttacks = this.modifyNumberOfMeleeAttacks;
+            copy.modifyNumberOfRangedAttacks = this.modifyNumberOfRangedAttacks;
 		    return copy;
 	    }
     }

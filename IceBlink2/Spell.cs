@@ -29,6 +29,7 @@ namespace IceBlink2
 	    public int aoeRadius = 1;
 	    public int range = 2;	
 	    public string spellScript = "none";
+        public string spellEffectTag = "none";
     
 	    public Spell()
 	    {
@@ -53,7 +54,8 @@ namespace IceBlink2
             copy.aoeShape = this.aoeShape;
 		    copy.aoeRadius = this.aoeRadius;
 		    copy.range = this.range;
-		    copy.spellScript = this.spellScript;		
+		    copy.spellScript = this.spellScript;
+            copy.spellEffectTag = this.spellEffectTag;		
 		    return copy;
 	    }
     }

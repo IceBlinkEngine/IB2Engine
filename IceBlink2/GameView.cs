@@ -243,7 +243,7 @@ namespace IceBlink2
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
-
+            //SharpDX.Windows.RenderLoop.Run(this, RenderCallback); //this creates a game loop for the renderer only, but seems to block keyboard inputs (mouse events still work)
         }
 
         public void createScreens()
@@ -1708,7 +1708,10 @@ namespace IceBlink2
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
         }
-
+        private void RenderCallback()
+        {
+            Render();
+        }
         public void drawUIBackground()
         {
             try

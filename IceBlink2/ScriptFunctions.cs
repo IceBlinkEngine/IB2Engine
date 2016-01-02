@@ -4222,6 +4222,22 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    savBonuses += ef.modifyReflex;
+                }
+                else
+                {
+                    if ((ef.modifyReflex != 0) && (ef.modifyReflex > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyReflex;
+                    }
+                }
+            }
+            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersFortitude(Player pc)
@@ -4235,6 +4251,22 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierFortitude;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierFortitude;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    savBonuses += ef.modifyFortitude;
+                }
+                else
+                {
+                    if ((ef.modifyFortitude != 0) && (ef.modifyFortitude > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyFortitude;
+                    }
+                }
+            }
+            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcSavingThrowModifiersWill(Player pc)
@@ -4248,6 +4280,22 @@ namespace IceBlink2
             savBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierWill;
             savBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierWill;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    savBonuses += ef.modifyWill;
+                }
+                else
+                {
+                    if ((ef.modifyWill != 0) && (ef.modifyWill > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyWill;
+                    }
+                }
+            }
+            if (highestNonStackable > savBonuses) { savBonuses = highestNonStackable; }
             return savBonuses;
         }
         public int CalcAttributeModifierStr(Player pc)
@@ -4261,6 +4309,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierStr;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierStr;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyStr;
+                }
+                else
+                {
+                    if ((ef.modifyStr != 0) && (ef.modifyStr > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyStr;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierDex(Player pc)
@@ -4274,6 +4338,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierDex;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierDex;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyDex;
+                }
+                else
+                {
+                    if ((ef.modifyDex != 0) && (ef.modifyDex > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDex;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierInt(Player pc)
@@ -4287,6 +4367,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierInt;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierInt;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyInt;
+                }
+                else
+                {
+                    if ((ef.modifyInt != 0) && (ef.modifyInt > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyInt;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCha(Player pc)
@@ -4300,6 +4396,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCha;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCha;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyCha;
+                }
+                else
+                {
+                    if ((ef.modifyCha != 0) && (ef.modifyCha > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyCha;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierCon(Player pc)
@@ -4313,6 +4425,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierCon;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierCon;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyCon;
+                }
+                else
+                {
+                    if ((ef.modifyCon != 0) && (ef.modifyCon > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyCon;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierWis(Player pc)
@@ -4326,6 +4454,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierWis;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierWis;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyWis;
+                }
+                else
+                {
+                    if ((ef.modifyWis != 0) && (ef.modifyWis > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyWis;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAttributeModifierLuk(Player pc)
@@ -4339,6 +4483,22 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).attributeBonusModifierLuk;
             attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).attributeBonusModifierLuk;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    attBonuses += ef.modifyLuk;
+                }
+                else
+                {
+                    if ((ef.modifyLuk != 0) && (ef.modifyLuk > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyLuk;
+                    }
+                }
+            }
+            if (highestNonStackable > attBonuses) { attBonuses = highestNonStackable; }
             return attBonuses;
         }
         public int CalcAcidModifiers(Player pc)
@@ -4352,6 +4512,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueAcid;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueAcid;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceAcid;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceAcid != 0) && (ef.modifyDamageTypeResistanceAcid > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceAcid;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcNormalModifiers(Player pc)
@@ -4365,6 +4541,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueNormal;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueNormal;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceNormal;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceNormal != 0) && (ef.modifyDamageTypeResistanceNormal > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceNormal;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcColdModifiers(Player pc)
@@ -4378,6 +4570,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueCold;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueCold;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceCold;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceCold != 0) && (ef.modifyDamageTypeResistanceCold > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceCold;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcElectricityModifiers(Player pc)
@@ -4391,6 +4599,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueElectricity;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueElectricity;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceElectricity;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceElectricity != 0) && (ef.modifyDamageTypeResistanceElectricity > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceElectricity;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcFireModifiers(Player pc)
@@ -4404,6 +4628,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueFire;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueFire;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceFire;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceFire != 0) && (ef.modifyDamageTypeResistanceFire > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceFire;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcMagicModifiers(Player pc)
@@ -4417,6 +4657,22 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValueMagic;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValueMagic;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistanceMagic;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistanceMagic != 0) && (ef.modifyDamageTypeResistanceMagic > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistanceMagic;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcPoisonModifiers(Player pc)
@@ -4430,24 +4686,64 @@ namespace IceBlink2
             md += mod.getItemByResRefForInfo(pc.NeckRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.FeetRefs.resref).damageTypeResistanceValuePoison;
             md += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).damageTypeResistanceValuePoison;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    md += ef.modifyDamageTypeResistancePoison;
+                }
+                else
+                {
+                    if ((ef.modifyDamageTypeResistancePoison != 0) && (ef.modifyDamageTypeResistancePoison > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyDamageTypeResistancePoison;
+                    }
+                }
+            }
+            if (highestNonStackable > md) { md = highestNonStackable; }
             return md;
         }
         public int CalcBABAdders(Player pc)
-        {
+        {            
             int adder = 0;
+            int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                adder += ef.babModifier;
+                if (ef.isStackableEffect)
+                {
+                    adder += ef.babModifier;
+                }
+                else
+                {
+                    if ((ef.babModifier != 0) && (ef.babModifier > highestNonStackable))
+                    {
+                        highestNonStackable = ef.babModifier;
+                    }
+                }
             }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcACModifiers(Player pc)
         {
             int adder = 0;
+            int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
-                adder += ef.acModifier;
+                if (ef.isStackableEffect)
+                {
+                    adder += ef.acModifier;
+                }
+                else
+                {
+                    if ((ef.acModifier != 0) && (ef.acModifier > highestNonStackable))
+                    {
+                        highestNonStackable = ef.acModifier;
+                    }
+                }
             }
+            if (highestNonStackable > adder) { adder = highestNonStackable; }
             return adder;
         }
         public int CalcArmorBonuses(Player pc)
@@ -4495,6 +4791,22 @@ namespace IceBlink2
             moveBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).MovementPointModifier;
             moveBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).MovementPointModifier;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (ef.isStackableEffect)
+                {
+                    moveBonuses += ef.modifyMoveDistance;
+                }
+                else
+                {
+                    if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
+                    {
+                        highestNonStackable = ef.modifyMoveDistance;
+                    }
+                }
+            }
+            if (highestNonStackable > moveBonuses) { moveBonuses = highestNonStackable; }
             return moveBonuses;
         }
         public void RunAllItemWhileEquippedScripts(Player pc)
@@ -5187,6 +5499,170 @@ namespace IceBlink2
             }
         }
 
+        public void spGeneric(object src, object trg)
+        {
+            //set squares list
+            CreateAoeSquaresList(src, trg);
+
+            //set target list
+            CreateAoeTargetsList(src);
+
+            //get casting source information
+            int classLevel = 0;
+            string sourceName = "";
+            Effect thisSpellEffect = gv.mod.getEffectByTag(gv.cc.currentSelectedSpell.spellEffectTag);
+            if (thisSpellEffect == null)
+            {
+                gv.sf.MessageBoxHtml("EffectTag: " + gv.cc.currentSelectedSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
+                return;
+            }
+            if (src is Player) //player casting
+            {
+                Player source = (Player)src;
+                classLevel = source.classLevel;
+                sourceName = source.name;
+                source.sp -= gv.cc.currentSelectedSpell.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+            else if (src is Creature) //creature casting
+            {
+                Creature source = (Creature)src;
+                classLevel = source.cr_level;
+                sourceName = source.cr_name;
+                source.sp -= SpellToCast.costSP;
+                if (source.sp < 0) { source.sp = 0; }
+            }
+            else if (src is Item) //item was used
+            {
+                Item source = (Item)src;
+                classLevel = 1; //maybe add a property to item for Level
+                sourceName = source.name;
+            }
+            //iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
+            foreach (object target in AoeTargetsList)
+            {
+                if (target is Creature)
+                {
+                    Creature crt = (Creature)target;
+                    float resist = 0;
+                    if (thisSpellEffect.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
+                    else if (thisSpellEffect.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+
+                    //loop over number of attacks
+                    int damageTotal = 0;
+                    //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total
+                    // = ((classLevel - C) / 2) + 1;
+                    int numberOfAttacks = ((classLevel - 1) / 2) + 1; //1 bolt for every 2 levels after level 1
+                    if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can not have more than a max amount of attacks
+                    for (int i = 0; i < numberOfAttacks; i++)
+                    {
+                        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                        // += 
+                        int damage = (int)((1 * RandInt(4) + 1) * resist);
+                        int saveChkRoll = RandInt(20);
+                        int saveChk = saveChkRoll + crt.reflex;
+                        int DC = 13;
+                        if (saveChk >= DC) //passed save check (do half or avoid all?)
+                        {
+                            damage = damage / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        if (mod.debugMode)
+                        {
+                            //gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                        }
+                        //gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
+                        //gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                        damageTotal += damage;                        
+                    }
+                    crt.hp -= damageTotal;
+                    if (crt.hp <= 0)
+                    {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");                        
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
+                }
+                else //target is Player
+                {
+                    Player pc = (Player)target;
+                    float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
+                    float damage = classLevel * RandInt(3);
+                    int fireDam = (int)(damage * resist);
+                    int saveChkRoll = RandInt(20);
+                    int saveChk = saveChkRoll + pc.reflex;
+                    int DC = 13;
+                    if (saveChk >= DC) //passed save check
+                    {
+                        if (this.hasTrait(pc, "evasion"))
+                        {
+                            fireDam = 0;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Flame Fingers spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                        else
+                        {
+                            fireDam = fireDam / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                            if (mod.debugMode)
+                            {
+                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                            }
+                        }
+                    }
+                    if (mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
+                    }
+                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    pc.hp -= fireDam;
+                    if (pc.hp <= 0)
+                    {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
+                }
+            }
+
+            //remove dead creatures            
+            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            {
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+            gv.postDelayed("doFloatyText", 100);
+        }
         //SPELLS WIZARD
         public void spFlameFingers(object src, object trg)
         {
@@ -6347,7 +6823,7 @@ namespace IceBlink2
                 //Toast.makeText(gv.gameContext, "don't recognize target type", Toast.LENGTH_SHORT).show();			
             }
         }
-        public void spBlastOfLight(Object src, Object trg)
+        public void spBlastOfLight(object src, object trg)
         {
             //set squares list
             CreateAoeSquaresList(src, trg);
@@ -6483,7 +6959,7 @@ namespace IceBlink2
             }
             gv.postDelayed("doFloatyText", 100);
         }
-        public void spHold(Object src, Object trg)
+        public void spHold(object src, object trg)
         {
             if (src is Player) //player casting
             {
