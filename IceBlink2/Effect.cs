@@ -39,8 +39,9 @@ namespace IceBlink2
         //if you want the effect to NOT be cumulative such as AC bonus, set usedForUpdateStats = true
 
         public bool instantaneous = false; //this determines if the effect is either an instantaneous and permanent effect (damage, heal, etc.) or a duration effect which can be permanent (poison) or temporary (AC bonus, held)
-        
+
         //DAMAGE (hp)
+        public bool doDamage = false;
         public string damType = ""; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
         //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
         public int damNumOfDice = 0; //(A)how many dice to roll
@@ -56,6 +57,7 @@ namespace IceBlink2
         public int damNumberOfAttacksUpToNAttacksTotal = 0; //(D)
 
         //HEAL (hp)
+        public bool doHeal = false;
         public string healType = ""; //Organic (living things), NonOrganic (robots, constructs)
         //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
         public int healNumOfDice = 0; //(A)how many dice to roll
@@ -64,13 +66,10 @@ namespace IceBlink2
         public int healActionsEveryNLevels = 0; //(D)
         public int healActionsAfterLevelN = 0; //(E)
         public int healActionsUpToNLevelsTotal = 0; //(F)
-        //(for reference) NumOfHealActions: A of these attacks for every B levels after level C up to D attacks total
-        public int healNumberOfActions = 0; //(A)
-        public int healNumberOfActionsForEveryNLevels = 0; //(B)
-        public int healNumberOfActionsAfterLevelN = 0; //(C)
-        public int healNumberOfActionsUpToNActionsTotal = 0; //(D)
 
         //BUFF and DEBUFF
+        public bool doBuff = false;
+        public bool doDeBuff = false;
         public string addStatusType = ""; //Alive, Dead, Held, Immobile, Invisible, Silenced, Poisoned, etc.
         public int modifyFortitude = 0;
         public int modifyWill = 0;
@@ -123,6 +122,10 @@ namespace IceBlink2
 		    copy.effectScript = this.effectScript;
             copy.saveCheckType = this.saveCheckType;
             copy.saveCheckDC = this.saveCheckDC;
+            copy.doBuff = this.doBuff;
+            copy.doDamage = this.doDamage;
+            copy.doDeBuff = this.doDeBuff;
+            copy.doHeal = this.doHeal;
             copy.instantaneous = false;
             copy.damType = this.damType;
             copy.damNumOfDice = this.damNumOfDice;
@@ -142,10 +145,6 @@ namespace IceBlink2
             copy.healActionsEveryNLevels = this.healActionsEveryNLevels;
             copy.healActionsAfterLevelN = this.healActionsAfterLevelN;
             copy.healActionsUpToNLevelsTotal = this.healActionsUpToNLevelsTotal;
-            copy.healNumberOfActions = this.healNumberOfActions;
-            copy.healNumberOfActionsForEveryNLevels = this.healNumberOfActionsForEveryNLevels;
-            copy.healNumberOfActionsAfterLevelN = this.healNumberOfActionsAfterLevelN;
-            copy.healNumberOfActionsUpToNActionsTotal = this.healNumberOfActionsUpToNActionsTotal;
             copy.addStatusType = this.addStatusType;
             copy.modifyFortitude = this.modifyFortitude;
             copy.modifyWill = this.modifyWill;
