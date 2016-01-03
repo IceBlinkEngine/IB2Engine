@@ -8,7 +8,6 @@
 		//will switch to intoolset editor once I taught the toolset the new properties
 		
 		//read in the switch for the two parts of the script (1. set entry and exit lists, 2. assign channel values)
-msg("start of autumn") 
 $useFirstPartOfScript = %Mod.useFirstPartOfWeatherScript
 
 		//1. set entry weathers list and a number of exit lists (one for each weather type in the entry list) as global strings
@@ -27,7 +26,7 @@ if ($useFirstPartOfScript = "True")
 		//let's set the entry weather list
 		//always use EntryWeathers as name, dont change		
 $Name = "EntryWeathers"
-$Value = "(SunnyWithClouds)[0]{150}(RainyWithFog)[100]{50}(Clear)[0]{50}"
+$Value = "(SunnyWithClouds)[0]{150}(heavyRainWithCloudsAShowers)[100]{50}(Clear)[0]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 		//let's set the exit weathers with name of the weathertype first and then its exit weathers
@@ -36,15 +35,13 @@ $Name = "SunnyWithClouds"
 $Value = "(SunnyWitClouds)[100]{150}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "RainyWithFog"
+$Name = "heavyRainWithCloudsAShowers"
 //$Value = "(SunnyWithClouds)[50]{50}(Clear)[50]{50}"
-$Value = "(RainyWithFog)[100]{50}"
+$Value = "(heavyRainWithCloudsAShowers)[100]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "Clear"
 $Value = "(SunnyWithClouds)[50]{50}(RainyWith)[50]{50}"
 ~gaSetGlobalString($Name,$Value)
 
-endif
-		
-msg("end of autumn") 
+endif 
