@@ -1961,7 +1961,7 @@ namespace IceBlink2
                 return;
             }
 
-            //handling chances for full screen animation effects, edit: for all 10 channels now
+            #region handling chances for full screen animation effects, edit: for all 10 channels now
             if ((gv.mod.currentArea.fullScreenEffectLayerIsActive1 == false) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 != 0))
             {
                 if (gv.sf.RandInt(100) < gv.mod.currentArea.fullScreenEffectChanceToOccur1)
@@ -2433,7 +2433,8 @@ namespace IceBlink2
                     }
                 }
             }
-
+            #endregion
+            
             //CLEAN UP START SCREENS IF DONE WITH THEM
             if (gv.screenLauncher != null)
             {
@@ -2451,8 +2452,8 @@ namespace IceBlink2
             }
        
 
-        //gv.logUpdated = false;
-        gv.sf.dsWorldTime();
+            //gv.logUpdated = false;
+            gv.sf.dsWorldTime();
             //IBScript Module heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
             //IBScript Area heartbeat
@@ -4535,6 +4536,7 @@ namespace IceBlink2
         public void doSpellBasedOnTag(string spellTag, object source, object target)
         {
             gv.sf.AoeTargetsList.Clear();
+
             //WIZARD SPELLS
             if (spellTag.Equals("flameFingers"))
             {
