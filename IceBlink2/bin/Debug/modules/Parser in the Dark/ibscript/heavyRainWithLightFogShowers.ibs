@@ -5,7 +5,7 @@
 %CurrentArea.useFullScreenEffectLayer5 = "True"
 %CurrentArea.useFullScreenEffectLayer6 = "True"
 %CurrentArea.useFullScreenEffectLayer7 = "True"
-%CurrentArea.useFullScreenEffectLayer8 = "False"
+%CurrentArea.useFullScreenEffectLayer8 = "True"
 %CurrentArea.useFullScreenEffectLayer9 = "False"
 %CurrentArea.useFullScreenEffectLayer10 = "False"
 		
@@ -35,7 +35,7 @@ if (%CurrentArea.changeableByWeatherScript5 = "True")
 			//float, horizontal speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move left
 %CurrentArea.overrideSpeedX5  = -100
 			//float, vertical speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move up
-%CurrentArea.overrideSpeedY5  = -100
+%CurrentArea.overrideSpeedY5  = -2,4
 			//int, relevant for movement patterns that have a randomized change of their movement vector going (ie all except linear) on, this determines the rate of random vector change
 			//the higher, the slower, only positive numbers        
 %CurrentArea.overrideDelayLimit5  = -100
@@ -105,7 +105,7 @@ if (%CurrentArea.changeableByWeatherScript6 = "True")
 			//float, horizontal speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move left
 %CurrentArea.overrideSpeedX6  = -100
 			//float, vertical speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move up
-%CurrentArea.overrideSpeedY6  = -2,4
+%CurrentArea.overrideSpeedY6  = -100
 			//int, relevant for movement patterns that have a randomized change of their movement vector going (ie all except linear) on, this determines the rate of random vector change
 			//the higher, the slower, only positive numbers        
 %CurrentArea.overrideDelayLimit6  = -100
@@ -160,7 +160,7 @@ if (%CurrentArea.changeableByWeatherScript7 = "True")
 			//lightSnowLayerA, lightSnowLayerB, snowLayerA, snowLayerB,heavySnowLayerA, heavySnowLayerB
                         //lightningLayerA, lightningLayerB
 			//see special naming rules for these .png below under shape changing animations (short: give the .png numbers at the end, starting with 1, define here without any number)
-%CurrentArea.fullScreenEffectLayerName7  = "cloudLayerA"	
+%CurrentArea.fullScreenEffectLayerName7  = "lightFogLayerA"	
  			//setting up the (override) movement pattern, speeds and delay
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default, ie predefined in code, setting of the override animation pattern for this parameter shall be used
         		//so far existing directional overrides:
@@ -171,14 +171,14 @@ if (%CurrentArea.changeableByWeatherScript7 = "True")
                         //less than defaut 470, like 380) 
         		//fog (2 layers recommended, make one layer's overrideDelayLimit5  a little less than default 125, like 110, can also be used for a rolling ocean)
                         //randStraight ()
-%CurrentArea.directionalOverride7  = "clouds"
+%CurrentArea.directionalOverride7  = "fog"
 			//float, horizontal speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move left
 %CurrentArea.overrideSpeedX7  = -100
 			//float, vertical speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move up
 %CurrentArea.overrideSpeedY7  = -100
 			//int, relevant for movement patterns that have a randomized change of their movement vector going (ie all except linear) on, this determines the rate of random vector change
 			//the higher, the slower, only positive numbers        
-%CurrentArea.overrideDelayLimit7  = -100
+%CurrentArea.overrideDelayLimit7  = 110
 			//leave at "" normally as the override move pattern chosen sets the nature of scroll/noscroll up automatically correctly
 %CurrentArea.overrideIsNoScrollSource7  = ""
 
@@ -230,7 +230,7 @@ if (%CurrentArea.changeableByWeatherScript8 = "True")
 			//lightSnowLayerA, lightSnowLayerB, snowLayerA, snowLayerB,heavySnowLayerA, heavySnowLayerB
                         //lightningLayerA, lightningLayerB
 			//see special naming rules for these .png below under shape changing animations (short: give the .png numbers at the end, starting with 1, define here without any number)
-%CurrentArea.fullScreenEffectLayerName8  = "SandstormLayerA"	
+%CurrentArea.fullScreenEffectLayerName8  = "lightFogLayerB"	
  			//setting up the (override) movement pattern, speeds and delay
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default, ie predefined in code, setting of the override animation pattern for this parameter shall be used
         		//so far existing directional overrides:
@@ -241,11 +241,11 @@ if (%CurrentArea.changeableByWeatherScript8 = "True")
                         //less than defaut 470, like 380) 
         		//fog (2 layers recommended, make one layer's overrideDelayLimit5  a little less than default 125, like 110, can also be used for a rolling ocean)
                         //randStraight ()
-%CurrentArea.directionalOverride8  = "linear"
+%CurrentArea.directionalOverride8  = "fog"
 			//float, horizontal speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move left
-%CurrentArea.overrideSpeedX8  = 2,6
+%CurrentArea.overrideSpeedX8  = -100
 			//float, vertical speed (use "," instead of "." for fractions, so it is e.g. 2,8 and not 2.8), negative values mean move up
-%CurrentArea.overrideSpeedY8  = 2,9
+%CurrentArea.overrideSpeedY8  = -100
 			//int, relevant for movement patterns that have a randomized change of their movement vector going (ie all except linear) on, this determines the rate of random vector change
 			//the higher, the slower, only positive numbers        
 %CurrentArea.overrideDelayLimit8  = -100
