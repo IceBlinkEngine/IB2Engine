@@ -27,7 +27,7 @@
                 //XXXXX ENTRY WEATHERS LIST XXXXX
                 //list all weather used in the area here, assign zero as chance if the weather shall not be callable from the start 		
 $Name = "EntryWeathers"
-$Value = "(clear)[40]{50}(lightCloudsA)[20]{50}(lightCloudsB)[20]{50}(lightCloudsC)[20]{50}(cloudsA)[0]{50}(cloudsB)[0]{50}(cloudsC)[0]{50}"
+$Value = "(clear)[31]{50}(lightCloudsA)[20]{50}(lightCloudsB)[20]{50}(lightCloudsC)[20]{50}(cloudsA)[2]{50}(cloudsB)[2]{50}(cloudsC)[2]{50}(lightRainWithCloudsAShowers)[1]{100}(lightRainWithCloudsBShowers)[1]{100}(lightRainWithCloudsCShowers)[1]{100}"
 ~gaSetGlobalString($Name,$Value)
                 
 
@@ -51,14 +51,25 @@ $Value = "(clear)[25]{50}(lightCloudsA)[15]{50}(lightCloudsB)[15]{50}(cloudsA)[1
 ~gaSetGlobalString($Name,$Value) 
 
 $Name = "cloudsA"
-$Value = "(clear)[100]{50}"
+$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightRainWithCloudsAShowers)[20]{100}(lightRainWithCloudsBShowers)[30]{100}(lightRainWithCloudsCShowers)[20]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "cloudsB"
-$Value = "(clear)[100]{50}"
+$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightRainWithCloudsAShowers)[20]{100}(lightRainWithCloudsBShowers)[30]{100}(lightRainWithCloudsCShowers)[20]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "cloudsC"
+$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightRainWithCloudsAShowers)[20]{100}(lightRainWithCloudsBShowers)[30]{100}(lightRainWithCloudsCShowers)[20]{100}"
+~gaSetGlobalString($Name,$Value)
+
+$Name = "lightRainWithCloudsAShowers"
 $Value = "(clear)[100]{50}"
 ~gaSetGlobalString($Name,$Value)
 
+$Name = "lightRainWithCloudsBShowers"
+$Value = "(clear)[100]{50}"
+~gaSetGlobalString($Name,$Value)
+
+$Name = "lightRainWithCloudsCShowers"
+$Value = "(clear)[100]{50}"
+~gaSetGlobalString($Name,$Value)
