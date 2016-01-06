@@ -2621,6 +2621,14 @@ namespace IceBlink2
 
                 if (gv.mod.currentWeatherDuration <= 0)
             {
+
+                gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+
                 gv.mod.howLongWeatherHasRun = 0;
                 gv.mod.fullScreenEffectOpacityWeather = 0;
                 //the single longEntrList is one of the exit lists fitting to the current weather type
