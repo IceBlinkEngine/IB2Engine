@@ -26,7 +26,7 @@ if ($useFirstPartOfScript = "True")
 		//let's set the entry weather list
 		//always use EntryWeathers as name, dont change		
 $Name = "EntryWeathers"
-$Value = "(SunnyWithClouds)[0]{150}(heavyRainWithCloudsAShowers)[100]{50}(Clear)[0]{50}"
+$Value = "(SunnyWithClouds)[0]{150}(lightRainWithCloudsCShowers)[100]{50}(Clear)[0]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 		//let's set the exit weathers with name of the weathertype first and then its exit weathers
@@ -35,9 +35,9 @@ $Name = "SunnyWithClouds"
 $Value = "(SunnyWitClouds)[100]{150}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "heavyRainWithCloudsAShowers"
+$Name = "lightRainWithCloudsCShowers"
 //$Value = "(SunnyWithClouds)[50]{50}(Clear)[50]{50}"
-$Value = "(heavyRainWithCloudsAShowers)[100]{50}"
+$Value = "(lightRainWithCloudsCShowers)[100]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "Clear"
