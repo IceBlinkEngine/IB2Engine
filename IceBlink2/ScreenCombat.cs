@@ -1069,7 +1069,7 @@ namespace IceBlink2
                     currentMoveOrderIndex++;
                     gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
-                    if ((pc.charStatus.Equals("Held")) || (pc.charStatus.Equals("Dead")))
+                    if ((pc.isHeld()) || (pc.isDead()))
                     {
                         endPcTurn(false);
                     }
@@ -1405,7 +1405,7 @@ namespace IceBlink2
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
 
-            if ((pc.charStatus.Equals("Held")) || (pc.charStatus.Equals("Dead")))
+            if ((pc.isHeld()) || (pc.isDead()))
             {
                 endPcTurn(false);
             }
@@ -1590,7 +1590,8 @@ namespace IceBlink2
         public void doCombatCast(Player pc)
         {
             object target = getCastTarget(pc);
-            gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
+            //gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
             if (deathAnimationLocations.Count > 0)
             {
                 drawDeathAnimation = true;
@@ -2030,7 +2031,8 @@ namespace IceBlink2
         public void doCreatureSpell()
         {
     	    Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-    	    gv.cc.doSpellBasedOnTag(gv.sf.SpellToCast.tag, crt, gv.sf.CombatTarget);
+    	    //gv.cc.doSpellBasedOnTag(gv.sf.SpellToCast.tag, crt, gv.sf.CombatTarget);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget);
             if (deathAnimationLocations.Count > 0)
             {
                 drawDeathAnimation = true;
@@ -3029,7 +3031,7 @@ namespace IceBlink2
                         gv.DrawBitmap(fx, src, dst);
                         gv.cc.DisposeOfBitmap(ref fx);
                     }
-                    if ((pc.charStatus.Equals("Dead")) || (pc.hp < 0))
+                    if ((pc.isDead()) || (pc.isUnconcious()))
                     {
                         src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
                         gv.DrawBitmap(gv.cc.pc_dead, src, dst);
@@ -5698,7 +5700,7 @@ namespace IceBlink2
 		    {
 			    if ((p.combatLocX == x) && (p.combatLocY == y))
 			    {
-				    if ((!p.charStatus.Equals("Dead")) && (p.hp > 0))
+				    if ((!p.isDead()) && (p.hp > 0))
 				    {
 					    return false;
 				    }
@@ -6013,7 +6015,7 @@ namespace IceBlink2
         {
             //pc.UpdateStats(this);
 		    int defense = pc.AC;
-            if (pc.charStatus.Equals("Held"))
+            if (pc.isHeld())
             {
         	    defense -= 4;
         	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+4 att", "yellow");
@@ -6075,7 +6077,7 @@ namespace IceBlink2
             int farDist = 99;
             foreach (Player p in mod.playerList)
             {
-                if ((!p.charStatus.Equals("Dead")) && (p.hp >= 0) && (!p.steathModeOn))
+                if ((!p.isDead()) && (p.hp >= 0) && (!p.steathModeOn))
                 {
                     int dist = CalcDistance(crt.combatLocX, crt.combatLocY, p.combatLocX, p.combatLocY);
                     if (dist == farDist)

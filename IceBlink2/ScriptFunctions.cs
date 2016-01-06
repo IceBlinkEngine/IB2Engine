@@ -4199,7 +4199,7 @@ namespace IceBlink2
             RunAllItemWhileEquippedScripts(pc);
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; } //SD_20131201
             if (pc.sp > pc.spMax) { pc.sp = pc.spMax; } //SD_20131201
-            if ((pc.hp > 0) && (pc.charStatus.Equals("Dead")))
+            if (pc.hp > 0)
             {
                 pc.charStatus = "Alive";
             }
@@ -5046,7 +5046,7 @@ namespace IceBlink2
                 {
                     pc.hp = pc.hpMax;
                 }
-                if ((pc.hp > 0) && (pc.charStatus.Equals("Dead")))
+                if (pc.hp > 0)
                 {
                     pc.charStatus = "Alive";
                 }
@@ -5209,7 +5209,7 @@ namespace IceBlink2
                     {
                         source.hp = source.hpMax;
                     }
-                    if ((source.hp > 0) && (source.charStatus.Equals("Dead")))
+                    if (source.hp > 0)
                     {
                         source.charStatus = "Alive";
                     }
@@ -5508,7 +5508,7 @@ namespace IceBlink2
             }
         }
 
-        public void spGeneric(object src, object trg)
+        public void spGeneric(Spell thisSpell, object src, object trg)
         {
             //set squares list
             CreateAoeSquaresList(src, trg);
@@ -5516,10 +5516,11 @@ namespace IceBlink2
             //set target list
             CreateAoeTargetsList(src);
 
+            Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
+
             #region Get casting source information
             int classLevel = 0;
-            string sourceName = "";
-            Effect thisSpellEffect = gv.mod.getEffectByTag(gv.cc.currentSelectedSpell.spellEffectTag);
+            string sourceName = "";            
             if (thisSpellEffect == null)
             {
                 gv.sf.MessageBoxHtml("EffectTag: " + gv.cc.currentSelectedSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
@@ -5688,30 +5689,51 @@ namespace IceBlink2
                     if (thisSpellEffect.doBuff)
                     {
                         #region Do Buff
-                        int numberOfRounds = (classLevel * 5); //5 rounds per level
-                        Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
-                        ef.durationInUnits = numberOfRounds * 6;
+                        //int numberOfRounds = (classLevel * 5); //5 rounds per level
+                        int numberOfRounds = thisSpellEffect.durationInUnits / 6; //5 rounds per level
+                        //Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
+                        //ef.durationInUnits = numberOfRounds * 6;
                         gv.cc.addLogText("<font color='lime'>Bless is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
-                        crt.AddEffectByObject(ef, mod.WorldTime);
+                        crt.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
                         #endregion
                     }
                     if (thisSpellEffect.doDeBuff)
                     {
                         #region Do DeBuff
+                        #region Do Calc Save and DC
                         int saveChkRoll = RandInt(20);
-                        //int saveChk = saveChkRoll + target.Will;
-                        int saveChk = saveChkRoll;
-                        int DC = 16;
-                        if (saveChk >= DC) //passed save check
+                        int saveChk = 0;
+                        int DC = 0;
+                        int saveChkAdder = 0;
+                        if (thisSpellEffect.saveCheckType.Equals("will"))
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the hold spell" + "</font><BR>");
+                            saveChkAdder = crt.will;
+                        }
+                        else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                        {
+                            saveChkAdder = crt.reflex;
+                        }
+                        else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                        {
+                            saveChkAdder = crt.fortitude;
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a hold spell" + "</font><BR>");
-                            crt.cr_status = "Held";
-                            Effect ef = mod.getEffectByTag("hold");
-                            crt.AddEffectByObject(ef, mod.WorldTime);
+                            saveChkAdder = -99;
+                        }
+                        saveChk = saveChkRoll + saveChkAdder;
+                        DC = thisSpellEffect.saveCheckDC;
+                        #endregion
+                        if (saveChk >= DC) //passed save check
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " fails to avoid the " + thisSpellEffect.name + " effect.</font><BR>");
+                            //crt.cr_status = "Held";
+                            //Effect ef = mod.getEffectByTag("hold");
+                            crt.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
                         }
                         #endregion
                     }
@@ -5851,7 +5873,7 @@ namespace IceBlink2
                             {
                                 pc.hp = pc.hpMax;
                             }
-                            if ((pc.hp > 0) && (pc.charStatus.Equals("Dead")))
+                            if (pc.hp > 0)
                             {
                                 pc.charStatus = "Alive";
                             }
@@ -5865,30 +5887,51 @@ namespace IceBlink2
                     if (thisSpellEffect.doBuff)
                     {
                         #region Do Buff
-                        int numberOfRounds = (classLevel * 5); //5 rounds per level
-                        Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
-                        ef.durationInUnits = numberOfRounds * 6;
+                        //int numberOfRounds = (classLevel * 5); //5 rounds per level
+                        int numberOfRounds = thisSpellEffect.durationInUnits / 6; //5 rounds per level
+                        //Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
+                        //ef.durationInUnits = numberOfRounds * 6;
                         gv.cc.addLogText("<font color='lime'>Bless is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
-                        pc.AddEffectByObject(ef, mod.WorldTime);
+                        pc.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
                         #endregion
                     }
                     if (thisSpellEffect.doDeBuff)
                     {
                         #region Do DeBuff
-                        int saveChkRollPc = RandInt(20);
-                        //int saveChk = saveChkRoll + target.Will;
-                        int saveChkPc = saveChkRollPc;
-                        int DCPc = 16;
-                        if (saveChkPc >= DCPc) //passed save check
+                        #region Do Calc Save and DC
+                        int saveChkRoll = RandInt(20);
+                        int saveChk = 0;
+                        int DC = 0;
+                        int saveChkAdder = 0;
+                        if (thisSpellEffect.saveCheckType.Equals("will"))
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the hold spell" + "</font><BR>");
+                            saveChkAdder = pc.will;
+                        }
+                        else if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                        {
+                            saveChkAdder = pc.reflex;
+                        }
+                        else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                        {
+                            saveChkAdder = pc.fortitude;
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a hold spell" + "</font><BR>");
-                            pc.charStatus = "Held";
-                            Effect ef = mod.getEffectByTag("hold");
-                            pc.AddEffectByObject(ef, mod.WorldTime);
+                            saveChkAdder = -99;
+                        }
+                        saveChk = saveChkRoll + saveChkAdder;
+                        DC = thisSpellEffect.saveCheckDC;
+                        #endregion
+                        if (saveChk >= DC) //passed save check
+                        {
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<font color='red'>" + pc.name + " fails to avoid the " + thisSpellEffect.name + " effect.</font><BR>");
+                            //crt.cr_status = "Held";
+                            //Effect ef = mod.getEffectByTag("hold");
+                            pc.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
                         }
                         #endregion
                     }
@@ -6813,7 +6856,7 @@ namespace IceBlink2
                     {
                         target.hp = target.hpMax;
                     }
-                    if ((target.hp > 0) && (target.charStatus.Equals("Dead")))
+                    if (target.hp > 0)
                     {
                         target.charStatus = "Alive";
                     }
@@ -6866,7 +6909,7 @@ namespace IceBlink2
                         {
                             pc.hp = pc.hpMax;
                         }
-                        if ((pc.hp > 0) && (pc.charStatus.Equals("Dead")))
+                        if (pc.hp > 0)
                         {
                             pc.charStatus = "Alive";
                         }

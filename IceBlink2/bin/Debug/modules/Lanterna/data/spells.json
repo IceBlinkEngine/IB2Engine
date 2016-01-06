@@ -15,25 +15,27 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMageBolt"
+    "spellScript": "spMageBolt",
+    "spellEffectTag": "none"
   },
   {
-		    "name": "Flame Fingers",
-		    "tag": "flameFingers",
-		    "spellImage": "sp_flamefingers",
-		    "description": "A cone of flames launch from the casters hands and automatically hit all targets in the area of effect for 1d3 points of damage per caster level.",
-		    "useableInSituation": "InCombat",
-		    "spriteFilename": "fx_fireball",
-		    "spriteEndingFilename": "fx_fireball3x3end",
-		    "spellStartSound": "fireballstart",
-		    "spellEndSound": "fireballend",
-		    "costSP": 7,
-		    "spellTargetType": "PointLocation",
-		    "spellEffectType": "Damage",
-		    "aoeShape": "Cone",
-		    "aoeRadius": 2,
-		    "range": 1,
-		    "spellScript": "spFlameFingers"
+    "name": "Flame Fingers",
+    "tag": "flameFingers",
+    "spellImage": "sp_flamefingers",
+    "description": "A cone of flames launch from the casters hands and automatically hit all targets in the area of effect for 1d3 points of damage per caster level.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_fireball",
+    "spriteEndingFilename": "fx_fireball3x3end",
+    "spellStartSound": "fireballstart",
+    "spellEndSound": "fireballend",
+    "costSP": 7,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "Damage",
+    "aoeShape": "Cone",
+    "aoeRadius": 2,
+    "range": 1,
+    "spellScript": "spFlameFingers",
+    "spellEffectTag": "none"
   },
   {
     "name": "Mage Armor",
@@ -51,7 +53,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 0,
-    "spellScript": "spMageArmor"
+    "spellScript": "spMageArmor",
+    "spellEffectTag": "none"
   },
   {
     "name": "Sleep",
@@ -69,7 +72,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spSleep"
+    "spellScript": "spSleep",
+    "spellEffectTag": "none"
   },
   {
     "name": "Web",
@@ -87,7 +91,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 4,
-    "spellScript": "spWeb"
+    "spellScript": "spWeb",
+    "spellEffectTag": "none"
   },
   {
     "name": "Minor Regeneration",
@@ -105,7 +110,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMinorRegen"
+    "spellScript": "spMinorRegen",
+    "spellEffectTag": "none"
   },
   {
     "name": "Ice Storm",
@@ -123,25 +129,27 @@
     "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spIceStorm"
+    "spellScript": "spIceStorm",
+    "spellEffectTag": "none"
   },
   {
-		    "name": "Lightning",
-		    "tag": "lightning",
-		    "spellImage": "sp_lightning",
-		    "description": "A lightning bolt launches from the casters hands and automatically hits all targets in the area of effect for 1d6 points of damage per caster level.",
-		    "useableInSituation": "InCombat",
-		    "spriteFilename": "fx_lightning",
-		    "spriteEndingFilename": "fx_lightning",
-		    "spellStartSound": "fireballstart",
-		    "spellEndSound": "fireballend",
-		    "costSP": 20,
-		    "spellTargetType": "PointLocation",
-		    "spellEffectType": "Damage",
-		    "aoeShape": "Line",
-		    "aoeRadius": 5,
-		    "range": 3,
-		    "spellScript": "spLightning"
+    "name": "Lightning",
+    "tag": "lightning",
+    "spellImage": "sp_lightning",
+    "description": "A lightning bolt launches from the casters hands and automatically hits all targets in the area of effect for 1d6 points of damage per caster level.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_lightning",
+    "spriteEndingFilename": "fx_lightning",
+    "spellStartSound": "fireballstart",
+    "spellEndSound": "fireballend",
+    "costSP": 20,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "Damage",
+    "aoeShape": "Line",
+    "aoeRadius": 5,
+    "range": 3,
+    "spellScript": "spLightning",
+    "spellEffectTag": "none"
   },
   {
     "name": "Fireball",
@@ -159,7 +167,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spFireball"
+    "spellScript": "spFireball",
+    "spellEffectTag": "none"
   },
   {
     "name": "Minor Healing",
@@ -177,7 +186,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHeal"
+    "spellScript": "spHeal",
+    "spellEffectTag": "none"
   },
   {
     "name": "Bless",
@@ -195,7 +205,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spBless"
+    "spellScript": "spBless",
+    "spellEffectTag": "none"
   },
   {
     "name": "Magic Stone",
@@ -213,7 +224,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMagicStone"
+    "spellScript": "spMagicStone",
+    "spellEffectTag": "none"
   },
   {
     "name": "Moderate Healing",
@@ -231,7 +243,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHeal"
+    "spellScript": "spHeal",
+    "spellEffectTag": "none"
   },
   {
     "name": "Blast of Light",
@@ -249,7 +262,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 1,
     "range": 3,
-    "spellScript": "spBlastOfLight"
+    "spellScript": "spBlastOfLight",
+    "spellEffectTag": "none"
   },
   {
     "name": "Hold",
@@ -267,7 +281,8 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spHold"
+    "spellScript": "spHold",
+    "spellEffectTag": "none"
   },
   {
     "name": "Mass Minor Healing",
@@ -285,6 +300,7 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 3,
-    "spellScript": "spMassHeal"
+    "spellScript": "spMassHeal",
+    "spellEffectTag": "none"
   }
 ]

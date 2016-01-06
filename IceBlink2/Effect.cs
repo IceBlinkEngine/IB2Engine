@@ -42,7 +42,7 @@ namespace IceBlink2
 
         //DAMAGE (hp)
         public bool doDamage = false;
-        public string damType = ""; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
+        public string damType = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
         //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
         public int damNumOfDice = 0; //(A)how many dice to roll
         public int damDie = 0; //(B)type of die to roll such as 4 sided or 10 sided, etc.
@@ -58,7 +58,7 @@ namespace IceBlink2
 
         //HEAL (hp)
         public bool doHeal = false;
-        public string healType = ""; //Organic (living things), NonOrganic (robots, constructs)
+        public string healType = "Organic"; //Organic (living things), NonOrganic (robots, constructs)
         //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
         public int healNumOfDice = 0; //(A)how many dice to roll
         public int healDie = 0; //(B)type of die to roll such as 4 sided or 10 sided, etc.
@@ -70,7 +70,7 @@ namespace IceBlink2
         //BUFF and DEBUFF
         public bool doBuff = false;
         public bool doDeBuff = false;
-        public string addStatusType = ""; //Alive, Dead, Held, Immobile, Invisible, Silenced, Poisoned, etc.
+        public string addStatusType = "none"; //none, Held, Immobile, Invisible, Silenced, etc.
         public int modifyFortitude = 0;
         public int modifyWill = 0;
         public int modifyReflex = 0;

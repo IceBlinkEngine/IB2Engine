@@ -455,8 +455,9 @@ namespace IceBlink2
 			        			    try
 			                        {
 			        				    Player target = mod.playerList[0];
-		            				    gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, target, target);
-		        					    gv.screenType = "main";
+		            				    //gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, target, target);
+                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
+                                        gv.screenType = "main";
 		        					    doCleanUp();
 			        				    return;
 			                        }
@@ -475,8 +476,9 @@ namespace IceBlink2
 				            			try
 				                        {
 				            				Player target = mod.playerList[pcSel.selectedIndex - 1];
-				            				gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
-				        					gv.screenType = "main";
+				            				//gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+                                            gv.screenType = "main";
 				        					doCleanUp();
 				                        }
 				                        catch (Exception ex)

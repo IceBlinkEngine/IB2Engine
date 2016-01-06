@@ -698,6 +698,7 @@
   "ConvoFileName": "containerTrapDC25",
   "Narration": false,
   "PartyChat": true,
+  "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "prp_treasure.png",
   "DefaultNpcName": "Door",
   "NextIdNum": 40
