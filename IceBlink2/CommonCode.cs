@@ -1925,7 +1925,7 @@ namespace IceBlink2
             int idx = 0;
             foreach (Player pc in gv.mod.playerList)
             {
-                if (!pc.charStatus.Equals("Dead"))
+                if (!pc.isDead())
                 {
                     gv.mod.selectedPartyLeader = idx;
                     return;
@@ -4609,6 +4609,82 @@ namespace IceBlink2
                 gv.sf.spBlastOfLight(source, target);
             }
             else if (spellTag.Equals("hold"))
+            {
+                gv.sf.spHold(source, target);
+            }
+        }
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
+        {
+            gv.sf.AoeTargetsList.Clear();
+
+            if (!spell.spellEffectTag.Equals("none"))
+            {
+                gv.sf.spGeneric(spell, source, target);
+            }
+            //WIZARD SPELLS
+            if (spell.spellScript.Equals("spFlameFingers"))
+            {
+                gv.sf.spFlameFingers(source, target);
+            }
+            else if (spell.spellScript.Equals("spMageBolt"))
+            {
+                gv.sf.spMageBolt(source, target);
+            }
+            else if (spell.spellScript.Equals("spSleep"))
+            {
+                gv.sf.spSleep(source, target);
+            }
+            else if (spell.spellScript.Equals("spMageArmor"))
+            {
+                gv.sf.spMageArmor(source, target);
+            }
+            else if (spell.spellScript.Equals("spMinorRegen"))
+            {
+                gv.sf.spMinorRegen(source, target);
+            }
+            else if (spell.spellScript.Equals("spWeb"))
+            {
+                gv.sf.spWeb(source, target);
+            }
+            else if (spell.spellScript.Equals("spIceStorm"))
+            {
+                gv.sf.spIceStorm(source, target);
+            }
+            else if (spell.spellScript.Equals("spFireball"))
+            {
+                gv.sf.spFireball(source, target);
+            }
+            else if (spell.spellScript.Equals("spLightning"))
+            {
+                gv.sf.spLightning(source, target);
+            }
+            
+            //CLERIC SPELLS
+            else if (spell.tag.Equals("minorHealing"))
+            {
+                gv.sf.spHeal(source, target, 8);
+            }
+            else if (spell.tag.Equals("moderateHealing"))
+            {
+                gv.sf.spHeal(source, target, 16);
+            }
+            else if (spell.tag.Equals("massMinorHealing"))
+            {
+                gv.sf.spMassHeal(source, target, 8);
+            }
+            else if (spell.spellScript.Equals("spBless"))
+            {
+                gv.sf.spBless(source, target);
+            }
+            else if (spell.spellScript.Equals("spMagicStone"))
+            {
+                gv.sf.spMagicStone(source, target);
+            }
+            else if (spell.spellScript.Equals("spBlastOfLight"))
+            {
+                gv.sf.spBlastOfLight(source, target);
+            }
+            else if (spell.spellScript.Equals("spHold"))
             {
                 gv.sf.spHold(source, target);
             }

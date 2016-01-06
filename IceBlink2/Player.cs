@@ -197,7 +197,76 @@ namespace IceBlink2
 	        XPNeeded = this.playerClass.xpTable[this.classLevel];
 	    }
 	
-	    public List<string> getSpellsToLearn()
+        public bool isUnconcious()
+        {
+            if ((this.hp <= 0) && (this.hp > -20))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isDead()
+        {
+            if (this.hp <= -20)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isAlive()
+        {
+            if (this.hp > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isHeld()
+        {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.addStatusType.Equals("Held"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isImmobile()
+        {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.addStatusType.Equals("Immobile"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isInvisible()
+        {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.addStatusType.Equals("Invisible"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isSilenced()
+        {
+            foreach (Effect ef in this.effectsList)
+            {
+                if (ef.addStatusType.Equals("Silenced"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public List<string> getSpellsToLearn()
 	    {
 		    List<string> spellTagsList = new List<string>();
 		    foreach (SpellAllowed sa in this.playerClass.spellsAllowed)
@@ -262,7 +331,7 @@ namespace IceBlink2
 		    return this.knownTraitsTags.Contains(ta.tag);
 	    }
 	
-	    public Effect getEffectByTag(String tag)
+	    public Effect getEffectByTag(string tag)
         {
             foreach (Effect ef in this.effectsList)
             {
@@ -270,7 +339,7 @@ namespace IceBlink2
             }
             return null;
         }
-	    public bool IsInEffectList(String effectTag)
+	    public bool IsInEffectList(string effectTag)
         {
             foreach (Effect ef in this.effectsList)
             {

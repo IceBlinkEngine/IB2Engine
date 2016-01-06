@@ -980,7 +980,7 @@ namespace IceBlink2
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
                         {
-                            if (mod.playerList[gv.cc.partyScreenPcIndex].charStatus.Equals("Dead"))
+                            if (mod.playerList[gv.cc.partyScreenPcIndex].isDead())
                             {
                                 //Toast.makeText(gv.gameContext, "Can't Level Up a Dead Character", Toast.LENGTH_SHORT).show();
                             }

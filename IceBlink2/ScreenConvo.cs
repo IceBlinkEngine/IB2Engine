@@ -331,7 +331,7 @@ namespace IceBlink2
                     x++;
                 }
 		    }
-            if (mod.playerList[mod.selectedPartyLeader].charStatus.Equals("Dead"))
+            if (mod.playerList[mod.selectedPartyLeader].isDead())
             {
                 gv.cc.SwitchToNextAvailablePartyLeader();
             }

@@ -35,7 +35,7 @@ namespace IceBlink2
             }
             foreach (Player p in mod.playerList)
             {
-                if ((!p.charStatus.Equals("Dead")) && (p.hp > 0))
+                if (p.isAlive())
                 {
                     grid[p.combatLocX, p.combatLocY] = 1;
                 }

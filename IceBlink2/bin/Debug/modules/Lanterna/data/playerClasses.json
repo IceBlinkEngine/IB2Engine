@@ -1382,11 +1382,11 @@
         "allow": true
       },
       {
-						        "name": "Flame Fingers",
-						        "tag": "flameFingers",
-						        "atWhatLevelIsAvailable": 3,
-						        "automaticallyLearned": false,
-						        "allow": true
+        "name": "Flame Fingers",
+        "tag": "flameFingers",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
       },
       {
         "name": "Web",
@@ -1394,7 +1394,7 @@
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
         "allow": true
-      }      
+      }
     ]
   },
   {
@@ -1993,11 +1993,11 @@
         "allow": true
       },
       {
-						        "name": "Flame Fingers",
-						        "tag": "flameFingers",
-						        "atWhatLevelIsAvailable": 1,
-						        "automaticallyLearned": false,
-						        "allow": true
+        "name": "Flame Fingers",
+        "tag": "flameFingers",
+        "atWhatLevelIsAvailable": 1,
+        "automaticallyLearned": false,
+        "allow": true
       },
       {
         "name": "Mage Armor",
@@ -2040,7 +2040,7 @@
         "atWhatLevelIsAvailable": 5,
         "automaticallyLearned": false,
         "allow": true
-      },      
+      },
       {
         "name": "Lightning",
         "tag": "lightning",
