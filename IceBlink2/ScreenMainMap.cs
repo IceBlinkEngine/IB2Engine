@@ -1033,7 +1033,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride1 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter1 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter1 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
@@ -1942,7 +1950,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed2 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride2 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter2 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter2 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
@@ -2850,7 +2866,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed3 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride3 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter3 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter3 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
@@ -3759,7 +3783,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed4 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride4 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter4 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter4 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
@@ -4668,7 +4701,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed5 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride5 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter5 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter5 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
@@ -5582,7 +5623,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed6 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride6 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter6 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter6 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
@@ -6494,7 +6544,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed7 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride7 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter7 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter7 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
@@ -7407,7 +7465,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed8 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride8 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter8 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter8 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
@@ -8320,7 +8387,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed9 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride9 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter9 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter9 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
@@ -9233,7 +9309,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed10 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride10 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter10 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter10 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
