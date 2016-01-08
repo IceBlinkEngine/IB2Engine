@@ -4189,26 +4189,12 @@ namespace IceBlink2
             {
                 pc.moveDistance = pc.race.MoveDistanceMediumHeavyArmor + CalcMovementBonuses(pc);
             }
-            foreach (Effect ef in pc.effectsList)
-            {
-                if (ef.usedForUpdateStats)
-                {
-                    doUpdateStatsEffectScript(pc, ef.effectScript);
-                }
-            }
             RunAllItemWhileEquippedScripts(pc);
             if (pc.hp > pc.hpMax) { pc.hp = pc.hpMax; } //SD_20131201
             if (pc.sp > pc.spMax) { pc.sp = pc.spMax; } //SD_20131201
             if (pc.hp > 0)
             {
                 pc.charStatus = "Alive";
-            }
-        }
-        public void doUpdateStatsEffectScript(Player pc, string scriptName)
-        {
-            if (scriptName.Equals("efHeld"))
-            {
-                //efHeld(src, currentDurationInUnits, durationInUnits);
             }
         }
         public void ReCalcSavingThrowBases(Player pc)
@@ -4882,7 +4868,7 @@ namespace IceBlink2
                 {
                     if (pc.hp > 0) //do not regen if dead
                     {
-                        pc.hpRegenTimePassedCounter += mod.TimePerRound;
+                        pc.hpRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                         if (pc.hpRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).hpRegenTimeNeeded)
                         {
                             pc.hp++;
@@ -4898,7 +4884,7 @@ namespace IceBlink2
                 //check to see if allow SP to regen
                 if (mod.getPlayerClass(pc.classTag).spRegenTimeNeeded > 0)
                 {
-                    pc.spRegenTimePassedCounter += mod.TimePerRound;
+                    pc.spRegenTimePassedCounter += mod.currentArea.TimePerSquare;
                     if (pc.spRegenTimePassedCounter >= mod.getPlayerClass(pc.classTag).spRegenTimeNeeded)
                     {
                         pc.sp++;
@@ -5091,17 +5077,345 @@ namespace IceBlink2
         }
 
         //Effects
-        public void efHeld(object src, int parm1, int parm2)
+        public void efGeneric(object src, Effect ef)
         {
-            //int parm1 = Integer.parseInt(p1); // parm1 = CurrentDurationInUnits (how many rounds have passed)
-            //int parm2 = Integer.parseInt(p2); // parm2 = DurationInUnits (how long it lasts)
+            #region apply the modifiers for damage, heal, buffs and debuffs
+            if (src is Creature)
+            {
+                Creature crt = (Creature)src;
+                if (ef.doDamage)
+                {
+                    #region Do Damage
+                    #region Get Resistances
+                    float resist = 0;
+                    if (ef.damType.Equals("Normal")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueNormal / 100f)); }
+                    else if (ef.damType.Equals("Acid")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueAcid / 100f)); }
+                    else if (ef.damType.Equals("Cold")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueCold / 100f)); }
+                    else if (ef.damType.Equals("Electricity")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueElectricity / 100f)); }
+                    else if (ef.damType.Equals("Fire")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f)); }
+                    else if (ef.damType.Equals("Magic")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValueMagic / 100f)); }
+                    else if (ef.damType.Equals("Poison")) { resist = (float)(1f - ((float)crt.damageTypeResistanceValuePoison / 100f)); }
+                    #endregion
+                    int damageTotal = 0;
+                    #region Calculate Number of Attacks
+                    //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                    int numberOfAttacks = 0;
+                    if (ef.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                    {
+                        numberOfAttacks = ef.damNumberOfAttacks;
+                    }
+                    else //this effect is using a variable amount of attacks
+                    {
+                        //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                        numberOfAttacks = (((ef.classLevelOfSender - ef.damNumberOfAttacksAfterLevelN) / ef.damNumberOfAttacksForEveryNLevels) + 1) * ef.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                    }
+                    if (numberOfAttacks > ef.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = ef.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                    #endregion
+                    //loop over number of attacks
+                    for (int i = 0; i < numberOfAttacks; i++)
+                    {
+                        #region Calculate Damage
+                        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                        // damage += RandDieRoll(A,B) + C
+                        //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                        int damage = 0;
+                        if (ef.damAttacksEveryNLevels == 0) //this damage is not level based
+                        {
+                            damage = RandDiceRoll(ef.damNumOfDice, ef.damDie) + ef.damAdder;
+                        }
+                        else //this damage is level based
+                        {
+                            int numberOfDamAttacks = ((ef.classLevelOfSender - ef.damAttacksAfterLevelN) / ef.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                            if (numberOfDamAttacks > ef.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = ef.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                            for (int j = 0; j < numberOfDamAttacks; j++)
+                            {
+                                damage += RandDiceRoll(ef.damNumOfDice, ef.damDie) + ef.damAdder;
+                            }
+                        }
+                        #endregion
+                        #region Do Calc Save and DC
+                        int saveChkRoll = RandInt(20);
+                        int saveChk = 0;
+                        int DC = 0;
+                        int saveChkAdder = 0;
+                        if (ef.saveCheckType.Equals("will"))
+                        {
+                            saveChkAdder = crt.will;
+                        }
+                        else if (ef.saveCheckType.Equals("reflex"))
+                        {
+                            saveChkAdder = crt.reflex;
+                        }
+                        else if (ef.saveCheckType.Equals("fortitude"))
+                        {
+                            saveChkAdder = crt.fortitude;
+                        }
+                        else
+                        {
+                            saveChkAdder = -99;
+                        }
+                        saveChk = saveChkRoll + saveChkAdder;
+                        DC = ef.saveCheckDC;
+                        #endregion
+                        if (saveChk >= DC) //passed save check (do half or avoid all?)
+                        {
+                            damage = damage / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
+                            if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                        }
+                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
+                        int damageAndResist = (int)((float)damage * resist);
+                        damageTotal += damageAndResist;
+                        gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" + "<font color='white'>" + " is damaged with " + ef.name 
+                                        + " (" + "</font>" + "<font color='lime'>" + damageAndResist + "</font>" + "<font color='white'>" + " damage)</font><BR>");
+                    }
+                    crt.hp -= damageTotal;
+                    if (crt.hp <= 0)
+                    {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
+                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
+                    #endregion
+                }
+                if (ef.doHeal)
+                {
+                    #region Do Heal
+                    #region Calculate Heal
+                    //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                    // heal += RandDieRoll(A,B) + C
+                    int heal = 0;
+                    if (ef.healActionsEveryNLevels == 0) //this heal is not level based
+                    {
+                        heal = RandDiceRoll(ef.healNumOfDice, ef.healDie) + ef.healAdder;
+                    }
+                    else //this heal is level based
+                    {
+                        int numberOfHealActions = ((ef.classLevelOfSender - ef.healActionsAfterLevelN) / ef.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                        if (numberOfHealActions > ef.healActionsUpToNLevelsTotal) { numberOfHealActions = ef.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                        for (int j = 0; j < numberOfHealActions; j++)
+                        {
+                            heal += RandDiceRoll(ef.healNumOfDice, ef.healDie) + ef.healAdder;
+                        }
+                    }
+                    #endregion
+                    crt.hp += heal;
+                    if (crt.hp > crt.hpMax)
+                    {
+                        crt.hp = crt.hpMax;
+                    }
+                    gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                    //Do floaty text heal
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
+                    #endregion
+                }
+                if (ef.doBuff)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    //no need to do anything here as buffs are used in updateStats or during
+                    //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
+                }
+                if (ef.doDeBuff)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " has effect: " + ef.name + ", (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    //no need to do anything here as buffs are used in updateStats or during
+                    //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
+                }
+            }
+            else //target is Player
+            {
+                Player pc = (Player)src;
+                if (ef.doDamage)
+                {
+                    #region Do Damage
+                    #region Get Resistances
+                    float resistPc = 0;
+                    if (ef.damType.Equals("Normal")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalNormal / 100f)); }
+                    else if (ef.damType.Equals("Acid")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalAcid / 100f)); }
+                    else if (ef.damType.Equals("Cold")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalCold / 100f)); }
+                    else if (ef.damType.Equals("Electricity")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalElectricity / 100f)); }
+                    else if (ef.damType.Equals("Fire")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f)); }
+                    else if (ef.damType.Equals("Magic")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalMagic / 100f)); }
+                    else if (ef.damType.Equals("Poison")) { resistPc = (float)(1f - ((float)pc.damageTypeResistanceTotalPoison / 100f)); }
+                    #endregion
+                    int damageTotal = 0;
+                    #region Calculate Number of Attacks
+                    //(for reference) NumOfAttacks: A of these attacks for every B levels after level C up to D attacks total                    
+                    int numberOfAttacks = 0;
+                    if (ef.damNumberOfAttacksForEveryNLevels == 0) //this effect is using a fixed amount of attacks
+                    {
+                        numberOfAttacks = ef.damNumberOfAttacks;
+                    }
+                    else //this effect is using a variable amount of attacks
+                    {
+                        //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
+                        numberOfAttacks = (((ef.classLevelOfSender - ef.damNumberOfAttacksAfterLevelN) / ef.damNumberOfAttacksForEveryNLevels) + 1) * ef.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                    }
+                    if (numberOfAttacks > ef.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = ef.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                    #endregion
+                    //loop over number of attacks
+                    for (int i = 0; i < numberOfAttacks; i++)
+                    {
+                        #region Calculate Damage
+                        //(for reference) Attack: AdB+C for every D levels after level E up to F levels total
+                        // damage += RandDieRoll(A,B) + C
+                        //int damage = (int)((1 * RandInt(4) + 1) * resist);
+                        int damagePc = 0;
+                        if (ef.damAttacksEveryNLevels == 0) //this damage is not level based
+                        {
+                            damagePc = RandDiceRoll(ef.damNumOfDice, ef.damDie) + ef.damAdder;
+                        }
+                        else //this damage is level based
+                        {
+                            int numberOfDamAttacks = ((ef.classLevelOfSender - ef.damAttacksAfterLevelN) / ef.damAttacksEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                            if (numberOfDamAttacks > ef.damAttacksUpToNLevelsTotal) { numberOfDamAttacks = ef.damAttacksUpToNLevelsTotal; } //can't have more than a max amount of attacks
+                            for (int j = 0; j < numberOfDamAttacks; j++)
+                            {
+                                damagePc += RandDiceRoll(ef.damNumOfDice, ef.damDie) + ef.damAdder;
+                            }
+                        }
+                        #endregion
+                        #region Do Calc Save and DC
+                        int saveChkRollPc = RandInt(20);
+                        int saveChkPc = 0;
+                        int DCPc = 0;
+                        int saveChkAdder = 0;
+                        if (ef.saveCheckType.Equals("will"))
+                        {
+                            saveChkAdder = pc.will;
+                        }
+                        else if (ef.saveCheckType.Equals("reflex"))
+                        {
+                            saveChkAdder = pc.reflex;
+                        }
+                        else if (ef.saveCheckType.Equals("fortitude"))
+                        {
+                            saveChkAdder = pc.fortitude;
+                        }
+                        else
+                        {
+                            saveChkAdder = -99;
+                        }
+                        saveChkPc = saveChkRollPc + saveChkAdder;
+                        DCPc = ef.saveCheckDC;
+                        #endregion
+                        if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
+                        {
+                            damagePc = damagePc / 2;
+                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
+                            if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                        }
+                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
+                        int damageAndResist = (int)((float)damagePc * resistPc);
+                        damageTotal += damageAndResist;
+                        gv.cc.addLogText("<font color='silver'>"
+                                        + pc.name + "</font>" + "<font color='white'>" + " is damaged with " + ef.name + " (" + "</font>" + "<font color='lime'>"
+                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    }
+                    pc.hp -= damageTotal;
+                    if (pc.hp <= 0)
+                    {
+                        gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        pc.charStatus = "Dead";
+                    }
+                    //Do floaty text damage
+                    gv.screenCombat.floatyTextOn = true;
+                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
+                    #endregion
+                }
+                if (ef.doHeal)
+                {
+                    #region Do Heal
+                    if (pc.hp <= -20)
+                    {
+                        //MessageBox("Can't heal a dead character!");
+                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                    }
+                    else
+                    {
+                        #region Calculate Heal
+                        //(for reference) Heal: AdB+C for every D levels after level E up to F levels total
+                        // heal += RandDieRoll(A,B) + C
+                        int heal = 0;
+                        if (ef.healActionsEveryNLevels == 0) //this heal is not level based
+                        {
+                            heal = RandDiceRoll(ef.healNumOfDice, ef.healDie) + ef.healAdder;
+                        }
+                        else //this heal is level based
+                        {
+                            int numberOfHealActions = ((ef.classLevelOfSender - ef.healActionsAfterLevelN) / ef.healActionsEveryNLevels) + 1; //ex: 1 bolt for every 2 levels after level 1
+                            if (numberOfHealActions > ef.healActionsUpToNLevelsTotal) { numberOfHealActions = ef.healActionsUpToNLevelsTotal; } //can't have more than a max amount of actions
+                            for (int j = 0; j < numberOfHealActions; j++)
+                            {
+                                heal += RandDiceRoll(ef.healNumOfDice, ef.healDie) + ef.healAdder;
+                            }
+                        }
+                        #endregion
+                        pc.hp += heal;
+                        if (pc.hp > pc.hpMax)
+                        {
+                            pc.hp = pc.hpMax;
+                        }
+                        if (pc.hp > 0)
+                        {
+                            pc.charStatus = "Alive";
+                        }
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                        //Do floaty text heal
+                        gv.screenCombat.floatyTextOn = true;
+                        gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
+                    }
+                    #endregion
+                }
+                if (ef.doBuff)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    //no need to do anything here as buffs are used in updateStats or during
+                    //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
+                }
+                if (ef.doDeBuff)
+                {
+                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " has effect: " + ef.name + ", (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    //no need to do anything here as buffs are used in updateStats or during
+                    //checks such as ef.addStatusType.Equals("Held") on Player or Creature class
+                }
+            }
+            #endregion
+
+            #region remove dead creatures **not sure if we should do this here or not**           
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            {
+                if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
+                {
+                    try
+                    {
+                        //do OnDeath IBScript
+                        gv.cc.doIBScriptBasedOnFilename(mod.currentEncounter.encounterCreatureList[x].onDeathIBScript, mod.currentEncounter.encounterCreatureList[x].onDeathIBScriptParms);
+                        mod.currentEncounter.encounterCreatureList.RemoveAt(x);
+                        mod.currentEncounter.encounterCreatureRefsList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }*/
+            #endregion
+
+            gv.postDelayed("doFloatyText", 100);
+        }
+        public void efHeld(object src, Effect ef)
+        {
+            //int parm1 = Integer.parseInt(p1); // parm1 = RemainingDurationInUnits (how many seconds remain)
 
             if (src is Player) //player casting
             {
-                Player source = (Player)src;
-                gv.cc.addLogText("<font color='yellow'>" + source.name + " is held, " + parm1 + " out" + "</font>" + "<BR>");
-                gv.cc.addLogText("<font color='yellow'>" + " of " + parm2 + " seconds" + "</font>" + "<BR>");
-                if (parm1 >= parm2)
+                Player source = (Player)src;                
+                if (ef.durationInUnits <= 0) //effect has expired
                 {
                     if (source.hp > 0)
                     {
@@ -5111,20 +5425,19 @@ namespace IceBlink2
                     {
                         source.charStatus = "Dead";
                     }
-                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is no longer" + "</font>" + "<BR>");
-                    gv.cc.addLogText("<font color='yellow'>" + " being held" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is no longer</font><BR>");
+                    gv.cc.addLogText("<font color='yellow'> being held</font><BR>");
                 }
                 else
                 {
+                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is held, (" + ef.durationInUnits + " seconds remain)</font><BR>");
                     source.charStatus = "Held";
                 }
             }
             else if (src is Creature) //creature casting
             {
-                Creature source = (Creature)src;
-                gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is held, " + parm1 + " out" + "</font>" + "<BR>");
-                gv.cc.addLogText("<font color='yellow'>" + " of " + parm2 + " seconds" + "</font>" + "<BR>");
-                if (parm1 >= parm2)
+                Creature source = (Creature)src;                
+                if (ef.durationInUnits <= 0)
                 {
                     source.cr_status = "Alive";
                     gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is no longer" + "</font>" + "<BR>");
@@ -5132,6 +5445,7 @@ namespace IceBlink2
                 }
                 else
                 {
+                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is held, (" + ef.durationInUnits + " seconds remain)</font><BR>");
                     source.cr_status = "Held";
                 }
             }
@@ -5141,17 +5455,14 @@ namespace IceBlink2
                 return;
             }
         }
-        public void efSleep(object src, int parm1, int parm2)
+        public void efSleep(object src, Effect ef)
         {
-            //int parm1 = Integer.parseInt(p1); // parm1 = CurrentDurationInUnits (how many rounds have passed)
-            //int parm2 = Integer.parseInt(p2); // parm2 = DurationInUnits (how long it lasts)
+            //int parm1 = Integer.parseInt(p1); // parm1 = RemainingDurationInUnits (how many seconds remain)
 
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
-                gv.cc.addLogText("<font color='yellow'>" + source.name + " is sleeping, " + "</font><BR>");
-                gv.cc.addLogText("<font color='yellow'>" + parm1 + " out of " + parm2 + " seconds" + "</font><BR>");
-                if (parm1 >= parm2)
+                if (ef.durationInUnits <= 0)
                 {
                     if (source.hp > 0)
                     {
@@ -5165,21 +5476,21 @@ namespace IceBlink2
                 }
                 else
                 {
+                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is sleeping, (" + ef.durationInUnits + " seconds remain)</font><BR>");
                     source.charStatus = "Held";
                 }
             }
             else if (src is Creature) //creature casting
             {
                 Creature source = (Creature)src;
-                gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is sleeping, " + "</font><BR>");
-                gv.cc.addLogText("<font color='yellow'>" + parm1 + " out of " + parm2 + " seconds" + "</font><BR>");
-                if (parm1 >= parm2)
+                if (ef.durationInUnits <= 0)
                 {
                     source.cr_status = "Alive";
                     gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " wakes up from sleep spell" + "</font><BR>");
                 }
                 else
                 {
+                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is sleeping, (" + ef.durationInUnits + " seconds remain)</font><BR>");
                     source.cr_status = "Held";
                 }
             }
@@ -5189,10 +5500,9 @@ namespace IceBlink2
                 return;
             }
         }
-        public void efRegenMinor(object src, int parm1, int parm2)
+        public void efRegenMinor(object src, Effect ef)
         {
-            //int parm1 = Integer.parseInt(p1); // parm1 = CurrentDurationInUnits (how many rounds have passed)
-            //int parm2 = Integer.parseInt(p2); // parm2 = DurationInUnits (how long it lasts)
+            //int parm1 = Integer.parseInt(p1); // parm1 = RemainingDurationInUnits (how many seconds remain)
 
             if (src is Player) //player casting
             {
@@ -5232,8 +5542,10 @@ namespace IceBlink2
                 return;
             }
         }
-        public void efPoisoned(object src, int parm1, int parm2, int damMax)
+        public void efPoisoned(object src, Effect ef, int damMax)
         {
+            //int parm1 = Integer.parseInt(p1); // parm1 = RemainingDurationInUnits (how many seconds remain)
+
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
@@ -5689,12 +6001,9 @@ namespace IceBlink2
                     if (thisSpellEffect.doBuff)
                     {
                         #region Do Buff
-                        //int numberOfRounds = (classLevel * 5); //5 rounds per level
-                        int numberOfRounds = thisSpellEffect.durationInUnits / 6; //5 rounds per level
-                        //Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
-                        //ef.durationInUnits = numberOfRounds * 6;
-                        gv.cc.addLogText("<font color='lime'>Bless is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
-                        crt.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
+                        int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                        gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                        crt.AddEffectByObject(thisSpellEffect, classLevel);
                         #endregion
                     }
                     if (thisSpellEffect.doDeBuff)
@@ -5730,10 +6039,9 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " fails to avoid the " + thisSpellEffect.name + " effect.</font><BR>");
-                            //crt.cr_status = "Held";
-                            //Effect ef = mod.getEffectByTag("hold");
-                            crt.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
+                            int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                            gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                            crt.AddEffectByObject(thisSpellEffect, classLevel);
                         }
                         #endregion
                     }
@@ -5887,12 +6195,9 @@ namespace IceBlink2
                     if (thisSpellEffect.doBuff)
                     {
                         #region Do Buff
-                        //int numberOfRounds = (classLevel * 5); //5 rounds per level
-                        int numberOfRounds = thisSpellEffect.durationInUnits / 6; //5 rounds per level
-                        //Effect ef = mod.getEffectByTag(thisSpellEffect.tag).DeepCopy();
-                        //ef.durationInUnits = numberOfRounds * 6;
-                        gv.cc.addLogText("<font color='lime'>Bless is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
-                        pc.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
+                        int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                        gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                        pc.AddEffectByObject(thisSpellEffect, classLevel);
                         #endregion
                     }
                     if (thisSpellEffect.doDeBuff)
@@ -5928,10 +6233,9 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " fails to avoid the " + thisSpellEffect.name + " effect.</font><BR>");
-                            //crt.cr_status = "Held";
-                            //Effect ef = mod.getEffectByTag("hold");
-                            pc.AddEffectByObject(thisSpellEffect.DeepCopy(), mod.WorldTime);
+                            int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
+                            gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+                            pc.AddEffectByObject(thisSpellEffect, classLevel);
                         }
                         #endregion
                     }
@@ -6216,15 +6520,18 @@ namespace IceBlink2
             CreateAoeTargetsList(src);
 
             //get casting source information
+            int classLevel = 0;
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
+                classLevel = source.classLevel;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
             else //creature casting
             {
                 Creature source = (Creature)src;
+                classLevel = source.cr_level;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6251,7 +6558,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a sleep spell" + "</font><BR>");
                         crt.cr_status = "Held";
                         Effect ef = mod.getEffectByTag("sleep");
-                        crt.AddEffectByObject(ef, mod.WorldTime);
+                        crt.AddEffectByObject(ef, classLevel);
                     }
                 }
                 else //target is Player
@@ -6273,7 +6580,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a sleep spell" + "</font><BR>");
                         pc.charStatus = "Held";
                         Effect ef = mod.getEffectByTag("sleep");
-                        pc.AddEffectByObject(ef, mod.WorldTime);
+                        pc.AddEffectByObject(ef, classLevel);
                     }
                 }
             }
@@ -6293,10 +6600,10 @@ namespace IceBlink2
 
                 int numberOfRounds = (source.classLevel * 20); //20 rounds per level
                 Effect ef = mod.getEffectByTag("mageArmor").DeepCopy();
-                ef.durationInUnits = numberOfRounds * 6;
+                ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
                 gv.cc.addLogText("<font color='lime'>" + "Mage Armor is applied on " + target.name + "<BR>");
                 gv.cc.addLogText("<font color='lime'>" + " for " + numberOfRounds + " round(s)" + "</font><BR>");
-                target.AddEffectByObject(ef, mod.WorldTime);
+                target.AddEffectByObject(ef, source.classLevel);
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6307,10 +6614,10 @@ namespace IceBlink2
 
                 int numberOfRounds = (source.cr_level * 20); //20 rounds per level
                 Effect ef = mod.getEffectByTag("mageArmor").DeepCopy();
-                ef.durationInUnits = numberOfRounds * 6;
+                ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
                 gv.cc.addLogText("<font color='lime'>" + "Mage Armor is applied on " + target.cr_name + "<BR>");
                 gv.cc.addLogText("<font color='lime'>" + " for " + numberOfRounds + " round(s)" + "</font><BR>");
-                target.AddEffectByObject(ef, mod.WorldTime);
+                target.AddEffectByObject(ef, source.cr_level);
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6332,7 +6639,7 @@ namespace IceBlink2
 
                 Effect ef = mod.getEffectByTag("minorRegen");
                 gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.name + "</font><BR>");
-                target.AddEffectByObject(ef, mod.WorldTime);
+                target.AddEffectByObject(ef, source.classLevel);
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6343,7 +6650,7 @@ namespace IceBlink2
 
                 Effect ef = mod.getEffectByTag("minorRegen");
                 gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.cr_name + "</font><BR>");
-                target.AddEffectByObject(ef, mod.WorldTime);
+                target.AddEffectByObject(ef, source.cr_level);
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6365,15 +6672,18 @@ namespace IceBlink2
             CreateAoeTargetsList(src);
 
             //get casting source information
+            int classLevel = 0;
             if (src is Player) //player casting
             {
                 Player source = (Player)src;
+                classLevel = source.classLevel;
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
             else //creature casting
             {
                 Creature source = (Creature)src;
+                classLevel = source.cr_level;
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -6400,7 +6710,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a web spell" + "</font><BR>");
                         crt.cr_status = "Held";
                         Effect ef = mod.getEffectByTag("web");
-                        crt.AddEffectByObject(ef, mod.WorldTime);
+                        crt.AddEffectByObject(ef, classLevel);
                     }
                 }
                 else //target is Player
@@ -6422,7 +6732,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a web spell" + "</font><BR>");
                         pc.charStatus = "Held";
                         Effect ef = mod.getEffectByTag("web");
-                        pc.AddEffectByObject(ef, mod.WorldTime);
+                        pc.AddEffectByObject(ef, classLevel);
                     }
                 }
             }
@@ -6957,11 +7267,11 @@ namespace IceBlink2
                 {
                     int numberOfRounds = (source.classLevel * 5); //5 rounds per level
                     Effect ef = mod.getEffectByTag("bless").DeepCopy();
-                    ef.durationInUnits = numberOfRounds * 6;
+                    ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
                     gv.cc.addLogText("<font color='lime'>" + "Bless is applied on " + pc.name
                             + " for " + numberOfRounds + " round(s)" + "</font>" +
                             "<BR>");
-                    pc.AddEffectByObject(ef, mod.WorldTime);
+                    pc.AddEffectByObject(ef, source.classLevel);
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -6975,11 +7285,11 @@ namespace IceBlink2
                 {
                     int numberOfRounds = (source.cr_level * 5); //5 rounds per level
                     Effect ef = mod.getEffectByTag("bless").DeepCopy();
-                    ef.durationInUnits = numberOfRounds * 6;
+                    ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
                     gv.cc.addLogText("<font color='lime'>" + "Bless is applied on " + crt.cr_name
                             + " for " + numberOfRounds + " round(s)" + "</font>" +
                             "<BR>");
-                    crt.AddEffectByObject(ef, mod.WorldTime);
+                    crt.AddEffectByObject(ef, source.cr_level);
                 }
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -7277,7 +7587,7 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='red'>" + target.cr_name + " is held by a hold spell" + "</font><BR>");
                     target.cr_status = "Held";
                     Effect ef = mod.getEffectByTag("hold");
-                    target.AddEffectByObject(ef, mod.WorldTime);
+                    target.AddEffectByObject(ef, source.classLevel);
                 }
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -7300,7 +7610,7 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='red'>" + target.name + " is held by a hold spell" + "</font><BR>");
                     target.charStatus = "Held";
                     Effect ef = mod.getEffectByTag("hold");
-                    target.AddEffectByObject(ef, mod.WorldTime);
+                    target.AddEffectByObject(ef, source.cr_level);
                 }
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }

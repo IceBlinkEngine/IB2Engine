@@ -175,10 +175,11 @@ namespace IceBlink2
         {
             this.cr_effectsList.Add(ef);
         }
-	    public void AddEffectByObject(Effect effect, int startTime)
+	    public void AddEffectByObject(Effect effect, int classLevel)
         {
             Effect ef = effect.DeepCopy();
-            ef.startingTimeInUnits = startTime; //mod.WorldTime;
+            ef.classLevelOfSender = classLevel;
+            //ef.startingTimeInUnits = startTime; //mod.WorldTime;
             //stackable effect and duration (just add effect to list)
             if (ef.isStackableEffect)
             {
@@ -196,6 +197,10 @@ namespace IceBlink2
                 {
                     Effect e = this.getEffectByTag(ef.tag);
                     e.durationInUnits += ef.durationInUnits;
+                    if (classLevel > e.classLevelOfSender)
+                    {
+                        e.classLevelOfSender = classLevel;
+                    }
                 }
             }
             //none stackable (add to list if not there)
@@ -208,8 +213,13 @@ namespace IceBlink2
                 else //is in list so reset duration
                 {
             	    Effect e = this.getEffectByTag(ef.tag);
-                    e.startingTimeInUnits = startTime;
-                    e.currentDurationInUnits = 0;
+                    e.durationInUnits = ef.durationInUnits;
+                    if (classLevel > e.classLevelOfSender)
+                    {
+                        e.classLevelOfSender = classLevel;
+                    }
+                    //e.startingTimeInUnits = startTime;
+                    //e.currentDurationInUnits = 0;
                 }
             }
         }	

@@ -4181,20 +4181,20 @@ namespace IceBlink2
                 {
                     foreach (Effect ef in pc.effectsList)
                     {
-                        //increment duration of all
-                        ef.currentDurationInUnits = gv.mod.WorldTime - ef.startingTimeInUnits;
+                        //decrement duration of all
+                        ef.durationInUnits -= gv.mod.currentArea.TimePerSquare;
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {
-                            doEffectScript(pc, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                            doEffectScript(pc, ef);
                         }
                     }
                 }
-                //if duration equals ending or greater, remove from list
+                //if remaining duration <= 0, remove from list
                 foreach (Player pc in gv.mod.playerList)
                 {
                     for (int i = pc.effectsList.Count; i > 0; i--)
                     {
-                        if (pc.effectsList[i - 1].currentDurationInUnits >= pc.effectsList[i - 1].durationInUnits)
+                        if (pc.effectsList[i - 1].durationInUnits <= 0)
                         {
                             pc.effectsList.RemoveAt(i - 1);
                         }
@@ -4206,27 +4206,32 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
-        public void doEffectScript(object src, string scriptName, int currentDurationInUnits, int durationInUnits)
+        public void doEffectScript(object src, Effect ef)
         {
-            if (scriptName.Equals("efHeld"))
+            if (!ef.effectScript.Equals("efGeneric"))
             {
-                gv.sf.efHeld(src, currentDurationInUnits, durationInUnits);
+                gv.sf.efGeneric(src, ef);
             }
-            else if (scriptName.Equals("efSleep"))
+
+            else if (ef.effectScript.Equals("efHeld"))
             {
-                gv.sf.efSleep(src, currentDurationInUnits, durationInUnits);
+                gv.sf.efHeld(src, ef);
             }
-            else if (scriptName.Equals("efRegenMinor"))
+            else if (ef.effectScript.Equals("efSleep"))
             {
-                gv.sf.efRegenMinor(src, currentDurationInUnits, durationInUnits);
+                gv.sf.efSleep(src, ef);
             }
-            else if (scriptName.Equals("efPoisonedLight"))
+            else if (ef.effectScript.Equals("efRegenMinor"))
             {
-                gv.sf.efPoisoned(src, currentDurationInUnits, durationInUnits, 2);
+                gv.sf.efRegenMinor(src, ef);
             }
-            else if (scriptName.Equals("efPoisonedMedium"))
+            else if (ef.effectScript.Equals("efPoisonedLight"))
             {
-                gv.sf.efPoisoned(src, currentDurationInUnits, durationInUnits, 4);
+                gv.sf.efPoisoned(src, ef, 2);
+            }
+            else if (ef.effectScript.Equals("efPoisonedMedium"))
+            {
+                gv.sf.efPoisoned(src, ef, 4);
             }
         }
         public void doPropTriggers()
@@ -4533,7 +4538,7 @@ namespace IceBlink2
                 gv.sf.MessageBox("failed to open conversation with tag: " + tag);
             }
         }
-        public void doSpellBasedOnTag(string spellTag, object source, object target)
+        /*public void doSpellBasedOnTag(string spellTag, object source, object target)
         {
             gv.sf.AoeTargetsList.Clear();
 
@@ -4612,7 +4617,7 @@ namespace IceBlink2
             {
                 gv.sf.spHold(source, target);
             }
-        }
+        }*/
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
         {
             gv.sf.AoeTargetsList.Clear();
@@ -4621,8 +4626,9 @@ namespace IceBlink2
             {
                 gv.sf.spGeneric(spell, source, target);
             }
+
             //WIZARD SPELLS
-            if (spell.spellScript.Equals("spFlameFingers"))
+            else if (spell.spellScript.Equals("spFlameFingers"))
             {
                 gv.sf.spFlameFingers(source, target);
             }

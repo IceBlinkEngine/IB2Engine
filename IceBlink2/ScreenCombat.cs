@@ -1303,12 +1303,11 @@ namespace IceBlink2
                 {
                     foreach (Effect ef in pc.effectsList)
                     {
-                        //increment duration of all
-                        ef.currentDurationInUnits = mod.WorldTime - ef.startingTimeInUnits;
+                        //decrement duration of all
+                        ef.durationInUnits -= gv.mod.TimePerRound;
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {
-                            //do script for each effect
-                            gv.cc.doEffectScript(pc, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                            gv.cc.doEffectScript(pc, ef);
                         }
                     }
                 }
@@ -1317,20 +1316,20 @@ namespace IceBlink2
                     foreach (Effect ef in crtr.cr_effectsList)
                     {
                         //increment duration of all
-                        ef.currentDurationInUnits = mod.WorldTime - ef.startingTimeInUnits;
+                        ef.durationInUnits -= gv.mod.TimePerRound;
                         if (!ef.usedForUpdateStats) //not used for stat updates
                         {
                             //do script for each effect
-                            gv.cc.doEffectScript(crtr, ef.effectScript, ef.currentDurationInUnits, ef.durationInUnits);
+                            gv.cc.doEffectScript(crtr, ef);
                         }
                     }
                 }
-                //if duration equals ending or greater, remove from list
+                //if remaining duration <= 0, remove from list
                 foreach (Player pc in mod.playerList)
                 {
                     for (int i = pc.effectsList.Count; i > 0; i--)
                     {
-                        if (pc.effectsList[i - 1].currentDurationInUnits >= pc.effectsList[i - 1].durationInUnits)
+                        if (pc.effectsList[i - 1].durationInUnits <= 0)
                         {
                             pc.effectsList.RemoveAt(i - 1);
                         }
@@ -1340,7 +1339,7 @@ namespace IceBlink2
                 {
                     for (int i = crtr.cr_effectsList.Count; i > 0; i--)
                     {
-                        if (crtr.cr_effectsList[i - 1].currentDurationInUnits >= crtr.cr_effectsList[i - 1].durationInUnits)
+                        if (crtr.cr_effectsList[i - 1].durationInUnits <= 0)
                         {
                             crtr.cr_effectsList.RemoveAt(i - 1);
                         }
@@ -2282,7 +2281,7 @@ namespace IceBlink2
         }
         #endregion
 
-        public void doOnHitScriptBasedOnFilename(String filename, Creature crt, Player pc)
+        public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
         {
             if (!filename.Equals("none"))
             {
@@ -2326,7 +2325,7 @@ namespace IceBlink2
                                 gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.fortitude + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
                                 Effect ef = mod.getEffectByTag("hold");
-                                crt.AddEffectByObject(ef, mod.WorldTime);
+                                crt.AddEffectByObject(ef, 1);
                             }
                         }
                     }
@@ -2363,7 +2362,7 @@ namespace IceBlink2
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
                             pc.charStatus = "Held";
                             Effect ef = mod.getEffectByTag("hold");
-                            pc.AddEffectByObject(ef, mod.WorldTime);
+                            pc.AddEffectByObject(ef, 1);
                         }
                     }
                     else if (filename.Equals("onHitOneFire.cs"))
@@ -2442,7 +2441,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
                             Effect ef = mod.getEffectByTag("poisonedLight");
-                            pc.AddEffectByObject(ef, mod.WorldTime);
+                            pc.AddEffectByObject(ef, 1);
                         }
                     }
                     else if (filename.Equals("onHitPcPoisonedMedium.cs"))
@@ -2464,7 +2463,7 @@ namespace IceBlink2
                         {
                             gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
                             Effect ef = mod.getEffectByTag("poisonedMedium");
-                            pc.AddEffectByObject(ef, mod.WorldTime);
+                            pc.AddEffectByObject(ef, 1);
                         }
                     }
                 }

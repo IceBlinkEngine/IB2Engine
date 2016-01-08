@@ -16,10 +16,11 @@ namespace IceBlink2
 	    public string name = "newEffect";
 	    public string tag = "newEffectTag";
 	    public string tagOfSender = "senderTag";
-	    public string description = "";
+        public int classLevelOfSender = 0;
+        public string description = "";
 	    public string spriteFilename = "held";
 	    public int durationInUnits = 0;
-	    public int currentDurationInUnits = 0;
+        public int currentDurationInUnits = 0;
 	    public int startingTimeInUnits = 0;
 	    public int babModifier = 0; //for Creatures modifies cr_att, for PCs modifies baseAttBonus
         public int acModifier = 0;
@@ -37,9 +38,7 @@ namespace IceBlink2
         
         //if you want the effect to be cumulative such as damage per round due to poison, set usedForUpdateStats = false
         //if you want the effect to NOT be cumulative such as AC bonus, set usedForUpdateStats = true
-
-        public bool instantaneous = false; //this determines if the effect is either an instantaneous and permanent effect (damage, heal, etc.) or a duration effect which can be permanent (poison) or temporary (AC bonus, held)
-
+                
         //DAMAGE (hp)
         public bool doDamage = false;
         public string damType = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
@@ -107,10 +106,11 @@ namespace IceBlink2
 		    copy.name = this.name;
 		    copy.tag = this.tag;
 		    copy.tagOfSender = this.tagOfSender;
+            copy.classLevelOfSender = this.classLevelOfSender;
 		    copy.description = this.description;
 		    copy.spriteFilename = this.spriteFilename;	
 		    copy.durationInUnits = this.durationInUnits;
-		    copy.currentDurationInUnits = this.currentDurationInUnits;
+            copy.currentDurationInUnits = this.currentDurationInUnits;
 		    copy.startingTimeInUnits = this.startingTimeInUnits;
 		    copy.babModifier = this.babModifier;
 		    copy.acModifier = this.acModifier;
@@ -126,7 +126,6 @@ namespace IceBlink2
             copy.doDamage = this.doDamage;
             copy.doDeBuff = this.doDeBuff;
             copy.doHeal = this.doHeal;
-            copy.instantaneous = false;
             copy.damType = this.damType;
             copy.damNumOfDice = this.damNumOfDice;
             copy.damDie = this.damDie;
