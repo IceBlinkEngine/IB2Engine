@@ -976,7 +976,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1 * 1.5f;
                     }
                 }
 
@@ -1033,7 +1033,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride1 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter1 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter1 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
@@ -1635,49 +1643,49 @@ namespace IceBlink2
                         if (rollRandom == 1)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = 0.0f;
                         }
                         //left
                         if (rollRandom == 2)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = 0.0f;
                         }
                         //up
                         if (rollRandom == 3)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //down
                         if (rollRandom == 4)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                         //up right
                         if (rollRandom == 5)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //upleft
                         if (rollRandom == 6)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //downright
                         if (rollRandom == 7)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                         //downleft
                         if (rollRandom == 8)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                     }
                 }
@@ -1735,7 +1743,7 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
                     }
                 }
 
@@ -1793,8 +1801,8 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom3 / 100f;
-                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -1840,7 +1848,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -1885,7 +1893,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2 * 1.5f;
                     }
                 }
 
@@ -1915,7 +1923,7 @@ namespace IceBlink2
                         defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
                     }
                     gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                 }
 
 
@@ -1942,7 +1950,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed2 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride2 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter2 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter2 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
@@ -2040,7 +2056,7 @@ namespace IceBlink2
 
                     //increase by this call's movement
                     pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX2 * gv.mod.allAnimationSpeedMultiplier);
-                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY2 * gv.mod.allAnimationSpeedMultiplier);
 
                     if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
                     {
@@ -2053,7 +2069,7 @@ namespace IceBlink2
                         if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
                         {
                             pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 *= -1;
                         }
 
                         if (pixShiftOnThisFrameX < 0)
@@ -2065,7 +2081,7 @@ namespace IceBlink2
                         if (pixShiftOnThisFrameY < 0)
                         {
                             pixShiftOnThisFrameY = 0;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 *= -1;
                         }
                     }
 
@@ -2793,7 +2809,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.25f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3 * 1.5f;
                     }
                 }
 
@@ -2850,7 +2866,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed3 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride3 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter3 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter3 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
@@ -3702,7 +3726,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.25f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4 * 1.5f;
                     }
                 }
 
@@ -3759,7 +3783,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed4 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride4 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter4 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter4 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
@@ -4611,7 +4644,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.25f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5 * 1.5f;
                     }
                 }
 
@@ -4668,7 +4701,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed5 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride5 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter5 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter5 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
@@ -5525,7 +5566,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.25f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6 * 1.5f;
                     }
                 }
 
@@ -5582,7 +5623,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed6 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride6 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter6 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter6 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
@@ -6437,7 +6487,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.25f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7 * 1.5f;
                     }
                 }
 
@@ -6494,7 +6544,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed7 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride7 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter7 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter7 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
@@ -7350,7 +7408,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.25f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8 * 1.5f;
                     }
                 }
 
@@ -7407,7 +7465,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed8 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride8 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter8 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter8 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
@@ -8263,7 +8330,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.25f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9 * 1.5f;
                     }
                 }
 
@@ -8320,7 +8387,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed9 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride9 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter9 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter9 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
@@ -9176,7 +9252,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.25f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10 * 1.5f;
                     }
                 }
 
@@ -9233,7 +9309,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed10 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride10 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter10 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter10 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
@@ -10106,7 +10191,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1 * 1.5f;
                     }
                 }
 
@@ -10747,49 +10832,49 @@ namespace IceBlink2
                         if (rollRandom == 1)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = 0.0f;
                         }
                         //left
                         if (rollRandom == 2)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = 0.0f;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = 0.0f;
                         }
                         //up
                         if (rollRandom == 3)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //down
                         if (rollRandom == 4)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = 0.0f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                         //up right
                         if (rollRandom == 5)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //upleft
                         if (rollRandom == 6)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                         }
                         //downright
                         if (rollRandom == 7)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                         //downleft
                         if (rollRandom == 8)
                         {
                             gv.mod.currentArea.fullScreenAnimationSpeedX2 = -defaultOverrideSpeedX2;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY2;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 = -defaultOverrideSpeedY2;
                         }
                     }
                 }
@@ -10847,7 +10932,7 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom / 100f;
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
                     }
                 }
 
@@ -10905,8 +10990,8 @@ namespace IceBlink2
                             directional = -1;
                         }
                         decider = rollRandom3 / 100f;
-                        //gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
+                        //gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.25f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = ((0.075f * directional) + (decider * defaultOverrideSpeedY2 * 0.5f)) * (0.09f);
                     }
                 }
 
@@ -10952,7 +11037,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.15f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                     }
                 }
 
@@ -10997,7 +11082,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX2 = ((0.25f * directional) + (decider * defaultOverrideSpeedX2 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2 * 1.5f;
                     }
                 }
 
@@ -11027,7 +11112,7 @@ namespace IceBlink2
                         defaultOverrideDelayLimit2 = gv.mod.currentArea.overrideDelayLimit2;
                     }
                     gv.mod.currentArea.fullScreenAnimationSpeedX2 = defaultOverrideSpeedX2;
-                    gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY2;
+                    gv.mod.currentArea.fullScreenAnimationSpeedY2 = defaultOverrideSpeedY2;
                 }
 
 
@@ -11135,7 +11220,7 @@ namespace IceBlink2
 
                     //increase by this call's movement
                     pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX2 * gv.mod.allAnimationSpeedMultiplier);
-                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY2 * gv.mod.allAnimationSpeedMultiplier);
 
                     if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
                     {
@@ -11148,7 +11233,7 @@ namespace IceBlink2
                         if (pixShiftOnThisFrameY > ((sizeOfWholeSource * 0.5f) - 1))
                         {
                             pixShiftOnThisFrameY = (sizeOfWholeSource * 0.5f) - 1;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 *= -1;
                         }
 
                         if (pixShiftOnThisFrameX < 0)
@@ -11160,7 +11245,7 @@ namespace IceBlink2
                         if (pixShiftOnThisFrameY < 0)
                         {
                             pixShiftOnThisFrameY = 0;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 *= -1;
+                            gv.mod.currentArea.fullScreenAnimationSpeedY2 *= -1;
                         }
                     }
 
@@ -11888,7 +11973,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX3 = ((0.25f * directional) + (decider * defaultOverrideSpeedX3 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY3 = defaultOverrideSpeedY3 * 1.5f;
                     }
                 }
 
@@ -12779,7 +12864,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX4 = ((0.25f * directional) + (decider * defaultOverrideSpeedX4 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY4 = defaultOverrideSpeedY4 * 1.5f;
                     }
                 }
 
@@ -13670,7 +13755,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX5 = ((0.25f * directional) + (decider * defaultOverrideSpeedX5 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY5 = defaultOverrideSpeedY5 * 1.5f;
                     }
                 }
 
@@ -14567,7 +14652,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX6 = ((0.25f * directional) + (decider * defaultOverrideSpeedX6 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY6 = defaultOverrideSpeedY6 * 1.5f;
                     }
                 }
 
@@ -15462,7 +15547,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX7 = ((0.25f * directional) + (decider * defaultOverrideSpeedX7 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY7 = defaultOverrideSpeedY7 * 1.5f;
                     }
                 }
 
@@ -16357,7 +16442,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX8 = ((0.25f * directional) + (decider * defaultOverrideSpeedX8 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY8 = defaultOverrideSpeedY8 * 1.5f;
                     }
                 }
 
@@ -17252,7 +17337,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX9 = ((0.25f * directional) + (decider * defaultOverrideSpeedX9 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY9 = defaultOverrideSpeedY9 * 1.5f;
                     }
                 }
 
@@ -18147,7 +18232,7 @@ namespace IceBlink2
                         }
                         float decider = rollRandom / 100f;
                         gv.mod.currentArea.fullScreenAnimationSpeedX10 = ((0.25f * directional) + (decider * defaultOverrideSpeedX10 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY10 = defaultOverrideSpeedY10 * 1.5f;
                     }
                 }
 
