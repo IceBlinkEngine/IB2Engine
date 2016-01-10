@@ -4,7 +4,7 @@
   "Filename": "wm_debug",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "spring",
+  "areaWeatherScript": "swamp",
   "effectChannelScript1": "Channel1NormalOcean",
   "effectChannelScript2": "deactivateChannel2",
   "effectChannelScript3": "deactivateChannel3",
