@@ -27,81 +27,64 @@
                 //XXXXX ENTRY WEATHERS LIST XXXXX
                 //list all weather used in the area here, assign zero as chance if the weather shall not be callable from the start 		
 $Name = "EntryWeathers"
-$Value = "(clear)[10]{50}(lightCloudsA)[5]{50}(lightCloudsB)[5]{50}(lightCloudsC)[5]{50}(cloudsA)[5]{50}(cloudsB)[5]{50}(cloudsC)[5]{50}"
-$Value += "(lightSnowWithCloudsAShowers)[5]{100}(lightSnowWithCloudsBShowers)[5]{100}(lightSnowWithCloudsCShowers)[5]{100}"
-$Value += "(snowWithHeavyCloudsAShowers)[5]{100}(snowWithHeavyCloudsBShowers)[5]{100}(snowWithHeavyCloudsCShowers)[5]{100}"
-$Value += "(snowWithCloudsAShowers)[5]{100}(snowWithCloudsBShowers)[5]{100}(snowWithCloudsCShowers)[5]{100}"
-$Value += "(heavySnowWithHeavyCloudsA)[5]{50}(heavySnowWithHeavyCloudsB)[5]{50}(heavySnowWithHeavyCloudsC)[5]{50}"
+$Value = "(cloudsA)[5]{50}(cloudsB)[5]{50}(cloudsC)[5]{50}"
+$Value += "(lightSnowWithCloudsA)[5]{100}(lightSnowWithCloudsB)[5]{100}(lightSnowWithCloudsC)[5]{100}"
+$Value += "(snowWithHeavyCloudsA)[5]{100}(snowWithHeavyCloudsB)[5]{100}(snowWithHeavyCloudsC)[5]{100}"
+$Value += "(snowWithCloudsA)[15]{100}(snowWithCloudsB)[15]{100}(snowWithCloudsC)[15]{100}"
+$Value += "(heavySnowWithHeavyCloudsA)[3]{50}(heavySnowWithHeavyCloudsB)[4]{50}(heavySnowWithHeavyCloudsC)[3]{50}"
 $Value += "(heavySnowWithHeavyCloudsAAndLightning)[0]{100}(heavySnowWithHeavyCloudsBAndLightning)[0]{100}(heavySnowWithHeavyCloudsCAndLightning)[0]{100}"
-$Value += "(lightFog)[0]{50}"
 ~gaSetGlobalString($Name,$Value)
                 
 
 		//XXXXX EXIT WEATHERS LISTS XXXXX
 		//let's set the exit weathers with name of the weathertype first and then its exit weathers
 
-$Name = "clear"
-$Value = "(lightCloudsA)[20]{50}(lightCloudsB)[20]{50}(lightCloudsC)[20]{50}(lightFog)[10]{50}(lightSnowWithCloudsAShowers)[10]{100}(lightSnowWithCloudsBShowers)[10]{100}(lightSnowWithCloudsCShowers)[10]{100}"
-~gaSetGlobalString($Name,$Value)
-
-$Name = "lightCloudsA"
-$Value = "(clear)[15]{50}(lightCloudsB)[15]{50}(lightCloudsC)[15]{50}(cloudsA)[20]{50}(cloudsB)[20]{50}(cloudsC)[15]{50}"
-~gaSetGlobalString($Name,$Value)
-
-$Name = "lightCloudsB"
-$Value = "(clear)[15]{50}(lightCloudsA)[15]{50}(lightCloudsC)[15]{50}(cloudsA)[15]{50}(cloudsB)[20]{50}(cloudsC)[20]{50}"
-~gaSetGlobalString($Name,$Value)
-
-$Name = "lightCloudsC"
-$Value = "(clear)[15]{50}(lightCloudsA)[15]{50}(lightCloudsB)[15]{50}(cloudsA)[15]{50}(cloudsB)[25]{50}(cloudsC)[15]{50}"
-~gaSetGlobalString($Name,$Value) 
-
 $Name = "cloudsA"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightSnowWithCloudsAShowers)[20]{100}(lightSnowWithCloudsBShowers)[30]{100}(lightSnowWithCloudsCShowers)[20]{100}"
+$Value = "(lightSnowWithCloudsA)[33]{50}(lightSnowWithCloudsB)[34]{50}(lightSnowWithCloudsC)[33]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "cloudsB"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightSnowWithCloudsAShowers)[20]{100}(lightSnowWithCloudsBShowers)[30]{100}(lightSnowWithCloudsCShowers)[20]{100}"
+$Value = "(lightSnowWithCloudsA)[33]{50}(lightSnowWithCloudsB)[34]{50}(lightSnowWithCloudsC)[33]{50}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "cloudsC"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(lightSnowWithCloudsAShowers)[20]{100}(lightSnowWithCloudsBShowers)[30]{100}(lightSnowWithCloudsCShowers)[20]{100}"
+$Value = "(lightSnowWithCloudsA)[33]{50}(lightSnowWithCloudsB)[34]{50}(lightSnowWithCloudsC)[33]{50}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "lightSnowWithCloudsAShowers"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(snowWithCloudsAShowers)[20]{100}(snowWithCloudsBShowers)[30]{100}(snowWithCloudsCShowers)[20]{100}"
+$Name = "lightSnowWithCloudsA"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(snowWithCloudsA)[20]{100}(snowWithCloudsB)[30]{100}(snowWithCloudsC)[20]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "lightSnowWithCloudsBShowers"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(snowWithCloudsAShowers)[20]{100}(snowWithCloudsBShowers)[30]{100}(snowWithCloudsCShowers)[20]{100}"
+$Name = "lightSnowWithCloudsB"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(snowWithCloudsA)[20]{100}(snowWithCloudsB)[30]{100}(snowWithCloudsC)[20]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "lightSnowWithCloudsCShowers"
-$Value = "(lightCloudsA)[10]{50}(lightCloudsB)[10]{50}(lightCloudsC)[10]{50}(snowWithCloudsAShowers)[20]{100}(snowWithCloudsBShowers)[30]{100}(snowWithCloudsCShowers)[20]{100}"
+$Name = "lightSnowWithCloudsC"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(snowWithCloudsA)[20]{100}(snowWithCloudsB)[30]{100}(snowWithCloudsC)[20]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithCloudsAShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(snowWithHeavyCloudsAShowers)[23]{100}(snowWithHeavyCloudsBShowers)[24]{100}(snowWithHeavyCloudsCShowers)[24]{100}"
+$Name = "snowWithCloudsA"
+$Value = "(cloudsA)[5]{50}(cloudsB)[5]{50}(cloudsC)[5]{50}(snowWithHeavyCloudsAShower)[30]{100}(snowWithHeavyCloudsBShowers)[30]{100}(snowWithHeavyCloudsCShowers)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithCloudsBShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(snowWithHeavyCloudsAShowers)[23]{100}(snowWithHeavyCloudsBShowers)[24]{100}(snowWithHeavyCloudsCShowers)[24]{100}"
+$Name = "snowWithCloudsB"
+$Value = "(cloudsA)[5]{50}(cloudsB)[5]{50}(cloudsC)[5]{50}(snowWithHeavyCloudsAShowers)[30]{100}(snowWithHeavyCloudsBShowers)[30]{100}(snowWithHeavyCloudsCShowers)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithCloudsCShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[24]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
+$Name = "snowWithCloudsC"
+$Value = "(cloudsA)[5]{50}(cloudsB)[5]{50}(cloudsC)[5]{50}(heavySnowWithHeavyCloudsA)[30]{100}(heavySnowWithHeavyCloudsB)[30]{100}(heavySnowWithHeavyCloudsC)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithHeavyCloudsAShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[24]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
+$Name = "snowWithHeavyCloudsA"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[23]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithHeavyCloudsBShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[24]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
+$Name = "snowWithHeavyCloudsB"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[23]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithHeavyCloudsCShowers"
-$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[24]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
+$Name = "snowWithHeavyCloudsC"
+$Value = "(cloudsA)[10]{50}(cloudsB)[10]{50}(cloudsC)[10]{50}(heavySnowWithHeavyCloudsA)[23]{100}(heavySnowWithHeavyCloudsB)[23]{100}(heavySnowWithHeavyCloudsC)[24]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "heavySnowWithHeavyCloudsA"
@@ -117,17 +100,13 @@ $Value = "(lightCloudsA)[15]{50}(lightCloudsB)[15]{50}(lightCloudsC)[15]{50}(hea
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "heavySnowWithHeavyCloudsAAndLightning"
-$Value = "(clear)[25]{50}(lightFog)[25]{50}(snowWithHeavyCloudsAShowers)[17]{100}(snowWithHeavyCloudsBShowers)[17]{100}(snowWithHeavyCloudsCShowers)[16]{100}"
+$Value = "(cloudsA)[25]{50}(snowWithHeavyCloudsA)[25]{100}(snowWithHeavyCloudsB)[25]{100}(snowWithHeavyCloudsC)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "heavySnowWithHeavyCloudsBAndLightning"
-$Value = "(clear)[25]{50}(lightFog)[25]{50}(snowWithHeavyCloudsAShowers)[17]{100}(snowWithHeavyCloudsBShowers)[17]{100}(snowWithHeavyCloudsCShowers)[16]{100}"
+$Value = "(cloudsB)[25]{50}(snowWithHeavyCloudsA)[25]{100}(snowWithHeavyCloudsB)[25]{100}(snowWithHeavyCloudsC)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "heavySnowWithHeavyCloudsCAndLightning"
-$Value = "(clear)[25]{50}(lightFog)[25]{50}(snowWithHeavyCloudsAShowers)[17]{100}(snowWithHeavyCloudsBShowers)[17]{100}(snowWithHeavyCloudsCShowers)[16]{100}"
-~gaSetGlobalString($Name,$Value)
-
-$Name = "lightFog"
-$Value = "(clear)[40]{50}(lightSnowWithCloudsAShowers)[20]{100}(lightSnowWithCloudsCloudsBShowers)[20]{100}(lightSnowWithCloudsCShowers)[20]{100}"
+$Value = "(cloudsC)[25]{50}(snowWithHeavyCloudsA)[25]{100}(snowWithHeavyCloudsB)[25]{100}(snowWithHeavyCloudsC)[25]{100}"
 ~gaSetGlobalString($Name,$Value)
