@@ -60,6 +60,7 @@ namespace IceBlink2
 	    public string cr_typeOfDamage = "Normal"; //Normal,Acid,Cold,Electricity,Fire,Magic,Poison
 	    public string onScoringHit = "none";
 	    public string onScoringHitParms = "none";
+        public string onScoringHitCastSpellTag = "none";
         public string onDeathIBScript = "none";
         public string onDeathIBScriptParms = ""; 
 	    public List<string> knownSpellsTags = new List<string>();
@@ -123,6 +124,7 @@ namespace IceBlink2
 		    copy.cr_typeOfDamage = this.cr_typeOfDamage;
 		    copy.onScoringHit = this.onScoringHit;
 		    copy.onScoringHitParms = this.onScoringHitParms;
+            copy.onScoringHitCastSpellTag = this.onScoringHitCastSpellTag;
             copy.onDeathIBScript = this.onDeathIBScript;
             copy.onDeathIBScriptParms = this.onDeathIBScriptParms;
 		    copy.cr_effectsList = new List<Effect>();

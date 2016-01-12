@@ -1511,12 +1511,31 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font>" +
                         "<BR>");
 
-                doOnHitScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).onScoringHit, crt, pc);
-                 
-                Item it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                if (it != null)
+                {                    
+                    doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
+                    if (!it.onScoringHitCastSpellTag.Equals("none"))
+                    {
+                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
+                    }
+                }
+
+                it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it != null)
                 {
-                    doOnHitScriptBasedOnFilename(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).onScoringHit, crt, pc);
+                    doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
+                    if (!it.onScoringHitCastSpellTag.Equals("none"))
+                    {
+                        doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
+                    }
+                }
+
+                
+
+                if (!crt.onScoringHitCastSpellTag.Equals("none"))
+                {
+                    doCreatureOnHitCastSpell(crt, pc);
                 }
 
                 //play attack sound for melee (not ranged)
@@ -1585,6 +1604,12 @@ namespace IceBlink2
                         "<BR>");
                 return 0; //missed
             }
+        }
+        public void doItemOnHitCastSpell(string tag, Item it, Creature crt)
+        {
+            Spell sp = gv.mod.getSpellByTag(tag);
+            if (sp == null) { return; }
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, crt);
         }
         public void doCombatCast(Player pc)
         {
@@ -2242,6 +2267,10 @@ namespace IceBlink2
                 gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
 
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
+                if (!crt.onScoringHitCastSpellTag.Equals("none"))
+                {
+                    doCreatureOnHitCastSpell(crt, pc);
+                }
                 
                 //Draw floaty text showing damage above PC
                 int txtH = (int)gv.drawFontRegHeight;
@@ -2472,6 +2501,12 @@ namespace IceBlink2
                     gv.errorLog(ex.ToString());
                 }
             }
+        }
+        public void doCreatureOnHitCastSpell(Creature crt, Player pc)
+        {
+            Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
+            if (sp == null) { return; }
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc);
         }
         public bool checkEndEncounter()
         {

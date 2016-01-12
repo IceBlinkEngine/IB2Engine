@@ -182,7 +182,7 @@ namespace IceBlink2
         public int RandDiceRoll(int numberOfDice, int numberOfSidesOnDie)
         {
             int roll = 0;
-            for (int x = 1; x < numberOfDice; x++)
+            for (int x = 0; x < numberOfDice; x++)
             {
                 roll += RandInt(numberOfSidesOnDie);
             }
@@ -5108,8 +5108,8 @@ namespace IceBlink2
                     {
                         //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
                         numberOfAttacks = (((ef.classLevelOfSender - ef.damNumberOfAttacksAfterLevelN) / ef.damNumberOfAttacksForEveryNLevels) + 1) * ef.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
-                    }
-                    if (numberOfAttacks > ef.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = ef.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                        if (numberOfAttacks > ef.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = ef.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                    }                    
                     #endregion
                     //loop over number of attacks
                     for (int i = 0; i < numberOfAttacks; i++)
@@ -5822,11 +5822,26 @@ namespace IceBlink2
 
         public void spGeneric(Spell thisSpell, object src, object trg)
         {
-            //set squares list
-            CreateAoeSquaresList(src, trg);
+            if (trg is Player)
+            {
+                Player pc = (Player)trg;
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(pc);
+            }
+            else if (trg is Creature)
+            {
+                Creature crt = (Creature)trg;
+                AoeTargetsList.Clear();
+                AoeTargetsList.Add(crt);
+            }
+            else if (trg is Coordinate)
+            {
+                //set squares list
+                CreateAoeSquaresList(src, trg);
 
-            //set target list
-            CreateAoeTargetsList(src);
+                //set target list
+                CreateAoeTargetsList(src);
+            }            
 
             Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
@@ -5835,7 +5850,7 @@ namespace IceBlink2
             string sourceName = "";            
             if (thisSpellEffect == null)
             {
-                gv.sf.MessageBoxHtml("EffectTag: " + gv.cc.currentSelectedSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
+                gv.sf.MessageBoxHtml("EffectTag: " + thisSpell.spellEffectTag + " does not exist in this module. Abort spell cast.");
                 return;
             }
             if (src is Player) //player casting
@@ -5843,7 +5858,7 @@ namespace IceBlink2
                 Player source = (Player)src;
                 classLevel = source.classLevel;
                 sourceName = source.name;
-                source.sp -= gv.cc.currentSelectedSpell.costSP;
+                source.sp -= thisSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
             else if (src is Creature) //creature casting
@@ -5851,13 +5866,13 @@ namespace IceBlink2
                 Creature source = (Creature)src;
                 classLevel = source.cr_level;
                 sourceName = source.cr_name;
-                source.sp -= SpellToCast.costSP;
+                source.sp -= thisSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
             else if (src is Item) //item was used
             {
                 Item source = (Item)src;
-                classLevel = 1; //maybe add a property to item for Level
+                classLevel = source.levelOfItemForCastSpell;
                 sourceName = source.name;
             }
             #endregion
@@ -5893,8 +5908,9 @@ namespace IceBlink2
                         {
                             //numberOfAttacks = (((classLevel - C) / B) + 1) * A;
                             numberOfAttacks = (((classLevel - thisSpellEffect.damNumberOfAttacksAfterLevelN) / thisSpellEffect.damNumberOfAttacksForEveryNLevels) + 1) * thisSpellEffect.damNumberOfAttacks; //ex: 1 bolt for every 2 levels after level 1
+                            if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
                         }
-                        if (numberOfAttacks > thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal) { numberOfAttacks = thisSpellEffect.damNumberOfAttacksUpToNAttacksTotal; } //can't have more than a max amount of attacks
+                        
                         #endregion
                         //loop over number of attacks
                         for (int i = 0; i < numberOfAttacks; i++)
