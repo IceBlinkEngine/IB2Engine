@@ -73,7 +73,12 @@ namespace IceBlink2
         public string onUseItemIBScript = "none";
         public string onUseItemIBScriptParms = "";
         public bool destroyItemAfterOnUseItemIBScript = false;
-	    public int damageTypeResistanceValueAcid = 0;
+        public string onScoringHitCastSpellTag = "none";
+        public string onUseItemCastSpellTag = "none";
+        public bool destroyItemAfterOnUseItemCastSpell = false;
+        public int levelOfItemForCastSpell = 1;
+        public bool usePlayerClassLevelForOnUseItemCastSpell = false;
+        public int damageTypeResistanceValueAcid = 0;
 	    public int damageTypeResistanceValueCold = 0;
 	    public int damageTypeResistanceValueNormal = 0;
 	    public int damageTypeResistanceValueElectricity = 0;
@@ -141,7 +146,12 @@ namespace IceBlink2
 		    copy.onUseItemIBScript = this.onUseItemIBScript;
             copy.onUseItemIBScriptParms = this.onUseItemIBScriptParms;
             copy.destroyItemAfterOnUseItemIBScript = this.destroyItemAfterOnUseItemIBScript;
-		    copy.damageTypeResistanceValueAcid = this.damageTypeResistanceValueAcid;
+            copy.onScoringHitCastSpellTag = this.onScoringHitCastSpellTag;
+            copy.onUseItemCastSpellTag = this.onUseItemCastSpellTag;
+            copy.destroyItemAfterOnUseItemCastSpell = this.destroyItemAfterOnUseItemCastSpell;
+            copy.levelOfItemForCastSpell = this.levelOfItemForCastSpell;
+            copy.usePlayerClassLevelForOnUseItemCastSpell = this.usePlayerClassLevelForOnUseItemCastSpell;
+            copy.damageTypeResistanceValueAcid = this.damageTypeResistanceValueAcid;
 		    copy.damageTypeResistanceValueNormal = this.damageTypeResistanceValueNormal;
 		    copy.damageTypeResistanceValueCold = this.damageTypeResistanceValueCold;
 		    copy.damageTypeResistanceValueElectricity = this.damageTypeResistanceValueElectricity;

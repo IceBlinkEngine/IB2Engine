@@ -34,8 +34,8 @@
     "aoeShape": "Cone",
     "aoeRadius": 2,
     "range": 1,
-    "spellScript": "spFlameFingers",
-    "spellEffectTag": "none"
+    "spellScript": "none",
+    "spellEffectTag": "flamefingers"
   },
   {
     "name": "Mage Armor",
@@ -302,5 +302,24 @@
     "range": 3,
     "spellScript": "spMassHeal",
     "spellEffectTag": "none"
+  },
+  {
+    "name": "Spider Bite Poison Minor",
+    "tag": "spiderPoisonMinor",
+    "spellImage": "sp_flamefingers",
+    "description": "spider bite can cause poison of 1d3 for 3 rounds.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_acidball",
+    "spriteEndingFilename": "fx_acid1x1end",
+    "spellStartSound": "punch",
+    "spellEndSound": "none",
+    "costSP": 0,
+    "spellTargetType": "Enemy",
+    "spellEffectType": "Damage",
+    "aoeShape": "Cone",
+    "aoeRadius": 0,
+    "range": 1,
+    "spellScript": "none",
+    "spellEffectTag": "spiderPoisonMinor"
   }
 ]

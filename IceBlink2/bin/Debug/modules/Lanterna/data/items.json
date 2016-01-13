@@ -60,7 +60,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Large Shield",
@@ -123,7 +128,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Leather Armor",
@@ -186,7 +196,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Studded Leather Armor",
@@ -249,7 +264,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Platemail Armor",
@@ -312,7 +332,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Robes",
@@ -375,7 +400,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Camping Kit",
@@ -438,7 +468,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "itForceRest.cs",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Emerald",
@@ -501,7 +536,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Gold Ring",
@@ -564,7 +604,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Golden Goblet",
@@ -627,7 +672,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Ring of Protection",
@@ -690,7 +740,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Ring of Fire Resistance",
@@ -753,7 +808,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Healing Potion",
@@ -816,7 +876,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "itHealLight.cs",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Extra Healing Potion",
@@ -879,7 +944,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "itHealMedium.cs",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Spell Points Potion",
@@ -942,7 +1012,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "itRegenSPLight.cs",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Battle Axe",
@@ -1005,7 +1080,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Crossbow",
@@ -1068,7 +1148,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Dagger",
@@ -1131,7 +1216,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Elvish Short Sword +1",
@@ -1194,7 +1284,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Fire Dagger",
@@ -1257,7 +1352,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Flaming Long Sword",
@@ -1320,7 +1420,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Hand Axe",
@@ -1383,7 +1488,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Long Bow",
@@ -1446,7 +1556,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Long Sword",
@@ -1509,7 +1624,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Mace",
@@ -1572,7 +1692,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Short Bow",
@@ -1635,7 +1760,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Short Sword",
@@ -1698,7 +1828,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Sling",
@@ -1761,7 +1896,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Sling of Fire",
@@ -1824,7 +1964,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Spear",
@@ -1887,7 +2032,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Arrow",
@@ -1950,7 +2100,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Stone",
@@ -2013,7 +2168,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Stone of Fire",
@@ -2076,7 +2236,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Magic Amulet",
@@ -2139,7 +2304,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Magic Book",
@@ -2202,7 +2372,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Bolt",
@@ -2265,7 +2440,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Letter to Volt",
@@ -2328,7 +2508,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Jail Key",
@@ -2391,7 +2576,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Melia's Healing Kit",
@@ -2454,7 +2644,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Item List",
@@ -2517,7 +2712,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Rescue Items",
@@ -2580,7 +2780,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Letter to Tindra",
@@ -2643,7 +2848,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Volt's Key",
@@ -2706,7 +2916,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Lanterna History",
@@ -2769,7 +2984,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Letter to Verto",
@@ -2832,7 +3052,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Lily's Ring",
@@ -2895,7 +3120,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Lily's Ring of Power",
@@ -2958,7 +3188,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Mace of Stunning",
@@ -3021,7 +3256,12 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {
     "name": "Two Handed Sword of the Defender",
@@ -3084,6 +3324,79 @@
     "onUseItemIBScriptParms": "",
     "destroyItemAfterOnUseItemIBScript": false,
     "onUseItem": "none",
-    "onWhileEquipped": "none"
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "none",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
+  },
+  {
+    "name": "Poison Dagger",
+    "tag": "poisonDagger",
+    "resref": "poisonDagger",
+    "ArmorWeightType": "Light",
+    "ItemCategoryName": "Weapon",
+    "category": "Melee",
+    "desc": "dagger of standard construction that also causes an additional 1-2 point(s) for 3 rounds of poison damage on a successful hit.",
+    "useableInSituation": "Always",
+    "projectileSpriteFilename": "fx_fireball",
+    "spriteEndingFilename": "fx_heal1x1End",
+    "itemOnUseSound": "sword",
+    "itemImage": "it_daggerfire",
+    "plotItem": false,
+    "value": 1,
+    "quantity": 1,
+    "groupSizeForSellingStackableItems": 1,
+    "charges": 0,
+    "ammoType": "none",
+    "twoHanded": false,
+    "canNotBeUnequipped": false,
+    "isStackable": false,
+    "attackBonus": 0,
+    "attackRange": 1,
+    "AreaOfEffect": 0,
+    "damageNumDice": 1,
+    "damageDie": 4,
+    "damageAdder": 0,
+    "armorBonus": 0,
+    "maxDexBonus": 99,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "typeOfDamage": "Normal",
+    "attributeBonusModifierStr": 0,
+    "attributeBonusModifierDex": 0,
+    "attributeBonusModifierInt": 0,
+    "attributeBonusModifierCha": 0,
+    "attributeBonusModifierCon": 0,
+    "attributeBonusModifierWis": 0,
+    "savingThrowModifierReflex": 0,
+    "savingThrowModifierWill": 0,
+    "savingThrowModifierFortitude": 0,
+    "MovementPointModifier": 0,
+    "spRegenPerRoundInCombat": 0,
+    "hpRegenPerRoundInCombat": 0,
+    "roundsPerSpRegenOutsideCombat": 0,
+    "roundsPerHpRegenOutsideCombat": 0,
+    "onScoringHit": "none",
+    "onScoringHitParms": "none",
+    "onUseItemLogicTree": "none",
+    "onUseItemLogicTreeParms": "",
+    "destroyItemAfterOnUseItemLogicTree": false,
+    "onUseItemIBScript": "none",
+    "onUseItemIBScriptParms": "",
+    "destroyItemAfterOnUseItemIBScript": false,
+    "onUseItem": "none",
+    "onWhileEquipped": "none",
+    "onScoringHitCastSpellTag": "spiderPoisonMinor",
+    "onUseItemCastSpellTag": "none",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 1,
+    "usePlayerClassLevelForOnUseItemCastSpell": false
   }
 ]
