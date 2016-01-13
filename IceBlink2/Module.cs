@@ -162,7 +162,14 @@ namespace IceBlink2
         public bool useFirstPartOfWeatherScript = true;
         public float howLongWeatherHasRun = 0;
         public float fullScreenEffectOpacityWeather = 1;
-    
+
+        public List<string> weatherSoundList = new List<string>();
+        public string weatherSoundsName1 = "";
+        public string weatherSoundsName2 = "";
+        public string weatherSoundsName3 = "";
+
+        public bool useWeatherSound = false;
+
         //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
         //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
         //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using Color = SharpDX.Color;
@@ -669,7 +670,7 @@ namespace IceBlink2
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
             #endregion
- //hurgh
+            //hurgh
             #region Draw full screen layer 1
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
             //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
@@ -678,44 +679,44 @@ namespace IceBlink2
             //check whether the layer1 is activated and set to top level
             if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
             {
-               
+
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
-  
-                    //these replace the normal, linear scroll in direction of vector x,y pattern
-                    //in the toolset different values for overrides can be set than the defaults they come with
-                    //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
-                    //basically it works like the override would call scripts whose paratmeters can be set by the authors
-                    //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
-                    //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
+
+                //these replace the normal, linear scroll in direction of vector x,y pattern
+                //in the toolset different values for overrides can be set than the defaults they come with
+                //this way an author can make use of the non-linear algorithms with different input parameters to bend their shape
+                //basically it works like the override would call scripts whose paratmeters can be set by the authors
+                //just with the added comfort that teh paarmeters ahve own fields in the toolset and descritive text
+                //also when just letting all override values sit at zero,the override will use its own defaults, working out of the box like e.g. snow
 
                 #region override movement patterns
 
-                    if (gv.mod.currentArea.directionalOverride1 == "randStraight")
+                if (gv.mod.currentArea.directionalOverride1 == "randStraight")
+                {
+                    //set up the default values and allow individiual override based on toolset values
+                    float defaultOverrideSpeedX1 = 0.5f;
+                    float defaultOverrideSpeedY1 = 0.5f;
+                    int defaultOverrideDelayLimit1 = 15;
+                    string defaultOverrideIsNoScrollSource1 = "False";
+
+                    if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
                     {
-                        //set up the default values and allow individiual override based on toolset values
-                        float defaultOverrideSpeedX1 = 0.5f;
-                        float defaultOverrideSpeedY1 = 0.5f;
-                        int defaultOverrideDelayLimit1 = 15;
-                        string defaultOverrideIsNoScrollSource1 = "False";
+                        gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
+                    }
 
-                        if (gv.mod.currentArea.overrideIsNoScrollSource1 == "")
-                        {
-                            gv.mod.currentArea.overrideIsNoScrollSource1 = defaultOverrideIsNoScrollSource1;
-                        }
+                    if (gv.mod.currentArea.overrideSpeedX1 != -100)
+                    {
+                        defaultOverrideSpeedX1 = gv.mod.currentArea.overrideSpeedX1;
+                    }
+                    if (gv.mod.currentArea.overrideSpeedY1 != -100)
+                    {
+                        defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
+                    }
+                    if (gv.mod.currentArea.overrideDelayLimit1 != -100)
+                    {
+                        defaultOverrideDelayLimit1 = gv.mod.currentArea.overrideDelayLimit1;
+                    }
 
-                        if (gv.mod.currentArea.overrideSpeedX1 != -100)
-                        {
-                            defaultOverrideSpeedX1 = gv.mod.currentArea.overrideSpeedX1;
-                        }
-                        if (gv.mod.currentArea.overrideSpeedY1 != -100)
-                        {
-                            defaultOverrideSpeedY1 = gv.mod.currentArea.overrideSpeedY1;
-                        }
-                        if (gv.mod.currentArea.overrideDelayLimit1 != -100)
-                        {
-                            defaultOverrideDelayLimit1 = gv.mod.currentArea.overrideDelayLimit1;
-                        }
-                   
                     gv.mod.currentArea.overrideDelayCounter1++;
                     if (gv.mod.currentArea.overrideDelayCounter1 > defaultOverrideDelayLimit1)
                     {
@@ -771,10 +772,10 @@ namespace IceBlink2
                             gv.mod.currentArea.fullScreenAnimationSpeedY1 = -defaultOverrideSpeedY1;
                         }
                     }
-                    }
+                }
 
-                    if (gv.mod.currentArea.directionalOverride1 == "clouds")
-                    {
+                if (gv.mod.currentArea.directionalOverride1 == "clouds")
+                {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX1 = 0.5f;
                     float defaultOverrideSpeedY1 = 0.5f;
@@ -804,31 +805,31 @@ namespace IceBlink2
                     {
 
                         gv.mod.currentArea.overrideDelayCounter1 = 0;
-                            //for x
-                            int rollRandom = gv.sf.RandInt(100);
-                            int rollRandom2 = gv.sf.RandInt(2);
-                            int directional = 1;
-                            if (rollRandom2 == 1)
-                            {
-                                rollRandom = rollRandom * -1;
-                                directional = -1;
-                            }
-                            float decider = rollRandom / 100f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.5f);
-
-                            //for y
-                            rollRandom = gv.sf.RandInt(100);
-                            rollRandom2 = gv.sf.RandInt(2);
-                            directional = 1;
-                            if (rollRandom2 == 1)
-                            {
-                                rollRandom = rollRandom * -1;
-                                directional = -1;
-                            }
-                            decider = rollRandom / 100f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
+                        //for x
+                        int rollRandom = gv.sf.RandInt(100);
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
                         }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.25f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.5f);
+
+                        //for y
+                        rollRandom = gv.sf.RandInt(100);
+                        rollRandom2 = gv.sf.RandInt(2);
+                        directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
+                        }
+                        decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = ((0.25f * directional) + (decider * defaultOverrideSpeedY1 * 0.5f)) * (0.5f);
                     }
+                }
 
                 if (gv.mod.currentArea.directionalOverride1 == "fog")
                 {
@@ -875,7 +876,7 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.075f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (0.09f);
 
                         //for y
-                        int rollRandom3  = gv.sf.RandInt(100);
+                        int rollRandom3 = gv.sf.RandInt(100);
                         int rollRandom4 = gv.sf.RandInt(100);
                         directional = 1;
                         if (rollRandom4 >= 50)
@@ -890,7 +891,7 @@ namespace IceBlink2
                 }
 
                 if (gv.mod.currentArea.directionalOverride1 == "snow")
-                    {
+                {
                     //set up the default values and allow individiual override based on toolset values
                     float defaultOverrideSpeedX1 = 0.45f;
                     float defaultOverrideSpeedY1 = -0.55f;
@@ -922,18 +923,18 @@ namespace IceBlink2
 
                         gv.mod.currentArea.overrideDelayCounter1 = 0;
                         int rollRandom = gv.sf.RandInt(100);
-                            int rollRandom2 = gv.sf.RandInt(2);
-                            int directional = 1;
-                            if (rollRandom2 == 1)
-                            {
-                                rollRandom = rollRandom * -1;
-                                directional = -1;
-                            }
-                            float decider = rollRandom / 100f;
-                            gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.15f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
-                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
+                        int rollRandom2 = gv.sf.RandInt(2);
+                        int directional = 1;
+                        if (rollRandom2 == 1)
+                        {
+                            rollRandom = rollRandom * -1;
+                            directional = -1;
                         }
+                        float decider = rollRandom / 100f;
+                        gv.mod.currentArea.fullScreenAnimationSpeedX1 = ((0.15f * directional) + (decider * defaultOverrideSpeedX1 * 0.5f)) * (1.5f);
+                        gv.mod.currentArea.fullScreenAnimationSpeedY1 = defaultOverrideSpeedY1;
                     }
+                }
 
                 if (gv.mod.currentArea.directionalOverride1 == "rain")
                 {
@@ -1087,60 +1088,60 @@ namespace IceBlink2
                     //if (gv.mod.currentArea.fullScreenEffectLayerIsActive1 == true)
                     //{
                     float fullScreenEffectOpacity = 1f;
-                        #region opacity code
-                        if (gv.mod.currentArea.useCyclicFade1)
+                    #region opacity code
+                    if (gv.mod.currentArea.useCyclicFade1)
+                    {
+                        //fade in within first cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
                         {
-                            //fade in within first cycle of cyclic animation
-                            if ((gv.mod.currentArea.cycleCounter1 == 0) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
-                            {
-                                fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
-                            }
-
-                            //fade out within last cycle of cyclic animation
-                            if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
-                            {
-                                fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
-                            }
-                        }
-                        #endregion
-
-                        //use weather system per area specific later on
-                        //utilizing weather type defined by area weather settings
-                        //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
-
-                        #region only for shape changing animation
-                        if (gv.mod.currentArea.isChanging1)
-                        {
-                            gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
-                            if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
-                            {
-                                gv.mod.currentArea.changeCounter1 = 0;
-                                gv.mod.currentArea.changeFrameCounter1 += 1;
-                                if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
-                                {
-                                    gv.mod.currentArea.changeFrameCounter1 = 1;
-                                }
-                            }
-                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
-                        }
-                        #endregion
-
-                        else
-                        {
-                            fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                            fullScreenEffectOpacity = 1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1);
                         }
 
-                        #region handle framecounter
-                        //assuming a square shaped source here
-                        float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
+                        //fade out within last cycle of cyclic animation
+                        if ((gv.mod.currentArea.cycleCounter1 == (gv.mod.currentArea.numberOfCyclesPerOccurence1 - 1)) && (gv.mod.currentArea.numberOfCyclesPerOccurence1 > 0))
+                        {
+                            fullScreenEffectOpacity = 1f - (1f / ((50f / ((float)gv.mod.currentArea.fullScreenAnimationSpeed1 * (float)gv.mod.allAnimationSpeedMultiplier)) / (float)gv.mod.currentArea.fullScreenAnimationFrameCounter1));
+                        }
+                    }
+                    #endregion
 
-                        //reading the frames moved and added up in the last seconds
-                        float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
-                        float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
+                    //use weather system per area specific later on
+                    //utilizing weather type defined by area weather settings
+                    //add check for square specific punch hole that prevents drawing weather, e.g. house inside or spaceship interior
 
-                        //increase by this call's movement
-                        pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX1 * gv.mod.allAnimationSpeedMultiplier);
-                        pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
+                    #region only for shape changing animation
+                    if (gv.mod.currentArea.isChanging1)
+                    {
+                        gv.mod.currentArea.changeCounter1 += (1 * gv.mod.allAnimationSpeedMultiplier);
+                        if (gv.mod.currentArea.changeCounter1 > gv.mod.currentArea.changeLimit1)
+                        {
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            gv.mod.currentArea.changeFrameCounter1 += 1;
+                            if (gv.mod.currentArea.changeFrameCounter1 > gv.mod.currentArea.changeNumberOfFrames1)
+                            {
+                                gv.mod.currentArea.changeFrameCounter1 = 1;
+                            }
+                        }
+                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1 + gv.mod.currentArea.changeFrameCounter1.ToString());
+                    }
+                    #endregion
+
+                    else
+                    {
+                        fullScreenEffect1 = gv.cc.LoadBitmap(gv.mod.currentArea.fullScreenEffectLayerName1);
+                    }
+
+                    #region handle framecounter
+                    //assuming a square shaped source here
+                    float sizeOfWholeSource = fullScreenEffect1.PixelSize.Width;
+
+                    //reading the frames moved and added up in the last seconds
+                    float pixShiftOnThisFrameX = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
+                    float pixShiftOnThisFrameY = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
+
+                    //increase by this call's movement
+                    pixShiftOnThisFrameX += (gv.mod.currentArea.fullScreenAnimationSpeedX1 * gv.mod.allAnimationSpeedMultiplier);
+                    pixShiftOnThisFrameY += (gv.mod.currentArea.fullScreenAnimationSpeedY1 * gv.mod.allAnimationSpeedMultiplier);
 
                     if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
                     {
@@ -1172,139 +1173,139 @@ namespace IceBlink2
                     //reset it in case it grwos too large (note: just to avoid an overflow in the far future)
                     //the actual reset happens later below
                     if (pixShiftOnThisFrameX >= ((2000 * gv.playerOffset) * gv.squareSize))
-                        {
-                            pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
-                        }
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
 
-                        if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
-                        {
-                            pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
-                        }
+                    if (pixShiftOnThisFrameY >= ((2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY - ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
 
-                        if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
-                        {
-                            pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
-                        }
+                    if (pixShiftOnThisFrameX <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameX = pixShiftOnThisFrameX + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
 
-                        if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
-                        {
-                            pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
-                        }
+                    if (pixShiftOnThisFrameY <= ((-2000 * gv.playerOffset) * gv.squareSize))
+                    {
+                        pixShiftOnThisFrameY = pixShiftOnThisFrameY + ((2000 * gv.playerOffset) * gv.squareSize);
+                    }
 
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = pixShiftOnThisFrameX;
-                        gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = pixShiftOnThisFrameY;
-                        #endregion
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = pixShiftOnThisFrameX;
+                    gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = pixShiftOnThisFrameY;
+                    #endregion
 
-                        #region iterate through the dst tiles
-                        for (int x = minX; x < maxX; x++)
+                    #region iterate through the dst tiles
+                    for (int x = minX; x < maxX; x++)
+                    {
+                        for (int y = minY; y < maxY; y++)
                         {
-                            for (int y = minY; y < maxY; y++)
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
+                            if (!tile.blockFullScreenEffectLayer1)
                             {
-                                Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
 
-                                //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                                if (!tile.blockFullScreenEffectLayer1)
+                                float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100f;
+                                float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100f;
+                                float brX = gv.squareSize * scalerX;
+                                float brY = gv.squareSize * scalerY;
+
+                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+
+                                #region is effect contained inside borders or always centered on party?
+                                //code section for handling borders of the area
+                                int modX = x;
+                                int modY = y;
+                                int modMinX = minX;
+                                int modMinY = minY;
+
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders1)
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-
-                                    float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100f;
-                                    float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100f;
-                                    float brX = gv.squareSize * scalerX;
-                                    float brY = gv.squareSize * scalerY;
-
-                                    float numberOfPictureParts = gv.playerOffset * 2 + 1;
-
-                                    #region is effect contained inside borders or always centered on party?
-                                    //code section for handling borders of the area
-                                    int modX = x;
-                                    int modY = y;
-                                    int modMinX = minX;
-                                    int modMinY = minY;
-
-                                    if (gv.mod.currentArea.containEffectInsideAreaBorders1)
+                                    //code for for always keeping the effect contained in the area box, break center on player near map border
+                                    if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
                                     {
-                                        //code for for always keeping the effect contained in the area box, break center on player near map border
-                                        if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
-                                        {
-                                            modX += 1;
-                                        }
-                                        if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
-                                        {
-                                            modX += 2;
-                                        }
-                                        if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
-                                        {
-                                            modX += 3;
-                                        }
-                                        if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
-                                        {
-                                            modX += 4;
-                                        }
-
-
-                                        if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
-                                        {
-                                            modY += 1;
-                                        }
-                                        if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
-                                        {
-                                            modY += 2;
-                                        }
-                                        if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
-                                        {
-                                            modY += 3;
-                                        }
-                                        if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
-                                        {
-                                            modY += 4;
-                                        }
+                                        modX += 1;
+                                    }
+                                    if ((mod.PlayerLocationX + 3) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 2;
+                                    }
+                                    if ((mod.PlayerLocationX + 2) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 3;
+                                    }
+                                    if ((mod.PlayerLocationX + 1) == this.mod.currentArea.MapSizeX)
+                                    {
+                                        modX += 4;
                                     }
 
-                                    else
+
+                                    if ((mod.PlayerLocationY + 4) == this.mod.currentArea.MapSizeY)
                                     {
-                                        //code for always centering the effect on player, even near map border (e.g. light source carried by party)
-                                        if ((mod.PlayerLocationX - 3) == 0)
-                                        {
-                                            modMinX = -1;
-                                        }
-                                        if ((mod.PlayerLocationX - 2) == 0)
-                                        {
-                                            modMinX = -2;
-                                        }
-                                        if ((mod.PlayerLocationX - 1) == 0)
-                                        {
-                                            modMinX = -3;
-                                        }
-                                        if ((mod.PlayerLocationX) == 0)
-                                        {
-                                            modMinX = -4;
-                                        }
-
-
-                                        if ((mod.PlayerLocationY - 3) == 0)
-                                        {
-                                            modMinY = -1;
-                                        }
-                                        if ((mod.PlayerLocationY - 2) == 0)
-                                        {
-                                            modMinY = -2;
-                                        }
-                                        if ((mod.PlayerLocationY - 1) == 0)
-                                        {
-                                            modMinY = -3;
-                                        }
-                                        if ((mod.PlayerLocationY) == 0)
-                                        {
-                                            modMinY = -4;
-                                        }
+                                        modY += 1;
                                     }
-                                    #endregion
+                                    if ((mod.PlayerLocationY + 3) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 2;
+                                    }
+                                    if ((mod.PlayerLocationY + 2) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 3;
+                                    }
+                                    if ((mod.PlayerLocationY + 1) == this.mod.currentArea.MapSizeY)
+                                    {
+                                        modY += 4;
+                                    }
+                                }
 
-                                    //get the correct chunk on source
-                                    //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                else
+                                {
+                                    //code for always centering the effect on player, even near map border (e.g. light source carried by party)
+                                    if ((mod.PlayerLocationX - 3) == 0)
+                                    {
+                                        modMinX = -1;
+                                    }
+                                    if ((mod.PlayerLocationX - 2) == 0)
+                                    {
+                                        modMinX = -2;
+                                    }
+                                    if ((mod.PlayerLocationX - 1) == 0)
+                                    {
+                                        modMinX = -3;
+                                    }
+                                    if ((mod.PlayerLocationX) == 0)
+                                    {
+                                        modMinX = -4;
+                                    }
+
+
+                                    if ((mod.PlayerLocationY - 3) == 0)
+                                    {
+                                        modMinY = -1;
+                                    }
+                                    if ((mod.PlayerLocationY - 2) == 0)
+                                    {
+                                        modMinY = -2;
+                                    }
+                                    if ((mod.PlayerLocationY - 1) == 0)
+                                    {
+                                        modMinY = -3;
+                                    }
+                                    if ((mod.PlayerLocationY) == 0)
+                                    {
+                                        modMinY = -4;
+                                    }
+                                }
+                                #endregion
+
+                                //get the correct chunk on source
+                                //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -1379,212 +1380,212 @@ namespace IceBlink2
                                         floatSourceChunkCoordX = floatSourceChunkCoordX % sizeOfWholeSource;
                                     }
                                 }
-                                    #endregion
+                                #endregion
 
-                                    #region handle the four different draw situations, based on position of chunk on source
-                                    //next task is to actaully draw up to four pieces of  square source to one target dst
-                                    //let's go through the differdnt situations that can occur
+                                #region handle the four different draw situations, based on position of chunk on source
+                                //next task is to actaully draw up to four pieces of  square source to one target dst
+                                //let's go through the differdnt situations that can occur
 
-                                    #region Situation 1 (complex, 4 to 1)
-                                    //Situation 1 (most complex): touching four source squares, we are in the far low right corner
-                                    //there will be two more 2 source square situations, one for x and one for y direction
-                                    //also there's of course the standard situation that we just need one coherent source
-                                    if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
-                                    {
+                                #region Situation 1 (complex, 4 to 1)
+                                //Situation 1 (most complex): touching four source squares, we are in the far low right corner
+                                //there will be two more 2 source square situations, one for x and one for y direction
+                                //also there's of course the standard situation that we just need one coherent source
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                {
 
-                                        //need to use parts four source chunks from four different source squares and draw them onto the dst square
+                                    //need to use parts four source chunks from four different source squares and draw them onto the dst square
 
-                                        //first: top left corner
-                                        float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                        float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                        float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        float srcCoordY2 = floatSourceChunkCoordY;
-                                        float srcCoordX2 = floatSourceChunkCoordX;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        //second: top right corner
-                                        float oldWidth = (brX * dstScalerX);
-                                        availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                        availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                        dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        srcCoordY2 = floatSourceChunkCoordY;
-                                        srcCoordX2 = 0;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        //third: bottom left corner
-                                        float oldHeight = (brY * dstScalerY);
-                                        availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                        availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                        dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        srcCoordY2 = 0;
-                                        srcCoordX2 = floatSourceChunkCoordX;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        //fourth: bottom right corner
-                                        oldWidth = (brX * dstScalerX);
-                                        availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                        availableLengthY = availableLengthY;
-                                        dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        srcCoordY2 = 0;
-                                        srcCoordX2 = 0;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        continue;
-
-                                    }
-                                    #endregion
-
-                                    #region Situation 2 (2 to 1, x near border)
-                                    //Situation 2: only x is near right border, y is high/small enough
-                                    else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource)  && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
-                                    {
-
-                                        //need to use parts of two source chunks from two different source squares and draw them onto the dst square
-
-                                        //first: left hand side
-                                        float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                        float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                        float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        float srcCoordY2 = floatSourceChunkCoordY;
-                                        float srcCoordX2 = floatSourceChunkCoordX;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        //second: right hand side
-                                        float oldWidth = (brX * dstScalerX);
-                                        availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                        availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                        dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        srcCoordY2 = floatSourceChunkCoordY;
-                                        srcCoordX2 = 0;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-                                        continue;
-
-                                    }
-                                    #endregion
-
-                                    #region Situation 3 (2 to 1, y near border)
-                                    //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                    else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
-                                    {
-
-                                        //need to use parts of two source chunks from two different source squares and draw them onto the dst square
-
-                                        //first: top square
-                                        float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                        float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                        float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
-                                        float srcCoordY2 = floatSourceChunkCoordY;
-                                        float srcCoordX2 = floatSourceChunkCoordX;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
-                                        //second: bottom square
-                                        float oldLength = 0;
-                                        oldLength = (float)(brY * dstScalerY);
-                                        availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                        availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                        dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                        srcCoordY2 = 0;
-                                        srcCoordX2 = floatSourceChunkCoordX;
-
-                                        try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-                                        continue;
-                                    }
-                                    #endregion
-
-                                    #region Situation 4 (default, neither x or y near border)
-                                    //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
-                                    else
-                                    {
-
-                                        float srcCoordY2 = floatSourceChunkCoordY;
-                                        float srcCoordX2 = floatSourceChunkCoordX;
-                                        float sizeOfSourceChunk2 = 0;
-                                        if (gv.mod.currentArea.overrideIsNoScrollSource1 != "True")
-                                        {
-                                            sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
-                                        }
-                                        else
-                                        {
-                                            sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
-                                        }
+                                    //first: top left corner
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
 
                                     try
-                                        {
-                                            IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
-                                            IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                            gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
-                                        }
-                                        catch { }
-
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
                                     }
-                                    #endregion
+                                    catch { }
+
+                                    //second: top right corner
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //third: bottom left corner
+                                    float oldHeight = (brY * dstScalerY);
+                                    availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //fourth: bottom right corner
+                                    oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    continue;
 
                                 }
+                                #endregion
+
+                                #region Situation 2 (2 to 1, x near border)
+                                //Situation 2: only x is near right border, y is high/small enough
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: left hand side
+                                    float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: right hand side
+                                    float oldWidth = (brX * dstScalerX);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = floatSourceChunkCoordY;
+                                    srcCoordX2 = 0;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+
+                                }
+                                #endregion
+
+                                #region Situation 3 (2 to 1, y near border)
+                                //Situation 3: only y is near bottom border, x is left/small enough WIP
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                {
+
+                                    //need to use parts of two source chunks from two different source squares and draw them onto the dst square
+
+                                    //first: top square
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                    //second: bottom square
+                                    float oldLength = 0;
+                                    oldLength = (float)(brY * dstScalerY);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    srcCoordY2 = 0;
+                                    srcCoordX2 = floatSourceChunkCoordX;
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+                                    continue;
+                                }
+                                #endregion
+
+                                #region Situation 4 (default, neither x or y near border)
+                                //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
+                                else
+                                {
+
+                                    float srcCoordY2 = floatSourceChunkCoordY;
+                                    float srcCoordX2 = floatSourceChunkCoordX;
+                                    float sizeOfSourceChunk2 = 0;
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource1 != "True")
+                                    {
+                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                    }
+                                    else
+                                    {
+                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                    }
+
+                                    try
+                                    {
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                    }
+                                    catch { }
+
+                                }
+                                #endregion
+
                             }
                         }
                     }
-                    #endregion
-                
                 }
+                #endregion
+
+            }
             #endregion
             #endregion
             #region Draw full screen layer 2
@@ -9867,6 +9868,478 @@ namespace IceBlink2
 
             }
             #endregion
+            #endregion
+
+            #region weatherSounds
+            if (gv.mod.useWeatherSound)
+            { 
+            gv.mod.weatherSoundList.Clear();
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5 == true) && (gv.mod.currentArea.fullScreenEffectLayerName5 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName5);
+            }
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6 == true) && (gv.mod.currentArea.fullScreenEffectLayerName6 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName6);
+            }
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7 == true) && (gv.mod.currentArea.fullScreenEffectLayerName7 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName7);
+            }
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8 == true) && (gv.mod.currentArea.fullScreenEffectLayerName8 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName8);
+            }
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9 == true) && (gv.mod.currentArea.fullScreenEffectLayerName9 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName9);
+            }
+
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10 == true) && (gv.mod.currentArea.fullScreenEffectLayerName10 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true))
+            {
+                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName10);
+            }
+
+            string soundName = "";
+            bool isRaining = false;
+            bool isWindy = false;
+            bool isLightning = false;
+
+            //set up rain sound
+            foreach (string weatherComponentName in gv.mod.weatherSoundList)
+            {
+                //check for heavyRain
+                if (weatherComponentName.Contains("heavyRain"))
+                {
+                    isRaining = true;
+                    if (gv.mod.weatherSoundsName1 != "heavyRain")
+                    {
+                        gv.mod.weatherSoundsName1 = "heavyRain";
+                        soundName = gv.mod.weatherSoundsName1;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            //gv.weatherSounds1.controls.stop();
+                            gv.weatherSounds1.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //check for lightRain
+                if (weatherComponentName.Contains("lightRain"))
+                {
+                    isRaining = true;
+                    if (gv.mod.weatherSoundsName1 != "lightRain")
+                    {
+                        gv.mod.weatherSoundsName1 = "lightRain";
+                        soundName = gv.mod.weatherSoundsName1;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            //gv.weatherSounds1.controls.stop();
+                            gv.weatherSounds1.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //check for "normal" rain
+                if (weatherComponentName.Contains("rain"))
+                {
+                    isRaining = true;
+                    if (gv.mod.weatherSoundsName1 != "rain")
+                    {
+                        gv.mod.weatherSoundsName1 = "rain";
+                        soundName = gv.mod.weatherSoundsName1;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds1.URL = "";
+                        }
+                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                        {
+                            //gv.weatherSounds1.controls.stop();
+                            gv.weatherSounds1.controls.play();
+                        }
+                    }
+                    break;
+                }
+            }
+
+            //set up wind sound
+            //set up heavy wind
+            foreach (string weatherComponentName in gv.mod.weatherSoundList)
+            {
+                if (weatherComponentName.Contains("heavyCloud"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "heavyCloud")
+                    {
+                        gv.mod.weatherSoundsName2 = "heavyCloud";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //set up light winds
+                if (weatherComponentName.Contains("lightCloud"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "lightCloud")
+                    {
+                        gv.mod.weatherSoundsName2 = "lightCloud";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //set up "normal" winds
+                if (weatherComponentName.Contains("cloud"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "cloud")
+                    {
+                        gv.mod.weatherSoundsName2 = "cloud";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //set up light sandstorm
+                if (weatherComponentName.Contains("lightSandStorm"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "lightSandStorm")
+                    {
+                        gv.mod.weatherSoundsName2 = "lightSandStorm";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //set up heavy sandstorm
+                if (weatherComponentName.Contains("heavySandStorm"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "heavySandStorm")
+                    {
+                        gv.mod.weatherSoundsName2 = "heavySandStorm";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+
+                //set up "normal" sandstorm
+                if (weatherComponentName.Contains("sandStorm"))
+                {
+                    isWindy = true;
+                    if (gv.mod.weatherSoundsName2 != "sandStorm")
+                    {
+                        gv.mod.weatherSoundsName2 = "sandStorm";
+                        soundName = gv.mod.weatherSoundsName2;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds2.URL = "";
+                        }
+                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                        {
+                            //gv.weatherSounds2.controls.stop();
+                            gv.weatherSounds2.controls.play();
+                        }
+                    }
+                    break;
+                }
+            }
+
+            //set up lightning
+            foreach (string weatherComponentName in gv.mod.weatherSoundList)
+            {
+                if (weatherComponentName.Contains("lightning"))
+                {
+                    isLightning = true;
+                    if (gv.mod.weatherSoundsName3 != "lightning")
+                    {
+                        gv.mod.weatherSoundsName3 = "lightning";
+                        soundName = gv.mod.weatherSoundsName3;
+                        //gv.weatherSounds1.controls.stop();
+
+                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
+                        }
+                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
+                        {
+                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
+                        }
+                        else
+                        {
+                            gv.weatherSounds3.URL = "";
+                        }
+                        if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                        {
+                            //gv.weatherSounds3.controls.stop();
+                            gv.weatherSounds3.controls.play();
+                        }
+                    }
+                    break;
+                }
+            }
+
+            //mute the not used channels
+            if (isRaining == false)
+            {
+                if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                {
+                    //gv.weatherSounds1.controls.stop();
+                }
+            }
+            if (isWindy == false)
+            {
+                if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                {
+                    //gv.weatherSounds2.controls.stop();
+                }
+            }
+            if (isLightning == false)
+            {
+                if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                {
+                    //gv.weatherSounds3.controls.stop();
+                }
+            }
+        }
+
+            //The entry strings are parsed for the partial term "heavyCloud".If this partial term is contained in a string, 
+            //the wind check is finished and the heavyWind.wav is played as a Looping Sound on weatherSoundChannel1
+            //(if the channel is already playing heavyWind.wav, nothing is done except finishing the wind check).
+
+
             #endregion
         }
 

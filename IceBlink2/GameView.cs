@@ -111,6 +111,10 @@ namespace IceBlink2
         public bool touchEnabled = true;
         public WMPLib.WindowsMediaPlayer areaMusic;
         public WMPLib.WindowsMediaPlayer areaSounds;
+        public WMPLib.WindowsMediaPlayer weatherSounds1;
+        public WMPLib.WindowsMediaPlayer weatherSounds2;
+        public WMPLib.WindowsMediaPlayer weatherSounds3;
+       
         public SoundPlayer soundPlayer = new SoundPlayer();
         public Dictionary<string, Stream> oSoundStreams = new Dictionary<string, Stream>();
         public System.Media.SoundPlayer playerButtonEnter = new System.Media.SoundPlayer();
@@ -128,6 +132,9 @@ namespace IceBlink2
         public Timer floatyTextMainMapTimer = new Timer();
         public Timer areaMusicTimer = new Timer();
         public Timer areaSoundsTimer = new Timer();
+        public Timer weatherSounds1Timer = new Timer();
+        public Timer weatherSounds2Timer = new Timer();
+        public Timer weatherSounds3Timer = new Timer();
         public Timer realTimeTimer = new Timer();
         public Timer smoothMoveTimer = new Timer();
 
@@ -491,6 +498,24 @@ namespace IceBlink2
                 areaSounds = new WMPLib.WindowsMediaPlayer();
                 areaSounds.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(AreaSounds_PlayStateChange);
                 areaSounds.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+
+                //for winds
+                weatherSounds1 = new WMPLib.WindowsMediaPlayer();
+                //weatherSounds1.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(WeatherSounds1_PlayStateChange);
+                weatherSounds1.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                weatherSounds1.settings.setMode("Loop", true);
+                weatherSounds1.settings.volume = 50;
+                //for rain
+                weatherSounds2 = new WMPLib.WindowsMediaPlayer();
+                //weatherSounds2.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(WeatherSounds2_PlayStateChange);
+                weatherSounds2.MediaError += new WMPLib._WMPOCXEvents_MediaErrorEventHandler(Player_MediaError);
+                weatherSounds2.settings.setMode("Loop", true);
+                weatherSounds2.settings.volume = 50;
+                //for lightning
+                weatherSounds3 = new WMPLib.WindowsMediaPlayer();
+                weatherSounds3.settings.volume = 50;
+                //channel 3 is for lightning, no loop needed
+                //weatherSounds3.settings.setMode("Loop", true);
 
                 startMusic();
                 startAmbient();
