@@ -5601,39 +5601,56 @@ namespace IceBlink2
             double dist = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
             return (float)dist;
         }
-        public void CreateAoeSquaresList(object src, object trg)
+        public void CreateAoeSquaresList(object src, object trg, Spell thisSpell)
         {
             AoeSquaresList.Clear();
 
-            //target type assumed to be PointLocation 
-            Coordinate target = (Coordinate)trg;
+            Coordinate target = new Coordinate(0,0);
+
+            if (trg is Player)
+            {
+                Player pc = (Player)trg;
+                target = new Coordinate(pc.combatLocX, pc.combatLocY);
+            }
+            else if (trg is Creature)
+            {
+                Creature crt = (Creature)trg;
+                target = new Coordinate(crt.combatLocX, crt.combatLocY);
+            }
+            else if (trg is Coordinate)
+            {
+                target = (Coordinate)trg;
+            }            
 
             //define AoE Radius
-            int aoeRad = 0;
             int srcX = 0;
             int srcY = 0;
             if (src is Player)
             {
                 Player pcs = (Player)src;
-                aoeRad = gv.cc.currentSelectedSpell.aoeRadius;
                 srcX = pcs.combatLocX;
                 srcY = pcs.combatLocY;
             }
             else if (src is Creature)
             {
                 Creature crts = (Creature)src;
-                aoeRad = SpellToCast.aoeRadius;
                 srcX = crts.combatLocX;
                 srcY = crts.combatLocY;
+            }
+            else if (src is Item) //item was used
+            {
+                Player pcs = mod.playerList[gv.screenCombat.currentPlayerIndex];
+                srcX = pcs.combatLocX;
+                srcY = pcs.combatLocY;
             }
 
             //shape and radius
             #region Circle
-            if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Circle)
+            if (thisSpell.aoeShape == AreaOfEffectShape.Circle)
             {
-                for (int x = target.X - aoeRad; x <= target.X + aoeRad; x++)
+                for (int x = target.X - thisSpell.aoeRadius; x <= target.X + thisSpell.aoeRadius; x++)
                 {
-                    for (int y = target.Y - aoeRad; y <= target.Y + aoeRad; y++)
+                    for (int y = target.Y - thisSpell.aoeRadius; y <= target.Y + thisSpell.aoeRadius; y++)
                     {
                         //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                         AoeSquaresList.Add(new Coordinate(x, y));
@@ -5642,7 +5659,7 @@ namespace IceBlink2
             }
             #endregion
             #region Cone
-            else if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Cone)
+            else if (thisSpell.aoeShape == AreaOfEffectShape.Cone)
             {
                 int signX = target.X - srcX;
                 int signY = target.Y - srcY;
@@ -5658,12 +5675,12 @@ namespace IceBlink2
                 {
                     if (signY == 0) //right or left
                     {
-                        for (int x = 0; Math.Abs(x) <= gv.cc.currentSelectedSpell.aoeRadius; x += incX)
+                        for (int x = 0; Math.Abs(x) <= thisSpell.aoeRadius; x += incX)
                         {
                             for (int y = -Math.Abs(x); y <= Math.Abs(x); y++)
                             {
                                 float r = GetDistanceF(0, 0, x, y);
-                                if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                                if (r <= thisSpell.aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                     AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5673,12 +5690,12 @@ namespace IceBlink2
                     }
                     else //up or down
                     {
-                        for (int y = 0; Math.Abs(y) <= gv.cc.currentSelectedSpell.aoeRadius; y += incY)
+                        for (int y = 0; Math.Abs(y) <= thisSpell.aoeRadius; y += incY)
                         {
                             for (int x = -Math.Abs(y); x <= Math.Abs(y); x++)
                             {
                                 float r = GetDistanceF(0, 0, x, y);
-                                if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                                if (r <= thisSpell.aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                     AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5690,12 +5707,12 @@ namespace IceBlink2
                 //diagnols
                 else
                 {
-                    for (int x = 0; Math.Abs(x) <= gv.cc.currentSelectedSpell.aoeRadius; x += incX)
+                    for (int x = 0; Math.Abs(x) <= thisSpell.aoeRadius; x += incX)
                     {
-                        for (int y = 0; Math.Abs(y) <= gv.cc.currentSelectedSpell.aoeRadius; y += incY)
+                        for (int y = 0; Math.Abs(y) <= thisSpell.aoeRadius; y += incY)
                         {
                             float r = GetDistanceF(0, 0, x, y);
-                            if (r <= gv.cc.currentSelectedSpell.aoeRadius)
+                            if (r <= thisSpell.aoeRadius)
                             {
                                 //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                 AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5706,7 +5723,7 @@ namespace IceBlink2
             }
             #endregion
             #region Line
-            else if (gv.cc.currentSelectedSpell.aoeShape == AreaOfEffectShape.Line)
+            else if (thisSpell.aoeShape == AreaOfEffectShape.Line)
             {
                 int rise = target.Y - srcY;
                 int incY = 0;
@@ -5736,7 +5753,7 @@ namespace IceBlink2
                 int currentX = target.X;
                 int currentY = target.Y;
                 int riseCnt = 1;
-                for (int i = 0; i < gv.cc.currentSelectedSpell.aoeRadius; i++)
+                for (int i = 0; i < thisSpell.aoeRadius; i++)
                 {
                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                     AoeSquaresList.Add(new Coordinate(currentX, currentY));
@@ -5774,7 +5791,7 @@ namespace IceBlink2
             }
             #endregion
         }
-        public void CreateAoeTargetsList(object src)
+        public void CreateAoeTargetsList(object src, object trg)
         {
             AoeTargetsList.Clear();
 
@@ -5782,15 +5799,34 @@ namespace IceBlink2
             int startY2 = 0;
             if (src is Player)
             {
-                Player pcs = (Player)src;
                 startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
             }
-            else //source is a Creature
+            else if (src is Item)
             {
-                Coordinate pnt = (Coordinate)gv.sf.CombatTarget;
-                startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
-                startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+                startX2 = gv.screenCombat.targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                startY2 = gv.screenCombat.targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+            }
+            else if (src is Creature) //source is a Creature
+            {
+                if (trg is Player)
+                {
+                    Player pcs = (Player)trg;
+                    startX2 = pcs.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    startY2 = pcs.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                }
+                else if (trg is Creature)
+                {
+                    Creature crts = (Creature)trg;
+                    startX2 = crts.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    startY2 = crts.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                }
+                else if (trg is Coordinate)
+                {
+                    Coordinate pnt = (Coordinate)gv.sf.CombatTarget;
+                    startX2 = pnt.X * gv.squareSize + (gv.squareSize / 2);
+                    startY2 = pnt.Y * gv.squareSize + (gv.squareSize / 2);
+                }
             }
 
             foreach (Coordinate coor in AoeSquaresList)
@@ -5821,27 +5857,12 @@ namespace IceBlink2
         }
 
         public void spGeneric(Spell thisSpell, object src, object trg)
-        {
-            if (trg is Player)
-            {
-                Player pc = (Player)trg;
-                AoeTargetsList.Clear();
-                AoeTargetsList.Add(pc);
-            }
-            else if (trg is Creature)
-            {
-                Creature crt = (Creature)trg;
-                AoeTargetsList.Clear();
-                AoeTargetsList.Add(crt);
-            }
-            else if (trg is Coordinate)
-            {
-                //set squares list
-                CreateAoeSquaresList(src, trg);
+        {            
+            //set squares list
+            CreateAoeSquaresList(src, trg, thisSpell);
 
-                //set target list
-                CreateAoeTargetsList(src);
-            }            
+            //set target list
+            CreateAoeTargetsList(src, trg);
 
             Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
 
@@ -6282,13 +6303,13 @@ namespace IceBlink2
             gv.postDelayed("doFloatyText", 100);
         }
         //SPELLS WIZARD
-        public void spFlameFingers(object src, object trg)
+        public void spFlameFingers(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
             
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
             
             //get casting source information
             int classLevel = 0;
@@ -6527,13 +6548,13 @@ namespace IceBlink2
                 //Toast.makeText(gv.gameContext, "don't recognize target type", Toast.LENGTH_SHORT).show();			
             }
         }
-        public void spSleep(object src, object trg)
+        public void spSleep(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;
@@ -6679,13 +6700,13 @@ namespace IceBlink2
                 //Toast.makeText(gv.gameContext, "don't recognize source type", Toast.LENGTH_SHORT).show();			
             }
         }
-        public void spWeb(object src, object trg)
+        public void spWeb(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;
@@ -6753,13 +6774,13 @@ namespace IceBlink2
                 }
             }
         }
-        public void spIceStorm(object src, object trg)
+        public void spIceStorm(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;
@@ -6889,13 +6910,13 @@ namespace IceBlink2
             }
             gv.postDelayed("doFloatyText", 100);
         }
-        public void spFireball(object src, object trg)
+        public void spFireball(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;
@@ -7025,13 +7046,13 @@ namespace IceBlink2
             }
             gv.postDelayed("doFloatyText", 100);
         }
-        public void spLightning(object src, object trg)
+        public void spLightning(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;
@@ -7447,13 +7468,13 @@ namespace IceBlink2
                 //Toast.makeText(gv.gameContext, "don't recognize target type", Toast.LENGTH_SHORT).show();			
             }
         }
-        public void spBlastOfLight(object src, object trg)
+        public void spBlastOfLight(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg);
+            CreateAoeSquaresList(src, trg, thisSpell);
 
             //set target list
-            CreateAoeTargetsList(src);
+            CreateAoeTargetsList(src, trg);
 
             //get casting source information
             int classLevel = 0;

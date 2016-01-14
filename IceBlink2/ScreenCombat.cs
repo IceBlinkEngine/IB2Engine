@@ -3332,7 +3332,7 @@ namespace IceBlink2
 		    else if (currentCombatMode.Equals("cast"))
 		    {
                 //set squares list
-                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation);
+                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, gv.cc.currentSelectedSpell);
                 foreach (Coordinate coor in gv.sf.AoeSquaresList)
                 {
                     if (!IsInVisibleCombatWindow(coor.X,coor.Y))

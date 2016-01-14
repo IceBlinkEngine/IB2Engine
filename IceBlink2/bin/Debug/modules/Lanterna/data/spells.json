@@ -316,7 +316,7 @@
     "costSP": 0,
     "spellTargetType": "Enemy",
     "spellEffectType": "Damage",
-    "aoeShape": "Cone",
+    "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 1,
     "spellScript": "none",

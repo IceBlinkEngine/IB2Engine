@@ -4638,7 +4638,7 @@ namespace IceBlink2
             //WIZARD SPELLS
             else if (spell.spellScript.Equals("spFlameFingers"))
             {
-                gv.sf.spFlameFingers(source, target);
+                gv.sf.spFlameFingers(source, target, spell);
             }
             else if (spell.spellScript.Equals("spMageBolt"))
             {
@@ -4646,7 +4646,7 @@ namespace IceBlink2
             }
             else if (spell.spellScript.Equals("spSleep"))
             {
-                gv.sf.spSleep(source, target);
+                gv.sf.spSleep(source, target, spell);
             }
             else if (spell.spellScript.Equals("spMageArmor"))
             {
@@ -4658,19 +4658,19 @@ namespace IceBlink2
             }
             else if (spell.spellScript.Equals("spWeb"))
             {
-                gv.sf.spWeb(source, target);
+                gv.sf.spWeb(source, target, spell);
             }
             else if (spell.spellScript.Equals("spIceStorm"))
             {
-                gv.sf.spIceStorm(source, target);
+                gv.sf.spIceStorm(source, target, spell);
             }
             else if (spell.spellScript.Equals("spFireball"))
             {
-                gv.sf.spFireball(source, target);
+                gv.sf.spFireball(source, target, spell);
             }
             else if (spell.spellScript.Equals("spLightning"))
             {
-                gv.sf.spLightning(source, target);
+                gv.sf.spLightning(source, target, spell);
             }
             
             //CLERIC SPELLS
@@ -4696,7 +4696,7 @@ namespace IceBlink2
             }
             else if (spell.spellScript.Equals("spBlastOfLight"))
             {
-                gv.sf.spBlastOfLight(source, target);
+                gv.sf.spBlastOfLight(source, target, spell);
             }
             else if (spell.spellScript.Equals("spHold"))
             {
