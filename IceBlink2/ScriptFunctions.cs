@@ -7213,6 +7213,31 @@ namespace IceBlink2
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
+            if (src is Item) //player casting
+            {
+                Player target = (Player)trg;
+
+                if (target.hp <= -20)
+                {
+                    //MessageBox("Can't heal a dead character!");
+                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                }
+                else
+                {
+                    target.hp += healAmount;
+                    if (target.hp > target.hpMax)
+                    {
+                        target.hp = target.hpMax;
+                    }
+                    if (target.hp > 0)
+                    {
+                        target.charStatus = "Alive";
+                    }
+                    //MessageBox(pc.name + " gains " + healAmount + " HPs");
+                    MessageBoxHtml(target.name + " gains " + healAmount + " HPs, now has " + target.hp + "/" + target.hpMax + "HPs");
+                    gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
+                }
+            }
             else if (src is Creature) //creature casting
             {
                 Creature source = (Creature)src;
