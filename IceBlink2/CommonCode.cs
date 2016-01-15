@@ -135,6 +135,7 @@ namespace IceBlink2
             gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
+            //gv.sf.GiveItem("firebomb", 1);
         }
         public Player LoadPlayer(string filename)
         {

@@ -444,7 +444,7 @@ namespace IceBlink2
                 var ret = itSel.ShowDialog();
                 ItemRefs itRef = GetCurrentlySelectedItemRefs();
 	            Item it = mod.getItemByResRefForInfo(itRef.resref);
-                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) ) )
+                if ((itSel.selectedIndex == 0) && ( (!it.onUseItem.Equals("none")) || (!it.onUseItemIBScript.Equals("none")) || (!it.onUseItemCastSpellTag.Equals("none")) ) )
                 {                    
 	            	// selected to USE ITEM
 	            	List<string> pcNames = new List<string>();
@@ -491,8 +491,13 @@ namespace IceBlink2
 			                			gv.screenType = "combat";
 			                			gv.screenCombat.endPcTurn(false);
 		                			}
-		                						
-		                		}
+                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                    {
+                                        doItemInventoryCastSpellCombat(gv.screenCombat.currentPlayerIndex);
+                                        gv.screenCombat.currentCombatMode = "cast";
+                                        gv.screenType = "combat";
+                                    }
+                                }
 		                		else
 		                		{
                                     //check to see if use IBScript first
@@ -505,7 +510,11 @@ namespace IceBlink2
 		                			{
                                         doItemInventoryIBScript(itSel2.selectedIndex - 1);
 		                			}
-		                		}
+                                    else if (!it.onUseItemCastSpellTag.Equals("none"))
+                                    {
+                                        doItemInventoryCastSpell(itSel2.selectedIndex - 1);
+                                    }
+                                }
 		                    }
 		                    catch (Exception ex)
 		                    {
@@ -564,7 +573,39 @@ namespace IceBlink2
 		    }
             resetInventory();
         }
-	    public int GetIndex()
+        public void doItemInventoryCastSpellCombat(int pcIndex)
+        {
+            if (isSelectedItemSlotInPartyInventoryRange())
+            {
+                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                gv.mod.indexOfPCtoLastUseItem = pcIndex;
+                gv.cc.currentSelectedSpell = mod.getSpellByTag(it.onUseItemCastSpellTag);
+                if (it.destroyItemAfterOnUseItemCastSpell)
+                {
+                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                }
+            }
+            resetInventory();
+        }
+        public void doItemInventoryCastSpell(int pcIndex)
+        {
+            if (isSelectedItemSlotInPartyInventoryRange())
+            {
+                ItemRefs itRef = GetCurrentlySelectedItemRefs();
+                Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
+                Spell sp = mod.getSpellByTag(it.onUseItemCastSpellTag);
+                Player pc = mod.playerList[pcIndex];
+                gv.mod.indexOfPCtoLastUseItem = pcIndex;
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc);
+                if (it.destroyItemAfterOnUseItemCastSpell)
+                {
+                    gv.sf.RemoveItemFromInventory(itRef, 1);
+                }
+            }
+            resetInventory();
+        }
+        public int GetIndex()
 	    {
 		    return inventorySlotIndex + (inventoryPageIndex * slotsPerPage);
 	    }

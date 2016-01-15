@@ -54,18 +54,18 @@
     "quantity": 1
   },
   "MainHandRefs": {
-    "resref": "none",
-    "tag": "none",
-    "name": "none",
+    "resref": "firebomb",
+    "tag": "firebomb",
+    "name": "Bomb of Fire",
     "canNotBeUnequipped": false,
-    "quantity": 1
+    "quantity": 10
   },
   "OffHandRefs": {
-    "resref": "none",
-    "tag": "none",
-    "name": "none",
+    "resref": "minorhealpotion",
+    "tag": "minorhealpotion",
+    "name": "Minor Healing Potion",
     "canNotBeUnequipped": false,
-    "quantity": 1
+    "quantity": 3
   },
   "RingRefs": {
     "resref": "none",
