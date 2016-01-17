@@ -3032,6 +3032,7 @@ namespace IceBlink2
                     {
                         //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
                         isRaining = true;
+                        gv.weatherSounds1.settings.volume = 20;
                         if (gv.mod.weatherSoundsName1 != "heavyRain")
                         {
                             gv.mod.weatherSoundsName1 = "heavyRain";
@@ -3069,6 +3070,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightRain"))
                     {
                         isRaining = true;
+                        gv.weatherSounds1.settings.volume = 110 ;
                         if (gv.mod.weatherSoundsName1 != "lightRain")
                         {
                             gv.mod.weatherSoundsName1 = "lightRain";
@@ -3106,6 +3108,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("rain"))
                     {
                         isRaining = true;
+                        gv.weatherSounds1.settings.volume = 50;
                         if (gv.mod.weatherSoundsName1 != "rain")
                         {
                             gv.mod.weatherSoundsName1 = "rain";
@@ -3147,6 +3150,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("heavyCloud"))
                     {
                         isWindy = true;
+                        gv.weatherSounds2.settings.volume = 70;
                         if ((gv.mod.weatherSoundsName2 != "heavyCloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -3188,6 +3192,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightCloud"))
                     {
                         isWindy = true;
+                        gv.weatherSounds2.settings.volume = 30;
                         if ((gv.mod.weatherSoundsName2 != "lightCloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -3230,6 +3235,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("cloud"))
                     {
                         isWindy = true;
+                        gv.weatherSounds2.settings.volume = 42;
                         if ((gv.mod.weatherSoundsName2 != "cloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -3268,12 +3274,13 @@ namespace IceBlink2
                     }
 
                     //set up light sandstorm
-                    if (weatherComponentName.Contains("lightSandStorm"))
+                    if (weatherComponentName.Contains("lightSandstorm"))
                     {
                         isWindy = true;
-                        if (gv.mod.weatherSoundsName2 != "lightSandStorm")
+                        gv.weatherSounds2.settings.volume = 50;
+                        if (gv.mod.weatherSoundsName2 != "lightSandstorm")
                         {
-                            gv.mod.weatherSoundsName2 = "lightSandStorm";
+                            gv.mod.weatherSoundsName2 = "lightSandstorm";
                             soundName = gv.mod.weatherSoundsName2;
 
                             if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
@@ -3305,12 +3312,13 @@ namespace IceBlink2
                     }
 
                     //set up heavy sandstorm
-                    if (weatherComponentName.Contains("heavySandStorm"))
+                    if (weatherComponentName.Contains("heavySandstorm"))
                     {
                         isWindy = true;
-                        if (gv.mod.weatherSoundsName2 != "heavySandStorm")
+                        gv.weatherSounds2.settings.volume = 70;
+                        if (gv.mod.weatherSoundsName2 != "heavySandstorm")
                         {
-                            gv.mod.weatherSoundsName2 = "heavySandStorm";
+                            gv.mod.weatherSoundsName2 = "heavySandstorm";
                             soundName = gv.mod.weatherSoundsName2;
 
                             if (File.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\music\\" + soundName))
@@ -3342,12 +3350,13 @@ namespace IceBlink2
                     }
 
                     //set up "normal" sandstorm
-                    if (weatherComponentName.Contains("sandStorm"))
+                    if (weatherComponentName.Contains("sandstorm"))
                     {
                         isWindy = true;
-                        if (gv.mod.weatherSoundsName2 != "sandStorm")
+                        gv.weatherSounds2.settings.volume = 35;
+                        if (gv.mod.weatherSoundsName2 != "sandstorm")
                         {
-                            gv.mod.weatherSoundsName2 = "sandStorm";
+                            gv.mod.weatherSoundsName2 = "sandstorm";
                             soundName = gv.mod.weatherSoundsName2;
                             //gv.weatherSounds1.controls.stop();
 
@@ -3478,7 +3487,7 @@ namespace IceBlink2
         public void doPropHeartBeat()
         {
             foreach (Prop prp in gv.mod.currentArea.Props)
-            {
+            { 
                 gv.sf.ThisProp = prp;
                 //IBScript Prop heartbeat
                 gv.cc.doIBScriptBasedOnFilename(prp.OnHeartBeatIBScript, prp.OnHeartBeatIBScriptParms);
