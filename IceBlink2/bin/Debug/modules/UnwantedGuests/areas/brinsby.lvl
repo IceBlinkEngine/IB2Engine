@@ -2484,7 +2484,7 @@
       "Layer3Filename": "t_blank",
       "Layer4Filename": "t_blank",
       "Layer5Filename": "t_blank",
-      "Walkable": false,
+      "Walkable": true,
       "LoSBlocked": false,
       "Visible": false
     },
@@ -3425,16 +3425,16 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
-      "LocationX": 9,
-      "LocationY": 13,
-      "ImageFileName": "prp_treasure",
+      "LocationX": 6,
+      "LocationY": 15,
+      "ImageFileName": "prp_wmtrans",
       "HasCollision": false,
       "isShown": true,
       "isActive": true,
-      "PropName": "Chest",
-      "PropTag": "chest_9045",
-      "PropCategoryName": "container",
-      "MouseOverText": "none",
+      "PropName": "WorldMapTransition",
+      "PropTag": "wmtrans_9130",
+      "PropCategoryName": "Transitions",
+      "MouseOverText": "World Map Transition",
       "ConversationWhenOnPartySquare": "none",
       "EncounterWhenOnPartySquare": "none",
       "DeletePropWhenThisEncounterIsWon": false,
@@ -4602,22 +4602,22 @@
       "Event3Parm4": "none"
     },
     {
-      "TriggerTag": "newTrigger_9046",
+      "TriggerTag": "newTrigger_9131",
       "Enabled": true,
       "conversationCannotBeAvoided": true,
       "DoOnceOnly": false,
       "TriggerSquaresList": [
         {
-          "X": 9,
-          "Y": 13
+          "X": 6,
+          "Y": 15
         }
       ],
       "DoOnceOnlyEvent1": false,
       "EnabledEvent1": true,
-      "Event1Type": "container",
-      "Event1FilenameOrTag": "testitems",
-      "Event1TransPointX": 0,
-      "Event1TransPointY": 0,
+      "Event1Type": "transition",
+      "Event1FilenameOrTag": "spring",
+      "Event1TransPointX": 2,
+      "Event1TransPointY": 3,
       "Event1Parm1": "none",
       "Event1Parm2": "none",
       "Event1Parm3": "none",

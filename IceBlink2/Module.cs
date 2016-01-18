@@ -148,6 +148,12 @@ namespace IceBlink2
         //later on maybe also use for animated props, like camp fires flickering
         public float allAnimationSpeedMultiplier = 1;
 
+        //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
+        //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
+        //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)
+        //listOfExitWeatherName (a list of strings containing exit weather names in exact order)
+        //listOfEntryWeatherChances (a list of ints containing exit weather chances in exact order)
+        //listOfExitWeatherDurations (a list of durations in exact same order as the exit weather list)
         public List<string> listOfEntryWeatherNames = new List<string>();
         public List<int> listOfEntryWeatherChances = new List<int>();
         public List<int> listOfEntryWeatherDurations = new List<int>();
@@ -168,14 +174,8 @@ namespace IceBlink2
         public string weatherSoundsName2 = "";
         public string weatherSoundsName3 = "";
 
-        public bool useWeatherSound = false;
-
-        //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
-        //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
-        //listOfEntryWeatherDurations (a list of ints ontaining durations in exact same order as the entry weather list)
-        //listOfExitWeatherName (a list of strings containing exit weather names in exact order)
-        //listOfEntryWeatherChances (a list of ints containing exit weather chances in exact order)
-        //listOfExitWeatherDurations (a list of durations in exact same order as the exit weather list)
+        public bool useWeatherSound = true;
+        public bool resetWeatherSound = false;
 
         public Module()
         {

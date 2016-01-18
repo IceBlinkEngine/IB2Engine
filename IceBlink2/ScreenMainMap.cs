@@ -677,7 +677,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer1 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (gv.mod.currentArea.FullScreenEffectLayer1IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive1))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
@@ -1594,7 +1594,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer2 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (gv.mod.currentArea.FullScreenEffectLayer2IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (gv.mod.currentArea.FullScreenEffectLayer2IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive2))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect2);
@@ -2510,7 +2510,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer3 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (gv.mod.currentArea.FullScreenEffectLayer3IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (gv.mod.currentArea.FullScreenEffectLayer3IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive3))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect3);
@@ -3427,7 +3427,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer4 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (gv.mod.currentArea.FullScreenEffectLayer4IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (gv.mod.currentArea.FullScreenEffectLayer4IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive4))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect4);
@@ -4345,7 +4345,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer5 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (gv.mod.currentArea.FullScreenEffectLayer5IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
@@ -5267,7 +5267,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer6 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (gv.mod.currentArea.FullScreenEffectLayer6IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
@@ -6188,7 +6188,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer7 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (gv.mod.currentArea.FullScreenEffectLayer7IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect7);
@@ -7109,7 +7109,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer8 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (gv.mod.currentArea.FullScreenEffectLayer8IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect8);
@@ -8031,7 +8031,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer9 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (gv.mod.currentArea.FullScreenEffectLayer9IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect9);
@@ -8953,7 +8953,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer10 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (gv.mod.currentArea.FullScreenEffectLayer10IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect10);
@@ -9868,479 +9868,7 @@ namespace IceBlink2
 
             }
             #endregion
-            #endregion
-
-            #region weatherSounds
-            if (gv.mod.useWeatherSound)
-            { 
-            gv.mod.weatherSoundList.Clear();
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5 == true) && (gv.mod.currentArea.fullScreenEffectLayerName5 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive5 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName5);
-            }
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6 == true) && (gv.mod.currentArea.fullScreenEffectLayerName6 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName6);
-            }
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer7 == true) && (gv.mod.currentArea.fullScreenEffectLayerName7 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName7);
-            }
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer8 == true) && (gv.mod.currentArea.fullScreenEffectLayerName8 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName8);
-            }
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer9 == true) && (gv.mod.currentArea.fullScreenEffectLayerName9 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName9);
-            }
-
-            if ((gv.mod.currentArea.useFullScreenEffectLayer10 == true) && (gv.mod.currentArea.fullScreenEffectLayerName10 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true))
-            {
-                gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName10);
-            }
-
-            string soundName = "";
-            bool isRaining = false;
-            bool isWindy = false;
-            bool isLightning = false;
-
-            //set up rain sound
-            foreach (string weatherComponentName in gv.mod.weatherSoundList)
-            {
-                //check for heavyRain
-                if (weatherComponentName.Contains("heavyRain"))
-                {
-                    isRaining = true;
-                    if (gv.mod.weatherSoundsName1 != "heavyRain")
-                    {
-                        gv.mod.weatherSoundsName1 = "heavyRain";
-                        soundName = gv.mod.weatherSoundsName1;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds1.URL = "";
-                        }
-                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                        {
-                            //gv.weatherSounds1.controls.stop();
-                            gv.weatherSounds1.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //check for lightRain
-                if (weatherComponentName.Contains("lightRain"))
-                {
-                    isRaining = true;
-                    if (gv.mod.weatherSoundsName1 != "lightRain")
-                    {
-                        gv.mod.weatherSoundsName1 = "lightRain";
-                        soundName = gv.mod.weatherSoundsName1;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds1.URL = "";
-                        }
-                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                        {
-                            //gv.weatherSounds1.controls.stop();
-                            gv.weatherSounds1.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //check for "normal" rain
-                if (weatherComponentName.Contains("rain"))
-                {
-                    isRaining = true;
-                    if (gv.mod.weatherSoundsName1 != "rain")
-                    {
-                        gv.mod.weatherSoundsName1 = "rain";
-                        soundName = gv.mod.weatherSoundsName1;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds1.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds1.URL = "";
-                        }
-                        if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                        {
-                            //gv.weatherSounds1.controls.stop();
-                            gv.weatherSounds1.controls.play();
-                        }
-                    }
-                    break;
-                }
-            }
-
-            //set up wind sound
-            //set up heavy wind
-            foreach (string weatherComponentName in gv.mod.weatherSoundList)
-            {
-                if (weatherComponentName.Contains("heavyCloud"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "heavyCloud")
-                    {
-                        gv.mod.weatherSoundsName2 = "heavyCloud";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //set up light winds
-                if (weatherComponentName.Contains("lightCloud"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "lightCloud")
-                    {
-                        gv.mod.weatherSoundsName2 = "lightCloud";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //set up "normal" winds
-                if (weatherComponentName.Contains("cloud"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "cloud")
-                    {
-                        gv.mod.weatherSoundsName2 = "cloud";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //set up light sandstorm
-                if (weatherComponentName.Contains("lightSandStorm"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "lightSandStorm")
-                    {
-                        gv.mod.weatherSoundsName2 = "lightSandStorm";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //set up heavy sandstorm
-                if (weatherComponentName.Contains("heavySandStorm"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "heavySandStorm")
-                    {
-                        gv.mod.weatherSoundsName2 = "heavySandStorm";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-
-                //set up "normal" sandstorm
-                if (weatherComponentName.Contains("sandStorm"))
-                {
-                    isWindy = true;
-                    if (gv.mod.weatherSoundsName2 != "sandStorm")
-                    {
-                        gv.mod.weatherSoundsName2 = "sandStorm";
-                        soundName = gv.mod.weatherSoundsName2;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds2.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds2.URL = "";
-                        }
-                        if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                        {
-                            //gv.weatherSounds2.controls.stop();
-                            gv.weatherSounds2.controls.play();
-                        }
-                    }
-                    break;
-                }
-            }
-
-            //set up lightning
-            foreach (string weatherComponentName in gv.mod.weatherSoundList)
-            {
-                if (weatherComponentName.Contains("lightning"))
-                {
-                    isLightning = true;
-                    if (gv.mod.weatherSoundsName3 != "lightning")
-                    {
-                        gv.mod.weatherSoundsName3 = "lightning";
-                        soundName = gv.mod.weatherSoundsName3;
-                        //gv.weatherSounds1.controls.stop();
-
-                        if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName))
-                        {
-                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds3.URL = gv.mainDirectory + "\\modules\\" + mod.moduleName + "\\music\\" + soundName + ".mp3";
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName))
-                        {
-                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName;
-                        }
-                        else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3"))
-                        {
-                            gv.weatherSounds3.URL = gv.mainDirectory + "\\default\\NewModule\\music\\" + soundName + ".mp3";
-                        }
-                        else
-                        {
-                            gv.weatherSounds3.URL = "";
-                        }
-                        if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
-                        {
-                            //gv.weatherSounds3.controls.stop();
-                            gv.weatherSounds3.controls.play();
-                        }
-                    }
-                    break;
-                }
-            }
-
-            //mute the not used channels
-            if (isRaining == false)
-            {
-                if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                {
-                    //gv.weatherSounds1.controls.stop();
-                }
-            }
-            if (isWindy == false)
-            {
-                if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                {
-                    //gv.weatherSounds2.controls.stop();
-                }
-            }
-            if (isLightning == false)
-            {
-                if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
-                {
-                    //gv.weatherSounds3.controls.stop();
-                }
-            }
-        }
-
-            //The entry strings are parsed for the partial term "heavyCloud".If this partial term is contained in a string, 
-            //the wind check is finished and the heavyWind.wav is played as a Looping Sound on weatherSoundChannel1
-            //(if the channel is already playing heavyWind.wav, nothing is done except finishing the wind check).
-
-
-            #endregion
+            #endregion   
         }
 
         public void drawBottomFullScreenEffects()
@@ -10364,7 +9892,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer1 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (!gv.mod.currentArea.FullScreenEffectLayer1IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer1) && (!gv.mod.currentArea.FullScreenEffectLayer1IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive1))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect1);
@@ -11255,7 +10783,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer2 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (!gv.mod.currentArea.FullScreenEffectLayer2IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer2) && (!gv.mod.currentArea.FullScreenEffectLayer2IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive2))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect2);
@@ -12146,7 +11674,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer3 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (!gv.mod.currentArea.FullScreenEffectLayer3IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer3) && (!gv.mod.currentArea.FullScreenEffectLayer3IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive3))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect3);
@@ -13037,7 +12565,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer4 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (!gv.mod.currentArea.FullScreenEffectLayer4IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer4) && (!gv.mod.currentArea.FullScreenEffectLayer4IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive4))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect4);
@@ -13928,7 +13456,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer5 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
@@ -14825,7 +14353,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer6 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
@@ -15720,7 +15248,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer7 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (!gv.mod.currentArea.FullScreenEffectLayer7IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (!gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect7);
@@ -16615,7 +16143,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer8 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (!gv.mod.currentArea.FullScreenEffectLayer8IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (!gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect8);
@@ -17510,7 +17038,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer9 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (!gv.mod.currentArea.FullScreenEffectLayer9IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (!gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect9);
@@ -18405,7 +17933,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer10 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (!gv.mod.currentArea.FullScreenEffectLayer10IsTop))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (!gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect10);
