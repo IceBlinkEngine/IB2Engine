@@ -1934,6 +1934,7 @@ namespace IceBlink2
                 idx++;
             }
         }
+
         public void doUpdate()
         {
             //reset the timer interval, important for synching with party move
@@ -4217,7 +4218,7 @@ namespace IceBlink2
         }
         public void doEffectScript(object src, Effect ef)
         {
-            if (!ef.effectScript.Equals("efGeneric"))
+            if (ef.effectScript.Equals("efGeneric"))
             {
                 gv.sf.efGeneric(src, ef);
             }

@@ -67,5 +67,66 @@
         "quantity": 1
       }
     ]
+  },
+  {
+    "containerTag": "testitems",
+    "containerItemRefs": [
+      {
+        "resref": "poisonDagger",
+        "tag": "poisonDagger_9047",
+        "name": "Poison Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "poisonDagger",
+        "tag": "poisonDagger_9048",
+        "name": "Poison Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_9049",
+        "name": "Bomb of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_9050",
+        "name": "Bomb of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_9051",
+        "name": "Bomb of Fire",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_9052",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_9053",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_9054",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
   }
 ]

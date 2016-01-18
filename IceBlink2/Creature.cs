@@ -154,7 +154,53 @@ namespace IceBlink2
             }
 		    return copy;
 	    }
-	    public Effect getEffectByTag(string tag)
+
+        public bool isHeld()
+        {
+            foreach (Effect ef in this.cr_effectsList)
+            {
+                if (ef.statusType.Equals("Held"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isImmobile()
+        {
+            foreach (Effect ef in this.cr_effectsList)
+            {
+                if (ef.statusType.Equals("Immobile"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isInvisible()
+        {
+            foreach (Effect ef in this.cr_effectsList)
+            {
+                if (ef.statusType.Equals("Invisible"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isSilenced()
+        {
+            foreach (Effect ef in this.cr_effectsList)
+            {
+                if (ef.statusType.Equals("Silenced"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Effect getEffectByTag(string tag)
         {
             foreach (Effect ef in this.cr_effectsList)
             {

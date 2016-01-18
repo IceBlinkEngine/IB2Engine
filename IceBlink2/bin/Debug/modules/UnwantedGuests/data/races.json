@@ -83,5 +83,63 @@
       "thief"
     ],
     "traitsAllowed": []
+  },
+  {
+    "name": "Gnome",
+    "tag": "gnome",
+    "UsableByPlayer": true,
+    "description": "",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 3,
+    "strMod": -2,
+    "dexMod": 0,
+    "intMod": 2,
+    "chaMod": 0,
+    "conMod": -2,
+    "wisMod": 2,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "fighter",
+      "cleric",
+      "ranger",
+      "wizard",
+      "thief"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Halfling",
+    "tag": "halfling",
+    "UsableByPlayer": true,
+    "description": "",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 3,
+    "strMod": -2,
+    "dexMod": 2,
+    "intMod": 0,
+    "chaMod": 0,
+    "conMod": 0,
+    "wisMod": 0,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "fighter",
+      "cleric",
+      "ranger",
+      "wizard",
+      "thief"
+    ],
+    "traitsAllowed": []
   }
 ]

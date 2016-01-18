@@ -5601,7 +5601,7 @@ namespace IceBlink2
             double dist = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
             return (float)dist;
         }
-        public void CreateAoeSquaresList(object src, object trg, Spell thisSpell)
+        public void CreateAoeSquaresList(object src, object trg, AreaOfEffectShape shape, int aoeRadius)
         {
             AoeSquaresList.Clear();
 
@@ -5646,11 +5646,11 @@ namespace IceBlink2
 
             //shape and radius
             #region Circle
-            if (thisSpell.aoeShape == AreaOfEffectShape.Circle)
+            if (shape == AreaOfEffectShape.Circle)
             {
-                for (int x = target.X - thisSpell.aoeRadius; x <= target.X + thisSpell.aoeRadius; x++)
+                for (int x = target.X - aoeRadius; x <= target.X + aoeRadius; x++)
                 {
-                    for (int y = target.Y - thisSpell.aoeRadius; y <= target.Y + thisSpell.aoeRadius; y++)
+                    for (int y = target.Y - aoeRadius; y <= target.Y + aoeRadius; y++)
                     {
                         //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                         AoeSquaresList.Add(new Coordinate(x, y));
@@ -5659,7 +5659,7 @@ namespace IceBlink2
             }
             #endregion
             #region Cone
-            else if (thisSpell.aoeShape == AreaOfEffectShape.Cone)
+            else if (shape == AreaOfEffectShape.Cone)
             {
                 int signX = target.X - srcX;
                 int signY = target.Y - srcY;
@@ -5675,12 +5675,12 @@ namespace IceBlink2
                 {
                     if (signY == 0) //right or left
                     {
-                        for (int x = 0; Math.Abs(x) <= thisSpell.aoeRadius; x += incX)
+                        for (int x = 0; Math.Abs(x) <= aoeRadius; x += incX)
                         {
                             for (int y = -Math.Abs(x); y <= Math.Abs(x); y++)
                             {
                                 float r = GetDistanceF(0, 0, x, y);
-                                if (r <= thisSpell.aoeRadius)
+                                if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                     AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5690,12 +5690,12 @@ namespace IceBlink2
                     }
                     else //up or down
                     {
-                        for (int y = 0; Math.Abs(y) <= thisSpell.aoeRadius; y += incY)
+                        for (int y = 0; Math.Abs(y) <= aoeRadius; y += incY)
                         {
                             for (int x = -Math.Abs(y); x <= Math.Abs(y); x++)
                             {
                                 float r = GetDistanceF(0, 0, x, y);
-                                if (r <= thisSpell.aoeRadius)
+                                if (r <= aoeRadius)
                                 {
                                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                     AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5707,12 +5707,12 @@ namespace IceBlink2
                 //diagnols
                 else
                 {
-                    for (int x = 0; Math.Abs(x) <= thisSpell.aoeRadius; x += incX)
+                    for (int x = 0; Math.Abs(x) <= aoeRadius; x += incX)
                     {
-                        for (int y = 0; Math.Abs(y) <= thisSpell.aoeRadius; y += incY)
+                        for (int y = 0; Math.Abs(y) <= aoeRadius; y += incY)
                         {
                             float r = GetDistanceF(0, 0, x, y);
-                            if (r <= thisSpell.aoeRadius)
+                            if (r <= aoeRadius)
                             {
                                 //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                                 AoeSquaresList.Add(new Coordinate(x + target.X, y + target.Y));
@@ -5723,7 +5723,7 @@ namespace IceBlink2
             }
             #endregion
             #region Line
-            else if (thisSpell.aoeShape == AreaOfEffectShape.Line)
+            else if (shape == AreaOfEffectShape.Line)
             {
                 int rise = target.Y - srcY;
                 int incY = 0;
@@ -5753,7 +5753,7 @@ namespace IceBlink2
                 int currentX = target.X;
                 int currentY = target.Y;
                 int riseCnt = 1;
-                for (int i = 0; i < thisSpell.aoeRadius; i++)
+                for (int i = 0; i < aoeRadius; i++)
                 {
                     //TODO check for LoS from (target.X, target.Y) center location to (x,y)
                     AoeSquaresList.Add(new Coordinate(currentX, currentY));
@@ -5859,7 +5859,7 @@ namespace IceBlink2
         public void spGeneric(Spell thisSpell, object src, object trg)
         {            
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -6306,7 +6306,7 @@ namespace IceBlink2
         public void spFlameFingers(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
             
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -6551,7 +6551,7 @@ namespace IceBlink2
         public void spSleep(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -6703,7 +6703,7 @@ namespace IceBlink2
         public void spWeb(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -6777,7 +6777,7 @@ namespace IceBlink2
         public void spIceStorm(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -6913,7 +6913,7 @@ namespace IceBlink2
         public void spFireball(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -7049,7 +7049,7 @@ namespace IceBlink2
         public void spLightning(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);
@@ -7496,7 +7496,7 @@ namespace IceBlink2
         public void spBlastOfLight(object src, object trg, Spell thisSpell)
         {
             //set squares list
-            CreateAoeSquaresList(src, trg, thisSpell);
+            CreateAoeSquaresList(src, trg, thisSpell.aoeShape, thisSpell.aoeRadius);
 
             //set target list
             CreateAoeTargetsList(src, trg);

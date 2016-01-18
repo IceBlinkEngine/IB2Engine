@@ -1098,7 +1098,7 @@ namespace IceBlink2
                     currentMoveOrderIndex++;
                     gv.Render();
                     //go to start PlayerTurn or start CreatureTurn
-                    if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+                    if ((crt.hp > 0) && (!crt.isHeld()))
                     {
                         doCreatureTurn();
                     }
@@ -1403,10 +1403,14 @@ namespace IceBlink2
             currentMoves = 0;
             //do onTurn IBScript
             gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnStartCombatTurnIBScript, gv.mod.currentEncounter.OnStartCombatTurnIBScriptParms);
-
-            if ((pc.isHeld()) || (pc.isDead()))
+                        
+            if ((pc.isHeld()) || (pc.isDead()) || (pc.isUnconcious()))
             {
                 endPcTurn(false);
+            }
+            if (pc.isImmobile())
+            {
+                currentMoves = 99;
             }
         }
         public void doCombatAttack(Player pc)
@@ -1530,14 +1534,7 @@ namespace IceBlink2
                         doItemOnHitCastSpell(it.onScoringHitCastSpellTag, it, crt);
                     }
                 }
-
-                
-
-                if (!crt.onScoringHitCastSpellTag.Equals("none"))
-                {
-                    doCreatureOnHitCastSpell(crt, pc);
-                }
-
+                                
                 //play attack sound for melee (not ranged)
                 if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                 {
@@ -1721,7 +1718,7 @@ namespace IceBlink2
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             CalculateUpperLeftCreature();
-            if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+            if ((crt.hp > 0) && (!crt.isHeld()))
             {
                 creatureToAnimate = null;
                 playerToAnimate = null;
@@ -1742,7 +1739,12 @@ namespace IceBlink2
 		
 		    gv.sf.ActionToTake = null;
 		    gv.sf.SpellToCast = null;
-        
+
+            if (crt.isImmobile())
+            {
+                creatureMoves = 99;
+            }
+
             //determine the action to take
             doCreatureAI(crt);
 
@@ -1936,6 +1938,7 @@ namespace IceBlink2
                         gv.Render();
 	    	            creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
 	    	            animationState = AnimationState.CreatureRangedAttackAnimation;
+                        gv.sf.CreateAoeSquaresList(crt, pc, AreaOfEffectShape.Circle, 0);
                         //int speed = gv.sf.GetGlobalInt("animationSpeed");
                         //if (speed < 1)
                         //{
@@ -3332,7 +3335,7 @@ namespace IceBlink2
 		    else if (currentCombatMode.Equals("cast"))
 		    {
                 //set squares list
-                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, gv.cc.currentSelectedSpell);
+                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, gv.cc.currentSelectedSpell.aoeShape, gv.cc.currentSelectedSpell.aoeRadius);
                 foreach (Coordinate coor in gv.sf.AoeSquaresList)
                 {
                     if (!IsInVisibleCombatWindow(coor.X,coor.Y))
@@ -5397,7 +5400,7 @@ namespace IceBlink2
 		    {
 			    if (getDistance(new Coordinate(pc.combatLocX,pc.combatLocY), new Coordinate(crt.combatLocX,crt.combatLocY)) == 1)
 			    {
-				    if (!crt.cr_status.Equals("Held"))
+				    if (!crt.isHeld())
 				    {
 					    return true;
 				    }
@@ -5758,7 +5761,7 @@ namespace IceBlink2
        
             foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
             {
-                if ((crt.hp > 0) && (!crt.cr_status.Equals("Held")))
+                if ((crt.hp > 0) && (!crt.isHeld()))
                 {
                     //if started in distance = 1 and now distance = 2 then do attackOfOpportunity
                     //also do attackOfOpportunity if moving within controlled area around a creature, i.e. when distance to cerature after move is still one square
@@ -5899,7 +5902,7 @@ namespace IceBlink2
 	    public int CalcCreatureDefense(Player pc, Creature crt)
         {
             int defense = crt.AC;
-            if (crt.cr_status.Equals("Held"))
+            if (crt.isHeld())
             {
         	    defense -= 4;
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+4 att", "green");

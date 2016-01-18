@@ -146,6 +146,7 @@ namespace IceBlink2
             {
                 setControlsStart();
             }
+            doItemStacking();
             int cntSlot = 0;
             foreach (IbbButton btn in btnInventorySlot)
             {

@@ -225,7 +225,7 @@ namespace IceBlink2
         {
             foreach (Effect ef in this.effectsList)
             {
-                if (ef.addStatusType.Equals("Held"))
+                if (ef.statusType.Equals("Held"))
                 {
                     return true;
                 }
@@ -236,7 +236,7 @@ namespace IceBlink2
         {
             foreach (Effect ef in this.effectsList)
             {
-                if (ef.addStatusType.Equals("Immobile"))
+                if (ef.statusType.Equals("Immobile"))
                 {
                     return true;
                 }
@@ -247,7 +247,7 @@ namespace IceBlink2
         {
             foreach (Effect ef in this.effectsList)
             {
-                if (ef.addStatusType.Equals("Invisible"))
+                if (ef.statusType.Equals("Invisible"))
                 {
                     return true;
                 }
@@ -258,7 +258,7 @@ namespace IceBlink2
         {
             foreach (Effect ef in this.effectsList)
             {
-                if (ef.addStatusType.Equals("Silenced"))
+                if (ef.statusType.Equals("Silenced"))
                 {
                     return true;
                 }

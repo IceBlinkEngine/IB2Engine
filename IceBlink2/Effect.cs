@@ -69,7 +69,7 @@ namespace IceBlink2
         //BUFF and DEBUFF
         public bool doBuff = false;
         public bool doDeBuff = false;
-        public string addStatusType = "none"; //none, Held, Immobile, Invisible, Silenced, etc.
+        public string statusType = "none"; //none, Held, Immobile, Invisible, Silenced, etc.
         public int modifyFortitude = 0;
         public int modifyWill = 0;
         public int modifyReflex = 0;
@@ -144,7 +144,7 @@ namespace IceBlink2
             copy.healActionsEveryNLevels = this.healActionsEveryNLevels;
             copy.healActionsAfterLevelN = this.healActionsAfterLevelN;
             copy.healActionsUpToNLevelsTotal = this.healActionsUpToNLevelsTotal;
-            copy.addStatusType = this.addStatusType;
+            copy.statusType = this.statusType;
             copy.modifyFortitude = this.modifyFortitude;
             copy.modifyWill = this.modifyWill;
             copy.modifyReflex = this.modifyReflex;

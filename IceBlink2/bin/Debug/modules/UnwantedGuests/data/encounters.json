@@ -2580,6 +2580,18 @@
         "creatureTag": "giantRat_8737",
         "creatureStartLocationX": 1,
         "creatureStartLocationY": 4
+      },
+      {
+        "creatureResRef": "graySpider",
+        "creatureTag": "graySpider_9055",
+        "creatureStartLocationX": 10,
+        "creatureStartLocationY": 3
+      },
+      {
+        "creatureResRef": "acidBeetle",
+        "creatureTag": "acidBeetle_9056",
+        "creatureStartLocationX": 3,
+        "creatureStartLocationY": 10
       }
     ],
     "encounterCreatureList": [],
