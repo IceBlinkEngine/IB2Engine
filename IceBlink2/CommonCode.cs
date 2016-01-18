@@ -3070,7 +3070,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightRain"))
                     {
                         isRaining = true;
-                        gv.weatherSounds1.settings.volume = 110 ;
+                        gv.weatherSounds1.settings.volume = 35 ;
                         if (gv.mod.weatherSoundsName1 != "lightRain")
                         {
                             gv.mod.weatherSoundsName1 = "lightRain";
@@ -3150,7 +3150,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("heavyCloud"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 70;
+                        gv.weatherSounds2.settings.volume = 65;
                         if ((gv.mod.weatherSoundsName2 != "heavyCloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -3235,7 +3235,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("cloud"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 42;
+                        gv.weatherSounds2.settings.volume = 35;
                         if ((gv.mod.weatherSoundsName2 != "cloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)

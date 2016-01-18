@@ -174,7 +174,7 @@ namespace IceBlink2
         public string weatherSoundsName2 = "";
         public string weatherSoundsName3 = "";
 
-        public bool useWeatherSound = false;
+        public bool useWeatherSound = true;
         public bool resetWeatherSound = false;
 
         public Module()
