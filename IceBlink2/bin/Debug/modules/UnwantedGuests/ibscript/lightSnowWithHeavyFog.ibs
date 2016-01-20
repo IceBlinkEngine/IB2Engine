@@ -230,7 +230,7 @@ if (%CurrentArea.changeableByWeatherScript8 = "True")
 			//lightSnowLayerA, lightSnowLayerB, snowLayerA, snowLayerB,heavySnowLayerA, heavySnowLayerB
                         //lightningLayerA, lightningLayerB
 			//see special naming rules for these .png below under shape changing animations (short: give the .png numbers at the end, starting with 1, define here without any number)
-%CurrentArea.fullScreenEffectLayerName8  = "heavyFogLayerB"	
+%CurrentArea.fullScreenEffectLayerName8  = "fogLayerB"	
  			//setting up the (override) movement pattern, speeds and delay
         		//a value of -100 ("" in case of overrideIsNoScrollSource1) means that the default, ie predefined in code, setting of the override animation pattern for this parameter shall be used
         		//so far existing directional overrides:
