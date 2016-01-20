@@ -3308,18 +3308,7 @@ namespace IceBlink2
 		    Player pc = mod.playerList[currentPlayerIndex];
 		    if (currentCombatMode.Equals("attack"))
 		    {
-                /*
-                Color colr = Color.Lime;
-			    //check if target is within attack distance, use green if true, red if false
-			    if (isValidAttackTarget(pc)) {colr = Color.Lime;}
-			    else {colr = Color.Red;}
-			    int cornerRadius = gv.squareSize / 10;
-                int x = getPixelLocX(targetHighlightCenterLocation.X);
-                int y = getPixelLocY(targetHighlightCenterLocation.Y);
-                int penWidth = 3;
-			    gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
-                */
-                int x = getPixelLocX(targetHighlightCenterLocation.X);
+                /*int x = getPixelLocX(targetHighlightCenterLocation.X);
                 int y = getPixelLocY(targetHighlightCenterLocation.Y);
                 IbRect src = new IbRect(0, 0, gv.cc.highlight_green.PixelSize.Width, gv.cc.highlight_green.PixelSize.Height);
                 IbRect dst = new IbRect(x, y, gv.squareSize, gv.squareSize);
@@ -3330,6 +3319,75 @@ namespace IceBlink2
                 else
                 {
                     gv.DrawBitmap(gv.cc.highlight_red, src, dst);
+                }*/
+                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                //if using ranged and have ammo, use ammo properties
+                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                {
+                    //ranged weapon with ammo
+                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                }
+                if (it == null)
+                {
+                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                }
+                //set squares list
+                gv.sf.CreateAoeSquaresList(pc, targetHighlightCenterLocation, it.aoeShape, it.AreaOfEffect);
+                foreach (Coordinate coor in gv.sf.AoeSquaresList)
+                {
+                    if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                    {
+                        continue;
+                    }
+                    //Color colr = Color.Lime;
+                    bool hl_green = true;
+                    int endX2 = coor.X * gv.squareSize + (gv.squareSize / 2);
+                    int endY2 = coor.Y * gv.squareSize + (gv.squareSize / 2);
+                    int startX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
+                    int startY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
+
+                    if (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX2, startY2)))
+                    {
+                        //colr = Color.Lime;
+                        hl_green = true;
+                    }
+                    else
+                    {
+                        //colr = Color.Red;
+                        hl_green = false;
+                    }
+                    if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                    {
+                        int startX3 = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                        int startY3 = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                        if ((isValidAttackTarget(pc)) && (isVisibleLineOfSight(new Coordinate(endX2, endY2), new Coordinate(startX3, startY3))))
+                        {
+                            //colr = Color.Lime;
+                            hl_green = true;
+                        }
+                        else
+                        {
+                            //colr = Color.Red;
+                            hl_green = false;
+                        }
+                    }
+
+                    //int cornerRadius = gv.squareSize / 5;
+                    //int penWidth = 3;                    
+                    int x = getPixelLocX(coor.X);
+                    int y = getPixelLocY(coor.Y);
+                    //gv.DrawRoundRectangle(new IbRect(x, y, gv.squareSize, gv.squareSize), cornerRadius, colr, penWidth);
+                    IbRect src = new IbRect(0, 0, gv.cc.highlight_green.PixelSize.Width, gv.cc.highlight_green.PixelSize.Height);
+                    IbRect dst = new IbRect(x, y, gv.squareSize, gv.squareSize);
+                    if (hl_green)
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_green, src, dst);
+                    }
+                    else
+                    {
+                        gv.DrawBitmap(gv.cc.highlight_red, src, dst);
+                    }
                 }
             }
 		    else if (currentCombatMode.Equals("cast"))

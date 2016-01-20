@@ -45,6 +45,7 @@ namespace IceBlink2
 	    public int attackBonus = 0; //attack bonus
 	    public int attackRange = 1; //attack range
 	    public int AreaOfEffect = 0; //AoE radius
+        public AreaOfEffectShape aoeShape = AreaOfEffectShape.Circle;
         public string spellTag = "none";
         public int damageNumDice = 1; //number of dice to roll for damage
 	    public int damageDie = 2; //type of dice to roll for damage
@@ -118,6 +119,7 @@ namespace IceBlink2
 		    copy.attackBonus = this.attackBonus;
 		    copy.attackRange = this.attackRange;
 		    copy.AreaOfEffect = this.AreaOfEffect;
+            copy.aoeShape = this.aoeShape;
             copy.spellTag = this.spellTag;
             copy.damageNumDice = this.damageNumDice;
 		    copy.damageDie = this.damageDie;
