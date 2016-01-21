@@ -3047,10 +3047,10 @@ namespace IceBlink2
 
         public void doChannelScripts()
         {
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript1, gv.mod.currentArea.effectChannelScriptParms1);
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript2, gv.mod.currentArea.effectChannelScriptParms2);
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript3, gv.mod.currentArea.effectChannelScriptParms3);
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript4, gv.mod.currentArea.effectChannelScriptParms4);
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript1, "fullScreenEffectScript");
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript2, "fullScreenEffectScript");
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript3, "fullScreenEffectScript");
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.effectChannelScript4, "fullScreenEffectScript");
 
         }
 
@@ -3074,7 +3074,7 @@ namespace IceBlink2
             //call the weather script to set up the longEntryList
             //the entry list is a property of the module itself
             //weathr script amkes no use of parms, well, for now at least
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
+            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, "fullScreenEffectScript");
 
             //clear the old weather lists
             gv.mod.listOfEntryWeatherNames.Clear();
@@ -3283,7 +3283,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
+                    gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, "fullScreenEffectScript");
                 }
              
             //1. read in the weather script of current area and store it in a set of globals

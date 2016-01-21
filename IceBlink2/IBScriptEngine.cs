@@ -56,13 +56,13 @@ namespace IceBlink2
             gv = g;
             scriptFilename = filename;
             //read in script file and create line numbered list
-            if (parms != "weatherScript")
+            if (parms != "fullScreenEffectScript")
             {
                 lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + filename + ".ibs");
             }
             else
             {
-                lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + "\\weatherScripts\\" + filename + ".ibs");
+                lines = File.ReadAllLines(gv.cc.GetModulePath() + "\\ibscript\\" + "\\fullScreenEffectScripts\\" + filename + ".ibs");
             }
             List<string> converttolist = lines.ToList();
             converttolist.Insert(0, "//line 0");
@@ -73,7 +73,7 @@ namespace IceBlink2
             fillIfBlocksList();
 
             //convert the parms into a List<String> by comma delimination and remove white space
-            if (parms != "weatherScript")
+            if (parms != "fullScreenEffectScript")
             {
                 parmsList = parms.Split(',').Select(x => x.Trim()).ToList();
             }
