@@ -96,6 +96,7 @@
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureRefs.cs" />
     <Compile Include="Effect.cs" />
+    <Compile Include="EffectTagForDropDownList.cs" />
     <Compile Include="Encounter.cs" />
     <Compile Include="EventObjEditorReturnObject.cs" />
     <Compile Include="FloatyText.cs" />
