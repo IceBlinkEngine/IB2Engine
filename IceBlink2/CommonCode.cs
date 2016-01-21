@@ -2489,6 +2489,7 @@ namespace IceBlink2
         public void doWeatherSound()
         {
             #region weatherSounds
+            float weatherSoundMultiplier = 2.7f;
             //Note that in doTransitionBasedOnAreaLocation() method another weather code part is located
             //the whole system uses three sound channels, ie three instances of mediaplayer (defined in gameview, set to loop there):
             //sound channel 1 (weatherSounds1 media player) is for different degreees of rain effects
@@ -2497,6 +2498,10 @@ namespace IceBlink2
             //requires a switch on module levelset to true as well as the ingame toggle for music&sound on
             if ((gv.mod.useWeatherSound) && (gv.mod.playMusic))
             {
+                if (gv.mod.debugMode)
+                {
+                    gv.log.AddHtmlTextToLog(gv.mod.currentWeatherName.ToString());
+                }
                 //weather effects, defined by layer names on each channel, are read in freshl on each update call
                 gv.mod.weatherSoundList.Clear();
 
@@ -2506,31 +2511,55 @@ namespace IceBlink2
                 {
                     //store all availabe names in a list
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName5);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer5 name is:" + gv.mod.currentArea.fullScreenEffectLayerName5.ToString());
+                    }
                 }
 
                 if ((gv.mod.currentArea.useFullScreenEffectLayer6 == true) && (gv.mod.currentArea.fullScreenEffectLayerName6 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive6 == true))
                 {
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName6);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer6 name is:" + gv.mod.currentArea.fullScreenEffectLayerName6.ToString());
+                    }
                 }
 
                 if ((gv.mod.currentArea.useFullScreenEffectLayer7 == true) && (gv.mod.currentArea.fullScreenEffectLayerName7 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive7 == true))
                 {
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName7);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer7 name is:" + gv.mod.currentArea.fullScreenEffectLayerName7.ToString());
+                    }
                 }
 
                 if ((gv.mod.currentArea.useFullScreenEffectLayer8 == true) && (gv.mod.currentArea.fullScreenEffectLayerName8 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive8 == true))
                 {
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName8);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer8 name is:" + gv.mod.currentArea.fullScreenEffectLayerName8.ToString());
+                    }
                 }
 
                 if ((gv.mod.currentArea.useFullScreenEffectLayer9 == true) && (gv.mod.currentArea.fullScreenEffectLayerName9 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive9 == true))
                 {
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName9);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer9 name is:" + gv.mod.currentArea.fullScreenEffectLayerName9.ToString());
+                    }
                 }
 
                 if ((gv.mod.currentArea.useFullScreenEffectLayer10 == true) && (gv.mod.currentArea.fullScreenEffectLayerName10 != "") && (gv.mod.currentArea.fullScreenEffectLayerIsActive10 == true))
                 {
                     gv.mod.weatherSoundList.Add(gv.mod.currentArea.fullScreenEffectLayerName10);
+                    if (gv.mod.debugMode)
+                    {
+                        gv.log.AddHtmlTextToLog("Layer10 name is:" + gv.mod.currentArea.fullScreenEffectLayerName10.ToString());
+                    }
                 }
 
                 //soundName is used to store the relevant name on the different checks for wind, sandStorm, rain and lightning
@@ -2551,7 +2580,7 @@ namespace IceBlink2
                     {
                         //store that rain is still running and that the sound channel for rain, ie sound channel1, shall not be stopped 
                         isRaining = true;
-                        gv.weatherSounds1.settings.volume = 20;
+                        gv.weatherSounds1.settings.volume = (int)(23 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName1 != "heavyRain")
                         {
                             gv.mod.weatherSoundsName1 = "heavyRain";
@@ -2589,7 +2618,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightRain"))
                     {
                         isRaining = true;
-                        gv.weatherSounds1.settings.volume = 40;
+                        gv.weatherSounds1.settings.volume = (int)(45 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName1 != "lightRain")
                         {
                             gv.mod.weatherSoundsName1 = "lightRain";
@@ -2627,7 +2656,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("rain"))
                     {
                         isRaining = true;
-                        gv.weatherSounds1.settings.volume = 50;
+                        gv.weatherSounds1.settings.volume = (int)(55 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName1 != "rain")
                         {
                             gv.mod.weatherSoundsName1 = "rain";
@@ -2669,7 +2698,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("heavyCloud"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 65;
+                        gv.weatherSounds2.settings.volume = (int)(55 * weatherSoundMultiplier);
                         if ((gv.mod.weatherSoundsName2 != "heavyCloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -2711,7 +2740,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightCloud"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 30;
+                        gv.weatherSounds2.settings.volume = (int)(23 * weatherSoundMultiplier);
                         if ((gv.mod.weatherSoundsName2 != "lightCloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -2754,7 +2783,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("cloud"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 35;
+                        gv.weatherSounds2.settings.volume = (int)(30 * weatherSoundMultiplier);
                         if ((gv.mod.weatherSoundsName2 != "cloud") || (gv.mod.resetWeatherSound))
                         {
                             if (gv.mod.resetWeatherSound)
@@ -2796,7 +2825,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightSandstorm"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 50;
+                        gv.weatherSounds2.settings.volume = (int)(25 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName2 != "lightSandstorm")
                         {
                             gv.mod.weatherSoundsName2 = "lightSandstorm";
@@ -2834,7 +2863,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("heavySandstorm"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 70;
+                        gv.weatherSounds2.settings.volume = (int)(70 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName2 != "heavySandstorm")
                         {
                             gv.mod.weatherSoundsName2 = "heavySandstorm";
@@ -2872,7 +2901,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("sandstorm"))
                     {
                         isWindy = true;
-                        gv.weatherSounds2.settings.volume = 35;
+                        gv.weatherSounds2.settings.volume = (int)(35 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName2 != "sandstorm")
                         {
                             gv.mod.weatherSoundsName2 = "sandstorm";
@@ -2914,6 +2943,7 @@ namespace IceBlink2
                     if (weatherComponentName.Contains("lightning"))
                     {
                         isLightning = true;
+                        gv.weatherSounds3.settings.volume = (int)(50 * weatherSoundMultiplier);
                         if (gv.mod.weatherSoundsName3 != "lightning")
                         {
                             gv.mod.weatherSoundsName3 = "lightning";
@@ -2951,47 +2981,48 @@ namespace IceBlink2
                 //mute the not used channels
                 if (isRaining == false)
                 {
-                    if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                    {
+                    //if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                    //{
                         gv.weatherSounds1.controls.stop();
-                    }
+                    //}
                 }
                 else
                 {
-                    if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
-                    {
+                    //if ((gv.weatherSounds1.URL != "") && (gv.weatherSounds1 != null))
+                    //{
                         gv.weatherSounds1.controls.play();
-                    }
+                    //}
                 }
 
                 if (isWindy == false)
                 {
-                    if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                    {
+                    //if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                    //{
                         gv.weatherSounds2.controls.stop();
-                    }
+                    //}
                 }
                 else
                 {
-                    if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
-                    {
+                    //if ((gv.weatherSounds2.URL != "") && (gv.weatherSounds2 != null))
+                    //{
                         gv.weatherSounds2.controls.play();
-                    }
+                    //}
                 }
                 if (isLightning == false)
                 {
-                    if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
-                    {
+                    //if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                    //{
                         gv.weatherSounds3.controls.stop();
-                    }
+                    //}
                 }
                 else
                 {
-                    if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
-                    {
+                    //if ((gv.weatherSounds3.URL != "") && (gv.weatherSounds3 != null))
+                    //{
                         gv.weatherSounds3.controls.play();
-                    }
+                    //}
                 }
+                
             }
 
             if (!gv.mod.playMusic)
@@ -3073,6 +3104,29 @@ namespace IceBlink2
                     {
                         doesCurrentWeatherExistHere = true;
                         //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
+
+                        //test idea
+                        if (gv.mod.justTransitioned == true)
+                        {
+                            gv.mod.currentWeatherDuration = 36;
+                            float rollRandom2 = gv.sf.RandInt(100);
+                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                            gv.mod.howLongWeatherHasRun = 0;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                            gv.mod.fullScreenEffectOpacityWeather = 0;
+                            gv.mod.currentArea.overrideDelayCounter5 = 10000;
+                            gv.mod.currentArea.overrideDelayCounter6 = 10000;
+                            gv.mod.currentArea.overrideDelayCounter7 = 10000;
+                            gv.mod.currentArea.overrideDelayCounter8 = 10000;
+                            gv.mod.currentArea.overrideDelayCounter9 = 10000;
+                            gv.mod.currentArea.overrideDelayCounter10 = 10000;
+                        }
+                        //end test idea
                         break;
                     }
                 }
@@ -3148,6 +3202,11 @@ namespace IceBlink2
                 if (gv.mod.currentWeatherDuration <= 0)
             {
 
+                //hurghD
+                gv.weatherSounds1.controls.stop();
+                gv.weatherSounds2.controls.stop();
+                gv.weatherSounds3.controls.stop();
+
                 gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
                 gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
                 gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
@@ -3171,6 +3230,7 @@ namespace IceBlink2
                 //determine random number between 1 and 100 for choosing entry weather type
                 int rollRandom = gv.sf.RandInt(100);
                 int addedChances = 0;
+                bool foundWeather = false;
 
                 for (int i = 0; i < gv.mod.listOfExitWeatherChances.Count; i++)
                 {
@@ -3183,9 +3243,23 @@ namespace IceBlink2
                         gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
                         //testidea2
                         doesCurrentWeatherExistHere = true;
+                        foundWeather = true;
                         break;
                     }
                 }
+
+                
+                if ((foundWeather == false) && (gv.mod.listOfExitWeatherChances.Count > 0))
+                {
+                    gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[0];
+                    gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[0];
+                    float rollRandom2 = gv.sf.RandInt(100);
+                    gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                    //testidea2
+                    doesCurrentWeatherExistHere = true;
+                    foundWeather = true;
+                }
+                
             }
             
             //prepare for reading in the second part of the weather script: setup of the full effect channels based on current weather
@@ -3225,7 +3299,7 @@ namespace IceBlink2
             //4. reduce the remaining duration global  by 1 (multiplied by area MultiplierForScale)  
             //5. if duration of stored weather is zero or lower: roll on exit weather table and set curent weather global name and global Duration
             //6. The weather script itself sets now directly all full channel attributes for the channels belonging to the weather
-            //note: by default the weather script will overwrite the existing channel value, author's can set e.g. for channel 1 property: changebaleByWeatherScript1 to true to block a channel from weather though
+            //note: by default the weather script will overwrfite the existing channel value, author's can set e.g. for channel 1 property: changebaleByWeatherScript1 to true to block a channel from weather though
             
         }
 
@@ -5546,8 +5620,9 @@ namespace IceBlink2
                     gv.mod.currentArea.changeFrameCounter9 = 1;
                     gv.mod.currentArea.changeFrameCounter10 = 1;
                     */
-
-                    gv.mod.currentWeatherName = "";
+                    
+                    //try to keep weather consistency intact
+                    //gv.mod.currentWeatherName = "";
 
                     //end of new ideas
                     doChannelScripts();
