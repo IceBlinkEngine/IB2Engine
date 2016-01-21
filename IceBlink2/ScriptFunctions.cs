@@ -6082,6 +6082,28 @@ namespace IceBlink2
                         }
                         #endregion
                     }
+                    if (thisSpell.removeEffectTagList.Count > 0)
+                    {
+                        #region remove effects  
+                        foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
+                        {
+                            for (int x = crt.cr_effectsList.Count - 1; x >= 0; x--)
+                            {
+                                if (crt.cr_effectsList[x].tag.Equals(efTag.tag))
+                                {
+                                    try
+                                    {
+                                        crt.cr_effectsList.RemoveAt(x);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        gv.errorLog(ex.ToString());
+                                    }
+                                }
+                            }
+                        }                        
+                        #endregion
+                    }
                 }
                 else //target is Player
                 {
@@ -6273,6 +6295,28 @@ namespace IceBlink2
                             int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
                             gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
                             pc.AddEffectByObject(thisSpellEffect, classLevel);
+                        }
+                        #endregion
+                    }
+                    if (thisSpell.removeEffectTagList.Count > 0)
+                    {
+                        #region remove effects  
+                        foreach (EffectTagForDropDownList efTag in thisSpell.removeEffectTagList)
+                        {
+                            for (int x = pc.effectsList.Count - 1; x >= 0; x--)
+                            {
+                                if (pc.effectsList[x].tag.Equals(efTag.tag))
+                                {
+                                    try
+                                    {
+                                        pc.effectsList.RemoveAt(x);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        gv.errorLog(ex.ToString());
+                                    }
+                                }
+                            }
                         }
                         #endregion
                     }

@@ -164,7 +164,7 @@ namespace IceBlink2
 		      copy.damageTypeResistanceTotalMagic = this.damageTypeResistanceTotalMagic;
 		      copy.damageTypeResistanceTotalPoison = this.damageTypeResistanceTotalPoison;
 		  
-		      copy.knownSpellsTags = new List<String>();
+		      copy.knownSpellsTags = new List<string>();
 		      foreach (string s in this.knownSpellsTags)
 		      {
 			      copy.knownSpellsTags.Add(s);
