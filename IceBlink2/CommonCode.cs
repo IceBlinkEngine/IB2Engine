@@ -5508,6 +5508,231 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
+
+        public bool goWest()
+        {
+            bool doTransition = false;
+
+            bool foundNeighbourArea = false;
+            int indexOfNeighbourMap = 1000000;
+
+            if ((gv.mod.PlayerLocationX == 0) && (gv.mod.currentArea.westernNeighbourArea == ""))
+            {
+                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+            }
+
+            if ((gv.mod.PlayerLocationX == 0) && (gv.mod.currentArea.westernNeighbourArea != ""))
+            {
+                for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                    {
+                        foundNeighbourArea = true;
+                        indexOfNeighbourMap = i;
+                        break;
+                    }
+                }
+
+                if (foundNeighbourArea)
+                {
+                    if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
+                    {
+                        //check for block on other side
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1, gv.mod.PlayerLocationY) == false)
+                        {
+                            int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1;
+                            int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
+                            doTransition = true;
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                        }
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("red", "The neigbhbouring area does not touch this border section.");
+                    }
+                    
+                }
+                else
+                {
+                    gv.cc.addLogText("red", "No known neigbhbouring area existent.");
+                }
+            }
+
+            return doTransition;
+        }
+
+        public bool goEast()
+        {
+            bool doTransition = false;
+
+            bool foundNeighbourArea = false;
+            int indexOfNeighbourMap = 1000000;
+
+            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1)) && (gv.mod.currentArea.easternNeighbourArea == ""))
+            {
+                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+            }
+
+            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1)) && (gv.mod.currentArea.easternNeighbourArea != ""))
+            {
+                for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                    {
+                        foundNeighbourArea = true;
+                        indexOfNeighbourMap = i;
+                        break;
+                    }
+                }
+
+                if (foundNeighbourArea)
+                {
+                    if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
+                    {
+                        //check for block on other side
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(0, gv.mod.PlayerLocationY) == false)
+                        {
+                            int xTargetCoordinate = 0;
+                            int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
+                            doTransition = true;
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                        }
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("red", "The neigbhbouring area does not touch this border section.");
+                    }
+
+                }
+                else
+                {
+                    gv.cc.addLogText("red", "No known neigbhbouring area existent.");
+                }
+            }
+
+            return doTransition;
+        }
+
+        public bool goNorth()
+        {
+            bool doTransition = false;
+
+            bool foundNeighbourArea = false;
+            int indexOfNeighbourMap = 1000000;
+
+            if ((gv.mod.PlayerLocationY == 0) && (gv.mod.currentArea.northernNeighbourArea == ""))
+            {
+                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+            }
+
+            if ((gv.mod.PlayerLocationY == 0) && (gv.mod.currentArea.northernNeighbourArea != ""))
+            {
+                for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                    {
+                        foundNeighbourArea = true;
+                        indexOfNeighbourMap = i;
+                        break;
+                    }
+                }
+
+                if (foundNeighbourArea)
+                {
+                    if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
+                    {
+                        //check for block on other side
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) == false)
+                        {
+                            int xTargetCoordinate = gv.mod.PlayerLocationX;
+                            int yTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1;
+                            gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
+                            doTransition = true;
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                        }
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("red", "The neigbhbouring area does not touch this border section.");
+                    }
+
+                }
+                else
+                {
+                    gv.cc.addLogText("red", "No known neigbhbouring area existent.");
+                }
+            }
+
+            return doTransition;
+        }
+
+        public bool goSouth()
+        {
+            bool doTransition = false;
+
+            bool foundNeighbourArea = false;
+            int indexOfNeighbourMap = 1000000;
+
+            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (gv.mod.currentArea.southernNeighbourArea == ""))
+            {
+                gv.cc.addLogText("red", "No neigbhbouring area existent.");
+            }
+
+            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (gv.mod.currentArea.southernNeighbourArea != ""))
+            {
+                for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                    {
+                        foundNeighbourArea = true;
+                        indexOfNeighbourMap = i;
+                        break;
+                    }
+                }
+
+                if (foundNeighbourArea)
+                {
+                    if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
+                    {
+                        //check for block on other side
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, 0) == false)
+                        {
+                            int xTargetCoordinate = gv.mod.PlayerLocationX;
+                            int yTargetCoordinate = 0;
+                            gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
+                            doTransition = true;
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("red", "Something blocks the path from the other side.");
+                        }
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("red", "The neigbhbouring area does not touch this border section.");
+                    }
+
+                }
+                else
+                {
+                    gv.cc.addLogText("red", "No known neigbhbouring area existent.");
+                }
+            }
+
+            return doTransition;
+        }
+
         public void doTransitionBasedOnAreaLocation(string areaFilename, int x, int y)
         {
             try
