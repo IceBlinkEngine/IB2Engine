@@ -5516,12 +5516,12 @@ namespace IceBlink2
             bool foundNeighbourArea = false;
             int indexOfNeighbourMap = 1000000;
 
-            if ((gv.mod.PlayerLocationX == 0) && (gv.mod.currentArea.westernNeighbourArea == ""))
+            if ((gv.mod.PlayerLocationX == gv.mod.borderAreaSize) && (gv.mod.currentArea.westernNeighbourArea == ""))
             {
                 gv.cc.addLogText("red", "No neigbhbouring area existent.");
             }
 
-            if ((gv.mod.PlayerLocationX == 0) && (gv.mod.currentArea.westernNeighbourArea != ""))
+            if ((gv.mod.PlayerLocationX == gv.mod.borderAreaSize) && (gv.mod.currentArea.westernNeighbourArea != ""))
             {
                 for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
                 {
@@ -5538,10 +5538,11 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1, gv.mod.PlayerLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize, gv.mod.PlayerLocationY) == false)
                         {
-                            int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1;
+                            int xTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1 - gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -5572,12 +5573,12 @@ namespace IceBlink2
             bool foundNeighbourArea = false;
             int indexOfNeighbourMap = 1000000;
 
-            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1)) && (gv.mod.currentArea.easternNeighbourArea == ""))
+            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.easternNeighbourArea == ""))
             {
                 gv.cc.addLogText("red", "No neigbhbouring area existent.");
             }
 
-            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1)) && (gv.mod.currentArea.easternNeighbourArea != ""))
+            if ((gv.mod.PlayerLocationX == (gv.mod.currentArea.MapSizeX - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.easternNeighbourArea != ""))
             {
                 for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
                 {
@@ -5594,10 +5595,11 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) >= gv.mod.PlayerLocationY))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(0, gv.mod.PlayerLocationY) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.borderAreaSize, gv.mod.PlayerLocationY) == false)
                         {
-                            int xTargetCoordinate = 0;
+                            int xTargetCoordinate = gv.mod.borderAreaSize;
                             int yTargetCoordinate = gv.mod.PlayerLocationY;
+                            gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -5628,12 +5630,12 @@ namespace IceBlink2
             bool foundNeighbourArea = false;
             int indexOfNeighbourMap = 1000000;
 
-            if ((gv.mod.PlayerLocationY == 0) && (gv.mod.currentArea.northernNeighbourArea == ""))
+            if ((gv.mod.PlayerLocationY == gv.mod.borderAreaSize) && (gv.mod.currentArea.northernNeighbourArea == ""))
             {
                 gv.cc.addLogText("red", "No neigbhbouring area existent.");
             }
 
-            if ((gv.mod.PlayerLocationY == 0) && (gv.mod.currentArea.northernNeighbourArea != ""))
+            if ((gv.mod.PlayerLocationY == gv.mod.borderAreaSize) && (gv.mod.currentArea.northernNeighbourArea != ""))
             {
                 for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
                 {
@@ -5650,10 +5652,11 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize) == false)
                         {
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
-                            int yTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1;
+                            int yTargetCoordinate = gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeY - 1 - gv.mod.borderAreaSize;
+                            gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -5684,12 +5687,12 @@ namespace IceBlink2
             bool foundNeighbourArea = false;
             int indexOfNeighbourMap = 1000000;
 
-            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (gv.mod.currentArea.southernNeighbourArea == ""))
+            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.southernNeighbourArea == ""))
             {
                 gv.cc.addLogText("red", "No neigbhbouring area existent.");
             }
 
-            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1)) && (gv.mod.currentArea.southernNeighbourArea != ""))
+            if ((gv.mod.PlayerLocationY == (gv.mod.currentArea.MapSizeY - 1 - gv.mod.borderAreaSize)) && (gv.mod.currentArea.southernNeighbourArea != ""))
             {
                 for (int i = 0; i <= gv.mod.moduleAreasObjects.Count; i++)
                 {
@@ -5706,10 +5709,11 @@ namespace IceBlink2
                     if (((gv.mod.moduleAreasObjects[indexOfNeighbourMap].MapSizeX - 1) >= gv.mod.PlayerLocationX))
                     {
                         //check for block on other side
-                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, 0) == false)
+                        if (gv.mod.moduleAreasObjects[indexOfNeighbourMap].GetBlocked(gv.mod.PlayerLocationX, gv.mod.borderAreaSize) == false)
                         {
                             int xTargetCoordinate = gv.mod.PlayerLocationX;
-                            int yTargetCoordinate = 0;
+                            int yTargetCoordinate = gv.mod.borderAreaSize;
+                            gv.mod.allowImmediateRetransition = true;
                             gv.cc.doTransitionBasedOnAreaLocation(gv.mod.moduleAreasObjects[indexOfNeighbourMap].Filename, xTargetCoordinate, yTargetCoordinate);
                             doTransition = true;
                         }
@@ -5742,7 +5746,14 @@ namespace IceBlink2
                 {
                     gv.mod.PlayerLocationX = x;
                     gv.mod.PlayerLocationY = y;
-                    gv.mod.justTransitioned = true;
+                    if (gv.mod.allowImmediateRetransition == true)
+                    {
+                        gv.mod.allowImmediateRetransition = false;
+                    }
+                    else
+                    {
+                        gv.mod.justTransitioned = true;
+                    }
                     gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
                     gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
                     if (gv.mod.playMusic)

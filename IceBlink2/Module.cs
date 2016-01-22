@@ -177,6 +177,9 @@ namespace IceBlink2
         public bool useWeatherSound = true;
         public bool resetWeatherSound = false;
 
+        public int borderAreaSize = 0;
+        public bool allowImmediateRetransition = false;
+
         public Module()
         {
 

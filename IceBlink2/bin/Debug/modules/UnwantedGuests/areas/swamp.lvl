@@ -6,7 +6,7 @@
   "inGameAreaName": "newArea",
   "areaWeatherScript": "swamp",
   "easternNeighbourArea": "",
-  "westernNeighbourArea": "",
+  "westernNeighbourArea": "autumn",
   "northernNeighbourArea": "",
   "southernNeighbourArea": "",
   "effectChannelScript1": "Channel1NormalOcean",
