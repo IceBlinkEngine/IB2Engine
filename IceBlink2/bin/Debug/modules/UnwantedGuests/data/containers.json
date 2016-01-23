@@ -126,6 +126,27 @@
         "name": "Minor Healing Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_9151",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_9152",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_9153",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   }

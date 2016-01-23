@@ -34,9 +34,8 @@ $Value += "(snowWithCloudsAShowers)[0]{100}(snowWithCloudsBShowers)[0]{100}(snow
 $Value += "(lightFog)[10]{50}(fog)[20]{50}(heavyFog)[10]{50}"
 $Value += "(lightRainWithLightFogShowers)[5]{100}(lightRainWithFogShowers)[5]{100}(lightRainWithHeavyFogShowers)[5]{100}"
 $Value += "(rainWithLightFogShowers)[5]{100}(rainWithFogShowers)[5]{100}(rainWithHeavyFogShowers)[5]{100}"
-$Value += "(heavyRainWithLightFogShowers)[5]{50}(heavyRainWithFogShowers)[5]{50}(heavyRainWithHeavyFogShowers)[5]{50}"
+$Value += "(heavyRainWithLightFog)[5]{50}(heavyRainWithFog)[5]{50}(heavyRainWithHeavyFog)[5]{50}"
 $Value += "(lightSnowWithLightFogShowers)[0]{50}(lightSnowWithFogShowers)[0]{50}(lightSnowWithHeavyFogShowers)[0]{50}"
-$Value += "(snowWithFogShowers)[0]{50}"
 $Value += "(snowWithLightFog)[0]{50}(snowWithFog)[0]{50}(snowWithHeavyFog)[0]{50}"
 $Value += "(heavyRainWithHeavyCloudsAAndLightning)[2]{100}(heavyRainWithHeavyCloudsBAndLightning)[2]{100}(heavyRainWithHeavyCloudsCAndLightning)[1]{100}"
 $Value += "(lightRainWithCloudsAShowers)[0]{100}(lightRainWithCloudsBShowers)[0]{100}(lightRainWithCloudsCShowers)[0]{100}"
@@ -165,12 +164,8 @@ $Name = "lightSnowWithFogShowers"
 $Value = "(fog)[40]{50}(snowWithFogShowers)[60]{100}"
 ~gaSetGlobalString($Name,$Value)
 
-$Name = "snowWithFogShowers"
-$Value = "(fog)[60]{50}(lightSnowWithFogShowers)[40]{100}"
-~gaSetGlobalString($Name,$Value)
-
 $Name = "lightSnowWithHeavyFogShowers"
-$Value = "(fog)[60]{50}(snowWithFogShowers)[40]{100}"
+$Value = "(fog)[40]{50}(snowWithHeavyFogShowers)[60]{100}"
 ~gaSetGlobalString($Name,$Value)
 
 $Name = "snowWithLightFogShowers"
