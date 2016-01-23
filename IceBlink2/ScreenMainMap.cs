@@ -20467,85 +20467,102 @@ namespace IceBlink2
                     }
                     if ((gv.cc.ctrlUpArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) == actualy)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (mod.PlayerLocationY > 0)
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
                         {
-                            if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            if (mod.PlayerLocationY > 0)
                             {
-                                mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                mod.PlayerLocationY--;
-                                gv.cc.doUpdate();
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY--;
+                                    gv.cc.doUpdate();
+                                }
                             }
                         }
                     }
                     else if ((gv.cc.ctrlDownArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) == actualy)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        int mapheight = mod.currentArea.MapSizeY;
-                        if (mod.PlayerLocationY < (mapheight - 1))
+
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
                         {
-                            if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            int mapheight = mod.currentArea.MapSizeY;
+                            if (mod.PlayerLocationY < (mapheight - 1))
                             {
-                                mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                mod.PlayerLocationY++;
-                                gv.cc.doUpdate();
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                {
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY++;
+                                    gv.cc.doUpdate();
+                                }
                             }
                         }
                     }
                     else if ((gv.cc.ctrlLeftArrow.getImpact(x, y)) || (((mod.PlayerLocationX - 1) == actualx) && (mod.PlayerLocationY == actualy)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (mod.PlayerLocationX > 0)
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
                         {
-                            if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            if (mod.PlayerLocationX > 0)
                             {
-                                mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                mod.PlayerLocationX--;
-                                if (!mod.playerList[0].combatFacingLeft)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                                 {
-                                    //TODO							    //mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                                }
-                                foreach (Player pc in mod.playerList)
-                                {
-                                    if (!pc.combatFacingLeft)
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX--;
+                                    if (!mod.playerList[0].combatFacingLeft)
                                     {
-                                        pc.combatFacingLeft = true;
+                                        //TODO							    //mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                                     }
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (!pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = true;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
                                 }
-                                gv.cc.doUpdate();
                             }
                         }
                     }
                     else if ((gv.cc.ctrlRightArrow.getImpact(x, y)) || (((mod.PlayerLocationX + 1) == actualx) && (mod.PlayerLocationY == actualy)))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        int mapwidth = mod.currentArea.MapSizeX;
-                        if (mod.PlayerLocationX < (mapwidth - 1))
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
                         {
-                            if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            int mapwidth = mod.currentArea.MapSizeX;
+                            if (mod.PlayerLocationX < (mapwidth - 1))
                             {
-                                mod.PlayerLastLocationX = mod.PlayerLocationX;
-                                mod.PlayerLastLocationY = mod.PlayerLocationY;
-                                mod.PlayerLocationX++;
-                                if (mod.playerList[0].combatFacingLeft)
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
                                 {
-                                    //TODO							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                                }
-                                foreach (Player pc in mod.playerList)
-                                {
-                                    if (pc.combatFacingLeft)
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX++;
+                                    if (mod.playerList[0].combatFacingLeft)
                                     {
-                                        pc.combatFacingLeft = false;
+                                        //TODO							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
                                     }
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = false;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
                                 }
-                                gv.cc.doUpdate();
                             }
                         }
                     }
@@ -20765,22 +20782,38 @@ namespace IceBlink2
                 //int mapheight = game.currentArea.MapSizeInSquares.Height;
                 if (keyData == Keys.Left | keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
-                    moveLeft();
+                    bool isTransition = gv.cc.goWest();
+                    if (!isTransition)
+                    {
+                        moveLeft();
+                    }
                     //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Right | keyData == Keys.D6 | keyData == Keys.NumPad6)
                 {
-                    moveRight();
+                    bool isTransition = gv.cc.goEast();
+                    if (!isTransition)
+                    {
+                        moveRight();
+                    }
                     //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Up | keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
-                    moveUp();
+                    bool isTransition = gv.cc.goNorth();
+                    if (!isTransition)
+                    {
+                        moveUp();
+                    }
                     //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Down | keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
-                    moveDown();
+                    bool isTransition = gv.cc.goSouth();
+                    if (!isTransition)
+                    {
+                        moveDown();
+                    }
                     //return true; //for the active control to see the keypress, return false 
                 }
                 else { }
