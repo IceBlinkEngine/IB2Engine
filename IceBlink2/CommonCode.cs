@@ -1211,6 +1211,151 @@ namespace IceBlink2
                 gv.mod.moduleEncountersList = (List<Encounter>)serializer.Deserialize(file, typeof(List<Encounter>));
             }
         }
+
+        public void LoadAreaBitmapListForMinimap()
+        {
+
+            //public List<Bitmap> loadedMinimapTileBitmaps = new List<Bitmap>();
+            //public List<String> loadedMinimapTileBitmapsNames = new List<String>();
+
+        //probably just load what is needed for each area upon area load
+            //tileBitmapList.Clear();
+            //tileGDIBitmapList.Clear();
+            try
+            {
+                //Load from module folder first
+                string[] files;
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles"))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles", "*.png");
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileName(file);
+                            if (filename.EndsWith(".png"))
+                            {
+                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                //if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+
+                                bool bitmapAlreadyLoaded = false;
+                                foreach (string name in gv.mod.loadedMinimapTileBitmapsNames)
+                                {
+                                    if (name == fileNameWithOutExt)
+                                    {
+                                        bitmapAlreadyLoaded = true;
+                                    }
+                                }
+
+                                bool isContainedOnCurrentArea = false;
+                                foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                    {
+                                        isContainedOnCurrentArea = true;
+                                        break;
+                                    }
+                                }
+
+                                if ((bitmapAlreadyLoaded == false) && (isContainedOnCurrentArea == true))
+                                {
+                                    gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
+                                    gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
+                                    //tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                    //tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                }
+                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                    {
+                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                        {
+                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        }
+                                        break;
+                                    }
+                                }*/
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                else
+                {
+                    //Load from PlayerTokens folder last
+                    if (Directory.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles"))
+                    {
+                        files = Directory.GetFiles(gv.mainDirectory + "\\default\\NewModule\\tiles", "*.png");
+                        //directory.mkdirs(); 
+                        foreach (string file in files)
+                        {
+                            try
+                            {
+                                string filename = Path.GetFileName(file);
+                                if (filename.EndsWith(".png"))
+                                {
+                                    string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                    if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                    {
+                                        tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                    }
+                                    /*foreach (Tile t in gv.mod.currentArea.Tiles)
+                                    {
+                                        if ((t.Layer1Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer2Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer3Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer4Filename.Equals(fileNameWithOutExt)) ||
+                                            (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                        {
+                                            if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                            {
+                                                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                            }
+                                            break;
+                                        }
+                                    }*/
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString());
+                                gv.errorLog(ex.ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+        }
+
+        public void DisposeAreaBitmapListForMinimap()
+        {
+
+            gv.mod.loadedMinimapTileBitmapsNames.Clear();
+            foreach (System.Drawing.Bitmap bm in gv.mod.loadedMinimapTileBitmaps)
+            {
+                bm.Dispose();
+            }
+            gv.mod.loadedMinimapTileBitmaps.Clear();
+        }
+
         public void LoadTileBitmapList()
         {
             //probably just load what is needed for each area upon area load
@@ -5746,22 +5891,25 @@ namespace IceBlink2
                 {
                     gv.mod.PlayerLocationX = x;
                     gv.mod.PlayerLocationY = y;
-                    if (gv.mod.allowImmediateRetransition == true)
-                    {
-                        gv.mod.allowImmediateRetransition = false;
-                    }
-                    else
-                    {
+                    //if (gv.mod.allowImmediateRetransition == true)
+                    //{
+                        //gv.mod.allowImmediateRetransition = false;
+                        //doUpdate();
+                    //}
+                    //else
+                    //{
                         gv.mod.justTransitioned = true;
-                    }
+                    //}
                     gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
                     gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
+                    //hmmm, is double (see below, must verify later)
                     if (gv.mod.playMusic)
                     {
                         gv.stopMusic();
                         gv.stopAmbient();
                         gv.mod.resetWeatherSound = true;
-                        gv.weatherSounds2.controls.stop();
+                        //check later why this was needed, likely remove
+                        //gv.weatherSounds2.controls.stop();
                     }
                     gv.mod.setCurrentArea(areaFilename, gv);
 
@@ -5858,7 +6006,7 @@ namespace IceBlink2
                     */
                     
                     //try to keep weather consistency intact
-                    //gv.mod.currentWeatherName = "";
+                    gv.mod.currentWeatherName = "";
 
                     //end of new ideas
                     doChannelScripts();
@@ -5868,11 +6016,11 @@ namespace IceBlink2
                     doOnEnterAreaUpdate = true;
                     doPropMoves();
                     doOnEnterAreaUpdate = false;
-                    if (gv.mod.playMusic)
-                    {
-                        gv.startMusic();
-                        gv.startAmbient();
-                    }
+                    //if (gv.mod.playMusic)
+                    //{
+                        //gv.startMusic();
+                        //gv.startAmbient();
+                    //}
                     gv.triggerIndex = 0;
                     doTrigger();
                 }

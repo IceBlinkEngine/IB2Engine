@@ -367,7 +367,8 @@ namespace IceBlink2
 		    cc.LoadCreatures();
 		    cc.LoadEncounters();
 		    cc.LoadJournal();	
-		    cc.LoadTileBitmapList();
+		    //hurghj
+            //cc.LoadTileBitmapList();
 				
 		    foreach (Container c in mod.moduleContainersList)
             {
@@ -1732,6 +1733,23 @@ namespace IceBlink2
                 screenPartyRoster.redrawPartyRoster();
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
+
+            //code for dispsoing all tile graphics used at the end of render
+            try
+            {
+                if (mod.loadedTileBitmaps != null)
+                {
+                    foreach (SharpDX.Direct2D1.Bitmap bm in mod.loadedTileBitmaps)
+                    {
+                        bm.Dispose();
+                    }
+                }
+
+                //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                mod.loadedTileBitmaps.Clear();
+                mod.loadedTileBitmapsNames.Clear();
+            }
+            catch { }
         }
         private void RenderCallback()
         {
