@@ -1500,8 +1500,15 @@ namespace IceBlink2
             int attack = attackRoll + attackMod;
             int defense = CalcCreatureDefense(pc, crt);
             int damage = CalcPcDamageToCreature(pc, crt);
+
+            bool automaticallyHits = false;
+            Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            if (itChk != null)
+            {
+                automaticallyHits = itChk.automaticallyHitsTarget;
+            }
             //natural 20 always hits
-            if ((attack >= defense) || (attackRoll == 20)) //HIT
+            if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
                 crt.hp = crt.hp - damage;
                 gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font>" +

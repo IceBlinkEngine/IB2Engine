@@ -198,6 +198,55 @@
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "quantity": 20
+      },
+      {
+        "resref": "poisonDagger",
+        "tag": "poisonDagger_14934",
+        "name": "Poison Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14935",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14936",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14937",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14938",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14939",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14940",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   },
@@ -400,6 +449,69 @@
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "quantity": 20
+      },
+      {
+        "resref": "poisonDagger",
+        "tag": "poisonDagger_14941",
+        "name": "Poison Dagger",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14942",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14943",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14944",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14945",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_14946",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14947",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14948",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_14949",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   }

@@ -20,12 +20,12 @@
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 0,
     "classesAllowed": [
-      "fighter",
       "cleric",
+      "fighter",
+      "paladin",
       "ranger",
-      "wizard",
       "thief",
-      "paladin"
+      "wizard"
     ],
     "traitsAllowed": []
   },
@@ -42,7 +42,7 @@
     "chaMod": -1,
     "conMod": 0,
     "wisMod": 0,
-    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValuePoison": 20,
     "damageTypeResistanceValueMagic": 20,
     "damageTypeResistanceValueNormal": 0,
     "damageTypeResistanceValueAcid": 0,
@@ -50,8 +50,8 @@
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 10,
     "classesAllowed": [
-      "fighter",
       "cleric",
+      "fighter",
       "thief"
     ],
     "traitsAllowed": []
@@ -77,11 +77,11 @@
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 0,
     "classesAllowed": [
-      "fighter",
       "cleric",
+      "fighter",
       "ranger",
-      "wizard",
-      "thief"
+      "thief",
+      "wizard"
     ],
     "traitsAllowed": []
   },
@@ -98,7 +98,7 @@
     "chaMod": 0,
     "conMod": -2,
     "wisMod": 2,
-    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValuePoison": 20,
     "damageTypeResistanceValueMagic": 0,
     "damageTypeResistanceValueNormal": 0,
     "damageTypeResistanceValueAcid": 0,
@@ -106,11 +106,11 @@
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 0,
     "classesAllowed": [
-      "fighter",
       "cleric",
+      "fighter",
       "ranger",
-      "wizard",
-      "thief"
+      "thief",
+      "wizard"
     ],
     "traitsAllowed": []
   },
@@ -135,11 +135,11 @@
     "damageTypeResistanceValueElectricity": 0,
     "damageTypeResistanceValueFire": 0,
     "classesAllowed": [
-      "fighter",
       "cleric",
+      "fighter",
       "ranger",
-      "wizard",
-      "thief"
+      "thief",
+      "wizard"
     ],
     "traitsAllowed": []
   }

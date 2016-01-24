@@ -1108,7 +1108,6 @@ namespace IceBlink2
                 realTimeTimer.Start();
             }
         }
-
         private void smoothMoveTimer_Tick(object sender, EventArgs e)
         {
             if (screenType.Equals("main"))
@@ -1120,7 +1119,6 @@ namespace IceBlink2
 
             }
         }
-
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
             floatyTextTimer.Enabled = false;
@@ -1148,7 +1146,6 @@ namespace IceBlink2
             }
             Render();
         }
-
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
         {
             floatyTextMainMapTimer.Enabled = false;
