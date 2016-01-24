@@ -211,21 +211,21 @@
         "tag": "firebomb_14935",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14936",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14937",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "antidote",
@@ -462,35 +462,35 @@
         "tag": "firebomb_14942",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14943",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14944",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14945",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "firebomb",
         "tag": "firebomb_14946",
         "name": "Fire Flask Bomb",
         "canNotBeUnequipped": false,
-        "quantity": 20
+        "quantity": 1
       },
       {
         "resref": "antidote",
