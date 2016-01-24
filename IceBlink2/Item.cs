@@ -41,8 +41,9 @@ namespace IceBlink2
         public string ammoType = "none"; //typically arrow, stone, bolt 
 	    public bool twoHanded = false; //true if item requires the use of two hands
 	    public bool canNotBeUnequipped = false; 
-	    public bool isStackable = false; 
-	    public int attackBonus = 0; //attack bonus
+	    public bool isStackable = false;
+        public bool automaticallyHitsTarget = false; //does not require a successful to hit roll, always hits target (ex. mage bolt wand)
+        public int attackBonus = 0; //attack bonus
 	    public int attackRange = 1; //attack range
 	    public int AreaOfEffect = 0; //AoE radius
         public AreaOfEffectShape aoeShape = AreaOfEffectShape.Circle;
@@ -116,6 +117,7 @@ namespace IceBlink2
 		    copy.twoHanded = this.twoHanded;
 		    copy.canNotBeUnequipped = this.canNotBeUnequipped; 
 		    copy.isStackable = this.isStackable;
+            copy.automaticallyHitsTarget = this.automaticallyHitsTarget;
 		    copy.attackBonus = this.attackBonus;
 		    copy.attackRange = this.attackRange;
 		    copy.AreaOfEffect = this.AreaOfEffect;
