@@ -1731,22 +1731,30 @@ namespace IceBlink2
             }
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
 
+            /*
             //code for dispsoing all tile graphics used at the end of render
-            try
+            if (mod.loadedTileBitmaps.Count > 100)
             {
-                if (mod.loadedTileBitmaps != null)
+                cc.addLogText("yellow", "Disposing tiles.");
+            
+            try
                 {
-                    foreach (SharpDX.Direct2D1.Bitmap bm in mod.loadedTileBitmaps)
+                    if (mod.loadedTileBitmaps != null)
                     {
-                        bm.Dispose();
+                        foreach (SharpDX.Direct2D1.Bitmap bm in mod.loadedTileBitmaps)
+                        {
+                            bm.Dispose();
+                        }
                     }
-                }
 
-                //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-                mod.loadedTileBitmaps.Clear();
-                mod.loadedTileBitmapsNames.Clear();
+                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+
+                    mod.loadedTileBitmaps.Clear();
+                    mod.loadedTileBitmapsNames.Clear();
+                }
+                catch { }
             }
-            catch { }
+            */
         }
         private void RenderCallback()
         {

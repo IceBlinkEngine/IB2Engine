@@ -2082,6 +2082,61 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            //addLogText("yellow", "Number of tiles:" + gv.mod.loadedTileBitmaps.Count.ToString());
+
+            //code for dispsoing tile graphics
+
+            //cull all down if too high value is reached (last resort)
+            if (gv.mod.loadedTileBitmaps.Count > 200)
+            {
+                try
+                {
+                    foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
+                    {
+                        bm.Dispose();
+                    }
+
+                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                    gv.mod.loadedTileBitmaps.Clear();
+                    gv.mod.loadedTileBitmapsNames.Clear();
+                }
+                catch
+                {
+
+                }
+
+            }
+
+            //normal cleanup while moving
+            if (gv.mod.loadedTileBitmaps.Count > 100)
+            {
+                //addLogText("yellow", "Disposing tiles.");
+
+                try
+                {
+                    if (gv.mod.loadedTileBitmaps != null)
+                    {
+                        //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                        for (int i = 0; i < 12; i++)
+                        {
+                            gv.mod.loadedTileBitmaps[i].Dispose();
+                            gv.mod.loadedTileBitmaps.RemoveAt(i);
+                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                           
+                            //addLogText("red", "Removal Counter is:" + i.ToString());
+                            
+                        }
+
+                    }
+
+                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                }
+                catch
+                {
+                    //addLogText("red", "caught error");
+                }
+            }
+
             //reset the timer interval, important for synching with party move
             if (gv.mod.useRealTimeTimer == true)
             {
@@ -6029,6 +6084,23 @@ namespace IceBlink2
             {
                 gv.errorLog(ex.ToString());
             }
+
+            try
+            {
+                if (gv.mod.loadedTileBitmaps != null)
+                {
+                    foreach (SharpDX.Direct2D1.Bitmap bm in gv.mod.loadedTileBitmaps)
+                    {
+                        bm.Dispose();
+                    }
+                }
+
+                //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+
+                gv.mod.loadedTileBitmaps.Clear();
+                gv.mod.loadedTileBitmapsNames.Clear();
+            }
+            catch { }
         }
         public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
