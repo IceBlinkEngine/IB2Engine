@@ -1430,6 +1430,9 @@ namespace IceBlink2
                             itChk = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                             if (itChk != null)
                             {
+                                //always decrement ammo by one whether a hit or miss
+                                this.decrementAmmo(pc);
+
                                 if (!itChk.onScoringHitCastSpellTag.Equals("none"))
                                 {
                                     doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation);
