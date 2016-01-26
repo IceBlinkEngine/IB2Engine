@@ -247,6 +247,34 @@
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
+      },
+      {
+        "resref": "firehorn",
+        "tag": "firehorn_15185",
+        "name": "Fire Horn",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firehorncharge",
+        "tag": "firehorncharge_15186",
+        "name": "Fire Horn Charge",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "firehorncharge",
+        "tag": "firehorncharge_15187",
+        "name": "Fire Horn Charge",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "firehorncharge",
+        "tag": "firehorncharge_15188",
+        "name": "Fire Horn Charge",
+        "canNotBeUnequipped": false,
+        "quantity": 20
       }
     ]
   },
