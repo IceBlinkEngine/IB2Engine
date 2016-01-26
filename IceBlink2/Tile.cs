@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
 
 namespace IceBlink2
 {
     public class Tile
     {
+        public string Layer0Filename = "";
         public string Layer1Filename = "t_blank";
         public string Layer2Filename = "t_blank";
         public string Layer3Filename = "t_blank";
@@ -36,6 +38,13 @@ namespace IceBlink2
         public bool blockFullScreenEffectLayer8 = false;
         public bool blockFullScreenEffectLayer9 = false;
         public bool blockFullScreenEffectLayer10 = false;
+
+        public Bitmap tileBitmap0;
+        public Bitmap tileBitmap1;
+        public Bitmap tileBitmap2;
+        public Bitmap tileBitmap3;
+        public Bitmap tileBitmap4;
+        public Bitmap tileBitmap5;
 
         public Tile()
         {

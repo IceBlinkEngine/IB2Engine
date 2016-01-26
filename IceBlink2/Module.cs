@@ -180,6 +180,11 @@ namespace IceBlink2
         public int borderAreaSize = 0;
         public bool allowImmediateRetransition = false;
 
+        public List<Bitmap> loadedTileBitmaps = new List<Bitmap>();
+        public List<String> loadedTileBitmapsNames = new List<String>();
+        public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
+        public List<String> loadedMinimapTileBitmapsNames = new List<String>();
+
         public Module()
         {
 
