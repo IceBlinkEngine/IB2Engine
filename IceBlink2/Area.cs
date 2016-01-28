@@ -61,6 +61,8 @@ namespace IceBlink2
         public string northernNeighbourArea = "";
         public string southernNeighbourArea = "";
 
+        public string sourceBitmapName = "";
+
         //TODO use the inGameAreaName on main map
 
         #region full screen effect layers

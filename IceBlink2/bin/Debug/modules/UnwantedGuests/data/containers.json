@@ -147,6 +147,20 @@
         "name": "Antidote Potion",
         "canNotBeUnequipped": false,
         "quantity": 1
+      },
+      {
+        "resref": "battleaxeFlaming",
+        "tag": "newTag_9360_9372",
+        "name": "Flaming Axe",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01Corrosive",
+        "tag": "newTag_9362_9373",
+        "name": "Corrosive Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
       }
     ]
   }

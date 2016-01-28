@@ -261,8 +261,42 @@ namespace IceBlink2
                         bg = null;
                     }
 
-                    //add code for loading bimaps of tiles in area
+                    //add code for loading bitmaps of tiles in area
+                    //to do: adjust this one, too, for layer0
                     gv.cc.LoadAreaBitmapListForMinimap();
+
+                    //adding layer 0 to minimap
+                    #region Draw Layer 0
+                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
+                    {
+                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
+                        {
+                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            int indexOfBitmap = -1;
+                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
+                            {
+                                if (tile.Layer0Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
+                                {
+                                    indexOfBitmap = i;
+                                    break;
+                                }
+                            }
+                            if (indexOfBitmap != -1)
+                            {
+                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
+                                //float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
+                                //float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
+                                float scalerX = 1;
+                                float scalerY = 1;
+                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
+                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
+                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
+
+                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
+                            }
+                        }
+                    }
+                    #endregion
 
                     #region Draw Layer 1
                     for (int x = 0; x < mod.currentArea.MapSizeX; x++)
@@ -426,6 +460,7 @@ namespace IceBlink2
             if (!mod.currentArea.areaDark)
             {
                 drawBottomFullScreenEffects();
+                //remove whoel drawMap later? Compatibility with existing modules wont allow
                 if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
                 {
                     drawMap();
@@ -569,7 +604,79 @@ namespace IceBlink2
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
-            
+
+            #region Draw Layer 0
+            for (int x = minX; x < maxX; x++)
+            {
+                for (int y = minY; y < maxY; y++)
+                {
+                    Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                    try
+                    {
+
+                        bool tileBitmapIsLoadedAlready = false;
+                        int indexOfLoadedTile = -1;
+                        for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                        {
+                            if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer0Filename)
+                            {
+                                tileBitmapIsLoadedAlready = true;
+                                indexOfLoadedTile = i;
+                                break;
+                            }
+                        }
+
+                        //hurghx
+                        if (!tileBitmapIsLoadedAlready)
+                        {
+                            gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
+                            //XXX:to do, we will have to use a specific subdirectory here as layer0 is in directory with name currentArea.sourcebitmap (or so)
+                            //to do: also do minimap!
+                            //to do: encountermap/combat?
+                            tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
+                            //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
+
+                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                            //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                            //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                            //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                            float scalerX = 1;
+                            float scalerY = 1;
+                            int brX = (int)(gv.squareSize * scalerX);
+                            int brY = (int)(gv.squareSize * scalerY);
+                            IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                            gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
+                            gv.DrawBitmap(tile.tileBitmap0, src, dst);
+                        }
+                        else
+                        {
+                            int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                            int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                            //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                            //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                            //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                            float scalerX = 1;
+                            float scalerY = 1;
+                            int brX = (int)(gv.squareSize * scalerX);
+                            int brY = (int)(gv.squareSize * scalerY);
+                            IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
+                            IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+
+                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
+                        }
+
+                        //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
+                    }
+                    catch { }
+                }
+            }
+            #endregion
+
+
             #region Draw Layer 1
             for (int x = minX; x < maxX; x++)
             {

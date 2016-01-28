@@ -1250,7 +1250,8 @@ namespace IceBlink2
                                 bool isContainedOnCurrentArea = false;
                                 foreach (Tile t in gv.mod.currentArea.Tiles)
                                 {
-                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                    if ((t.Layer0Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer1Filename.Equals(fileNameWithOutExt)) || 
                                         (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
                                         (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
                                         (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
@@ -1337,6 +1338,79 @@ namespace IceBlink2
                         }
                     }
                 }
+
+                //layer 0 loading
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName, "*.png");
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileName(file);
+                            if (filename.EndsWith(".png"))
+                            {
+                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                //if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+
+                                bool bitmapAlreadyLoaded = false;
+                                foreach (string name in gv.mod.loadedMinimapTileBitmapsNames)
+                                {
+                                    if (name == fileNameWithOutExt)
+                                    {
+                                        bitmapAlreadyLoaded = true;
+                                    }
+                                }
+
+                                bool isContainedOnCurrentArea = false;
+                                foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if ((t.Layer0Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer1Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) ||
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                    {
+                                        isContainedOnCurrentArea = true;
+                                        break;
+                                    }
+                                }
+
+                                if ((bitmapAlreadyLoaded == false) && (isContainedOnCurrentArea == true))
+                                {
+                                    gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
+                                    gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
+                                    //tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                    //tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                }
+                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                    {
+                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                        {
+                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        }
+                                        break;
+                                    }
+                                }*/
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -1356,6 +1430,7 @@ namespace IceBlink2
             gv.mod.loadedMinimapTileBitmaps.Clear();
         }
 
+        //note: folloign mehtod is not used anymore
         public void LoadTileBitmapList()
         {
             //probably just load what is needed for each area upon area load
@@ -1398,13 +1473,15 @@ namespace IceBlink2
                                 }*/
                             }
                         }
-
+                        
+                        
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
                         }
                     }
                 }
+                
                 else
                 {
                     //Load from PlayerTokens folder last
@@ -1447,6 +1524,48 @@ namespace IceBlink2
                                 MessageBox.Show(ex.ToString());
                                 gv.errorLog(ex.ToString());
                             }
+                        }
+                    }
+                }
+
+                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName))
+                {
+                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName, "*.png");
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            string filename = Path.GetFileName(file);
+                            if (filename.EndsWith(".png"))
+                            {
+                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                                if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                {
+                                    tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                    tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                                }
+                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
+                                {
+                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
+                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
+                                    {
+                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
+                                        {
+                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                                        }
+                                        break;
+                                    }
+                                }*/
+                            }
+                        }
+
+
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
                         }
                     }
                 }
@@ -2087,7 +2206,7 @@ namespace IceBlink2
             //code for dispsoing tile graphics
 
             //cull all down if too high value is reached (last resort)
-            if (gv.mod.loadedTileBitmaps.Count > 200)
+            if (gv.mod.loadedTileBitmaps.Count > 250)
             {
                 try
                 {
@@ -2108,7 +2227,7 @@ namespace IceBlink2
             }
 
             //normal cleanup while moving
-            if (gv.mod.loadedTileBitmaps.Count > 100)
+            if (gv.mod.loadedTileBitmaps.Count > 150)
             {
                 //addLogText("yellow", "Disposing tiles.");
 
@@ -6156,7 +6275,12 @@ namespace IceBlink2
 
             try
             {
-                if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png"))
+                //hurghy
+                if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".png"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png");
                 }
