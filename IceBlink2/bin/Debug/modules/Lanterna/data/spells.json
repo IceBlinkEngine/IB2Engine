@@ -645,5 +645,25 @@
     "spellScript": "none",
     "spellEffectTag": "web",
     "removeEffectTagList": []
+  },
+  {
+    "name": "Fire Horn",
+    "tag": "firehorn",
+    "spellImage": "sp_flamefingers",
+    "description": "A cone of flames launch from the fire horn and automatically hit all targets in the area of effect for 1d3 points of damage per users level.",
+    "useableInSituation": "InCombat",
+    "spriteFilename": "fx_fireball",
+    "spriteEndingFilename": "fx_fireball3x3end",
+    "spellStartSound": "fireballstart",
+    "spellEndSound": "fireballend",
+    "costSP": 0,
+    "spellTargetType": "PointLocation",
+    "spellEffectType": "Damage",
+    "aoeShape": "Cone",
+    "aoeRadius": 3,
+    "range": 1,
+    "spellScript": "none",
+    "spellEffectTag": "firehorn",
+    "removeEffectTagList": []
   }
 ]

@@ -1417,6 +1417,43 @@ namespace IceBlink2
         {
             if (isInRange(pc))
             {
+                
+                Item itChk = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                if (itChk != null)
+                {
+                    if (itChk.automaticallyHitsTarget) //if AoE type attack and automatically hits
+                    {
+                        //if using ranged and have ammo, use ammo properties
+                        if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                        {
+                            itChk = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                            if (itChk != null)
+                            {
+                                //always decrement ammo by one whether a hit or miss
+                                this.decrementAmmo(pc);
+
+                                if (!itChk.onScoringHitCastSpellTag.Equals("none"))
+                                {
+                                    doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation);
+                                }
+                            }
+                        }
+                        else if (!itChk.onScoringHitCastSpellTag.Equals("none"))
+                        {
+                            doItemOnHitCastSpell(itChk.onScoringHitCastSpellTag, itChk, targetHighlightCenterLocation);
+                        }
+                        
+                        drawHitAnimation = true;
+                        hitAnimationLocation = new Coordinate(getPixelLocX(targetHighlightCenterLocation.X), getPixelLocY(targetHighlightCenterLocation.Y));
+                        gv.Render();
+                        animationState = AnimationState.CreatureHitAnimation;
+                        gv.postDelayed("doAnimation", (int)(4 * (0.5f) * mod.combatAnimationSpeed));
+                        return;
+                    }
+                }
+                
+
                 foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
                 {
                     if ((crt.combatLocX == targetHighlightCenterLocation.X) && (crt.combatLocY == targetHighlightCenterLocation.Y))
@@ -1609,11 +1646,11 @@ namespace IceBlink2
                 return 0; //missed
             }
         }
-        public void doItemOnHitCastSpell(string tag, Item it, Creature crt)
+        public void doItemOnHitCastSpell(string tag, Item it, object trg)
         {
             Spell sp = gv.mod.getSpellByTag(tag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, crt);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, trg);
         }
         public void doCombatCast(Player pc)
         {
@@ -5613,6 +5650,24 @@ namespace IceBlink2
 	    {
 		    if (isInRange(pc))
 		    {
+                Item it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                //if using ranged and have ammo, use ammo properties
+                if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged"))
+                        && (!mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                {
+                    //ranged weapon with ammo
+                    it = mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                }
+                if (it == null)
+                {
+                    it = mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                }
+                //check to see if is AoE or Point Target else needs a target PC or Creature
+                if (it.AreaOfEffect > 0)
+                {
+                    return true;
+                }
+
                 //Uses the Map Pixel Locations
                 int endX2 = targetHighlightCenterLocation.X * gv.squareSize + (gv.squareSize / 2);
                 int endY2 = targetHighlightCenterLocation.Y * gv.squareSize + (gv.squareSize / 2);
