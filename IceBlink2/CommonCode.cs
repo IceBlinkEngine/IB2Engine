@@ -6186,7 +6186,9 @@ namespace IceBlink2
                     doChannelScripts();
                     doWeatherScript();
 
+                    //possibelculprit 1
                     gv.screenMainMap.resetMiniMapBitmap();
+
                     doOnEnterAreaUpdate = true;
                     doPropMoves();
                     doOnEnterAreaUpdate = false;
