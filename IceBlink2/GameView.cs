@@ -25,7 +25,7 @@ using Color = System.Drawing.Color;
 using Point = System.Drawing.Point;
 using RectangleF = System.Drawing.RectangleF;
 using Rectangle = System.Drawing.Rectangle;
-
+using System.Diagnostics;
 
 namespace IceBlink2
 {
@@ -127,6 +127,11 @@ namespace IceBlink2
         public string currentCombatMusic = "";
 
         //timers
+        public Timer gameTimer = new Timer();
+        public Stopwatch gameTimerStopwatch = new Stopwatch();
+        public long previousTime = 0;
+        public bool stillProcessingGameLoop = false;
+
         public Timer animationTimer = new Timer();
         public Timer floatyTextTimer = new Timer();
         public Timer floatyTextMainMapTimer = new Timer();
@@ -135,11 +140,12 @@ namespace IceBlink2
         public Timer weatherSounds1Timer = new Timer();
         public Timer weatherSounds2Timer = new Timer();
         public Timer weatherSounds3Timer = new Timer();
-        public Timer realTimeTimer = new Timer();
-        public Timer smoothMoveTimer = new Timer();
+        //public Timer realTimeTimer = new Timer();
+        //public Timer smoothMoveTimer = new Timer();
 
         public float floatPixMovedPerTick = 4f;
         public int realTimeTimerLengthInMilliSeconds = 1500;
+        public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
@@ -251,6 +257,11 @@ namespace IceBlink2
                 screenType = "title";
             }
             //SharpDX.Windows.RenderLoop.Run(this, RenderCallback); //this creates a game loop for the renderer only, but seems to block keyboard inputs (mouse events still work)
+            gameTimer.Interval = 16; //~60 fps
+            gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
+            gameTimerStopwatch.Start();
+            previousTime = gameTimerStopwatch.ElapsedMilliseconds;
+            gameTimer.Start();
         }
 
         public void createScreens()
@@ -318,15 +329,15 @@ namespace IceBlink2
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
-            if (mod.useRealTimeTimer == true)
-            {
-                realTimeTimer.Interval = realTimeTimerLengthInMilliSeconds;
-                realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
-            }
+            //if (mod.useRealTimeTimer == true)
+            //{
+                //realTimeTimer.Interval = realTimeTimerLengthInMilliSeconds;
+                //realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
+            //}
             if (mod.useSmoothMovement == true)
             {
                 //16 milliseconds a tick, equals - theoretically - about 60 FPS
-                smoothMoveTimer.Interval = smoothMoveTimerLengthInMilliSeconds;
+                //smoothMoveTimer.Interval = smoothMoveTimerLengthInMilliSeconds;
 
                 //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
                 //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on
@@ -339,8 +350,8 @@ namespace IceBlink2
                 
 
 
-                smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
-                smoothMoveTimer.Start();
+                //smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
+                //smoothMoveTimer.Start();
             }
 
             //reset fonts
@@ -1099,7 +1110,7 @@ namespace IceBlink2
             //Invalidate();
             screenCombat.doAnimationController();
         }
-        private void realTimeTimer_Tick(object sender, EventArgs e)
+        /*private void realTimeTimer_Tick(object sender, EventArgs e)
         {
             if (screenType.Equals("main"))
             {
@@ -1107,8 +1118,8 @@ namespace IceBlink2
                 cc.doUpdate();
                 realTimeTimer.Start();
             }
-        }
-        private void smoothMoveTimer_Tick(object sender, EventArgs e)
+        }*/
+        /*private void smoothMoveTimer_Tick(object sender, EventArgs e)
         {
             if (screenType.Equals("main"))
             {
@@ -1118,6 +1129,34 @@ namespace IceBlink2
                 smoothMoveTimer.Start();
 
             }
+        }*/
+        private void gameTimer_Tick(object sender, EventArgs e)
+        {
+            if (stillProcessingGameLoop)
+            {
+                return;
+            }
+            stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+            long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+            int elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
+            Update(elapsed); //runs AI and physics
+            Render(); //draw the screen frame
+            previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed time
+            stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop
+        }
+        private void Update(int elapsed)
+        {
+            //handle RealTime Timer events if module uses this system
+            if ((mod.useRealTimeTimer) && (screenType.Equals("main")))
+            {
+                realTimeTimerMilliSecondsEllapsed += elapsed;
+                if (realTimeTimerMilliSecondsEllapsed >= realTimeTimerLengthInMilliSeconds)
+                {
+                    cc.doUpdate();
+                    realTimeTimerMilliSecondsEllapsed = 0;
+                }
+            }
+            //iterate through spriteList and handle any sprite location and animation frame calculations
         }
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
