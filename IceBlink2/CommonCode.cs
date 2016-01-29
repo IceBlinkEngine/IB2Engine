@@ -2259,8 +2259,8 @@ namespace IceBlink2
             //reset the timer interval, important for synching with party move
             if (gv.mod.useRealTimeTimer == true)
             {
-                gv.realTimeTimer.Stop();
-                gv.realTimeTimer.Start();
+                //gv.realTimeTimer.Stop();
+                //gv.realTimeTimer.Start();
             }
 
             //in case whole party is unconscious and bleeding, end the game (outside combat here)
