@@ -1168,6 +1168,10 @@ namespace IceBlink2
             {
                 screenMainMap.Update(elapsed);
             }
+            else if (screenType.Equals("combat"))
+            {
+                screenCombat.Update(elapsed);
+            }
         }
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {

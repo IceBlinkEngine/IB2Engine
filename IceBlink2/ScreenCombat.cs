@@ -70,8 +70,10 @@ namespace IceBlink2
         public int mapStartLocXinPixels;
         public float moveCost = 1.0f;
         //public float diagonalMoveCost = 1.5f; //using the property from module instead
-	
-	    public ScreenCombat(Module m, GameView g)
+        public List<Sprite> spriteList = new List<Sprite>();
+
+
+        public ScreenCombat(Module m, GameView g)
 	    {
 		    mod = m;
 		    gv = g;
@@ -2640,7 +2642,30 @@ namespace IceBlink2
             }
             return false;
         }
-        
+
+        //COMBAT SCREEN UPDATE
+        public void Update(int elapsed)
+        {
+            foreach (Sprite spr in spriteList)
+            {
+                spr.Update(elapsed);
+            }
+            //remove sprite if hit end of life
+            for (int x = spriteList.Count - 1; x >= 0; x--)
+            {
+                if (spriteList[x].timeToLiveInMilliseconds <= 0)
+                {
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+        }
         #region Combat Draw
         public void redrawCombat()
         {
@@ -2681,6 +2706,7 @@ namespace IceBlink2
             {
                 drawPanels();
             }
+            drawSprites();
             gv.drawLog();
             drawFloatyText();
             drawHPText();
@@ -3917,8 +3943,15 @@ namespace IceBlink2
             }
 
         }
+        public void drawSprites()
+        {
+            foreach (Sprite spr in spriteList)
+            {
+                spr.Draw(gv);
+            }
+        }
         #endregion
-        
+
         #region Keyboard Input
         public void onKeyUp(Keys keyData)
         {
@@ -5508,6 +5541,8 @@ namespace IceBlink2
                     //play attack sound for ranged
                     gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                     animationState = AnimationState.PcRangedAttackAnimation;
+                    //do new animation system: attack animation, projectile animation, ending animation, hit/miss animation
+                    launchProjectile(pc);
                 }
                 gv.postDelayed("doAnimation", (int) (5 * (0.5f) * mod.combatAnimationSpeed));
             }
@@ -5539,7 +5574,42 @@ namespace IceBlink2
                 gv.postDelayed("doAnimation", (int) (5 * (0.5f) * mod.combatAnimationSpeed));
             }
         }
-        
+        public void launchProjectile(Player pc)
+        {
+            //load projectile image
+            gv.cc.DisposeOfBitmap(ref projectile);
+            projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
+            int startX = getPixelLocX(pc.combatLocX);
+            int startY = getPixelLocY(pc.combatLocY);
+            int endX = getPixelLocX(targetHighlightCenterLocation.X);
+            int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+            //calculate angle from start to end point
+            float angle = AngleRad(new Point(startX, startY), new Point(endX, endY));
+            //calculate distance in pixels
+            float dist = (float)(Math.Sqrt((Math.Abs(startX - endX)) ^ 2 + (Math.Abs(startY - endY)) ^ 2));
+            //calculate needed TTL based on a constant speed for projectiles
+            float velX = (endX - startX);
+            float velY = (endY - startY);
+            float velocityX = 0;
+            if (velX != 0)
+            {
+                velocityX = velX / 1000;
+            }
+            float velocityY = 0;
+            if (velY != 0)
+            {
+                velocityY = velY / 1000;
+            }
+            int ttl = (int)(dist * 1000);
+            Sprite spr = new Sprite(gv.cc.facing8, startX, startY, velocityX, velocityY, angle, 0, 1.0f, ttl);
+            this.spriteList.Add(spr);
+        }
+        //const float Rad2Deg = (float)(180.0 / Math.PI);
+        public float AngleRad(Point start, Point end)
+        {
+            return (float)(-1 * ((Math.Atan2(start.Y - end.Y, end.X - start.X)) - (Math.PI) / 2));
+        }
+
         //Helper Methods
         public void CalculateUpperLeft()
         {

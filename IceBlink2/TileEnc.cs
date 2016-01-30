@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace IceBlink2
         public bool Layer3Flip = false;*/
         public bool Walkable = true;
 	    public bool LoSBlocked = false;
-
+        [JsonIgnore]
         public Bitmap tileBitmap1;
+        [JsonIgnore]
         public Bitmap tileBitmap2;
+        [JsonIgnore]
         public Bitmap tileBitmap3;
 
         public TileEnc()
