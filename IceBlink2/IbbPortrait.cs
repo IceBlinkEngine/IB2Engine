@@ -122,12 +122,12 @@ namespace IceBlink2
             //DRAW HP/HPmax
             // Measure string.
             //SizeF stringSize = gv.cc.MeasureString(TextHP, thisFont, this.Width);
-            float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+            //float stringSize = gv.cc.MeasureString(TextHP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
-            int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
-            ulX = pW * 0;
-            ulY = this.Height - ((int)thisFontHeight * 2);
+            //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
+            //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
+            int ulX = pW * 0;
+            int ulY = this.Height - ((int)thisFontHeight * 2);
 
             for (int x = -2; x <= 2; x++)
             {
@@ -141,10 +141,10 @@ namespace IceBlink2
             //DRAW SP/SPmax
             // Measure string.
             //stringSize = gv.cc.MeasureString(TextSP, thisFont, this.Width);
-            stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+            //stringSize = gv.cc.MeasureString(TextSP, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
-            ulX = ((int)(this.Width / 2)) - ((int)stringSize);
-            ulY = ((int)(this.Height / 2));
+            //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
+            //ulY = ((int)(this.Height / 2));
             ulX = pW * 1;
             ulY = this.Height - ((int)thisFontHeight * 1);
 

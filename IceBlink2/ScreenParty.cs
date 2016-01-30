@@ -792,7 +792,7 @@ namespace IceBlink2
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenSpellLevelUp.resetPC(true, pc);
                         gv.screenType = "learnSpellLevelUp";
-                        gv.Render();
+//                        gv.Render();
                         
                         /*string spellList = "";
                         foreach (string s in pc.knownSpellsTags)
@@ -808,7 +808,7 @@ namespace IceBlink2
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenTraitLevelUp.resetPC(true, pc);
                         gv.screenType = "learnTraitLevelUp";
-                        gv.Render();
+//                        gv.Render();
 
                         /*string traitList = "";
                         foreach (string s in pc.knownTraitsTags)
@@ -1641,14 +1641,14 @@ namespace IceBlink2
                     {
                         gv.screenTraitLevelUp.resetPC(false, pc);
                         gv.screenType = "learnTraitLevelUp";
-                        gv.Render();
+//                        gv.Render();
                         //gv.invalidate();
                     }
                     else if (spellTagsList.Count > 0)
                     {
                         gv.screenSpellLevelUp.resetPC(false, pc);
                         gv.screenType = "learnSpellLevelUp";
-                        gv.Render();
+//                        gv.Render();
                         //gv.invalidate();
                     }
                     else //no spells or traits to learn

@@ -210,6 +210,7 @@
     <Compile Include="Shop.cs" />
     <Compile Include="Spell.cs" />
     <Compile Include="SpellAllowed.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="TextInputDialog.cs">
       <SubType>Form</SubType>
     </Compile>

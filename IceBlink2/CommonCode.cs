@@ -4871,7 +4871,7 @@ namespace IceBlink2
                         //prp.CurrentMoveToTarget.X = prp.LocationX;
                         //prp.CurrentMoveToTarget.Y = prp.LocationY;
                         //gv.Invalidate();
-                        gv.Render();
+//                        gv.Render();
                         return;
                     }
 
@@ -4914,7 +4914,7 @@ namespace IceBlink2
                             {//4
                                 //memo to self: check what invalidate does                                         
                                 //gv.Invalidate();
-                                gv.Render();
+//                                gv.Render();
                                 return;
                             }//4
 
@@ -5075,7 +5075,7 @@ namespace IceBlink2
                                 {
                                     //memo to self: check what invalidate does
                                     //gv.Invalidate();
-                                    gv.Render();
+//                                    gv.Render();
                                     return;
                                 }
                             }
@@ -5188,7 +5188,7 @@ namespace IceBlink2
                                 {
                                     for (int i = 0; i < 30; i++)
                                     {
-                                        gv.Render();
+//                                        gv.Render();
                                     }
                                 }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
@@ -5202,7 +5202,7 @@ namespace IceBlink2
                                 {
                                     for (int i = 0; i < 30; i++)
                                     {
-                                        gv.Render();
+//                                        gv.Render();
                                     }
                                 }
                                 doConversationBasedOnTag(prp.ConversationWhenOnPartySquare);
@@ -5223,7 +5223,7 @@ namespace IceBlink2
                             {
                                 for (int i = 0; i < 30; i++)
                                 {
-                                    gv.Render();
+//                                    gv.Render();
                                 }
                             }
 
@@ -6204,6 +6204,9 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
 
+            //for testing sprites
+            createSpritesForTesting();
+
             try
             {
                 if (gv.mod.loadedTileBitmaps != null)
@@ -6249,6 +6252,16 @@ namespace IceBlink2
             {
                 gv.sf.RemoveItemFromInventory(itRef, 1);
             }
+        }
+
+        //TESTING STUFF
+        public void createSpritesForTesting()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Sprite spr = new Sprite(hitSymbol, gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000);
+                gv.screenMainMap.spriteList.Add(spr);
+            }            
         }
 
         //MISC FUNCTIONS

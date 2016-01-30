@@ -45,6 +45,7 @@ namespace IceBlink2
         public Bitmap fullScreenEffect8 = null;
         public Bitmap fullScreenEffect9 = null;
         public Bitmap fullScreenEffect10 = null;
+        public List<Sprite> spriteList = new List<Sprite>();
 
         public ScreenMainMap(Module m, GameView g)
         {
@@ -54,8 +55,7 @@ namespace IceBlink2
             setControlsStart();
             setToggleButtonsStart();
         }
-
-        
+                
         public void setControlsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -236,8 +236,29 @@ namespace IceBlink2
                 tglAvoidConversation.toggleOn = false;
             }
         }
-
-        //MAIN SCREEN
+        //MAIN SCREEN UPDATE
+        public void Update(int elapsed)
+        {
+            foreach (Sprite spr in spriteList)
+            {
+                spr.Update(elapsed);
+            }
+            for (int x = spriteList.Count - 1; x >= 0; x--)
+            {
+                if (spriteList[x].timeToLiveInMilliseconds <= 0)
+                {
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+            }
+        }
+        //MAIN SCREEN DRAW
         public void resetMiniMapBitmap()
         {            
             int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
@@ -529,6 +550,7 @@ namespace IceBlink2
                 drawPanels();
             }
             //drawBottomFullScreenEffects();
+            drawSprites();
             drawTopFullScreenEffects();
             gv.drawLog();
             drawControls();
@@ -20520,7 +20542,13 @@ namespace IceBlink2
             }
 
         }
-
+        public void drawSprites()
+        {
+            foreach (Sprite spr in spriteList)
+            {
+                spr.Draw(gv);
+            }
+        }
         //not used for now; later :-)
         /*public void drawOverlayWeather()
         {

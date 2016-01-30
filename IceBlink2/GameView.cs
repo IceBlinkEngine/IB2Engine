@@ -131,6 +131,8 @@ namespace IceBlink2
         public Stopwatch gameTimerStopwatch = new Stopwatch();
         public long previousTime = 0;
         public bool stillProcessingGameLoop = false;
+        public float fps = 0;
+        public int reportFPScount = 0;
 
         public Timer animationTimer = new Timer();
         public Timer floatyTextTimer = new Timer();
@@ -1106,7 +1108,7 @@ namespace IceBlink2
         {
             animationTimer.Enabled = false;
             animationTimer.Stop();
-            Render();
+//            Render();
             //Invalidate();
             screenCombat.doAnimationController();
         }
@@ -1132,17 +1134,22 @@ namespace IceBlink2
         }*/
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if (stillProcessingGameLoop)
+            if (!stillProcessingGameLoop)
             {
-                return;
-            }
-            stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
-            long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
-            int elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
-            Update(elapsed); //runs AI and physics
-            Render(); //draw the screen frame
-            previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed time
-            stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop
+                stillProcessingGameLoop = true; //starting the game loop so do not allow another tick call to run until finished with this tick call.
+                long current = gameTimerStopwatch.ElapsedMilliseconds; //get the current total amount of ms since the game launched
+                int elapsed = (int)(current - previousTime); //calculate the total ms elapsed since the last time through the game loop
+                Update(elapsed); //runs AI and physics
+                Render(); //draw the screen frame
+                if (reportFPScount >= 10)
+                {
+                    reportFPScount = 0;
+                    fps = 1000 / (current - previousTime);
+                }
+                reportFPScount++;
+                previousTime = current; //remember the current time at the beginning of this tick call for the next time through the game loop to calculate elapsed time
+                stillProcessingGameLoop = false; //finished game loop so okay to let the next tick call enter the game loop      
+            }  
         }
         private void Update(int elapsed)
         {
@@ -1157,13 +1164,17 @@ namespace IceBlink2
                 }
             }
             //iterate through spriteList and handle any sprite location and animation frame calculations
+            if (screenType.Equals("main"))
+            {
+                screenMainMap.Update(elapsed);
+            }
         }
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
             floatyTextTimer.Enabled = false;
             floatyTextTimer.Stop();
             //Invalidate();
-            Render();
+//            Render();
 
             int pH = (int)((float)screenHeight / 200.0f);
             //move all floaty text up one %pixel
@@ -1183,7 +1194,7 @@ namespace IceBlink2
                 screenCombat.floatyTextOn = false;
                 this.cc.floatyTextList.Clear();
             }
-            Render();
+//            Render();
         }
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
         {
@@ -1400,6 +1411,12 @@ namespace IceBlink2
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, mirror, flip);
         }
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angle, bool mirror, bool flip) //change this to DrawBitmap
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angle, mirror, flip);
+        }
 
         //add opacity overload
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, bool flip, float opac) //change this to DrawBitmap
@@ -1418,9 +1435,10 @@ namespace IceBlink2
             //calling new overloaded draw that takes in opacity, too
             DrawD2DBitmap(bitmap, src, tar, mirror, flip, opac);
         }
+
         protected override void OnPaint(PaintEventArgs e)
 	    {
-            Render();
+//            Render();
             //base.OnPaint(e);
             //gCanvas = e.Graphics;
             /*BeginDraw(); //uncomment this for DIRECT2D ADDITIONS
@@ -1667,8 +1685,7 @@ namespace IceBlink2
             if ((mod.useUIBackground) && (!screenType.Equals("main")) && (!screenType.Equals("combat")) && (!screenType.Equals("launcher")) && (!screenType.Equals("title")))
             {
                 drawUIBackground();
-            }
-
+            }            
             if (screenType.Equals("title"))
             {
                 screenTitle.redrawTitle();
@@ -1768,6 +1785,19 @@ namespace IceBlink2
             {
                 screenPartyRoster.redrawPartyRoster();
             }
+            if (mod.debugMode)
+            {
+                int txtH = (int)drawFontRegHeight;
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        DrawText("FPS:" + fps.ToString(), new IbRect(x + 5, screenHeight - txtH - 5 + y - oYshift, 100, 100), 1.0f, SharpDX.Color.Black);
+                    }
+                }
+                DrawText("FPS:" + fps.ToString(), new IbRect(5, screenHeight - txtH - 5 - oYshift, 100, 100), 1.0f, SharpDX.Color.White);
+            }
+
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
 
             /*
@@ -1815,12 +1845,27 @@ namespace IceBlink2
         {
             DrawD2DBitmap(bitmap, source, target, false, false);
         }
-
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, bool flip)
         {
-            if ((mirror) && (flip))
+            DrawD2DBitmap(bitmap, source, target, 0, mirror, flip);
+        }
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angle, bool mirror, bool flip)
+        {
+            int mir = 1;
+            int flp = 1;
+            if (mirror) { mir = -1; }
+            if (flip)   { flp = -1; }
+
+            Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
+            renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir, flp), center, angle, new Vector2(0, 0));
+            SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            renderTarget2D.DrawBitmap(bitmap, trg, 1.0f, BitmapInterpolationMode.Linear, src);
+            renderTarget2D.Transform = Matrix3x2.Identity;
+            
+            /*if ((mirror) && (flip))
             {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, 0, 0, 0);
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, angle, 0, 0);
                 renderTarget2D.DrawBitmap(bitmap,
                                             new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
                                                 (target.Top + bitmap.PixelSize.Height) * -1,
@@ -1832,7 +1877,7 @@ namespace IceBlink2
             }
             else if (flip)
             {
-                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, 0, 0, 0);
+                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, angle, 0, 0);
                 renderTarget2D.DrawBitmap(bitmap,
                                             new SharpDX.RectangleF(target.Left,
                                                 (target.Top + bitmap.PixelSize.Height) * -1,
@@ -1844,10 +1889,9 @@ namespace IceBlink2
             }
             else if (mirror)
             {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
-                
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, angle, 0, 0);                
                 //left shift for rendering right facing party and combat cretures, those were shifted about half a square too far in right direction on my laptop
-                float leftShiftAdjustment = (screenWidth / 1920f) * bitmap.PixelSize.Width; 
+                float leftShiftAdjustment = screenDensity * bitmap.PixelSize.Width; 
                 renderTarget2D.DrawBitmap(bitmap,
                                             //new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
                                                 new SharpDX.RectangleF((target.Left + leftShiftAdjustment) * -1,
@@ -1860,6 +1904,9 @@ namespace IceBlink2
             }
             else
             {
+                Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
+                renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(1,1), center, angle, new Vector2(0,0));
+                //renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, angle, 0, 0);
                 renderTarget2D.DrawBitmap(bitmap,
                                             new SharpDX.RectangleF(target.Left,
                                                 target.Top,
@@ -1870,7 +1917,9 @@ namespace IceBlink2
                                             new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
             }
             //return transform back to original
-            renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
+            renderTarget2D.Transform = Matrix3x2.Identity;
+            //renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
+            */
         }
 
         //new overload with opacity added
@@ -1959,7 +2008,7 @@ namespace IceBlink2
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
         {
-            Render();
+            //Render();
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 log.onMouseMove(sender, e);
@@ -2096,19 +2145,19 @@ namespace IceBlink2
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
-                        Render();
+//                        Render();
                         //this.Invalidate();
                     }
                     else if (screenType.Equals("combat"))
                     {
                         screenCombat.onKeyUp(keyData);
-                        Render();
+//                        Render();
                         //this.Invalidate();
                     }
                     else if (screenType.Equals("convo"))
                     {
                         screenConvo.onKeyUp(keyData);
-                        Render();
+//                        Render();
                         //this.Invalidate();
                     }
                 }
