@@ -260,7 +260,10 @@ namespace IceBlink2
         }
         //MAIN SCREEN DRAW
         public void resetMiniMapBitmap()
-        {            
+        {
+            
+            //gv.mod.loadedMinimapTileBitmaps
+            /*
             int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
             int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
             int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
@@ -473,6 +476,10 @@ namespace IceBlink2
                     gv.cc.DisposeAreaBitmapListForMinimap();
                 }
             }
+            */
+            gv.cc.DisposeAreaBitmapListForMinimap();
+            minimap = gv.cc.LoadBitmap(gv.mod.currentArea.Filename + "Minimap");
+            //minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
         }
         public void redrawMain()
         {

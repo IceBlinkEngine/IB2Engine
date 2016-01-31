@@ -1264,8 +1264,8 @@ namespace IceBlink2
 
                                 if ((bitmapAlreadyLoaded == false) && (isContainedOnCurrentArea == true))
                                 {
-                                    gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
-                                    gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
+                                    //gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
+                                    //gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
                                     //tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                                     //tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
                                 }
@@ -1379,8 +1379,8 @@ namespace IceBlink2
 
                                 if ((bitmapAlreadyLoaded == false) && (isContainedOnCurrentArea == true))
                                 {
-                                    gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
-                                    gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
+                                    //gv.mod.loadedMinimapTileBitmapsNames.Add(fileNameWithOutExt);
+                                    //gv.mod.loadedMinimapTileBitmaps.Add(LoadBitmapGDI(fileNameWithOutExt));
                                     //tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                                     //tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
                                 }
