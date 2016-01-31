@@ -99,6 +99,7 @@ namespace IceBlink2
         //public Bitmap tint_rain;
 
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
+        public Dictionary<string, Bitmap> commonBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
@@ -1575,7 +1576,7 @@ namespace IceBlink2
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
             }
-        }
+        }        
         public string GetModulePath()
         {
             return gv.mainDirectory + "\\modules\\" + gv.mod.moduleName;
@@ -6322,7 +6323,7 @@ namespace IceBlink2
         {
             for (int i = 0; i < 100; i++)
             {
-                Sprite spr = new Sprite(hitSymbol, gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000);
+                Sprite spr = new Sprite(gv, "hit_symbol", gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000, 100);
                 gv.screenMainMap.spriteList.Add(spr);
             }            
         }
@@ -6656,6 +6657,20 @@ namespace IceBlink2
         }
 
         //DIRECT2D STUFF
+        public SharpDX.Direct2D1.Bitmap GetFromBitmapList(string fileNameWithOutExt)
+        {
+            //check to see if in list already and return bitmap it if found
+            if (commonBitmapList.ContainsKey(fileNameWithOutExt))
+            {
+                return commonBitmapList[fileNameWithOutExt];
+            }
+            //try loading and adding to list and return bitmap
+            else
+            {
+                commonBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                return commonBitmapList[fileNameWithOutExt];
+            }
+        }
         public void DisposeOfBitmap(ref SharpDX.Direct2D1.Bitmap bmp)
         {
             if (bmp != null)

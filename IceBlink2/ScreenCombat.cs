@@ -2693,6 +2693,7 @@ namespace IceBlink2
             DrawProjectileAnimation();
             DrawEndingAnimation();
             DrawDeathAnimation();
+            drawSprites();
             if (mod.currentEncounter.UseDayNightCycle)
             {
                 drawOverlayTints();
@@ -2705,8 +2706,7 @@ namespace IceBlink2
             if (mod.useUIBackground)
             {
                 drawPanels();
-            }
-            drawSprites();
+            }            
             gv.drawLog();
             drawFloatyText();
             drawHPText();
@@ -5576,32 +5576,27 @@ namespace IceBlink2
         }
         public void launchProjectile(Player pc)
         {
-            //load projectile image
-            gv.cc.DisposeOfBitmap(ref projectile);
-            projectile = gv.cc.LoadBitmap(mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename);
             int startX = getPixelLocX(pc.combatLocX);
             int startY = getPixelLocY(pc.combatLocY);
             int endX = getPixelLocX(targetHighlightCenterLocation.X);
             int endY = getPixelLocY(targetHighlightCenterLocation.Y);
             //calculate angle from start to end point
-            float angle = AngleRad(new Point(startX, startY), new Point(endX, endY));
-            //calculate distance in pixels
-            float dist = (float)(Math.Sqrt((Math.Abs(startX - endX)) ^ 2 + (Math.Abs(startY - endY)) ^ 2));
+            float angle = AngleRad(new Point(startX, startY), new Point(endX, endY));            
+            float dX = (endX - startX);
+            float dY = (endY - startY);
             //calculate needed TTL based on a constant speed for projectiles
-            float velX = (endX - startX);
-            float velY = (endY - startY);
-            float velocityX = 0;
-            if (velX != 0)
+            int ttl = 1000;
+            float speed = 2;
+            if (Math.Abs(dX) > Math.Abs(dY))
             {
-                velocityX = velX / 1000;
+                ttl = (int)(Math.Abs(dX) * speed);
             }
-            float velocityY = 0;
-            if (velY != 0)
+            else
             {
-                velocityY = velY / 1000;
+                ttl = (int)(Math.Abs(dY) * speed);
             }
-            int ttl = (int)(dist * 1000);
-            Sprite spr = new Sprite(gv.cc.facing8, startX, startY, velocityX, velocityY, angle, 0, 1.0f, ttl);
+            SharpDX.Vector2 vel = SharpDX.Vector2.Normalize(new SharpDX.Vector2(dX, dY)); 
+            Sprite spr = new Sprite(gv, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename, startX, startY, vel.X / speed, vel.Y / speed, angle, 0, 1.0f, ttl, 100);
             this.spriteList.Add(spr);
         }
         //const float Rad2Deg = (float)(180.0 / Math.PI);
