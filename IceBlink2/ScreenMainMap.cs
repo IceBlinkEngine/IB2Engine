@@ -15,7 +15,6 @@ namespace IceBlink2
         public Module mod;
         public GameView gv;
 
-        
         private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
         private IbbButton btnSettings = null;
@@ -261,225 +260,7 @@ namespace IceBlink2
         //MAIN SCREEN DRAW
         public void resetMiniMapBitmap()
         {
-            
-            //gv.mod.loadedMinimapTileBitmaps
-            /*
-            int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
-            int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
-            int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
-            using (System.Drawing.Bitmap surface = new System.Drawing.Bitmap(drawW, drawH))
-            {
-                using (Graphics device = Graphics.FromImage(surface))
-                {
-                    //draw background image first
-                    if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
-                    {
-                        System.Drawing.Bitmap bg = gv.cc.LoadBitmapGDI(mod.currentArea.ImageFileName);
-                        Rectangle srcBG = new Rectangle(0, 0, bg.Width, bg.Height);
-                        Rectangle dstBG = new Rectangle(mod.currentArea.backgroundImageStartLocX * minimapSquareSizeInPixels, 
-                                                        mod.currentArea.backgroundImageStartLocY * minimapSquareSizeInPixels, 
-                                                        minimapSquareSizeInPixels * (bg.Width / 50), 
-                                                        minimapSquareSizeInPixels * (bg.Height / 50));
-                        device.DrawImage(bg, dstBG, srcBG, GraphicsUnit.Pixel);
-                        bg.Dispose();
-                        bg = null;
-                    }
-
-                    //add code for loading bitmaps of tiles in area
-                    //to do: adjust this one, too, for layer0
-                    gv.cc.LoadAreaBitmapListForMinimap();
-
-                    //adding layer 0 to minimap
-                    #region Draw Layer 0
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer0Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                //float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                //float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                float scalerX = 1;
-                                float scalerY = 1;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                        }
-                    }
-                    #endregion
-
-                    #region Draw Layer 1
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer1Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                        }
-                    }
-                    #endregion
-                    #region Draw Layer 2
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                          
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer2Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                            //device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer2Filename], dst, src, GraphicsUnit.Pixel);
-                        }
-                    }
-                    #endregion
-                    #region Draw Layer 3
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                            
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer3Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                            //device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer3Filename], dst, src, GraphicsUnit.Pixel);
-                        }
-                    }
-                    #endregion
-                    #region Draw Layer 4
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                           
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer4Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                            //device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer4Filename], dst, src, GraphicsUnit.Pixel);
-                        }
-                    }
-                    #endregion
-                    #region Draw Layer 5
-                    for (int x = 0; x < mod.currentArea.MapSizeX; x++)
-                    {
-                        for (int y = 0; y < mod.currentArea.MapSizeY; y++)
-                        {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                            int indexOfBitmap = -1;
-                            for (int i = 0; i < gv.mod.loadedMinimapTileBitmapsNames.Count; i++)
-                            {
-                                if (tile.Layer5Filename == gv.mod.loadedMinimapTileBitmapsNames[i])
-                                {
-                                    indexOfBitmap = i;
-                                    break;
-                                }
-                            }
-                            if (indexOfBitmap != -1)
-                            {
-                                Rectangle src = new Rectangle(0, 0, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width, gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height);
-                                float scalerX = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Width / 100;
-                                float scalerY = gv.mod.loadedMinimapTileBitmaps[indexOfBitmap].Size.Height / 100;
-                                int brX = (int)(minimapSquareSizeInPixels * scalerX);
-                                int brY = (int)(minimapSquareSizeInPixels * scalerY);
-                                Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.mod.loadedMinimapTileBitmaps[indexOfBitmap], dst, src, GraphicsUnit.Pixel);
-                            }
-                            //device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer5Filename], dst, src, GraphicsUnit.Pixel);
-                        }
-                    }
-                    #endregion
-                    minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
-
-                    //add code for disposing of of all the tile bitmaps
-                    gv.cc.DisposeAreaBitmapListForMinimap();
-                }
-            }
-            */
-            gv.cc.DisposeAreaBitmapListForMinimap();
             minimap = gv.cc.LoadBitmap(gv.mod.currentArea.Filename + "Minimap");
-            //minimap = gv.cc.ConvertGDIBitmapToD2D((System.Drawing.Bitmap)surface.Clone());
         }
         public void redrawMain()
         {
@@ -488,7 +269,7 @@ namespace IceBlink2
             if (!mod.currentArea.areaDark)
             {
                 drawBottomFullScreenEffects();
-                //remove whoel drawMap later? Compatibility with existing modules wont allow
+                //remove whold drawMap later? Compatibility with existing modules wont allow
                 if ((!mod.currentArea.ImageFileName.Equals("none")) && (gv.cc.bmpMap != null))
                 {
                     drawMap();
@@ -660,9 +441,6 @@ namespace IceBlink2
                         if (!tileBitmapIsLoadedAlready)
                         {
                             gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
-                            //XXX:to do, we will have to use a specific subdirectory here as layer0 is in directory with name currentArea.sourcebitmap (or so)
-                            //to do: also do minimap!
-                            //to do: encountermap/combat?
                             tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
                             //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
 
