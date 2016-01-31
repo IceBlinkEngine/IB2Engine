@@ -99,6 +99,7 @@ namespace IceBlink2
         //public Bitmap tint_rain;
 
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
+        public Dictionary<string, Bitmap> commonBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
 
         public Spell currentSelectedSpell = new Spell();
@@ -1575,7 +1576,7 @@ namespace IceBlink2
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
             }
-        }
+        }        
         public string GetModulePath()
         {
             return gv.mainDirectory + "\\modules\\" + gv.mod.moduleName;
@@ -1809,6 +1810,7 @@ namespace IceBlink2
                 ptrPc0 = new IbbPortrait(gv, 0.8f);
                 ptrPc0.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc0.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc0.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc0.X = tabX1;
                 ptrPc0.Y = tabY1;
                 ptrPc0.Height = ptrHeight;
@@ -1819,6 +1821,7 @@ namespace IceBlink2
                 ptrPc1 = new IbbPortrait(gv, 0.8f);
                 ptrPc1.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc1.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc1.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc1.X = tabX2;
                 ptrPc1.Y = tabY1;
                 ptrPc1.Height = ptrHeight;
@@ -1829,6 +1832,7 @@ namespace IceBlink2
                 ptrPc2 = new IbbPortrait(gv, 0.8f);
                 ptrPc2.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc2.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc2.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc2.X = tabX1;
                 ptrPc2.Y = tabY2;
                 ptrPc2.Height = ptrHeight;
@@ -1839,6 +1843,7 @@ namespace IceBlink2
                 ptrPc3 = new IbbPortrait(gv, 0.8f);
                 ptrPc3.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc3.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc3.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc3.X = tabX2;
                 ptrPc3.Y = tabY2;
                 ptrPc3.Height = ptrHeight;
@@ -1849,6 +1854,7 @@ namespace IceBlink2
                 ptrPc4 = new IbbPortrait(gv, 0.8f);
                 ptrPc4.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc4.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc4.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc4.X = tabX1;
                 ptrPc4.Y = tabY3;
                 ptrPc4.Height = ptrHeight;
@@ -1859,6 +1865,7 @@ namespace IceBlink2
                 ptrPc5 = new IbbPortrait(gv, 0.8f);
                 ptrPc5.ImgBG = gv.cc.LoadBitmap("item_slot");
                 ptrPc5.Glow = gv.cc.LoadBitmap("btn_ptr_glow");
+                ptrPc5.ImgLU = gv.cc.LoadBitmap("btnLevelUpPlus");
                 ptrPc5.X = tabX2;
                 ptrPc5.Y = tabY3;
                 ptrPc5.Height = ptrHeight;
@@ -2803,6 +2810,61 @@ namespace IceBlink2
             {
                 gv.screenMainMap.doFloatyTextByPixelLoop();
             }
+            //check for levelup available and switch button image
+            checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
+        }
+
+        public void checkLevelUpAvailable()
+        {            
+            if (gv.mod.playerList.Count > 0)
+            {
+                if (gv.mod.playerList[0].IsReadyToAdvanceLevel()) { gv.cc.ptrPc0.levelUpOn = true; }
+                else { gv.cc.ptrPc0.levelUpOn = false; }
+            }
+            if (gv.mod.playerList.Count > 1)
+            {
+                if (gv.mod.playerList[1].IsReadyToAdvanceLevel()) { gv.cc.ptrPc1.levelUpOn = true; }
+                else { gv.cc.ptrPc1.levelUpOn = false; }
+            }
+            if (gv.mod.playerList.Count > 2)
+            {
+                if (gv.mod.playerList[2].IsReadyToAdvanceLevel()) { gv.cc.ptrPc2.levelUpOn = true; }
+                else { gv.cc.ptrPc2.levelUpOn = false; }
+            }
+            if (gv.mod.playerList.Count > 3)
+            {
+                if (gv.mod.playerList[3].IsReadyToAdvanceLevel()) { gv.cc.ptrPc3.levelUpOn = true; }
+                else { gv.cc.ptrPc3.levelUpOn = false; }
+            }
+            if (gv.mod.playerList.Count > 4)
+            {
+                if (gv.mod.playerList[4].IsReadyToAdvanceLevel()) { gv.cc.ptrPc4.levelUpOn = true; }
+                else { gv.cc.ptrPc4.levelUpOn = false; }
+            }
+            if (gv.mod.playerList.Count > 5)
+            {
+                if (gv.mod.playerList[5].IsReadyToAdvanceLevel()) { gv.cc.ptrPc5.levelUpOn = true; }
+                else { gv.cc.ptrPc5.levelUpOn = false; }
+            }
+            
+            /*bool levelup = false;
+            foreach (Player pc in gv.mod.playerList)
+            {
+                if (pc.IsReadyToAdvanceLevel())
+                {
+                    levelup = true;
+                }
+            }
+            if (levelup)
+            {
+                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
+                btnParty.Img2 = gv.cc.LoadBitmap("btnpartyplus");
+            }
+            else
+            {
+                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
+                btnParty.Img2 = gv.cc.LoadBitmap("btnparty");
+            }*/
         }
 
         public void doWeatherSound()
@@ -6259,9 +6321,9 @@ namespace IceBlink2
         //TESTING STUFF
         public void createSpritesForTesting()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
-                Sprite spr = new Sprite(hitSymbol, gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000);
+                Sprite spr = new Sprite(gv, "hit_symbol", gv.sf.RandInt(1000), gv.sf.RandInt(1000), (float)(gv.sf.RandInt(100) + 1) / 1000f, (float)(gv.sf.RandInt(100) + 1) / 1000f, 0, (float)(gv.sf.RandInt(100) + 1) / 10000f, 1.0f, gv.sf.RandInt(10000) + 3000, 100);
                 gv.screenMainMap.spriteList.Add(spr);
             }            
         }
@@ -6595,6 +6657,20 @@ namespace IceBlink2
         }
 
         //DIRECT2D STUFF
+        public SharpDX.Direct2D1.Bitmap GetFromBitmapList(string fileNameWithOutExt)
+        {
+            //check to see if in list already and return bitmap it if found
+            if (commonBitmapList.ContainsKey(fileNameWithOutExt))
+            {
+                return commonBitmapList[fileNameWithOutExt];
+            }
+            //try loading and adding to list and return bitmap
+            else
+            {
+                commonBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                return commonBitmapList[fileNameWithOutExt];
+            }
+        }
         public void DisposeOfBitmap(ref SharpDX.Direct2D1.Bitmap bmp)
         {
             if (bmp != null)

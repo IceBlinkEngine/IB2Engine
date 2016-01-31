@@ -17,6 +17,7 @@ namespace IceBlink2
         public Bitmap ImgLU = null; //used for level up icon
         public Bitmap Glow = null;
         public bool glowOn = false;
+        public bool levelUpOn = false;
         public string TextHP = "";
         public string TextSP = "";
         public int X = 0;
@@ -60,6 +61,7 @@ namespace IceBlink2
             IbRect src = new IbRect(0, 0, this.ImgBG.PixelSize.Width, this.ImgBG.PixelSize.Height);
             IbRect src2 = new IbRect(0, 0, 0, 0);
             IbRect src3 = new IbRect(0, 0, 0, 0);
+            IbRect dstLU = new IbRect(0, 0, 0, 0);
 
             if (this.Img != null)
             {
@@ -74,8 +76,10 @@ namespace IceBlink2
                                         (int)((float)this.Width) + (int)(6 * gv.screenDensity),
                                         (int)((float)this.Height) + (int)(6 * gv.screenDensity));
             IbRect dst = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
-            IbRect dstLU = new IbRect(this.X, this.Y, (int)((float)this.Width), (int)((float)this.Height));
-
+            if (this.ImgLU != null)
+            {
+                dstLU = new IbRect(this.X, this.Y, this.ImgLU.PixelSize.Width, this.ImgLU.PixelSize.Height);
+            }
             IbRect srcGlow = new IbRect(0, 0, this.Glow.PixelSize.Width, this.Glow.PixelSize.Height);
             IbRect dstGlow = new IbRect(this.X - (int)(7 * gv.screenDensity), 
                                         this.Y - (int)(7 * gv.screenDensity), 
@@ -96,7 +100,10 @@ namespace IceBlink2
             
             if (this.ImgLU != null)
             {
-                gv.DrawBitmap(this.ImgLU, src3, dst);
+                if (levelUpOn)
+                {
+                    gv.DrawBitmap(this.ImgLU, src3, dstLU);
+                }                
             }
 
             if (gv.mod.useUIBackground)

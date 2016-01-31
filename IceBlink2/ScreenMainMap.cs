@@ -20750,10 +20750,7 @@ namespace IceBlink2
             tglGrid.Draw();
             tglInteractionState.Draw();
             tglAvoidConversation.Draw();
-            tglClock.Draw();
-
-            //check for levelup available and switch button image
-            checkLevelUpAvailable();
+            tglClock.Draw();            
 
             btnParty.Draw();
             gv.cc.btnInventory.Draw();
@@ -22035,26 +22032,6 @@ namespace IceBlink2
             }
             return false;
         }
-        public void checkLevelUpAvailable()
-        {
-            bool levelup = false;
-            foreach (Player pc in mod.playerList)
-            {
-                if (pc.IsReadyToAdvanceLevel())
-                {
-                    levelup = true;
-                }
-            }
-            if (levelup)
-            {
-                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
-                btnParty.Img2 = gv.cc.LoadBitmap("btnpartyplus");
-            }
-            else
-            {
-                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
-                btnParty.Img2 = gv.cc.LoadBitmap("btnparty");
-            }
-        }
+        
     }
 }
