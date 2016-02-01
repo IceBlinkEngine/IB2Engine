@@ -71,7 +71,10 @@ namespace IceBlink2
         public float moveCost = 1.0f;
         //public float diagonalMoveCost = 1.5f; //using the property from module instead
         public List<Sprite> spriteList = new List<Sprite>();
-
+        public List<Sprite> animationList = new List<Sprite>();
+        public bool animationsOn = false;
+        public int attackAnimationTimeElapsed = 0;
+        public int attackAnimationLengthInMilliseconds = 0;
 
         public ScreenCombat(Module m, GameView g)
 	    {
@@ -2646,6 +2649,7 @@ namespace IceBlink2
         //COMBAT SCREEN UPDATE
         public void Update(int elapsed)
         {
+            //PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
                 spr.Update(elapsed);
@@ -2665,7 +2669,57 @@ namespace IceBlink2
                     }
                 }
             }
+
+            //COMBAT ANIMATION SPRITES
+            if (animationsOn)
+            {
+                attackAnimationTimeElapsed += elapsed;
+                if (attackAnimationTimeElapsed >= attackAnimationLengthInMilliseconds)
+                {
+                    //time is up, reset attack animations to null
+                    creatureToAnimate = null;
+                    playerToAnimate = null;                    
+                }
+                foreach (Sprite spr in animationList)
+                {
+                    spr.Update(elapsed);
+                }
+                //remove sprite if hit end of life
+                for (int x = animationList.Count - 1; x >= 0; x--)
+                {
+                    if (animationList[x].timeToLiveInMilliseconds <= 0)
+                    {
+                        try
+                        {
+                            animationList.RemoveAt(x);
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                if (animationList.Count == 0)
+                {
+                    animationsOn = false;
+                    /*
+                    if (isPlayerTurn)
+                    {
+                        checkEndEncounter();
+                        gv.touchEnabled = true;
+                        animationState = AnimationState.None;
+                        endPcTurn(true);
+                    }
+                    else
+                    {
+                        animationState = AnimationState.None;
+                        endCreatureTurn();
+                    }
+                    */
+                }
+            }            
         }
+        
         #region Combat Draw
         public void redrawCombat()
         {
@@ -3948,6 +4002,13 @@ namespace IceBlink2
             foreach (Sprite spr in spriteList)
             {
                 spr.Draw(gv);
+            }
+            if (animationsOn)
+            {
+                foreach (Sprite spr in animationList)
+                {
+                    spr.Draw(gv);
+                }
             }
         }
         #endregion
@@ -5529,20 +5590,41 @@ namespace IceBlink2
                 gv.touchEnabled = false;
                 creatureToAnimate = null;
                 playerToAnimate = pc;
+                //set attack animation and do a delay
+                //attackAnimationTimeElapsed = 0;
+                //attackAnimationLengthInMilliseconds = 500;
                 gv.Render();
                 if ((mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                         || (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
                         || (mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
                 {
                     animationState = AnimationState.PcMeleeAttackAnimation;
+                    //do melee attack stuff and animations                    
+                    //doCombatAttack(pc);
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations
+                    //animationsOn = true;
                 }
-                else
+                else //Ranged Attack
                 {
                     //play attack sound for ranged
                     gv.PlaySound(mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
                     animationState = AnimationState.PcRangedAttackAnimation;
-                    //do new animation system: attack animation, projectile animation, ending animation, hit/miss animation
-                    launchProjectile(pc);
+                    //do ranged attack stuff and animations
+                    //doCombatAttack(pc);
+                    //add projectile animation
+                    int startX = getPixelLocX(pc.combatLocX);
+                    int startY = getPixelLocY(pc.combatLocY);
+                    int endX = getPixelLocX(targetHighlightCenterLocation.X);
+                    int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                    string filename = mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
+                    int ttl = launchProjectile(filename, startX, startY, endX, endY); //returns total travel time
+                    //add ending projectile animation                    
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations                                        
+                    animationsOn = true;
                 }
                 gv.postDelayed("doAnimation", (int) (5 * (0.5f) * mod.combatAnimationSpeed));
             }
@@ -5574,19 +5656,16 @@ namespace IceBlink2
                 gv.postDelayed("doAnimation", (int) (5 * (0.5f) * mod.combatAnimationSpeed));
             }
         }
-        public void launchProjectile(Player pc)
-        {
-            int startX = getPixelLocX(pc.combatLocX);
-            int startY = getPixelLocY(pc.combatLocY);
-            int endX = getPixelLocX(targetHighlightCenterLocation.X);
-            int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+        public int launchProjectile(string filename, int startX, int startY, int endX, int endY)
+        {            
             //calculate angle from start to end point
-            float angle = AngleRad(new Point(startX, startY), new Point(endX, endY));            
+            float angle = AngleRad(new Point(startX, startY), new Point(endX, endY));
             float dX = (endX - startX);
             float dY = (endY - startY);
-            //calculate needed TTL based on a constant speed for projectiles
+            //calculate needed TimeToLive based on a constant speed for projectiles
             int ttl = 1000;
-            float speed = 2;
+            int startTimeDelayed = 200; // wait for attack animation to finish
+            float speed = 2f; //small number is faster travel speed
             if (Math.Abs(dX) > Math.Abs(dY))
             {
                 ttl = (int)(Math.Abs(dX) * speed);
@@ -5595,11 +5674,11 @@ namespace IceBlink2
             {
                 ttl = (int)(Math.Abs(dY) * speed);
             }
-            SharpDX.Vector2 vel = SharpDX.Vector2.Normalize(new SharpDX.Vector2(dX, dY)); 
-            Sprite spr = new Sprite(gv, mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename, startX, startY, vel.X / speed, vel.Y / speed, angle, 0, 1.0f, ttl, 100);
-            this.spriteList.Add(spr);
+            SharpDX.Vector2 vel = SharpDX.Vector2.Normalize(new SharpDX.Vector2(dX, dY));
+            Sprite spr = new Sprite(gv, filename, startX, startY, vel.X / speed, vel.Y / speed, angle, 0, 1.0f, ttl, startTimeDelayed, false, 100);
+            animationList.Add(spr);
+            return ttl;
         }
-        //const float Rad2Deg = (float)(180.0 / Math.PI);
         public float AngleRad(Point start, Point end)
         {
             return (float)(-1 * ((Math.Atan2(start.Y - end.Y, end.X - start.X)) - (Math.PI) / 2));
