@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="AnimationSequence.cs" />
+    <Compile Include="AnimationStackGroup.cs" />
     <Compile Include="AnimationState.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="AreaOfEffectShape.cs" />
