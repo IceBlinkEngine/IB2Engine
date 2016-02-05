@@ -2044,7 +2044,7 @@ namespace IceBlink2
                 }
             }
 
-            addLogText("red", "number of tiles in cache:" + gv.mod.loadedTileBitmaps.Count);
+            //addLogText("red", "number of tiles in cache:" + gv.mod.loadedTileBitmaps.Count);
             //normal cleanup while moving
             
             //reset the timer interval, important for synching with party move
