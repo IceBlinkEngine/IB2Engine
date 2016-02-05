@@ -2015,24 +2015,23 @@ namespace IceBlink2
 
             }
 
-            //normal cleanup while moving
-            if (gv.mod.loadedTileBitmaps.Count > 150)
+            if (gv.mod.loadedTileBitmaps.Count > 140)
             {
                 //addLogText("yellow", "Disposing tiles.");
-
+                int cullNumber = (gv.mod.loadedTileBitmaps.Count / 10) - 5;
                 try
                 {
                     if (gv.mod.loadedTileBitmaps != null)
                     {
                         //remove 12 entries per move, 3 more than usual 9 squares uncovered
-                        for (int i = 0; i < 12; i++)
+                        for (int i = 0; i < cullNumber; i++)
                         {
                             gv.mod.loadedTileBitmaps[i].Dispose();
                             gv.mod.loadedTileBitmaps.RemoveAt(i);
                             gv.mod.loadedTileBitmapsNames.RemoveAt(i);
-                           
+
                             //addLogText("red", "Removal Counter is:" + i.ToString());
-                            
+
                         }
 
                     }
@@ -2045,6 +2044,9 @@ namespace IceBlink2
                 }
             }
 
+            addLogText("red", "number of tiles in cache:" + gv.mod.loadedTileBitmaps.Count);
+            //normal cleanup while moving
+            
             //reset the timer interval, important for synching with party move
             if (gv.mod.useRealTimeTimer == true)
             {
@@ -5930,7 +5932,9 @@ namespace IceBlink2
                         //gv.weatherSounds2.controls.stop();
                     }
                     gv.mod.setCurrentArea(areaFilename, gv);
-
+                    //karl
+                    gv.log.AddHtmlTextToLog("<font color='red'>" + areaFilename + "</font>");
+                    gv.log.AddHtmlTextToLog("<font color='red'>" + gv.mod.currentArea.Filename + "</font>");
                     //weather related inserts
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX2 = 0;
@@ -6049,9 +6053,10 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
 
-            //for testing sprites
-            createSpritesForTesting();
+            //for testing sprites (temporary disable)
+            //createSpritesForTesting();
 
+            /*
             try
             {
                 if (gv.mod.loadedTileBitmaps != null)
@@ -6068,6 +6073,7 @@ namespace IceBlink2
                 gv.mod.loadedTileBitmapsNames.Clear();
             }
             catch { }
+            */
         }
         public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
