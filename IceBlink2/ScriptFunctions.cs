@@ -5176,7 +5176,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
                     #endregion
                 }
@@ -5208,7 +5208,7 @@ namespace IceBlink2
                     }
                     gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
                     //Do floaty text heal
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                     #endregion
                 }
@@ -5323,7 +5323,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                     #endregion
                 }
@@ -5366,7 +5366,7 @@ namespace IceBlink2
                         }
                         gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
                         //Do floaty text heal
-                        gv.screenCombat.floatyTextOn = true;
+                        //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                     }
                     #endregion
@@ -5999,7 +5999,7 @@ namespace IceBlink2
                             gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                         }
                         //Do floaty text damage
-                        gv.screenCombat.floatyTextOn = true;
+                        //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damageTotal + "");
                         #endregion
                     }
@@ -6031,7 +6031,7 @@ namespace IceBlink2
                         }
                         gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
                         //Do floaty text heal
-                        gv.screenCombat.floatyTextOn = true;
+                        //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                         #endregion
                     }
@@ -6203,7 +6203,7 @@ namespace IceBlink2
                             pc.charStatus = "Dead";
                         }
                         //Do floaty text damage
-                        gv.screenCombat.floatyTextOn = true;
+                        //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damageTotal + "");
                         #endregion
                     }
@@ -6246,7 +6246,7 @@ namespace IceBlink2
                             }
                             gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
                             //Do floaty text heal
-                            gv.screenCombat.floatyTextOn = true;
+                            //gv.screenCombat.floatyTextOn = true;
                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
                         }
                         #endregion
@@ -6409,7 +6409,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");                    
                 }
                 else //target is Player
@@ -6456,7 +6456,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
                 }
             }
@@ -6539,7 +6539,7 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.screenCombat.floatyTextOn = true;
+                //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
                 gv.postDelayed("doFloatyText", 100);
 
@@ -6576,7 +6576,7 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.screenCombat.floatyTextOn = true;
+                //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
                 gv.postDelayed("doFloatyText", 100);
 
@@ -6881,7 +6881,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), iceDam + "");
                 }
                 else //target is Player
@@ -6929,7 +6929,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), iceDam + "");                    
                 }
             }
@@ -7017,7 +7017,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
                 }
                 else //target is Player
@@ -7065,7 +7065,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");
                 }
             }
@@ -7153,7 +7153,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), elecDam + "");
                 }
                 else //target is Player
@@ -7201,7 +7201,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), elecDam + "");
                 }
             }
@@ -7476,7 +7476,7 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.screenCombat.floatyTextOn = true;
+                //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
                 gv.postDelayed("doFloatyText", 100);
 
@@ -7521,7 +7521,7 @@ namespace IceBlink2
                     }
                 }
                 //Do floaty text damage
-                gv.screenCombat.floatyTextOn = true;
+                //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
                 gv.postDelayed("doFloatyText", 100);
 
@@ -7600,7 +7600,7 @@ namespace IceBlink2
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), fireDam + "");
                 }
                 else //target is Player
@@ -7648,7 +7648,7 @@ namespace IceBlink2
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
-                    gv.screenCombat.floatyTextOn = true;
+                    //gv.screenCombat.floatyTextOn = true;
                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), fireDam + "");                    
                 }
             }

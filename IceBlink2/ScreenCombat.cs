@@ -981,7 +981,7 @@ namespace IceBlink2
                                     {
                                         crtLocX = crt2.combatLocX;
                                         crtLocY = crt2.combatLocY;
-                                        floatyTextOn = true;
+//                                        floatyTextOn = true;
                                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
                                         gv.postDelayed("doFloatyText", 100);
                                         attResult = doActualCombatAttack(pc, crt2, i);
@@ -1074,7 +1074,7 @@ namespace IceBlink2
                 //Draw floaty text showing damage above Creature
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
-                floatyTextOn = true;
+//                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
                 gv.postDelayed("doFloatyText", 100);
 
@@ -1830,7 +1830,7 @@ namespace IceBlink2
                 //Draw floaty text showing damage above PC
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
-                floatyTextOn = true;
+//                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
                 gv.postDelayed("doFloatyText", 100);
 
@@ -2183,14 +2183,17 @@ namespace IceBlink2
                     //time is up, reset attack animations to null
                     creatureToAnimate = null;
                     playerToAnimate = null;
-
                     foreach (AnimationSequence seq in animationSeqStack)
                     {
+                        if(seq.AnimationSeq[0].turnFloatyTextOn)
+                        {
+                            floatyTextOn = true; //show any floaty text in the pool
+                        }
                         foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
                         {
                             //just update the group at the top of the stack, first in first
                             spr.Update(elapsed);
-                        }                        
+                        }
                     }
                     //remove sprites if hit end of life
                     for (int aniseq = animationSeqStack.Count - 1; aniseq >= 0; aniseq--)
@@ -2209,7 +2212,7 @@ namespace IceBlink2
                                     {
                                         gv.errorLog(ex.ToString());
                                     }
-                                }                                
+                                }
                             }
                             if (animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.Count == 0)
                             {
@@ -2234,11 +2237,11 @@ namespace IceBlink2
                                 gv.errorLog(ex.ToString());
                             }
                         }
-                    }                    
+                    }
                     //if all animation sequences are done, end this turn
                     if (animationSeqStack.Count == 0)
                     {
-                        animationsOn = false;
+                        animationsOn = false;                        
                         deathAnimationLocations.Clear();
                         //remove any dead creatures                        
                         for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
@@ -2257,7 +2260,7 @@ namespace IceBlink2
                                     gv.errorLog(ex.ToString());
                                 }
                             }
-                        }                        
+                        }
                         if (isPlayerTurn)
                         {
                             checkEndEncounter();
@@ -2269,8 +2272,41 @@ namespace IceBlink2
                         {
                             animationState = AnimationState.None;
                             endCreatureTurn();
-                        }                        
+                        }
                     }
+                }
+            }
+            #endregion
+
+            #region FLOATY TEXT
+            if (floatyTextOn)
+            {
+                //move up 50pxl per second (50px/1000ms)*elapsed
+                float multiplier = 100.0f / gv.mod.combatAnimationSpeed;
+                int shiftUp = (int)(0.05f * elapsed * multiplier);
+                foreach (FloatyText ft in gv.cc.floatyTextList)
+                {
+                    ft.location.Y -= shiftUp;
+                    ft.timeToLive -= (int)(elapsed * multiplier);
+                }
+                //remove sprite if hit end of life
+                for (int x = gv.cc.floatyTextList.Count - 1; x >= 0; x--)
+                {
+                    if (gv.cc.floatyTextList[x].timeToLive <= 0)
+                    {
+                        try
+                        {
+                            gv.cc.floatyTextList.RemoveAt(x);
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+                if (gv.cc.floatyTextList.Count == 0)
+                {
+                    floatyTextOn = false;
                 }                
             }
             #endregion
@@ -3335,7 +3371,7 @@ namespace IceBlink2
 	    }
 	    public void drawHPText()
 	    {		
-		    if (tglHP.toggleOn)
+		    if ((tglHP.toggleOn) && (!animationsOn))
 		    {
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 			    {
@@ -3355,7 +3391,7 @@ namespace IceBlink2
 	    }
 	    public void drawSPText()
 	    {		
-		    if (tglSP.toggleOn)
+		    if ((tglSP.toggleOn) && (!animationsOn))
 		    {
 			    int txtH = (int)gv.drawFontRegHeight;
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
@@ -5213,6 +5249,7 @@ namespace IceBlink2
         {
             int ttl = 8 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
+            group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
         }
         public void addMissAnimation(AnimationStackGroup group)
@@ -5231,6 +5268,7 @@ namespace IceBlink2
         {
             int ttl = 16 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
+            group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
         }
         public float AngleRad(Point start, Point end)

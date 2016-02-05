@@ -1175,7 +1175,7 @@ namespace IceBlink2
         }
         private void FloatyTextTimer_Tick(object sender, EventArgs e)
         {
-            floatyTextTimer.Enabled = false;
+            /*floatyTextTimer.Enabled = false;
             floatyTextTimer.Stop();
             //Invalidate();
 //            Render();
@@ -1197,7 +1197,7 @@ namespace IceBlink2
                 this.cc.floatyTextCounter = 0;
                 screenCombat.floatyTextOn = false;
                 this.cc.floatyTextList.Clear();
-            }
+            }*/
 //            Render();
         }
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
