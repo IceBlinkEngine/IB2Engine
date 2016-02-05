@@ -6325,7 +6325,7 @@ namespace IceBlink2
             #endregion
 
             #region remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -6341,7 +6341,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             #endregion
 
             gv.postDelayed("doFloatyText", 100);
@@ -6462,7 +6462,7 @@ namespace IceBlink2
             }
             
             //remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -6478,7 +6478,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             gv.postDelayed("doFloatyText", 100);
         }
         public void spMageBolt(object src, object trg)
@@ -6508,7 +6508,7 @@ namespace IceBlink2
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
-                        try
+                        /*try
                         {
                             for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
                             {
@@ -6535,7 +6535,7 @@ namespace IceBlink2
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
-                        }
+                        }*/
                     }
                 }
                 //Do floaty text damage
@@ -6935,7 +6935,7 @@ namespace IceBlink2
             }
 
             //remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -6951,7 +6951,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             gv.postDelayed("doFloatyText", 100);
         }
         public void spFireball(object src, object trg, Spell thisSpell)
@@ -7071,7 +7071,7 @@ namespace IceBlink2
             }
 
             //remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -7087,7 +7087,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             gv.postDelayed("doFloatyText", 100);
         }
         public void spLightning(object src, object trg, Spell thisSpell)
@@ -7207,7 +7207,7 @@ namespace IceBlink2
             }
 
             //remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -7223,7 +7223,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             gv.postDelayed("doFloatyText", 100);
         }
 
@@ -7446,7 +7446,7 @@ namespace IceBlink2
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
-                        try
+                        /*try
                         {
                             for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
                             {
@@ -7472,7 +7472,7 @@ namespace IceBlink2
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
-                        }
+                        }*/
                     }
                 }
                 //Do floaty text damage
@@ -7654,7 +7654,7 @@ namespace IceBlink2
             }
 
             //remove dead creatures            
-            for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
+            /*for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
             {
                 if (mod.currentEncounter.encounterCreatureList[x].hp <= 0)
                 {
@@ -7670,7 +7670,7 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-            }
+            }*/
             gv.postDelayed("doFloatyText", 100);
         }
         public void spHold(object src, object trg)

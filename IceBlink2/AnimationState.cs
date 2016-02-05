@@ -7,27 +7,8 @@ namespace IceBlink2
 {
     public enum AnimationState
     {
-        None,
-        PcMeleeAttackAnimation,
-        PcRangedAttackAnimation,
-        PcRangedProjectileAnimation,
-        PcRangedEndingAnimation,
-        CreatureHitAnimation,
-        CreatureMissedAnimation,
-        CreatureMeleeAttackAnimation,
-        CreatureRangedAttackAnimation,
-        CreatureRangedProjectileAnimation,
-        CreatureRangedEndingAnimation,
-        PcHitAnimation,
-        PcMissedAnimation,
-        PcCastAttackAnimation,
-        PcCastProjectileAnimation,
-        PcCastEndingAnimation,
-        CreatureCastAttackAnimation,
-        CreatureCastProjectileAnimation,
-        CreatureCastEndingAnimation,
+        None,        
         CreatureThink,
-        CreatureMove,
-        DeathAnimation
+        CreatureMove        
     }
 }
