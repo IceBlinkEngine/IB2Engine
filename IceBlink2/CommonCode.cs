@@ -3260,7 +3260,7 @@ namespace IceBlink2
             bool doesCurrentWeatherExistHere = false;
             #region check if current weather exists in this area
             //it would be a good practice to  have all weathers of the area listed in the entry list
-            if (gv.mod.currentWeatherName != "")
+            if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherScript != ""))
             {
                 if (gv.mod.justTransitioned == true)
                 {
