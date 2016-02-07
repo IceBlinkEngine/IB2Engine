@@ -3262,7 +3262,32 @@ namespace IceBlink2
             //it would be a good practice to  have all weathers of the area listed in the entry list
             if (gv.mod.currentWeatherName != "")
             {
-
+                if (gv.mod.justTransitioned == true)
+                {
+                    //doesCurrentWeatherExistHere = true;
+                    gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 8;
+                    gv.mod.currentWeatherDuration = 36;
+                    float rollRandom2 = gv.sf.RandInt(100);
+                    gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                    //gv.mod.howLongWeatherHasRun = 0;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    restoreCurrentWeatherSettings();
+                    /*
+                    gv.mod.fullScreenEffectOpacityWeather = 0;
+                    gv.mod.currentArea.overrideDelayCounter5 = 10000;
+                    gv.mod.currentArea.overrideDelayCounter6 = 10000;
+                    gv.mod.currentArea.overrideDelayCounter7 = 10000;
+                    gv.mod.currentArea.overrideDelayCounter8 = 10000;
+                    gv.mod.currentArea.overrideDelayCounter9 = 10000;
+                    gv.mod.currentArea.overrideDelayCounter10 = 10000;
+                    */
+                }
+            
                 foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
                 {
                     if (weatherName == gv.mod.currentWeatherName)
@@ -3273,16 +3298,23 @@ namespace IceBlink2
                         //test idea
                         if (gv.mod.justTransitioned == true)
                         {
+                            /*
+                            //doesCurrentWeatherExistHere = true;
+                            gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 5;
                             gv.mod.currentWeatherDuration = 36;
                             float rollRandom2 = gv.sf.RandInt(100);
                             gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
-                            gv.mod.howLongWeatherHasRun = 0;
+                            //gv.mod.howLongWeatherHasRun = 0;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
                             gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                            restoreCurrentWeatherSettings();
+                            */
+
+                            /*
                             gv.mod.fullScreenEffectOpacityWeather = 0;
                             gv.mod.currentArea.overrideDelayCounter5 = 10000;
                             gv.mod.currentArea.overrideDelayCounter6 = 10000;
@@ -3290,7 +3322,7 @@ namespace IceBlink2
                             gv.mod.currentArea.overrideDelayCounter8 = 10000;
                             gv.mod.currentArea.overrideDelayCounter9 = 10000;
                             gv.mod.currentArea.overrideDelayCounter10 = 10000;
-                            
+                            */
                         }
                         //end test idea
                         break;
@@ -3298,6 +3330,18 @@ namespace IceBlink2
                 }
             }
             #endregion
+            bool blockFullDraw = false;
+            if ((gv.mod.maintainWeatherFromLastAreaTimer > 0) && (gv.mod.currentWeatherName != ""))
+            {
+                doesCurrentWeatherExistHere = true;
+                gv.mod.maintainWeatherFromLastAreaTimer--;
+                if (gv.mod.maintainWeatherFromLastAreaTimer < 6)
+                {
+                    gv.mod.fullScreenEffectOpacityWeather = gv.mod.maintainWeatherFromLastAreaTimer / 5f;
+                }
+                blockFullDraw = true;
+            }
+                         
 
             if ((gv.mod.currentWeatherName == "") || (doesCurrentWeatherExistHere == false))
             {
@@ -3356,7 +3400,10 @@ namespace IceBlink2
 
             if (gv.mod.howLongWeatherHasRun > changeThreshold)
             {
-                gv.mod.fullScreenEffectOpacityWeather = 1f;
+                if (!blockFullDraw)
+                {
+                    gv.mod.fullScreenEffectOpacityWeather = 1f;
+                }
             }
 
                 //add fade out check here later, starting some multiplies of Scaler bfore zero here
@@ -3467,6 +3514,111 @@ namespace IceBlink2
             //6. The weather script itself sets now directly all full channel attributes for the channels belonging to the weather
             //note: by default the weather script will overwrfite the existing channel value, author's can set e.g. for channel 1 property: changebaleByWeatherScript1 to true to block a channel from weather though
             
+        }
+
+        public void restoreCurrentWeatherSettings()
+        {
+
+            gv.mod.currentArea.overrideDelayCounter1 = (int)gv.mod.overrideDelayCounter1;
+            gv.mod.currentArea.cycleCounter1 = gv.mod.cycleCounter1;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = (int)gv.mod.fullScreenAnimationFrameCounter1;
+            gv.mod.currentArea.changeCounter1 = gv.mod.changeCounter1;
+            gv.mod.currentArea.changeFrameCounter1 = gv.mod.changeFrameCounter1;
+            gv.mod.currentArea.fullScreenAnimationSpeedX1 = gv.mod.fullScreenAnimationSpeedX1;
+            gv.mod.currentArea.fullScreenAnimationSpeedY1 = gv.mod.fullScreenAnimationSpeedY1;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = gv.mod.fullScreenAnimationFrameCounterX1;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY1 = gv.mod.fullScreenAnimationFrameCounterY1;
+
+            gv.mod.currentArea.overrideDelayCounter2 = (int)gv.mod.overrideDelayCounter2;
+            gv.mod.currentArea.cycleCounter2 = gv.mod.cycleCounter2;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = (int)gv.mod.fullScreenAnimationFrameCounter2;
+            gv.mod.currentArea.changeCounter2 = gv.mod.changeCounter2;
+            gv.mod.currentArea.changeFrameCounter2 = gv.mod.changeFrameCounter2;
+            gv.mod.currentArea.fullScreenAnimationSpeedX2 = gv.mod.fullScreenAnimationSpeedX2;
+            gv.mod.currentArea.fullScreenAnimationSpeedY2 = gv.mod.fullScreenAnimationSpeedY2;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX2 = gv.mod.fullScreenAnimationFrameCounterX2;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY2 = gv.mod.fullScreenAnimationFrameCounterY2;
+
+            gv.mod.currentArea.overrideDelayCounter3 = (int)gv.mod.overrideDelayCounter3;
+            gv.mod.currentArea.cycleCounter3 = gv.mod.cycleCounter3;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = (int)gv.mod.fullScreenAnimationFrameCounter3;
+            gv.mod.currentArea.changeCounter3 = gv.mod.changeCounter3;
+            gv.mod.currentArea.changeFrameCounter3 = gv.mod.changeFrameCounter3;
+            gv.mod.currentArea.fullScreenAnimationSpeedX3 = gv.mod.fullScreenAnimationSpeedX3;
+            gv.mod.currentArea.fullScreenAnimationSpeedY3 = gv.mod.fullScreenAnimationSpeedY3;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = gv.mod.fullScreenAnimationFrameCounterX3;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY3 = gv.mod.fullScreenAnimationFrameCounterY3;
+
+            gv.mod.currentArea.overrideDelayCounter4 = (int)gv.mod.overrideDelayCounter4;
+            gv.mod.currentArea.cycleCounter4 = gv.mod.cycleCounter4;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = (int)gv.mod.fullScreenAnimationFrameCounter4;
+            gv.mod.currentArea.changeCounter4 = gv.mod.changeCounter4;
+            gv.mod.currentArea.changeFrameCounter4 = gv.mod.changeFrameCounter4;
+            gv.mod.currentArea.fullScreenAnimationSpeedX4 = gv.mod.fullScreenAnimationSpeedX4;
+            gv.mod.currentArea.fullScreenAnimationSpeedY4 = gv.mod.fullScreenAnimationSpeedY4;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX4 = gv.mod.fullScreenAnimationFrameCounterX4;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY4 = gv.mod.fullScreenAnimationFrameCounterY4;
+
+            gv.mod.currentArea.overrideDelayCounter5 = (int)gv.mod.overrideDelayCounter5;
+            gv.mod.currentArea.cycleCounter5 = gv.mod.cycleCounter5;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = (int)gv.mod.fullScreenAnimationFrameCounter5;
+            gv.mod.currentArea.changeCounter5 = gv.mod.changeCounter5;
+            gv.mod.currentArea.changeFrameCounter5 = gv.mod.changeFrameCounter5;
+            gv.mod.currentArea.fullScreenAnimationSpeedX5 = gv.mod.fullScreenAnimationSpeedX5;
+            gv.mod.currentArea.fullScreenAnimationSpeedY5 = gv.mod.fullScreenAnimationSpeedY5;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = gv.mod.fullScreenAnimationFrameCounterX5;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = gv.mod.fullScreenAnimationFrameCounterY5;
+
+            gv.mod.currentArea.overrideDelayCounter6 = (int)gv.mod.overrideDelayCounter6;
+            gv.mod.currentArea.cycleCounter6 = gv.mod.cycleCounter6;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = (int)gv.mod.fullScreenAnimationFrameCounter6;
+            gv.mod.currentArea.changeCounter6 = gv.mod.changeCounter6;
+            gv.mod.currentArea.changeFrameCounter6 = gv.mod.changeFrameCounter6;
+            gv.mod.currentArea.fullScreenAnimationSpeedX6 = gv.mod.fullScreenAnimationSpeedX6;
+            gv.mod.currentArea.fullScreenAnimationSpeedY6 = gv.mod.fullScreenAnimationSpeedY6;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = gv.mod.fullScreenAnimationFrameCounterX6;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = gv.mod.fullScreenAnimationFrameCounterY6;
+
+            gv.mod.currentArea.overrideDelayCounter7 = (int)gv.mod.overrideDelayCounter7;
+            gv.mod.currentArea.cycleCounter7 = gv.mod.cycleCounter7;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = (int)gv.mod.fullScreenAnimationFrameCounter7;
+            gv.mod.currentArea.changeCounter7 = gv.mod.changeCounter7;
+            gv.mod.currentArea.changeFrameCounter7 = gv.mod.changeFrameCounter7;
+            gv.mod.currentArea.fullScreenAnimationSpeedX7 = gv.mod.fullScreenAnimationSpeedX7;
+            gv.mod.currentArea.fullScreenAnimationSpeedY7 = gv.mod.fullScreenAnimationSpeedY7;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = gv.mod.fullScreenAnimationFrameCounterX7;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = gv.mod.fullScreenAnimationFrameCounterY7;
+
+            gv.mod.currentArea.overrideDelayCounter8 = (int)gv.mod.overrideDelayCounter8;
+            gv.mod.currentArea.cycleCounter8 = gv.mod.cycleCounter8;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = (int)gv.mod.fullScreenAnimationFrameCounter8;
+            gv.mod.currentArea.changeCounter8 = gv.mod.changeCounter8;
+            gv.mod.currentArea.changeFrameCounter8 = gv.mod.changeFrameCounter8;
+            gv.mod.currentArea.fullScreenAnimationSpeedX8 = gv.mod.fullScreenAnimationSpeedX8;
+            gv.mod.currentArea.fullScreenAnimationSpeedY8 = gv.mod.fullScreenAnimationSpeedY8;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = gv.mod.fullScreenAnimationFrameCounterX8;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = gv.mod.fullScreenAnimationFrameCounterY8;
+
+            gv.mod.currentArea.overrideDelayCounter9 = (int)gv.mod.overrideDelayCounter9;
+            gv.mod.currentArea.cycleCounter9 = gv.mod.cycleCounter9;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = (int)gv.mod.fullScreenAnimationFrameCounter9;
+            gv.mod.currentArea.changeCounter9 = gv.mod.changeCounter9;
+            gv.mod.currentArea.changeFrameCounter9 = gv.mod.changeFrameCounter9;
+            gv.mod.currentArea.fullScreenAnimationSpeedX9 = gv.mod.fullScreenAnimationSpeedX9;
+            gv.mod.currentArea.fullScreenAnimationSpeedY9 = gv.mod.fullScreenAnimationSpeedY9;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = gv.mod.fullScreenAnimationFrameCounterX9;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = gv.mod.fullScreenAnimationFrameCounterY9;
+
+            gv.mod.currentArea.overrideDelayCounter10 = (int)gv.mod.overrideDelayCounter10;
+            gv.mod.currentArea.cycleCounter10 = gv.mod.cycleCounter10;
+            gv.mod.currentArea.fullScreenAnimationFrameCounter10 = (int)gv.mod.fullScreenAnimationFrameCounter10;
+            gv.mod.currentArea.changeCounter10 = gv.mod.changeCounter10;
+            gv.mod.currentArea.changeFrameCounter10 = gv.mod.changeFrameCounter10;
+            gv.mod.currentArea.fullScreenAnimationSpeedX10 = gv.mod.fullScreenAnimationSpeedX10;
+            gv.mod.currentArea.fullScreenAnimationSpeedY10 = gv.mod.fullScreenAnimationSpeedY10;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = gv.mod.fullScreenAnimationFrameCounterX10;
+            gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = gv.mod.fullScreenAnimationFrameCounterY10;
+
         }
 
         public void SetUpEntryLists(string str)
@@ -5917,9 +6069,8 @@ namespace IceBlink2
                         gv.mod.allowImmediateRetransition = false;
                         //doUpdate();
                     }
-                    //else
-                    //{
-                    //transi1    
+                
+                    storeCurrentWeatherSettings();
                     gv.mod.justTransitioned = true;
                     //}
                     gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
@@ -5933,6 +6084,8 @@ namespace IceBlink2
                         //check later why this was needed, likely remove
                         //gv.weatherSounds2.controls.stop();
                     }
+
+
                     gv.mod.setCurrentArea(areaFilename, gv);
                     //karl
                     //gv.log.AddHtmlTextToLog("<font color='red'>" + areaFilename + "</font>");
@@ -6081,6 +6234,113 @@ namespace IceBlink2
             catch { }
             */
         }
+
+        public void storeCurrentWeatherSettings()
+        {
+
+        gv.mod.overrideDelayCounter1 = gv.mod.currentArea.overrideDelayCounter1;
+        gv.mod.cycleCounter1 = gv.mod.currentArea.cycleCounter1;
+        gv.mod.fullScreenAnimationFrameCounter1 = gv.mod.currentArea.fullScreenAnimationFrameCounter1;
+        gv.mod.changeCounter1 = gv.mod.currentArea.changeCounter1;
+        gv.mod.changeFrameCounter1 = gv.mod.currentArea.changeFrameCounter1;
+        gv.mod.fullScreenAnimationSpeedX1 = gv.mod.currentArea.fullScreenAnimationSpeedX1; 
+        gv.mod.fullScreenAnimationSpeedY1 = gv.mod.currentArea.fullScreenAnimationSpeedY1;
+        gv.mod.fullScreenAnimationFrameCounterX1 = gv.mod.currentArea.fullScreenAnimationFrameCounterX1;
+        gv.mod.fullScreenAnimationFrameCounterY1 = gv.mod.currentArea.fullScreenAnimationFrameCounterY1;
+
+        gv.mod.overrideDelayCounter2 = gv.mod.currentArea.overrideDelayCounter2;
+        gv.mod.cycleCounter2 = gv.mod.currentArea.cycleCounter2;
+        gv.mod.fullScreenAnimationFrameCounter2 = gv.mod.currentArea.fullScreenAnimationFrameCounter2;
+        gv.mod.changeCounter2 = gv.mod.currentArea.changeCounter2;
+        gv.mod.changeFrameCounter2 = gv.mod.currentArea.changeFrameCounter2;
+        gv.mod.fullScreenAnimationSpeedX2 = gv.mod.currentArea.fullScreenAnimationSpeedX2;
+        gv.mod.fullScreenAnimationSpeedY2 = gv.mod.currentArea.fullScreenAnimationSpeedY2;
+        gv.mod.fullScreenAnimationFrameCounterX2 = gv.mod.currentArea.fullScreenAnimationFrameCounterX2;
+        gv.mod.fullScreenAnimationFrameCounterY2 = gv.mod.currentArea.fullScreenAnimationFrameCounterY2;
+        
+        gv.mod.overrideDelayCounter3 = gv.mod.currentArea.overrideDelayCounter3;
+        gv.mod.cycleCounter3 = gv.mod.currentArea.cycleCounter3;
+        gv.mod.fullScreenAnimationFrameCounter3 = gv.mod.currentArea.fullScreenAnimationFrameCounter3;
+        gv.mod.changeCounter3 = gv.mod.currentArea.changeCounter3;
+        gv.mod.changeFrameCounter3 = gv.mod.currentArea.changeFrameCounter3;
+        gv.mod.fullScreenAnimationSpeedX3 = gv.mod.currentArea.fullScreenAnimationSpeedX3;
+        gv.mod.fullScreenAnimationSpeedY3 = gv.mod.currentArea.fullScreenAnimationSpeedY3;
+        gv.mod.fullScreenAnimationFrameCounterX3 = gv.mod.currentArea.fullScreenAnimationFrameCounterX3;
+        gv.mod.fullScreenAnimationFrameCounterY3 = gv.mod.currentArea.fullScreenAnimationFrameCounterY3;
+
+        gv.mod.overrideDelayCounter4 = gv.mod.currentArea.overrideDelayCounter4;
+        gv.mod.cycleCounter4 = gv.mod.currentArea.cycleCounter4;
+        gv.mod.fullScreenAnimationFrameCounter4 = gv.mod.currentArea.fullScreenAnimationFrameCounter4;
+        gv.mod.changeCounter4 = gv.mod.currentArea.changeCounter4;
+        gv.mod.changeFrameCounter4 = gv.mod.currentArea.changeFrameCounter4;
+        gv.mod.fullScreenAnimationSpeedX4 = gv.mod.currentArea.fullScreenAnimationSpeedX4;
+        gv.mod.fullScreenAnimationSpeedY4 = gv.mod.currentArea.fullScreenAnimationSpeedY4;
+        gv.mod.fullScreenAnimationFrameCounterX4 = gv.mod.currentArea.fullScreenAnimationFrameCounterX4;
+        gv.mod.fullScreenAnimationFrameCounterY4 = gv.mod.currentArea.fullScreenAnimationFrameCounterY4;
+
+        gv.mod.overrideDelayCounter5 = gv.mod.currentArea.overrideDelayCounter5;
+        gv.mod.cycleCounter5 = gv.mod.currentArea.cycleCounter5;
+        gv.mod.fullScreenAnimationFrameCounter5 = gv.mod.currentArea.fullScreenAnimationFrameCounter5;
+        gv.mod.changeCounter5 = gv.mod.currentArea.changeCounter5;
+        gv.mod.changeFrameCounter5 = gv.mod.currentArea.changeFrameCounter5;
+        gv.mod.fullScreenAnimationSpeedX5 = gv.mod.currentArea.fullScreenAnimationSpeedX5;
+        gv.mod.fullScreenAnimationSpeedY5 = gv.mod.currentArea.fullScreenAnimationSpeedY5;
+        gv.mod.fullScreenAnimationFrameCounterX5 = gv.mod.currentArea.fullScreenAnimationFrameCounterX5;
+        gv.mod.fullScreenAnimationFrameCounterY5 = gv.mod.currentArea.fullScreenAnimationFrameCounterY5;
+
+        gv.mod.overrideDelayCounter6 = gv.mod.currentArea.overrideDelayCounter6;
+        gv.mod.cycleCounter6 = gv.mod.currentArea.cycleCounter6;
+        gv.mod.fullScreenAnimationFrameCounter6 = gv.mod.currentArea.fullScreenAnimationFrameCounter6;
+        gv.mod.changeCounter6 = gv.mod.currentArea.changeCounter6;
+        gv.mod.changeFrameCounter6 = gv.mod.currentArea.changeFrameCounter6;
+        gv.mod.fullScreenAnimationSpeedX6 = gv.mod.currentArea.fullScreenAnimationSpeedX6;
+        gv.mod.fullScreenAnimationSpeedY6 = gv.mod.currentArea.fullScreenAnimationSpeedY6;
+        gv.mod.fullScreenAnimationFrameCounterX6 = gv.mod.currentArea.fullScreenAnimationFrameCounterX6;
+        gv.mod.fullScreenAnimationFrameCounterY6 = gv.mod.currentArea.fullScreenAnimationFrameCounterY6;
+
+        gv.mod.overrideDelayCounter7 = gv.mod.currentArea.overrideDelayCounter7;
+        gv.mod.cycleCounter7 = gv.mod.currentArea.cycleCounter7;
+        gv.mod.fullScreenAnimationFrameCounter7 = gv.mod.currentArea.fullScreenAnimationFrameCounter7;
+        gv.mod.changeCounter7 = gv.mod.currentArea.changeCounter7;
+        gv.mod.changeFrameCounter7 = gv.mod.currentArea.changeFrameCounter7;
+        gv.mod.fullScreenAnimationSpeedX7 = gv.mod.currentArea.fullScreenAnimationSpeedX7;
+        gv.mod.fullScreenAnimationSpeedY7 = gv.mod.currentArea.fullScreenAnimationSpeedY7;
+        gv.mod.fullScreenAnimationFrameCounterX7 = gv.mod.currentArea.fullScreenAnimationFrameCounterX7;
+        gv.mod.fullScreenAnimationFrameCounterY7 = gv.mod.currentArea.fullScreenAnimationFrameCounterY7;
+
+        gv.mod.overrideDelayCounter8 = gv.mod.currentArea.overrideDelayCounter8;
+        gv.mod.cycleCounter8 = gv.mod.currentArea.cycleCounter8;
+        gv.mod.fullScreenAnimationFrameCounter8 = gv.mod.currentArea.fullScreenAnimationFrameCounter8;
+        gv.mod.changeCounter8 = gv.mod.currentArea.changeCounter8;
+        gv.mod.changeFrameCounter8 = gv.mod.currentArea.changeFrameCounter8;
+        gv.mod.fullScreenAnimationSpeedX8 = gv.mod.currentArea.fullScreenAnimationSpeedX8;
+        gv.mod.fullScreenAnimationSpeedY8 = gv.mod.currentArea.fullScreenAnimationSpeedY8;
+        gv.mod.fullScreenAnimationFrameCounterX8 = gv.mod.currentArea.fullScreenAnimationFrameCounterX8;
+        gv.mod.fullScreenAnimationFrameCounterY8 = gv.mod.currentArea.fullScreenAnimationFrameCounterY8;
+
+        gv.mod.overrideDelayCounter9 = gv.mod.currentArea.overrideDelayCounter9;
+        gv.mod.cycleCounter9 = gv.mod.currentArea.cycleCounter9;
+        gv.mod.fullScreenAnimationFrameCounter9 = gv.mod.currentArea.fullScreenAnimationFrameCounter9;
+        gv.mod.changeCounter9 = gv.mod.currentArea.changeCounter9;
+        gv.mod.changeFrameCounter9 = gv.mod.currentArea.changeFrameCounter9;
+        gv.mod.fullScreenAnimationSpeedX9 = gv.mod.currentArea.fullScreenAnimationSpeedX9;
+        gv.mod.fullScreenAnimationSpeedY9 = gv.mod.currentArea.fullScreenAnimationSpeedY9;
+        gv.mod.fullScreenAnimationFrameCounterX9 = gv.mod.currentArea.fullScreenAnimationFrameCounterX9;
+        gv.mod.fullScreenAnimationFrameCounterY9 = gv.mod.currentArea.fullScreenAnimationFrameCounterY9;
+
+        gv.mod.overrideDelayCounter10 = gv.mod.currentArea.overrideDelayCounter10;
+        gv.mod.cycleCounter10 = gv.mod.currentArea.cycleCounter10;
+        gv.mod.fullScreenAnimationFrameCounter10 = gv.mod.currentArea.fullScreenAnimationFrameCounter10;
+        gv.mod.changeCounter10 = gv.mod.currentArea.changeCounter10;
+        gv.mod.changeFrameCounter10 = gv.mod.currentArea.changeFrameCounter10;
+        gv.mod.fullScreenAnimationSpeedX10 = gv.mod.currentArea.fullScreenAnimationSpeedX10;
+        gv.mod.fullScreenAnimationSpeedY10 = gv.mod.currentArea.fullScreenAnimationSpeedY10;
+        gv.mod.fullScreenAnimationFrameCounterX10 = gv.mod.currentArea.fullScreenAnimationFrameCounterX10;
+        gv.mod.fullScreenAnimationFrameCounterY10 = gv.mod.currentArea.fullScreenAnimationFrameCounterY10;
+
+      
+        }
+
         public void doItemScriptBasedOnUseItem(Player pc, ItemRefs itRef, bool destroyItemAfterUse)
         {
             Item it = gv.mod.getItemByResRefForInfo(itRef.resref);
