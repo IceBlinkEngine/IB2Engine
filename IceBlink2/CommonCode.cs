@@ -3266,9 +3266,9 @@ namespace IceBlink2
                 {
                     //doesCurrentWeatherExistHere = true;
                     gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 8;
-                    gv.mod.currentWeatherDuration = 36;
-                    float rollRandom2 = gv.sf.RandInt(100);
-                    gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                    //gv.mod.currentWeatherDuration = 36;
+                    //float rollRandom2 = gv.sf.RandInt(100);
+                    //gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
                     //gv.mod.howLongWeatherHasRun = 0;
                     gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
                     gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
