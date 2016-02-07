@@ -5262,7 +5262,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -5342,7 +5342,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -5419,7 +5419,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -5462,7 +5462,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -5511,7 +5511,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource3 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -6321,7 +6321,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -6401,7 +6401,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -6478,7 +6478,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -6521,7 +6521,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -6570,7 +6570,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource4 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -7384,7 +7384,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -7464,7 +7464,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -7541,7 +7541,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -7584,7 +7584,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -7633,7 +7633,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource5 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -8446,7 +8446,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -8526,7 +8526,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -8603,7 +8603,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -8646,7 +8646,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -8695,7 +8695,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource6 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -9508,7 +9508,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -9588,7 +9588,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -9665,7 +9665,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -9708,7 +9708,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -9757,7 +9757,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource7 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -10571,7 +10571,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -10651,7 +10651,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -10728,7 +10728,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -10771,7 +10771,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -10820,7 +10820,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource8 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -11634,7 +11634,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -11714,7 +11714,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -11791,7 +11791,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -11834,7 +11834,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -11883,7 +11883,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource9 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
@@ -12697,7 +12697,7 @@ namespace IceBlink2
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
-                                if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
+                                if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
                                 {
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
@@ -12777,7 +12777,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -12854,7 +12854,7 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -12897,7 +12897,7 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
@@ -12946,7 +12946,7 @@ namespace IceBlink2
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
                                     float sizeOfSourceChunk2 = 0;
-                                    if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
+                                    if (gv.mod.currentArea.overrideIsNoScrollSource10 != "True")
                                     {
                                         sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
                                     }
