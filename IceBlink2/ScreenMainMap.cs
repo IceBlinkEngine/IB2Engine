@@ -25257,7 +25257,7 @@ namespace IceBlink2
                     if (indexOfNorthernNeighbour != -1)
                     {
                         int transformedX = x;
-                        int transformedY = 0;
+                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
                         mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
                     }
                 }
@@ -25283,7 +25283,7 @@ namespace IceBlink2
                         if (x > 0)
                         {
                             int transformedX = x;
-                            int transformedY = 1;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2; ;
                             mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
                         }
                         //the second tier west tile is on north-western map
@@ -25309,7 +25309,7 @@ namespace IceBlink2
                             if (indexOfNorthernNeighbour != -1)
                             {
                                 int transformedX = x;
-                                int transformedY = 1;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
                                 mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
                             }
                         }
