@@ -146,7 +146,7 @@ namespace IceBlink2
         //this one can be set from ingame by player eventually (options menu), higher is fast
         //is used for smooth moving props and full screen animation, each on main map, right now
         //later on maybe also use for animated props, like camp fires flickering
-        public float allAnimationSpeedMultiplier = 0.4f;
+        public float allAnimationSpeedMultiplier = 0.45f;
 
         //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
         //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)

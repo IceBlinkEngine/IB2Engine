@@ -3290,6 +3290,7 @@ namespace IceBlink2
                             gv.mod.currentArea.overrideDelayCounter8 = 10000;
                             gv.mod.currentArea.overrideDelayCounter9 = 10000;
                             gv.mod.currentArea.overrideDelayCounter10 = 10000;
+                            
                         }
                         //end test idea
                         break;
@@ -5907,18 +5908,19 @@ namespace IceBlink2
             try
             {
 
-                if (gv.mod.justTransitioned == false)
+                if ((gv.mod.justTransitioned == false) || (gv.mod.allowImmediateRetransition == true))
                 {
                     gv.mod.PlayerLocationX = x;
                     gv.mod.PlayerLocationY = y;
-                    //if (gv.mod.allowImmediateRetransition == true)
-                    //{
-                        //gv.mod.allowImmediateRetransition = false;
+                    if (gv.mod.allowImmediateRetransition == true)
+                    {
+                        gv.mod.allowImmediateRetransition = false;
                         //doUpdate();
-                    //}
+                    }
                     //else
                     //{
-                        gv.mod.justTransitioned = true;
+                    //transi1    
+                    gv.mod.justTransitioned = true;
                     //}
                     gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
                     gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
@@ -5927,15 +5929,18 @@ namespace IceBlink2
                     {
                         gv.stopMusic();
                         gv.stopAmbient();
-                        gv.mod.resetWeatherSound = true;
+                        //gv.mod.resetWeatherSound = true;
                         //check later why this was needed, likely remove
                         //gv.weatherSounds2.controls.stop();
                     }
                     gv.mod.setCurrentArea(areaFilename, gv);
                     //karl
-                    gv.log.AddHtmlTextToLog("<font color='red'>" + areaFilename + "</font>");
-                    gv.log.AddHtmlTextToLog("<font color='red'>" + gv.mod.currentArea.Filename + "</font>");
+                    //gv.log.AddHtmlTextToLog("<font color='red'>" + areaFilename + "</font>");
+                    //gv.log.AddHtmlTextToLog("<font color='red'>" + gv.mod.currentArea.Filename + "</font>");
+                    
+                    
                     //weather related inserts
+                    /*
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX2 = 0;
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX3 = 0;
@@ -5979,6 +5984,7 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
                     gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
                     gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                    */
 
                     //new ideas
                     /*
@@ -6028,7 +6034,7 @@ namespace IceBlink2
                     */
                     
                     //try to keep weather consistency intact
-                    gv.mod.currentWeatherName = "";
+                    //gv.mod.currentWeatherName = "";
 
                     //end of new ideas
                     doChannelScripts();
