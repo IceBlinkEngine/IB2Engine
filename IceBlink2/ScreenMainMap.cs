@@ -27232,8 +27232,8 @@ namespace IceBlink2
                     }
                 }
             }
-            //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree clockwise)
-            else if (y - 1 == -2)
+            //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
+            else if (y + 1 == mod.currentArea.MapSizeY + 1)
             {
                 if (indexOfSouthernNeighbour != -1)
                 {
