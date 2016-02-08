@@ -3258,6 +3258,48 @@ namespace IceBlink2
             SetUpEntryLists(entryWeathers);
 
             bool doesCurrentWeatherExistHere = false;
+            foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
+            {
+                if (weatherName == gv.mod.currentWeatherName)
+                {
+                    doesCurrentWeatherExistHere = true;
+                    //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
+
+                    //test idea
+                    if (gv.mod.justTransitioned == true)
+                    {
+                        /*
+                        //doesCurrentWeatherExistHere = true;
+                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 5;
+                        gv.mod.currentWeatherDuration = 36;
+                        float rollRandom2 = gv.sf.RandInt(100);
+                        gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                        //gv.mod.howLongWeatherHasRun = 0;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
+                        gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
+                        restoreCurrentWeatherSettings();
+                        */
+
+                        /*
+                        gv.mod.fullScreenEffectOpacityWeather = 0;
+                        gv.mod.currentArea.overrideDelayCounter5 = 10000;
+                        gv.mod.currentArea.overrideDelayCounter6 = 10000;
+                        gv.mod.currentArea.overrideDelayCounter7 = 10000;
+                        gv.mod.currentArea.overrideDelayCounter8 = 10000;
+                        gv.mod.currentArea.overrideDelayCounter9 = 10000;
+                        gv.mod.currentArea.overrideDelayCounter10 = 10000;
+                        */
+                    }
+                    //end test idea
+                    break;
+                }
+            }
+
+
             #region check if current weather exists in this area
             //it would be a good practice to  have all weathers of the area listed in the entry list
             if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherScript != ""))
@@ -3265,7 +3307,10 @@ namespace IceBlink2
                 if (gv.mod.justTransitioned == true)
                 {
                     //doesCurrentWeatherExistHere = true;
-                    gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 8;
+                    if (doesCurrentWeatherExistHere == false)
+                    {
+                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 8;
+                    }
                     //gv.mod.currentWeatherDuration = 36;
                     //float rollRandom2 = gv.sf.RandInt(100);
                     //gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
@@ -3277,6 +3322,11 @@ namespace IceBlink2
                     gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
                     gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
                     restoreCurrentWeatherSettings();
+
+                    if ((gv.mod.currentWeatherDuration < gv.mod.maintainWeatherFromLastAreaTimer) && (doesCurrentWeatherExistHere == false))
+                    {
+                        gv.mod.maintainWeatherFromLastAreaTimer = gv.mod.currentWeatherDuration;
+                    }
                     /*
                     gv.mod.fullScreenEffectOpacityWeather = 0;
                     gv.mod.currentArea.overrideDelayCounter5 = 10000;
@@ -3288,46 +3338,7 @@ namespace IceBlink2
                     */
                 }
             
-                foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
-                {
-                    if (weatherName == gv.mod.currentWeatherName)
-                    {
-                        doesCurrentWeatherExistHere = true;
-                        //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
-
-                        //test idea
-                        if (gv.mod.justTransitioned == true)
-                        {
-                            /*
-                            //doesCurrentWeatherExistHere = true;
-                            gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(5) + 5;
-                            gv.mod.currentWeatherDuration = 36;
-                            float rollRandom2 = gv.sf.RandInt(100);
-                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
-                            //gv.mod.howLongWeatherHasRun = 0;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = true;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = true;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = true;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = true;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = true;
-                            gv.mod.currentArea.fullScreenEffectLayerIsActive10 = true;
-                            restoreCurrentWeatherSettings();
-                            */
-
-                            /*
-                            gv.mod.fullScreenEffectOpacityWeather = 0;
-                            gv.mod.currentArea.overrideDelayCounter5 = 10000;
-                            gv.mod.currentArea.overrideDelayCounter6 = 10000;
-                            gv.mod.currentArea.overrideDelayCounter7 = 10000;
-                            gv.mod.currentArea.overrideDelayCounter8 = 10000;
-                            gv.mod.currentArea.overrideDelayCounter9 = 10000;
-                            gv.mod.currentArea.overrideDelayCounter10 = 10000;
-                            */
-                        }
-                        //end test idea
-                        break;
-                    }
-                }
+                
             }
             #endregion
             bool blockFullDraw = false;
