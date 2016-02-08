@@ -1995,7 +1995,7 @@ namespace IceBlink2
             //code for dispsoing tile graphics
 
             //cull all down if too high value is reached (last resort)
-            if (gv.mod.loadedTileBitmaps.Count > 250)
+            if (gv.mod.loadedTileBitmaps.Count > 500)
             {
                 try
                 {
@@ -2015,10 +2015,10 @@ namespace IceBlink2
 
             }
 
-            if (gv.mod.loadedTileBitmaps.Count > 140)
+            if (gv.mod.loadedTileBitmaps.Count > 280)
             {
                 //addLogText("yellow", "Disposing tiles.");
-                int cullNumber = (gv.mod.loadedTileBitmaps.Count / 10) - 5;
+                int cullNumber = 2*((gv.mod.loadedTileBitmaps.Count / 10) - 5);
                 try
                 {
                     if (gv.mod.loadedTileBitmaps != null)
@@ -6420,6 +6420,10 @@ namespace IceBlink2
                 if ((mdl.currentArea.sourceBitmapName != "") && (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".png")))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".png");
+                }
+                else if ((mdl.currentArea.sourceBitmapName != "") && (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".jpg")))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".jpg");
                 }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".png"))
                 {

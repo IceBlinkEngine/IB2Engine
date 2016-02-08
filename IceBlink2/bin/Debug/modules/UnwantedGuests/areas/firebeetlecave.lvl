@@ -1,31 +1,17 @@
 {
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
-  "sourceBitmapName": "firebeetlecave",
-  "minimap": "System.Drawing.Bitmap",
   "Filename": "firebeetlecave",
   "UseMiniMapFogOfWar": true,
   "inGameAreaName": "Firebeetle Cave",
-  "areaWeatherScript": "",
-  "easternNeighbourArea": "",
-  "westernNeighbourArea": "",
-  "northernNeighbourArea": "",
-  "southernNeighbourArea": "",
-  "effectChannelScript1": "deactivateChannel1",
-  "effectChannelScript2": "deactivateChannel2",
-  "effectChannelScript3": "deactivateChannel3",
-  "effectChannelScript4": "deactivateChannel4",
-  "useMiniProps": false,
-  "useSuperTinyProps": false,
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "firebeetlecave.jpg",
   "MapSizeX": 8,
   "MapSizeY": 8,
   "Tiles": [
     {
-      "Layer0Filename": "firebeetlecave0",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -36,7 +22,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave1",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -47,7 +32,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave2",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -58,7 +42,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave3",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -69,7 +52,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave4",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -80,7 +62,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave5",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -91,7 +72,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave6",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -102,7 +82,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave7",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -113,7 +92,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave8",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -124,7 +102,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave9",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -135,7 +112,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave10",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -146,7 +122,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave11",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -157,7 +132,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave12",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -168,7 +142,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave13",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -179,7 +152,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave14",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -190,7 +162,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave15",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -201,7 +172,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave16",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -212,7 +182,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave17",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -223,7 +192,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave18",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -234,7 +202,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave19",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -245,7 +212,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave20",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -256,7 +222,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave21",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -267,7 +232,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave22",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -278,7 +242,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave23",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -289,7 +252,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave24",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -300,7 +262,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave25",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -311,7 +272,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave26",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -322,7 +282,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave27",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -333,7 +292,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave28",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -344,7 +302,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave29",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -355,7 +312,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave30",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -366,7 +322,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave31",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -377,7 +332,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave32",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -388,7 +342,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave33",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -399,7 +352,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave34",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -410,7 +362,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave35",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -421,7 +372,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave36",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -432,7 +382,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave37",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -443,7 +392,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave38",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -454,7 +402,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave39",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -465,7 +412,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave40",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -476,7 +422,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave41",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -487,7 +432,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave42",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -498,7 +442,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave43",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -509,7 +452,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave44",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -520,7 +462,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave45",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -531,7 +472,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave46",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -542,7 +482,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave47",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -553,7 +492,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave48",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -564,7 +502,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave49",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -575,7 +512,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave50",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -586,7 +522,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave51",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -597,7 +532,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave52",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -608,7 +542,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave53",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -619,7 +552,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave54",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -630,7 +562,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave55",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -641,7 +572,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave56",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -652,7 +582,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave57",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -663,7 +592,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave58",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -674,7 +602,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave59",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -685,7 +612,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave60",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -696,7 +622,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave61",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -707,7 +632,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave62",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -718,7 +642,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "firebeetlecave63",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -780,7 +703,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 140,
+  "NextIdNumber": 139,
   "OnHeartBeatLogicTree": "none",
   "OnHeartBeatParms": "",
   "OnHeartBeatIBScript": "none",

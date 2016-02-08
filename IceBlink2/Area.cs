@@ -155,6 +155,7 @@ namespace IceBlink2
         public int overrideDelayCounter2 = 10000;
         public string overrideIsNoScrollSource2 = "";
         public bool changeableByWeatherScript2 = false;
+        public bool drawWithLessVisibleSeamsButMorePixelated = false;
 
         #endregion
         #region full screen effect layer 3
