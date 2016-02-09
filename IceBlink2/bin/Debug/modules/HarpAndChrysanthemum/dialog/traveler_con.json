@@ -1,0 +1,214 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I traveled here from the south.  The road has never been easy, but it's gotten worse.|***gc_rand_1of-->NOT::False    Int::7    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "7",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You know, I actually ran into a squad of Zhentarim on the road?  They looked wounded, or else I'm sure they would have killed me!|***gc_rand_1of-->NOT::False    Int::6    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "6",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Drawn Swords is a pleasant enough place, given the surrounding region.  The hike up the crag is unkind to the weary, though.|***gc_rand_1of-->NOT::False    Int::5    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "5",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Even people in Berdusk sing the praises of the Sword and Dragon Inn.  Danmar knows his business.|***gc_rand_1of-->NOT::False    Int::4    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "4",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 5,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "There's a few loose-knit orc tribes in Northdark Wood, but the trolls hereabouts are the greater danger.  Luckily they're not as thick as they were years ago.|***gc_rand_1of-->NOT::False    Int::3    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "3",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 6,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The trade wars are less intense out here in the Backlands than they are on the Sword Coast.  Trade in Baldur's Gate is downright brutal.|***gc_rand_1of-->NOT::False    Int::2    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "2",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 7,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Corm Orp is mostly made of halflings, though the town's leader is a human.  A very nice place to visit.  ",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "traveler_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 8
+}

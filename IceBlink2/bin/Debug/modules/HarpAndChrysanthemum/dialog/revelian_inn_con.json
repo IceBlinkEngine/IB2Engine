@@ -1,0 +1,1097 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I'll be playing innkeep until Danmar gets back.  [<i>Sighing.</i>]  It could be many months.  What do you need?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "You don't sound thrilled about your new post.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Nay.  I'd much rather be out-of-doors or roaming through the countryside.  Danmar says it will be good for me to cater to the needs of wanderers and townsfolk.  <i>I</i> say that human optimism doesn't work on elves.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 99999,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 9,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 100000,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 27,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 100001,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 32,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 100002,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 43,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 8,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Ah.  Farewell.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 9,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "What did you learn in Corm Orp?  Had people heard the news of Darkhold's fall?",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 10,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Indeed they had.  They've had little trouble from the Zhentarim, though, what with the constant fighting between the Banite and Cyricist factions.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 11,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 12,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "More troubling are the words of a preacher named Theophilus, who has won many converts to a faith that calls itself \"The Risen Sun.\"",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 13,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 14,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "By the Watchful Mother, my church must be in need.|***gc_comp_remove-->NOT::False    String::gossam    |",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 15,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 16,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Soon, perhaps.  But the halflings seem to remain faithful to their deities.  The humans are the ones converting.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 17,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 18,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "That comforts me, but only a little.  Thank you, Revelian.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 19,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 20,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "Do you need anything else?",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 100003,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 2,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": true
+                                                            },
+                                                            {
+                                                              "idNum": 100004,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 9,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": true
+                                                            },
+                                                            {
+                                                              "idNum": 100005,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 27,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": true
+                                                            },
+                                                            {
+                                                              "idNum": 100006,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 32,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": true
+                                                            },
+                                                            {
+                                                              "idNum": 100007,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 43,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": true
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [
+                                    {
+                                      "c_script": "gc_comp_remove(nonIBscript)",
+                                      "c_btnAndOr": null,
+                                      "c_and": false,
+                                      "c_not": false,
+                                      "c_parameter_1": "gossam",
+                                      "c_parameter_2": null,
+                                      "c_parameter_3": null,
+                                      "c_parameter_4": null
+                                    }
+                                  ],
+                                  "isLink": false
+                                },
+                                {
+                                  "idNum": 100008,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 20,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "",
+                                  "IsExpanded": true,
+                                  "subNodes": [],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": true
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 27,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "What can you tell me about--",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 28,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I might be an innkeeper temporarily, but I'm not Danmar.  Now, would you like a drink or a bed?",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 100009,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 32,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 100010,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 43,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    },
+                    {
+                      "idNum": 100011,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 44,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": true
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 32,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I would like a room.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 33,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Five gold pieces, please.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 34,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Here you are.  Wake me in four hours.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 35,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_advance-->Int::4    Int::0    Int::0    Int::0    |",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [
+                            {
+                              "a_script": "ga_fade_to_black(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": "6",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "ga_time_advance(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": "0",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": "0"
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "a_script": "ga_take_gold(nonIBscript)",
+                          "a_parameter_1": "5",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "sd_resting(nonIBscript)",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "ga_restoration(nonIBscript)",
+                          "a_parameter_1": "$PC_SPEAKER",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": "1",
+                          "a_parameter_4": "1"
+                        }
+                      ],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckForGold.cs",
+                          "c_btnAndOr": null,
+                          "c_and": false,
+                          "c_not": false,
+                          "c_parameter_1": "5",
+                          "c_parameter_2": "0",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 36,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Here you are.  Wake me in eight hours.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 37,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_advance-->Int::8    Int::0    Int::0    Int::0    |",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [
+                            {
+                              "a_script": "ga_fade_to_black(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": "6",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "ga_time_advance(nonIBscript)",
+                              "a_parameter_1": "8",
+                              "a_parameter_2": "0",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": "0"
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "a_script": "ga_take_gold(nonIBscript)",
+                          "a_parameter_1": "5",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "sd_resting(nonIBscript)",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "ga_restoration(nonIBscript)",
+                          "a_parameter_1": "$PC_SPEAKER",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": "1",
+                          "a_parameter_4": "1"
+                        }
+                      ],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckForGold.cs",
+                          "c_btnAndOr": null,
+                          "c_and": false,
+                          "c_not": false,
+                          "c_parameter_1": "5",
+                          "c_parameter_2": "0",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 38,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Here you are.  Wake me at dusk.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 39,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_set-->Int::21    Int::30    Int::0    Int::0    |",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [
+                            {
+                              "a_script": "ga_fade_to_black(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": "6",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "ga_time_set(nonIBscript)",
+                              "a_parameter_1": "21",
+                              "a_parameter_2": "30",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": "0"
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "a_script": "ga_take_gold(nonIBscript)",
+                          "a_parameter_1": "5",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "sd_resting(nonIBscript)",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "ga_restoration(nonIBscript)",
+                          "a_parameter_1": "$PC_SPEAKER",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": "1",
+                          "a_parameter_4": "1"
+                        }
+                      ],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckForGold.cs",
+                          "c_btnAndOr": null,
+                          "c_and": false,
+                          "c_not": false,
+                          "c_parameter_1": "5",
+                          "c_parameter_2": "0",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 40,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Here you are.  Wake me in the morning.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 41,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_set-->Int::7    Int::30    Int::0    Int::0    |",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [
+                            {
+                              "a_script": "ga_fade_to_black(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": "6",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "ga_time_set(nonIBscript)",
+                              "a_parameter_1": "7",
+                              "a_parameter_2": "30",
+                              "a_parameter_3": "0",
+                              "a_parameter_4": "0"
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "a_script": "ga_take_gold(nonIBscript)",
+                          "a_parameter_1": "5",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "sd_resting(nonIBscript)",
+                          "a_parameter_1": null,
+                          "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "ga_restoration(nonIBscript)",
+                          "a_parameter_1": "$PC_SPEAKER",
+                          "a_parameter_2": "0",
+                          "a_parameter_3": "1",
+                          "a_parameter_4": "1"
+                        }
+                      ],
+                      "conditions": [
+                        {
+                          "c_script": "gcCheckForGold.cs",
+                          "c_btnAndOr": null,
+                          "c_and": false,
+                          "c_not": false,
+                          "c_parameter_1": "5",
+                          "c_parameter_2": "0",
+                          "c_parameter_3": null,
+                          "c_parameter_4": null
+                        }
+                      ],
+                      "isLink": false
+                    },
+                    {
+                      "idNum": 42,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Ah.  Never mind.",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 43,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaOpenShopByTag.cs",
+                  "a_parameter_1": "danmar_store",
+                  "a_parameter_2": "0",
+                  "a_parameter_3": "0",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 44,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I need nothing at the moment.  Farewell, Revelian.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 45,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You return.  What would you like?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 100012,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 32,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            },
+            {
+              "idNum": 100013,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 43,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            },
+            {
+              "idNum": 100014,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 27,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            },
+            {
+              "idNum": 100015,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 44,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": true
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "revelian_inn_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 46
+}

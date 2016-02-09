@@ -1,0 +1,679 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hail Amaunator!|***gc_rand_1of-->NOT::False    Int::20    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "20",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The sun will rise again!|***gc_rand_1of-->NOT::False    Int::19    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "19",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I am spreading the word of the Risen Sun.|***gc_rand_1of-->NOT::False    Int::18    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "18",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Have you heard the good news?|***gc_rand_1of-->NOT::False    Int::17    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "17",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 5,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Have you heard of Daelegoth the Miracle-Worker?|***gc_rand_1of-->NOT::False    Int::16    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "16",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 6,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The eternal sun now shines in Elversult!|***gc_rand_1of-->NOT::False    Int::15    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "15",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 7,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Lathander is dead!  Long live Lathander-Amaunator!|***gc_rand_1of-->NOT::False    Int::14    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "14",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 8,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "My god is a wondrous god.|***gc_rand_1of-->NOT::False    Int::13    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "13",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 9,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The Ascension is at hand.|***gc_rand_1of-->NOT::False    Int::12    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "12",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 10,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Look into the light!|***gc_rand_1of-->NOT::False    Int::11    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "11",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 11,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "There is no darkness too deep for the light of Amaunator.|***gc_rand_1of-->NOT::False    Int::10    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "10",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 12,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "When Amaunator rises again, Abeir-Toril will be bathed in his glorious fire.|***gc_rand_1of-->NOT::False    Int::9    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "9",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 13,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Heed the Word of Amaunator!|***gc_rand_1of-->NOT::False    Int::8    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "8",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 14,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The wise do not listen; the foolish do not hear; only the worshipful know the truth.|***gc_rand_1of-->NOT::False    Int::7    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "7",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 15,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Fallen Netheril is nothing to the new Kingdom of Amaunator!|***gc_rand_1of-->NOT::False    Int::6    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "6",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 16,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Eternal summer, eternal noon, eternal life!|***gc_rand_1of-->NOT::False    Int::5    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "5",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 17,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "As the sun outshines the stars, so too will Amaunator outshine the other gods.|***gc_rand_1of-->NOT::False    Int::4    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "4",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 18,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Cursed be the unbelievers.  Believe, or burn!|***gc_rand_1of-->NOT::False    Int::3    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "3",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 19,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Do not disdain the blessings of the Risen Sun.|***gc_rand_1of-->NOT::False    Int::2    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 20,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "DEBUG! Show me the end game. [You have gotten this dialog because you have Cyric as a deity.]||***ga_journal-->String::Q_MANFRED    Int::85    Int::0    Int::0    Int::0    ***gc_deity-->NOT::False    String::cyric    ||",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaAddJournalEntryByTag.cs",
+                  "a_parameter_1": "Q_MANFRED",
+                  "a_parameter_2": "85",
+                  "a_parameter_3": "0",
+                  "a_parameter_4": "0"
+                }
+              ],
+              "conditions": [
+                {
+                  "c_script": "gc_deity(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "cyric",
+                  "c_parameter_2": null,
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 21,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "DEBUG! Show me right before the BMT battle! [You have gotten this dialog because you have Cyric as a deity.]||***ga_journal-->String::Q_MANFRED    Int::75    Int::0    Int::0    Int::0    ***gc_deity-->NOT::False    String::cyric    ||",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaAddJournalEntryByTag.cs",
+                  "a_parameter_1": "Q_MANFRED",
+                  "a_parameter_2": "75",
+                  "a_parameter_3": "0",
+                  "a_parameter_4": "0"
+                }
+              ],
+              "conditions": [
+                {
+                  "c_script": "gc_deity(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "cyric",
+                  "c_parameter_2": null,
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 22,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "I don't want to debug anything! [You have gotten this dialog because you have Cyric as a deity.]|***gc_deity-->NOT::False    String::cyric    |",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gc_deity(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "cyric",
+                  "c_parameter_2": null,
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "2",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 23,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Hear the word of Daelegoth Orndeir, Regent of the Sun!",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "ezbollus_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 24
+}

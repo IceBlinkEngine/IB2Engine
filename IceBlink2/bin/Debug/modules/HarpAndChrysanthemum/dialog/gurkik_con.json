@@ -1,0 +1,858 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "||***ga_fade_from_black-->Float::6    ***gc_false-->NOT::False    ||",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Hold.  Paladin, your presence here is not desired.  Return to your village, or feel Bane's wrath.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "<i>Your</i> presence here is not desired.  The Zhentarim are not free to be this close to Drawn Swords-- <i>or</i> to murder travelers between the Backlands and Sunset Vale.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Murder?  We both know that that <i>traveler</i> was dangerous.  He killed many of our men.  As for your village, rest assured that we have no interest in it.|***ga_journal-->String::Q_MANFRED    Int::15    Int::0    Int::0    Int::0    |",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "[<i>His voice quavering just the slightest.</i>]  That traveler was my brother!",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "Indeed.  You shall pay for your unjust actions in blood, priest.",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "You did not come here to parley, I see; you came here for revenge.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "We are as free to be in Northdark Wood as you. Freer, in fact.  We have force.  You have words.  Now Bane is going to make you eat them.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "|***ga_faction_join-->String::gurkik    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard1    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard2    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard3    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard4    String::$HOSTILE    ***ga_destroy-->String::failsafe_gurkin    Int::0    Float::0    ***gurkik_bane-->|",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "ga_faction_join(nonIBscript)",
+                                                                  "a_parameter_1": "gurkik",
+                                                                  "a_parameter_2": "$HOSTILE",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_faction_join(nonIBscript)",
+                                                                  "a_parameter_1": "zhent_guard1",
+                                                                  "a_parameter_2": "$HOSTILE",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_faction_join(nonIBscript)",
+                                                                  "a_parameter_1": "zhent_guard2",
+                                                                  "a_parameter_2": "$HOSTILE",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_faction_join(nonIBscript)",
+                                                                  "a_parameter_1": "zhent_guard3",
+                                                                  "a_parameter_2": "$HOSTILE",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_faction_join(nonIBscript)",
+                                                                  "a_parameter_1": "zhent_guard4",
+                                                                  "a_parameter_2": "$HOSTILE",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_destroy(nonIBscript)",
+                                                                  "a_parameter_1": "failsafe_gurkin",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": "0",
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gurkik_bane(nonIBscript)",
+                                                                  "a_parameter_1": null,
+                                                                  "a_parameter_2": null,
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 15,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "What do you say to that, Banite?",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 99999,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 11,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            },
+                                            {
+                                              "idNum": 17,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "[<i>Draw your weapon grimly.</i>]",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 100000,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 11,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": true
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "a_script": "gaAddJournalEntryByTag.cs",
+                                      "a_parameter_1": "Q_MANFRED",
+                                      "a_parameter_2": "15",
+                                      "a_parameter_3": "0",
+                                      "a_parameter_4": "0"
+                                    }
+                                  ],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "ga_fade_from_black(nonIBscript)",
+              "a_parameter_1": "6",
+              "a_parameter_2": null,
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [
+            {
+              "c_script": "gc_false(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": null,
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 19,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "[<i>After a few hours of hiking through the autumn landscape of Northdark Wood, you hear the sound of rustling leaves and the clank of arms ahead of you.</i>]|***ga_local_int-->String::gurkiepok    String::1    String::gurkik    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 20,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 21,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "|***ga_fade_from_black-->Float::6    |",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 22,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 23,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Hold.  Paladin, your presence here is not desired.  Return to your village, or feel Bane's wrath.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 24,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 25,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "<i>Your</i> presence here is not desired.  The Zhentarim are not free to be this close to Drawn Swords-- <i>or</i> to murder travelers between the Backlands and Sunset Vale.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 26,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 27,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "Murder?  We both know that that <i>traveler</i> was dangerous.  He killed many of our men.  As for your village, rest assured that we have no interest in it.|***ga_journal-->String::Q_MANFRED    Int::15    Int::0    Int::0    Int::0    |",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 28,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 29,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "[<i>His voice quavering just the slightest.</i>]  That traveler was my brother!",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 30,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Indeed.  You shall pay for your unjust actions in blood, priest.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 31,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "You did not come here to parley, I see; you came here for revenge.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 32,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 33,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "We are as free to be in Northdark Wood as you. Freer, in fact.  We have force.  You have words.  Now Bane is going to make you eat them.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 34,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "|***ga_faction_join-->String::gurkik    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard1    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard2    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard3    String::$HOSTILE    ***ga_faction_join-->String::zhent_guard4    String::$HOSTILE    ***ga_destroy-->String::failsafe_gurkin    Int::0    Float::0    ***gurkik_bane-->|",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [
+                                                                        {
+                                                                          "a_script": "ga_faction_join(nonIBscript)",
+                                                                          "a_parameter_1": "gurkik",
+                                                                          "a_parameter_2": "$HOSTILE",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "ga_faction_join(nonIBscript)",
+                                                                          "a_parameter_1": "zhent_guard1",
+                                                                          "a_parameter_2": "$HOSTILE",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "ga_faction_join(nonIBscript)",
+                                                                          "a_parameter_1": "zhent_guard2",
+                                                                          "a_parameter_2": "$HOSTILE",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "ga_faction_join(nonIBscript)",
+                                                                          "a_parameter_1": "zhent_guard3",
+                                                                          "a_parameter_2": "$HOSTILE",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "ga_faction_join(nonIBscript)",
+                                                                          "a_parameter_1": "zhent_guard4",
+                                                                          "a_parameter_2": "$HOSTILE",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "ga_destroy(nonIBscript)",
+                                                                          "a_parameter_1": "failsafe_gurkin",
+                                                                          "a_parameter_2": "0",
+                                                                          "a_parameter_3": "0",
+                                                                          "a_parameter_4": null
+                                                                        },
+                                                                        {
+                                                                          "a_script": "gurkik_bane(nonIBscript)",
+                                                                          "a_parameter_1": null,
+                                                                          "a_parameter_2": null,
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        }
+                                                                      ],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 35,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "What do you say to that, Banite?",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 100001,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 11,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 37,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "[<i>Draw your weapon grimly.</i>]",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 100002,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 11,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [
+                                            {
+                                              "a_script": "gaAddJournalEntryByTag.cs",
+                                              "a_parameter_1": "Q_MANFRED",
+                                              "a_parameter_2": "15",
+                                              "a_parameter_3": "0",
+                                              "a_parameter_4": "0"
+                                            }
+                                          ],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "ga_fade_from_black(nonIBscript)",
+                      "a_parameter_1": "6",
+                      "a_parameter_2": null,
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "ga_local_int(nonIBscript)",
+              "a_parameter_1": "gurkiepok",
+              "a_parameter_2": "1",
+              "a_parameter_3": "gurkik",
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "gurkik_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 38
+}

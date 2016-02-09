@@ -1,0 +1,315 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The orcs in the woods here are foolish creatures and easy targets for our Goddess's will.  Tempt them to the circle and you will see.",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You travel with Sister Ianth  and are therefore welcome here.|***gc_rand_1of-->NOT::False    Int::10    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "10",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The orcs in the woods here are foolish creatures and easy targets for our Goddess's will.  Tempt them to the circle and you will see.|***gc_rand_1of-->NOT::False    Int::9    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "9",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 4,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The Stag Warriors protect the Stone, and the Stone protects us.  In this way do we symbolize the reciprocity of true love, Sune's beatific vision.|***gc_rand_1of-->NOT::False    Int::8    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "8",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 5,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The stone is aflame.  Someone who loves deeply stands nigh.|***gc_rand_1of-->NOT::False    Int::7    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "7",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 6,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "When spring is here, many of the betrothed who follow Sune come here to celebrate the rite of marriage.|***gc_rand_1of-->NOT::False    Int::6    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "6",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 7,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The Stag Warriors and the Knights of the Ruby Rose represent two different aspects of Sune--we stand for primal passion, and the order stands for ideal love.|***gc_rand_1of-->NOT::False    Int::5    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "5",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 8,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Few could imagine the joyful rites that take place here in Midsummer; but alas, a long winter is ahead of us.|***gc_rand_1of-->NOT::False    Int::4    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "4",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 9,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The orcs in the woods here are foolish creatures and easy targets for our Goddess's will.  Tempt them to the circle and you will see.|***gc_rand_1of-->NOT::False    Int::3    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "3",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 10,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Autumn is a melancholy time to stand watch at the Flame Stone.  Springtime's pilgrims have returned to their homes, and we wait for the winter with apprehension.|***gc_rand_1of-->NOT::False    Int::2    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "2",
+              "c_parameter_2": null,
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 11,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "The Flame Stone spares us winter's deeper chills, but we still dread its coming.",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "stagwarrior_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 12
+}

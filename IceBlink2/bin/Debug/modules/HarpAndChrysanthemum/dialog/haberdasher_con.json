@@ -1,0 +1,840 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Why hello!  If you do not mind my saying so, sir, that hat of yours has seen better days.|***gc_check_item-->NOT::False    String::vromans_hat    Int::1    ***gc_journal_entry-->NOT::False    String::Q_MANFRED    String::>5    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "My hat?  It is one of the most finely made specimens of haberdashery one can find outside Waterdeep.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "I agree that it is finely made, but I assure you that the fashion for that make of hat has passed.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Nonsense.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "[<i>Ignoring Vroman's comment.</i>]  If you like, sir, I can remake your hat into something better suited for the day.  It will only cost you fifty gold pieces.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "[<i>Vroman looks confounded.</i>]  I have not been this upset since I found out my brother was dead.|***gc_journal_entry-->NOT::False    String::Q_MANFRED    String::<45    |",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "What do you think, <FirstName>?  Do you think I should invest in an alteration to my hat?",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "In truth, Vroman, I would prefer it if your hat were a plain and modest skullcap.||***haberdasher_script-->***ga_take_gold-->Int::50    Int::0    ***ga_give_item-->String::vromans_skullcap    Int::1    Int::0    ***gc_check_gold-->NOT::False    Int::50    Int::0    ||",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 15,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "There you are, sir!  The hat has been altered to your friend's specifications.|***ga_fade_from_black-->Float::4    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 16,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 17,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "Hmm...We will see if this suits me as well as the old design.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 18,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [
+                                                                    {
+                                                                      "a_script": "ga_fade_from_black(nonIBscript)",
+                                                                      "a_parameter_1": "4",
+                                                                      "a_parameter_2": null,
+                                                                      "a_parameter_3": null,
+                                                                      "a_parameter_4": null
+                                                                    }
+                                                                  ],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "haberdasher_script(nonIBscript)",
+                                                                  "a_parameter_1": null,
+                                                                  "a_parameter_2": null,
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_take_gold(nonIBscript)",
+                                                                  "a_parameter_1": "50",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gaGiveItem.cs",
+                                                                  "a_parameter_1": "vromans_skullcap",
+                                                                  "a_parameter_2": "1",
+                                                                  "a_parameter_3": "0",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [
+                                                                {
+                                                                  "c_script": "gcCheckForGold.cs",
+                                                                  "c_btnAndOr": null,
+                                                                  "c_and": false,
+                                                                  "c_not": false,
+                                                                  "c_parameter_1": "50",
+                                                                  "c_parameter_2": "0",
+                                                                  "c_parameter_3": null,
+                                                                  "c_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 19,
+                                                              "orderNum": 1,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "I would like it better if it had no brim and was more rounded at the top.||***haberdasher_script-->***ga_take_gold-->Int::50    Int::0    ***ga_give_item-->String::vromans_rounded    Int::1    Int::0    ***gc_check_gold-->NOT::False    Int::50    Int::0    ||",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 99999,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 15,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "There you are, sir!  The hat has been altered to your friend's specifications.|***ga_fade_from_black-->Float::4    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": true
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "haberdasher_script(nonIBscript)",
+                                                                  "a_parameter_1": null,
+                                                                  "a_parameter_2": null,
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_take_gold(nonIBscript)",
+                                                                  "a_parameter_1": "50",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gaGiveItem.cs",
+                                                                  "a_parameter_1": "vromans_rounded",
+                                                                  "a_parameter_2": "1",
+                                                                  "a_parameter_3": "0",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [
+                                                                {
+                                                                  "c_script": "gcCheckForGold.cs",
+                                                                  "c_btnAndOr": null,
+                                                                  "c_and": false,
+                                                                  "c_not": false,
+                                                                  "c_parameter_1": "50",
+                                                                  "c_parameter_2": "0",
+                                                                  "c_parameter_3": null,
+                                                                  "c_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 21,
+                                                              "orderNum": 2,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Perhaps you should have it lined with fur for the approaching winter.||***haberdasher_script-->***ga_take_gold-->Int::50    Int::0    ***ga_give_item-->String::vromans_furred    Int::1    Int::0    ***gc_check_gold-->NOT::False    Int::50    Int::0    ||",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 100000,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 15,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "There you are, sir!  The hat has been altered to your friend's specifications.|***ga_fade_from_black-->Float::4    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": true
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "haberdasher_script(nonIBscript)",
+                                                                  "a_parameter_1": null,
+                                                                  "a_parameter_2": null,
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_take_gold(nonIBscript)",
+                                                                  "a_parameter_1": "50",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gaGiveItem.cs",
+                                                                  "a_parameter_1": "vromans_furred",
+                                                                  "a_parameter_2": "1",
+                                                                  "a_parameter_3": "0",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [
+                                                                {
+                                                                  "c_script": "gcCheckForGold.cs",
+                                                                  "c_btnAndOr": null,
+                                                                  "c_and": false,
+                                                                  "c_not": false,
+                                                                  "c_parameter_1": "50",
+                                                                  "c_parameter_2": "0",
+                                                                  "c_parameter_3": null,
+                                                                  "c_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 23,
+                                                              "orderNum": 3,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "A hood would suit you better.||***haberdasher_script-->***ga_take_gold-->Int::50    Int::0    ***ga_give_item-->String::vromans_hood    Int::1    Int::0    ***gc_check_gold-->NOT::False    Int::50    Int::0    ||",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 100001,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 15,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "There you are, sir!  The hat has been altered to your friend's specifications.|***ga_fade_from_black-->Float::4    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": true
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "haberdasher_script(nonIBscript)",
+                                                                  "a_parameter_1": null,
+                                                                  "a_parameter_2": null,
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_take_gold(nonIBscript)",
+                                                                  "a_parameter_1": "50",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "gaGiveItem.cs",
+                                                                  "a_parameter_1": "vromans_hood",
+                                                                  "a_parameter_2": "1",
+                                                                  "a_parameter_3": "0",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [
+                                                                {
+                                                                  "c_script": "gcCheckForGold.cs",
+                                                                  "c_btnAndOr": null,
+                                                                  "c_and": false,
+                                                                  "c_not": false,
+                                                                  "c_parameter_1": "50",
+                                                                  "c_parameter_2": "0",
+                                                                  "c_parameter_3": null,
+                                                                  "c_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 25,
+                                                              "orderNum": 4,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "We do not have the money for this right now, Vroman.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [
+                                                    {
+                                                      "c_script": "gc_journal_entry(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "Q_MANFRED",
+                                                      "c_parameter_2": "<45",
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "isLink": false
+                                                },
+                                                {
+                                                  "idNum": 26,
+                                                  "orderNum": 1,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "[<i>Vroman looks confounded.</i>]  I have not been this upset since I mistook the body of Nevin for that of my brother.|***gc_journal_entry-->NOT::False    String::Q_MANFRED    String::>45    |",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 27,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 100002,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 13,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "What do you think, <FirstName>?  Do you think I should invest in an alteration to my hat?",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [
+                                                    {
+                                                      "c_script": "gc_journal_entry(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "Q_MANFRED",
+                                                      "c_parameter_2": ">45",
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckForItem.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "vromans_hat",
+              "c_parameter_2": "1",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "Q_MANFRED",
+              "c_parameter_2": ">5",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 29,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Greetings!|***gc_check_item-->NOT::True    String::vromans_hat    Int::1    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckForItem.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": true,
+              "c_parameter_1": "vromans_hat",
+              "c_parameter_2": "1",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 30,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Greetings!  Please come speak to me later--[<i>Looking at Vroman</i>]--I believe we have some business to discuss.|***gc_journal_entry-->NOT::False    String::Q_MANFRED    String::<5    |",
+          "IsExpanded": true,
+          "subNodes": [],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "Q_MANFRED",
+              "c_parameter_2": "<5",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 31,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Ah, do you seek an alteration to your hat, good sir?  It will only cost you fifty gold pieces.|***gc_check_item-->NOT::False    String::vromans_hat    Int::1    ***gc_journal_entry-->NOT::False    String::Q_MANFRED    String::>5    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 32,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 100003,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 13,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "What do you think, <FirstName>?  Do you think I should invest in an alteration to my hat?",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckForItem.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "vromans_hat",
+              "c_parameter_2": "1",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            },
+            {
+              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "Q_MANFRED",
+              "c_parameter_2": ">5",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "haberdasher_con",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 33
+}

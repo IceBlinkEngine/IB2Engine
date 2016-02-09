@@ -1,17 +1,30 @@
 {
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
+  "sourceBitmapName": "sanctuary",
   "Filename": "sanctuary",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
+  "areaWeatherScript": "",
+  "easternNeighbourArea": "",
+  "westernNeighbourArea": "",
+  "northernNeighbourArea": "",
+  "southernNeighbourArea": "",
+  "effectChannelScript1": "deactivateChannel1",
+  "effectChannelScript2": "deactivateChannel2",
+  "effectChannelScript3": "deactivateChannel3",
+  "effectChannelScript4": "deactivateChannel4",
+  "useMiniProps": false,
+  "useSuperTinyProps": false,
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "sanctuary",
+  "ImageFileName": "none",
   "MapSizeX": 8,
   "MapSizeY": 8,
   "Tiles": [
     {
+      "Layer0Filename": "sanctuary0",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -22,6 +35,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary1",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -32,6 +46,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary2",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -42,6 +57,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary3",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -52,6 +68,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary4",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -62,6 +79,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary5",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -72,6 +90,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary6",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -82,6 +101,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary7",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -92,6 +112,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary8",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -102,6 +123,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary9",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -112,6 +134,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary10",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -122,6 +145,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary11",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -132,6 +156,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary12",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -142,6 +167,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary13",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -152,6 +178,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary14",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -162,6 +189,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary15",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -172,6 +200,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary16",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -182,6 +211,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary17",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -192,6 +222,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary18",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -202,6 +233,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary19",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -212,6 +244,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary20",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -222,6 +255,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary21",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -232,6 +266,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary22",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -242,6 +277,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary23",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -252,6 +288,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary24",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -262,6 +299,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary25",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -272,6 +310,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary26",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -282,6 +321,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary27",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -292,6 +332,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary28",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -302,6 +343,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary29",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -312,6 +354,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary30",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -322,6 +365,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary31",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -332,6 +376,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary32",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -342,6 +387,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary33",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -352,6 +398,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary34",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -362,6 +409,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary35",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -372,166 +420,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "sanctuary36",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -542,6 +431,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary37",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -552,6 +442,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary38",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -562,6 +453,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary39",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -572,6 +464,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary40",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -582,16 +475,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "sanctuary41",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -602,6 +486,62 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary42",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary43",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary44",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary45",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary46",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary47",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -612,6 +552,51 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary48",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary49",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary50",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary51",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary52",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -622,6 +607,29 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary53",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary54",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary55",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -632,6 +640,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary56",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -642,6 +651,73 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "sanctuary57",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary58",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary59",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary60",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary61",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary62",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "sanctuary63",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -935,7 +1011,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 121,
+  "NextIdNumber": 123,
   "OnHeartBeatLogicTree": "none",
   "OnHeartBeatParms": "",
   "OnHeartBeatIBScript": "none",

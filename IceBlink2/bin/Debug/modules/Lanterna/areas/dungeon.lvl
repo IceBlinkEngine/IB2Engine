@@ -1,17 +1,30 @@
 {
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
+  "sourceBitmapName": "dungeon",
   "Filename": "dungeon",
   "UseMiniMapFogOfWar": true,
   "inGameAreaName": "newArea",
+  "areaWeatherScript": "",
+  "easternNeighbourArea": "",
+  "westernNeighbourArea": "",
+  "northernNeighbourArea": "",
+  "southernNeighbourArea": "",
+  "effectChannelScript1": "deactivateChannel1",
+  "effectChannelScript2": "deactivateChannel2",
+  "effectChannelScript3": "deactivateChannel3",
+  "effectChannelScript4": "deactivateChannel4",
+  "useMiniProps": false,
+  "useSuperTinyProps": false,
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "dungeon",
+  "ImageFileName": "none",
   "MapSizeX": 8,
   "MapSizeY": 8,
   "Tiles": [
     {
+      "Layer0Filename": "dungeon0",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -22,6 +35,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon1",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -32,6 +46,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon2",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -42,86 +57,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon3",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -132,36 +68,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon4",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -172,6 +79,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon5",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -182,56 +90,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon6",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -242,6 +101,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon7",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -252,6 +112,40 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon8",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon9",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon10",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon11",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -262,36 +156,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon12",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -302,6 +167,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon13",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -312,6 +178,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon14",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -322,6 +189,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon15",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -332,76 +200,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon16",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -412,46 +211,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": true,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon17",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -462,6 +222,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon18",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -472,56 +233,7 @@
       "Visible": false
     },
     {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": false,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
-      "Layer1Filename": "t_blank",
-      "Layer2Filename": "t_blank",
-      "Layer3Filename": "t_blank",
-      "Layer4Filename": "t_blank",
-      "Layer5Filename": "t_blank",
-      "Walkable": true,
-      "LoSBlocked": false,
-      "Visible": false
-    },
-    {
+      "Layer0Filename": "dungeon19",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -532,6 +244,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon20",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -542,6 +255,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon21",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -552,6 +266,73 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon22",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon23",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon24",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon25",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon26",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon27",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon28",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -562,6 +343,29 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon29",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon30",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon31",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -572,6 +376,84 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon32",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon33",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon34",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon35",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon36",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon37",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon38",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon39",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -582,6 +464,73 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon40",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon41",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon42",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon43",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon44",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon45",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon46",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -592,6 +541,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon47",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -602,6 +552,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon48",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -612,6 +563,73 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon49",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon50",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon51",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": true,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon52",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon53",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon54",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": true,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon55",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -622,6 +640,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon56",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -632,6 +651,7 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon57",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -642,6 +662,62 @@
       "Visible": false
     },
     {
+      "Layer0Filename": "dungeon58",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon59",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon60",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon61",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon62",
+      "Layer1Filename": "t_blank",
+      "Layer2Filename": "t_blank",
+      "Layer3Filename": "t_blank",
+      "Layer4Filename": "t_blank",
+      "Layer5Filename": "t_blank",
+      "Walkable": false,
+      "LoSBlocked": false,
+      "Visible": false
+    },
+    {
+      "Layer0Filename": "dungeon63",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -935,7 +1011,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 131,
+  "NextIdNumber": 133,
   "OnHeartBeatLogicTree": "none",
   "OnHeartBeatParms": "",
   "OnHeartBeatIBScript": "none",

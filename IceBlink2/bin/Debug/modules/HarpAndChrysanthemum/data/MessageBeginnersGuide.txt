@@ -1,0 +1,40 @@
+<big><b>BEGINNER'S GUIDE</b></big><br>
+<br>
+<u><b>TABLE OF CONTENTS</b></u><br>
+1. What is Role Playing?<br>
+2. Basic Concepts of the Game<br>
+3. Definitions<br>
+<br>
+<b><u>1. WHAT IS ROLE PLAYING?</u></b><br>
+<br>
+For the context of IceBlink RPG adventures, role playing is a type of game where you take on the role of the main character in the story. This is meant to be an interactive story where the outcome of the story is based on the choices you make as the main character. You help shape the development of your character, you make decisions that impact how others will perceive you and you determine how your party will proceed throughout the adventure.<br>
+<br>
+<b><u>2. BASIC CONCEPTS OF THE GAME</u></b><br>
+<br>
+You will first create a character that you will role play throughout the story. Creating a Player Character (PC) involves choosing a race, class, gender, name and generating the attributes that define the strengths and weaknesses of your PC. These attributes are Strength (STR), Dexterity (DEX), Intelligence (INT) and Charisma (CHA). Once you have completed the creation of your PC, the game will begin. During the game, you will engage in conversations with others that you meet, encounter enemies to combat and explore the world around you. As you learn and progress, your party will gain Experience Points (XP). Once you have gained enough XP to advance a level, you will be prompted to go though the 'Level Up' process. If your PC has spell casting abilities, you will be given the opportunity to chose a spell to learn. Leveling up gives your PC more Hit Points (HP), Spell Points (SP), attack bonuses, etc. In combat, your health is determined by how many HP you have. If your HP goes below 0, you are dying. Once below 0, you will start bleeding and will lose one HP per round (6 seconds in game time). Once you reach -20 HP, your PC is dead. Hit Points can be recovered by potions or spells. Also in combat, the number of spells you can cast depends on the number of Spell Points (SP) you have. Each spell requires a certain number of SP to cast. If you do not have enough SP then you can't cast that spell. Spell Points can be replenished with potions or by the passage of time (SP regen with time is module dependant and up to the module's author to decide if allowed).<br>
+<br>
+<b><u>3. DEFINITIONS</u></b><br>
+<br>
+<b>Player Character (PC):</b> PCs are the characters that you, as the player, will be controling and making decisions for throughout the game. At the beginning, you will create the main PC and then, later in the game, other potential PCs may join your party if you so choose.<br>
+<br>
+<b>Non-Player Character (NPC):</b> NPCs are any characters that are not in your party that you can interact with.<br>
+<br>
+<b>Experience Points (XP):</b> As you learn and progress, your party will gain XP. Once you have gained enough XP to advance a level, you will be prompted to go though the "Level Up" process (see the Player's Guide for the XP Table).<br>
+<br>
+<b>Attributes:</b> Attributes define the strengths and weaknesses of your PC. The four attributes used in this game are Strength, Dexterity, Intelligence and Charisma. The attribute values can range between 1-18 points (randomly calculated) plus any bonuses granted by the Race you select. For every 2 points above 10, you gain one attribute modifier point bonus (see STR, DEX, INT, and CHA below).<br>
+<br>
+<b>Strength (STR):</b> How strong your character is. This gives you bonuses to your attack rolls (when using melee weapons), damage and increases your health (known as Hit Points). For example, if your PC has a STR of 16, the bonus for attack, damage and health is +3 [(16 - 10) / 2].<br>
+<br>
+<b>Dexterity (DEX):</b> How quick and coordinated your character is. This gives you bonuses to your attack rolls (when using ranged weapons) and your defense (Armor Class (AC)). For example, if your PC has a DEX of 14, the bonus for attack and AC is +2 [(14 - 10) / 2].<br>
+<br>
+<b>Intelligence (INT):</b> How smart your character is. This impacts how many Spell Points (SP) you gain per level. This is useful for PCs that can cast spells.<br>
+<br>
+<b>Charisma (CHA):</b> Your ability to have successful interactions with others. This attribute impacts how NPCs perceive your character.<br>
+<br>
+<b>Hit Points (HP):</b> This is your PCs health and determines how much damage you can take before falling in combat. You gain more hit points as you increase levels.<br>
+<br>
+<b>Spell Points (SP):</b> This determines how many spells you can cast. Each spell has a SP cost associated with it.<br>
+<br>
+<b>Armor Class (AC):</b> This defines your character's defense value. Armor, magic items, DEX and sheilds will increase your AC. Enemy attack rolls must exceed this AC value in order for a succesful hit to be landed.<br>
+<br>
+<b>Base Attack Bonus (BAB):</b> A fixed number based on the character's class and level that is added to your attack roll (see Player's Guide for the BAB Table). When you make an attack, a random number between 1-20 is "rolled" (think rolling a 20 sided die). This number is added to your BAB, weapon's attack bonus and STR/DEX attack bonus. If the total number exceeds the AC number of the enemy, you score a hit.

@@ -543,6 +543,10 @@ namespace IceBlink2
                         }
                         gv.mod.returnCheck = CheckLocalString(prm1, prm2, p3);
                     }
+                    else if (filename.Equals("gcCheckJournalEntryByTag.cs"))
+                    {
+                        gv.mod.returnCheck = CheckJournalEntry(prm1, prm2);
+                    }
                     else if (filename.Equals("gcCheckForGold.cs"))
                     {
                         int parm1 = Convert.ToInt32(p1);
@@ -3996,6 +4000,36 @@ namespace IceBlink2
             return pc;
         }
 
+        public bool CheckJournalEntry(string categoryTag, string entryTag)
+        {
+            foreach (JournalQuest quest in mod.partyJournalQuests)
+            {
+                if (quest.Tag.Equals(categoryTag))
+                {
+                    foreach (JournalEntry entry in quest.Entries)
+                    {
+                        if (entry.Tag.Equals(entryTag))
+                        {
+                            return true;
+                        }
+                    }
+                }                
+            }
+            foreach (JournalQuest quest in mod.partyJournalCompleted)
+            {
+                if (quest.Tag.Equals(categoryTag))
+                {
+                    foreach (JournalEntry entry in quest.Entries)
+                    {
+                        if (entry.Tag.Equals(entryTag))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
         public void AddJournalEntry(string categoryTag, string entryTag)
         {
             JournalQuest jcm = mod.getJournalCategoryByTag(categoryTag);

@@ -1,0 +1,1939 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "|***ga_fade_from_black-->Float::3    ***ianth_cut_move-->|",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "What a meal that was.  It was almost as epic as our adventures together, <FirstName>.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "So it was, so it was.  I do love squash--it's a pity one can't have it year round.  That, a pound of butter, and a hogshead of that wine--|***gc_comp_remove-->NOT::False    String::gossam    |",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Which, I must say, has made me slightly more muddle-headed than I am used to.  There is a pillow in the inn with my name on it.",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "I <i>knew</i> you were embroidering something.",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "[<i>Vroman wobbles as he speaks.</i>]  To tell the truth, I am also feeling a little tipsy from the wine.  Off to bed with me!  [<i>Singing</i>.]  <i>When that I was a little boy, with heigh ho!  The wind and rain...</i>||***ga_move-->String::WP_asyin    Int::0    String::vroman    ***gc_check_race_pc-->NOT::False    String::1    ***gc_check_race_pc-->NOT::False    String::3    ***gc_check_race_pc-->NOT::False    String::5    ***gc_check_race_pc-->NOT::False    String::6    ***gc_is_male-->NOT::False    ***gc_global_int-->NOT::False    String::vroman_inf    String::0    ||",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "[<i>Gossam begins to sing too</i>.]  <i>A foolish thing was but a toy!  For the rain it raineth every day.</i>||***ga_move-->String::WP_asyin    Int::0    String::gossam    ***gc_comp_remove-->NOT::False    String::gossam    ||",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 99999,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 16,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "I think I shall have a taste of the night air before I turn in.|***ga_scripthidden-->String::gossam    Int::1    ***ga_scripthidden-->String::vroman    Int::1    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": true
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [
+                                                            {
+                                                              "a_script": "ga_move(nonIBscript)",
+                                                              "a_parameter_1": "WP_asyin",
+                                                              "a_parameter_2": "0",
+                                                              "a_parameter_3": "gossam",
+                                                              "a_parameter_4": null
+                                                            }
+                                                          ],
+                                                          "conditions": [
+                                                            {
+                                                              "c_script": "gc_comp_remove(nonIBscript)",
+                                                              "c_btnAndOr": null,
+                                                              "c_and": false,
+                                                              "c_not": false,
+                                                              "c_parameter_1": "gossam",
+                                                              "c_parameter_2": null,
+                                                              "c_parameter_3": null,
+                                                              "c_parameter_4": null
+                                                            }
+                                                          ],
+                                                          "isLink": false
+                                                        },
+                                                        {
+                                                          "idNum": 16,
+                                                          "orderNum": 1,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "I think I shall have a taste of the night air before I turn in.|***ga_scripthidden-->String::gossam    Int::1    ***ga_scripthidden-->String::vroman    Int::1    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    |",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 17,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "I will meet you in the inn, then.",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 18,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[<i>Ianth turns from you and gazes out over the shadowy Backlands.</i>]|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    ***ga_face_target-->String::ianth    String::ianth_cut_ianthwp    Int::0    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 19,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 20,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "[<i>She eventually returns to the inn, and the night passes quietly.</i>]|***ga_scripthidden-->String::vroman    Int::0    ***ga_scripthidden-->String::gossam    Int::0    |",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 21,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "|***sd_resting-->|",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 22,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "|***ga_fade_to_black-->Float::5.5    Float::0    Int::0    |",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 23,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "|***ga_time_set-->Int::7    Int::0    Int::0    Int::0    ***ga_jump_players-->String::start_wp    Int::1    Int::0    |",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [],
+                                                                                      "actions": [
+                                                                                        {
+                                                                                          "a_script": "ga_time_set(nonIBscript)",
+                                                                                          "a_parameter_1": "7",
+                                                                                          "a_parameter_2": "0",
+                                                                                          "a_parameter_3": "0",
+                                                                                          "a_parameter_4": "0"
+                                                                                        },
+                                                                                        {
+                                                                                          "a_script": "ga_jump_players(nonIBscript)",
+                                                                                          "a_parameter_1": "start_wp",
+                                                                                          "a_parameter_2": "1",
+                                                                                          "a_parameter_3": "0",
+                                                                                          "a_parameter_4": null
+                                                                                        }
+                                                                                      ],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [
+                                                                                    {
+                                                                                      "a_script": "ga_fade_to_black(nonIBscript)",
+                                                                                      "a_parameter_1": "5.5",
+                                                                                      "a_parameter_2": "0",
+                                                                                      "a_parameter_3": "0",
+                                                                                      "a_parameter_4": null
+                                                                                    }
+                                                                                  ],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [
+                                                                                {
+                                                                                  "a_script": "sd_resting(nonIBscript)",
+                                                                                  "a_parameter_1": null,
+                                                                                  "a_parameter_2": null,
+                                                                                  "a_parameter_3": null,
+                                                                                  "a_parameter_4": null
+                                                                                }
+                                                                              ],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [
+                                                                            {
+                                                                              "a_script": "ga_scripthidden(nonIBscript)",
+                                                                              "a_parameter_1": "vroman",
+                                                                              "a_parameter_2": "0",
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            },
+                                                                            {
+                                                                              "a_script": "ga_scripthidden(nonIBscript)",
+                                                                              "a_parameter_1": "gossam",
+                                                                              "a_parameter_2": "0",
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            }
+                                                                          ],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [
+                                                                    {
+                                                                      "a_script": "ga_move(nonIBscript)",
+                                                                      "a_parameter_1": "ianth_cut_ianthwp",
+                                                                      "a_parameter_2": "0",
+                                                                      "a_parameter_3": "ianth",
+                                                                      "a_parameter_4": null
+                                                                    },
+                                                                    {
+                                                                      "a_script": "ga_face_target(nonIBscript)",
+                                                                      "a_parameter_1": "ianth",
+                                                                      "a_parameter_2": "ianth_cut_ianthwp",
+                                                                      "a_parameter_3": "0",
+                                                                      "a_parameter_4": null
+                                                                    }
+                                                                  ],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 24,
+                                                              "orderNum": 1,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Perhaps you will allow me to join you for a moment?|***ga_global_int-->String::courteous    String::++    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::$PC_SPEAKER    |",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 25,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "It would do me no harm.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 26,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "You have been even quieter than usual since our encounter in Northdark.",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 27,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "You must understand:  I did not expect to see Marcellus back in the forest and in such circumstances.  The last time I saw him was in Tethyr.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 28,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "The two of you were lovers?",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 29,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "Ah, you are so frank.  No.  But--",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 30,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 100000,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 33,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "Would it surprise you to hear that I had feelings for him once?  I suppose not.  ",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": true
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            },
+                                                                            {
+                                                                              "idNum": 32,
+                                                                              "orderNum": 1,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "What was your relationship with him?",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 33,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "Would it surprise you to hear that I had feelings for him once?  I suppose not.  ",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 34,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "What happened between the two of you?",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 35,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "[<i>A look of sorrow passes over Ianth's face.</i>]  If only to tell the tale were as easy as that--but in a sense, there is no tale to tell.",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 36,
+                                                                                              "orderNum": 0,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "He must have done something horrible if you feel this way.",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 37,
+                                                                                                  "orderNum": 0,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 0,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "NodeSound": "none",
+                                                                                                  "conversationText": "Horrible?  No--no.  It is not as easy as that.  Despite what he seems to be now, he has not wronged me, though my heart might say otherwise.  But please, let me have a few minutes on my own.|***ga_global_int-->String::ianth_inf    String::++    |",
+                                                                                                  "IsExpanded": true,
+                                                                                                  "subNodes": [
+                                                                                                    {
+                                                                                                      "idNum": 38,
+                                                                                                      "orderNum": 0,
+                                                                                                      "pcNode": true,
+                                                                                                      "linkTo": 0,
+                                                                                                      "ShowOnlyOnce": false,
+                                                                                                      "NodeIsActive": true,
+                                                                                                      "NodePortraitBitmap": "",
+                                                                                                      "NodeNpcName": "",
+                                                                                                      "NodeSound": "none",
+                                                                                                      "conversationText": "",
+                                                                                                      "IsExpanded": true,
+                                                                                                      "subNodes": [
+                                                                                                        {
+                                                                                                          "idNum": 100001,
+                                                                                                          "orderNum": 0,
+                                                                                                          "pcNode": false,
+                                                                                                          "linkTo": 18,
+                                                                                                          "ShowOnlyOnce": false,
+                                                                                                          "NodeIsActive": true,
+                                                                                                          "NodePortraitBitmap": "",
+                                                                                                          "NodeNpcName": "",
+                                                                                                          "NodeSound": "none",
+                                                                                                          "conversationText": "[<i>Ianth turns from you and gazes out over the shadowy Backlands.</i>]|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    ***ga_face_target-->String::ianth    String::ianth_cut_ianthwp    Int::0    |",
+                                                                                                          "IsExpanded": true,
+                                                                                                          "subNodes": [],
+                                                                                                          "actions": [],
+                                                                                                          "conditions": [],
+                                                                                                          "isLink": true
+                                                                                                        }
+                                                                                                      ],
+                                                                                                      "actions": [],
+                                                                                                      "conditions": [],
+                                                                                                      "isLink": false
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "actions": [
+                                                                                                    {
+                                                                                                      "a_script": "gaSetGlobalInt.cs",
+                                                                                                      "a_parameter_1": "ianth_inf",
+                                                                                                      "a_parameter_2": "++",
+                                                                                                      "a_parameter_3": null,
+                                                                                                      "a_parameter_4": null
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": false
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            },
+                                                                                            {
+                                                                                              "idNum": 40,
+                                                                                              "orderNum": 1,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "Good night then, Ianth.  Will I see you in the inn?",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 41,
+                                                                                                  "orderNum": 0,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 0,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "NodeSound": "none",
+                                                                                                  "conversationText": "Of course, of course.  Let me have a few moments on my own first, though.|***ga_global_int-->String::ianth_inf    String::++    |",
+                                                                                                  "IsExpanded": true,
+                                                                                                  "subNodes": [
+                                                                                                    {
+                                                                                                      "idNum": 42,
+                                                                                                      "orderNum": 0,
+                                                                                                      "pcNode": true,
+                                                                                                      "linkTo": 0,
+                                                                                                      "ShowOnlyOnce": false,
+                                                                                                      "NodeIsActive": true,
+                                                                                                      "NodePortraitBitmap": "",
+                                                                                                      "NodeNpcName": "",
+                                                                                                      "NodeSound": "none",
+                                                                                                      "conversationText": "",
+                                                                                                      "IsExpanded": true,
+                                                                                                      "subNodes": [
+                                                                                                        {
+                                                                                                          "idNum": 100002,
+                                                                                                          "orderNum": 0,
+                                                                                                          "pcNode": false,
+                                                                                                          "linkTo": 18,
+                                                                                                          "ShowOnlyOnce": false,
+                                                                                                          "NodeIsActive": true,
+                                                                                                          "NodePortraitBitmap": "",
+                                                                                                          "NodeNpcName": "",
+                                                                                                          "NodeSound": "none",
+                                                                                                          "conversationText": "[<i>Ianth turns from you and gazes out over the shadowy Backlands.</i>]|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    ***ga_face_target-->String::ianth    String::ianth_cut_ianthwp    Int::0    |",
+                                                                                                          "IsExpanded": true,
+                                                                                                          "subNodes": [],
+                                                                                                          "actions": [],
+                                                                                                          "conditions": [],
+                                                                                                          "isLink": true
+                                                                                                        }
+                                                                                                      ],
+                                                                                                      "actions": [],
+                                                                                                      "conditions": [],
+                                                                                                      "isLink": false
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "actions": [
+                                                                                                    {
+                                                                                                      "a_script": "gaSetGlobalInt.cs",
+                                                                                                      "a_parameter_1": "ianth_inf",
+                                                                                                      "a_parameter_2": "++",
+                                                                                                      "a_parameter_3": null,
+                                                                                                      "a_parameter_4": null
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": false
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            },
+                                                                                            {
+                                                                                              "idNum": 100003,
+                                                                                              "orderNum": 2,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 49,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "Ah.  I have heard enough for the night.",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": true
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    },
+                                                                                    {
+                                                                                      "idNum": 45,
+                                                                                      "orderNum": 1,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "If the subject does not pain you, please tell me more, Ianth.|***ga_global_int-->String::courteous    String::++    |",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 46,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "I appreciate your concern.  Frankly, I am not ready.",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 47,
+                                                                                              "orderNum": 0,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 100004,
+                                                                                                  "orderNum": 0,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 35,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "NodeSound": "none",
+                                                                                                  "conversationText": "[<i>A look of sorrow passes over Ianth's face.</i>]  If only to tell the tale were as easy as that--but in a sense, there is no tale to tell.",
+                                                                                                  "IsExpanded": true,
+                                                                                                  "subNodes": [],
+                                                                                                  "actions": [],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": true
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [
+                                                                                        {
+                                                                                          "a_script": "gaSetGlobalInt.cs",
+                                                                                          "a_parameter_1": "courteous",
+                                                                                          "a_parameter_2": "++",
+                                                                                          "a_parameter_3": null,
+                                                                                          "a_parameter_4": null
+                                                                                        }
+                                                                                      ],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    },
+                                                                                    {
+                                                                                      "idNum": 49,
+                                                                                      "orderNum": 2,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "Ah.  I have heard enough for the night.",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 50,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "[<i>Ianth turns from you swiftly.</i>]  So be it.  I will meet you in the Sword and Dragon after a few minutes.",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 51,
+                                                                                              "orderNum": 0,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 100005,
+                                                                                                  "orderNum": 0,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 18,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "NodeSound": "none",
+                                                                                                  "conversationText": "[<i>Ianth turns from you and gazes out over the shadowy Backlands.</i>]|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    ***ga_face_target-->String::ianth    String::ianth_cut_ianthwp    Int::0    |",
+                                                                                                  "IsExpanded": true,
+                                                                                                  "subNodes": [],
+                                                                                                  "actions": [],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": true
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            },
+                                                                            {
+                                                                              "idNum": 53,
+                                                                              "orderNum": 2,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "Tell me more about Marcellus.",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 54,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "As I said before, he served my father.  I hardly knew him, and yet--",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 55,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 100006,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 33,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "Would it surprise you to hear that I had feelings for him once?  I suppose not.  ",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": true
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    },
+                                                                    {
+                                                                      "idNum": 57,
+                                                                      "orderNum": 1,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "The problems of the region weigh heavily on your mind, I can tell.|***ga_global_int-->String::moral    String::++    |",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 58,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "If only I were as high-minded as that.  They <i>do</i> weigh on me, but I cannot say with truth that something else does not bother me more.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 59,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 100007,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 27,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "You must understand:  I did not expect to see Marcellus back in the forest and in such circumstances.  The last time I saw him was in Tethyr.",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": true
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [
+                                                                        {
+                                                                          "a_script": "gaSetGlobalInt.cs",
+                                                                          "a_parameter_1": "moral",
+                                                                          "a_parameter_2": "++",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        }
+                                                                      ],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    },
+                                                                    {
+                                                                      "idNum": 61,
+                                                                      "orderNum": 2,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "So you were in love with this Marcellus character, I take it?|***ga_global_int-->String::abrasive    String::++    |",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 62,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "[<i>Blushing</i>.]  Have I been so obvious?  It is not like a Sunite to hide her feelings, but these feelings--",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 63,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 100008,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 27,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "You must understand:  I did not expect to see Marcellus back in the forest and in such circumstances.  The last time I saw him was in Tethyr.",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": true
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [
+                                                                        {
+                                                                          "a_script": "gaSetGlobalInt.cs",
+                                                                          "a_parameter_1": "abrasive",
+                                                                          "a_parameter_2": "++",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        }
+                                                                      ],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    },
+                                                                    {
+                                                                      "idNum": 65,
+                                                                      "orderNum": 3,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "What troubles you, Ianth?|***ga_global_int-->String::sympathetic    String::++    |",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 66,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "You seem genuinely concerned, <FirstName>--your nature, I think, is caring.  I will tell you.|***gc_global_int-->NOT::False    String::sympathetic    String::>6    |",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 67,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 68,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "I am thinking of Marcellus, the mercenary we met back in Northdark.  The last time I saw him was in Tethyr.",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 69,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 100009,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 33,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "Would it surprise you to hear that I had feelings for him once?  I suppose not.  ",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": true
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [
+                                                                            {
+                                                                              "c_script": "gcCheckGlobalInt.cs",
+                                                                              "c_btnAndOr": null,
+                                                                              "c_and": false,
+                                                                              "c_not": false,
+                                                                              "c_parameter_1": "sympathetic",
+                                                                              "c_parameter_2": ">6",
+                                                                              "c_parameter_3": null,
+                                                                              "c_parameter_4": null
+                                                                            }
+                                                                          ],
+                                                                          "isLink": false
+                                                                        },
+                                                                        {
+                                                                          "idNum": 100010,
+                                                                          "orderNum": 1,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 27,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "You must understand:  I did not expect to see Marcellus back in the forest and in such circumstances.  The last time I saw him was in Tethyr.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": true
+                                                                        }
+                                                                      ],
+                                                                      "actions": [
+                                                                        {
+                                                                          "a_script": "gaSetGlobalInt.cs",
+                                                                          "a_parameter_1": "sympathetic",
+                                                                          "a_parameter_2": "++",
+                                                                          "a_parameter_3": null,
+                                                                          "a_parameter_4": null
+                                                                        }
+                                                                      ],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "gaSetGlobalInt.cs",
+                                                                  "a_parameter_1": "courteous",
+                                                                  "a_parameter_2": "++",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_move(nonIBscript)",
+                                                                  "a_parameter_1": "ianth_cut_ianthwp",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": "$PC_SPEAKER",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 72,
+                                                              "orderNum": 2,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "What is it?  I can sense that something is wrong.|***ga_global_int-->String::sympathetic    String::++    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::$PC_SPEAKER    |",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 73,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[<i>Hesitantly.</i>]  I don't blame you for thinking so, but--ah, by Sune, you are right.  Let us talk.",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 74,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 100011,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 25,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "It would do me no harm.",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": true
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "gaSetGlobalInt.cs",
+                                                                  "a_parameter_1": "sympathetic",
+                                                                  "a_parameter_2": "++",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                },
+                                                                {
+                                                                  "a_script": "ga_move(nonIBscript)",
+                                                                  "a_parameter_1": "ianth_cut_ianthwp",
+                                                                  "a_parameter_2": "0",
+                                                                  "a_parameter_3": "$PC_SPEAKER",
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            },
+                                                            {
+                                                              "idNum": 76,
+                                                              "orderNum": 3,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "Ah.  Just the sort of opportunity I have been waiting for:  you, me, the starlit sky--||***ga_global_int-->String::ironic    String::++    ***gc_is_male-->NOT::False    ||",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 77,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "Are you drunk too?  Please, I simply need a moment or two alone.|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    |",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 78,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "Wait--.",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 79,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "Yes?",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 100012,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 24,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "Perhaps you will allow me to join you for a moment?|***ga_global_int-->String::courteous    String::++    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::$PC_SPEAKER    |",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": true
+                                                                            },
+                                                                            {
+                                                                              "idNum": 81,
+                                                                              "orderNum": 1,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "I simply want to talk.|***ga_move-->String::ianth_cut_ianthwp    Int::0    String::$PC_SPEAKER    |",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 100013,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 25,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "It would do me no harm.",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": true
+                                                                                }
+                                                                              ],
+                                                                              "actions": [
+                                                                                {
+                                                                                  "a_script": "ga_move(nonIBscript)",
+                                                                                  "a_parameter_1": "ianth_cut_ianthwp",
+                                                                                  "a_parameter_2": "0",
+                                                                                  "a_parameter_3": "$PC_SPEAKER",
+                                                                                  "a_parameter_4": null
+                                                                                }
+                                                                              ],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            },
+                                                                            {
+                                                                              "idNum": 100014,
+                                                                              "orderNum": 2,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 72,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "What is it?  I can sense that something is wrong.|***ga_global_int-->String::sympathetic    String::++    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::$PC_SPEAKER    |",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": true
+                                                                            }
+                                                                          ],
+                                                                          "actions": [],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    },
+                                                                    {
+                                                                      "idNum": 100015,
+                                                                      "orderNum": 1,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 17,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "I will meet you in the inn, then.",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": true
+                                                                    }
+                                                                  ],
+                                                                  "actions": [
+                                                                    {
+                                                                      "a_script": "ga_move(nonIBscript)",
+                                                                      "a_parameter_1": "ianth_cut_ianthwp",
+                                                                      "a_parameter_2": "0",
+                                                                      "a_parameter_3": "ianth",
+                                                                      "a_parameter_4": null
+                                                                    }
+                                                                  ],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [
+                                                                {
+                                                                  "a_script": "gaSetGlobalInt.cs",
+                                                                  "a_parameter_1": "ironic",
+                                                                  "a_parameter_2": "++",
+                                                                  "a_parameter_3": null,
+                                                                  "a_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "conditions": [
+                                                                {
+                                                                  "c_script": "gc_is_male(nonIBscript)",
+                                                                  "c_btnAndOr": null,
+                                                                  "c_and": false,
+                                                                  "c_not": false,
+                                                                  "c_parameter_1": null,
+                                                                  "c_parameter_2": null,
+                                                                  "c_parameter_3": null,
+                                                                  "c_parameter_4": null
+                                                                }
+                                                              ],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [
+                                                            {
+                                                              "a_script": "ga_scripthidden(nonIBscript)",
+                                                              "a_parameter_1": "gossam",
+                                                              "a_parameter_2": "1",
+                                                              "a_parameter_3": null,
+                                                              "a_parameter_4": null
+                                                            },
+                                                            {
+                                                              "a_script": "ga_scripthidden(nonIBscript)",
+                                                              "a_parameter_1": "vroman",
+                                                              "a_parameter_2": "1",
+                                                              "a_parameter_3": null,
+                                                              "a_parameter_4": null
+                                                            },
+                                                            {
+                                                              "a_script": "ga_move(nonIBscript)",
+                                                              "a_parameter_1": "ianth_cut_ianthwp",
+                                                              "a_parameter_2": "0",
+                                                              "a_parameter_3": "ianth",
+                                                              "a_parameter_4": null
+                                                            }
+                                                          ],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "a_script": "ga_move(nonIBscript)",
+                                                      "a_parameter_1": "WP_asyin",
+                                                      "a_parameter_2": "0",
+                                                      "a_parameter_3": "vroman",
+                                                      "a_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "conditions": [
+                                                    {
+                                                      "c_script": "gc_check_race_pc(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "1",
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    },
+                                                    {
+                                                      "c_script": "gc_check_race_pc(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "3",
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    },
+                                                    {
+                                                      "c_script": "gc_check_race_pc(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "5",
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    },
+                                                    {
+                                                      "c_script": "gc_check_race_pc(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "6",
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    },
+                                                    {
+                                                      "c_script": "gc_is_male(nonIBscript)",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": null,
+                                                      "c_parameter_2": null,
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    },
+                                                    {
+                                                      "c_script": "gcCheckGlobalInt.cs",
+                                                      "c_btnAndOr": null,
+                                                      "c_and": false,
+                                                      "c_not": false,
+                                                      "c_parameter_1": "vroman_inf",
+                                                      "c_parameter_2": "0",
+                                                      "c_parameter_3": null,
+                                                      "c_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "isLink": false
+                                                },
+                                                {
+                                                  "idNum": 85,
+                                                  "orderNum": 1,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "[<i>Vroman grins sheepishly at you as he speaks.</i>]  Off to bed with me--a cold, <i>lonely</i> bed--I'm feeling a little tipsy too, but  [<i>Suggestively</i>] not so warm as I'd like.  Ah well!  I'm drunk--let's talk in the morning, <FirstName>!    [<i>Singing</i>.]  <i>When that I was a little boy, with heigh ho!  The wind and rain...</i>]|***ga_move-->String::WP_asyin    Int::0    String::vroman    |",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 86,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 100016,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 13,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "[<i>Gossam begins to sing too</i>.]  <i>A foolish thing was but a toy!  For the rain it raineth every day.</i>||***ga_move-->String::WP_asyin    Int::0    String::gossam    ***gc_comp_remove-->NOT::False    String::gossam    ||",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        },
+                                                        {
+                                                          "idNum": 100017,
+                                                          "orderNum": 1,
+                                                          "pcNode": false,
+                                                          "linkTo": 16,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "I think I shall have a taste of the night air before I turn in.|***ga_scripthidden-->String::gossam    Int::1    ***ga_scripthidden-->String::vroman    Int::1    ***ga_move-->String::ianth_cut_ianthwp    Int::0    String::ianth    |",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [
+                                                    {
+                                                      "a_script": "ga_move(nonIBscript)",
+                                                      "a_parameter_1": "WP_asyin",
+                                                      "a_parameter_2": "0",
+                                                      "a_parameter_3": "vroman",
+                                                      "a_parameter_4": null
+                                                    }
+                                                  ],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [
+                            {
+                              "c_script": "gc_comp_remove(nonIBscript)",
+                              "c_btnAndOr": null,
+                              "c_and": false,
+                              "c_not": false,
+                              "c_parameter_1": "gossam",
+                              "c_parameter_2": null,
+                              "c_parameter_3": null,
+                              "c_parameter_4": null
+                            }
+                          ],
+                          "isLink": false
+                        },
+                        {
+                          "idNum": 100018,
+                          "orderNum": 1,
+                          "pcNode": false,
+                          "linkTo": 11,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "[<i>Vroman wobbles as he speaks.</i>]  To tell the truth, I am also feeling a little tipsy from the wine.  Off to bed with me!  [<i>Singing</i>.]  <i>When that I was a little boy, with heigh ho!  The wind and rain...</i>||***ga_move-->String::WP_asyin    Int::0    String::vroman    ***gc_check_race_pc-->NOT::False    String::1    ***gc_check_race_pc-->NOT::False    String::3    ***gc_check_race_pc-->NOT::False    String::5    ***gc_check_race_pc-->NOT::False    String::6    ***gc_is_male-->NOT::False    ***gc_global_int-->NOT::False    String::vroman_inf    String::0    ||",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "ga_fade_from_black(nonIBscript)",
+              "a_parameter_1": "3",
+              "a_parameter_2": null,
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            },
+            {
+              "a_script": "ianth_cut_move(nonIBscript)",
+              "a_parameter_1": null,
+              "a_parameter_2": null,
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "ianth_cut_con",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 87
+}

@@ -1,0 +1,173 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I was Ludos; while yet I lived I was called the Falcon.|***ga_journal-->String::Q_LUDOS    Int::30    Int::0    Int::0    Int::0    ***ga_give_xp-->Int::1000    Int::0    ***ga_journal-->String::Q_VERSES    Int::10    Int::0    Int::0    Int::0    ***ga_journal-->String::Q_CJVERSES    Int::10    Int::0    Int::0    Int::0    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "You see my tomb?  It is a shadow of that in which I rested while still alive--A wretched thing I was!  Despising love, despising life.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "I was Ludos; I was the Falcon.  Now I am No More.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "|***ga_destroy-->String::spectral_knight    Int::0    Float::0.1    |",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "ga_destroy(nonIBscript)",
+                                  "a_parameter_1": "spectral_knight",
+                                  "a_parameter_2": "0",
+                                  "a_parameter_3": "0.1",
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "gaAddJournalEntryByTag.cs",
+              "a_parameter_1": "Q_LUDOS",
+              "a_parameter_2": "30",
+              "a_parameter_3": "0",
+              "a_parameter_4": "0"
+            },
+            {
+              "a_script": "gaGiveXP.cs",
+              "a_parameter_1": "1000",
+              "a_parameter_2": "0",
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            },
+            {
+              "a_script": "gaAddJournalEntryByTag.cs",
+              "a_parameter_1": "Q_VERSES",
+              "a_parameter_2": "10",
+              "a_parameter_3": "0",
+              "a_parameter_4": "0"
+            },
+            {
+              "a_script": "gaAddJournalEntryByTag.cs",
+              "a_parameter_1": "Q_CJVERSES",
+              "a_parameter_2": "10",
+              "a_parameter_3": "0",
+              "a_parameter_4": "0"
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "ludos_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 7
+}

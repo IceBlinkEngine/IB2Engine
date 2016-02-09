@@ -1,0 +1,289 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Our time is up here, Dunne.  You were foolish to have summoned those zombies.  They were no match for these adventurers, that is for sure--and they easily gave us away.|***ga_music_battle_play-->|",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Didn't they, Dunne, you damnable imbecile?!  By Bane, I would kill you now if you weren't still of some use to me.|***ga_face_target-->String::obern_aco    String::dunne_evil    Int::1    ***ga_face_target-->String::dunne_evil    String::obern_aco    Int::1    |",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "[<i>Dryly.</i>]  We are <i>both</i> damnable, Obern.  But you will be the one damned first.  Consider yourself betrayed.  I am going.  I have found out what I needed to find out...May Cyric continue to smile on your fortunes.|***ga_face_target-->String::dunne_evil    String::obern_aco    Int::1    ***ga_effect-->String::Visual    String::    String::F    Int::36    String::dunne_evil    ***ga_create_obj-->String::C    String::i_skeletonwarrior    String::sandskelly_wp1    Int::1    String::i_skel1    Float::2    ***ga_create_obj-->String::C    String::i_skeletonwarrior    String::sandskelly_wp3    Int::1    String::i_skel3    Float::2    ***ga_create_obj-->String::C    String::i_skeletonwarrior    String::sandskelly_wp5    Int::1    String::i_skel5    Float::2    |",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Cyric?  What?  No!--Dunne!  |***ga_face_target-->String::obern_aco    String::dunne_evil    Int::1    ***ga_scripthidden-->String::dunne_evil    Int::1    ***ga_effect-->String::Visual    String::    String::F    Int::187    String::dunne_evil    |",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "|***ga_destroy-->String::dunne_evil    Int::0    Float::0    ***ga_faction_join-->String::i_skel1    String::$HOSTILE    ***ga_faction_join-->String::i_skel3    String::$HOSTILE    ***ga_faction_join-->String::i_skel5    String::$HOSTILE    ***ga_faction_join-->String::obern_aco    String::$HOSTILE    |",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [
+                                        {
+                                          "a_script": "ga_destroy(nonIBscript)",
+                                          "a_parameter_1": "dunne_evil",
+                                          "a_parameter_2": "0",
+                                          "a_parameter_3": "0",
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "ga_faction_join(nonIBscript)",
+                                          "a_parameter_1": "i_skel1",
+                                          "a_parameter_2": "$HOSTILE",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "ga_faction_join(nonIBscript)",
+                                          "a_parameter_1": "i_skel3",
+                                          "a_parameter_2": "$HOSTILE",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "ga_faction_join(nonIBscript)",
+                                          "a_parameter_1": "i_skel5",
+                                          "a_parameter_2": "$HOSTILE",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        },
+                                        {
+                                          "a_script": "ga_faction_join(nonIBscript)",
+                                          "a_parameter_1": "obern_aco",
+                                          "a_parameter_2": "$HOSTILE",
+                                          "a_parameter_3": null,
+                                          "a_parameter_4": null
+                                        }
+                                      ],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "a_script": "ga_face_target(nonIBscript)",
+                                      "a_parameter_1": "obern_aco",
+                                      "a_parameter_2": "dunne_evil",
+                                      "a_parameter_3": "1",
+                                      "a_parameter_4": null
+                                    },
+                                    {
+                                      "a_script": "ga_scripthidden(nonIBscript)",
+                                      "a_parameter_1": "dunne_evil",
+                                      "a_parameter_2": "1",
+                                      "a_parameter_3": null,
+                                      "a_parameter_4": null
+                                    },
+                                    {
+                                      "a_script": "ga_effect(nonIBscript)",
+                                      "a_parameter_1": "Visual",
+                                      "a_parameter_2": "",
+                                      "a_parameter_3": "F",
+                                      "a_parameter_4": "187"
+                                    }
+                                  ],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "a_script": "ga_face_target(nonIBscript)",
+                              "a_parameter_1": "dunne_evil",
+                              "a_parameter_2": "obern_aco",
+                              "a_parameter_3": "1",
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "ga_effect(nonIBscript)",
+                              "a_parameter_1": "Visual",
+                              "a_parameter_2": "",
+                              "a_parameter_3": "F",
+                              "a_parameter_4": "36"
+                            },
+                            {
+                              "a_script": "ga_create_obj(nonIBscript)",
+                              "a_parameter_1": "C",
+                              "a_parameter_2": "i_skeletonwarrior",
+                              "a_parameter_3": "sandskelly_wp1",
+                              "a_parameter_4": "1"
+                            },
+                            {
+                              "a_script": "ga_create_obj(nonIBscript)",
+                              "a_parameter_1": "C",
+                              "a_parameter_2": "i_skeletonwarrior",
+                              "a_parameter_3": "sandskelly_wp3",
+                              "a_parameter_4": "1"
+                            },
+                            {
+                              "a_script": "ga_create_obj(nonIBscript)",
+                              "a_parameter_1": "C",
+                              "a_parameter_2": "i_skeletonwarrior",
+                              "a_parameter_3": "sandskelly_wp5",
+                              "a_parameter_4": "1"
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "ga_face_target(nonIBscript)",
+                      "a_parameter_1": "obern_aco",
+                      "a_parameter_2": "dunne_evil",
+                      "a_parameter_3": "1",
+                      "a_parameter_4": null
+                    },
+                    {
+                      "a_script": "ga_face_target(nonIBscript)",
+                      "a_parameter_1": "dunne_evil",
+                      "a_parameter_2": "obern_aco",
+                      "a_parameter_3": "1",
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "ga_music_battle_play(nonIBscript)",
+              "a_parameter_1": null,
+              "a_parameter_2": null,
+              "a_parameter_3": null,
+              "a_parameter_4": null
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "dunne1_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 9
+}

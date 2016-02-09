@@ -1,0 +1,1436 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "[<i>Right before the sun rises, the fire of the Flame Stone flickers brightly and then, all of a sudden, dies.</i>]  |***ga_journal-->String::Q_MANFRED    Int::95    Int::0    Int::0    Int::0    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "[<i>No one says a word, but the feeling of despair in the air is palpable.  Meanwhile, the sound of approaching troops grows from audible to deafening.</i>]|***ga_fade_from_black-->Float::4    |",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 5,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "[<i>The two forces converge on the Flame Stone clearing at the same time.</i>]|***ga_fade_from_black-->Float::4    |",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 6,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 7,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "[<i>They halt on opposite ends of the circle.</i>]***-->",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 8,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [
+                                        {
+                                          "idNum": 9,
+                                          "orderNum": 0,
+                                          "pcNode": false,
+                                          "linkTo": 0,
+                                          "ShowOnlyOnce": false,
+                                          "NodeIsActive": true,
+                                          "NodePortraitBitmap": "",
+                                          "NodeNpcName": "",
+                                          "NodeSound": "none",
+                                          "conversationText": "[<i>A woman, the commander of the Zhentarim forces, steps forward.  She speaks in a loud, demanding voice--</i>]",
+                                          "IsExpanded": true,
+                                          "subNodes": [
+                                            {
+                                              "idNum": 10,
+                                              "orderNum": 0,
+                                              "pcNode": true,
+                                              "linkTo": 0,
+                                              "ShowOnlyOnce": false,
+                                              "NodeIsActive": true,
+                                              "NodePortraitBitmap": "",
+                                              "NodeNpcName": "",
+                                              "NodeSound": "none",
+                                              "conversationText": "",
+                                              "IsExpanded": true,
+                                              "subNodes": [
+                                                {
+                                                  "idNum": 11,
+                                                  "orderNum": 0,
+                                                  "pcNode": false,
+                                                  "linkTo": 0,
+                                                  "ShowOnlyOnce": false,
+                                                  "NodeIsActive": true,
+                                                  "NodePortraitBitmap": "",
+                                                  "NodeNpcName": "",
+                                                  "NodeSound": "none",
+                                                  "conversationText": "I am Kevis, High Priestess of Bane and emissary of Zhentil Keep.  It appears that the reports were true: the force that cost us Darkhold would be here, as would the pathetic opposition you might expect--self-important knights of Sune and a group of adventurers.  Surrender yourselves, <i>all of you</i>, or you will all perish.",
+                                                  "IsExpanded": true,
+                                                  "subNodes": [
+                                                    {
+                                                      "idNum": 12,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "Why do you come here?  This place is holy to Sune.  Bane cannot touch it.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 13,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "We come here for revenge.  We also mean to recapture Darkhold: this is to be the first stroke of many.  The quarrel we have with the group that calls itself the Risen Sun does not include you--or, at least, it <i>didn't</i>.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 14,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 15,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 0,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "[<i>Shouting to the force opposite her own.</i>]  Sun-worshippers!  Hypocrites!  Deceivers!  What have <i>you</i> to say for yourselves?",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [
+                                                                    {
+                                                                      "idNum": 16,
+                                                                      "orderNum": 0,
+                                                                      "pcNode": true,
+                                                                      "linkTo": 0,
+                                                                      "ShowOnlyOnce": false,
+                                                                      "NodeIsActive": true,
+                                                                      "NodePortraitBitmap": "",
+                                                                      "NodeNpcName": "",
+                                                                      "NodeSound": "none",
+                                                                      "conversationText": "",
+                                                                      "IsExpanded": true,
+                                                                      "subNodes": [
+                                                                        {
+                                                                          "idNum": 17,
+                                                                          "orderNum": 0,
+                                                                          "pcNode": false,
+                                                                          "linkTo": 0,
+                                                                          "ShowOnlyOnce": false,
+                                                                          "NodeIsActive": true,
+                                                                          "NodePortraitBitmap": "",
+                                                                          "NodeNpcName": "",
+                                                                          "NodeSound": "none",
+                                                                          "conversationText": "[<i>The Risen Sun remains silent as an old, bent man walks through their ranks to the front of the line.</i>]|***ga_move-->String::theophilus_wp1    Int::0    String::theophilus    ***ga_music_stop-->|",
+                                                                          "IsExpanded": true,
+                                                                          "subNodes": [
+                                                                            {
+                                                                              "idNum": 18,
+                                                                              "orderNum": 0,
+                                                                              "pcNode": true,
+                                                                              "linkTo": 0,
+                                                                              "ShowOnlyOnce": false,
+                                                                              "NodeIsActive": true,
+                                                                              "NodePortraitBitmap": "",
+                                                                              "NodeNpcName": "",
+                                                                              "NodeSound": "none",
+                                                                              "conversationText": "",
+                                                                              "IsExpanded": true,
+                                                                              "subNodes": [
+                                                                                {
+                                                                                  "idNum": 19,
+                                                                                  "orderNum": 0,
+                                                                                  "pcNode": false,
+                                                                                  "linkTo": 0,
+                                                                                  "ShowOnlyOnce": false,
+                                                                                  "NodeIsActive": true,
+                                                                                  "NodePortraitBitmap": "",
+                                                                                  "NodeNpcName": "",
+                                                                                  "NodeSound": "none",
+                                                                                  "conversationText": "[<i>The voice of the man is gentle, almost a whisper, but somehow it carries across the clearing.</i>]  I am called Theophilus, Sunlord of Amaunator.  Why do you trouble us, dwellers in the shadow?  You have no claim to this place, as these good knights to my right believe they do.",
+                                                                                  "IsExpanded": true,
+                                                                                  "subNodes": [
+                                                                                    {
+                                                                                      "idNum": 20,
+                                                                                      "orderNum": 0,
+                                                                                      "pcNode": true,
+                                                                                      "linkTo": 0,
+                                                                                      "ShowOnlyOnce": false,
+                                                                                      "NodeIsActive": true,
+                                                                                      "NodePortraitBitmap": "",
+                                                                                      "NodeNpcName": "",
+                                                                                      "NodeSound": "none",
+                                                                                      "conversationText": "",
+                                                                                      "IsExpanded": true,
+                                                                                      "subNodes": [
+                                                                                        {
+                                                                                          "idNum": 21,
+                                                                                          "orderNum": 0,
+                                                                                          "pcNode": false,
+                                                                                          "linkTo": 0,
+                                                                                          "ShowOnlyOnce": false,
+                                                                                          "NodeIsActive": true,
+                                                                                          "NodePortraitBitmap": "",
+                                                                                          "NodeNpcName": "",
+                                                                                          "NodeSound": "none",
+                                                                                          "conversationText": "You will answer for taking Darkhold from us!",
+                                                                                          "IsExpanded": true,
+                                                                                          "subNodes": [
+                                                                                            {
+                                                                                              "idNum": 22,
+                                                                                              "orderNum": 0,
+                                                                                              "pcNode": true,
+                                                                                              "linkTo": 0,
+                                                                                              "ShowOnlyOnce": false,
+                                                                                              "NodeIsActive": true,
+                                                                                              "NodePortraitBitmap": "",
+                                                                                              "NodeNpcName": "",
+                                                                                              "NodeSound": "none",
+                                                                                              "conversationText": "",
+                                                                                              "IsExpanded": true,
+                                                                                              "subNodes": [
+                                                                                                {
+                                                                                                  "idNum": 23,
+                                                                                                  "orderNum": 0,
+                                                                                                  "pcNode": false,
+                                                                                                  "linkTo": 0,
+                                                                                                  "ShowOnlyOnce": false,
+                                                                                                  "NodeIsActive": true,
+                                                                                                  "NodePortraitBitmap": "",
+                                                                                                  "NodeNpcName": "",
+                                                                                                  "NodeSound": "none",
+                                                                                                  "conversationText": "Nay, you poor, unrepentant woman.  Darkhold--<i>Sunhold</i>, as we prefer to call it now, was given to us.  [<i>Sweetly, quietly.</i>]  Did not your own evil work against you?  Did not the jealousy between yourselves and the worshippers of that other demon relinquish the fortress to us in your stead?",
+                                                                                                  "IsExpanded": true,
+                                                                                                  "subNodes": [
+                                                                                                    {
+                                                                                                      "idNum": 24,
+                                                                                                      "orderNum": 0,
+                                                                                                      "pcNode": true,
+                                                                                                      "linkTo": 0,
+                                                                                                      "ShowOnlyOnce": false,
+                                                                                                      "NodeIsActive": true,
+                                                                                                      "NodePortraitBitmap": "",
+                                                                                                      "NodeNpcName": "",
+                                                                                                      "NodeSound": "none",
+                                                                                                      "conversationText": "",
+                                                                                                      "IsExpanded": true,
+                                                                                                      "subNodes": [
+                                                                                                        {
+                                                                                                          "idNum": 25,
+                                                                                                          "orderNum": 0,
+                                                                                                          "pcNode": false,
+                                                                                                          "linkTo": 0,
+                                                                                                          "ShowOnlyOnce": false,
+                                                                                                          "NodeIsActive": true,
+                                                                                                          "NodePortraitBitmap": "",
+                                                                                                          "NodeNpcName": "",
+                                                                                                          "NodeSound": "none",
+                                                                                                          "conversationText": "Turn around, my child, but do not turn around in the darkness.  Look to the light, learn from it.",
+                                                                                                          "IsExpanded": true,
+                                                                                                          "subNodes": [
+                                                                                                            {
+                                                                                                              "idNum": 26,
+                                                                                                              "orderNum": 0,
+                                                                                                              "pcNode": true,
+                                                                                                              "linkTo": 0,
+                                                                                                              "ShowOnlyOnce": false,
+                                                                                                              "NodeIsActive": true,
+                                                                                                              "NodePortraitBitmap": "",
+                                                                                                              "NodeNpcName": "",
+                                                                                                              "NodeSound": "none",
+                                                                                                              "conversationText": "",
+                                                                                                              "IsExpanded": true,
+                                                                                                              "subNodes": [
+                                                                                                                {
+                                                                                                                  "idNum": 27,
+                                                                                                                  "orderNum": 0,
+                                                                                                                  "pcNode": false,
+                                                                                                                  "linkTo": 0,
+                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                  "NodeIsActive": true,
+                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                  "NodeNpcName": "",
+                                                                                                                  "NodeSound": "none",
+                                                                                                                  "conversationText": "As for you, good knights and good adventurers--Might you not consider turning around yourselves?  This place is blessed by Amaunator, by the Risen Sun himself.  Your goddess--[<i>Smiling</i>]--Why do you call her a goddess, when she is but the angel of Amaunator?--has kept this spot for <i>him</i>.  ",
+                                                                                                                  "IsExpanded": true,
+                                                                                                                  "subNodes": [
+                                                                                                                    {
+                                                                                                                      "idNum": 28,
+                                                                                                                      "orderNum": 0,
+                                                                                                                      "pcNode": true,
+                                                                                                                      "linkTo": 0,
+                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                      "NodeIsActive": true,
+                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                      "NodeNpcName": "",
+                                                                                                                      "NodeSound": "none",
+                                                                                                                      "conversationText": "",
+                                                                                                                      "IsExpanded": true,
+                                                                                                                      "subNodes": [
+                                                                                                                        {
+                                                                                                                          "idNum": 29,
+                                                                                                                          "orderNum": 0,
+                                                                                                                          "pcNode": false,
+                                                                                                                          "linkTo": 0,
+                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                          "NodeIsActive": true,
+                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                          "NodeNpcName": "",
+                                                                                                                          "NodeSound": "none",
+                                                                                                                          "conversationText": "No, Theophilus.  You are misled.  The Flame Stone is a symbol of the link between Faerun and the realm of the divine, between earthly love and heavenly love.  It belongs neither to Bane's forces of tyranny nor this ancient god of yours.",
+                                                                                                                          "IsExpanded": true,
+                                                                                                                          "subNodes": [
+                                                                                                                            {
+                                                                                                                              "idNum": 30,
+                                                                                                                              "orderNum": 0,
+                                                                                                                              "pcNode": true,
+                                                                                                                              "linkTo": 0,
+                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                              "NodeIsActive": true,
+                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                              "NodeNpcName": "",
+                                                                                                                              "NodeSound": "none",
+                                                                                                                              "conversationText": "Indeed, Theophilus.  You may have your beliefs, but you cannot impose them on those who have held this ground for centuries.",
+                                                                                                                              "IsExpanded": true,
+                                                                                                                              "subNodes": [
+                                                                                                                                {
+                                                                                                                                  "idNum": 31,
+                                                                                                                                  "orderNum": 0,
+                                                                                                                                  "pcNode": false,
+                                                                                                                                  "linkTo": 0,
+                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                  "NodeSound": "none",
+                                                                                                                                  "conversationText": "Is there some king or prince to whom I should make supplication?  Does this land belong to any realm?  If not, then on whom can I call except Amaunator?",
+                                                                                                                                  "IsExpanded": true,
+                                                                                                                                  "subNodes": [
+                                                                                                                                    {
+                                                                                                                                      "idNum": 32,
+                                                                                                                                      "orderNum": 0,
+                                                                                                                                      "pcNode": true,
+                                                                                                                                      "linkTo": 0,
+                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                      "NodeSound": "none",
+                                                                                                                                      "conversationText": "",
+                                                                                                                                      "IsExpanded": true,
+                                                                                                                                      "subNodes": [
+                                                                                                                                        {
+                                                                                                                                          "idNum": 99999,
+                                                                                                                                          "orderNum": 0,
+                                                                                                                                          "pcNode": false,
+                                                                                                                                          "linkTo": 39,
+                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                          "NodeSound": "none",
+                                                                                                                                          "conversationText": "",
+                                                                                                                                          "IsExpanded": true,
+                                                                                                                                          "subNodes": [],
+                                                                                                                                          "actions": [],
+                                                                                                                                          "conditions": [],
+                                                                                                                                          "isLink": true
+                                                                                                                                        }
+                                                                                                                                      ],
+                                                                                                                                      "actions": [],
+                                                                                                                                      "conditions": [],
+                                                                                                                                      "isLink": false
+                                                                                                                                    }
+                                                                                                                                  ],
+                                                                                                                                  "actions": [],
+                                                                                                                                  "conditions": [],
+                                                                                                                                  "isLink": false
+                                                                                                                                }
+                                                                                                                              ],
+                                                                                                                              "actions": [],
+                                                                                                                              "conditions": [],
+                                                                                                                              "isLink": false
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "idNum": 34,
+                                                                                                                              "orderNum": 0,
+                                                                                                                              "pcNode": true,
+                                                                                                                              "linkTo": 0,
+                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                              "NodeIsActive": true,
+                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                              "NodeNpcName": "",
+                                                                                                                              "NodeSound": "none",
+                                                                                                                              "conversationText": "We are not fools.  You come here armed; you do not mean to talk us out of this; nor will we yield in any way.",
+                                                                                                                              "IsExpanded": true,
+                                                                                                                              "subNodes": [
+                                                                                                                                {
+                                                                                                                                  "idNum": 35,
+                                                                                                                                  "orderNum": 0,
+                                                                                                                                  "pcNode": false,
+                                                                                                                                  "linkTo": 0,
+                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                  "NodeSound": "none",
+                                                                                                                                  "conversationText": "I concede that the arms of men are but toys, and the wars of men disgraceful.  But there is no dignity except in serving Amaunator, and because this place is holy to him, our warfare, too, is holy and dignified.  <i>Is</i> there a peaceful solution to this disagreement?",
+                                                                                                                                  "IsExpanded": true,
+                                                                                                                                  "subNodes": [
+                                                                                                                                    {
+                                                                                                                                      "idNum": 36,
+                                                                                                                                      "orderNum": 0,
+                                                                                                                                      "pcNode": true,
+                                                                                                                                      "linkTo": 0,
+                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                      "NodeSound": "none",
+                                                                                                                                      "conversationText": "",
+                                                                                                                                      "IsExpanded": true,
+                                                                                                                                      "subNodes": [
+                                                                                                                                        {
+                                                                                                                                          "idNum": 100000,
+                                                                                                                                          "orderNum": 0,
+                                                                                                                                          "pcNode": false,
+                                                                                                                                          "linkTo": 31,
+                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                          "NodeSound": "none",
+                                                                                                                                          "conversationText": "",
+                                                                                                                                          "IsExpanded": true,
+                                                                                                                                          "subNodes": [],
+                                                                                                                                          "actions": [],
+                                                                                                                                          "conditions": [],
+                                                                                                                                          "isLink": true
+                                                                                                                                        }
+                                                                                                                                      ],
+                                                                                                                                      "actions": [],
+                                                                                                                                      "conditions": [],
+                                                                                                                                      "isLink": false
+                                                                                                                                    }
+                                                                                                                                  ],
+                                                                                                                                  "actions": [],
+                                                                                                                                  "conditions": [],
+                                                                                                                                  "isLink": false
+                                                                                                                                }
+                                                                                                                              ],
+                                                                                                                              "actions": [],
+                                                                                                                              "conditions": [],
+                                                                                                                              "isLink": false
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                              "idNum": 38,
+                                                                                                                              "orderNum": 0,
+                                                                                                                              "pcNode": true,
+                                                                                                                              "linkTo": 0,
+                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                              "NodeIsActive": true,
+                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                              "NodeNpcName": "",
+                                                                                                                              "NodeSound": "none",
+                                                                                                                              "conversationText": "[<i>Remain silent.</i>]",
+                                                                                                                              "IsExpanded": true,
+                                                                                                                              "subNodes": [
+                                                                                                                                {
+                                                                                                                                  "idNum": 39,
+                                                                                                                                  "orderNum": 0,
+                                                                                                                                  "pcNode": false,
+                                                                                                                                  "linkTo": 0,
+                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                  "NodeSound": "none",
+                                                                                                                                  "conversationText": "[<i>To Ianth, pointedly.</i>]  There is no earthly love, Milady.  There is only the love that surpasses the love of man; all else is a mockery, and is bound to lead us astray.  The fire that has burned out shows the subservience of earthly love to that of the spirit--<i>to that of Amaunator</i>.",
+                                                                                                                                  "IsExpanded": true,
+                                                                                                                                  "subNodes": [
+                                                                                                                                    {
+                                                                                                                                      "idNum": 40,
+                                                                                                                                      "orderNum": 0,
+                                                                                                                                      "pcNode": true,
+                                                                                                                                      "linkTo": 0,
+                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                      "NodeSound": "none",
+                                                                                                                                      "conversationText": "|***ga_create_obj-->String::C    String::manfred    String::manfred_fin_wp    Int::1    String::manfred_fin    Float::0    |",
+                                                                                                                                      "IsExpanded": true,
+                                                                                                                                      "subNodes": [
+                                                                                                                                        {
+                                                                                                                                          "idNum": 41,
+                                                                                                                                          "orderNum": 0,
+                                                                                                                                          "pcNode": false,
+                                                                                                                                          "linkTo": 0,
+                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                          "NodeSound": "none",
+                                                                                                                                          "conversationText": "[<i>A new figure appears at the western edge of the circle.  You recognize your fellow Harper, Manfred.</i>]||***ga_music_play-->***gc_has_feat-->NOT::False    String::    Int::16778915    Int::0    ||",
+                                                                                                                                          "IsExpanded": true,
+                                                                                                                                          "subNodes": [
+                                                                                                                                            {
+                                                                                                                                              "idNum": 42,
+                                                                                                                                              "orderNum": 0,
+                                                                                                                                              "pcNode": true,
+                                                                                                                                              "linkTo": 0,
+                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                              "NodeSound": "none",
+                                                                                                                                              "conversationText": "",
+                                                                                                                                              "IsExpanded": true,
+                                                                                                                                              "subNodes": [
+                                                                                                                                                {
+                                                                                                                                                  "idNum": 43,
+                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                  "pcNode": false,
+                                                                                                                                                  "linkTo": 0,
+                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                  "conversationText": "[<i>Vroman blurts out--</i>]  My brother!  I knew I would see you again before long--",
+                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                  "subNodes": [
+                                                                                                                                                    {
+                                                                                                                                                      "idNum": 44,
+                                                                                                                                                      "orderNum": 0,
+                                                                                                                                                      "pcNode": true,
+                                                                                                                                                      "linkTo": 0,
+                                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                                      "NodeSound": "none",
+                                                                                                                                                      "conversationText": "",
+                                                                                                                                                      "IsExpanded": true,
+                                                                                                                                                      "subNodes": [
+                                                                                                                                                        {
+                                                                                                                                                          "idNum": 45,
+                                                                                                                                                          "orderNum": 0,
+                                                                                                                                                          "pcNode": false,
+                                                                                                                                                          "linkTo": 0,
+                                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                                          "NodeSound": "none",
+                                                                                                                                                          "conversationText": "[<i>Turning with sudden quickness and fierceness.</i>]  The Harper?  The diviner?  Here?!  Oh, Amaunator, this day is indeed blessed.  [<i>As he begins to enter the circle to approach Manfred, Theophilus stops.</i>]",
+                                                                                                                                                          "IsExpanded": true,
+                                                                                                                                                          "subNodes": [
+                                                                                                                                                            {
+                                                                                                                                                              "idNum": 46,
+                                                                                                                                                              "orderNum": 0,
+                                                                                                                                                              "pcNode": true,
+                                                                                                                                                              "linkTo": 0,
+                                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                                              "NodeSound": "none",
+                                                                                                                                                              "conversationText": "",
+                                                                                                                                                              "IsExpanded": true,
+                                                                                                                                                              "subNodes": [
+                                                                                                                                                                {
+                                                                                                                                                                  "idNum": 47,
+                                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                                  "pcNode": false,
+                                                                                                                                                                  "linkTo": 0,
+                                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                                  "conversationText": "All enemies of Sune who enter this circle will perish.  Turn back.  All of you--Banites, Amaunatori!--all of you who are not friends of the goddess or the Balance.  You will burn on entering this ring.",
+                                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                                  "subNodes": [
+                                                                                                                                                                    {
+                                                                                                                                                                      "idNum": 48,
+                                                                                                                                                                      "orderNum": 0,
+                                                                                                                                                                      "pcNode": true,
+                                                                                                                                                                      "linkTo": 0,
+                                                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                                                      "NodeSound": "none",
+                                                                                                                                                                      "conversationText": "",
+                                                                                                                                                                      "IsExpanded": true,
+                                                                                                                                                                      "subNodes": [
+                                                                                                                                                                        {
+                                                                                                                                                                          "idNum": 49,
+                                                                                                                                                                          "orderNum": 0,
+                                                                                                                                                                          "pcNode": false,
+                                                                                                                                                                          "linkTo": 0,
+                                                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                                                          "NodeSound": "none",
+                                                                                                                                                                          "conversationText": "[<i>Theophilus frowns, but then his countenance once more appears benevolent and placid.</i>]  Ah, my child.  This is what you say--",
+                                                                                                                                                                          "IsExpanded": true,
+                                                                                                                                                                          "subNodes": [
+                                                                                                                                                                            {
+                                                                                                                                                                              "idNum": 50,
+                                                                                                                                                                              "orderNum": 0,
+                                                                                                                                                                              "pcNode": true,
+                                                                                                                                                                              "linkTo": 0,
+                                                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                                                              "NodeSound": "none",
+                                                                                                                                                                              "conversationText": "",
+                                                                                                                                                                              "IsExpanded": true,
+                                                                                                                                                                              "subNodes": [
+                                                                                                                                                                                {
+                                                                                                                                                                                  "idNum": 51,
+                                                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                                                  "pcNode": false,
+                                                                                                                                                                                  "linkTo": 0,
+                                                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                                                  "conversationText": "And yet I walk on grass as cold and dewy as any that covers Faerun.  No fire descends upon me, no wrathful goddess of love undoes me.  There is no fire but Amaunator's; no <i>love</i> but his.|***ga_move-->String::theo_dest_wp    Int::0    String::theophilus    |",
+                                                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                                                  "subNodes": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                      "idNum": 52,
+                                                                                                                                                                                      "orderNum": 0,
+                                                                                                                                                                                      "pcNode": true,
+                                                                                                                                                                                      "linkTo": 0,
+                                                                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                                                                      "NodeSound": "none",
+                                                                                                                                                                                      "conversationText": "",
+                                                                                                                                                                                      "IsExpanded": true,
+                                                                                                                                                                                      "subNodes": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                          "idNum": 53,
+                                                                                                                                                                                          "orderNum": 0,
+                                                                                                                                                                                          "pcNode": false,
+                                                                                                                                                                                          "linkTo": 0,
+                                                                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                                                                          "NodeSound": "none",
+                                                                                                                                                                                          "conversationText": "And <i>you</i> have something that belongs to him.  [<i>As Theophilus points at Manfred, Sune's Stag Warriors burst into flame.</i>]|***stagwarriors_d-->|",
+                                                                                                                                                                                          "IsExpanded": true,
+                                                                                                                                                                                          "subNodes": [
+                                                                                                                                                                                            {
+                                                                                                                                                                                              "idNum": 54,
+                                                                                                                                                                                              "orderNum": 0,
+                                                                                                                                                                                              "pcNode": true,
+                                                                                                                                                                                              "linkTo": 0,
+                                                                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                                                                              "NodeSound": "none",
+                                                                                                                                                                                              "conversationText": "",
+                                                                                                                                                                                              "IsExpanded": true,
+                                                                                                                                                                                              "subNodes": [
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  "idNum": 55,
+                                                                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                                                                  "pcNode": false,
+                                                                                                                                                                                                  "linkTo": 0,
+                                                                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                                                                  "conversationText": "No.  I have given it up.  In a matter of moments, I will be dead--I will rest at long last.",
+                                                                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                                                                  "subNodes": [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      "idNum": 56,
+                                                                                                                                                                                                      "orderNum": 0,
+                                                                                                                                                                                                      "pcNode": true,
+                                                                                                                                                                                                      "linkTo": 0,
+                                                                                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                                                                                      "NodeSound": "none",
+                                                                                                                                                                                                      "conversationText": "",
+                                                                                                                                                                                                      "IsExpanded": true,
+                                                                                                                                                                                                      "subNodes": [
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          "idNum": 57,
+                                                                                                                                                                                                          "orderNum": 0,
+                                                                                                                                                                                                          "pcNode": false,
+                                                                                                                                                                                                          "linkTo": 0,
+                                                                                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                                                                                          "NodeSound": "none",
+                                                                                                                                                                                                          "conversationText": "Impossible.  Do not think such lies can fool me.  The Word cannot perish.  If <i>you</i> do, it will be as easy for me to hear as the glorious sun is to see.  [<i>More sweetly.</i>]  If you share it with me, now, as I told you to do so long ago, you will live.  We will <i>all</i> live, by the power of the Word--in the Kingdom of Amaunator!",
+                                                                                                                                                                                                          "IsExpanded": true,
+                                                                                                                                                                                                          "subNodes": [
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              "idNum": 58,
+                                                                                                                                                                                                              "orderNum": 0,
+                                                                                                                                                                                                              "pcNode": true,
+                                                                                                                                                                                                              "linkTo": 0,
+                                                                                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                                                                                              "NodeSound": "none",
+                                                                                                                                                                                                              "conversationText": "",
+                                                                                                                                                                                                              "IsExpanded": true,
+                                                                                                                                                                                                              "subNodes": [
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  "idNum": 59,
+                                                                                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                                                                                  "pcNode": false,
+                                                                                                                                                                                                                  "linkTo": 0,
+                                                                                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                                                                                  "conversationText": "But I have already shared the Word with someone else.  [<i>Manfred looks at you and smiles.  Theophilus follows his gaze.</i>]",
+                                                                                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                                                                                  "subNodes": [
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      "idNum": 60,
+                                                                                                                                                                                                                      "orderNum": 0,
+                                                                                                                                                                                                                      "pcNode": true,
+                                                                                                                                                                                                                      "linkTo": 0,
+                                                                                                                                                                                                                      "ShowOnlyOnce": false,
+                                                                                                                                                                                                                      "NodeIsActive": true,
+                                                                                                                                                                                                                      "NodePortraitBitmap": "",
+                                                                                                                                                                                                                      "NodeNpcName": "",
+                                                                                                                                                                                                                      "NodeSound": "none",
+                                                                                                                                                                                                                      "conversationText": "",
+                                                                                                                                                                                                                      "IsExpanded": true,
+                                                                                                                                                                                                                      "subNodes": [
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          "idNum": 61,
+                                                                                                                                                                                                                          "orderNum": 0,
+                                                                                                                                                                                                                          "pcNode": false,
+                                                                                                                                                                                                                          "linkTo": 0,
+                                                                                                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                                                                                                          "NodeSound": "none",
+                                                                                                                                                                                                                          "conversationText": "[<i>A number of things happen at once: Manfred opens his arms and bursts into flame; Vroman cries out and runs to him; as he does, the scene before you changes drastically.  The troops vanish; only your party and Theophilus remain.  The sky goes grey and then is awash with brilliant light; fires spring up in the grass around you.</i>]|***ga_move-->String::manfred_fin_wp    Int::1    String::vroman    ***manfred_d-->***ga_destroy-->String::fin_zhent_x    Int::-1    Float::0    ***ga_destroy-->String::kevis    Int::0    Float::0    |",
+                                                                                                                                                                                                                          "IsExpanded": true,
+                                                                                                                                                                                                                          "subNodes": [
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              "idNum": 62,
+                                                                                                                                                                                                                              "orderNum": 0,
+                                                                                                                                                                                                                              "pcNode": true,
+                                                                                                                                                                                                                              "linkTo": 0,
+                                                                                                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                                                                                                              "NodeSound": "none",
+                                                                                                                                                                                                                              "conversationText": "|***final_battle-->|",
+                                                                                                                                                                                                                              "IsExpanded": true,
+                                                                                                                                                                                                                              "subNodes": [],
+                                                                                                                                                                                                                              "actions": [
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  "a_script": "final_battle(nonIBscript)",
+                                                                                                                                                                                                                                  "a_parameter_1": null,
+                                                                                                                                                                                                                                  "a_parameter_2": null,
+                                                                                                                                                                                                                                  "a_parameter_3": null,
+                                                                                                                                                                                                                                  "a_parameter_4": null
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                              ],
+                                                                                                                                                                                                                              "conditions": [],
+                                                                                                                                                                                                                              "isLink": false
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                          ],
+                                                                                                                                                                                                                          "actions": [
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              "a_script": "ga_move(nonIBscript)",
+                                                                                                                                                                                                                              "a_parameter_1": "manfred_fin_wp",
+                                                                                                                                                                                                                              "a_parameter_2": "1",
+                                                                                                                                                                                                                              "a_parameter_3": "vroman",
+                                                                                                                                                                                                                              "a_parameter_4": null
+                                                                                                                                                                                                                            },
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              "a_script": "manfred_d(nonIBscript)",
+                                                                                                                                                                                                                              "a_parameter_1": null,
+                                                                                                                                                                                                                              "a_parameter_2": null,
+                                                                                                                                                                                                                              "a_parameter_3": null,
+                                                                                                                                                                                                                              "a_parameter_4": null
+                                                                                                                                                                                                                            },
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              "a_script": "ga_destroy(nonIBscript)",
+                                                                                                                                                                                                                              "a_parameter_1": "fin_zhent_x",
+                                                                                                                                                                                                                              "a_parameter_2": "-1",
+                                                                                                                                                                                                                              "a_parameter_3": "0",
+                                                                                                                                                                                                                              "a_parameter_4": null
+                                                                                                                                                                                                                            },
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              "a_script": "ga_destroy(nonIBscript)",
+                                                                                                                                                                                                                              "a_parameter_1": "kevis",
+                                                                                                                                                                                                                              "a_parameter_2": "0",
+                                                                                                                                                                                                                              "a_parameter_3": "0",
+                                                                                                                                                                                                                              "a_parameter_4": null
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                          ],
+                                                                                                                                                                                                                          "conditions": [],
+                                                                                                                                                                                                                          "isLink": false
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                      ],
+                                                                                                                                                                                                                      "actions": [],
+                                                                                                                                                                                                                      "conditions": [],
+                                                                                                                                                                                                                      "isLink": false
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                  ],
+                                                                                                                                                                                                                  "actions": [],
+                                                                                                                                                                                                                  "conditions": [],
+                                                                                                                                                                                                                  "isLink": false
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                              ],
+                                                                                                                                                                                                              "actions": [],
+                                                                                                                                                                                                              "conditions": [],
+                                                                                                                                                                                                              "isLink": false
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          ],
+                                                                                                                                                                                                          "actions": [],
+                                                                                                                                                                                                          "conditions": [],
+                                                                                                                                                                                                          "isLink": false
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      ],
+                                                                                                                                                                                                      "actions": [],
+                                                                                                                                                                                                      "conditions": [],
+                                                                                                                                                                                                      "isLink": false
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  ],
+                                                                                                                                                                                                  "actions": [],
+                                                                                                                                                                                                  "conditions": [],
+                                                                                                                                                                                                  "isLink": false
+                                                                                                                                                                                                }
+                                                                                                                                                                                              ],
+                                                                                                                                                                                              "actions": [],
+                                                                                                                                                                                              "conditions": [],
+                                                                                                                                                                                              "isLink": false
+                                                                                                                                                                                            }
+                                                                                                                                                                                          ],
+                                                                                                                                                                                          "actions": [
+                                                                                                                                                                                            {
+                                                                                                                                                                                              "a_script": "stagwarriors_d(nonIBscript)",
+                                                                                                                                                                                              "a_parameter_1": null,
+                                                                                                                                                                                              "a_parameter_2": null,
+                                                                                                                                                                                              "a_parameter_3": null,
+                                                                                                                                                                                              "a_parameter_4": null
+                                                                                                                                                                                            }
+                                                                                                                                                                                          ],
+                                                                                                                                                                                          "conditions": [],
+                                                                                                                                                                                          "isLink": false
+                                                                                                                                                                                        }
+                                                                                                                                                                                      ],
+                                                                                                                                                                                      "actions": [],
+                                                                                                                                                                                      "conditions": [],
+                                                                                                                                                                                      "isLink": false
+                                                                                                                                                                                    }
+                                                                                                                                                                                  ],
+                                                                                                                                                                                  "actions": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                      "a_script": "ga_move(nonIBscript)",
+                                                                                                                                                                                      "a_parameter_1": "theo_dest_wp",
+                                                                                                                                                                                      "a_parameter_2": "0",
+                                                                                                                                                                                      "a_parameter_3": "theophilus",
+                                                                                                                                                                                      "a_parameter_4": null
+                                                                                                                                                                                    }
+                                                                                                                                                                                  ],
+                                                                                                                                                                                  "conditions": [],
+                                                                                                                                                                                  "isLink": false
+                                                                                                                                                                                }
+                                                                                                                                                                              ],
+                                                                                                                                                                              "actions": [],
+                                                                                                                                                                              "conditions": [],
+                                                                                                                                                                              "isLink": false
+                                                                                                                                                                            }
+                                                                                                                                                                          ],
+                                                                                                                                                                          "actions": [],
+                                                                                                                                                                          "conditions": [],
+                                                                                                                                                                          "isLink": false
+                                                                                                                                                                        }
+                                                                                                                                                                      ],
+                                                                                                                                                                      "actions": [],
+                                                                                                                                                                      "conditions": [],
+                                                                                                                                                                      "isLink": false
+                                                                                                                                                                    }
+                                                                                                                                                                  ],
+                                                                                                                                                                  "actions": [],
+                                                                                                                                                                  "conditions": [],
+                                                                                                                                                                  "isLink": false
+                                                                                                                                                                }
+                                                                                                                                                              ],
+                                                                                                                                                              "actions": [],
+                                                                                                                                                              "conditions": [],
+                                                                                                                                                              "isLink": false
+                                                                                                                                                            }
+                                                                                                                                                          ],
+                                                                                                                                                          "actions": [],
+                                                                                                                                                          "conditions": [],
+                                                                                                                                                          "isLink": false
+                                                                                                                                                        }
+                                                                                                                                                      ],
+                                                                                                                                                      "actions": [],
+                                                                                                                                                      "conditions": [],
+                                                                                                                                                      "isLink": false
+                                                                                                                                                    }
+                                                                                                                                                  ],
+                                                                                                                                                  "actions": [],
+                                                                                                                                                  "conditions": [],
+                                                                                                                                                  "isLink": false
+                                                                                                                                                }
+                                                                                                                                              ],
+                                                                                                                                              "actions": [],
+                                                                                                                                              "conditions": [],
+                                                                                                                                              "isLink": false
+                                                                                                                                            }
+                                                                                                                                          ],
+                                                                                                                                          "actions": [
+                                                                                                                                            {
+                                                                                                                                              "a_script": "ga_music_play(nonIBscript)",
+                                                                                                                                              "a_parameter_1": null,
+                                                                                                                                              "a_parameter_2": null,
+                                                                                                                                              "a_parameter_3": null,
+                                                                                                                                              "a_parameter_4": null
+                                                                                                                                            }
+                                                                                                                                          ],
+                                                                                                                                          "conditions": [
+                                                                                                                                            {
+                                                                                                                                              "c_script": "gc_has_feat(nonIBscript)",
+                                                                                                                                              "c_btnAndOr": null,
+                                                                                                                                              "c_and": false,
+                                                                                                                                              "c_not": false,
+                                                                                                                                              "c_parameter_1": "",
+                                                                                                                                              "c_parameter_2": "16778915",
+                                                                                                                                              "c_parameter_3": "0",
+                                                                                                                                              "c_parameter_4": null
+                                                                                                                                            }
+                                                                                                                                          ],
+                                                                                                                                          "isLink": false
+                                                                                                                                        },
+                                                                                                                                        {
+                                                                                                                                          "idNum": 63,
+                                                                                                                                          "orderNum": 0,
+                                                                                                                                          "pcNode": false,
+                                                                                                                                          "linkTo": 0,
+                                                                                                                                          "ShowOnlyOnce": false,
+                                                                                                                                          "NodeIsActive": true,
+                                                                                                                                          "NodePortraitBitmap": "",
+                                                                                                                                          "NodeNpcName": "",
+                                                                                                                                          "NodeSound": "none",
+                                                                                                                                          "conversationText": "[<i>A new figure appears at the western edge of the circle.  It is Manfred.</i>]|***ga_music_play-->|",
+                                                                                                                                          "IsExpanded": true,
+                                                                                                                                          "subNodes": [
+                                                                                                                                            {
+                                                                                                                                              "idNum": 64,
+                                                                                                                                              "orderNum": 0,
+                                                                                                                                              "pcNode": true,
+                                                                                                                                              "linkTo": 0,
+                                                                                                                                              "ShowOnlyOnce": false,
+                                                                                                                                              "NodeIsActive": true,
+                                                                                                                                              "NodePortraitBitmap": "",
+                                                                                                                                              "NodeNpcName": "",
+                                                                                                                                              "NodeSound": "none",
+                                                                                                                                              "conversationText": "",
+                                                                                                                                              "IsExpanded": true,
+                                                                                                                                              "subNodes": [
+                                                                                                                                                {
+                                                                                                                                                  "idNum": 100001,
+                                                                                                                                                  "orderNum": 0,
+                                                                                                                                                  "pcNode": false,
+                                                                                                                                                  "linkTo": 43,
+                                                                                                                                                  "ShowOnlyOnce": false,
+                                                                                                                                                  "NodeIsActive": true,
+                                                                                                                                                  "NodePortraitBitmap": "",
+                                                                                                                                                  "NodeNpcName": "",
+                                                                                                                                                  "NodeSound": "none",
+                                                                                                                                                  "conversationText": "",
+                                                                                                                                                  "IsExpanded": true,
+                                                                                                                                                  "subNodes": [],
+                                                                                                                                                  "actions": [],
+                                                                                                                                                  "conditions": [],
+                                                                                                                                                  "isLink": true
+                                                                                                                                                }
+                                                                                                                                              ],
+                                                                                                                                              "actions": [],
+                                                                                                                                              "conditions": [],
+                                                                                                                                              "isLink": false
+                                                                                                                                            }
+                                                                                                                                          ],
+                                                                                                                                          "actions": [
+                                                                                                                                            {
+                                                                                                                                              "a_script": "ga_music_play(nonIBscript)",
+                                                                                                                                              "a_parameter_1": null,
+                                                                                                                                              "a_parameter_2": null,
+                                                                                                                                              "a_parameter_3": null,
+                                                                                                                                              "a_parameter_4": null
+                                                                                                                                            }
+                                                                                                                                          ],
+                                                                                                                                          "conditions": [],
+                                                                                                                                          "isLink": false
+                                                                                                                                        }
+                                                                                                                                      ],
+                                                                                                                                      "actions": [
+                                                                                                                                        {
+                                                                                                                                          "a_script": "ga_create_obj(nonIBscript)",
+                                                                                                                                          "a_parameter_1": "C",
+                                                                                                                                          "a_parameter_2": "manfred",
+                                                                                                                                          "a_parameter_3": "manfred_fin_wp",
+                                                                                                                                          "a_parameter_4": "1"
+                                                                                                                                        }
+                                                                                                                                      ],
+                                                                                                                                      "conditions": [],
+                                                                                                                                      "isLink": false
+                                                                                                                                    }
+                                                                                                                                  ],
+                                                                                                                                  "actions": [],
+                                                                                                                                  "conditions": [],
+                                                                                                                                  "isLink": false
+                                                                                                                                }
+                                                                                                                              ],
+                                                                                                                              "actions": [],
+                                                                                                                              "conditions": [],
+                                                                                                                              "isLink": false
+                                                                                                                            }
+                                                                                                                          ],
+                                                                                                                          "actions": [],
+                                                                                                                          "conditions": [],
+                                                                                                                          "isLink": false
+                                                                                                                        }
+                                                                                                                      ],
+                                                                                                                      "actions": [],
+                                                                                                                      "conditions": [],
+                                                                                                                      "isLink": false
+                                                                                                                    }
+                                                                                                                  ],
+                                                                                                                  "actions": [],
+                                                                                                                  "conditions": [],
+                                                                                                                  "isLink": false
+                                                                                                                }
+                                                                                                              ],
+                                                                                                              "actions": [],
+                                                                                                              "conditions": [],
+                                                                                                              "isLink": false
+                                                                                                            }
+                                                                                                          ],
+                                                                                                          "actions": [],
+                                                                                                          "conditions": [],
+                                                                                                          "isLink": false
+                                                                                                        }
+                                                                                                      ],
+                                                                                                      "actions": [],
+                                                                                                      "conditions": [],
+                                                                                                      "isLink": false
+                                                                                                    }
+                                                                                                  ],
+                                                                                                  "actions": [],
+                                                                                                  "conditions": [],
+                                                                                                  "isLink": false
+                                                                                                }
+                                                                                              ],
+                                                                                              "actions": [],
+                                                                                              "conditions": [],
+                                                                                              "isLink": false
+                                                                                            }
+                                                                                          ],
+                                                                                          "actions": [],
+                                                                                          "conditions": [],
+                                                                                          "isLink": false
+                                                                                        }
+                                                                                      ],
+                                                                                      "actions": [],
+                                                                                      "conditions": [],
+                                                                                      "isLink": false
+                                                                                    }
+                                                                                  ],
+                                                                                  "actions": [],
+                                                                                  "conditions": [],
+                                                                                  "isLink": false
+                                                                                }
+                                                                              ],
+                                                                              "actions": [],
+                                                                              "conditions": [],
+                                                                              "isLink": false
+                                                                            }
+                                                                          ],
+                                                                          "actions": [
+                                                                            {
+                                                                              "a_script": "ga_move(nonIBscript)",
+                                                                              "a_parameter_1": "theophilus_wp1",
+                                                                              "a_parameter_2": "0",
+                                                                              "a_parameter_3": "theophilus",
+                                                                              "a_parameter_4": null
+                                                                            },
+                                                                            {
+                                                                              "a_script": "ga_music_stop(nonIBscript)",
+                                                                              "a_parameter_1": null,
+                                                                              "a_parameter_2": null,
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            }
+                                                                          ],
+                                                                          "conditions": [],
+                                                                          "isLink": false
+                                                                        }
+                                                                      ],
+                                                                      "actions": [],
+                                                                      "conditions": [],
+                                                                      "isLink": false
+                                                                    }
+                                                                  ],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": false
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 66,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "You vile bitch.  Flee--you and all of your fawning soldiers!--, or you shall be the first to fall.",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 67,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 0,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "I will take your head myself for saying so, fool.  You were hardly a part of the quarrel we have with the group that calls itself the Risen Sun.  The misstep that brought you here at this hour was your last.",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [
+                                                            {
+                                                              "idNum": 68,
+                                                              "orderNum": 0,
+                                                              "pcNode": true,
+                                                              "linkTo": 0,
+                                                              "ShowOnlyOnce": false,
+                                                              "NodeIsActive": true,
+                                                              "NodePortraitBitmap": "",
+                                                              "NodeNpcName": "",
+                                                              "NodeSound": "none",
+                                                              "conversationText": "",
+                                                              "IsExpanded": true,
+                                                              "subNodes": [
+                                                                {
+                                                                  "idNum": 100002,
+                                                                  "orderNum": 0,
+                                                                  "pcNode": false,
+                                                                  "linkTo": 15,
+                                                                  "ShowOnlyOnce": false,
+                                                                  "NodeIsActive": true,
+                                                                  "NodePortraitBitmap": "",
+                                                                  "NodeNpcName": "",
+                                                                  "NodeSound": "none",
+                                                                  "conversationText": "",
+                                                                  "IsExpanded": true,
+                                                                  "subNodes": [],
+                                                                  "actions": [],
+                                                                  "conditions": [],
+                                                                  "isLink": true
+                                                                }
+                                                              ],
+                                                              "actions": [],
+                                                              "conditions": [],
+                                                              "isLink": false
+                                                            }
+                                                          ],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": false
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    },
+                                                    {
+                                                      "idNum": 70,
+                                                      "orderNum": 0,
+                                                      "pcNode": true,
+                                                      "linkTo": 0,
+                                                      "ShowOnlyOnce": false,
+                                                      "NodeIsActive": true,
+                                                      "NodePortraitBitmap": "",
+                                                      "NodeNpcName": "",
+                                                      "NodeSound": "none",
+                                                      "conversationText": "[<i>Remain silent.</i>]",
+                                                      "IsExpanded": true,
+                                                      "subNodes": [
+                                                        {
+                                                          "idNum": 100003,
+                                                          "orderNum": 0,
+                                                          "pcNode": false,
+                                                          "linkTo": 15,
+                                                          "ShowOnlyOnce": false,
+                                                          "NodeIsActive": true,
+                                                          "NodePortraitBitmap": "",
+                                                          "NodeNpcName": "",
+                                                          "NodeSound": "none",
+                                                          "conversationText": "",
+                                                          "IsExpanded": true,
+                                                          "subNodes": [],
+                                                          "actions": [],
+                                                          "conditions": [],
+                                                          "isLink": true
+                                                        }
+                                                      ],
+                                                      "actions": [],
+                                                      "conditions": [],
+                                                      "isLink": false
+                                                    }
+                                                  ],
+                                                  "actions": [],
+                                                  "conditions": [],
+                                                  "isLink": false
+                                                }
+                                              ],
+                                              "actions": [],
+                                              "conditions": [],
+                                              "isLink": false
+                                            }
+                                          ],
+                                          "actions": [],
+                                          "conditions": [],
+                                          "isLink": false
+                                        }
+                                      ],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [
+                                    {
+                                      "a_script": "(nonIBscript)",
+                                      "a_parameter_1": null,
+                                      "a_parameter_2": null,
+                                      "a_parameter_3": null,
+                                      "a_parameter_4": null
+                                    }
+                                  ],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [
+                            {
+                              "a_script": "ga_fade_from_black(nonIBscript)",
+                              "a_parameter_1": "4",
+                              "a_parameter_2": null,
+                              "a_parameter_3": null,
+                              "a_parameter_4": null
+                            }
+                          ],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "ga_fade_from_black(nonIBscript)",
+                      "a_parameter_1": "4",
+                      "a_parameter_2": null,
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "gaAddJournalEntryByTag.cs",
+              "a_parameter_1": "Q_MANFRED",
+              "a_parameter_2": "95",
+              "a_parameter_3": "0",
+              "a_parameter_4": "0"
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "final_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 71
+}

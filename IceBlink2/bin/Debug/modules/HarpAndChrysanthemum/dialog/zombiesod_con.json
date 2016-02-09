@@ -1,0 +1,697 @@
+{
+  "subNodes": [
+    {
+      "idNum": 0,
+      "orderNum": 0,
+      "pcNode": true,
+      "linkTo": 0,
+      "ShowOnlyOnce": false,
+      "NodeIsActive": true,
+      "NodePortraitBitmap": "",
+      "NodeNpcName": "",
+      "NodeSound": "none",
+      "conversationText": "root",
+      "IsExpanded": true,
+      "subNodes": [
+        {
+          "idNum": 1,
+          "orderNum": 0,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "[<i>Peering around the corner into the crypt antechamber, you see that five zombies have appeared! Vroman whispers.</i>]  Where in the Nine Hells did <i>they</i> come from?|***ga_journal-->String::Q_CRYPT    Int::5    Int::0    Int::0    Int::0    |",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<color=green> [Spot] I do not know, but it wasn't from any of these coffins.  They appear undisturbed.</color>|***gc_skill_dc-->NOT::False    Int::23    Int::15    |",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 3,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Quite perceptive.  I noticed the same thing.||***ga_give_xp-->Int::100    Int::0    ***gc_comp_remove-->NOT::False    String::gossam    ||",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 4,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 99999,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 16,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaGiveXP.cs",
+                      "a_parameter_1": "100",
+                      "a_parameter_2": "0",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "c_script": "gc_comp_remove(nonIBscript)",
+                      "c_btnAndOr": null,
+                      "c_and": false,
+                      "c_not": false,
+                      "c_parameter_1": "gossam",
+                      "c_parameter_2": null,
+                      "c_parameter_3": null,
+                      "c_parameter_4": null
+                    }
+                  ],
+                  "isLink": false
+                },
+                {
+                  "idNum": 6,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "An interesting observation.|***ga_give_xp-->Int::100    Int::0    |",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 7,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 100000,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 16,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "",
+                          "IsExpanded": true,
+                          "subNodes": [],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": true
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaGiveXP.cs",
+                      "a_parameter_1": "100",
+                      "a_parameter_2": "0",
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [
+                {
+                  "c_script": "gc_skill_dc(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "23",
+                  "c_parameter_2": "15",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 9,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Not from the Nine Hells, I hope.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 100001,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 16,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                },
+                {
+                  "idNum": 100002,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 18,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 12,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "<color=green> [Spellcraft] I can tell that they were recently summoned.  There is still an aura of necromancy here--those creatures are not native to this crypt.</color>||***ga_global_int-->String::detect_necro    String::1    ***gc_skill_dc-->NOT::False    Int::22    Int::15    ***gc_skill_rank-->NOT::False    Int::22    Int::0    ||",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 100003,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 3,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                },
+                {
+                  "idNum": 100004,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 6,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [
+                {
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "detect_necro",
+                  "a_parameter_2": "1",
+                  "a_parameter_3": null,
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [
+                {
+                  "c_script": "gc_skill_dc(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "22",
+                  "c_parameter_2": "15",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                },
+                {
+                  "c_script": "gc_skill_rank(nonIBscript)",
+                  "c_btnAndOr": null,
+                  "c_and": false,
+                  "c_not": false,
+                  "c_parameter_1": "22",
+                  "c_parameter_2": "0",
+                  "c_parameter_3": null,
+                  "c_parameter_4": null
+                }
+              ],
+              "isLink": false
+            },
+            {
+              "idNum": 15,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "It's hard to say.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 16,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "This is truly strange.  I have been in Drawn Swords for a year, and we have had no trouble with undead--from this crypt or elsewhere.|***gc_comp_remove-->NOT::False    String::ianth    |",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 17,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 18,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "After we're done here, I am sure Brother Anselm would like to know about this.|***gc_comp_remove-->NOT::False    String::gossam    |",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 19,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 20,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "Let us not rush.  These <i>should</i> be easy work for the power of my goddess.|***gc_comp_remove-->NOT::False    String::gossam    |",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 100005,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 24,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": true
+                                    },
+                                    {
+                                      "idNum": 100006,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 25,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": true
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [
+                                    {
+                                      "c_script": "gc_comp_remove(nonIBscript)",
+                                      "c_btnAndOr": null,
+                                      "c_and": false,
+                                      "c_not": false,
+                                      "c_parameter_1": "gossam",
+                                      "c_parameter_2": null,
+                                      "c_parameter_3": null,
+                                      "c_parameter_4": null
+                                    }
+                                  ],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [
+                            {
+                              "c_script": "gc_comp_remove(nonIBscript)",
+                              "c_btnAndOr": null,
+                              "c_and": false,
+                              "c_not": false,
+                              "c_parameter_1": "gossam",
+                              "c_parameter_2": null,
+                              "c_parameter_3": null,
+                              "c_parameter_4": null
+                            }
+                          ],
+                          "isLink": false
+                        },
+                        {
+                          "idNum": 23,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "After we're done here, I am sure Brother Anselm would like to know about this.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 24,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "[<i>Nod and ready your weapon.</i>]  |***ga_faction_join-->String::zombie_idiot1    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot2    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot3    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot4    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot5    String::$HOSTILE    ***ga_destroy-->String::zombiemashtrig    Int::0    Float::0    |",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot1",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot2",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot3",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot4",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot5",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_destroy(nonIBscript)",
+                                  "a_parameter_1": "zombiemashtrig",
+                                  "a_parameter_2": "0",
+                                  "a_parameter_3": "0",
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            },
+                            {
+                              "idNum": 25,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Indeed.  At them!|***ga_faction_join-->String::zombie_idiot1    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot2    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot3    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot4    String::$HOSTILE    ***ga_faction_join-->String::zombie_idiot5    String::$HOSTILE    ***ga_destroy-->String::zombiemashtrig    Int::0    Float::0    |",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot1",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot2",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot3",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot4",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_faction_join(nonIBscript)",
+                                  "a_parameter_1": "zombie_idiot5",
+                                  "a_parameter_2": "$HOSTILE",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "ga_destroy(nonIBscript)",
+                                  "a_parameter_1": "zombiemashtrig",
+                                  "a_parameter_2": "0",
+                                  "a_parameter_3": "0",
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [
+                    {
+                      "c_script": "gc_comp_remove(nonIBscript)",
+                      "c_btnAndOr": null,
+                      "c_and": false,
+                      "c_not": false,
+                      "c_parameter_1": "ianth",
+                      "c_parameter_2": null,
+                      "c_parameter_3": null,
+                      "c_parameter_4": null
+                    }
+                  ],
+                  "isLink": false
+                },
+                {
+                  "idNum": 100007,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 18,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                },
+                {
+                  "idNum": 100008,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 23,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "",
+                  "IsExpanded": true,
+                  "subNodes": [],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": true
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [
+            {
+              "a_script": "gaAddJournalEntryByTag.cs",
+              "a_parameter_1": "Q_CRYPT",
+              "a_parameter_2": "5",
+              "a_parameter_3": "0",
+              "a_parameter_4": "0"
+            }
+          ],
+          "conditions": [],
+          "isLink": false
+        }
+      ],
+      "actions": [],
+      "conditions": [],
+      "isLink": false
+    }
+  ],
+  "ConvoFileName": "zombiesod_con.json",
+  "Narration": false,
+  "PartyChat": false,
+  "SpeakToMainPcOnly": false,
+  "NpcPortraitBitmap": "",
+  "DefaultNpcName": "",
+  "NextIdNum": 26
+}
