@@ -4168,9 +4168,10 @@ namespace IceBlink2
                                 {
                                     gv.mod.currentArea.Props[i].isCurrentlyChasing = true;
                                     gv.mod.currentArea.Props[i].ChaserStartChasingTime = gv.mod.WorldTime;
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Chasing...", "red", 1500);
                                     if (gv.mod.debugMode)
                                     {
-                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
+                                        //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "following you", "red", 4000);
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " start chasing " + gv.mod.currentArea.Props[i].ChaserChaseDuration + " seconds</font><BR>");
                                     }
                                 }
@@ -4181,9 +4182,11 @@ namespace IceBlink2
                                 {
                                     gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
                                     gv.mod.currentArea.Props[i].ReturningToPost = true;
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Lost interest...", "green", 1500);
                                     if (gv.mod.debugMode)
                                     {
-                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
+                                        //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Nevermind...", "green", 1000);
+                                        //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on range</font><BR>");
                                     }
                                 }
@@ -4191,9 +4194,10 @@ namespace IceBlink2
                                 {
                                     gv.mod.currentArea.Props[i].isCurrentlyChasing = false;
                                     gv.mod.currentArea.Props[i].ReturningToPost = true;
+                                    gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i], "Lost interest...", "green", 1500);
                                     if (gv.mod.debugMode)
                                     {
-                                        gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
+                                        //gv.screenMainMap.addFloatyText(gv.mod.currentArea.Props[i].LocationX, gv.mod.currentArea.Props[i].LocationY, "nevermind", "green", 4000);
                                         gv.cc.addLogText("<font color='yellow'>" + gv.mod.currentArea.Props[i].PropTag + " stop chasing on duration</font><BR>");
                                     }
                                 }
@@ -4585,6 +4589,7 @@ namespace IceBlink2
         {
             if (gv.sf.RandInt(100) <= prp.ChanceToMove2Squares)
             {
+                gv.screenMainMap.addFloatyText(prp, "Double move", "yellow", 1500);
                 return 2;
             }
             else if (gv.sf.RandInt(100) <= prp.ChanceToMove0Squares)
