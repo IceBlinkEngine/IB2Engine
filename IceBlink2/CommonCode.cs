@@ -1995,7 +1995,7 @@ namespace IceBlink2
             //code for dispsoing tile graphics
 
             //cull all down if too high value is reached (last resort)
-            if (gv.mod.loadedTileBitmaps.Count > 500)
+            if (gv.mod.loadedTileBitmaps.Count > 250)
             {
                 try
                 {
@@ -2015,10 +2015,10 @@ namespace IceBlink2
 
             }
 
-            if (gv.mod.loadedTileBitmaps.Count > 280)
+            if (gv.mod.loadedTileBitmaps.Count > 140)
             {
                 //addLogText("yellow", "Disposing tiles.");
-                int cullNumber = 2*((gv.mod.loadedTileBitmaps.Count / 10) - 5);
+                int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) - 5);
                 try
                 {
                     if (gv.mod.loadedTileBitmaps != null)

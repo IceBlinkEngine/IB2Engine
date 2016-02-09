@@ -23832,7 +23832,7 @@ namespace IceBlink2
         }
 
         public void drawProps()
-        {
+        {//1
             //think I am gonna use the drawworldmap routines here, too
 
             //XXXXXXXXXXXXXXXXXXXXXXXX
@@ -23994,7 +23994,7 @@ namespace IceBlink2
             int easternModifier = 0;
             int westernModifier = 0;
             int southernModifier = 0;
-            
+
             //northwest
             if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound && (indexOfNorthWesternNeighbour != -1))
             {
@@ -24023,7 +24023,7 @@ namespace IceBlink2
             if ((seamlessModififierMinY > 0) && !situationFound && (indexOfNorthernNeighbour != -1))
             {
                 situationFound = true;
-                relevantIndex = indexOfNorthernNeighbour; 
+                relevantIndex = indexOfNorthernNeighbour;
             }
             //south
             if ((seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthernNeighbour != -1))
@@ -24043,6 +24043,7 @@ namespace IceBlink2
                 situationFound = true;
                 relevantIndex = indexOfEasternNeighbour;
             }
+            /*
             //current map
             if (!situationFound)
             {
@@ -24054,17 +24055,28 @@ namespace IceBlink2
                     }
                 } 
             }
-
+            */
 
             //XXXXXXXXXXXXXXXXXXXXXXXX
-                int backupLocationX = -1;
-                int backupLocationY = -1;
+            if (relevantIndex != -1)
+            {//2
+
+            int backupLocationX = -1;
+            int backupLocationY = -1;
 
             foreach (Prop p in mod.moduleAreasObjects[relevantIndex].Props)
-            {
+            {//3
                 //only for on-movers (the movers use drawMovingProps below)
-                if ((p.isShown) && (!p.isMover) && (p.token != null))
-                {
+                //if ((p.isShown) && (!p.isMover) && (p.token != null))
+                if ((p.isShown) && (!p.isMover))
+                        {//4 hurgh27
+                        try
+                        {
+                            gv.cc.DisposeOfBitmap(ref p.token);
+                        }
+                        catch { }
+
+                    p.token = gv.cc.LoadBitmap(p.ImageFileName);
                     backupLocationX = p.LocationX;
                     backupLocationY = p.LocationY;
 
@@ -24076,7 +24088,7 @@ namespace IceBlink2
                         situationFound = true;
                         p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
                         p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
-                        
+
                     }
                     //northeast
                     if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
@@ -24084,7 +24096,7 @@ namespace IceBlink2
                         situationFound = true;
                         p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
                         p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
-                        
+
                     }
                     //southwest
                     if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
@@ -24092,7 +24104,7 @@ namespace IceBlink2
                         situationFound = true;
                         p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
                         p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
-                        
+
                     }
                     //southeast
                     if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
@@ -24100,21 +24112,21 @@ namespace IceBlink2
                         situationFound = true;
                         p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
                         p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
-                        
+
                     }
                     //north
                     if ((seamlessModififierMinY > 0) && !situationFound)
                     {
                         situationFound = true;
                         p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
-                        
+
                     }
                     //south
                     if ((seamlessModififierMaxY > 0) && !situationFound)
                     {
                         situationFound = true;
                         p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
-                        
+
                     }
                     //west
                     if ((seamlessModififierMinX > 0) && !situationFound)
@@ -24128,13 +24140,13 @@ namespace IceBlink2
                         situationFound = true;
                         p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
                     }
-                 
+
                     //XXXXXXXXXXXXXXXXXXXXXXXX
-                    
+
                     //distance check
                     if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
                         && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
-                    {
+                    {//5
                         //prop X - playerX
                         //get dst rct based on distance of prop to  palyer
                         int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
@@ -24161,13 +24173,13 @@ namespace IceBlink2
 
                         //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                         if (mod.showInteractionState == true)
-                        {
+                        {//6
                             if (!p.EncounterWhenOnPartySquare.Equals("none"))
                             {
                                 Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
                                 src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
                                 gv.DrawBitmap(interactionStateIndicator, src, dst);
-                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator); 
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
                             }
 
@@ -24188,15 +24200,87 @@ namespace IceBlink2
                                 gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
                                 continue;
                             }
-                        }
-                    }
+                        }//6
+                    }//5
 
                     p.LocationX = backupLocationX;
                     p.LocationY = backupLocationY;
 
-                }
-            }
-        }
+                }//4
+            }//3
+
+           
+        }//2
+
+            //normal prop draw routine
+            foreach (Prop p in mod.currentArea.Props)
+            {//3
+                //only for on-movers (the movers use drawMovingProps below)
+                if ((p.isShown) && (!p.isMover) && (p.token != null))
+                {//4
+                    
+                    //distance check
+                    if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
+                        && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
+                    {//5
+                        //prop X - playerX
+                        //get dst rct based on distance of prop to  palyer
+                        int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                        int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                        int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                        int dstXshift = (dstW - gv.squareSize) / 2;
+                        int dstYshift = (dstH - gv.squareSize) / 2;
+                        IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                        IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
+
+                        //adjust size of props
+                        if (gv.mod.currentArea.useSuperTinyProps)
+                        {
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
+                        }
+                        else if (gv.mod.currentArea.useMiniProps)
+                        {
+                            dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
+                        }
+
+                        //draw the prop
+                        gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
+
+                        //for shwoign whetehr prop is encounte,r optional or mandatory conversation
+                        if (mod.showInteractionState == true)
+                        {//6
+                            if (!p.EncounterWhenOnPartySquare.Equals("none"))
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("encounter_indicator");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                continue;
+                            }
+
+                            if (p.unavoidableConversation)
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("mandatory_conversation_indicator");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                continue;
+                            }
+
+                            if (!p.ConversationWhenOnPartySquare.Equals("none"))
+                            {
+                                Bitmap interactionStateIndicator = gv.cc.LoadBitmap("optional_conversation_indicator");
+                                src = new IbRect(0, 0, interactionStateIndicator.PixelSize.Width, interactionStateIndicator.PixelSize.Height);
+                                gv.DrawBitmap(interactionStateIndicator, src, dst);
+                                gv.cc.DisposeOfBitmap(ref interactionStateIndicator);
+                                continue;
+                            }
+                        }//6
+                    }//5
+                }//4
+            }//3
+        }//1
         public void drawMovingProps()
         {
             if (mod.useSmoothMovement == true)
