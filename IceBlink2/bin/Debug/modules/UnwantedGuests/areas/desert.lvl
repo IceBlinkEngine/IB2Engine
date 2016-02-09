@@ -1,8 +1,6 @@
 {
   "backgroundImageStartLocX": 0,
   "backgroundImageStartLocY": 0,
-  "sourceBitmapName": "desert",
-  "minimap": null,
   "Filename": "desert",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
@@ -20,12 +18,11 @@
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "desert",
   "MapSizeX": 16,
   "MapSizeY": 16,
   "Tiles": [
     {
-      "Layer0Filename": "desert0",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -36,7 +33,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert1",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -47,7 +43,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert2",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -58,7 +53,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert3",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -69,7 +63,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert4",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -80,7 +73,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert5",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -91,7 +83,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert6",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -102,7 +93,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert7",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -113,7 +103,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert8",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -124,7 +113,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert9",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -135,7 +123,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert10",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -146,7 +133,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert11",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -157,7 +143,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert12",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -168,7 +153,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert13",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -179,7 +163,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert14",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -190,7 +173,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert15",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -201,7 +183,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert16",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -212,7 +193,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert17",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -223,7 +203,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert18",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -234,7 +213,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert19",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -245,7 +223,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert20",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -256,7 +233,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert21",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -267,7 +243,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert22",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -278,7 +253,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert23",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -289,7 +263,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert24",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -300,7 +273,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert25",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -311,7 +283,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert26",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -322,7 +293,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert27",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -333,7 +303,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert28",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -344,7 +313,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert29",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -355,7 +323,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert30",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -366,7 +333,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert31",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -377,7 +343,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert32",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -388,7 +353,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert33",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -399,7 +363,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert34",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -410,7 +373,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert35",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -421,7 +383,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert36",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -432,7 +393,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert37",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -443,7 +403,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert38",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -454,7 +413,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert39",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -465,7 +423,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert40",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -476,7 +433,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert41",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -487,7 +443,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert42",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -498,7 +453,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert43",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -509,7 +463,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert44",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -520,7 +473,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert45",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -531,7 +483,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert46",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -542,7 +493,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert47",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -553,7 +503,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert48",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -564,7 +513,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert49",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -575,7 +523,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert50",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -586,7 +533,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert51",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -597,7 +543,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert52",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -608,7 +553,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert53",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -619,7 +563,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert54",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -630,7 +573,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert55",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -641,7 +583,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert56",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -652,7 +593,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert57",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -663,7 +603,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert58",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -674,7 +613,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert59",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -685,7 +623,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert60",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -696,7 +633,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert61",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -707,7 +643,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert62",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -718,7 +653,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert63",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -729,7 +663,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert64",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -740,7 +673,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert65",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -751,7 +683,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert66",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -762,7 +693,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert67",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -773,7 +703,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert68",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -784,7 +713,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert69",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -795,7 +723,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert70",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -806,7 +733,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert71",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -817,7 +743,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert72",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -828,7 +753,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert73",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -839,7 +763,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert74",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -850,7 +773,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert75",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -861,7 +783,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert76",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -872,7 +793,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert77",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -883,7 +803,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert78",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -894,7 +813,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert79",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -905,7 +823,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert80",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -916,7 +833,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert81",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -927,7 +843,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert82",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -938,7 +853,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert83",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -949,7 +863,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert84",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -960,7 +873,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert85",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -971,7 +883,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert86",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -982,7 +893,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert87",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -993,7 +903,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert88",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1004,7 +913,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert89",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1015,7 +923,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert90",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1026,7 +933,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert91",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1037,7 +943,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert92",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1048,7 +953,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert93",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1059,7 +963,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert94",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1070,7 +973,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert95",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1081,7 +983,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert96",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1092,7 +993,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert97",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1103,7 +1003,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert98",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1114,7 +1013,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert99",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1125,7 +1023,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert100",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1136,7 +1033,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert101",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1147,7 +1043,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert102",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1158,7 +1053,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert103",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1169,7 +1063,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert104",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1180,7 +1073,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert105",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1191,7 +1083,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert106",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1202,7 +1093,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert107",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1213,7 +1103,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert108",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1224,7 +1113,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert109",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1235,7 +1123,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert110",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1246,7 +1133,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert111",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1257,7 +1143,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert112",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1268,7 +1153,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert113",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1279,7 +1163,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert114",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1290,7 +1173,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert115",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1301,7 +1183,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert116",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1312,7 +1193,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert117",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1323,7 +1203,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert118",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1334,7 +1213,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert119",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1345,7 +1223,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert120",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1356,7 +1233,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert121",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1367,7 +1243,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert122",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1378,7 +1253,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert123",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1389,7 +1263,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert124",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1400,7 +1273,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert125",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1411,7 +1283,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert126",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1422,7 +1293,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert127",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1433,7 +1303,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert128",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1444,7 +1313,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert129",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1455,7 +1323,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert130",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1466,7 +1333,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert131",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1477,7 +1343,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert132",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1488,7 +1353,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert133",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1499,7 +1363,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert134",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1510,7 +1373,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert135",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1521,7 +1383,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert136",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1532,7 +1393,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert137",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1543,7 +1403,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert138",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1554,7 +1413,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert139",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1565,7 +1423,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert140",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1576,7 +1433,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert141",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1587,7 +1443,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert142",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1598,7 +1453,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert143",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1609,7 +1463,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert144",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1620,7 +1473,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert145",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1631,7 +1483,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert146",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1642,7 +1493,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert147",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1653,7 +1503,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert148",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1664,7 +1513,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert149",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1675,7 +1523,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert150",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1686,7 +1533,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert151",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1697,7 +1543,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert152",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1708,7 +1553,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert153",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1719,7 +1563,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert154",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1730,7 +1573,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert155",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1741,7 +1583,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert156",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1752,7 +1593,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert157",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1763,7 +1603,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert158",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1774,7 +1613,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert159",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1785,7 +1623,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert160",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1796,7 +1633,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert161",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1807,7 +1643,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert162",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1818,7 +1653,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert163",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1829,7 +1663,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert164",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1840,7 +1673,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert165",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1851,7 +1683,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert166",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1862,7 +1693,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert167",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1873,7 +1703,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert168",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1884,7 +1713,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert169",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1895,7 +1723,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert170",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1906,7 +1733,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert171",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1917,7 +1743,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert172",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1928,7 +1753,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert173",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1939,7 +1763,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert174",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1950,7 +1773,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert175",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1961,7 +1783,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert176",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1972,7 +1793,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert177",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1983,7 +1803,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert178",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -1994,7 +1813,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert179",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2005,7 +1823,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert180",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2016,7 +1833,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert181",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2027,7 +1843,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert182",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2038,7 +1853,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert183",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2049,7 +1863,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert184",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2060,7 +1873,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert185",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2071,7 +1883,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert186",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2082,7 +1893,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert187",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2093,7 +1903,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert188",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2104,7 +1913,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert189",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2115,7 +1923,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert190",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2126,7 +1933,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert191",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2137,7 +1943,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert192",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2148,7 +1953,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert193",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2159,7 +1963,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert194",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2170,7 +1973,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert195",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2181,7 +1983,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert196",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2192,7 +1993,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert197",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2203,7 +2003,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert198",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2214,7 +2013,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert199",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2225,7 +2023,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert200",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2236,7 +2033,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert201",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2247,7 +2043,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert202",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2258,7 +2053,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert203",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2269,7 +2063,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert204",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2280,7 +2073,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert205",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2291,7 +2083,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert206",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2302,7 +2093,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert207",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2313,7 +2103,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert208",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2324,7 +2113,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert209",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2335,7 +2123,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert210",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2346,7 +2133,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert211",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2357,7 +2143,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert212",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2368,7 +2153,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert213",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2379,7 +2163,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert214",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2390,7 +2173,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert215",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2401,7 +2183,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert216",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2412,7 +2193,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert217",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2423,7 +2203,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert218",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2434,7 +2213,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert219",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2445,7 +2223,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert220",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2456,7 +2233,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert221",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2467,7 +2243,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert222",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2478,7 +2253,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert223",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2489,7 +2263,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert224",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2500,7 +2273,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert225",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2511,7 +2283,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert226",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2522,7 +2293,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert227",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2533,7 +2303,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert228",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2544,7 +2313,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert229",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2555,7 +2323,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert230",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2566,7 +2333,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert231",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2577,7 +2343,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert232",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2588,7 +2353,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert233",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2599,7 +2363,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert234",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2610,7 +2373,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert235",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2621,7 +2383,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert236",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2632,7 +2393,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert237",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2643,7 +2403,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert238",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2654,7 +2413,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert239",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2665,7 +2423,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert240",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2676,7 +2433,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert241",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2687,7 +2443,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert242",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2698,7 +2453,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert243",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2709,7 +2463,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert244",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2720,7 +2473,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert245",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2731,7 +2483,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert246",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2742,7 +2493,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert247",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2753,7 +2503,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert248",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2764,7 +2513,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert249",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2775,7 +2523,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert250",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2786,7 +2533,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert251",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2797,7 +2543,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert252",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2808,7 +2553,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert253",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2819,7 +2563,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert254",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2830,7 +2573,6 @@
       "Visible": false
     },
     {
-      "Layer0Filename": "desert255",
       "Layer1Filename": "t_blank",
       "Layer2Filename": "t_blank",
       "Layer3Filename": "t_blank",
@@ -2928,7 +2670,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 149,
+  "NextIdNumber": 148,
   "OnHeartBeatLogicTree": "none",
   "OnHeartBeatParms": "",
   "OnHeartBeatIBScript": "none",

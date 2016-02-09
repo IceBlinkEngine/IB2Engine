@@ -1440,6 +1440,15 @@ namespace IceBlink2
             DrawD2DBitmap(bitmap, src, tar, mirror, flip, opac);
         }
 
+        //add opacity overload and use float rects
+        public void DrawBitmapNeighbour(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, bool flip, float opac) //change this to DrawBitmap
+        {
+            SharpDX.Rectangle tar = new SharpDX.Rectangle(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.Rectangle src = new SharpDX.Rectangle(source.Left, source.Top, source.Width, source.Height);
+            //calling new overloaded draw that takes in opacity, too
+            DrawD2DBitmapNeighbour(bitmap, src, tar, mirror, flip, opac);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
 	    {
 //            Render();
@@ -1984,6 +1993,60 @@ namespace IceBlink2
             renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
         }
 
+        public void DrawD2DBitmapNeighbour(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.Rectangle source, SharpDX.Rectangle target, bool mirror, bool flip, float opac)
+        {
+            if ((mirror) && (flip))
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, 0, 0, 0);
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
+                                                (target.Top + bitmap.PixelSize.Height) * -1,
+                                                target.Width,
+                                                target.Height),
+                                            opac, BitmapInterpolationMode.NearestNeighbor, new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else if (flip)
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, 0, 0, 0);
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF(target.Left,
+                                                (target.Top + bitmap.PixelSize.Height) * -1,
+                                                target.Width,
+                                                target.Height),
+                                            opac,
+                                            BitmapInterpolationMode.NearestNeighbor,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else if (mirror)
+            {
+                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
+
+                //left shift for rendering right facing party and combat cretures, those were shifted about half a square too far in right direction on my laptop
+                float leftShiftAdjustment = (screenWidth / 1920f) * bitmap.PixelSize.Width;
+                renderTarget2D.DrawBitmap(bitmap,
+                    //new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
+                                                new SharpDX.RectangleF((target.Left + leftShiftAdjustment) * -1,
+                                                target.Top,
+                                                target.Width,
+                                                target.Height),
+                                            opac,
+                                            BitmapInterpolationMode.NearestNeighbor,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            else
+            {
+                renderTarget2D.DrawBitmap(bitmap,
+                                            new SharpDX.RectangleF(target.Left,
+                                                target.Top,
+                                                target.Width,
+                                                target.Height),
+                                            opac,
+                                            BitmapInterpolationMode.NearestNeighbor,
+                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
+            }
+            //return transform back to original
+            renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
+        }
 
         //INPUT STUFF
         private void GameView_MouseWheel(object sender, MouseEventArgs e)

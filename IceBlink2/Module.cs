@@ -136,17 +136,17 @@ namespace IceBlink2
         public bool justTransitioned = false;
         public int arrivalSquareX = 1000000;
         public int arrivalSquareY = 1000000;
-        public int fullScreenAnimationFrameCounter1 = 0;
-        public int fullScreenAnimationFrameCounter2 = 0;
-        public int fullScreenAnimationFrameCounter3 = 0;
-        public int fullScreenAnimationFrameCounter4 = 0;
-        public int fullScreenAnimationFrameCounter5 = 0;
-        public int fullScreenAnimationFrameCounter6 = 0;
+        //public int fullScreenAnimationFrameCounter1 = 0;
+        //public int fullScreenAnimationFrameCounter2 = 0;
+        //public int fullScreenAnimationFrameCounter3 = 0;
+        //public int fullScreenAnimationFrameCounter4 = 0;
+        //public int fullScreenAnimationFrameCounter5 = 0;
+        //public int fullScreenAnimationFrameCounter6 = 0;
 
         //this one can be set from ingame by player eventually (options menu), higher is fast
         //is used for smooth moving props and full screen animation, each on main map, right now
         //later on maybe also use for animated props, like camp fires flickering
-        public float allAnimationSpeedMultiplier = 1;
+        public float allAnimationSpeedMultiplier = 0.45f;
 
         //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
         //listOfEntryWeatherChances (a list of ints containing entry weather chances in exact order)
@@ -185,6 +185,110 @@ namespace IceBlink2
         [JsonIgnore]
         public List<System.Drawing.Bitmap> loadedMinimapTileBitmaps = new List<System.Drawing.Bitmap>();
         public List<String> loadedMinimapTileBitmapsNames = new List<String>();
+
+
+        public float overrideDelayCounter1 = 0;
+        public float cycleCounter1 = 0;
+        public float fullScreenAnimationFrameCounter1 = 0;
+        public float changeCounter1 = 0;
+        public float changeFrameCounter1 = 0;
+        public float fullScreenAnimationSpeedX1 = 0; 
+        public float fullScreenAnimationSpeedY1 = 0;
+        public float fullScreenAnimationFrameCounterX1 = 0;
+        public float fullScreenAnimationFrameCounterY1 = 0;
+
+        public float overrideDelayCounter2 = 0;
+        public float cycleCounter2 = 0;
+        public float fullScreenAnimationFrameCounter2 = 0;
+        public float changeCounter2 = 0;
+        public float changeFrameCounter2 = 0;
+        public float fullScreenAnimationSpeedX2 = 0;
+        public float fullScreenAnimationSpeedY2 = 0;
+        public float fullScreenAnimationFrameCounterX2 = 0;
+        public float fullScreenAnimationFrameCounterY2 = 0;
+
+        public float overrideDelayCounter3 = 0;
+        public float cycleCounter3 = 0;
+        public float fullScreenAnimationFrameCounter3 = 0;
+        public float changeCounter3 = 0;
+        public float changeFrameCounter3 = 0;
+        public float fullScreenAnimationSpeedX3 = 0;
+        public float fullScreenAnimationSpeedY3 = 0;
+        public float fullScreenAnimationFrameCounterX3 = 0;
+        public float fullScreenAnimationFrameCounterY3 = 0;
+
+        public float overrideDelayCounter4 = 0;
+        public float cycleCounter4 = 0;
+        public float fullScreenAnimationFrameCounter4 = 0;
+        public float changeCounter4 = 0;
+        public float changeFrameCounter4 = 0;
+        public float fullScreenAnimationSpeedX4 = 0;
+        public float fullScreenAnimationSpeedY4 = 0;
+        public float fullScreenAnimationFrameCounterX4 = 0;
+        public float fullScreenAnimationFrameCounterY4 = 0;
+
+        public float overrideDelayCounter5 = 0;
+        public float cycleCounter5 = 0;
+        public float fullScreenAnimationFrameCounter5 = 0;
+        public float changeCounter5 = 0;
+        public float changeFrameCounter5 = 0;
+        public float fullScreenAnimationSpeedX5 = 0;
+        public float fullScreenAnimationSpeedY5 = 0;
+        public float fullScreenAnimationFrameCounterX5 = 0;
+        public float fullScreenAnimationFrameCounterY5 = 0;
+
+        public float overrideDelayCounter6 = 0;
+        public float cycleCounter6 = 0;
+        public float fullScreenAnimationFrameCounter6 = 0;
+        public float changeCounter6 = 0;
+        public float changeFrameCounter6 = 0;
+        public float fullScreenAnimationSpeedX6 = 0;
+        public float fullScreenAnimationSpeedY6 = 0;
+        public float fullScreenAnimationFrameCounterX6 = 0;
+        public float fullScreenAnimationFrameCounterY6 = 0;
+
+        public float overrideDelayCounter7 = 0;
+        public float cycleCounter7 = 0;
+        public float fullScreenAnimationFrameCounter7 = 0;
+        public float changeCounter7 = 0;
+        public float changeFrameCounter7 = 0;
+        public float fullScreenAnimationSpeedX7 = 0;
+        public float fullScreenAnimationSpeedY7 = 0;
+        public float fullScreenAnimationFrameCounterX7 = 0;
+        public float fullScreenAnimationFrameCounterY7 = 0;
+
+        public float overrideDelayCounter8 = 0;
+        public float cycleCounter8 = 0;
+        public float fullScreenAnimationFrameCounter8 = 0;
+        public float changeCounter8 = 0;
+        public float changeFrameCounter8 = 0;
+        public float fullScreenAnimationSpeedX8 = 0;
+        public float fullScreenAnimationSpeedY8 = 0;
+        public float fullScreenAnimationFrameCounterX8 = 0;
+        public float fullScreenAnimationFrameCounterY8 = 0;
+
+        public float overrideDelayCounter9 = 0;
+        public float cycleCounter9 = 0;
+        public float fullScreenAnimationFrameCounter9 = 0;
+        public float changeCounter9 = 0;
+        public float changeFrameCounter9 = 0;
+        public float fullScreenAnimationSpeedX9 = 0;
+        public float fullScreenAnimationSpeedY9 = 0;
+        public float fullScreenAnimationFrameCounterX9 = 0;
+        public float fullScreenAnimationFrameCounterY9 = 0;
+
+        public float overrideDelayCounter10 = 0;
+        public float cycleCounter10 = 0;
+        public float fullScreenAnimationFrameCounter10 = 0;
+        public float changeCounter10 = 0;
+        public float changeFrameCounter10 = 0;
+        public float fullScreenAnimationSpeedX10 = 0;
+        public float fullScreenAnimationSpeedY10 = 0;
+        public float fullScreenAnimationFrameCounterX10 = 0;
+        public float fullScreenAnimationFrameCounterY10 = 0;
+
+        public int maintainWeatherFromLastAreaTimer = 0;
+        
 
         public Module()
         {

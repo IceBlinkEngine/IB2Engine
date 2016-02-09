@@ -350,6 +350,7 @@ namespace IceBlink2
                             {
                                 gv.mod.PlayerLocationX = parm2;
                                 gv.mod.PlayerLocationY = parm3;
+                                //transi2
                                 gv.mod.justTransitioned = true;
                                 gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
                                 gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;

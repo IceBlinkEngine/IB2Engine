@@ -312,13 +312,6 @@ namespace IceBlink2
                     hideOverlayNeeded = true;
                 }
 
-                //off for now, later :-)
-                //if (mod.currentArea.useWeather)
-                //{
-                    //drawOverlayWeather();
-                    //hideOverlayNeeded = true;
-                //}
-
                 if (hideOverlayNeeded)
                 {
                     drawBlackTilesOverTints();
@@ -332,17 +325,20 @@ namespace IceBlink2
                 drawFloatyTextByPixelPool();
             }
 
-            if (tglClock.toggleOn)
-            {
-                drawMainMapClockText();
-            }
+            //if (tglClock.toggleOn)
+            //{
+                //drawMainMapClockText();
+            //}
             if (mod.useUIBackground)
             {
                 drawPanels();
             }
-            //drawBottomFullScreenEffects();
             drawSprites();
             drawTopFullScreenEffects();
+            if (tglClock.toggleOn)
+            {
+                drawMainMapClockText();
+            }
             gv.drawLog();
             drawControls();
             drawMiniMap();
@@ -561,244 +557,263 @@ namespace IceBlink2
             //foreach (Area a in gv.mod.moduleAreasObjects)
 
             int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-            if (minX < seamlessModififierMinX) { minX = -seamlessModififierMinX; }
+            if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
             int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-            if (minY < seamlessModififierMinY) { minY = -seamlessModififierMinY; }
+            if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
             int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
             if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
             if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
 
-            //enti
-            //gv.cc.addLogText("red", "minX =" + minX);
-            //gv.cc.addLogText("red", "maxX =" + maxX);
-            //gv.cc.addLogText("red", "minY =" + minY);
-            //gv.cc.addLogText("red", "maxY =" + maxY);
-            //gv.cc.addLogText("red", "x =" + minX);
-            //gv.cc.addLogText("red", "y =" + minX);
-            #region Draw Layer 0
-            for (int x = minX; x < maxX; x++)
+            if (gv.mod.currentArea.sourceBitmapName != "")
             {
-                for (int y = minY; y < maxY; y++)
+                #region Draw Layer 0
+                for (int x = minX; x < maxX; x++)
                 {
-                    //check whether x or y extreme, use tile from neighbour then
-                    //loop thruogh are with neigbhour names and find index
-                    //adjust black tile for border
-                    //this is inside layer 0, adjust for all
-                    //handle corner, ie draw to two side situations
-                    //use tile 1 and tile2 in this case, to draw in two directions
-                    //IMPORTANT NOTE:  disable cache cleaning on area change
-                    bool situationFound = false;
-                    bool drawTile = true;
-                    int index = -1;
-                    Tile tile = new Tile();
-                    
-                    //nine situations where a tile can be:
-                    //tile on north-western map (diagonal situation)
-                    if ((x < 0) && (y < 0) && (!situationFound))
+                    for (int y = minY; y < maxY; y++)
                     {
-                        situationFound = true;
-                        if (indexOfNorthWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
-                            tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
-                            index = indexOfNorthWesternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on south-westernmap (diagonal situation)
-                    if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
-                            int transformedY = y - gv.mod.currentArea.MapSizeY;
-                            tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
-                            index = indexOfSouthWesternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on south-easternmap (diagonal situation)
-                    if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = x - gv.mod.currentArea.MapSizeX;
-                            int transformedY = y - gv.mod.currentArea.MapSizeY;
-                            tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
-                            index = indexOfSouthEasternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on north-easternmap (diagonal situation)
-                    if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthEasternNeighbour != -1)
-                        {
-                            int transformedX = x - gv.mod.currentArea.MapSizeX;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
-                            tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
-                            index = indexOfNorthEasternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on western map
-                    if ((x < 0) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
-                            int transformedY = y;
-                            tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
-                            index = indexOfWesternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on southern map
-                    if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = y - gv.mod.currentArea.MapSizeY;
-                            tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
-                            index = indexOfSouthernNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on eastern map
-                    if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfEasternNeighbour != -1)
-                        {
-                            int transformedX = x - gv.mod.currentArea.MapSizeX;
-                            int transformedY = y;
-                            tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
-                            index = indexOfEasternNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile on northern map
-                    if ((y < 0) && (!situationFound))
-                    {
-                        situationFound = true;
-                        if (indexOfNorthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
-                            tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
-                            index = indexOfNorthernNeighbour;
-                        }
-                        else
-                        {
-                            drawTile = false;
-                        }
-                    }
-                    //tile is on current map
-                    if (!situationFound)
-                    {
-                        tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                    }
+                        //check whether x or y extreme, use tile from neighbour then
+                        //loop thruogh are with neigbhour names and find index
+                        //adjust black tile for border
+                        //this is inside layer 0, adjust for all
+                        //handle corner, ie draw to two side situations
+                        //use tile 1 and tile2 in this case, to draw in two directions
+                        //IMPORTANT NOTE:  disable cache cleaning on area change
+                        bool situationFound = false;
+                        bool drawTile = true;
+                        int index = -1;
+                        Tile tile = new Tile();
 
-                    if (drawTile)
-                    {
-                        try
+                        //nine situations where a tile can be:
+                        //tile on north-western map (diagonal situation)
+                        if ((x < 0) && (y < 0) && (!situationFound))
                         {
-
-                            bool tileBitmapIsLoadedAlready = false;
-                            int indexOfLoadedTile = -1;
-                            for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                            situationFound = true;
+                            if (indexOfNorthWesternNeighbour != -1)
                             {
-                                if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer0Filename)
-                                {
-                                    tileBitmapIsLoadedAlready = true;
-                                    indexOfLoadedTile = i;
-                                    break;
-                                }
-                            }
-
-                            //hurghx
-                            if (!tileBitmapIsLoadedAlready)
-                            {
-                                gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
-                                string backup = mod.currentArea.sourceBitmapName;
-                                if (index != -1)
-                                {
-                                    mod.currentArea.sourceBitmapName = mod.moduleAreasObjects[index].sourceBitmapName;
-                                }
-                                tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
-                                //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
-                                mod.currentArea.sourceBitmapName = backup;
-
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                                //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
-                                //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
-                                //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
-                                float scalerX = 1;
-                                float scalerY = 1;
-                                int brX = (int)(gv.squareSize * scalerX);
-                                int brY = (int)(gv.squareSize * scalerY);
-                                IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
-                                gv.DrawBitmap(tile.tileBitmap0, src, dst);
+                                int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                index = indexOfNorthWesternNeighbour;
                             }
                             else
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                                //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
-                                //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
-                                //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
-                                float scalerX = 1;
-                                float scalerY = 1;
-                                int brX = (int)(gv.squareSize * scalerX);
-                                int brY = (int)(gv.squareSize * scalerY);
-                                IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-
-                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
+                                drawTile = false;
                             }
-
-                            //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
                         }
-                        catch { }
+                        //tile on south-westernmap (diagonal situation)
+                        if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                index = indexOfSouthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                index = indexOfSouthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on north-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                index = indexOfNorthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on western map
+                        if ((x < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                index = indexOfWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on southern map
+                        if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfSouthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                index = indexOfSouthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on eastern map
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y;
+                                tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                index = indexOfEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on northern map
+                        if ((y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (indexOfNorthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                index = indexOfNorthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile is on current map
+                        if (!situationFound)
+                        {
+                            tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                        }
+
+                        if (drawTile)
+                        {
+                            try
+                            {
+
+                                bool tileBitmapIsLoadedAlready = false;
+                                int indexOfLoadedTile = -1;
+                                for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                {
+                                    if (gv.mod.loadedTileBitmapsNames[i] == tile.Layer0Filename)
+                                    {
+                                        tileBitmapIsLoadedAlready = true;
+                                        indexOfLoadedTile = i;
+                                        break;
+                                    }
+                                }
+
+                                //hurghx
+                                if (!tileBitmapIsLoadedAlready)
+                                {
+                                    gv.mod.loadedTileBitmapsNames.Add(tile.Layer0Filename);
+                                    string backup = mod.currentArea.sourceBitmapName;
+                                    if (index != -1)
+                                    {
+                                        mod.currentArea.sourceBitmapName = mod.moduleAreasObjects[index].sourceBitmapName;
+                                    }
+                                    tile.tileBitmap0 = gv.cc.LoadBitmap(tile.Layer0Filename);
+                                    //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
+                                    mod.currentArea.sourceBitmapName = backup;
+
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                                    //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                                    //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                                    float scalerX = 1;
+                                    float scalerY = 1;
+                                    int brX = (int)(gv.squareSize * scalerX);
+                                    int brY = (int)(gv.squareSize * scalerY);
+                                    IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
+                                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                    gv.mod.loadedTileBitmaps.Add(tile.tileBitmap0);
+                                    //gv.DrawBitmap(tile.tileBitmap0, src, dst); 
+
+                                    //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
+                                    if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                    {
+                                        gv.DrawBitmapNeighbour(tile.tileBitmap0, src, dst, false, false, 1f);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawBitmap(tile.tileBitmap0, src, dst, false, false, 1f);
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                                    //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                                    //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                                    float scalerX = 1;
+                                    float scalerY = 1;
+                                    int brX = (int)(gv.squareSize * scalerX);
+                                    int brY = (int)(gv.squareSize * scalerY);
+                                    IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
+                                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                    //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
+
+                                    //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
+                                    if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
+                                    {
+                                        gv.DrawBitmapNeighbour(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, false, 1f);
+                                    }
+                                    else 
+                                    {
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, false, 1f);
+                                    }
+                                     
+                                    
+                                }
+
+                                //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
+                            }
+                            catch
+                            {
+                                //int i = 2;
+                            }
+                        }
                     }
                 }
+                #endregion
             }
-            #endregion
-
 
             #region Draw Layer 1
             for (int x = minX; x < maxX; x++)
@@ -2199,16 +2214,169 @@ namespace IceBlink2
         public void drawTopFullScreenEffects()
         {
             #region dst tile preparation (min and max)  
+            
+            int indexOfNorthernNeighbour = -1;
+            int indexOfSouthernNeighbour = -1;
+            int indexOfEasternNeighbour = -1;
+            int indexOfWesternNeighbour = -1;
+            int indexOfNorthEasternNeighbour = -1;
+            int indexOfNorthWesternNeighbour = -1;
+            int indexOfSouthEasternNeighbour = -1;
+            int indexOfSouthWesternNeighbour = -1;
+
+            int seamlessModififierMinX = 0;
+            int seamlessModififierMaxX = 0;
+            int seamlessModififierMinY = 0;
+            int seamlessModififierMaxY = 0;
+
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+            {
+                seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                    {
+                        indexOfNorthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+            {
+
+                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                    {
+                        indexOfSouthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+            {
+                seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                    {
+                        indexOfWesternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+            {
+                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                    {
+                        indexOfEasternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+            }
+           
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
-            if (minX < 0) { minX = 0; }
+            if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
             int minY = mod.PlayerLocationY - gv.playerOffset;
-            if (minY < 0) { minY = 0; }
+            if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
             int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
-            if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
+            if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
-            if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
+            if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY ) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
             #endregion
             //hurgh
             #region Draw full screen layer 1
@@ -2737,11 +2905,151 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                           
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
@@ -2756,6 +3064,7 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
+                                
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
                                 int modX = x;
@@ -2763,6 +3072,7 @@ namespace IceBlink2
                                 int modMinX = minX;
                                 int modMinY = minY;
 
+                                /*
                                 if (gv.mod.currentArea.containEffectInsideAreaBorders1)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
@@ -2840,7 +3150,9 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
+                                
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
@@ -3653,11 +3965,151 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer2)
@@ -3678,7 +4130,7 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
+                                /*
                                 if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
@@ -3756,6 +4208,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -4570,14 +5023,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer3)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -4595,8 +5188,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders3)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -4673,6 +5266,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -4780,7 +5374,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4796,7 +5390,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4812,7 +5406,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4829,7 +5423,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4857,7 +5451,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4873,7 +5467,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -4900,7 +5494,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4917,7 +5511,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -4945,7 +5539,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5488,14 +6082,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer4)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -5513,8 +6247,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders4)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -5591,6 +6325,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -5698,7 +6433,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5714,7 +6449,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5730,7 +6465,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5747,7 +6482,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5775,7 +6510,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5791,7 +6526,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5818,7 +6553,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5835,7 +6570,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5863,7 +6598,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6410,14 +7145,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer5)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -6435,8 +7310,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders5)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -6513,6 +7388,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -7331,14 +8207,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer6)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -7356,8 +8372,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders6)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -7434,6 +8450,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -8252,14 +9269,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer7)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -8277,8 +9434,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders7)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -8355,6 +9512,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -9174,14 +10332,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer8)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -9199,8 +10497,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders8)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -9277,6 +10575,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -10096,14 +11395,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer9)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -10121,8 +11560,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders9)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -10199,6 +11638,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -11018,14 +12458,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer10)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -11043,8 +12623,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders10)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -11121,6 +12701,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -11411,19 +12992,173 @@ namespace IceBlink2
             #endregion   
         }
 
+
         public void drawBottomFullScreenEffects()
         {
             #region dst tile preparation (min and max)
+
+            int indexOfNorthernNeighbour = -1;
+            int indexOfSouthernNeighbour = -1;
+            int indexOfEasternNeighbour = -1;
+            int indexOfWesternNeighbour = -1;
+            int indexOfNorthEasternNeighbour = -1;
+            int indexOfNorthWesternNeighbour = -1;
+            int indexOfSouthEasternNeighbour = -1;
+            int indexOfSouthWesternNeighbour = -1;
+
+            int seamlessModififierMinX = 0;
+            int seamlessModififierMaxX = 0;
+            int seamlessModififierMinY = 0;
+            int seamlessModififierMaxY = 0;
+
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+            {
+                seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                    {
+                        indexOfNorthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+            {
+
+                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                    {
+                        indexOfSouthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+            {
+                seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                    {
+                        indexOfWesternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+            {
+                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                    {
+                        indexOfEasternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
             int minX = mod.PlayerLocationX - gv.playerOffset;
-            if (minX < 0) { minX = 0; }
+            if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
             int minY = mod.PlayerLocationY - gv.playerOffset;
-            if (minY < 0) { minY = 0; }
+            if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
             int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
-            if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
+            if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
             int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
-            if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
+            if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
             #endregion
             //hurgh
             #region Draw full screen layer 1
@@ -11789,7 +13524,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed1 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride1 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter1 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter1 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed1 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter1 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
@@ -11811,6 +13554,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter1 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence1 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence1 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter1 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive1 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter1 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter1 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter1 = 1;
+                        }
                     }
                     #endregion
 
@@ -11926,11 +13687,151 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
@@ -11945,6 +13846,7 @@ namespace IceBlink2
 
                                 float numberOfPictureParts = gv.playerOffset * 2 + 1;
 
+
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
                                 int modX = x;
@@ -11952,6 +13854,7 @@ namespace IceBlink2
                                 int modMinX = minX;
                                 int modMinY = minY;
 
+                                /*
                                 if (gv.mod.currentArea.containEffectInsideAreaBorders1)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
@@ -12029,7 +13932,9 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
+
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
@@ -12680,7 +14585,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed2 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride2 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter2 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter2 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed2 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter2 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
@@ -12702,6 +14615,23 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter2 += 1;
+                    }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence2 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence2 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter2 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive2 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter2 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter2 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter2 = 1;
+                        }
                     }
                     #endregion
 
@@ -12817,11 +14747,151 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer2)
@@ -12842,7 +14912,7 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
+                                /*
                                 if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
@@ -12920,6 +14990,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -13571,7 +15642,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed3 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride3 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter3 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter3 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed3 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter3 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
@@ -13593,6 +15672,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter3 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence3 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence3 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter3 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive3 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter3 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter3 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter3 = 1;
+                        }
                     }
                     #endregion
 
@@ -13708,14 +15805,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer3)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -13733,8 +15970,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders3)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -13811,6 +16048,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -13918,7 +16156,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -13934,7 +16172,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -13950,7 +16188,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -13967,7 +16205,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -13995,7 +16233,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14011,7 +16249,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14038,7 +16276,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14055,7 +16293,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14083,7 +16321,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14462,7 +16700,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed4 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride4 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter4 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter4 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed4 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter4 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
@@ -14484,6 +16731,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter4 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence4 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence4 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter4 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive4 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter4 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter4 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter4 = 1;
+                        }
                     }
                     #endregion
 
@@ -14599,14 +16864,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer4)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -14624,8 +17029,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders4)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -14702,6 +17107,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -14809,7 +17215,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14825,7 +17231,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14841,7 +17247,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14858,7 +17264,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14886,7 +17292,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14902,7 +17308,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14929,7 +17335,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14946,7 +17352,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14974,7 +17380,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15353,7 +17759,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed5 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride5 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter5 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter5 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed5 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter5 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
@@ -15375,6 +17789,23 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter5 += 1;
+                    }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence5 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence5 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter5 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive5 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter5 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter5 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter5 = 1;
+                        }
                     }
                     #endregion
 
@@ -15496,14 +17927,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer5)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -15521,8 +18092,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders5)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -15599,6 +18170,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -16250,7 +18822,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed6 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride6 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter6 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter6 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed6 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter6 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
@@ -16272,6 +18853,23 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter6 += 1;
+                    }
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence6 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence6 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter6 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive6 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter6 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter6 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter6 = 1;
+                        }
                     }
                     #endregion
 
@@ -16391,14 +18989,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer6)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -16416,8 +19154,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders6)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -16494,6 +19232,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -17145,7 +19884,15 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed7 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+                        if (gv.mod.currentArea.directionalOverride7 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter7 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter7 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed7 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter7 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
@@ -17167,6 +19914,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter7 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence7 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence7 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter7 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive7 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter7 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter7 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter7 = 1;
+                        }
                     }
                     #endregion
 
@@ -17286,14 +20051,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer7)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -17311,8 +20216,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders7)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -17389,6 +20294,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -18040,7 +20946,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed8 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride8 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter8 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter8 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed8 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter8 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
@@ -18062,6 +20977,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter8 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence8 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence8 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter8 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive8 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter8 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter8 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter8 = 1;
+                        }
                     }
                     #endregion
 
@@ -18181,14 +21114,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer8)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -18206,8 +21279,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders8)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -18284,6 +21357,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -18935,7 +22009,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed9 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride9 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter9 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter9 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed9 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter9 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
@@ -18957,6 +22040,24 @@ namespace IceBlink2
                         }
 
                         gv.mod.currentArea.fullScreenAnimationFrameCounter9 += 1;
+                    }
+
+                    if (gv.mod.currentArea.numberOfCyclesPerOccurence9 < 0)
+                    {
+                        int counterLimit = gv.mod.currentArea.numberOfCyclesPerOccurence9 * -1;
+                        if (gv.mod.currentArea.changeFrameCounter9 >= counterLimit)
+                        {
+                            //turn the animation off, in common code's doudate method a chance per turn is rolled for turning on again
+                            gv.mod.currentArea.fullScreenEffectLayerIsActive9 = false;
+                            //counts how often/long the aniamtion is displayed before stop
+                            gv.mod.currentArea.cycleCounter9 = 0;
+                            //just keeping track how often render calls have run through
+                            gv.mod.currentArea.fullScreenAnimationFrameCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeCounter9 = 0;
+                            //for changing a shape changing anim
+                            gv.mod.currentArea.changeFrameCounter9 = 1;
+                        }
                     }
                     #endregion
 
@@ -19076,14 +22177,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer9)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -19101,8 +22342,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders9)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -19179,6 +22420,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -19830,7 +23072,16 @@ namespace IceBlink2
                         gv.mod.currentArea.fullScreenAnimationSpeed10 = speedComponentX + speedComponentY;
 
                         //based on subjective trial and error
-                        if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
+
+                        if (gv.mod.currentArea.directionalOverride10 == "snow")
+                        {
+                            if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > ((50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1) * 1.6f)))
+                            {
+                                gv.mod.currentArea.cycleCounter10 += 1;
+                                gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
+                            }
+                        }
+                        else if ((gv.mod.currentArea.fullScreenAnimationFrameCounter10 > (50f / (gv.mod.currentArea.fullScreenAnimationSpeed10 * gv.mod.allAnimationSpeedMultiplier) - 1)))
                         {
                             gv.mod.currentArea.cycleCounter10 += 1;
                             gv.mod.currentArea.fullScreenAnimationFrameCounter10 = 0;
@@ -19989,14 +23240,154 @@ namespace IceBlink2
                     #endregion
 
                     #region iterate through the dst tiles
+                    Tile tile = new Tile();
                     for (int x = minX; x < maxX; x++)
                     {
                         for (int y = minY; y < maxY; y++)
                         {
-                            Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            bool situationFound = false;
+                            bool drawTile = true;
+                            int index = -1;
+                            //Tile tile = new Tile();
+
+                            //nine situations where a tile can be:
+                            //tile on north-western map (diagonal situation)
+                            if ((x < 0) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-westernmap (diagonal situation)
+                            if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on south-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on north-easternmap (diagonal situation)
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on western map
+                            if ((x < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfWesternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on southern map
+                            if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                    tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfSouthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on eastern map
+                            if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                    int transformedY = y;
+                                    tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
+                                    index = indexOfEasternNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile on northern map
+                            if ((y < 0) && (!situationFound))
+                            {
+                                situationFound = true;
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
+                                    tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                    index = indexOfNorthernNeighbour;
+                                }
+                                else
+                                {
+                                    drawTile = false;
+                                }
+                            }
+                            //tile is on current map
+                            if (!situationFound)
+                            {
+                                tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
+                            }
+                            //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer10)
+                            if (!tile.blockFullScreenEffectLayer2)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
@@ -20014,8 +23405,8 @@ namespace IceBlink2
                                 int modY = y;
                                 int modMinX = minX;
                                 int modMinY = minY;
-
-                                if (gv.mod.currentArea.containEffectInsideAreaBorders10)
+                                /*
+                                if (gv.mod.currentArea.containEffectInsideAreaBorders2)
                                 {
                                     //code for for always keeping the effect contained in the area box, break center on player near map border
                                     if ((mod.PlayerLocationX + 4) == this.mod.currentArea.MapSizeX)
@@ -20092,6 +23483,7 @@ namespace IceBlink2
                                         modMinY = -4;
                                     }
                                 }
+                                */
                                 #endregion
 
                                 //get the correct chunk on source
@@ -20381,7 +23773,8 @@ namespace IceBlink2
                     #endregion
             #endregion
         }
-
+        
+        
         public void drawMap()
         {
             int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
@@ -20437,16 +23830,313 @@ namespace IceBlink2
             IbRect dst = new IbRect(dstUX + gv.oXshift + mapStartLocXinPixels, dstUY, dstDX - dstUX, dstDY - dstUY);
             gv.DrawBitmap(gv.cc.bmpMap, src, dst);
         }
+
         public void drawProps()
         {
-            foreach (Prop p in mod.currentArea.Props)
+            //think I am gonna use the drawworldmap routines here, too
+
+            //XXXXXXXXXXXXXXXXXXXXXXXX
+            int indexOfNorthernNeighbour = -1;
+            int indexOfSouthernNeighbour = -1;
+            int indexOfEasternNeighbour = -1;
+            int indexOfWesternNeighbour = -1;
+            int indexOfNorthEasternNeighbour = -1;
+            int indexOfNorthWesternNeighbour = -1;
+            int indexOfSouthEasternNeighbour = -1;
+            int indexOfSouthWesternNeighbour = -1;
+
+            int seamlessModififierMinX = 0;
+            int seamlessModififierMaxX = 0;
+            int seamlessModififierMinY = 0;
+            int seamlessModififierMaxY = 0;
+
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
             {
-                if ((p.isShown) && (!p.isMover))
+                seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                    {
+                        indexOfNorthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+            {
+
+                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                    {
+                        indexOfSouthernNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+            {
+                seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                    {
+                        indexOfWesternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthWesternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthWesternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+            {
+                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                    {
+                        indexOfEasternNeighbour = i;
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                        {
+                            indexOfNorthEasternNeighbour = i;
+                        }
+                    }
+                }
+
+                if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                {
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                        {
+                            indexOfSouthEasternNeighbour = i;
+                        }
+                    }
+                }
+            }
+
+            //bool propIsOnCurrentMap = true;
+            bool situationFound = false;
+            int relevantIndex = -1;
+            int northernModifier = 0;
+            int easternModifier = 0;
+            int westernModifier = 0;
+            int southernModifier = 0;
+            
+            //northwest
+            if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound && (indexOfNorthWesternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfNorthWesternNeighbour;
+            }
+            //northeast
+            if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound && (indexOfNorthEasternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfNorthEasternNeighbour;
+            }
+            //southwest
+            if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthWesternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfSouthWesternNeighbour;
+            }
+            //southeast
+            if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthEasternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfSouthEasternNeighbour;
+            }
+            //north
+            if ((seamlessModififierMinY > 0) && !situationFound && (indexOfNorthernNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfNorthernNeighbour; 
+            }
+            //south
+            if ((seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthernNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfSouthernNeighbour;
+            }
+            //west
+            if ((seamlessModififierMinX > 0) && !situationFound && (indexOfWesternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfWesternNeighbour;
+            }
+            //east
+            if ((seamlessModififierMaxX > 0) && !situationFound && (indexOfEasternNeighbour != -1))
+            {
+                situationFound = true;
+                relevantIndex = indexOfEasternNeighbour;
+            }
+            //current map
+            if (!situationFound)
+            {
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if (gv.mod.currentArea.Filename == gv.mod.moduleAreasObjects[i].Filename)
+                    {
+                        relevantIndex = i;
+                    }
+                } 
+            }
+
+
+            //XXXXXXXXXXXXXXXXXXXXXXXX
+                int backupLocationX = -1;
+                int backupLocationY = -1;
+
+            foreach (Prop p in mod.moduleAreasObjects[relevantIndex].Props)
+            {
+                //only for on-movers (the movers use drawMovingProps below)
+                if ((p.isShown) && (!p.isMover) && (p.token != null))
+                {
+                    backupLocationX = p.LocationX;
+                    backupLocationY = p.LocationY;
+
+                    //XXXXXXXXXXXXXXXXXXX
+                    situationFound = false;
+                    //northwest
+                    if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
+                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                        
+                    }
+                    //northeast
+                    if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                        
+                    }
+                    //southwest
+                    if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                        
+                    }
+                    //southeast
+                    if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
+                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                        
+                    }
+                    //north
+                    if ((seamlessModififierMinY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                        
+                    }
+                    //south
+                    if ((seamlessModififierMaxY > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                        
+                    }
+                    //west
+                    if ((seamlessModififierMinX > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                    }
+                    //east
+                    if ((seamlessModififierMaxX > 0) && !situationFound)
+                    {
+                        situationFound = true;
+                        p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
+                    }
+                 
+                    //XXXXXXXXXXXXXXXXXXXXXXXX
+                    
+                    //distance check
                     if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
                         && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
                     {
                         //prop X - playerX
+                        //get dst rct based on distance of prop to  palyer
                         int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                         int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
                         int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
@@ -20456,6 +24146,7 @@ namespace IceBlink2
                         IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                         IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
+                        //adjust size of props
                         if (gv.mod.currentArea.useSuperTinyProps)
                         {
                             dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize * 3 / 8) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize * 3 / 8) - dstYshift, (int)(dstW / 4), (int)(dstH / 4));
@@ -20465,8 +24156,10 @@ namespace IceBlink2
                             dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
                         }
 
+                        //draw the prop
                         gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
 
+                        //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                         if (mod.showInteractionState == true)
                         {
                             if (!p.EncounterWhenOnPartySquare.Equals("none"))
@@ -20497,6 +24190,10 @@ namespace IceBlink2
                             }
                         }
                     }
+
+                    p.LocationX = backupLocationX;
+                    p.LocationY = backupLocationY;
+
                 }
             }
         }
@@ -21791,7 +25488,7 @@ namespace IceBlink2
                                 float scalerY = 1;
                                 int brX = (int)(gv.squareSize * scalerX);
                                 int brY = (int)(gv.squareSize * scalerY);
-                                IbRect src = new IbRect(0, 0, tile.tileBitmap0.PixelSize.Width, tile.tileBitmap0.PixelSize.Height);
+                                IbRect src = new IbRect(0, 0, 100, 100);
                                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
 
                                 if (tile.Visible == false)
@@ -23580,7 +27277,7 @@ namespace IceBlink2
                                 mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
                             }
                         }
-                        //draw the second tier base tile on eastern map
+                        // the second tier base tile on eastern map
                         if (indexOfEasternNeighbour != -1)
                         {
                             int transformedX = 1;
@@ -23691,7 +27388,7 @@ namespace IceBlink2
                     if (indexOfNorthernNeighbour != -1)
                     {
                         int transformedX = x;
-                        int transformedY = 0;
+                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
                         mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
                     }
                 }
@@ -23717,7 +27414,7 @@ namespace IceBlink2
                         if (x > 0)
                         {
                             int transformedX = x;
-                            int transformedY = 1;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2; ;
                             mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
                         }
                         //the second tier west tile is on north-western map
@@ -23743,7 +27440,7 @@ namespace IceBlink2
                             if (indexOfNorthernNeighbour != -1)
                             {
                                 int transformedX = x;
-                                int transformedY = 1;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
                                 mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
                             }
                         }
@@ -23854,8 +27551,8 @@ namespace IceBlink2
                     }
                 }
             }
-            //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree clockwise)
-            else if (y - 1 == -2)
+            //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
+            else if (y + 1 == mod.currentArea.MapSizeY + 1)
             {
                 if (indexOfSouthernNeighbour != -1)
                 {

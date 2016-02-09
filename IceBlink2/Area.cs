@@ -59,7 +59,7 @@ namespace IceBlink2
         public string northernNeighbourArea = "";
         public string southernNeighbourArea = "";
 
-        public string sourceBitmapName = "";
+         public string sourceBitmapName = "";
 
         //TODO use the inGameAreaName on main map
 
@@ -155,6 +155,7 @@ namespace IceBlink2
         public int overrideDelayCounter2 = 10000;
         public string overrideIsNoScrollSource2 = "";
         public bool changeableByWeatherScript2 = false;
+        public bool drawWithLessVisibleSeamsButMorePixelated = false;
 
         #endregion
         #region full screen effect layer 3
