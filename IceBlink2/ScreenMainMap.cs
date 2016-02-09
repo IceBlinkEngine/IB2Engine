@@ -24066,9 +24066,15 @@ namespace IceBlink2
 
             foreach (Prop p in mod.moduleAreasObjects[relevantIndex].Props)
             {//3
-                //only for on-movers (the movers use drawMovingProps below)
-                //if ((p.isShown) && (!p.isMover) && (p.token != null))
-                if ((p.isShown) && (!p.isMover))
+             //only for on-movers (the movers use drawMovingProps below)
+             //if ((p.isShown) && (!p.isMover) && (p.token != null))
+                bool nonTimeDriven = true;
+                    if (p.MoverType == "daily" || p.MoverType == "weekly" || p.MoverType == "monthly" || p.MoverType == "yearly")
+                    {
+                        nonTimeDriven = false;
+                    }
+
+                if ((p.isShown) && (nonTimeDriven == true))
                         {//4 hurgh27
                         try
                         {
