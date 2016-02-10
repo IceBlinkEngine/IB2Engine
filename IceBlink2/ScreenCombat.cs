@@ -383,10 +383,10 @@ namespace IceBlink2
                 doCreatureNextAction();
             }
         }
-        public void doFloatyTextLoop()
+        /*public void doFloatyTextLoop()
 	    {
 		    gv.postDelayed("doFloatyText", 200);
-	    }
+	    }*/
 
         public void doCombatSetup()
         {
@@ -983,7 +983,7 @@ namespace IceBlink2
                                         crtLocY = crt2.combatLocY;
 //                                        floatyTextOn = true;
                                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                        gv.postDelayed("doFloatyText", 100);
+//                                        gv.postDelayed("doFloatyText", 100);
                                         attResult = doActualCombatAttack(pc, crt2, i);
                                     }
                                     break; //do not try and attack same creature that was just killed
@@ -1076,7 +1076,7 @@ namespace IceBlink2
                 int shiftUp = 0 - (attackNumber * txtH);
 //                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 if (crt.hp <= 0)
                 {
@@ -1832,7 +1832,7 @@ namespace IceBlink2
                 int shiftUp = 0 - (attackNumber * txtH);
 //                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 if (pc.hp <= 0)
                 {
@@ -6003,9 +6003,9 @@ namespace IceBlink2
 	            	    modifier -= 4;
 	            	    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
 	            	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
-	            	    gv.cc.floatyTextOn = true;
+//	            	    gv.cc.floatyTextOn = true;
 	            	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
-	            	    gv.postDelayed("doFloatyText", 100);
+//	            	    gv.postDelayed("doFloatyText", 100);
             	    }
                 }
                 if (gv.sf.hasTrait(pc, "preciseshot2"))
@@ -6165,9 +6165,9 @@ namespace IceBlink2
         			    "<BR>");
         	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
         			    "<BR>");
-        	    gv.cc.floatyTextOn = true;
+//        	    gv.cc.floatyTextOn = true;
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
-        	    gv.postDelayed("doFloatyText", 100);
+//        	    gv.postDelayed("doFloatyText", 100);
         	    return crt.cr_att - 4; 
             }
             else //melee weapon used

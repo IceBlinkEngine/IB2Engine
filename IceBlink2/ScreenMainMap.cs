@@ -238,6 +238,7 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+            #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
                 spr.Update(elapsed);
@@ -256,6 +257,48 @@ namespace IceBlink2
                     }
                 }
             }
+            #endregion
+
+            #region FLOATY TEXT            
+            //move up 50pxl per second (50px/1000ms)*elapsed
+            if (mod.useSmoothMovement)
+            {
+                if (floatyTextByPixelPool.Count > 0)
+                {
+                    int shiftUp = (int)(0.05f * elapsed);
+                    foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
+                    {
+                        ft.z += shiftUp;
+                        ft.timeToLive -= (int)(elapsed);
+                    }
+                    //remove expired floaty text
+                    for (int i = floatyTextByPixelPool.Count - 1; i >= 0; i--)
+                    {
+                        if (floatyTextByPixelPool[i].timeToLive <= 0)
+                        {
+                            floatyTextByPixelPool.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            if (floatyTextPool.Count > 0)
+            {
+                int shiftUp = (int)(0.05f * elapsed);
+                foreach (FloatyText ft in floatyTextPool)
+                {
+                    ft.z += shiftUp;
+                    ft.timeToLive -= (int)(elapsed);
+                }
+                //remove expired floaty text
+                for (int i = floatyTextPool.Count - 1; i >= 0; i--)
+                {
+                    if (floatyTextPool[i].timeToLive <= 0)
+                    {
+                        floatyTextPool.RemoveAt(i);
+                    }
+                }
+            }            
+            #endregion
         }
         //MAIN SCREEN DRAW
         public void resetMiniMapBitmap()
@@ -12991,8 +13034,6 @@ namespace IceBlink2
             #endregion
             #endregion   
         }
-
-
         public void drawBottomFullScreenEffects()
         {
             #region dst tile preparation (min and max)
@@ -23774,7 +23815,6 @@ namespace IceBlink2
             #endregion
         }
         
-        
         public void drawMap()
         {
             int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
@@ -25760,7 +25800,7 @@ namespace IceBlink2
             if (floatyTextPool.Count > 0)
             {
                 int txtH = (int)gv.drawFontRegHeight;
-                int pH = (int)((float)gv.screenHeight / 200.0f);
+                //int pH = (int)((float)gv.screenHeight / 200.0f);
 
                 foreach (FloatyText ft in floatyTextPool)
                 {
@@ -25771,7 +25811,7 @@ namespace IceBlink2
 
                     //location.X should be the the props actual map location in squares (not screen location)
                     int xLoc = (ft.location.X + gv.playerOffset - mod.PlayerLocationX) * gv.squareSize;
-                    int yLoc = ((ft.location.Y + gv.playerOffset - mod.PlayerLocationY) * gv.squareSize) - (pH * ft.z);
+                    int yLoc = ((ft.location.Y + gv.playerOffset - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
 
                     for (int x = -2; x <= 2; x++)
                     {
@@ -25811,7 +25851,7 @@ namespace IceBlink2
             if (floatyTextByPixelPool.Count > 0)
             {
                 int txtH = (int)gv.drawFontRegHeight;
-                int pH = (int)((float)gv.screenHeight / 200.0f);
+                //int pH = (int)((float)gv.screenHeight / 200.0f);
 
                 foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
                 {
@@ -25836,7 +25876,7 @@ namespace IceBlink2
 
                     //location.X should be the the props actual map location in squares (not screen location)
                     int xLoc = (int)(ft.floatyCarrier2.currentPixelPositionX);
-                    int yLoc = (int)(ft.floatyCarrier2.currentPixelPositionY) - (pH * ft.z);
+                    int yLoc = (int)(ft.floatyCarrier2.currentPixelPositionY) - (ft.z);
 
                     for (int x = -2; x <= 2; x++)
                     {
@@ -25898,14 +25938,14 @@ namespace IceBlink2
             }
         }
                 
-        public void doFloatyTextLoop()
+        /*public void doFloatyTextLoop()
         {
-            gv.postDelayed("doFloatyTextMainMap", 100);
-        }
-        public void doFloatyTextByPixelLoop()
+            //gv.postDelayed("doFloatyTextMainMap", 100);
+        }*/
+        /*public void doFloatyTextByPixelLoop()
         {
-            gv.postDelayed("doFloatyTextMainMap", 100);
-        }
+            //gv.postDelayed("doFloatyTextMainMap", 100);
+        }*/
         public void addFloatyText(int sqrX, int sqrY, String value, String color, int length)
         {
             floatyTextPool.Add(new FloatyText(sqrX, sqrY, value, color, length));
