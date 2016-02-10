@@ -5441,7 +5441,7 @@ namespace IceBlink2
             }*/
             #endregion
 
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         public void efHeld(object src, Effect ef)
         {
@@ -6379,7 +6379,7 @@ namespace IceBlink2
             }*/
             #endregion
 
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         //SPELLS WIZARD
         public void spFlameFingers(object src, object trg, Spell thisSpell)
@@ -6514,7 +6514,7 @@ namespace IceBlink2
                     }
                 }
             }*/
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         public void spMageBolt(object src, object trg)
         {
@@ -6576,7 +6576,7 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -6613,7 +6613,7 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -6987,7 +6987,7 @@ namespace IceBlink2
                     }
                 }
             }*/
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         public void spFireball(object src, object trg, Spell thisSpell)
         {
@@ -7123,7 +7123,7 @@ namespace IceBlink2
                     }
                 }
             }*/
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         public void spLightning(object src, object trg, Spell thisSpell)
         {
@@ -7259,7 +7259,7 @@ namespace IceBlink2
                     }
                 }
             }*/
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
 
         //SPELLS CLERIC
@@ -7513,7 +7513,7 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= gv.cc.currentSelectedSpell.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -7558,7 +7558,7 @@ namespace IceBlink2
                 //Do floaty text damage
                 //gv.screenCombat.floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(target.combatLocX, target.combatLocY), damageTotal + "");
-                gv.postDelayed("doFloatyText", 100);
+//                gv.postDelayed("doFloatyText", 100);
 
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -7706,7 +7706,7 @@ namespace IceBlink2
                     }
                 }
             }*/
-            gv.postDelayed("doFloatyText", 100);
+//            gv.postDelayed("doFloatyText", 100);
         }
         public void spHold(object src, object trg)
         {

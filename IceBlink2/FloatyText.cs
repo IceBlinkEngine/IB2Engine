@@ -33,6 +33,7 @@ namespace IceBlink2
             value = val;
             color = clr;
             timerLength = length;
+            timeToLive = length;
         }
         public FloatyText(Coordinate coor, string val)
         {

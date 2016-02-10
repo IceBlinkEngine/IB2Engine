@@ -2586,14 +2586,14 @@ namespace IceBlink2
             gv.triggerPropIndex = 0;
             gv.triggerIndex = 0;
             doPropTriggers();
-            if (gv.screenMainMap.floatyTextPool.Count > 0)
+            /*if (gv.screenMainMap.floatyTextPool.Count > 0)
             {
                 gv.screenMainMap.doFloatyTextLoop();
             }
             if (gv.screenMainMap.floatyTextByPixelPool.Count > 0)
             {
                 gv.screenMainMap.doFloatyTextByPixelLoop();
-            }
+            }*/
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
         }

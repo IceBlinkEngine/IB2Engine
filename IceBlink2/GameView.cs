@@ -1091,25 +1091,24 @@ namespace IceBlink2
                 animationTimer.Interval = delay;
                 animationTimer.Start();
             }
-            else if (type.Equals("doFloatyText"))
+            /*else if (type.Equals("doFloatyText"))
             {
                 floatyTextTimer.Enabled = true;
                 floatyTextTimer.Interval = delay;
                 floatyTextTimer.Start();
-            }
-            else if (type.Equals("doFloatyTextMainMap"))
+            }*/
+            /*else if (type.Equals("doFloatyTextMainMap"))
             {
                 floatyTextMainMapTimer.Enabled = true;
                 floatyTextMainMapTimer.Interval = delay;
                 floatyTextMainMapTimer.Start();
-            }
+            }*/
         }
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
             animationTimer.Enabled = false;
             animationTimer.Stop();
 //            Render();
-            //Invalidate();
             screenCombat.doAnimationController();
         }
         /*private void realTimeTimer_Tick(object sender, EventArgs e)
@@ -1202,7 +1201,7 @@ namespace IceBlink2
         }
         private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
         {
-            floatyTextMainMapTimer.Enabled = false;
+            /*floatyTextMainMapTimer.Enabled = false;
             floatyTextMainMapTimer.Stop();
             //likely remove this render here
             //Render();
@@ -1243,7 +1242,7 @@ namespace IceBlink2
                     }
                 }
                 screenMainMap.doFloatyTextLoop();
-            }
+            }*/
         }
 
         //DRAW ROUTINES
