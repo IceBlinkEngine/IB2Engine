@@ -5,7 +5,7 @@
   "Filename": "wm_try",
   "UseMiniMapFogOfWar": true,
   "inGameAreaName": "Crowded Plains",
-  "areaWeatherScript": "",
+  "areaWeatherScript": "autumn",
   "easternNeighbourArea": "",
   "westernNeighbourArea": "",
   "northernNeighbourArea": "",
