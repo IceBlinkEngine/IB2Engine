@@ -3327,7 +3327,14 @@ namespace IceBlink2
                     //doesCurrentWeatherExistHere = true;
                     //if (doesCurrentWeatherExistHere == false)
                     //{
-                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(10) + 8;
+                    if (gv.mod.useRealTimeTimer == true)
+                    {
+                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(30) + 30;
+                    }
+                    else
+                    {
+                        gv.mod.maintainWeatherFromLastAreaTimer = gv.sf.RandInt(15) + 15;
+                    }
                         gv.mod.justTransitioned2 = false;
                     //}
                     //gv.mod.currentWeatherDuration = 36;
@@ -3392,8 +3399,15 @@ namespace IceBlink2
                         //nameOfChosenWeather = gv.mod.listOfEntryWeatherNames[i];
                         gv.mod.currentWeatherName = gv.mod.listOfEntryWeatherNames[i];
                         gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
-                        float rollRandom2 = gv.sf.RandInt(100) + 100;
-                        gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
+                        float rollRandom2 = gv.sf.RandInt(100);
+                        if (gv.mod.useRealTimeTimer == true)
+                        {
+                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((200f + rollRandom2) / 100f));
+                        }
+                        else
+                        {
+                            gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((100f + rollRandom2) / 100f));
+                        }
                         //testidea2
                         doesCurrentWeatherExistHere = true;
                         //testidea
