@@ -26202,6 +26202,10 @@ namespace IceBlink2
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
                                 {
+                                    
+                                    //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationY--;
@@ -26227,6 +26231,10 @@ namespace IceBlink2
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
                                 {
+                                   
+                                        //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationY++;
@@ -26246,6 +26254,10 @@ namespace IceBlink2
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                                 {
+
+                                        //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX--;
@@ -26277,6 +26289,10 @@ namespace IceBlink2
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
                                 {
+                                    
+                                        //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX++;
@@ -26680,6 +26696,10 @@ namespace IceBlink2
             {
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                 {
+                   
+                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTriggerMovingProp = false;
+
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationX--;
@@ -26706,6 +26726,10 @@ namespace IceBlink2
             {
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
                 {
+                    
+                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTriggerMovingProp = false;
+                   
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationX++;
@@ -26731,6 +26755,10 @@ namespace IceBlink2
             {
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
                 {
+
+                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTriggerMovingProp = false;
+
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationY--;
@@ -26745,6 +26773,10 @@ namespace IceBlink2
             {
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
                 {
+                   
+                    //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTriggerMovingProp = false;
+
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationY++;

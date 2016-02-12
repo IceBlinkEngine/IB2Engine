@@ -134,8 +134,11 @@ namespace IceBlink2
         public int attackFromBehindDamageModifier = 0;
         public bool useOrbitronFont = false;
         public bool justTransitioned = false;
+        public bool justTransitioned2 = false;
         public int arrivalSquareX = 1000000;
         public int arrivalSquareY = 1000000;
+        //public bool isRecursiveDoTriggerCall = false;
+        //public bool isRecursiveDoTriggerCallMovingProp = false;
         //public int fullScreenAnimationFrameCounter1 = 0;
         //public int fullScreenAnimationFrameCounter2 = 0;
         //public int fullScreenAnimationFrameCounter3 = 0;
@@ -288,7 +291,14 @@ namespace IceBlink2
         public float fullScreenAnimationFrameCounterY10 = 0;
 
         public int maintainWeatherFromLastAreaTimer = 0;
-        
+        //public bool secondUpdateAfterTransition = false;
+        //public bool blockTrigger = false;
+        //public bool blockTriggerMovingProp = false;
+        public bool doConvo = true;
+        public int noTriggerLocX = -1;
+        public int noTriggerLocY = -1;
+        public bool firstTriggerCall = true;
+        public bool isRecursiveCall = false;
 
         public Module()
         {

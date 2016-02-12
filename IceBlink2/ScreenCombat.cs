@@ -2115,7 +2115,10 @@ namespace IceBlink2
                 gv.cc.doIBScriptBasedOnFilename(gv.mod.currentEncounter.OnEndCombatIBScript, gv.mod.currentEncounter.OnEndCombatIBScriptParms);
                 if (gv.cc.calledEncounterFromProp)
                 {
+                    //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
+                    //gv.mod.isRecursiveCall = true;
                     gv.cc.doPropTriggers();
+                    //gv.mod.isRecursiveCall = false;
                 }
                 else
                 {

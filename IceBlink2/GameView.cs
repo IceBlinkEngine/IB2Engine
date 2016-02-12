@@ -146,7 +146,7 @@ namespace IceBlink2
         //public Timer smoothMoveTimer = new Timer();
 
         public float floatPixMovedPerTick = 4f;
-        public int realTimeTimerLengthInMilliSeconds = 1500;
+        //public int realTimeTimerLengthInMilliSeconds = 2500;
         public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int smoothMoveCounter = 0;
@@ -346,7 +346,7 @@ namespace IceBlink2
                 floatPixMovedPerTick = ((float)squareSize / 90f) * mod.allAnimationSpeedMultiplier;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after first is:" + floatPixMovedPerTick.ToString());
                 //due to a mistake of mine 4 pix were moved always beforehand, trying a dynamically calculated average of 7.5 pix now, increases speed by 90%
-                floatPixMovedPerTick = floatPixMovedPerTick / (((float)realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 6.675f;
+                floatPixMovedPerTick = floatPixMovedPerTick / (((float)mod.realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 6.675f;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after second is is:" + floatPixMovedPerTick.ToString());
                 //IBMessageBox.Show(this, "real time timer length is:" + realTimeTimerLengthInMilliSeconds.ToString());
                 
@@ -1156,7 +1156,7 @@ namespace IceBlink2
             if ((mod.useRealTimeTimer) && (screenType.Equals("main")))
             {
                 realTimeTimerMilliSecondsEllapsed += elapsed;
-                if (realTimeTimerMilliSecondsEllapsed >= realTimeTimerLengthInMilliSeconds)
+                if (realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
                 {
                     cc.doUpdate();
                     realTimeTimerMilliSecondsEllapsed = 0;
@@ -1728,6 +1728,20 @@ namespace IceBlink2
             }
             else if (screenType.Equals("main"))
             {
+                /*
+                if (mod.justTransitioned == true)
+                {
+                    if (mod.secondUpdateAfterTransition == true)
+                    {
+                        mod.justTransitioned = false;
+                    }
+                    mod.secondUpdateAfterTransition = true;
+                }
+                else
+                {
+                    mod.secondUpdateAfterTransition = false;
+                }
+                */
                 screenMainMap.redrawMain();
             }
             else if (screenType.Equals("party"))
