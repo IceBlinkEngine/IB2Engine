@@ -10,7 +10,8 @@ namespace IceBlink2
 	    public string EntryTitle = "newTitle";
 	    public string EntryText = "quest entry text";
 	    public string Tag = "tag";
-	    public bool EndPoint = false;
+        public int EntryId = 0;
+        public bool EndPoint = false;
     
 	    public JournalEntry()
 	    {
@@ -23,6 +24,7 @@ namespace IceBlink2
 		    copy.EntryTitle = this.EntryTitle;
 		    copy.EntryText = this.EntryText;
 		    copy.Tag = this.Tag;
+            copy.EntryId = this.EntryId;
 		    copy.EndPoint = this.EndPoint;		
 		    return copy;
         }

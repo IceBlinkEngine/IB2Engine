@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Well, well, well.  Drawn Swords' very own ill-looking stranger.  How do you do?  And while we're at it--[<i>Looking around mischievously</i>]--Tell me, <Subrace>, are you here to kill us all?|***gc_check_race_pc-->NOT::False    String::19    ***gc_check_race_pc-->NOT::False    String::6    ***gc_check_race_pc-->NOT::False    String::20    ***gc_check_race_pc-->NOT::False    String::28    ***gc_check_race_pc-->NOT::False    String::8    ***gc_check_race_pc-->NOT::True    String::27    |",
+          "conversationText": "Well, well, well.  Drawn Swords' very own ill-looking stranger.  How do you do?  And while we're at it--[<i>Looking around mischievously</i>]--Tell me, <Race>, are you here to kill us all?",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -36,7 +36,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "I may be a <Subrace>, but I have no ill will toward you or anyone else in Drawn Swords, for that matter.",
+              "conversationText": "I may be a <Race>, but I have no ill will toward you or anyone else in Drawn Swords, for that matter.",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -49,7 +49,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "[<i>To the others in the inn</i>.]  Hear, hear!  The stranger is a <Subrace> of a different color, or at least a different heart.  Says <he/she>'s on <i>our</i> side!",
+                  "conversationText": "[<i>To the others in the inn</i>.]  Hear, hear!  The stranger is a <Race> of a different color, or at least a different heart.  Says <he/she>'s on <i>our</i> side!",
                   "IsExpanded": true,
                   "subNodes": [
                     {
@@ -62,7 +62,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "Continue",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -88,7 +88,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "End Dialog",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -117,7 +117,7 @@
             },
             {
               "idNum": 7,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -125,7 +125,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "Not unless <i>you</i> give me good reason.|***ga_global_int-->String::abrasive    String::++    |",
+              "conversationText": "Not unless <i>you</i> give me good reason.",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -164,7 +164,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "",
+                          "conversationText": "[<i>To the others in the inn</i>.]  Hear, hear!  The stranger is a <Race> of a different color, or at least a different heart.  Says <he/she>'s on <i>our</i> side!",
                           "IsExpanded": true,
                           "subNodes": [],
                           "actions": [],
@@ -178,7 +178,7 @@
                     },
                     {
                       "idNum": 11,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -199,7 +199,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "",
+                          "conversationText": "[<i>To the others in the inn</i>.]  Hear, hear!  The stranger is a <Race> of a different color, or at least a different heart.  Says <he/she>'s on <i>our</i> side!",
                           "IsExpanded": true,
                           "subNodes": [],
                           "actions": [],
@@ -213,7 +213,7 @@
                     },
                     {
                       "idNum": 13,
-                      "orderNum": 0,
+                      "orderNum": 2,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -221,7 +221,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "I believe you.  Those of my \"kind\" who travel among men usually prefer the comforts of real civilization to the prejudices of backwaters such as this.  Good <day/night>.|***ga_global_int-->String::prejudice    String::1    |",
+                      "conversationText": "I believe you.  Those of my \"kind\" who travel among men usually prefer the comforts of real civilization to the prejudices of backwaters such as this.  Good <day/night>.",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [
@@ -238,7 +238,7 @@
                     },
                     {
                       "idNum": 100001,
-                      "orderNum": 0,
+                      "orderNum": 3,
                       "pcNode": true,
                       "linkTo": 19,
                       "ShowOnlyOnce": false,
@@ -246,7 +246,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "[<i>Turn brusquely away.</i>]",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [],
@@ -273,7 +273,7 @@
             },
             {
               "idNum": 15,
-              "orderNum": 0,
+              "orderNum": 2,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -281,7 +281,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "What, did my dusky complexion give me away?  ||***ga_global_int-->String::ironic    String::++    ***gc_check_race_pc-->NOT::False    String::19    ***gc_check_race_pc-->NOT::False    String::20    ||",
+              "conversationText": "What, did my dusky complexion give me away?",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -294,7 +294,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "",
+                  "conversationText": "I meant no offense, stranger.  Your kind is rarely seen here, is all.",
                   "IsExpanded": true,
                   "subNodes": [],
                   "actions": [],
@@ -313,22 +313,12 @@
               ],
               "conditions": [
                 {
-                  "c_script": "gc_check_race_pc(nonIBscript)",
+                  "c_script": "gcCheckIsRace.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": false,
-                  "c_parameter_1": "19",
-                  "c_parameter_2": null,
-                  "c_parameter_3": null,
-                  "c_parameter_4": null
-                },
-                {
-                  "c_script": "gc_check_race_pc(nonIBscript)",
-                  "c_btnAndOr": null,
-                  "c_and": false,
-                  "c_not": false,
-                  "c_parameter_1": "20",
-                  "c_parameter_2": null,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "gnome",
                   "c_parameter_3": null,
                   "c_parameter_4": null
                 }
@@ -337,7 +327,7 @@
             },
             {
               "idNum": 17,
-              "orderNum": 0,
+              "orderNum": 3,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -345,7 +335,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "What, did my inhuman charm give me away?|***gc_check_race_pc-->NOT::False    String::6    ***gc_check_race_pc-->NOT::False    String::28    |",
+              "conversationText": "What, did my inhuman charm give me away?",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -358,7 +348,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "",
+                  "conversationText": "I meant no offense, stranger.  Your kind is rarely seen here, is all.",
                   "IsExpanded": true,
                   "subNodes": [],
                   "actions": [],
@@ -369,22 +359,12 @@
               "actions": [],
               "conditions": [
                 {
-                  "c_script": "gc_check_race_pc(nonIBscript)",
+                  "c_script": "gcCheckIsRace.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": false,
-                  "c_parameter_1": "6",
-                  "c_parameter_2": null,
-                  "c_parameter_3": null,
-                  "c_parameter_4": null
-                },
-                {
-                  "c_script": "gc_check_race_pc(nonIBscript)",
-                  "c_btnAndOr": null,
-                  "c_and": false,
-                  "c_not": false,
-                  "c_parameter_1": "28",
-                  "c_parameter_2": null,
+                  "c_parameter_1": "-1",
+                  "c_parameter_2": "dwarf",
                   "c_parameter_3": null,
                   "c_parameter_4": null
                 }
@@ -393,7 +373,7 @@
             },
             {
               "idNum": 19,
-              "orderNum": 0,
+              "orderNum": 4,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -401,7 +381,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "[<i>Turn brusquely away.</i>]|***ga_global_int-->String::prejudice    String::1    |",
+              "conversationText": "[<i>Turn brusquely away.</i>]",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [
@@ -420,62 +400,22 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_check_race_pc(nonIBscript)",
+              "c_script": "gcCheckIsRace.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": "19",
-              "c_parameter_2": null,
+              "c_parameter_1": "-1",
+              "c_parameter_2": "dwarf",
               "c_parameter_3": null,
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_check_race_pc(nonIBscript)",
-              "c_btnAndOr": null,
+              "c_script": "gcCheckIsRace.cs",
+              "c_btnAndOr": "or",
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": "6",
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            },
-            {
-              "c_script": "gc_check_race_pc(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": "20",
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            },
-            {
-              "c_script": "gc_check_race_pc(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": "28",
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            },
-            {
-              "c_script": "gc_check_race_pc(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": "8",
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            },
-            {
-              "c_script": "gc_check_race_pc(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": true,
-              "c_parameter_1": "27",
-              "c_parameter_2": null,
+              "c_parameter_1": "-1",
+              "c_parameter_2": "gnome",
               "c_parameter_3": null,
               "c_parameter_4": null
             }
@@ -484,7 +424,7 @@
         },
         {
           "idNum": 20,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -492,9 +432,27 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "<i>This person looks at you with a mixture of fear and awe.</i>|***gc_global_int-->NOT::False    String::prejudice    String::1    |",
+          "conversationText": "<i>This person looks at you with a mixture of fear and awe.</i>",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 42,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
@@ -512,7 +470,7 @@
         },
         {
           "idNum": 21,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -520,13 +478,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Ianth Lavillus is likely to stir up trouble for Drawn Swords if she keeps wandering through Northdark Wood.|***gc_rand_1of-->NOT::False    Int::20    ***gc_comp_remove-->NOT::True    String::ianth    |",
+          "conversationText": "Ianth Lavillus is likely to stir up trouble for Drawn Swords if she keeps wandering through Northdark Wood.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 43,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -536,11 +512,11 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_comp_remove(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
-              "c_parameter_1": "ianth",
+              "c_parameter_1": "Ianth",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -550,7 +526,7 @@
         },
         {
           "idNum": 22,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -558,13 +534,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Danmar Braceley knows his drinks.  He knows a thing or two he's not telling, too, I'd wager.|***gc_rand_1of-->NOT::False    Int::19    |",
+          "conversationText": "Danmar Braceley knows his drinks.  He knows a thing or two he's not telling, too, I'd wager.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 44,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -578,7 +572,7 @@
         },
         {
           "idNum": 23,
-          "orderNum": 0,
+          "orderNum": 4,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -586,13 +580,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "There's good boar and deer hunting in Northdark Wood.  Orcs and goblins too, of course.|***gc_rand_1of-->NOT::False    Int::18    |",
+          "conversationText": "There's good boar and deer hunting in Northdark Wood.  Orcs and goblins too, of course.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 45,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -606,7 +618,7 @@
         },
         {
           "idNum": 24,
-          "orderNum": 0,
+          "orderNum": 5,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -614,13 +626,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Have you heard of the Backlands Boar?  People say it's at least a hundred years old and bigger than two bears!|***gc_rand_1of-->NOT::False    Int::17    |",
+          "conversationText": "Have you heard of the Backlands Boar?  People say it's at least a hundred years old and bigger than two bears!",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 46,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -634,7 +664,7 @@
         },
         {
           "idNum": 25,
-          "orderNum": 0,
+          "orderNum": 6,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -642,13 +672,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Oudin Asterchord has a number of curiosities in his nearby shop.  I don't know how he stays in business, though, what with those prices.|***gc_rand_1of-->NOT::False    Int::16    |",
+          "conversationText": "Oudin Asterchord has a number of curiosities in his nearby shop.  I don't know how he stays in business, though, what with those prices.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 47,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -662,7 +710,7 @@
         },
         {
           "idNum": 26,
-          "orderNum": 0,
+          "orderNum": 7,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -670,13 +718,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Hamfast is overworked.  Running a smithy <i>and</i> a town isn't easy.|***gc_rand_1of-->NOT::False    Int::15    |",
+          "conversationText": "Hamfast is overworked.  Running a smithy <i>and</i> a town isn't easy.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 48,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -690,7 +756,7 @@
         },
         {
           "idNum": 27,
-          "orderNum": 0,
+          "orderNum": 8,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -698,13 +764,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The men of Saern's Swords used to help out as the local militia, but with Ianth here, they mostly help themselves to more rounds.|***gc_rand_1of-->NOT::False    Int::14    ***gc_comp_remove-->NOT::True    String::ianth    |",
+          "conversationText": "The men of Saern's Swords used to help out as the local militia, but with Ianth here, they mostly help themselves to more rounds.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 49,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -714,11 +798,11 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_comp_remove(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
-              "c_parameter_1": "ianth",
+              "c_parameter_1": "Ianth",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -728,7 +812,7 @@
         },
         {
           "idNum": 28,
-          "orderNum": 0,
+          "orderNum": 9,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -736,13 +820,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Swordskeep used to be the home of a robber knight named Ludos, a bad man who quickly lost his power to brutal winters and starvation.|***gc_rand_1of-->NOT::False    Int::13    |",
+          "conversationText": "Swordskeep used to be the home of a robber knight named Ludos, a bad man who quickly lost his power to brutal winters and starvation.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 50,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -756,7 +858,7 @@
         },
         {
           "idNum": 29,
-          "orderNum": 0,
+          "orderNum": 10,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -764,13 +866,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Most of us make our living as craftsmen or hunters.  There's not much to farm on a rocky crag.|***gc_rand_1of-->NOT::False    Int::12    |",
+          "conversationText": "Most of us make our living as craftsmen or hunters.  There's not much to farm on a rocky crag.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 51,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -784,7 +904,7 @@
         },
         {
           "idNum": 30,
-          "orderNum": 0,
+          "orderNum": 11,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -792,13 +912,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "We're proud to be known as the southernmost point of the Backlands.  Eh, \"proud\" might be too strong a word.|***gc_rand_1of-->NOT::False    Int::11    |",
+          "conversationText": "We're proud to be known as the southernmost point of the Backlands.  Eh, \"proud\" might be too strong a word.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 52,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -812,7 +950,7 @@
         },
         {
           "idNum": 31,
-          "orderNum": 0,
+          "orderNum": 12,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -820,13 +958,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Sunset Vale, not far to the south, is more well known than Drawn Swords.  There you've got Berdusk and Iriaebor.|***gc_rand_1of-->NOT::False    Int::10    |",
+          "conversationText": "Sunset Vale, not far to the south, is more well known than Drawn Swords.  There you've got Berdusk and Iriaebor.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 53,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -840,7 +996,7 @@
         },
         {
           "idNum": 32,
-          "orderNum": 0,
+          "orderNum": 13,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -848,13 +1004,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Brother Anselm is a young priest of Ilmater, and we are indeed blessed to have him here.  He has two acolytes, Dunne and Obern.|***gc_rand_1of-->NOT::False    Int::9    |",
+          "conversationText": "Brother Anselm is a young priest of Ilmater, and we are indeed blessed to have him here.  He has two acolytes, Dunne and Obern.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 54,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -868,7 +1042,7 @@
         },
         {
           "idNum": 33,
-          "orderNum": 0,
+          "orderNum": 14,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -876,13 +1050,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The autumn is kind to us folk of Drawn Swords, but the winter follows quickly and is usually very cruel.|***gc_rand_1of-->NOT::False    Int::8    |",
+          "conversationText": "The autumn is kind to us folk of Drawn Swords, but the winter follows quickly and is usually very cruel.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 55,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -896,7 +1088,7 @@
         },
         {
           "idNum": 34,
-          "orderNum": 0,
+          "orderNum": 15,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -904,13 +1096,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Danmar keeps surplus provisions in the cellar of the Sword and Dragon, and the hunters do what they can to keep a supply of food flowing.|***gc_rand_1of-->NOT::False    Int::7    |",
+          "conversationText": "Danmar keeps surplus provisions in the cellar of the Sword and Dragon, and the hunters do what they can to keep a supply of food flowing.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 56,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -924,7 +1134,7 @@
         },
         {
           "idNum": 35,
-          "orderNum": 0,
+          "orderNum": 16,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -932,13 +1142,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "<i>All</i> of Danmar's drinks are fine, but the mulled cider he's shipped up from Corm Orp is quite delicious. |***gc_rand_1of-->NOT::False    Int::6    |",
+          "conversationText": "<i>All</i> of Danmar's drinks are fine, but the mulled cider he's shipped up from Corm Orp is quite delicious.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 57,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -952,7 +1180,7 @@
         },
         {
           "idNum": 36,
-          "orderNum": 0,
+          "orderNum": 17,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -960,13 +1188,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Drawn Swords is surrounded by rocky hills and plains to the north and east, and the dangerous Northdark Wood to the south.|***gc_rand_1of-->NOT::False    Int::5    |",
+          "conversationText": "Drawn Swords is surrounded by rocky hills and plains to the north and east, and the dangerous Northdark Wood to the south.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 58,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -980,7 +1226,7 @@
         },
         {
           "idNum": 37,
-          "orderNum": 0,
+          "orderNum": 18,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -988,13 +1234,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "They say that Evereska, the land of the elves, lies a crow's tenday to the north.  It might as well be on the other side of Faerun for all the dangers that lie between here and there.|***gc_rand_1of-->NOT::False    Int::4    |",
+          "conversationText": "They say that Evereska, the land of the elves, lies a crow's tenday to the north.  It might as well be on the other side of Faerun for all the dangers that lie between here and there.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 59,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -1008,7 +1272,7 @@
         },
         {
           "idNum": 38,
-          "orderNum": 0,
+          "orderNum": 19,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -1016,13 +1280,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The Flame Stone is a holy site of Sune, goddess of love, and stands not far from this crag.|***gc_rand_1of-->NOT::False    Int::3    |",
+          "conversationText": "The Flame Stone is a holy site of Sune, goddess of love, and stands not far from this crag.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 60,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -1036,7 +1318,7 @@
         },
         {
           "idNum": 39,
-          "orderNum": 0,
+          "orderNum": 20,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -1044,13 +1326,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "We do not have many travelers, but we would have far fewer if it weren't for this inn.|***gc_rand_1of-->NOT::False    Int::2    |",
+          "conversationText": "We do not have many travelers, but we would have far fewer if it weren't for this inn.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 61,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -1064,7 +1364,7 @@
         },
         {
           "idNum": 40,
-          "orderNum": 0,
+          "orderNum": 21,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -1074,7 +1374,25 @@
           "NodeSound": "none",
           "conversationText": "If Hamfast is the town's leader, Danmar is his council.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 62,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [],
           "isLink": false
@@ -1085,11 +1403,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "commoner_con.json",
+  "ConvoFileName": "commoner_con",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "",
+  "NpcPortraitBitmap": "prp_blob_portrait.png",
   "DefaultNpcName": "",
-  "NextIdNum": 41
+  "NextIdNum": 62
 }

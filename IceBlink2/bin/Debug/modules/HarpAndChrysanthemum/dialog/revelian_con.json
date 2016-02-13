@@ -780,7 +780,7 @@
                   ],
                   "actions": [
                     {
-                      "a_script": "ga_give_gold(nonIBscript)",
+                      "a_script": "gaGiveGold.cs",
                       "a_parameter_1": "36",
                       "a_parameter_2": "0",
                       "a_parameter_3": null,

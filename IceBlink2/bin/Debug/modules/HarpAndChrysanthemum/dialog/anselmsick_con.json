@@ -81,7 +81,7 @@
             },
             {
               "idNum": 5,
-              "orderNum": 1,
+              "orderNum": 0,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -115,7 +115,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "Thank you for letting me know, Hamfast.",
+                      "conversationText": "",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [],
@@ -139,7 +139,7 @@
               "actions": [],
               "conditions": [
                 {
-                  "c_script": "gc_journal_entry(nonIBscript)",
+                  "c_script": "gcCheckJournalEntryByTag.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": false,
@@ -153,7 +153,7 @@
             },
             {
               "idNum": 100000,
-              "orderNum": 2,
+              "orderNum": 0,
               "pcNode": true,
               "linkTo": 4,
               "ShowOnlyOnce": false,
@@ -161,7 +161,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "Thank you for letting me know, Hamfast.",
+              "conversationText": "",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -172,7 +172,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -182,7 +182,7 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -196,7 +196,7 @@
         },
         {
           "idNum": 9,
-          "orderNum": 1,
+          "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -210,7 +210,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -228,7 +228,7 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "anselmsick_con",
+  "ConvoFileName": "anselmsick_con.json",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,

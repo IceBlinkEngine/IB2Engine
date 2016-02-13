@@ -23,13 +23,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "[<i>Hic.</i>]|***gc_rand_1of-->NOT::False    Int::5    |",
+          "conversationText": "[<i>Hic.</i>]",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 7,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -43,7 +61,7 @@
         },
         {
           "idNum": 2,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -51,13 +69,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "[<i>Gulp.</i>]|***gc_rand_1of-->NOT::False    Int::4    |",
+          "conversationText": "[<i>Gulp.</i>]",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 8,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -71,7 +107,7 @@
         },
         {
           "idNum": 3,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -79,13 +115,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "[<i>This drunk man looks at you blearily.</i>]|***gc_rand_1of-->NOT::False    Int::3    |",
+          "conversationText": "[<i>This drunk man looks at you blearily.</i>]",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 9,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -99,7 +153,7 @@
         },
         {
           "idNum": 4,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -107,13 +161,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "[<i>The drunk nods, but you cannot tell if it is to acknowledge you or because he is sleepy.</i>] |***gc_rand_1of-->NOT::False    Int::2    |",
+          "conversationText": "[<i>The drunk nods, but you cannot tell if it is to acknowledge you or because he is sleepy.</i>]",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 10,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -127,7 +199,7 @@
         },
         {
           "idNum": 5,
-          "orderNum": 0,
+          "orderNum": 4,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -137,7 +209,25 @@
           "NodeSound": "none",
           "conversationText": "What in the Nine Hells?  Can't I just drink in peace?",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 11,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [],
           "isLink": false
@@ -148,11 +238,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "drunk_con.json",
+  "ConvoFileName": "drunk_con",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "",
   "DefaultNpcName": "",
-  "NextIdNum": 6
+  "NextIdNum": 11
 }

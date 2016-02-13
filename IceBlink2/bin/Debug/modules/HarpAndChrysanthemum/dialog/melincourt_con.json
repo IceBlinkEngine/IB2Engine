@@ -1980,7 +1980,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -2285,7 +2285,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -2381,7 +2381,7 @@
                       "a_parameter_4": null
                     },
                     {
-                      "a_script": "ga_give_gold(nonIBscript)",
+                      "a_script": "gaGiveGold.cs",
                       "a_parameter_1": "100",
                       "a_parameter_2": "0",
                       "a_parameter_3": null,
@@ -3251,7 +3251,7 @@
                                                                                                                                                                               ],
                                                                                                                                                                               "actions": [
                                                                                                                                                                                 {
-                                                                                                                                                                                  "a_script": "ga_give_gold(nonIBscript)",
+                                                                                                                                                                                  "a_script": "gaGiveGold.cs",
                                                                                                                                                                                   "a_parameter_1": "50",
                                                                                                                                                                                   "a_parameter_2": "0",
                                                                                                                                                                                   "a_parameter_3": null,
@@ -4609,7 +4609,7 @@
                                                                                                                                                       ],
                                                                                                                                                       "actions": [
                                                                                                                                                         {
-                                                                                                                                                          "a_script": "ga_give_gold(nonIBscript)",
+                                                                                                                                                          "a_script": "gaGiveGold.cs",
                                                                                                                                                           "a_parameter_1": "50",
                                                                                                                                                           "a_parameter_2": "0",
                                                                                                                                                           "a_parameter_3": null,
@@ -5051,7 +5051,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,

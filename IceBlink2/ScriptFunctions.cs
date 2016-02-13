@@ -546,7 +546,8 @@ namespace IceBlink2
                     }
                     else if (filename.Equals("gcCheckJournalEntryByTag.cs"))
                     {
-                        gv.mod.returnCheck = CheckJournalEntry(prm1, prm2);
+                        int parm3 = Convert.ToInt32(p4);
+                        gv.mod.returnCheck = CheckJournalEntry(prm1, prm2, parm3);
                     }
                     else if (filename.Equals("gcCheckForGold.cs"))
                     {
@@ -4001,18 +4002,53 @@ namespace IceBlink2
             return pc;
         }
 
-        public bool CheckJournalEntry(string categoryTag, string entryTag)
+        public bool CheckJournalEntry(string categoryTag, string compareOperator, int entryId)
         {
             foreach (JournalQuest quest in mod.partyJournalQuests)
             {
                 if (quest.Tag.Equals(categoryTag))
                 {
-                    foreach (JournalEntry entry in quest.Entries)
+                    if (compareOperator.Equals("="))
                     {
-                        if (entry.Tag.Equals(entryTag))
+                        foreach (JournalEntry entry in quest.Entries)
                         {
-                            return true;
+                            if (entry.EntryId == entryId)
+                            {
+                                return true;
+                            }
                         }
+                    }
+                    else if (compareOperator.Equals(">"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId > entryId)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else if (compareOperator.Equals("<"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId >= entryId)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                    else if (compareOperator.Equals("!"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId == entryId)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
                 }                
             }
@@ -4020,12 +4056,47 @@ namespace IceBlink2
             {
                 if (quest.Tag.Equals(categoryTag))
                 {
-                    foreach (JournalEntry entry in quest.Entries)
+                    if (compareOperator.Equals("="))
                     {
-                        if (entry.Tag.Equals(entryTag))
+                        foreach (JournalEntry entry in quest.Entries)
                         {
-                            return true;
+                            if (entry.EntryId == entryId)
+                            {
+                                return true;
+                            }
                         }
+                    }
+                    else if (compareOperator.Equals(">"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId > entryId)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    else if (compareOperator.Equals("<"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId >= entryId)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                    else if (compareOperator.Equals("!"))
+                    {
+                        foreach (JournalEntry entry in quest.Entries)
+                        {
+                            if (entry.EntryId == entryId)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
                 }
             }

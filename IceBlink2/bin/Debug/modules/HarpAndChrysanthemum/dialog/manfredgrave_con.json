@@ -1236,7 +1236,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -1264,7 +1264,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -1292,7 +1292,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,

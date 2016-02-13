@@ -23,13 +23,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "I traveled here from the south.  The road has never been easy, but it's gotten worse.|***gc_rand_1of-->NOT::False    Int::7    |",
+          "conversationText": "I traveled here from the south.  The road has never been easy, but it's gotten worse.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 9,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -43,7 +61,7 @@
         },
         {
           "idNum": 2,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -51,13 +69,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "You know, I actually ran into a squad of Zhentarim on the road?  They looked wounded, or else I'm sure they would have killed me!|***gc_rand_1of-->NOT::False    Int::6    |",
+          "conversationText": "You know, I actually ran into a squad of Zhentarim on the road?  They looked wounded, or else I'm sure they would have killed me!",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 10,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -71,7 +107,7 @@
         },
         {
           "idNum": 3,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -79,13 +115,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Drawn Swords is a pleasant enough place, given the surrounding region.  The hike up the crag is unkind to the weary, though.|***gc_rand_1of-->NOT::False    Int::5    |",
+          "conversationText": "Drawn Swords is a pleasant enough place, given the surrounding region.  The hike up the crag is unkind to the weary, though.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 11,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -99,7 +153,7 @@
         },
         {
           "idNum": 4,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -107,13 +161,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Even people in Berdusk sing the praises of the Sword and Dragon Inn.  Danmar knows his business.|***gc_rand_1of-->NOT::False    Int::4    |",
+          "conversationText": "Even people in Berdusk sing the praises of the Sword and Dragon Inn.  Danmar knows his business.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 12,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -127,7 +199,7 @@
         },
         {
           "idNum": 5,
-          "orderNum": 0,
+          "orderNum": 4,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -135,13 +207,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "There's a few loose-knit orc tribes in Northdark Wood, but the trolls hereabouts are the greater danger.  Luckily they're not as thick as they were years ago.|***gc_rand_1of-->NOT::False    Int::3    |",
+          "conversationText": "There's a few loose-knit orc tribes in Northdark Wood, but the trolls hereabouts are the greater danger.  Luckily they're not as thick as they were years ago.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 13,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -155,7 +245,7 @@
         },
         {
           "idNum": 6,
-          "orderNum": 0,
+          "orderNum": 5,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -163,13 +253,31 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "The trade wars are less intense out here in the Backlands than they are on the Sword Coast.  Trade in Baldur's Gate is downright brutal.|***gc_rand_1of-->NOT::False    Int::2    |",
+          "conversationText": "The trade wars are less intense out here in the Backlands than they are on the Sword Coast.  Trade in Baldur's Gate is downright brutal.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 14,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_rand_1of(nonIBscript)",
+              "c_script": "gcRand1of.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -183,7 +291,7 @@
         },
         {
           "idNum": 7,
-          "orderNum": 0,
+          "orderNum": 6,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -193,7 +301,25 @@
           "NodeSound": "none",
           "conversationText": "Corm Orp is mostly made of halflings, though the town's leader is a human.  A very nice place to visit.  ",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 15,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [],
           "isLink": false
@@ -204,11 +330,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "traveler_con.json",
+  "ConvoFileName": "traveler_con",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "",
   "DefaultNpcName": "",
-  "NextIdNum": 8
+  "NextIdNum": 15
 }
