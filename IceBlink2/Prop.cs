@@ -16,6 +16,8 @@ namespace IceBlink2
     {
 	    public int LocationX = 0;
 	    public int LocationY = 0;
+        public int lastLocationX = 0;
+        public int lastLocationY = 0;
 	    public string ImageFileName = "blank";
         [JsonIgnore]
 	    public bool PropFacingLeft = true;
@@ -71,6 +73,8 @@ namespace IceBlink2
         //public int drawAnchorX = 0;
         //public int drawAnchorY = 0;
         //public bool startingOnVisibleSquare = true;
+        public bool wasTriggeredLastUpdate = false;
+        public bool blockTrigger = false;
     
         public Prop()
         {
@@ -87,7 +91,11 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 		    copy.LocationX = this.LocationX;
 		    copy.LocationY = this.LocationY;
-		    copy.ImageFileName = this.ImageFileName;
+            copy.blockTrigger = this.blockTrigger;
+            copy.wasTriggeredLastUpdate = this.wasTriggeredLastUpdate;
+            copy.lastLocationX = this.lastLocationX;
+            copy.lastLocationY = this.lastLocationY;
+            copy.ImageFileName = this.ImageFileName;
 		    copy.PropFacingLeft = this.PropFacingLeft;
 		    copy.MouseOverText = this.MouseOverText;
 		    copy.HasCollision = this.HasCollision;

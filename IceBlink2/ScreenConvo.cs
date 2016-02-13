@@ -651,8 +651,12 @@ namespace IceBlink2
 	        		    gv.screenType = "main";
 	        		    if (gv.cc.calledConvoFromProp)
 	        		    {
-	        			    gv.cc.doPropTriggers();
-	        		    }
+                            //gv.mod.isRecursiveDoTriggerCallMovingProp = true;
+                            //gv.mod.blockTriggerMovingProp = true;
+                            //gv.mod.isRecursiveCall = true;
+                            gv.cc.doPropTriggers();
+                            //gv.mod.isRecursiveCall = true;
+                        }
 	        		    else
 	        		    {
 	        			    gv.cc.doTrigger();

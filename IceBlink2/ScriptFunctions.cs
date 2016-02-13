@@ -352,6 +352,7 @@ namespace IceBlink2
                                 gv.mod.PlayerLocationY = parm3;
                                 //transi2
                                 gv.mod.justTransitioned = true;
+                                gv.mod.justTransitioned2 = true;
                                 gv.mod.arrivalSquareX = gv.mod.PlayerLocationX;
                                 gv.mod.arrivalSquareY = gv.mod.PlayerLocationY;
                             }
@@ -962,6 +963,8 @@ namespace IceBlink2
                         {
 
                             Prop prp2 = prp.DeepCopy();
+                            //prp2.lastLocationX = prp.LocationX;
+                            //prp2.lastLocationY = prp.LocationY;
                             prp2.LocationX = Convert.ToInt32(p3);
                             prp2.LocationY = Convert.ToInt32(p4);
                             gv.cc.DisposeOfBitmap(ref prp2.token);
