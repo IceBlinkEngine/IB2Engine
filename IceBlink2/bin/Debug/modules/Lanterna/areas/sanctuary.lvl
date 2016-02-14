@@ -19,7 +19,7 @@
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "sanctuary",
   "MapSizeX": 8,
   "MapSizeY": 8,
   "Tiles": [

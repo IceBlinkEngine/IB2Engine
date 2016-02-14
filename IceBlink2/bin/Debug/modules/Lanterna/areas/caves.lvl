@@ -19,7 +19,7 @@
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "caves",
   "MapSizeX": 16,
   "MapSizeY": 16,
   "Tiles": [

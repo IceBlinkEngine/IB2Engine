@@ -379,9 +379,12 @@ namespace IceBlink2
 		    cc.LoadTraits();
 		    cc.LoadCreatures();
 		    cc.LoadEncounters();
-		    cc.LoadJournal();	
-		    //hurghj
-            //cc.LoadTileBitmapList();
+		    cc.LoadJournal();
+            //hurghj
+            if (!mod.useAllTileSystem)
+            {
+                cc.LoadTileBitmapList();
+            }
 				
 		    foreach (Container c in mod.moduleContainersList)
             {

@@ -1213,7 +1213,7 @@ namespace IceBlink2
             }
         }
 
-        //note: folloign mehtod is not used anymore
+        //note: this method is only used if (!mod.useAllTileSystem)
         public void LoadTileBitmapList()
         {
             //probably just load what is needed for each area upon area load
@@ -1239,39 +1239,19 @@ namespace IceBlink2
                                     tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                                     tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
                                 }
-                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
-                                {
-                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
-                                    {
-                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                        {
-                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                        }
-                                        break;
-                                    }
-                                }*/
                             }
                         }
-                        
-                        
                         catch (Exception ex)
                         {
                             gv.errorLog(ex.ToString());
                         }
                     }
-                }
-                
+                }                
                 else
                 {
-                    //Load from PlayerTokens folder last
                     if (Directory.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles"))
                     {
                         files = Directory.GetFiles(gv.mainDirectory + "\\default\\NewModule\\tiles", "*.png");
-                        //directory.mkdirs(); 
                         foreach (string file in files)
                         {
                             try
@@ -1285,21 +1265,6 @@ namespace IceBlink2
                                         tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                                         tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
                                     }
-                                    /*foreach (Tile t in gv.mod.currentArea.Tiles)
-                                    {
-                                        if ((t.Layer1Filename.Equals(fileNameWithOutExt)) ||
-                                            (t.Layer2Filename.Equals(fileNameWithOutExt)) ||
-                                            (t.Layer3Filename.Equals(fileNameWithOutExt)) ||
-                                            (t.Layer4Filename.Equals(fileNameWithOutExt)) ||
-                                            (t.Layer5Filename.Equals(fileNameWithOutExt)))
-                                        {
-                                            if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                            {
-                                                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                            }
-                                            break;
-                                        }
-                                    }*/
                                 }
                             }
                             catch (Exception ex)
@@ -1309,49 +1274,7 @@ namespace IceBlink2
                             }
                         }
                     }
-                }
-
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName))
-                {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\graphics\\" + gv.mod.currentArea.sourceBitmapName, "*.png");
-                    foreach (string file in files)
-                    {
-                        try
-                        {
-                            string filename = Path.GetFileName(file);
-                            if (filename.EndsWith(".png"))
-                            {
-                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                {
-                                    tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                    tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
-                                }
-                                /*TODO foreach (Tile t in gv.mod.currentArea.Tiles)
-                                {
-                                    if ((t.Layer1Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer2Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer3Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer4Filename.Equals(fileNameWithOutExt)) || 
-                                        (t.Layer5Filename.Equals(fileNameWithOutExt)))
-                                    {
-                                        if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                        {
-                                            tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                        }
-                                        break;
-                                    }
-                                }*/
-                            }
-                        }
-
-
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }
-                    }
-                }
+                }                
             }
             catch (Exception ex)
             {
@@ -1990,70 +1913,75 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-            //addLogText("yellow", "Number of tiles:" + gv.mod.loadedTileBitmaps.Count.ToString());
-            /*
-            if ((gv.mod.PlayerLastLocationX == gv.mod.PlayerLocationX) && (gv.mod.PlayerLastLocationY == gv.mod.PlayerLocationY))
+            #region tile loading on demand
+            if (gv.mod.useAllTileSystem)
             {
-                gv.mod.blockTrigger = true;
-            }
-            else
-            {
-                gv.mod.blockTrigger = false;
-            }
-            */
-            //cull all down if too high value is reached (last resort)
-            if (gv.mod.loadedTileBitmaps.Count > 250)
-            {
-                try
+                //addLogText("yellow", "Number of tiles:" + gv.mod.loadedTileBitmaps.Count.ToString());
+                /*
+                if ((gv.mod.PlayerLastLocationX == gv.mod.PlayerLocationX) && (gv.mod.PlayerLastLocationY == gv.mod.PlayerLocationY))
                 {
-                    foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
+                    gv.mod.blockTrigger = true;
+                }
+                else
+                {
+                    gv.mod.blockTrigger = false;
+                }
+                */
+                //cull all down if too high value is reached (last resort)
+                if (gv.mod.loadedTileBitmaps.Count > 250)
+                {
+                    try
                     {
-                        bm.Dispose();
+                        foreach (Bitmap bm in gv.mod.loadedTileBitmaps)
+                        {
+                            bm.Dispose();
+                        }
+
+                        //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                        gv.mod.loadedTileBitmaps.Clear();
+                        gv.mod.loadedTileBitmapsNames.Clear();
+                    }
+                    catch
+                    {
+
                     }
 
-                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-                    gv.mod.loadedTileBitmaps.Clear();
-                    gv.mod.loadedTileBitmapsNames.Clear();
-                }
-                catch
-                {
-
                 }
 
-            }
-
-            if (gv.mod.loadedTileBitmaps.Count > 140)
-            {
-                //addLogText("yellow", "Disposing tiles.");
-                int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) - 5);
-                try
+                if (gv.mod.loadedTileBitmaps.Count > 140)
                 {
-                    if (gv.mod.loadedTileBitmaps != null)
+                    //addLogText("yellow", "Disposing tiles.");
+                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) - 5);
+                    try
                     {
-                        //remove 12 entries per move, 3 more than usual 9 squares uncovered
-                        for (int i = 0; i < cullNumber; i++)
+                        if (gv.mod.loadedTileBitmaps != null)
                         {
-                            gv.mod.loadedTileBitmaps[i].Dispose();
-                            gv.mod.loadedTileBitmaps.RemoveAt(i);
-                            gv.mod.loadedTileBitmapsNames.RemoveAt(i);
+                            //remove 12 entries per move, 3 more than usual 9 squares uncovered
+                            for (int i = 0; i < cullNumber; i++)
+                            {
+                                gv.mod.loadedTileBitmaps[i].Dispose();
+                                gv.mod.loadedTileBitmaps.RemoveAt(i);
+                                gv.mod.loadedTileBitmapsNames.RemoveAt(i);
 
-                            //addLogText("red", "Removal Counter is:" + i.ToString());
+                                //addLogText("red", "Removal Counter is:" + i.ToString());
+
+                            }
 
                         }
 
+                        //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
                     }
+                    catch
+                    {
+                        //addLogText("red", "caught error");
+                    }
+                }
 
-                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-                }
-                catch
-                {
-                    //addLogText("red", "caught error");
-                }
+                //addLogText("red", "number of tiles in cache:" + gv.mod.loadedTileBitmaps.Count);
+                //normal cleanup while moving
             }
+            #endregion
 
-            //addLogText("red", "number of tiles in cache:" + gv.mod.loadedTileBitmaps.Count);
-            //normal cleanup while moving
-            
             //reset the timer interval, important for synching with party move
             if (gv.mod.useRealTimeTimer == true)
             {
