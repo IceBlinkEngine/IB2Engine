@@ -416,7 +416,14 @@ namespace IceBlink2
         }        
         public void redrawMain()
         {
-       
+
+            if (gv.mod.currentArea.areaWeatherScript == "")
+            {
+                gv.weatherSounds1.controls.stop();
+                gv.weatherSounds2.controls.stop();
+                gv.weatherSounds3.controls.stop();
+            }
+
             setExplored();
             if (!mod.currentArea.areaDark)
             {
