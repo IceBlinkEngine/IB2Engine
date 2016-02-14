@@ -19,7 +19,7 @@
   "areaDark": false,
   "UseDayNightCycle": true,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "falls",
   "MapSizeX": 8,
   "MapSizeY": 8,
   "Tiles": [

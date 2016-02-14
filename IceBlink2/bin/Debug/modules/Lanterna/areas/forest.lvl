@@ -19,7 +19,7 @@
   "areaDark": false,
   "UseDayNightCycle": true,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "forest",
   "MapSizeX": 16,
   "MapSizeY": 16,
   "Tiles": [

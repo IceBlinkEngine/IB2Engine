@@ -52,14 +52,14 @@ namespace IceBlink2
         public string effectChannelScriptParms2 = "";
         public string effectChannelScriptParms3 = "";
         public string effectChannelScriptParms4 = "";
-
+        public WeatherEffect areaWeather = new WeatherEffect();
         public int weatherDurationMultiplierForScale = 1;
         public string westernNeighbourArea = "";
         public string easternNeighbourArea = "";
         public string northernNeighbourArea = "";
         public string southernNeighbourArea = "";
 
-         public string sourceBitmapName = "";
+        public string sourceBitmapName = "";
 
         //TODO use the inGameAreaName on main map
 

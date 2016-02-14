@@ -23,7 +23,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "[<i>To Vroman.</i>]  Once again, young sir, I am sorry for your loss.  Now, what can I do for you, <lad/lass>?||***ga_jump-->String::sand_vroman_wp    String::vroman    Float::0    ***gc_comp_remove-->NOT::True    String::ianth    ***gc_global_int-->NOT::False    String::backlands_map    String::0    ||",
+          "conversationText": "[<i>To Vroman.</i>]  Once again, young sir, I am sorry for your loss.  Now, what can I do for you, <lad/lass>?",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -36,7 +36,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "Can you tell me more about the Sunite paladin?|***gc_comp_remove-->NOT::True    String::ianth    |",
+              "conversationText": "Can you tell me more about the Sunite paladin?",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -88,7 +88,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "So Ianth acts as the town's protector?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -97,7 +97,7 @@
                             },
                             {
                               "idNum": 100000,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 14,
                               "ShowOnlyOnce": false,
@@ -105,7 +105,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I'd like to ask you something else.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -114,7 +114,7 @@
                             },
                             {
                               "idNum": 100001,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 23,
                               "ShowOnlyOnce": false,
@@ -122,7 +122,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Interesting.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -141,7 +141,7 @@
                     },
                     {
                       "idNum": 9,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -175,7 +175,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "What is the Flame Stone?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -184,7 +184,7 @@
                             },
                             {
                               "idNum": 100003,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 14,
                               "ShowOnlyOnce": false,
@@ -192,7 +192,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I'd like to ask you something else.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -201,7 +201,7 @@
                             },
                             {
                               "idNum": 100004,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 23,
                               "ShowOnlyOnce": false,
@@ -209,7 +209,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Interesting.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -228,7 +228,7 @@
                     },
                     {
                       "idNum": 14,
-                      "orderNum": 0,
+                      "orderNum": 2,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -262,7 +262,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you tell me more about the Sunite paladin?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -271,7 +271,7 @@
                             },
                             {
                               "idNum": 100006,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 24,
                               "ShowOnlyOnce": false,
@@ -279,7 +279,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "What is the latest news in these parts?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -288,7 +288,7 @@
                             },
                             {
                               "idNum": 100007,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 46,
                               "ShowOnlyOnce": false,
@@ -296,7 +296,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -305,7 +305,7 @@
                             },
                             {
                               "idNum": 100008,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 92,
                               "ShowOnlyOnce": false,
@@ -313,7 +313,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -322,7 +322,7 @@
                             },
                             {
                               "idNum": 100009,
-                              "orderNum": 0,
+                              "orderNum": 4,
                               "pcNode": true,
                               "linkTo": 93,
                               "ShowOnlyOnce": false,
@@ -330,7 +330,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I would like a room.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -339,7 +339,7 @@
                             },
                             {
                               "idNum": 100010,
-                              "orderNum": 0,
+                              "orderNum": 5,
                               "pcNode": true,
                               "linkTo": 112,
                               "ShowOnlyOnce": false,
@@ -347,7 +347,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -356,7 +356,7 @@
                             },
                             {
                               "idNum": 100011,
-                              "orderNum": 0,
+                              "orderNum": 6,
                               "pcNode": true,
                               "linkTo": 130,
                               "ShowOnlyOnce": false,
@@ -364,7 +364,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -383,7 +383,7 @@
                     },
                     {
                       "idNum": 23,
-                      "orderNum": 0,
+                      "orderNum": 3,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -407,11 +407,11 @@
               "actions": [],
               "conditions": [
                 {
-                  "c_script": "gc_comp_remove(nonIBscript)",
+                  "c_script": "gcCheckPcInPartyByName.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": true,
-                  "c_parameter_1": "ianth",
+                  "c_parameter_1": "Ianth",
                   "c_parameter_2": null,
                   "c_parameter_3": null,
                   "c_parameter_4": null
@@ -421,7 +421,7 @@
             },
             {
               "idNum": 24,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -429,7 +429,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "What is the latest news in these parts?|***gc_global_int-->NOT::False    String::backlands_map    String::0    |",
+              "conversationText": "What is the latest news in these parts?",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -455,7 +455,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "Continue",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -533,7 +533,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Can you tell me more about the Sunite paladin?",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -542,7 +542,7 @@
                                             },
                                             {
                                               "idNum": 100013,
-                                              "orderNum": 0,
+                                              "orderNum": 1,
                                               "pcNode": true,
                                               "linkTo": 24,
                                               "ShowOnlyOnce": false,
@@ -550,7 +550,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "What is the latest news in these parts?",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -559,7 +559,7 @@
                                             },
                                             {
                                               "idNum": 100014,
-                                              "orderNum": 0,
+                                              "orderNum": 2,
                                               "pcNode": true,
                                               "linkTo": 46,
                                               "ShowOnlyOnce": false,
@@ -567,7 +567,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -576,7 +576,7 @@
                                             },
                                             {
                                               "idNum": 100015,
-                                              "orderNum": 0,
+                                              "orderNum": 3,
                                               "pcNode": true,
                                               "linkTo": 92,
                                               "ShowOnlyOnce": false,
@@ -584,7 +584,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -593,7 +593,7 @@
                                             },
                                             {
                                               "idNum": 100016,
-                                              "orderNum": 0,
+                                              "orderNum": 4,
                                               "pcNode": true,
                                               "linkTo": 93,
                                               "ShowOnlyOnce": false,
@@ -601,7 +601,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "I would like a room.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -610,7 +610,7 @@
                                             },
                                             {
                                               "idNum": 100017,
-                                              "orderNum": 0,
+                                              "orderNum": 5,
                                               "pcNode": true,
                                               "linkTo": 112,
                                               "ShowOnlyOnce": false,
@@ -618,7 +618,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -627,7 +627,7 @@
                                             },
                                             {
                                               "idNum": 100018,
-                                              "orderNum": 0,
+                                              "orderNum": 6,
                                               "pcNode": true,
                                               "linkTo": 130,
                                               "ShowOnlyOnce": false,
@@ -635,7 +635,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -654,7 +654,7 @@
                                     },
                                     {
                                       "idNum": 100019,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 14,
                                       "ShowOnlyOnce": false,
@@ -662,7 +662,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "I'd like to ask you something else.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -681,7 +681,7 @@
                             },
                             {
                               "idNum": 40,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -689,7 +689,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "Is this conjecture or do you actually know something, old man?|***ga_global_int-->String::abrasive    String::++    |",
+                              "conversationText": "Is this conjecture or do you actually know something, old man?",
                               "IsExpanded": true,
                               "subNodes": [
                                 {
@@ -715,7 +715,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Continue",
                                       "IsExpanded": true,
                                       "subNodes": [
                                         {
@@ -728,7 +728,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "",
+                                          "conversationText": "I hear that the orcs of the Sunset Mountains are on the move--always a bad sign.  But it's not because they're rallying for some new bloody but ultimately foolish cause.  They're moving <i>out</i> of the mountains in droves--as if in flight.",
                                           "IsExpanded": true,
                                           "subNodes": [],
                                           "actions": [],
@@ -760,7 +760,7 @@
                             },
                             {
                               "idNum": 100021,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 14,
                               "ShowOnlyOnce": false,
@@ -768,7 +768,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I'd like to ask you something else.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -777,7 +777,7 @@
                             },
                             {
                               "idNum": 100022,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 23,
                               "ShowOnlyOnce": false,
@@ -785,7 +785,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Interesting.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -825,7 +825,7 @@
             },
             {
               "idNum": 46,
-              "orderNum": 0,
+              "orderNum": 2,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -859,7 +859,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "Who are those three men in dark blue cloaks over there?|***gc_journal_entry-->NOT::True    String::Q_BBOAR    String::!0    |",
+                      "conversationText": "Who are those three men in dark blue cloaks over there?",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -911,7 +911,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Continue",
                                       "IsExpanded": true,
                                       "subNodes": [
                                         {
@@ -937,7 +937,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me more about Hamfast.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -946,7 +946,7 @@
                                             },
                                             {
                                               "idNum": 100024,
-                                              "orderNum": 0,
+                                              "orderNum": 1,
                                               "pcNode": true,
                                               "linkTo": 66,
                                               "ShowOnlyOnce": false,
@@ -954,7 +954,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me about yourself, Danmar.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -963,7 +963,7 @@
                                             },
                                             {
                                               "idNum": 100025,
-                                              "orderNum": 0,
+                                              "orderNum": 2,
                                               "pcNode": true,
                                               "linkTo": 14,
                                               "ShowOnlyOnce": false,
@@ -971,7 +971,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "I'd like to ask you something else.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -980,7 +980,7 @@
                                             },
                                             {
                                               "idNum": 100026,
-                                              "orderNum": 0,
+                                              "orderNum": 3,
                                               "pcNode": true,
                                               "linkTo": 23,
                                               "ShowOnlyOnce": false,
@@ -988,7 +988,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Interesting.  Farewell.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -1017,7 +1017,7 @@
                             },
                             {
                               "idNum": 100027,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 14,
                               "ShowOnlyOnce": false,
@@ -1025,7 +1025,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I'd like to ask you something else.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1034,7 +1034,7 @@
                             },
                             {
                               "idNum": 100028,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 23,
                               "ShowOnlyOnce": false,
@@ -1042,7 +1042,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Interesting.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1058,7 +1058,7 @@
                       "actions": [],
                       "conditions": [
                         {
-                          "c_script": "gc_journal_entry(nonIBscript)",
+                          "c_script": "gcCheckJournalEntryByTag.cs",
                           "c_btnAndOr": null,
                           "c_and": false,
                           "c_not": true,
@@ -1072,7 +1072,7 @@
                     },
                     {
                       "idNum": 60,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -1106,7 +1106,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me about yourself, Danmar.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1115,7 +1115,7 @@
                             },
                             {
                               "idNum": 100030,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 48,
                               "ShowOnlyOnce": false,
@@ -1123,7 +1123,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Who are those three men in dark blue cloaks over there?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1132,7 +1132,7 @@
                             },
                             {
                               "idNum": 100031,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 14,
                               "ShowOnlyOnce": false,
@@ -1140,7 +1140,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I'd like to ask you something else.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1149,7 +1149,7 @@
                             },
                             {
                               "idNum": 100032,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 23,
                               "ShowOnlyOnce": false,
@@ -1157,7 +1157,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Interesting.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -1176,7 +1176,7 @@
                     },
                     {
                       "idNum": 66,
-                      "orderNum": 0,
+                      "orderNum": 2,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -1223,7 +1223,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "I am of Berdusk originally, though I have traveled much.  I have traversed a good portion of ground between Athkatla and Silverymoon.  Drawn Swords is my home now, though.  Even if I wanted to leave, I'm sure Hamfast wouldn't let me!||***ga_give_xp-->Int::100    Int::0    ***gc_skill_dc-->NOT::False    Int::6    Int::13    ||",
+                                  "conversationText": "I am of Berdusk originally, though I have traveled much.  I have traversed a good portion of ground between Athkatla and Silverymoon.  Drawn Swords is my home now, though.  Even if I wanted to leave, I'm sure Hamfast wouldn't let me!",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -1236,7 +1236,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Tell me more about Hamfast.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1245,7 +1245,7 @@
                                     },
                                     {
                                       "idNum": 100034,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 48,
                                       "ShowOnlyOnce": false,
@@ -1253,7 +1253,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Who are those three men in dark blue cloaks over there?",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1262,7 +1262,7 @@
                                     },
                                     {
                                       "idNum": 100035,
-                                      "orderNum": 0,
+                                      "orderNum": 2,
                                       "pcNode": true,
                                       "linkTo": 14,
                                       "ShowOnlyOnce": false,
@@ -1270,7 +1270,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "I'd like to ask you something else.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1279,7 +1279,7 @@
                                     },
                                     {
                                       "idNum": 100036,
-                                      "orderNum": 0,
+                                      "orderNum": 3,
                                       "pcNode": true,
                                       "linkTo": 23,
                                       "ShowOnlyOnce": false,
@@ -1287,7 +1287,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Interesting.  Farewell.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1299,20 +1299,20 @@
                                     {
                                       "a_script": "gaGiveXP.cs",
                                       "a_parameter_1": "100",
-                                      "a_parameter_2": "0",
+                                      "a_parameter_2": null,
                                       "a_parameter_3": null,
                                       "a_parameter_4": null
                                     }
                                   ],
                                   "conditions": [
                                     {
-                                      "c_script": "gc_skill_dc(nonIBscript)",
+                                      "c_script": "gcPassSkillCheck.cs",
                                       "c_btnAndOr": null,
                                       "c_and": false,
                                       "c_not": false,
-                                      "c_parameter_1": "6",
-                                      "c_parameter_2": "13",
-                                      "c_parameter_3": null,
+                                      "c_parameter_1": "-1",
+                                      "c_parameter_2": "diplomacy",
+                                      "c_parameter_3": "13",
                                       "c_parameter_4": null
                                     }
                                   ],
@@ -1320,7 +1320,7 @@
                                 },
                                 {
                                   "idNum": 100037,
-                                  "orderNum": 0,
+                                  "orderNum": 1,
                                   "pcNode": false,
                                   "linkTo": 85,
                                   "ShowOnlyOnce": false,
@@ -1328,7 +1328,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "",
+                                  "conversationText": "Oh, very well!  I am the son of a brewer and his poor wife.  I grew up in Berdusk, and first fell in love with Drawn Swords when I used to deliver beer here for my father.  Hamfast sold me this place for a song.",
                                   "IsExpanded": true,
                                   "subNodes": [],
                                   "actions": [],
@@ -1342,7 +1342,7 @@
                             },
                             {
                               "idNum": 75,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -1363,7 +1363,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "I am of Berdusk originally, though I have traveled much.  I have traversed a good portion of ground between Athkatla and Silverymoon.  Drawn Swords is my home now, though.  Even if I wanted to leave, I'm sure Hamfast wouldn't let me.|***gc_skill_dc-->NOT::False    Int::6    Int::15    |",
+                                  "conversationText": "I am of Berdusk originally, though I have traveled much.  I have traversed a good portion of ground between Athkatla and Silverymoon.  Drawn Swords is my home now, though.  Even if I wanted to leave, I'm sure Hamfast wouldn't let me.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -1376,7 +1376,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Tell me more about Hamfast.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1385,7 +1385,7 @@
                                     },
                                     {
                                       "idNum": 100039,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 48,
                                       "ShowOnlyOnce": false,
@@ -1393,7 +1393,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Who are those three men in dark blue cloaks over there?",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1402,7 +1402,7 @@
                                     },
                                     {
                                       "idNum": 100040,
-                                      "orderNum": 0,
+                                      "orderNum": 2,
                                       "pcNode": true,
                                       "linkTo": 14,
                                       "ShowOnlyOnce": false,
@@ -1410,7 +1410,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "I'd like to ask you something else.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1419,7 +1419,7 @@
                                     },
                                     {
                                       "idNum": 100041,
-                                      "orderNum": 0,
+                                      "orderNum": 3,
                                       "pcNode": true,
                                       "linkTo": 23,
                                       "ShowOnlyOnce": false,
@@ -1427,7 +1427,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Interesting.  Farewell.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1438,13 +1438,13 @@
                                   "actions": [],
                                   "conditions": [
                                     {
-                                      "c_script": "gc_skill_dc(nonIBscript)",
+                                      "c_script": "gcPassSkillCheck.cs",
                                       "c_btnAndOr": null,
                                       "c_and": false,
                                       "c_not": false,
-                                      "c_parameter_1": "6",
-                                      "c_parameter_2": "15",
-                                      "c_parameter_3": null,
+                                      "c_parameter_1": "-1",
+                                      "c_parameter_2": "diplomacy",
+                                      "c_parameter_3": "15",
                                       "c_parameter_4": null
                                     }
                                   ],
@@ -1452,7 +1452,7 @@
                                 },
                                 {
                                   "idNum": 100042,
-                                  "orderNum": 0,
+                                  "orderNum": 1,
                                   "pcNode": false,
                                   "linkTo": 85,
                                   "ShowOnlyOnce": false,
@@ -1460,7 +1460,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "",
+                                  "conversationText": "Oh, very well!  I am the son of a brewer and his poor wife.  I grew up in Berdusk, and first fell in love with Drawn Swords when I used to deliver beer here for my father.  Hamfast sold me this place for a song.",
                                   "IsExpanded": true,
                                   "subNodes": [],
                                   "actions": [],
@@ -1474,7 +1474,7 @@
                             },
                             {
                               "idNum": 82,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -1495,7 +1495,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "",
+                                  "conversationText": "Oh, very well!  I am the son of a brewer and his poor wife.  I grew up in Berdusk, and first fell in love with Drawn Swords when I used to deliver beer here for my father.  Hamfast sold me this place for a song.",
                                   "IsExpanded": true,
                                   "subNodes": [],
                                   "actions": [],
@@ -1509,7 +1509,7 @@
                             },
                             {
                               "idNum": 84,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -1543,7 +1543,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Tell me more about Hamfast.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1552,7 +1552,7 @@
                                     },
                                     {
                                       "idNum": 100045,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 48,
                                       "ShowOnlyOnce": false,
@@ -1560,7 +1560,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Who are those three men in dark blue cloaks over there?",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1569,7 +1569,7 @@
                                     },
                                     {
                                       "idNum": 100046,
-                                      "orderNum": 0,
+                                      "orderNum": 2,
                                       "pcNode": true,
                                       "linkTo": 14,
                                       "ShowOnlyOnce": false,
@@ -1577,7 +1577,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "I'd like to ask you something else.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1586,7 +1586,7 @@
                                     },
                                     {
                                       "idNum": 100047,
-                                      "orderNum": 0,
+                                      "orderNum": 3,
                                       "pcNode": true,
                                       "linkTo": 23,
                                       "ShowOnlyOnce": false,
@@ -1594,7 +1594,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Interesting.  Farewell.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -1623,7 +1623,7 @@
                     },
                     {
                       "idNum": 100048,
-                      "orderNum": 0,
+                      "orderNum": 3,
                       "pcNode": true,
                       "linkTo": 14,
                       "ShowOnlyOnce": false,
@@ -1631,7 +1631,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "I'd like to ask you something else.",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [],
@@ -1640,7 +1640,7 @@
                     },
                     {
                       "idNum": 100049,
-                      "orderNum": 0,
+                      "orderNum": 4,
                       "pcNode": true,
                       "linkTo": 23,
                       "ShowOnlyOnce": false,
@@ -1648,7 +1648,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "Interesting.  Farewell.",
                       "IsExpanded": true,
                       "subNodes": [],
                       "actions": [],
@@ -1667,7 +1667,7 @@
             },
             {
               "idNum": 92,
-              "orderNum": 0,
+              "orderNum": 3,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -1692,7 +1692,7 @@
             },
             {
               "idNum": 93,
-              "orderNum": 0,
+              "orderNum": 4,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -1717,89 +1717,6 @@
                   "IsExpanded": true,
                   "subNodes": [
                     {
-                      "idNum": 95,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Here you are.  Wake me in four hours.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 96,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_advance-->Int::4    Int::0    Int::0    Int::0    |",
-                          "IsExpanded": true,
-                          "subNodes": [],
-                          "actions": [
-                            {
-                              "a_script": "ga_fade_to_black(nonIBscript)",
-                              "a_parameter_1": "4",
-                              "a_parameter_2": "6",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_time_advance(nonIBscript)",
-                              "a_parameter_1": "4",
-                              "a_parameter_2": "0",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": "0"
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "a_script": "ga_take_gold(nonIBscript)",
-                          "a_parameter_1": "5",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "sd_resting(nonIBscript)",
-                          "a_parameter_1": null,
-                          "a_parameter_2": null,
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "ga_restoration(nonIBscript)",
-                          "a_parameter_1": "$PC_SPEAKER",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": "1",
-                          "a_parameter_4": "1"
-                        }
-                      ],
-                      "conditions": [
-                        {
-                          "c_script": "gcCheckForGold.cs",
-                          "c_btnAndOr": null,
-                          "c_and": false,
-                          "c_not": false,
-                          "c_parameter_1": "5",
-                          "c_parameter_2": "0",
-                          "c_parameter_3": null,
-                          "c_parameter_4": null
-                        }
-                      ],
-                      "isLink": false
-                    },
-                    {
                       "idNum": 97,
                       "orderNum": 0,
                       "pcNode": true,
@@ -1809,229 +1726,23 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "Here you are.  Wake me in eight hours.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
+                      "conversationText": "Here you are.  Wake me in eight hours.",
                       "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 98,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_advance-->Int::8    Int::0    Int::0    Int::0    |",
-                          "IsExpanded": true,
-                          "subNodes": [],
-                          "actions": [
-                            {
-                              "a_script": "ga_fade_to_black(nonIBscript)",
-                              "a_parameter_1": "4",
-                              "a_parameter_2": "6",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_time_advance(nonIBscript)",
-                              "a_parameter_1": "8",
-                              "a_parameter_2": "0",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": "0"
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
+                      "subNodes": [],
                       "actions": [
                         {
-                          "a_script": "ga_take_gold(nonIBscript)",
+                          "a_script": "gaTakeGold.cs",
                           "a_parameter_1": "5",
                           "a_parameter_2": "0",
                           "a_parameter_3": null,
                           "a_parameter_4": null
                         },
                         {
-                          "a_script": "sd_resting(nonIBscript)",
+                          "a_script": "gaForceRest.cs",
                           "a_parameter_1": null,
                           "a_parameter_2": null,
                           "a_parameter_3": null,
                           "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "ga_restoration(nonIBscript)",
-                          "a_parameter_1": "$PC_SPEAKER",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": "1",
-                          "a_parameter_4": "1"
-                        }
-                      ],
-                      "conditions": [
-                        {
-                          "c_script": "gcCheckForGold.cs",
-                          "c_btnAndOr": null,
-                          "c_and": false,
-                          "c_not": false,
-                          "c_parameter_1": "5",
-                          "c_parameter_2": "0",
-                          "c_parameter_3": null,
-                          "c_parameter_4": null
-                        }
-                      ],
-                      "isLink": false
-                    },
-                    {
-                      "idNum": 99,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Here you are.  Wake me at dusk.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 100,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_set-->Int::21    Int::30    Int::0    Int::0    |",
-                          "IsExpanded": true,
-                          "subNodes": [],
-                          "actions": [
-                            {
-                              "a_script": "ga_fade_to_black(nonIBscript)",
-                              "a_parameter_1": "4",
-                              "a_parameter_2": "6",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_time_set(nonIBscript)",
-                              "a_parameter_1": "21",
-                              "a_parameter_2": "30",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": "0"
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "a_script": "ga_take_gold(nonIBscript)",
-                          "a_parameter_1": "5",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "sd_resting(nonIBscript)",
-                          "a_parameter_1": null,
-                          "a_parameter_2": null,
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "ga_restoration(nonIBscript)",
-                          "a_parameter_1": "$PC_SPEAKER",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": "1",
-                          "a_parameter_4": "1"
-                        }
-                      ],
-                      "conditions": [
-                        {
-                          "c_script": "gcCheckForGold.cs",
-                          "c_btnAndOr": null,
-                          "c_and": false,
-                          "c_not": false,
-                          "c_parameter_1": "5",
-                          "c_parameter_2": "0",
-                          "c_parameter_3": null,
-                          "c_parameter_4": null
-                        }
-                      ],
-                      "isLink": false
-                    },
-                    {
-                      "idNum": 101,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Here you are.  Wake me in the morning.||***ga_take_gold-->Int::5    Int::0    ***sd_resting-->***ga_restoration-->String::$PC_SPEAKER    Int::0    Int::1    Int::1    ***gc_check_gold-->NOT::False    Int::5    Int::0    ||",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 102,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "|***ga_fade_to_black-->Float::4    Float::6    Int::0    ***ga_time_set-->Int::7    Int::30    Int::0    Int::0    |",
-                          "IsExpanded": true,
-                          "subNodes": [],
-                          "actions": [
-                            {
-                              "a_script": "ga_fade_to_black(nonIBscript)",
-                              "a_parameter_1": "4",
-                              "a_parameter_2": "6",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_time_set(nonIBscript)",
-                              "a_parameter_1": "7",
-                              "a_parameter_2": "30",
-                              "a_parameter_3": "0",
-                              "a_parameter_4": "0"
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "a_script": "ga_take_gold(nonIBscript)",
-                          "a_parameter_1": "5",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "sd_resting(nonIBscript)",
-                          "a_parameter_1": null,
-                          "a_parameter_2": null,
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        },
-                        {
-                          "a_script": "ga_restoration(nonIBscript)",
-                          "a_parameter_1": "$PC_SPEAKER",
-                          "a_parameter_2": "0",
-                          "a_parameter_3": "1",
-                          "a_parameter_4": "1"
                         }
                       ],
                       "conditions": [
@@ -2050,7 +1761,7 @@
                     },
                     {
                       "idNum": 103,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -2084,7 +1795,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you tell me more about the Sunite paladin?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2093,7 +1804,7 @@
                             },
                             {
                               "idNum": 100051,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 24,
                               "ShowOnlyOnce": false,
@@ -2101,7 +1812,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "What is the latest news in these parts?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2110,7 +1821,7 @@
                             },
                             {
                               "idNum": 100052,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 46,
                               "ShowOnlyOnce": false,
@@ -2118,7 +1829,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2127,7 +1838,7 @@
                             },
                             {
                               "idNum": 100053,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 92,
                               "ShowOnlyOnce": false,
@@ -2135,7 +1846,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2144,7 +1855,7 @@
                             },
                             {
                               "idNum": 100054,
-                              "orderNum": 0,
+                              "orderNum": 4,
                               "pcNode": true,
                               "linkTo": 93,
                               "ShowOnlyOnce": false,
@@ -2152,7 +1863,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I would like a room.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2161,7 +1872,7 @@
                             },
                             {
                               "idNum": 100055,
-                              "orderNum": 0,
+                              "orderNum": 5,
                               "pcNode": true,
                               "linkTo": 112,
                               "ShowOnlyOnce": false,
@@ -2169,7 +1880,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2178,7 +1889,7 @@
                             },
                             {
                               "idNum": 100056,
-                              "orderNum": 0,
+                              "orderNum": 6,
                               "pcNode": true,
                               "linkTo": 130,
                               "ShowOnlyOnce": false,
@@ -2186,7 +1897,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -2215,7 +1926,7 @@
             },
             {
               "idNum": 112,
-              "orderNum": 0,
+              "orderNum": 5,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -2231,22 +1942,14 @@
               "isLink": false
             }
           ],
-          "actions": [
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_vroman_wp",
-              "a_parameter_2": "vroman",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            }
-          ],
+          "actions": [],
           "conditions": [
             {
-              "c_script": "gc_comp_remove(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
-              "c_parameter_1": "ianth",
+              "c_parameter_1": "Ianth",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -2266,7 +1969,7 @@
         },
         {
           "idNum": 113,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -2274,7 +1977,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Welcome back.  [<i>Raising his eyebrow.</i>]  And a hearty welcome to you, too, Miss Lavillus.||***ga_jump-->String::sand_ianth_wp    String::ianth    Float::0    ***ga_jump-->String::sand_vroman_wp    String::vroman    Float::0    ***gc_comp_remove-->NOT::False    String::ianth    ***gc_global_int-->NOT::False    String::backlands_map    String::0    ||",
+          "conversationText": "Welcome back.  [<i>Raising his eyebrow.</i>]  And a hearty welcome to you, too, Miss Lavillus.",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -2287,7 +1990,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Continue",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -2297,7 +2000,7 @@
                   "linkTo": 0,
                   "ShowOnlyOnce": false,
                   "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
+                  "NodePortraitBitmap": "ptr_ianth.png",
                   "NodeNpcName": "",
                   "NodeSound": "none",
                   "conversationText": "Greetings, Danmar.",
@@ -2313,7 +2016,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "Continue",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -2339,7 +2042,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Continue",
                               "IsExpanded": true,
                               "subNodes": [
                                 {
@@ -2349,7 +2052,7 @@
                                   "linkTo": 0,
                                   "ShowOnlyOnce": false,
                                   "NodeIsActive": true,
-                                  "NodePortraitBitmap": "",
+                                  "NodePortraitBitmap": "ptr_ianth.png",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
                                   "conversationText": "Do you expect me to throw a fit, Danmar?  A nice glass of Vilhon Scarlet would go down well, but I do not need it to survive. ",
@@ -2365,7 +2068,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "",
+                                      "conversationText": "Continue",
                                       "IsExpanded": true,
                                       "subNodes": [
                                         {
@@ -2391,7 +2094,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "What is the latest news in these parts?",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2400,7 +2103,7 @@
                                             },
                                             {
                                               "idNum": 100058,
-                                              "orderNum": 0,
+                                              "orderNum": 1,
                                               "pcNode": true,
                                               "linkTo": 46,
                                               "ShowOnlyOnce": false,
@@ -2408,7 +2111,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2417,7 +2120,7 @@
                                             },
                                             {
                                               "idNum": 100059,
-                                              "orderNum": 0,
+                                              "orderNum": 2,
                                               "pcNode": true,
                                               "linkTo": 92,
                                               "ShowOnlyOnce": false,
@@ -2425,7 +2128,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2434,7 +2137,7 @@
                                             },
                                             {
                                               "idNum": 100060,
-                                              "orderNum": 0,
+                                              "orderNum": 3,
                                               "pcNode": true,
                                               "linkTo": 93,
                                               "ShowOnlyOnce": false,
@@ -2442,7 +2145,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "I would like a room.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2451,7 +2154,7 @@
                                             },
                                             {
                                               "idNum": 100061,
-                                              "orderNum": 0,
+                                              "orderNum": 4,
                                               "pcNode": true,
                                               "linkTo": 112,
                                               "ShowOnlyOnce": false,
@@ -2459,7 +2162,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2468,7 +2171,7 @@
                                             },
                                             {
                                               "idNum": 100062,
-                                              "orderNum": 0,
+                                              "orderNum": 5,
                                               "pcNode": true,
                                               "linkTo": 60,
                                               "ShowOnlyOnce": false,
@@ -2476,7 +2179,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me more about Hamfast.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2485,7 +2188,7 @@
                                             },
                                             {
                                               "idNum": 100063,
-                                              "orderNum": 0,
+                                              "orderNum": 6,
                                               "pcNode": true,
                                               "linkTo": 48,
                                               "ShowOnlyOnce": false,
@@ -2493,7 +2196,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Who are those three men in dark blue cloaks over there?",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2502,7 +2205,7 @@
                                             },
                                             {
                                               "idNum": 100064,
-                                              "orderNum": 0,
+                                              "orderNum": 7,
                                               "pcNode": true,
                                               "linkTo": 66,
                                               "ShowOnlyOnce": false,
@@ -2510,7 +2213,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "",
+                                              "conversationText": "Tell me about yourself, Danmar.",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -2519,7 +2222,7 @@
                                             },
                                             {
                                               "idNum": 130,
-                                              "orderNum": 0,
+                                              "orderNum": 8,
                                               "pcNode": true,
                                               "linkTo": 0,
                                               "ShowOnlyOnce": false,
@@ -2527,7 +2230,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.|***gc_journal_entry-->NOT::False    String::Q_CRYPT    String::15    |",
+                                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
                                               "IsExpanded": true,
                                               "subNodes": [
                                                 {
@@ -2566,7 +2269,7 @@
                                                           "NodePortraitBitmap": "",
                                                           "NodeNpcName": "",
                                                           "NodeSound": "none",
-                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!||***ga_give_xp-->Int::100    Int::0    ***gc_skill_dc-->NOT::False    Int::6    Int::15    ||",
+                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!",
                                                           "IsExpanded": true,
                                                           "subNodes": [
                                                             {
@@ -2579,7 +2282,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "Farewell, and my thanks.",
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [],
@@ -2598,13 +2301,13 @@
                                                           ],
                                                           "conditions": [
                                                             {
-                                                              "c_script": "gc_skill_dc(nonIBscript)",
+                                                              "c_script": "gcPassSkillCheck.cs",
                                                               "c_btnAndOr": null,
                                                               "c_and": false,
                                                               "c_not": false,
-                                                              "c_parameter_1": "6",
-                                                              "c_parameter_2": "15",
-                                                              "c_parameter_3": null,
+                                                              "c_parameter_1": "-1",
+                                                              "c_parameter_2": "diplomacy",
+                                                              "c_parameter_3": "15",
                                                               "c_parameter_4": null
                                                             }
                                                           ],
@@ -2612,7 +2315,7 @@
                                                         },
                                                         {
                                                           "idNum": 135,
-                                                          "orderNum": 0,
+                                                          "orderNum": 1,
                                                           "pcNode": false,
                                                           "linkTo": 0,
                                                           "ShowOnlyOnce": false,
@@ -2633,7 +2336,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "<color=red>[Intimidate] Listen, Danmar.  I <i>need</i> to speak with them.  That should be reason enough.</color>  ",
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [],
@@ -2642,7 +2345,7 @@
                                                             },
                                                             {
                                                               "idNum": 100067,
-                                                              "orderNum": 0,
+                                                              "orderNum": 1,
                                                               "pcNode": true,
                                                               "linkTo": 153,
                                                               "ShowOnlyOnce": false,
@@ -2650,7 +2353,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "[<i>Tell Danmar the whole story...</i>]",
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [],
@@ -2669,7 +2372,7 @@
                                                     },
                                                     {
                                                       "idNum": 138,
-                                                      "orderNum": 0,
+                                                      "orderNum": 1,
                                                       "pcNode": true,
                                                       "linkTo": 0,
                                                       "ShowOnlyOnce": false,
@@ -2677,7 +2380,7 @@
                                                       "NodePortraitBitmap": "",
                                                       "NodeNpcName": "",
                                                       "NodeSound": "none",
-                                                      "conversationText": "<color=yellow>[Bluff] Vroman has been terribly upset since the loss of his brother--as you can imagine--and Brother Anselm, who is very busy, told me to bring him to his acolytes for spiritual comfort. |***gc_comp_remove-->NOT::False    String::vroman    |",
+                                                      "conversationText": "<color=yellow>[Bluff] Vroman has been terribly upset since the loss of his brother--as you can imagine--and Brother Anselm, who is very busy, told me to bring him to his acolytes for spiritual comfort.",
                                                       "IsExpanded": true,
                                                       "subNodes": [
                                                         {
@@ -2690,7 +2393,7 @@
                                                           "NodePortraitBitmap": "",
                                                           "NodeNpcName": "",
                                                           "NodeSound": "none",
-                                                          "conversationText": "[<i>Vroman regards Danmar disconsolately.</i>]|***gc_skill_dc-->NOT::False    Int::0    Int::0    |",
+                                                          "conversationText": "[<i>Vroman regards Danmar disconsolately.</i>]",
                                                           "IsExpanded": true,
                                                           "subNodes": [
                                                             {
@@ -2703,7 +2406,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "Continue",
                                                               "IsExpanded": true,
                                                               "subNodes": [
                                                                 {
@@ -2716,7 +2419,7 @@
                                                                   "NodePortraitBitmap": "",
                                                                   "NodeNpcName": "",
                                                                   "NodeSound": "none",
-                                                                  "conversationText": "Aye, I understand that, I do.  I apologize for prying so much.|***gc_skill_dc-->NOT::False    Int::1    Int::16    |",
+                                                                  "conversationText": "Aye, I understand that, I do.  I apologize for prying so much.",
                                                                   "IsExpanded": true,
                                                                   "subNodes": [
                                                                     {
@@ -2729,7 +2432,7 @@
                                                                       "NodePortraitBitmap": "",
                                                                       "NodeNpcName": "",
                                                                       "NodeSound": "none",
-                                                                      "conversationText": "",
+                                                                      "conversationText": "Continue",
                                                                       "IsExpanded": true,
                                                                       "subNodes": [
                                                                         {
@@ -2742,7 +2445,7 @@
                                                                           "NodePortraitBitmap": "",
                                                                           "NodeNpcName": "",
                                                                           "NodeSound": "none",
-                                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!|***ga_give_xp-->Int::100    Int::0    |",
+                                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!",
                                                                           "IsExpanded": true,
                                                                           "subNodes": [
                                                                             {
@@ -2755,7 +2458,7 @@
                                                                               "NodePortraitBitmap": "",
                                                                               "NodeNpcName": "",
                                                                               "NodeSound": "none",
-                                                                              "conversationText": "Farewell, and my thanks.|***ga_journal-->String::Q_CRYPT    Int::20    Int::1    Int::1    Int::0    |",
+                                                                              "conversationText": "Farewell, and my thanks.",
                                                                               "IsExpanded": true,
                                                                               "subNodes": [],
                                                                               "actions": [
@@ -2792,13 +2495,13 @@
                                                                   "actions": [],
                                                                   "conditions": [
                                                                     {
-                                                                      "c_script": "gc_skill_dc(nonIBscript)",
+                                                                      "c_script": "gcPassSkillCheck.cs",
                                                                       "c_btnAndOr": null,
                                                                       "c_and": false,
                                                                       "c_not": false,
-                                                                      "c_parameter_1": "1",
-                                                                      "c_parameter_2": "16",
-                                                                      "c_parameter_3": null,
+                                                                      "c_parameter_1": "-1",
+                                                                      "c_parameter_2": "bluff",
+                                                                      "c_parameter_3": "16",
                                                                       "c_parameter_4": null
                                                                     }
                                                                   ],
@@ -2806,7 +2509,7 @@
                                                                 },
                                                                 {
                                                                   "idNum": 145,
-                                                                  "orderNum": 0,
+                                                                  "orderNum": 1,
                                                                   "pcNode": false,
                                                                   "linkTo": 0,
                                                                   "ShowOnlyOnce": false,
@@ -2827,7 +2530,7 @@
                                                                       "NodePortraitBitmap": "",
                                                                       "NodeNpcName": "",
                                                                       "NodeSound": "none",
-                                                                      "conversationText": "",
+                                                                      "conversationText": "<color=red>[Intimidate] Listen, Danmar.  I <i>need</i> to speak with them.  That should be reason enough.</color>  ",
                                                                       "IsExpanded": true,
                                                                       "subNodes": [],
                                                                       "actions": [],
@@ -2836,7 +2539,7 @@
                                                                     },
                                                                     {
                                                                       "idNum": 100069,
-                                                                      "orderNum": 0,
+                                                                      "orderNum": 1,
                                                                       "pcNode": true,
                                                                       "linkTo": 153,
                                                                       "ShowOnlyOnce": false,
@@ -2844,7 +2547,7 @@
                                                                       "NodePortraitBitmap": "",
                                                                       "NodeNpcName": "",
                                                                       "NodeSound": "none",
-                                                                      "conversationText": "",
+                                                                      "conversationText": "[<i>Tell Danmar the whole story...</i>]",
                                                                       "IsExpanded": true,
                                                                       "subNodes": [],
                                                                       "actions": [],
@@ -2863,29 +2566,18 @@
                                                             }
                                                           ],
                                                           "actions": [],
-                                                          "conditions": [
-                                                            {
-                                                              "c_script": "gc_skill_dc(nonIBscript)",
-                                                              "c_btnAndOr": null,
-                                                              "c_and": false,
-                                                              "c_not": false,
-                                                              "c_parameter_1": "0",
-                                                              "c_parameter_2": "0",
-                                                              "c_parameter_3": null,
-                                                              "c_parameter_4": null
-                                                            }
-                                                          ],
+                                                          "conditions": [],
                                                           "isLink": false
                                                         }
                                                       ],
                                                       "actions": [],
                                                       "conditions": [
                                                         {
-                                                          "c_script": "gc_comp_remove(nonIBscript)",
+                                                          "c_script": "gcCheckPcInPartyByName.cs",
                                                           "c_btnAndOr": null,
                                                           "c_and": false,
                                                           "c_not": false,
-                                                          "c_parameter_1": "vroman",
+                                                          "c_parameter_1": "Vroman",
                                                           "c_parameter_2": null,
                                                           "c_parameter_3": null,
                                                           "c_parameter_4": null
@@ -2895,7 +2587,7 @@
                                                     },
                                                     {
                                                       "idNum": 148,
-                                                      "orderNum": 0,
+                                                      "orderNum": 2,
                                                       "pcNode": true,
                                                       "linkTo": 0,
                                                       "ShowOnlyOnce": false,
@@ -2916,7 +2608,7 @@
                                                           "NodePortraitBitmap": "",
                                                           "NodeNpcName": "",
                                                           "NodeSound": "none",
-                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!||***ga_give_xp-->Int::100    Int::0    ***gc_skill_dc-->NOT::False    Int::11    Int::17    ||",
+                                                          "conversationText": "Well then, here's the key.  It'll get you upstairs <i>and</i> into the bunk rooms.  Farewell!",
                                                           "IsExpanded": true,
                                                           "subNodes": [
                                                             {
@@ -2929,7 +2621,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "Farewell, and my thanks.",
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [],
@@ -2948,13 +2640,13 @@
                                                           ],
                                                           "conditions": [
                                                             {
-                                                              "c_script": "gc_skill_dc(nonIBscript)",
+                                                              "c_script": "gcPassSkillCheck.cs",
                                                               "c_btnAndOr": null,
                                                               "c_and": false,
                                                               "c_not": false,
-                                                              "c_parameter_1": "11",
-                                                              "c_parameter_2": "17",
-                                                              "c_parameter_3": null,
+                                                              "c_parameter_1": "-1",
+                                                              "c_parameter_2": "intimidate",
+                                                              "c_parameter_3": "17",
                                                               "c_parameter_4": null
                                                             }
                                                           ],
@@ -2962,7 +2654,7 @@
                                                         },
                                                         {
                                                           "idNum": 151,
-                                                          "orderNum": 0,
+                                                          "orderNum": 1,
                                                           "pcNode": false,
                                                           "linkTo": 0,
                                                           "ShowOnlyOnce": false,
@@ -2983,7 +2675,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "[<i>Tell Danmar the whole story...</i>]",
                                                               "IsExpanded": true,
                                                               "subNodes": [],
                                                               "actions": [],
@@ -3002,7 +2694,7 @@
                                                     },
                                                     {
                                                       "idNum": 153,
-                                                      "orderNum": 0,
+                                                      "orderNum": 3,
                                                       "pcNode": true,
                                                       "linkTo": 0,
                                                       "ShowOnlyOnce": false,
@@ -3036,7 +2728,7 @@
                                                               "NodePortraitBitmap": "",
                                                               "NodeNpcName": "",
                                                               "NodeSound": "none",
-                                                              "conversationText": "",
+                                                              "conversationText": "Continue",
                                                               "IsExpanded": true,
                                                               "subNodes": [
                                                                 {
@@ -3062,7 +2754,7 @@
                                                                       "NodePortraitBitmap": "",
                                                                       "NodeNpcName": "",
                                                                       "NodeSound": "none",
-                                                                      "conversationText": "",
+                                                                      "conversationText": "Farewell, and my thanks.",
                                                                       "IsExpanded": true,
                                                                       "subNodes": [],
                                                                       "actions": [],
@@ -3098,7 +2790,7 @@
                                               "actions": [],
                                               "conditions": [
                                                 {
-                                                  "c_script": "gc_journal_entry(nonIBscript)",
+                                                  "c_script": "gcCheckJournalEntryByTag.cs",
                                                   "c_btnAndOr": null,
                                                   "c_and": false,
                                                   "c_not": false,
@@ -3151,29 +2843,14 @@
               "isLink": false
             }
           ],
-          "actions": [
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_ianth_wp",
-              "a_parameter_2": "ianth",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            },
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_vroman_wp",
-              "a_parameter_2": "vroman",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            }
-          ],
+          "actions": [],
           "conditions": [
             {
-              "c_script": "gc_comp_remove(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": "ianth",
+              "c_parameter_1": "Ianth",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -3193,7 +2870,7 @@
         },
         {
           "idNum": 158,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -3201,7 +2878,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Ah, Master Thistlefall!  I see you have found an adventuring party.  I am sure it is a relief for you to get out of your Uncle Asterchord's shop and do some exploring.||***ga_jump-->String::sand_gossam_wp    String::gossam    Float::0    ***ga_jump-->String::sand_vroman_wp    String::vroman    Float::0    ***gc_comp_remove-->NOT::False    String::gossam    ***gc_global_int-->NOT::False    String::backlands_map    String::0    ||",
+          "conversationText": "Ah, Master Thistlefall!  I see you have found an adventuring party.  I am sure it is a relief for you to get out of your Uncle Asterchord's shop and do some exploring.",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -3214,7 +2891,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Continue",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -3240,7 +2917,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "",
+                      "conversationText": "Continue",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -3266,7 +2943,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you tell me more about the Sunite paladin?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3275,7 +2952,7 @@
                             },
                             {
                               "idNum": 100074,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 24,
                               "ShowOnlyOnce": false,
@@ -3283,7 +2960,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "What is the latest news in these parts?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3292,7 +2969,7 @@
                             },
                             {
                               "idNum": 100075,
-                              "orderNum": 0,
+                              "orderNum": 2,
                               "pcNode": true,
                               "linkTo": 46,
                               "ShowOnlyOnce": false,
@@ -3300,7 +2977,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3309,7 +2986,7 @@
                             },
                             {
                               "idNum": 100076,
-                              "orderNum": 0,
+                              "orderNum": 3,
                               "pcNode": true,
                               "linkTo": 92,
                               "ShowOnlyOnce": false,
@@ -3317,7 +2994,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3326,7 +3003,7 @@
                             },
                             {
                               "idNum": 100077,
-                              "orderNum": 0,
+                              "orderNum": 4,
                               "pcNode": true,
                               "linkTo": 93,
                               "ShowOnlyOnce": false,
@@ -3334,7 +3011,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I would like a room.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3343,7 +3020,7 @@
                             },
                             {
                               "idNum": 100078,
-                              "orderNum": 0,
+                              "orderNum": 5,
                               "pcNode": true,
                               "linkTo": 112,
                               "ShowOnlyOnce": false,
@@ -3351,7 +3028,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3360,7 +3037,7 @@
                             },
                             {
                               "idNum": 100079,
-                              "orderNum": 0,
+                              "orderNum": 6,
                               "pcNode": true,
                               "linkTo": 60,
                               "ShowOnlyOnce": false,
@@ -3368,7 +3045,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me more about Hamfast.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3377,7 +3054,7 @@
                             },
                             {
                               "idNum": 100080,
-                              "orderNum": 0,
+                              "orderNum": 7,
                               "pcNode": true,
                               "linkTo": 48,
                               "ShowOnlyOnce": false,
@@ -3385,7 +3062,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Who are those three men in dark blue cloaks over there?",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3394,7 +3071,7 @@
                             },
                             {
                               "idNum": 100081,
-                              "orderNum": 0,
+                              "orderNum": 8,
                               "pcNode": true,
                               "linkTo": 66,
                               "ShowOnlyOnce": false,
@@ -3402,7 +3079,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Tell me about yourself, Danmar.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3411,7 +3088,7 @@
                             },
                             {
                               "idNum": 100082,
-                              "orderNum": 0,
+                              "orderNum": 9,
                               "pcNode": true,
                               "linkTo": 130,
                               "ShowOnlyOnce": false,
@@ -3419,7 +3096,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "",
+                              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -3447,29 +3124,14 @@
               "isLink": false
             }
           ],
-          "actions": [
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_gossam_wp",
-              "a_parameter_2": "gossam",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            },
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_vroman_wp",
-              "a_parameter_2": "vroman",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            }
-          ],
+          "actions": [],
           "conditions": [
             {
-              "c_script": "gc_comp_remove(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": "gossam",
+              "c_parameter_1": "Gossam",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -3489,7 +3151,7 @@
         },
         {
           "idNum": 173,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -3497,7 +3159,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Welcome back, my friend.  What can I do for you?||***ga_jump-->String::sand_vroman_wp    String::vroman    Float::0    ***gc_global_int-->NOT::False    String::backlands_map    String::0    ||",
+          "conversationText": "Welcome back, my friend.  What can I do for you?",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -3510,7 +3172,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Can you tell me more about the Sunite paladin?",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3519,7 +3181,7 @@
             },
             {
               "idNum": 100084,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 24,
               "ShowOnlyOnce": false,
@@ -3527,7 +3189,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "What is the latest news in these parts?",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3536,7 +3198,7 @@
             },
             {
               "idNum": 100085,
-              "orderNum": 0,
+              "orderNum": 2,
               "pcNode": true,
               "linkTo": 46,
               "ShowOnlyOnce": false,
@@ -3544,7 +3206,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3553,7 +3215,7 @@
             },
             {
               "idNum": 100086,
-              "orderNum": 0,
+              "orderNum": 3,
               "pcNode": true,
               "linkTo": 92,
               "ShowOnlyOnce": false,
@@ -3561,7 +3223,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3570,7 +3232,7 @@
             },
             {
               "idNum": 100087,
-              "orderNum": 0,
+              "orderNum": 4,
               "pcNode": true,
               "linkTo": 93,
               "ShowOnlyOnce": false,
@@ -3578,7 +3240,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "I would like a room.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3587,7 +3249,7 @@
             },
             {
               "idNum": 100088,
-              "orderNum": 0,
+              "orderNum": 5,
               "pcNode": true,
               "linkTo": 112,
               "ShowOnlyOnce": false,
@@ -3595,7 +3257,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3604,7 +3266,7 @@
             },
             {
               "idNum": 100089,
-              "orderNum": 0,
+              "orderNum": 6,
               "pcNode": true,
               "linkTo": 60,
               "ShowOnlyOnce": false,
@@ -3612,7 +3274,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me more about Hamfast.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3621,7 +3283,7 @@
             },
             {
               "idNum": 100090,
-              "orderNum": 0,
+              "orderNum": 7,
               "pcNode": true,
               "linkTo": 48,
               "ShowOnlyOnce": false,
@@ -3629,7 +3291,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Who are those three men in dark blue cloaks over there?",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3638,7 +3300,7 @@
             },
             {
               "idNum": 100091,
-              "orderNum": 0,
+              "orderNum": 8,
               "pcNode": true,
               "linkTo": 66,
               "ShowOnlyOnce": false,
@@ -3646,7 +3308,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me about yourself, Danmar.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3655,7 +3317,7 @@
             },
             {
               "idNum": 100092,
-              "orderNum": 0,
+              "orderNum": 9,
               "pcNode": true,
               "linkTo": 130,
               "ShowOnlyOnce": false,
@@ -3663,7 +3325,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3671,15 +3333,7 @@
               "isLink": true
             }
           ],
-          "actions": [
-            {
-              "a_script": "ga_jump(nonIBscript)",
-              "a_parameter_1": "sand_vroman_wp",
-              "a_parameter_2": "vroman",
-              "a_parameter_3": "0",
-              "a_parameter_4": null
-            }
-          ],
+          "actions": [],
           "conditions": [
             {
               "c_script": "gcCheckGlobalInt.cs",
@@ -3696,7 +3350,7 @@
         },
         {
           "idNum": 184,
-          "orderNum": 0,
+          "orderNum": 4,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -3717,7 +3371,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me a bit about the folk of Drawn Swords.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3726,7 +3380,7 @@
             },
             {
               "idNum": 100094,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 92,
               "ShowOnlyOnce": false,
@@ -3734,7 +3388,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Can I see what you have to drink?|***ga_open_store-->String::danmar_store    Int::0    Int::0    |",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3743,7 +3397,7 @@
             },
             {
               "idNum": 100095,
-              "orderNum": 0,
+              "orderNum": 2,
               "pcNode": true,
               "linkTo": 93,
               "ShowOnlyOnce": false,
@@ -3751,7 +3405,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "I would like a room.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3760,7 +3414,7 @@
             },
             {
               "idNum": 100096,
-              "orderNum": 0,
+              "orderNum": 3,
               "pcNode": true,
               "linkTo": 60,
               "ShowOnlyOnce": false,
@@ -3768,7 +3422,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me more about Hamfast.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3777,7 +3431,7 @@
             },
             {
               "idNum": 100097,
-              "orderNum": 0,
+              "orderNum": 4,
               "pcNode": true,
               "linkTo": 48,
               "ShowOnlyOnce": false,
@@ -3785,7 +3439,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Who are those three men in dark blue cloaks over there?",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3794,7 +3448,7 @@
             },
             {
               "idNum": 100098,
-              "orderNum": 0,
+              "orderNum": 5,
               "pcNode": true,
               "linkTo": 66,
               "ShowOnlyOnce": false,
@@ -3802,7 +3456,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Tell me about yourself, Danmar.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3811,7 +3465,7 @@
             },
             {
               "idNum": 100099,
-              "orderNum": 0,
+              "orderNum": 6,
               "pcNode": true,
               "linkTo": 130,
               "ShowOnlyOnce": false,
@@ -3819,7 +3473,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "Can you direct me to your guests Dunne and Obern?  I need to speak with them.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3828,7 +3482,7 @@
             },
             {
               "idNum": 100100,
-              "orderNum": 0,
+              "orderNum": 7,
               "pcNode": true,
               "linkTo": 112,
               "ShowOnlyOnce": false,
@@ -3836,7 +3490,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "",
+              "conversationText": "I don't need anything at the moment, Danmar.  Farewell.",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -3854,11 +3508,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "danmar_con.json",
+  "ConvoFileName": "danmar_con",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "",
+  "NpcPortraitBitmap": "ptr_mero.png",
   "DefaultNpcName": "",
   "NextIdNum": 185
 }

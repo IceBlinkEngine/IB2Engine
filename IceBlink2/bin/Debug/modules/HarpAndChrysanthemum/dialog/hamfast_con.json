@@ -960,7 +960,7 @@
                                                                                       ],
                                                                                       "actions": [
                                                                                         {
-                                                                                          "a_script": "ga_give_gold(nonIBscript)",
+                                                                                          "a_script": "gaGiveGold.cs",
                                                                                           "a_parameter_1": "200",
                                                                                           "a_parameter_2": "0",
                                                                                           "a_parameter_3": null,
@@ -1428,7 +1428,7 @@
               "actions": [],
               "conditions": [
                 {
-                  "c_script": "gc_journal_entry(nonIBscript)",
+                  "c_script": "gcCheckJournalEntryByTag.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": false,
@@ -1661,7 +1661,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -1671,7 +1671,7 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -2483,7 +2483,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -3976,7 +3976,7 @@
                                               "subNodes": [],
                                               "actions": [
                                                 {
-                                                  "a_script": "ga_give_gold(nonIBscript)",
+                                                  "a_script": "gaGiveGold.cs",
                                                   "a_parameter_1": "500",
                                                   "a_parameter_2": "0",
                                                   "a_parameter_3": null,
@@ -4109,7 +4109,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -5654,7 +5654,7 @@
                                                               "subNodes": [],
                                                               "actions": [
                                                                 {
-                                                                  "a_script": "ga_give_gold(nonIBscript)",
+                                                                  "a_script": "gaGiveGold.cs",
                                                                   "a_parameter_1": "500",
                                                                   "a_parameter_2": "0",
                                                                   "a_parameter_3": null,
@@ -5991,7 +5991,7 @@
                           "actions": [],
                           "conditions": [
                             {
-                              "c_script": "gc_journal_entry(nonIBscript)",
+                              "c_script": "gcCheckJournalEntryByTag.cs",
                               "c_btnAndOr": null,
                               "c_and": false,
                               "c_not": false,
@@ -6298,7 +6298,7 @@
               ],
               "conditions": [
                 {
-                  "c_script": "gc_journal_entry(nonIBscript)",
+                  "c_script": "gcCheckJournalEntryByTag.cs",
                   "c_btnAndOr": null,
                   "c_and": false,
                   "c_not": false,
@@ -6349,7 +6349,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -6359,7 +6359,7 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -8126,7 +8126,7 @@
                                       ],
                                       "actions": [
                                         {
-                                          "a_script": "ga_give_gold(nonIBscript)",
+                                          "a_script": "gaGiveGold.cs",
                                           "a_parameter_1": "200",
                                           "a_parameter_2": "0",
                                           "a_parameter_3": null,
@@ -8389,7 +8389,7 @@
           ],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,

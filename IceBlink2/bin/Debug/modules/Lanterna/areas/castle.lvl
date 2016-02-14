@@ -19,7 +19,7 @@
   "areaDark": false,
   "UseDayNightCycle": false,
   "TimePerSquare": 6,
-  "ImageFileName": "none",
+  "ImageFileName": "castle",
   "MapSizeX": 16,
   "MapSizeY": 16,
   "Tiles": [

@@ -129,6 +129,7 @@ namespace IceBlink2
         public bool useRealTimeTimer = false;
         public bool useSmoothMovement = false;
         public bool useCombatSmoothMovement = false;
+        public bool useAllTileSystem = false;
         public int realTimeTimerLengthInMilliSeconds = 1500;
         public int attackFromBehindToHitModifier = 2;
         public int attackFromBehindDamageModifier = 0;

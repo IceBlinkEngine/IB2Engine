@@ -1,109 +1,560 @@
 [
   {
-    "Name": "Andy's Message",
-    "Tag": "AndyQuest",
+    "Name": "Harp & Chrysanthemum",
+    "Tag": "Q_MANFRED",
     "Entries": [
       {
-        "EntryTitle": "See Dalin",
-        "EntryText": "One of the towns' runners, Andy, has given you a message.  Dalin, the Chief Judge, needs to speak with you right away.  He is located in the Civic Building.",
-        "Tag": "andy1",
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Vroman and I have just learned of his brother Manfred's death.  He was slain on his way to Drawn Swords to meet us.  To learn more, we should speak to Ianth, the paladin of Sune who tried to rescue him and brought his body to town.  We can find her in Swordskeep.",
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Dalin Visited",
-        "EntryText": "You have spoken with Dalin.",
-        "Tag": "andy2",
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Ianth Lavillus, Knight of the Ruby Rose and self-proclaimed protector of Drawn Swords, has agreed to help us investigate the Zhentarim who caused Manfred's death.  Together, we will travel to Northdark Wood to find out more about the Zhentarim presence there.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "When we neared the location of the Zhentarim camp, we found a half-orc cleric of Bane and a small party of Zhentarim waiting for us.  Before we fought, he denied that the Zhentarim meant any harm to Drawn Swords, though he did not deny attacking Vroman's brother.  When we get to the camp, we should make sure we explore it thoroughly to uncover any explanation for what the Zhents are doing in the area.",
+        "Tag": "15",
+        "EntryId": 15,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "We have discovered a portfolio of Zhentarim military plans.  [<i>You have folded the most important of these documents into your journal.</i>]  It seems as though the Zhents here were refugees from Darkhold, which has fallen to other forces!  It is still unclear what they were doing in the region, but it seems likely that scouting was a part of it.  We also encountered a mercenary named Marcellus, known to Ianth, who told us that he had been hired by Bane-worshipping Zhentarim to kill the Cyric worshipper we slew to get the portfolio.  We had done his job for him, though he did not seem particularly cheerful.  We should report our findings to Hamfast.",
+        "Tag": "20",
+        "EntryId": 20,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "We have reported our findings to Hamfast.  In light of the news of Darkhold's fall and the presence of Zhentarim throughout the region, he has decided that we should all meet at his house to discuss what to do next.  Danmar, innkeeper of the Sword and Dragon, will join us as well.  Hamfast lives next to the inn; when we are ready, we should make our way there and properly introduce ourselves to his wife, Sarah.",
+        "Tag": "25",
+        "EntryId": 25,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Hamfast and Danmar have urged us to investigate another Zhentarim encampment in the Backlands, where a powerful general named Clydus is supposed to command.  Meanwhile, the elf Revelian has been sent to Corm Orp to gather what news he can of the loss of Darkhold.  Before I go, I must speak with Anselm on the second floor of Swordskeep.",
+        "Tag": "30",
+        "EntryId": 30,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Hamfast and Danmar have urged us to investigate another Zhentarim encampment in the Backlands, where a powerful general named Clydus is supposed to command.  Meanwhile, the elf Revelian has been sent to Corm Orp to gather what news he can of the loss of Darkhold.  \n\nAlso, I have spoken with Brother Anselm, who wished to thank me personally for my work in Drawn Swords--and to tell me news of a cult causing trouble to the east.",
+        "Tag": "35",
+        "EntryId": 35,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "After finding the Zhentarim encampment destroyed and Ianth's old friend Marcellus at the scene, we were attacked by a host of Cyric-worshippers, the leader of whom strangely singled out Vroman as a would-be captive before we did battle.  Though we were too late to discover anything else, the confirmation that there is an internal conflict in the Zhentarim between the Bane- and Cyric-worshippers--and the knowledge that the Zhents want <i>Vroman</i> for some reason--are items worth reporting to Hamfast back in Drawn Swords.\n",
+        "Tag": "40",
+        "EntryId": 40,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Reunited with Manfred!",
+        "Tag": "45",
+        "EntryId": 45,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Manfred is alive, Danmar the innkeeper is a Harper, and I have been invited to join the Harpers too!\n\nThe man who was killed by the Zhentarim was a Harper mage named Nevin, who traveled to Drawn Swords in disguise to give a message to Vroman and to mislead the Harpers' enemies.  Nevin was not supposed to die.  The message, meanwhile, was going to tell Vroman to meet with his brother some place more covert--for what reason we will soon find out.  It has something to do with the powerful organization that the Harpers now oppose, about which I am sure we will also learn more.  I know only that is not the Banite or Cyricist Zhentarim.\n\nWhen we are ready, we are to meet Danmar and Manfred in Harpers' Glade, in the southern part of Northdark Wood.",
+        "Tag": "50",
+        "EntryId": 50,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "I am now a Harper Friend.  After the party celebrating my new fellowship, Manfred took me aside and told me some grim news.  The Risen Sun, a cult that believes that the god Lathander is to be reborn as Amaunator, is responsible for the turmoil in the area and the conquest of Darkhold.  Apparently, they pursue him because of something he discovered something important to them in his researches in Anauroch.\n\nManfred also told me that he has foreseen his death.  Strangely, the last thing I remember of the night is him whispering something to me, but I forget what that thing was.  I woke in Northdark Wood with my companions, but there was no sign of the Harpers or last night's party.  According to the note from Danmar that Ianth gave me, we are to return to Drawn Swords to speak with Hamfast, who will tell us what to do next.",
+        "Tag": "55",
+        "EntryId": 55,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "I am now a Harper.  After the party celebrating my new fellowship, Manfred took me aside and told me some grim news.  The Risen Sun, a cult that believes that the god Lathander is to be reborn as Amaunator, is responsible for the turmoil in the area and the conquest of Darkhold.  Apparently, they pursue him because of something he discovered something important to them in his researches in Anauroch.\n\nManfred also told me that he has foreseen his death.  Strangely, the last thing I remember of the night is him whispering something to me, but I forget what that thing was.  I woke in Northdark Wood with my companions, but there was no sign of the other Harpers or last night's party.  According to the note from Danmar that Ianth gave me, we are to return to Drawn Swords to speak with Hamfast, who will tell us what to do next.",
+        "Tag": "60",
+        "EntryId": 60,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "Hamfast approached us as we entered Drawn Swords.  He told us to check up on Brother Anselm, who locked himself in his house days ago, saying he was ill.  His house is right beside Asterchord's store.",
+        "Tag": "65",
+        "EntryId": 65,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "We have found a note near Brother Anselm's corpse from some party signing itself \"BMT.\"  It says that we should rendezvous at the Zhentarim encampment in Northdark Wood (north) if we do not want the same thing to happen to Hamfast.  We should make our way there soon, but first, we should tell Hamfast the news.",
+        "Tag": "70",
+        "EntryId": 70,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "The note we found near Brother Anselm's corpse says that we should rendezvous at the Zhentarim encampment in Northdark Wood (north) if we do not want the same thing to happen to Hamfast.  We should make our way there as soon as possible.",
+        "Tag": "75",
+        "EntryId": 75,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "We met \"BMT\" in Northdark Wood--\"Belforet, Marcellus, and Teurneia,\" apparently.  The three of them had defected from the Banites to the side of the Cyricists and wished to trap us once they realized how valuable we would be to them.  Dunne, Anselm's old acolyte, also made an appearance.  We slew his force.  We should return to Drawn Swords and tell Hamfast. \n\nIanth observed that our presence in the area has ceased to benefit Drawn Swords, and might even mean more trouble for the town.      ",
+        "Tag": "80",
+        "EntryId": 80,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "After we told Hamfast about our encounter in Northdark Wood and were in the midst of our farewells, three knights of the Ruby Rose appeared with some grim news: a force of Banite Zhentarim and a force of soldiers of the Risen Sun are both making for the Flame Stone.  Meanwhile, Maerdred, their leader, told Ianth that she should hold a vigil at the Flame Stone tonight while they protect it.  Perhaps Sune's rose will bloom for her tonight.  In any case, we had best make for the Flame Stone as soon as possible!",
+        "Tag": "85",
+        "EntryId": 85,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "During the course of the night, Ianth was finally blessed with a sign from Sune--a chrysanthemum, the fall-blooming flower.  She was also blessed with a vision, a new title, and a new purpose--to walk with me on this grand adventure I seem to be starting.  The Knights of the Ruby Rose have informed us that the enemies (the Cult of the Risen Sun and the Banite Zhentarim) have been spotted.  I must prepare for battle as well as I am able--this could be my last stand.",
+        "Tag": "90",
+        "EntryId": 90,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Harp & Chrysanthemum",
+        "EntryText": "The final battle has come.  After Manfred sacrificed himself and indicated that his knowledge of the \"Word\" would not die with him, Theophilus attacked.  Fire elementals sprung out of nowhere; the sky turned white; the troops vanished.  It seems as if Theophilus cannot be harmed while the fire elementals live.",
+        "Tag": "95",
+        "EntryId": 95,
         "EndPoint": false
       }
     ]
   },
   {
-    "Name": "Dalin's Task",
-    "Tag": "dalinQuest",
+    "Name": "Visitors to the Crypt",
+    "Tag": "Q_CRYPT",
     "Entries": [
       {
-        "EntryTitle": "Message to Verto",
-        "EntryText": "Dalin has asked you to deliver a message to Verto (he is located in the guard barracks).  Tell him that a search and rescue party is to be formed.  Verto is to lead the team as soon as possible.",
-        "Tag": "dalin1",
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "Brother Anselm has given us the key to the Swordskeep crypt so that Vroman can visit his brother's tomb.  We can find the entrance to the crypt on the main floor of the keep.  [<i>This key has been added to your journal, not your inventory</i>].",
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Message Delivered",
-        "EntryText": "You delivered Dalin's message to Verto.",
-        "Tag": "dalin2",
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "After we went to visit Manfred's grave, we were surprised to find zombies blocking our exit from the crypts.  Vroman is sure Brother Anselm would be interested in hearing about this.",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "I informed Brother Anselm of the zombie presence in the crypt.  I hope that he discovers whatever it was that brought them there.  If I wished, I could probably convince him to let me look into the matter.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "I have agreed to help Brother Anselm investigate the zombie presence in the crypts.  He thinks I should start by ask some questions of his acolytes, Dunne and Obern, who are the only other people who have access to the crypt.  Both of them lodge at the Sword and Dragon Inn.  The innkeeper could probably direct me to them.",
+        "Tag": "15",
+        "EntryId": 15,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "I have secured a key from Danmar that will let me upstairs and into the bunk rooms where Dunne and Obern lodge.  [<i>This key has been added to your journal, not your inventory</i>].  I should look for any clues indicating treachery and return to Anselm when I am finished.",
+        "Tag": "20",
+        "EntryId": 20,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "Apparently, <i>both</i> acolytes were not what they seemed.  The one responsible for summoning the zombies, Dunne, got away, apparently betraying Obern, who we slew.\r\n\r\nIt seems that Dunne had been prepared for our intrusion.  He left little in his trunk that would help identify him or his motives, but we did find a scrap of paper that appears to have been part of a letter to the traitors.  An important passage seems to be these instructions: \"Do not leave Drawn Swords until his arrival.\"\r\n\r\nWe should tell Brother Anselm about this.      ",
+        "Tag": "25",
+        "EntryId": 25,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "We told Brother Anselm about our encounter with Dunne and Obern.  He thanked us, but was most disturbed by the news, and is especially troubled that spies would bother with Drawn Swords.",
+        "Tag": "30",
+        "EntryId": 30,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "It appears that I was too late in investigating Dunne and Obern's rooms at the inn--they've apparently checked out already.",
+        "Tag": "35",
+        "EntryId": 35,
+        "EndPoint": true
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "Brother Anselm has taken ill.  I will have to wait until he is better to tell him my news.",
+        "Tag": "45",
+        "EntryId": 45,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Visitors to the Crypt",
+        "EntryText": "We now know why there were spies in Drawn Swords.  Dunne and Obern must have found the note to Vroman when they buried him.  They were waiting for his arrival here all along, and when the Cyric-worshipping one (Dunne) discovered Manfred wasn't coming--and wasn't dead--, he planted the zombies in the crypt so that <i>we</i> could kill his Banite partner for him, leaving him free to flee and tell the other Cyricists his news.",
+        "Tag": "55",
+        "EntryId": 55,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Gossam's Green Thumb",
+    "Tag": "Q_GREEN",
+    "Entries": [
+      {
+        "EntryTitle": "Gossam's Green Thumb",
+        "EntryText": "I have met a halfling cleric of Sheela Peryroyl named Gossam Thistefall in Oudin Asterchord's shop.  I was not interested in having him join us at the moment, but I can return for him in the future.  He mentioned wanting to do field work in Northdark Wood.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Gossam's Green Thumb",
+        "EntryText": "The halfling cleric, Gossam Thistlefall, has joined my party.  While the task is not urgent, he is interested in collecting certain plant specimens that grow in Northdark Wood and the Backlands, and has given me the following list: \r\n\n\n\"<i>Eventide Sedum</i>, a succulent plant that grows in wet, low-lying regions in the Backlands.\"\n\n\"<i>Bloodstaunch</i>, a minor medicinal herb that often grows in or near dry stream beds in the northern reaches of Northdark Wood.\"\n\n\"<i>Reluvethel's Aster</i>, a legendary, golden aster.  No one is sure where it might grow--named after the famous elven ranger of Northdark.\"\n\n\"<i>Boar's Blood</i>, a red-flowered grass native to parts of the Backlands.\"\n\n\"<i>Indigo Hallowscap</i> is a toadstool that grows in caves.  While orange in color, it gives off a bluish light, and is sometimes made into a potent hallucinogen by goblinoids.\"",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Gossam's Green Thumb",
+        "EntryText": "I have helped Gossam find all of the plant specimens he was looking for.  Even though his original reason for coming to the Backlands was to find these plants, Gossam has decided to prolong the adventure by staying with the group.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": true
+      },
+      {
+        "EntryTitle": "Gossam's Green Thumb",
+        "EntryText": "Oudin Asterchord informed me that his nephew, Gossam, decided to return to Corm Orp without ever completing his botanical field work.",
+        "Tag": "15",
+        "EntryId": 15,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Castle Joyous",
+    "Tag": "Q_LUDOS",
+    "Entries": [
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "We have stumbled across a mysterious secret door in the Swordskeep crypt.  It will not open, but a poem on the door might be a riddle of some sort whose answer would open it. [<i>You have recorded the poem under the journal heading, \"Some Verses Found in the Swordskeep Crypt.\"</i>]  Perhaps someone in Drawn Swords can give us more information about the door, the poem, or both.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "Oudin Asterchord told me that the door probably leads to the tomb of Ludos, the robber-knight who built Swordskeep.  The poem on the door is a stanza from \"The Falcon and the Dove,\" an anonymous love poem that is actually set at nearby Castle Joyous.  Oudin has marked the location of Castle Joyous for me on my map--we should head there to look for more clues, and possibly the password that will open the door.",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "We arrived at Castle Joyous and found it a battlefield.  Purple-robed wizards and their orc mercenaries were doing battle with gnolls, who seemed to be losing in their defense of the place.  I ought to make my way to the castle itself to see if I can get to the bottom of this.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "I have spoken to Raghragh, a gnoll shaman who has told me that the wizards attacking Castle Joyous have unsealed a portal leading to the Well of Dragons.  The wizards--part of the notorious Cult of Dragons--seek to make the castle a new stronghold.  To close the portal, we must speak to the \"goddess\" to whom Raghragh referred--and to do that, we'll need to search the library in this dungeon for a clue.  Raghragh gave us a key to the library.",
+        "Tag": "15",
+        "EntryId": 15,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "A song dragon named Aspeaddyrdhalis, has revealed herself as \"the Dove\" of the poem.  After aiding her in a fight against one of the cultists and his ogre mercenaries, we learned that the only way to seal the portal is to do so from both sides.  She has volunteered to go through; we must clear the way for her and, once at the portal, say her name.",
+        "Tag": "20",
+        "EntryId": 20,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "Before vanishing through the portal to the Well of Dragons, the Dove told me that all I need to do is speak the true name of the Falcon before the tomb door back in Swordskeep--Ludos.  It seems that the poet, the dragon's lover, and the robber-knight who built the keep and inadvertently founded Drawn Swords are all the same man.",
+        "Tag": "25",
+        "EntryId": 25,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Castle Joyous",
+        "EntryText": "We returned to Drawn Swords and entered the tomb of Ludos by saying his name; inside, we encountered his ghost, who vanished soon after telling us his sad story.  And so the mystery of the Falcon and the Dove ends.",
+        "Tag": "30",
+        "EntryId": 30,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Some Verses Found in the Swordskeep Crypt",
+    "Tag": "Q_VERSES",
+    "Entries": [
+      {
+        "EntryTitle": "Some Verses Found in the Swordskeep Crypt",
+        "EntryText": "[<i>These are the lines you found engraved on the door in Swordskeep Crypt.</i>]\r\n\nWhere lap the waters bright and clear,\nAnd roses bend to touch the flood,\nThere lay the Falcon, roses near,\nAnd at his breast the Dove.\n\nThough breathing warm, her blood was cold;\nHer heart was strange and slow;\nThough she seemed young, her blood was old;\nThis he shook and groaned to know.\n\nFrom Castle Joyous he departed—\nDead to her, as she to him;\nA death that to his life imparted\nSorrows long and vision grim:\n\nFor on no wing could he ascend,\nAnd no song would he sing again,\nWith no joy left woe to forefend,\nThe Falcon lost his Dove.\r\n",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Some Verses Found in the Swordskeep Crypt",
+        "EntryText": "[<i>These are the lines you found engraved on the door in Swordskeep Crypt.</i>]\r\n\nWhere lap the waters bright and clear,\nAnd roses bend to touch the flood,\nThere lay the Falcon, roses near,\nAnd at his breast the Dove.\n\nThough breathing warm, her blood was cold;\nHer heart was strange and slow;\nThough she seemed young, her blood was old;\nThis he shook and groaned to know.\n\nFrom Castle Joyous he departed—\nDead to her, as she to him;\nA death that to his life imparted\nSorrows long and vision grim:\n\nFor on no wing could he ascend,\nAnd no song would he sing again,\nWith no joy left woe to forefend,\nThe Falcon lost his Dove.\r\n",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "The Risen Sun\r\n",
+    "Tag": "Q_RISEN",
+    "Entries": [
+      {
+        "EntryTitle": "The Risen Sun\r\n",
+        "EntryText": "Brother Anselm has told me of a cult gaining popularity in the lands east of here.  The cult, called the Risen Sun, worships the old Netherese deity Amaunator and believes he will replace Lathander in the pantheon.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Risen Sun\r\n",
+        "EntryText": "According to Gargothis, whose isolation has not prevented him from keeping up on the doings of the cult, \"the Marsember Conclave of Lathander's church had officially excommunicated--on charges of heresy--Daelegoth Orndeir and all members of the Cult of the Risen Sun.\"",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Risen Sun\r\n",
+        "EntryText": "After Daelegoth Orndeir, leader of the Risen Sun, was excommunicated from the church of Lathander, he led his followers into the Sunset Mountains and took Darkhold from the Zhentarim.  Apparently, they mean to set themselves up as a ecclesiastical military power.  Somehow, the Word that Manfred gave me is very important to them--he called it \"the name of a god.\"  It must be the name of Amaunator himself.  Though I am still unsure why this is important, I have no doubt that it <i>is</i>.",
+        "Tag": "11",
+        "EntryId": 11,
         "EndPoint": false
       }
     ]
   },
   {
-    "Name": "Find your Sister",
-    "Tag": "findSister",
+    "Name": "War",
+    "Tag": "Q_WAR",
     "Entries": [
       {
-        "EntryTitle": "Search for your Sister",
-        "EntryText": "Your sister and her friends have been abducted and you must find them if you can.  Their last known location was at the secret falls.  You can go it alone or travel with the search and rescue team. If you wish to question Tindra, she can be found at the Sanctuary.",
-        "Tag": "sister1",
+        "EntryTitle": "War",
+        "EntryText": "Gargothis wishes to play the card game War with me.  In order to make the game more interesting, he's decided a game will be made up of ten matches, and that the loser of each match will pay the winner fifty gold pieces.  If I happen to win ten matches in a row, Gargothis has vowed that he will give me one of his greatest treasures--surely an item of might, considering his interests.  The odds of winning ten matches of War in a row are not favorable, though.  In order to play, I should  have at least five hundred gold pieces.",
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Found your Sister",
-        "EntryText": "You found your sister and her friends and set them free.",
-        "Tag": "sister2",
+        "EntryTitle": "War",
+        "EntryText": "I have beaten the odds and won ten matches of War in a row.  Gargothis has given me the heart of a demon known as an armanite as a prize.",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Some Verses Found in Castle Joyous",
+    "Tag": "Q_CJVERSES",
+    "Entries": [
+      {
+        "EntryTitle": "Some Verses Found in Castle Joyous",
+        "EntryText": "[<i>These are the lines you found engraved on a bronze tablet in the dwarven halls beneath Castle Joyous.</i>]\r\n\n\n\nThen fell the scales from his eyes,\nFor scales her pinions were;\nAnd on the scale of judgment lies\nThat which he left for her:\n\nA wingless void, an empty weight,\nAn ounce of air and time;\nBut on her side a heavy bait\nSmeared with thick birdlime.\n\n There lies the Dove, and ever will!\nA leaden feather tossed aside:\nHer love the empty tomb has filled,\nAnd in that tomb her love abides.\n\nBut if you'd see what yet remains\nTake one coin for each their eyes,\nPlace them on the scale amain,\nAnd seek the cave where still she lies.\n\r\n",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Some Verses Found in Castle Joyous",
+        "EntryText": "[<i>These are the lines you found engraved on a bronze tablet in the dwarven halls beneath Castle Joyous.</i>]\r\n\n\n\nThen fell the scales from his eyes,\nFor scales her pinions were;\nAnd on the scale of judgment lies\nThat which he left for her:\n\nA wingless void, an empty weight,\nAn ounce of air and time;\nBut on her side a heavy bait\nSmeared with thick birdlime.\n\n There lies the Dove, and ever will!\nA leaden feather tossed aside:\nHer love the empty tomb has filled,\nAnd in that tomb her love abides.\n\nBut if you'd see what yet remains\nTake one coin for each their eyes,\nPlace them on the scale amain,\nAnd seek the cave where still she lies.\n\r\n",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Saern's Sharp Swords",
+    "Tag": "Q_BBOAR",
+    "Entries": [
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "Melincourt, the leader of Saern's Sharp Swords (Drawn Swords' volunteer militia), has challenged Ianth and the rest of us to hunt down the Backlands Boar, a fearsome boar who haunts the Backlands north of town.  Once we have prevailed over the beast, we should bring its head back to him at the Sword and Dragon Inn.  The boar is also reputed to be quite elusive--he might not always appear at the spot Melincourt indicated.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "We encountered the Backlands Boar, but after seeing its prepossessing age and bulk we decided not to kill it.  We should still report our encounter to Melincourt back in the Sword and Dragon Inn.",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "We encountered and slew the Backlands Boar.  We should now bring its head back to Melincourt at the Sword and Dragon Inn to show him that Ianth and I have met the terms of his challenge.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "We have won both of Saern's Sharp Swords' challenges--the boar fight and the arm-wrestling competition with Ambergren.  Unfortunately, it does not look as if the men will be returning to work any time soon, but we have at least taken their pride down a notch or two.",
+        "Tag": "20",
+        "EntryId": 20,
+        "EndPoint": true
+      },
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "We have won both of Saern's Sharp Swords' challenges--the boar fight and the arm-wrestling competition with Ambergren.  The men have been persuaded by our victory that they have lost much of their old prowess to their indolence and drinking--It seems as if they meet turn over a new leaf and return to serving Drawn Swords once we have left the area.",
+        "Tag": "25",
+        "EntryId": 25,
+        "EndPoint": true
+      },
+      {
+        "EntryTitle": "Saern's Sharp Swords",
+        "EntryText": "The arm wrestling contest was decided in Ambergren's favor.  Fortunately, this inspired Saern's Sharp Swords to clean up their act and return to serving Drawn Swords.",
+        "Tag": "30",
+        "EntryId": 30,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "The Flame Stone\r\n",
+    "Tag": "Q_FLAME",
+    "Entries": [
+      {
+        "EntryTitle": "The Flame Stone\r\n",
+        "EntryText": null,
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       }
     ]
   },
   {
-    "Name": "Search and Rescue",
-    "Tag": "SaRQuest",
+    "Name": "Dryad's Fire",
+    "Tag": "Q_DRYAD",
     "Entries": [
       {
-        "EntryTitle": "Joining the Search and Rescue Team",
-        "EntryText": "Dalin has asked you to deliver a message to Verto (he is located in the guard barracks).  Tell him that a search and rescue party is to be formed.  Verto is to lead the team as soon as possible.",
-        "Tag": "sar1",
+        "EntryTitle": "Dryad's Fire",
+        "EntryText": "A dryad we met in Northdark Wood wished us to make a fire for her and her elven beloved.  Something about this didn't seem quite right...",
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Joined the Search and Rescue Team",
-        "EntryText": "You have joined the Search and Rescue team.",
-        "Tag": "sar2",
+        "EntryTitle": "Dryad's Fire",
+        "EntryText": "Gilathias, the elven beloved and prisoner of Voeae the dryad, has thanked us for helping to liberate him from her clutches.  He has now returned to the company of Evereskan scouts with whom he came into this region.",
+        "Tag": "10",
+        "EntryId": 10,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "The Code of the Harpers",
+    "Tag": "Q_CODE",
+    "Entries": [
+      {
+        "EntryTitle": "The Code of the Harpers",
+        "EntryText": "I have been honored by an invitation to join the Harpers, the semi-secret organization dedicated to the values of freedom, dignity, and moderation.  I will need to pass some sort of test to join them (if I wish).  I might want to research the Harpers a little to determine if working with them is truly what would be best for me.  Perhaps I can find out more by doing some reading.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Code of the Harpers",
+        "EntryText": "I am now a Harper.  As such, I believe in the following code:\n\n\"All actions have consequences and must always be considered as having them.\"\n\"All should be able to live and to pursue their own goals as they wish, so long as an individual's freedom does not compromise another's.\"\n\"It is the spirit of law, rather than law itself, that should order cities; and never should any city take too much from the land.\"\n\"Humility and self-sacrifice are more noble than pride and power.  History teaches us this; therefore, preserve legend and song.\"\n\"Above all, <i>Balance in all things.</i>\"",
+        "Tag": "5",
+        "EntryId": 5,
         "EndPoint": false
       }
     ]
   },
   {
-    "Name": "Verto's Task",
-    "Tag": "vertoTask",
+    "Name": "Geas",
+    "Tag": "Q_GEAS",
     "Entries": [
       {
-        "EntryTitle": "Get Search and Rescue Items",
-        "EntryText": "You have agreed to retrieve some items for Verto.  Go to the general store and present the list to Mero.",
-        "Tag": "sarItems1",
-        "EndPoint": false
-      },
-      {
-        "EntryTitle": "Have Search and Rescue Items",
-        "EntryText": "You have delivered the list to Mero and collected the items.",
-        "Tag": "sarItems2",
-        "EndPoint": false
-      },
-      {
-        "EntryTitle": "Delivered Search and Rescue Items",
-        "EntryText": "You have delivered the supplies to Verto.",
-        "Tag": "sarItems3",
+        "EntryTitle": "Geas",
+        "EntryText": "Some sort of magical compulsion prevents me from saying certain things.  Whenever I try, I find that I cannot and am afflicted with terrible illness.  Is Manfred responsible for this?",
+        "Tag": "1",
+        "EntryId": 1,
         "EndPoint": false
       }
     ]
   },
   {
-    "Name": "Warn Charn",
-    "Tag": "warnCharn",
+    "Name": "The Tomb Guardians",
+    "Tag": "Q_OUBLIO",
     "Entries": [
       {
-        "EntryTitle": "Girls Warn Charn",
-        "EntryText": "The girls are off to warn Charn of The Exile's plans and hopefully rally support from the Wood Elves, Mountain Dwarves, and Talking Beasts.  When you are ready, head back to Charn.  Upon arriving, report to Dalin in the Civic Building.",
-        "Tag": "warn1",
+        "EntryTitle": "The Tomb Guardians",
+        "EntryText": "I have agreed to help Sinna, a traveler we found on the path through the southern part of Northdark Wood.  He and his companion were robbed--by wyverns, no less.   He is particularly interested in recovering a necklace that the creatures stole.  If I find it, he said that he will reward me with a key that opens a tomb full of riches.",
+        "Tag": "5",
+        "EntryId": 5,
         "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Tomb Guardians",
+        "EntryText": "I have refused to help Sinna, a traveler we found on the path through the southern part of Northdark Wood.  He said something about a necklace that somehow ended up in a nest of wyverns.  If I find such a thing, I <i>could</i>return it to him.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Tomb Guardians",
+        "EntryText": "Sinna has given me a key to a tomb that lies not far from the nest of wyverns we slew.  It sounds like the place is ripe for investigation!",
+        "Tag": "15",
+        "EntryId": 15,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Tomb Guardians",
+        "EntryText": "Sinna, Neerg, and their horse turned out to be hags and hagspawn in disguise.  They had killed an Evereskan Tomb Guardian for the key to Reluvethel's Tomb and then tricked us into clearing it out for them.  The Evereskans saw us exiting the tomb and mistook us for the murderers.  Things could have gone foul for us if the hags had not shown up when they did.  We vanquished them and won the elves' gratitude.",
+        "Tag": "20",
+        "EntryId": 20,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "Backlands Barrow",
+    "Tag": "Q_BARROW",
+    "Entries": [
+      {
+        "EntryTitle": "Backlands Barrow",
+        "EntryText": "I have come upon what appears to be an old barrow.  Perhaps some clue within its old walls will allow me to explore it further.",
+        "Tag": "1",
+        "EntryId": 1,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Backlands Barrow",
+        "EntryText": "I have slain a mummy named Destevedh, occupant of the barrow's inner chamber.",
+        "Tag": "5",
+        "EntryId": 5,
+        "EndPoint": true
       }
     ]
   }

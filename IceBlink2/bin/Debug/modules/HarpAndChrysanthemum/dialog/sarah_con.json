@@ -29,7 +29,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -67,7 +67,7 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": true,
@@ -159,7 +159,7 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
@@ -2719,7 +2719,7 @@
               "c_parameter_4": null
             },
             {
-              "c_script": "gc_journal_entry(nonIBscript)",
+              "c_script": "gcCheckJournalEntryByTag.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
