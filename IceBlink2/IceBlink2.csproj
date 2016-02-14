@@ -107,6 +107,7 @@
     <Compile Include="FormattedLine.cs" />
     <Compile Include="FormattedWordGDI.cs" />
     <Compile Include="FormattedWord.cs" />
+    <Compile Include="Weather.cs" />
     <Compile Include="FullScreenEffectLayer.cs" />
     <Compile Include="GameView.cs">
       <SubType>Form</SubType>

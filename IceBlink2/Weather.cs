@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IceBlink2
 {
-    public class FullScreenEffectLayer
+    public class Weather
     {
         public bool useFullScreenEffectLayer = false;
         public bool fullScreenEffectLayerIsActive = true;
@@ -48,7 +48,7 @@ namespace IceBlink2
         public string overrideIsNoScrollSource = "";
         public bool changeableByWeatherScript = false;
 
-        public FullScreenEffectLayer()
+        public Weather()
         {
 
         }

@@ -3385,6 +3385,7 @@ namespace IceBlink2
 
             if ((gv.mod.currentWeatherName == "") || (doesCurrentWeatherExistHere == false))
             {
+                
                 //determine random number between 1 and 100 for choosing entry weather type
                 int rollRandom = gv.sf.RandInt(100);
                 int addedChances = 0;
@@ -6215,13 +6216,38 @@ namespace IceBlink2
                         //gv.weatherSounds2.controls.stop();
                     }
 
-
                     gv.mod.setCurrentArea(areaFilename, gv);
+                    
+                    if (gv.mod.currentArea.areaWeatherScript == "")
+                    {
+                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                    }
+                    if (gv.mod.currentArea.effectChannelScript1 == "")
+                    {
+                        gv.mod.currentArea.useFullScreenEffectLayer1 = false;
+                    }
+                    if (gv.mod.currentArea.effectChannelScript2 == "")
+                    {
+                        gv.mod.currentArea.useFullScreenEffectLayer2 = false;
+                    }
+                    if (gv.mod.currentArea.effectChannelScript3 == "")
+                    {
+                        gv.mod.currentArea.useFullScreenEffectLayer3 = false;
+                    }
+                    if (gv.mod.currentArea.effectChannelScript4 == "")
+                    {
+                        gv.mod.currentArea.useFullScreenEffectLayer4 = false;
+                    }
                     //karl
                     //gv.log.AddHtmlTextToLog("<font color='red'>" + areaFilename + "</font>");
                     //gv.log.AddHtmlTextToLog("<font color='red'>" + gv.mod.currentArea.Filename + "</font>");
-                    
-                    
+
+
                     //weather related inserts
                     /*
                     gv.mod.currentArea.fullScreenAnimationFrameCounterX1 = 0;
@@ -6315,7 +6341,7 @@ namespace IceBlink2
                     gv.mod.currentArea.changeFrameCounter9 = 1;
                     gv.mod.currentArea.changeFrameCounter10 = 1;
                     */
-                    
+
                     //try to keep weather consistency intact
                     //gv.mod.currentWeatherName = "";
 

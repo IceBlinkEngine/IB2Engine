@@ -6663,7 +6663,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer5 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
@@ -7726,7 +7726,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer6 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
@@ -8788,7 +8788,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer7 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect7);
@@ -9850,7 +9850,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer8 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect8);
@@ -10913,7 +10913,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer9 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect9);
@@ -11976,7 +11976,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer10 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect10);
@@ -17443,7 +17443,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer5 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer5) && (!gv.mod.currentArea.FullScreenEffectLayer5IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive5) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect5);
@@ -18506,7 +18506,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer6 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer6) && (!gv.mod.currentArea.FullScreenEffectLayer6IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive6) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect6);
@@ -19568,7 +19568,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer7 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (!gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer7) && (!gv.mod.currentArea.FullScreenEffectLayer7IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive7) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect7);
@@ -20630,7 +20630,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer8 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (!gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer8) && (!gv.mod.currentArea.FullScreenEffectLayer8IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive8) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect8);
@@ -21693,7 +21693,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer9 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (!gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer9) && (!gv.mod.currentArea.FullScreenEffectLayer9IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive9) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect9);
@@ -22756,7 +22756,7 @@ namespace IceBlink2
             //that's for my laptop
 
             //check whether the layer10 is activated and set to top level
-            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (!gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10))
+            if ((gv.mod.currentArea.useFullScreenEffectLayer10) && (!gv.mod.currentArea.FullScreenEffectLayer10IsTop) && (gv.mod.currentArea.fullScreenEffectLayerIsActive10) && (gv.mod.currentArea.areaWeatherScript != ""))
             {
 
                 gv.cc.DisposeOfBitmap(ref fullScreenEffect10);
