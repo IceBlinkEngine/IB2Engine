@@ -56,7 +56,7 @@ namespace IceBlink2
         {            
             IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
             IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, gv.squareSize, gv.squareSize);
-            gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, false);            
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);            
         }
     }    
 }

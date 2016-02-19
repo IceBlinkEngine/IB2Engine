@@ -563,6 +563,7 @@ namespace IceBlink2
         {
             if (mod.useAllTileSystem)
             {
+                #region new system
                 int indexOfNorthernNeighbour = -1;
                 int indexOfSouthernNeighbour = -1;
                 int indexOfEasternNeighbour = -1;
@@ -928,11 +929,11 @@ namespace IceBlink2
                                         //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
                                         if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
                                         {
-                                            gv.DrawBitmapNeighbour(tile.tileBitmap0, src, dst, false, false, 1f);
+                                            gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, true);
                                         }
                                         else
                                         {
-                                            gv.DrawBitmap(tile.tileBitmap0, src, dst, false, false, 1f);
+                                            gv.DrawBitmap(tile.tileBitmap0, src, dst, false, 1f, false);
                                         }
 
                                     }
@@ -954,11 +955,11 @@ namespace IceBlink2
                                         //gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated = true;
                                         if (gv.mod.currentArea.drawWithLessVisibleSeamsButMorePixelated)
                                         {
-                                            gv.DrawBitmapNeighbour(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, false, 1f);
+                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, true);
                                         }
                                         else
                                         {
-                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, false, 1f);
+                                            gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, false, 1f, false);
                                         }
 
 
@@ -2071,9 +2072,12 @@ namespace IceBlink2
                 //draw black tiles over large tiles when party is near edges of map
                 //drawBlackTilesOverTints();
                 #endregion
+
+                #endregion
             }
             else //old system using single image background and no load tile images on demand
             {
+                #region old system
                 int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minX < 0) { minX = 0; }
                 int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
@@ -2101,7 +2105,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
+                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
                         }
                         catch { }
                     }
@@ -2124,7 +2128,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst);
+                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
                         }
                         catch { }
                     }
@@ -2147,7 +2151,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src, dst);
+                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
                         }
                         catch { }
                     }
@@ -2170,7 +2174,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src, dst);
+                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift);
                         }
                         catch { }
                     }
@@ -2193,7 +2197,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src, dst);
+                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift);
                         }
                         catch { }
                     }
@@ -2243,6 +2247,7 @@ namespace IceBlink2
                 }
                 //draw black tiles over large tiles when party is near edges of map
                 drawBlackTilesOverTints();
+                #endregion
                 #endregion
             }
         }
@@ -3295,7 +3300,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3311,7 +3316,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3327,7 +3332,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3344,7 +3349,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3372,7 +3377,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3388,7 +3393,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -3415,7 +3420,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -3432,7 +3437,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -3460,7 +3465,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4352,7 +4357,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4368,7 +4373,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4384,7 +4389,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4401,7 +4406,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4429,7 +4434,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4445,7 +4450,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -4472,7 +4477,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -4489,7 +4494,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -4517,7 +4522,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5410,7 +5415,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5426,7 +5431,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5442,7 +5447,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5459,7 +5464,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5487,7 +5492,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5503,7 +5508,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5530,7 +5535,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5547,7 +5552,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5575,7 +5580,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6469,7 +6474,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6485,7 +6490,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6501,7 +6506,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6518,7 +6523,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6546,7 +6551,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6562,7 +6567,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -6589,7 +6594,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -6606,7 +6611,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -6634,7 +6639,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7532,7 +7537,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7548,7 +7553,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7564,7 +7569,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7581,7 +7586,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7609,7 +7614,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7625,7 +7630,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -7652,7 +7657,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -7669,7 +7674,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -7697,7 +7702,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8594,7 +8599,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8610,7 +8615,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8626,7 +8631,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8643,7 +8648,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8671,7 +8676,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8687,7 +8692,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -8714,7 +8719,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -8731,7 +8736,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -8759,7 +8764,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9656,7 +9661,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9672,7 +9677,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9688,7 +9693,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9705,7 +9710,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9733,7 +9738,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9749,7 +9754,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -9776,7 +9781,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -9793,7 +9798,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -9821,7 +9826,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10719,7 +10724,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10735,7 +10740,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10751,7 +10756,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10768,7 +10773,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10796,7 +10801,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10812,7 +10817,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -10839,7 +10844,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -10856,7 +10861,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -10884,7 +10889,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11782,7 +11787,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11798,7 +11803,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11814,7 +11819,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11831,7 +11836,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11859,7 +11864,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11875,7 +11880,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -11902,7 +11907,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -11919,7 +11924,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -11947,7 +11952,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12845,7 +12850,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12861,7 +12866,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12877,7 +12882,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12894,7 +12899,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12922,7 +12927,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12938,7 +12943,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -12965,7 +12970,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -12982,7 +12987,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -13010,7 +13015,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14075,7 +14080,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14091,7 +14096,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14107,7 +14112,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14124,7 +14129,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14152,7 +14157,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14168,7 +14173,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14195,7 +14200,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -14212,7 +14217,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -14240,7 +14245,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15132,7 +15137,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15148,7 +15153,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15164,7 +15169,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15181,7 +15186,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15209,7 +15214,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15225,7 +15230,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -15252,7 +15257,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -15269,7 +15274,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -15297,7 +15302,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16190,7 +16195,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16206,7 +16211,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16222,7 +16227,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16239,7 +16244,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16267,7 +16272,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16283,7 +16288,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -16310,7 +16315,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16327,7 +16332,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -16355,7 +16360,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17249,7 +17254,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17265,7 +17270,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17281,7 +17286,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17298,7 +17303,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17326,7 +17331,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17342,7 +17347,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -17369,7 +17374,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -17386,7 +17391,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -17414,7 +17419,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18312,7 +18317,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18328,7 +18333,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18344,7 +18349,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18361,7 +18366,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18389,7 +18394,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18405,7 +18410,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -18432,7 +18437,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -18449,7 +18454,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -18477,7 +18482,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19374,7 +19379,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19390,7 +19395,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19406,7 +19411,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19423,7 +19428,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19451,7 +19456,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19467,7 +19472,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -19494,7 +19499,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -19511,7 +19516,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -19539,7 +19544,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20436,7 +20441,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20452,7 +20457,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20468,7 +20473,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20485,7 +20490,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20513,7 +20518,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20529,7 +20534,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -20556,7 +20561,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -20573,7 +20578,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -20601,7 +20606,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21499,7 +21504,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21515,7 +21520,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21531,7 +21536,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21548,7 +21553,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21576,7 +21581,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21592,7 +21597,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -21619,7 +21624,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -21636,7 +21641,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -21664,7 +21669,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22562,7 +22567,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22578,7 +22583,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22594,7 +22599,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22611,7 +22616,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22639,7 +22644,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22655,7 +22660,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -22682,7 +22687,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -22699,7 +22704,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -22727,7 +22732,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23625,7 +23630,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23641,7 +23646,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23657,7 +23662,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23674,7 +23679,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23702,7 +23707,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23718,7 +23723,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -23745,7 +23750,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -23762,7 +23767,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -23790,7 +23795,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -24212,7 +24217,7 @@ namespace IceBlink2
                                 }
 
                                 //draw the prop
-                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
+                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
 
                                 //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                                 if (mod.showInteractionState == true)
@@ -24288,7 +24293,7 @@ namespace IceBlink2
                             }
 
                             //draw the prop
-                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
+                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
 
                             //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                             if (mod.showInteractionState == true)
@@ -24354,7 +24359,7 @@ namespace IceBlink2
                                 dst = new IbRect((int)p.currentPixelPositionX + (int)(gv.squareSize / 4) - dstXshift, (int)p.currentPixelPositionY + (int)(gv.squareSize / 4) - dstYshift, (int)(dstW / 2), (int)(dstH / 2));
                             }
 
-                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, false);
+                            gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
 
                             if (mod.showInteractionState == true)
                             {
@@ -24762,7 +24767,7 @@ namespace IceBlink2
                     dst.Width -= (int)(dst.Width / 4);*/
                 }
 
-                gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft, false);
+                gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft);
             }
             else
             {
@@ -24813,7 +24818,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 1) && (i != mod.selectedPartyLeader))
                         {
@@ -24849,7 +24854,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 2) && (i != mod.selectedPartyLeader))
                         {
@@ -24895,7 +24900,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 3) && (i != mod.selectedPartyLeader))
                         {
@@ -24946,7 +24951,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                         if ((i == 4) && (i != mod.selectedPartyLeader))
                         {
@@ -25000,7 +25005,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
 
                         if ((i == 5) && (i != mod.selectedPartyLeader))
@@ -25059,7 +25064,7 @@ namespace IceBlink2
                                 dst.Width -= (int)(dst.Width * 3 / 4);
                             }
 
-                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft, false);
+                            gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                     }
                     //gv.squareSize = gv.squareSize * 3 / 2;
@@ -25188,7 +25193,7 @@ namespace IceBlink2
                     dst.Height -= (int)(dst.Height * 3 / 4);
                     dst.Width -= (int)(dst.Width * 3 / 4);
                 }
-                gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
+                gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft);
                 shift = storeShift;
             }
         }

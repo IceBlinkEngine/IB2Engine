@@ -3118,7 +3118,7 @@ namespace IceBlink2
                         src = new IbRect(0, pc.token.PixelSize.Width, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     }
                     IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
-                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
+                    gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft);
                     src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
                     foreach (Effect ef in pc.effectsList)
                     {
@@ -3216,7 +3216,7 @@ namespace IceBlink2
 			    {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
 			    }
-			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
+			    gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
 			    foreach (Effect ef in crt.cr_effectsList)
 			    {
 				    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
@@ -3274,7 +3274,7 @@ namespace IceBlink2
                 {
                     dst = new IbRect(getPixelLocX(crt.combatLocX) - (gv.squareSize / 2), getPixelLocY(crt.combatLocY) - (gv.squareSize / 2), gv.squareSize * 2, gv.squareSize * 2);
                 }
-                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
+                gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft);
                 foreach (Effect ef in crt.cr_effectsList)
                 {
                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
