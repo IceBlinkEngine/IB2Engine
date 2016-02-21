@@ -107,6 +107,8 @@
     <Compile Include="FormattedLine.cs" />
     <Compile Include="FormattedWordGDI.cs" />
     <Compile Include="FormattedWord.cs" />
+    <Compile Include="WeatherTypeListItem.cs" />
+    <Compile Include="WeatherTypeList.cs" />
     <Compile Include="WeatherEffect.cs" />
     <Compile Include="Weather.cs" />
     <Compile Include="FullScreenEffectLayer.cs" />

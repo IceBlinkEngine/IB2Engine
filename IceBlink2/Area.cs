@@ -52,7 +52,8 @@ namespace IceBlink2
         public string effectChannelScriptParms2 = "";
         public string effectChannelScriptParms3 = "";
         public string effectChannelScriptParms4 = "";
-        public WeatherEffect areaWeather = new WeatherEffect();
+        //public WeatherEffect areaWeather = new WeatherEffect();
+        public string areaWeatherName = "";
         public int weatherDurationMultiplierForScale = 1;
         public string westernNeighbourArea = "";
         public string easternNeighbourArea = "";

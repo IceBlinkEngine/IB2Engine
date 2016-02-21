@@ -5,7 +5,7 @@
   "Filename": "swamp",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "swamp",
+  "areaWeatherName": "swamp",
   "easternNeighbourArea": "",
   "westernNeighbourArea": "",
   "northernNeighbourArea": "",

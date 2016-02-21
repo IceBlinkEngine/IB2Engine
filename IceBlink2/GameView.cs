@@ -1918,7 +1918,7 @@ namespace IceBlink2
         {
             //convert degrees to radians
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, false);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, bool NearestNeighbourInterpolation)
         {

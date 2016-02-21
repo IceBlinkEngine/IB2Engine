@@ -5,7 +5,7 @@
   "Filename": "iceland",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "iceland",
+  "areaWeatherName": "iceland",
   "easternNeighbourArea": "",
   "westernNeighbourArea": "autumn",
   "northernNeighbourArea": "",

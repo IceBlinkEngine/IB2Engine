@@ -1196,6 +1196,25 @@ namespace IceBlink2
                 gv.mod.moduleTraitsList = (List<Trait>)serializer.Deserialize(file, typeof(List<Trait>));
             }
         }
+
+        public void LoadWeathers()
+        {
+            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weathers.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                gv.mod.moduleWeathersList = (List<Weather>)serializer.Deserialize(file, typeof(List<Weather>));
+            }
+        }
+
+        public void LoadWeatherEffects()
+        {
+            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weatherEffects.json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                gv.mod.moduleWeatherEffectsList = (List<WeatherEffect>)serializer.Deserialize(file, typeof(List<WeatherEffect>));
+            }
+        }
+
         public void LoadCreatures()
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\creatures.json"))
@@ -2511,14 +2530,14 @@ namespace IceBlink2
             //do Prop heartbeat
             doPropHeartBeat();
             //script hook for the weather script (channels 5 to 10)
-            if (gv.mod.currentArea.areaWeatherScript != "")
+            if (gv.mod.currentArea.areaWeatherName != "")
             {
                 doWeatherScript();
             }
             //script hook for full screen effects on channels 1 to 4 
             doChannelScripts();
             //do weather sounds
-            if (gv.mod.currentArea.areaWeatherScript != "")
+            if (gv.mod.currentArea.areaWeatherName != "")
             {
                 doWeatherSound();
             }
@@ -3179,13 +3198,16 @@ namespace IceBlink2
 
             //this makes sure that only the first part of the weather script is used at this point
             //the second part will be made usable after the current weather has been set (see below) by an additional script call
-            gv.mod.useFirstPartOfWeatherScript = true;
-            gv.sf.SetGlobalString("EntryWeathers", "");
+            if (gv.mod.useScriptsForWeather == true)
+            {
+                gv.mod.useFirstPartOfWeatherScript = true;
+                gv.sf.SetGlobalString("EntryWeathers", "");
 
-            //call the weather script to set up the longEntryList
-            //the entry list is a property of the module itself
-            //weathr script amkes no use of parms, well, for now at least
-            gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, "fullScreenEffectScript");
+                //call the weather script to set up the longEntryList
+                //the entry list is a property of the module itself
+                //weathr script amkes no use of parms, well, for now at least
+                gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherName, "fullScreenEffectScript");
+            }
 
             //clear the old weather lists
             gv.mod.listOfEntryWeatherNames.Clear();
@@ -3200,16 +3222,41 @@ namespace IceBlink2
             //gv.mod.longExitWeathersList = gv.mod.longExitWeathersList.TrimStart(' ');
 
             //fill the weather lists again with fresh data from the long lists
-            string entryWeathers = gv.sf.GetGlobalString("EntryWeathers");
-            SetUpEntryLists(entryWeathers);
-
+            if (gv.mod.useScriptsForWeather == true)
+            {
+                string entryWeathers = gv.sf.GetGlobalString("EntryWeathers");
+                SetUpEntryLists(entryWeathers);
+            }
+            else
+            {
+                //iterate through the module's list of weather objects
+                for (int i = 0; i < gv.mod.moduleWeathersList.Count; i++)
+                {
+                    if (gv.mod.currentArea.areaWeatherName == gv.mod.moduleWeathersList[i].name)
+                    {
+                        for (int j = 0; j < gv.mod.moduleWeathersList[i].weatherTypeLists.Count; j++)
+                        {
+                            if (gv.mod.moduleWeathersList[i].weatherTypeLists[j].name == "entryWeathers")
+                            {
+                                for (int k = 0; k < gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems.Count; k++)
+                                {
+                                    gv.mod.listOfEntryWeatherNames.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].weatherEffectName);
+                                    gv.mod.listOfEntryWeatherChances.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].chance);
+                                    gv.mod.listOfEntryWeatherDurations.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].duration);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }  
+            }
             bool doesCurrentWeatherExistHere = false;
             foreach (string weatherName in gv.mod.listOfEntryWeatherNames)
             {
                 if (weatherName == gv.mod.currentWeatherName)
                 {
                     doesCurrentWeatherExistHere = true;
-                    //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherScriptParms);
+                    //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, gv.mod.currentArea.areaWeatherNameParms);
 
                     //test idea
                     if (gv.mod.justTransitioned == true)
@@ -3248,7 +3295,7 @@ namespace IceBlink2
 
             #region check if current weather exists in this area
             //it would be a good practice to  have all weathers of the area listed in the entry list
-            if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherScript != ""))
+            if ((gv.mod.currentWeatherName != "") && (gv.mod.currentArea.areaWeatherName != ""))
             {
                 if (gv.mod.justTransitioned2 == true)
                 {
@@ -3406,9 +3453,34 @@ namespace IceBlink2
                 gv.mod.howLongWeatherHasRun = 0;
                 gv.mod.fullScreenEffectOpacityWeather = 0;
                 //the single longEntrList is one of the exit lists fitting to the current weather type
-                gv.mod.longExitWeathersList = gv.sf.GetGlobalString(gv.mod.currentWeatherName);
-
-                SetUpExitLists(gv.mod.longExitWeathersList);
+                if (gv.mod.useScriptsForWeather == true)
+                {
+                    gv.mod.longExitWeathersList = gv.sf.GetGlobalString(gv.mod.currentWeatherName);
+                    SetUpExitLists(gv.mod.longExitWeathersList);
+                }
+                else
+                {
+                    //iterate through the module's list of weather objects
+                    for (int i = 0; i < gv.mod.moduleWeathersList.Count; i++)
+                    {
+                        if (gv.mod.currentArea.areaWeatherName == gv.mod.moduleWeathersList[i].name)
+                        {
+                            for (int j = 0; j < gv.mod.moduleWeathersList[i].weatherTypeLists.Count; j++)
+                            {
+                                if (gv.mod.moduleWeathersList[i].weatherTypeLists[j].name == gv.mod.currentWeatherName)
+                                {
+                                    for (int k = 0; k < gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems.Count; k++)
+                                    {
+                                        gv.mod.listOfExitWeatherNames.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].weatherEffectName);
+                                        gv.mod.listOfExitWeatherChances.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].chance);
+                                        gv.mod.listOfExitWeatherDurations.Add(gv.mod.moduleWeathersList[i].weatherTypeLists[j].weatherTypeListItems[k].duration);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
                 gv.mod.currentArea.overrideDelayCounter5 = 10000;
                 gv.mod.currentArea.overrideDelayCounter6 = 10000;
                 gv.mod.currentArea.overrideDelayCounter7 = 10000;
@@ -3450,31 +3522,357 @@ namespace IceBlink2
                 }
                 
             }
-            
+
             //prepare for reading in the second part of the weather script: setup of the full effect channels based on current weather
             //note: also null all channels not used by the current weater, overwriting old channel settings
-            
+
             //gv.mod.useFirstPartOfWeatherScript = false;
 
             //call the weather script to set up the channels
-            
-            //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherScript, gv.mod.currentArea.areaWeatherScriptParms);
 
-                if ((gv.mod.currentWeatherName == "")  || (doesCurrentWeatherExistHere == false))
-                //if (gv.mod.currentWeatherName == "")
-                {
-                    gv.mod.currentArea.useFullScreenEffectLayer5 = false;
-                    gv.mod.currentArea.useFullScreenEffectLayer6 = false;
-                    gv.mod.currentArea.useFullScreenEffectLayer7 = false;
-                    gv.mod.currentArea.useFullScreenEffectLayer8 = false;
-                    gv.mod.currentArea.useFullScreenEffectLayer9 = false;
-                    gv.mod.currentArea.useFullScreenEffectLayer10 = false;
-                }
-                else
+            //gv.cc.doIBScriptBasedOnFilename(gv.mod.currentArea.areaWeatherName, gv.mod.currentArea.areaWeatherNameParms);
+
+            if ((gv.mod.currentWeatherName == "") || (doesCurrentWeatherExistHere == false))
+            //if (gv.mod.currentWeatherName == "")
+            {
+                gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+            }
+            else
+            {
+                if (gv.mod.useScriptsForWeather == true)
                 {
                     gv.cc.doIBScriptBasedOnFilename(gv.mod.currentWeatherName, "fullScreenEffectScript");
                 }
-             
+                else
+                {
+                    for (int i = 0; i < gv.mod.moduleWeatherEffectsList.Count; i++)
+                    {
+                        if (gv.mod.moduleWeatherEffectsList[i].name == gv.mod.currentWeatherName)
+                        {
+                            for (int j = 0; j < gv.mod.moduleWeatherEffectsList[i].WeatherLayers.Count; j++)
+                            {
+
+                                if (j == 0)
+                                {
+                                    #region full screen effect layer 5
+                                    //full screen effect layer 5
+                                    gv.mod.currentArea.useFullScreenEffectLayer5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName5 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName5 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName5 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName5 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer5IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (5 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
+                                    //snow (5 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (5 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
+                                    gv.mod.currentArea.directionalOverride5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript5 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+
+                                if (j == 1)
+                                {
+                                    #region full screen effect layer 6
+                                    //full screen effect layer 5
+                                    gv.mod.currentArea.useFullScreenEffectLayer6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName5 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName5 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName5 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName5 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer6IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (5 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.5y, 0.5x, 750 delay)
+                                    //snow (5 layers recommended; make one layer's y speed a little faster than default -0.55, like -0.65, mayhaps slower for x (default: 0.45 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (5 layers recommended, make one layer's overrideDelayLimit1 a little less than default 125, like 110)
+                                    gv.mod.currentArea.directionalOverride6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript6 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+
+                                if (j == 2)
+                                {
+                                    #region full screen effect layer 7
+                                    //full screen effect layer 7
+                                    gv.mod.currentArea.useFullScreenEffectLayer7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName7 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName7 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName7 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName7 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer7IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (7 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.7y, 0.7x, 770 delay)
+                                    //snow (7 layers recommended; make one layer's y speed a little faster than default -0.77, like -0.67, mayhaps slower for x (default: 0.47 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (7 layers recommended, make one layer's overrideDelayLimit1 a little less than default 127, like 110)
+                                    gv.mod.currentArea.directionalOverride7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript7 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+
+                                if (j == 3)
+                                {
+                                    #region full screen effect layer 8
+                                    //full screen effect layer 8
+                                    gv.mod.currentArea.useFullScreenEffectLayer8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName8 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName8 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName8 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName8 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer8IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (8 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.8y, 0.8x, 780 delay)
+                                    //snow (8 layers recommended; make one layer's y speed a little faster than default -0.88, like -0.68, mayhaps slower for x (default: 0.48 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (8 layers recommended, make one layer's overrideDelayLimit1 a little less than default 128, like 110)
+                                    gv.mod.currentArea.directionalOverride8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript8 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+
+                                if (j == 4)
+                                {
+                                    #region full screen effect layer 9
+                                    //full screen effect layer 9
+                                    gv.mod.currentArea.useFullScreenEffectLayer9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName9 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName9 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName9 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName9 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer9IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (9 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.9y, 0.9x, 790 delay)
+                                    //snow (9 layers recommended; make one layer's y speed a little faster than default -0.99, like -0.69, mayhaps slower for x (default: 0.49 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (9 layers recommended, make one layer's overrideDelayLimit1 a little less than default 129, like 110)
+                                    gv.mod.currentArea.directionalOverride9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+
+                                if (j == 5)
+                                {
+                                    #region full screen effect layer 10
+                                    //full screen effect layer 10
+                                    gv.mod.currentArea.useFullScreenEffectLayer10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                    gv.mod.currentArea.fullScreenEffectLayerIsActive10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                    //public string fullScreenEffectLayerName10 = "full_screen_effect_layer1x";
+                                    //public string fullScreenEffectLayerName10 = "fogLayerB";
+                                    gv.mod.currentArea.fullScreenEffectLayerName10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                    //public string fullScreenEffectLayerName10 = "rainLayerB";
+                                    //public string fullScreenEffectLayerName10 = "testAnim1";
+                                    gv.mod.currentArea.fullScreenAnimationSpeed10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                    gv.mod.currentArea.fullScreenAnimationSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                    gv.mod.currentArea.FullScreenEffectLayer10IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                    //zero signifies an endlessly running animation
+                                    gv.mod.currentArea.numberOfCyclesPerOccurence10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                    gv.mod.cycleCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                    gv.mod.currentArea.containEffectInsideAreaBorders10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+
+                                    gv.mod.currentArea.isChanging10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                    gv.mod.currentArea.changeCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                    gv.mod.currentArea.changeLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                    gv.mod.currentArea.changeFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                    gv.mod.currentArea.changeNumberOfFrames10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+
+                                    gv.mod.currentArea.useCyclicFade10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                    gv.mod.currentArea.fullScreenAnimationFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+
+                                    //setting up the override movement patterns
+                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                    //so far existing directional overrides: 
+                                    //rain (10 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                    //clouds (1 layer recommended; defaults at 0.10y, 0.10x, 7100 delay)
+                                    //snow (10 layers recommended; make one layer's y speed a little faster than default -0.1010, like -0.610, mayhaps slower for x (default: 0.410 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                    //fog (10 layers recommended, make one layer's overrideDelayLimit1 a little less than default 1210, like 110)
+                                    gv.mod.currentArea.directionalOverride10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                    gv.mod.currentArea.overrideSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                    gv.mod.currentArea.overrideSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                    gv.mod.currentArea.overrideDelayLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                    gv.mod.currentArea.overrideDelayCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                    gv.mod.currentArea.overrideIsNoScrollSource10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                    gv.mod.currentArea.changeableByWeatherScript10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+
+                                    #endregion
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             //1. read in the weather script of current area and store it in a set of globals
             //these would be:
             //listOfEntryWeatherNames (a list of strings containing entry weather names in exact order)
@@ -6146,7 +6544,7 @@ namespace IceBlink2
 
                     gv.mod.setCurrentArea(areaFilename, gv);
                     
-                    if (gv.mod.currentArea.areaWeatherScript == "")
+                    if (gv.mod.currentArea.areaWeatherName == "")
                     {
                         gv.mod.currentArea.useFullScreenEffectLayer5 = false;
                         gv.mod.currentArea.useFullScreenEffectLayer6 = false;

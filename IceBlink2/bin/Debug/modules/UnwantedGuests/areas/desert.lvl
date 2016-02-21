@@ -6,7 +6,7 @@
   "Filename": "desert",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "desert",
+  "areaWeatherName": "desert",
   "easternNeighbourArea": "summer",
   "westernNeighbourArea": "",
   "northernNeighbourArea": "",

@@ -5,7 +5,7 @@
   "Filename": "spring",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "spring",
+  "areaWeatherName": "spring",
   "easternNeighbourArea": "",
   "westernNeighbourArea": "",
   "northernNeighbourArea": "summer",

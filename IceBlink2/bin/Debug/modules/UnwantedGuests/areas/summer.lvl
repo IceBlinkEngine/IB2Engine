@@ -7,7 +7,7 @@
   "Filename": "summer",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "summer",
+  "areaWeatherName": "summer",
   "easternNeighbourArea": "",
   "westernNeighbourArea": "desert",
   "northernNeighbourArea": "autumn",

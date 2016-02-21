@@ -165,6 +165,10 @@ namespace IceBlink2
         public List<int> listOfExitWeatherChances = new List<int>();
         public List<int> listOfExitWeatherDurations = new List<int>();
 
+        public bool useScriptsForWeather = true;
+        public List<Weather> moduleWeathersList = new List<Weather>();
+        public List<WeatherEffect> moduleWeatherEffectsList = new List<WeatherEffect>();
+
         public string currentWeatherName = "";
         public int currentWeatherDuration = 0;
         public string longEntryWeathersList = "";
@@ -457,6 +461,30 @@ namespace IceBlink2
             foreach (Trait t in this.moduleTraitsList)
             {
                 if (t.tag.Equals(tag)) return t;
+            }
+            return null;
+        }
+        public Weather getWeatherByTag(string tag)
+        {
+            foreach (Weather t in this.moduleWeathersList)
+            {
+                if (t.tag.Equals(tag)) return t;
+            }
+            return null;
+        }
+        public WeatherEffect getWeatherEffectByTag(string tag)
+        {
+            foreach (WeatherEffect t in this.moduleWeatherEffectsList)
+            {
+                if (t.tag.Equals(tag)) return t;
+            }
+            return null;
+        }
+        public WeatherEffect getWeatherEffectByName(string tag)
+        {
+            foreach (WeatherEffect t in this.moduleWeatherEffectsList)
+            {
+                if (t.name.Equals(tag)) return t;
             }
             return null;
         }

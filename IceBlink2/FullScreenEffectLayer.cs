@@ -7,6 +7,7 @@ namespace IceBlink2
 {
     public class FullScreenEffectLayer
     {
+        public int fullScreenEffectOrderNumber = 0;
         public bool useFullScreenEffectLayer = false;
         public bool fullScreenEffectLayerIsActive = true;
         //add list with all already existing fullScreenEffect layer names for documentation

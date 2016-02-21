@@ -5,7 +5,7 @@
   "Filename": "autumn",
   "UseMiniMapFogOfWar": false,
   "inGameAreaName": "newArea",
-  "areaWeatherScript": "autumn",
+  "areaWeatherName": "autumn",
   "easternNeighbourArea": "swamp",
   "westernNeighbourArea": "",
   "northernNeighbourArea": "winter",
