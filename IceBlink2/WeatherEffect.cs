@@ -17,9 +17,9 @@ namespace IceBlink2
         public WeatherEffect()
         {
             /*
-            if (_WeatherLayers.Count < 10)
+            if (WeatherLayers.Count < 7)
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     FullScreenEffectLayer newLayer = new FullScreenEffectLayer();
                     WeatherLayers.Add(newLayer);

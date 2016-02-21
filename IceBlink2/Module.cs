@@ -165,7 +165,7 @@ namespace IceBlink2
         public List<int> listOfExitWeatherChances = new List<int>();
         public List<int> listOfExitWeatherDurations = new List<int>();
 
-        public bool useScriptsForWeather = true;
+        public bool useScriptsForWeather = false;
         public List<Weather> moduleWeathersList = new List<Weather>();
         public List<WeatherEffect> moduleWeatherEffectsList = new List<WeatherEffect>();
 

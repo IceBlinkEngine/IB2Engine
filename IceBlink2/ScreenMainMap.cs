@@ -26100,6 +26100,156 @@ namespace IceBlink2
             floatyTextByPixelPool.Add(new FloatyTextByPixel (floatyCarrier, value, color, length));
         }
 
+        public void buildWeatherEffectObject (string name, string tag)
+        {
+            //not needed anymore, was for converting weather script 
+            WeatherEffect we = new WeatherEffect();
+            we.name = name;
+            we.tag = tag;
+            for (int j = 0; j < 6; j++)
+            {
+                if (j == 0)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer5;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName5;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer5IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur5;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence5;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders5;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel5;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging5;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit5;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames5;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade5;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride5;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX5;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY5;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit5;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource5;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript5;
+                }
+
+                if (j == 1)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer6;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName6;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer6IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur6;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence6;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders6;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel6;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging6;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit6;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames6;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade6;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride6;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX6;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY6;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit6;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource6;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript6;
+                }
+
+                if (j == 2)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer7;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName7;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer7IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur7;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence7;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders7;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel7;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging7;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit7;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames7;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade7;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride7;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX7;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY7;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit7;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource7;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript7;
+                }
+
+                if (j == 3)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer8;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName8;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer8IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur8;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence8;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders8;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel8;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging8;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit8;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames8;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade8;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride8;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX8;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY8;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit8;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource8;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript8;
+                }
+
+                if (j == 4)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer9;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName9;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer9IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur9;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence9;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders9;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging9;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit9;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames9;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade9;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride9;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX9;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY9;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit9;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource9;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript9;
+                }
+
+                if (j == 5)
+                {
+                    //#region full screen effect layer 5
+                    //full screen effect layer 5
+                    we.WeatherLayers[j].useFullScreenEffectLayer = gv.mod.currentArea.useFullScreenEffectLayer10;
+                    we.WeatherLayers[j].fullScreenEffectLayerName = gv.mod.currentArea.fullScreenEffectLayerName10;
+                    we.WeatherLayers[j].fullScreenEffectLayerIsTop = gv.mod.currentArea.FullScreenEffectLayer10IsTop;
+                    we.WeatherLayers[j].fullScreenEffectChanceToOccur = gv.mod.currentArea.fullScreenEffectChanceToOccur10;
+                    we.WeatherLayers[j].numberOfCyclesPerOccurence = gv.mod.currentArea.numberOfCyclesPerOccurence10;
+                    we.WeatherLayers[j].containEffectInsideAreaBorders = gv.mod.currentArea.containEffectInsideAreaBorders10;
+                    we.WeatherLayers[j].activateTargetChannelInParallelToThisChannel = gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10;
+                    we.WeatherLayers[j].isChanging = gv.mod.currentArea.isChanging10;
+                    we.WeatherLayers[j].changeLimit = gv.mod.currentArea.changeLimit10;
+                    we.WeatherLayers[j].changeNumberOfFrames = gv.mod.currentArea.changeNumberOfFrames10;
+                    we.WeatherLayers[j].useCyclicFade = gv.mod.currentArea.useCyclicFade10;
+                    we.WeatherLayers[j].directionalOverride = gv.mod.currentArea.directionalOverride10;
+                    we.WeatherLayers[j].overrideSpeedX = gv.mod.currentArea.overrideSpeedX10;
+                    we.WeatherLayers[j].overrideSpeedY = gv.mod.currentArea.overrideSpeedY10;
+                    we.WeatherLayers[j].overrideDelayLimit = gv.mod.currentArea.overrideDelayLimit10;
+                    we.WeatherLayers[j].overrideIsNoScrollSource = gv.mod.currentArea.overrideIsNoScrollSource10;
+                    we.WeatherLayers[j].changeableByWeatherScript = gv.mod.currentArea.changeableByWeatherScript10;
+                }
+
+            }
+            gv.mod.moduleWeatherEffectsList.Add(we);
+        }
+
         public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             gv.cc.ctrlUpArrow.glowOn = false;
@@ -26460,6 +26610,289 @@ namespace IceBlink2
                     {
                         //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
                         //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        
+                        /*
+                        //temporary weather effect object creation code
+                        //hurghxxx
+                        gv.cc.doIBScriptBasedOnFilename("cloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("cloudsA", "cloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("cloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("cloudsB", "cloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("cloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("cloudsC", "cloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightCloudsA", "lightCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightCloudsB", "lightCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightCloudsC", "lightCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyCloudsA", "heavyCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyCloudsB", "heavyCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyCloudsC", "heavyCloudsC1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsA", "lightRainWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsB", "lightRainWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsC", "lightRainWithCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsA", "rainWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsB", "rainWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsC", "rainWithCloudsC1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsA", "lightSnowWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsB", "lightSnowWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsC", "lightSnowWithCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsA", "snowWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsB", "snowWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsC", "snowWithCloudsC1001");
+
+
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsAShowers", "lightRainWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsBShowers", "lightRainWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithCloudsCShowers", "lightRainWithCloudsCShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsAShowers", "rainWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsBShowers", "rainWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithCloudsCShowers", "rainWithCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsAShowers", "lightSnowWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsBShowers", "lightSnowWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithCloudsCShowers", "lightSnowWithCloudsCShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsAShowers", "snowWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsBShowers", "snowWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithCloudsCShowers", "snowWithCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsA", "rainWithHeavyCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsB", "rainWithHeavyCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsC", "rainWithHeavyCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsAShowers", "rainWithHeavyCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsBShowers", "rainWithHeavyCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyCloudsCShowers", "rainWithHeavyCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsA", "snowWithHeavyCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsB", "snowWithHeavyCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsC", "snowWithHeavyCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsAShowers", "snowWithHeavyCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsBShowers", "snowWithHeavyCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyCloudsCShowers", "snowWithHeavyCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsA", "heavyRainWithHeavyCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsB", "heavyRainWithHeavyCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsC", "heavyRainWithHeavyCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsAShowers", "heavyRainWithHeavyCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsBShowers", "heavyRainWithHeavyCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyCloudsCShowers", "heavyRainWithHeavyCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsA", "heavySnowWithHeavyCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsB", "heavySnowWithHeavyCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsC", "heavySnowWithHeavyCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsAShowers", "heavySnowWithHeavyCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsBShowers", "heavySnowWithHeavyCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyCloudsCShowers", "heavySnowWithHeavyCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsA", "heavyRainWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsB", "heavyRainWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsC", "heavyRainWithCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsAShowers", "heavyRainWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsBShowers", "heavyRainWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsCShowers", "heavyRainWithCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsA", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsA", "heavySnowWithCloudsA1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsB", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsB", "heavySnowWithCloudsB1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsC", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsC", "heavySnowWithCloudsC1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsAShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsAShowers", "heavySnowWithCloudsAShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsBShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsBShowers", "heavySnowWithCloudsBShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsCShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsCShowers", "heavySnowWithCloudsCShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsAAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsAAndLightning", "heavyRainWithCloudsAAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsBAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsBAndLightning", "heavyRainWithCloudsBAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithCloudsCAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithCloudsCAndLightning", "heavyRainWithCloudsCAndLightning1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsAAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsAAndLightning", "heavySnowWithCloudsAAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsBAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsBAndLightning", "heavySnowWithCloudsBAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithCloudsCAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithCloudsCAndLightning", "heavySnowWithCloudsCAndLightning1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightFog", "lightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("fog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("fog", "fog1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyFog", "heavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithLightFog", "lightRainWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithFog", "lightRainWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithHeavyFog", "lightRainWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("rainWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithLightFog", "rainWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithFog", "rainWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyFog", "rainWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithLightFog", "heavyRainWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithFog", "heavyRainWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyFog", "heavyRainWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithLightFogShowers", "lightRainWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithFogShowers", "lightRainWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightRainWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightRainWithHeavyFogShowers", "lightRainWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("rainWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithLightFogShowers", "rainWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithFogShowers", "rainWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("rainWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("rainWithHeavyFogShowers", "rainWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithLightFogShowers", "heavyRainWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithFogShowers", "heavyRainWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyFogShowers", "heavyRainWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithLightFogAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithLightFogAndLightning", "heavyRainWithLightFogAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithFogAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithFogAndLightning", "heavyRainWithFogAndLightning1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavyRainWithHeavyFogAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavyRainWithHeavyFogAndLightning", "heavyRainWithHeavyFogAndLightning1001");
+
+
+
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithLightFog", "lightSnowWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithFog", "lightSnowWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithHeavyFog", "lightSnowWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("snowWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithLightFog", "snowWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithFog", "snowWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyFog", "snowWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithLightFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithLightFog", "heavySnowWithLightFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithFog", "heavySnowWithFog1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyFog", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyFog", "heavySnowWithHeavyFog1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithLightFogShowers", "lightSnowWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithFogShowers", "lightSnowWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("lightSnowWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSnowWithHeavyFogShowers", "lightSnowWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("snowWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithLightFogShowers", "snowWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithFogShowers", "snowWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("snowWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("snowWithHeavyFogShowers", "snowWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithLightFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithLightFogShowers", "heavySnowWithLightFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithFogShowers", "heavySnowWithFogShowers1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySnowWithHeavyFogShowers", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySnowWithHeavyFogShowers", "heavySnowWithHeavyFogShowers1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("lightSandStorm", "fullScreenEffectScript");
+                        buildWeatherEffectObject("lightSandStorm", "lightSandStorm1001");
+                        gv.cc.doIBScriptBasedOnFilename("sandStorm", "fullScreenEffectScript");
+                        buildWeatherEffectObject("sandStorm", "sandStorm1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySandStorm", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySandStorm", "heavySandStorm1001");
+                        gv.cc.doIBScriptBasedOnFilename("heavySandStormAndLightning", "fullScreenEffectScript");
+                        buildWeatherEffectObject("heavySandStormAndLightning", "heavySandStormAndLightning1001");
+
+                        gv.cc.doIBScriptBasedOnFilename("clear", "fullScreenEffectScript");
+                        buildWeatherEffectObject("clear", "clear1001");
+                        
+                        //temporara end
+                        */
+
                         gv.screenParty.resetPartyScreen();
                         gv.screenType = "party";
                         gv.cc.tutorialMessageParty(false);
