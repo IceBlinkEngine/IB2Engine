@@ -1213,21 +1213,35 @@ namespace IceBlink2
 
         public void LoadWeathers()
         {
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weathers.json"))
+            try
             {
-                JsonSerializer serializer = new JsonSerializer();
-                gv.mod.moduleWeathersList = (List<Weather>)serializer.Deserialize(file, typeof(List<Weather>));
-                int i = gv.mod.moduleWeathersList.Count;
-                int j = 2;
+                using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weathers.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    gv.mod.moduleWeathersList = (List<Weather>)serializer.Deserialize(file, typeof(List<Weather>));
+                    int i = gv.mod.moduleWeathersList.Count;
+                    int j = 2;
+                }
+            }
+            catch
+            {
+                gv.mod.moduleWeathersList = new List<Weather>();
             }
         }
 
         public void LoadWeatherEffects()
         {
-            using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weatherEffects.json"))
+            try
             {
-                JsonSerializer serializer = new JsonSerializer();
-                gv.mod.moduleWeatherEffectsList = (List<WeatherEffect>)serializer.Deserialize(file, typeof(List<WeatherEffect>));
+                using (StreamReader file = File.OpenText(GetModulePath() + "\\data\\weatherEffects.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    gv.mod.moduleWeatherEffectsList = (List<WeatherEffect>)serializer.Deserialize(file, typeof(List<WeatherEffect>));
+                }
+            }
+            catch
+            {
+                gv.mod.moduleWeatherEffectsList = new List<WeatherEffect>();
             }
         }
 
