@@ -4,55 +4,1309 @@
       {
         "weatherTypeListItems": [
           {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9463",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (5%) (50 ticks)",
+            "chance": 5,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9465",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (5%) (50 ticks)",
+            "chance": 5,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9466",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (5%) (50 ticks)",
+            "chance": 5,
+            "duration": 50
+          },
+          {
             "weatherEffectName": "cloudsA",
-            "tag": "newWeatherTypeListItemTag_9467",
+            "tag": "newWeatherTypeListItemTag_9468",
             "name": "cloudsA",
-            "combinedInfo": "cloudsA (50%) (100 ticks)",
-            "chance": 50,
-            "duration": 100
+            "combinedInfo": "cloudsA (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
           },
           {
             "weatherEffectName": "cloudsB",
-            "tag": "newWeatherTypeListItemTag_9468",
+            "tag": "newWeatherTypeListItemTag_9469",
             "name": "cloudsB",
-            "combinedInfo": "cloudsB (50%) (100 ticks)",
-            "chance": 50,
+            "combinedInfo": "cloudsB (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9471",
+            "name": "lightRainWithCloudsAShowers",
+            "combinedInfo": "lightRainWithCloudsAShowers (5%) (100 ticks)",
+            "chance": 5,
             "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9472",
+            "name": "lightRainWithCloudsBShowers",
+            "combinedInfo": "lightRainWithCloudsBShowers (5%) (100 ticks)",
+            "chance": 5,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9473",
+            "name": "lightRainWithCloudsCShowers",
+            "combinedInfo": "lightRainWithCloudsCShowers (5%) (100 ticks)",
+            "chance": 5,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (0%) (50 ticks)",
+            "chance": 0,
+            "duration": 50
           }
         ],
-        "tag": "newWeatherTypeListTag_9466",
+        "tag": "newWeatherTypeListTag_9460",
         "name": "entryList"
       },
       {
         "weatherTypeListItems": [
           {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9463",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9465",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9466",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
             "weatherEffectName": "cloudsA",
-            "tag": "newWeatherTypeListItemTag_9470",
+            "tag": "newWeatherTypeListItemTag_9468",
             "name": "cloudsA",
-            "combinedInfo": "cloudsA (100%) (100 ticks)",
-            "chance": 100,
+            "combinedInfo": "cloudsA (18%) (50 ticks)",
+            "chance": 18,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (19%) (50 ticks)",
+            "chance": 19,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (18%) (50 ticks)",
+            "chance": 18,
+            "duration": 50
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9497",
+        "name": "clear"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9500",
+            "name": "lightRainWithCloudsAShowers",
+            "combinedInfo": "lightRainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9501",
+            "name": "lightRainWithCloudsBShowers",
+            "combinedInfo": "lightRainWithCloudsBShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9502",
+            "name": "lightRainWithCloudsCShowers",
+            "combinedInfo": "lightRainWithCloudsCShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9503",
+            "name": "clear",
+            "combinedInfo": "clear (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9499",
+        "name": "lightCloudsA"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9500",
+            "name": "lightRainWithCloudsAShowers",
+            "combinedInfo": "lightRainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9501",
+            "name": "lightRainWithCloudsBShowers",
+            "combinedInfo": "lightRainWithCloudsBShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9502",
+            "name": "lightRainWithCloudsCShowers",
+            "combinedInfo": "lightRainWithCloudsCShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9503",
+            "name": "clear",
+            "combinedInfo": "clear (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9507",
+        "name": "lightCloudsB"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9500",
+            "name": "lightRainWithCloudsAShowers",
+            "combinedInfo": "lightRainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9501",
+            "name": "lightRainWithCloudsBShowers",
+            "combinedInfo": "lightRainWithCloudsBShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightRainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9502",
+            "name": "lightRainWithCloudsCShowers",
+            "combinedInfo": "lightRainWithCloudsCShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9503",
+            "name": "clear",
+            "combinedInfo": "clear (10%) (50 ticks)",
+            "chance": 10,
+            "duration": 50
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9509",
+        "name": "lightCloudsC"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
             "duration": 100
           }
         ],
-        "tag": "newWeatherTypeListTag_9471",
+        "tag": "newWeatherTypeListTag_9511",
+        "name": "cloudsA"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9512",
         "name": "cloudsB"
       },
       {
         "weatherTypeListItems": [
           {
-            "weatherEffectName": "cloudsB",
-            "tag": "newWeatherTypeListItemTag_9473",
-            "name": "cloudsB",
-            "combinedInfo": "cloudsB (100%) (100 ticks)",
-            "chance": 100,
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
             "duration": 100
           }
         ],
-        "tag": "newWeatherTypeListTag_9472",
-        "name": "cloudsA"
+        "tag": "newWeatherTypeListTag_9513",
+        "name": "cloudsC"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9514",
+        "name": "lightRainWithCloudsAShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9515",
+        "name": "lightRainWithCloudsBShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9474",
+            "name": "rainWithCloudsAShowers",
+            "combinedInfo": "rainWithCloudsAShowers (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "rainWithCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9475",
+            "name": "rainWithCloudsBShowers",
+            "combinedInfo": "rainWithCloudsBShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "rainWithCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9476",
+            "name": "rainWithCloudsCShowers",
+            "combinedInfo": "rainWithCloudsCShowers (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9516",
+        "name": "lightRainWithCloudsCShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9517",
+        "name": "rainWithCloudsAShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9518",
+        "name": "rainWithCloudsBShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9468",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (9%) (100 ticks)",
+            "chance": 9,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (8%) (100 ticks)",
+            "chance": 8,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9519",
+        "name": "rainWithCloudsCShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9522",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9521",
+        "name": "heavyRainWithHeavyCloudsAShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9522",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9523",
+        "name": "heavyRainWithHeavyCloudsBShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "cloudsA",
+            "tag": "newWeatherTypeListItemTag_9522",
+            "name": "cloudsA",
+            "combinedInfo": "cloudsA (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsB",
+            "tag": "newWeatherTypeListItemTag_9469",
+            "name": "cloudsB",
+            "combinedInfo": "cloudsB (20%) (50 ticks)",
+            "chance": 20,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "cloudsC",
+            "tag": "newWeatherTypeListItemTag_9470",
+            "name": "cloudsC",
+            "combinedInfo": "cloudsC (15%) (50 ticks)",
+            "chance": 15,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAAndLightning",
+            "tag": "newWeatherTypeListItemTag_9482",
+            "name": "heavyRainWithHeavyCloudsAAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsAAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBAndLightning",
+            "tag": "newWeatherTypeListItemTag_9493",
+            "name": "heavyRainWithHeavyCloudsBAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsBAndLightning (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCAndLightning",
+            "tag": "newWeatherTypeListItemTag_9494",
+            "name": "heavyRainWithHeavyCloudsCAndLightning",
+            "combinedInfo": "heavyRainWithHeavyCloudsCAndLightning (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9524",
+        "name": "heavyRainWithHeavyCloudsCShowers"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (70%) (50 ticks)",
+            "chance": 70,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9525",
+        "name": "heavyRainWithHeavyCloudsAAndLightning"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (70%) (50 ticks)",
+            "chance": 70,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9526",
+        "name": "heavyRainWithHeavyCloudsBAndLightning"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9461",
+            "name": "clear",
+            "combinedInfo": "clear (70%) (50 ticks)",
+            "chance": 70,
+            "duration": 50
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsAShowers",
+            "tag": "newWeatherTypeListItemTag_9477",
+            "name": "heavyRainWithHeavyCloudsAShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsAShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsBShowers",
+            "tag": "newWeatherTypeListItemTag_9478",
+            "name": "heavyRainWithHeavyCloudsBShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsBShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavyRainWithHeavyCloudsCShowers",
+            "tag": "newWeatherTypeListItemTag_9479",
+            "name": "heavyRainWithHeavyCloudsCShowers",
+            "combinedInfo": "heavyRainWithHeavyCloudsCShowers (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9527",
+        "name": "heavyRainWithHeavyCloudsCAndLightning"
       }
     ],
-    "tag": "newWeatherTag_9465",
-    "name": "cloudTest"
+    "tag": "newWeatherTag_9459",
+    "name": "spring"
   }
 ]
