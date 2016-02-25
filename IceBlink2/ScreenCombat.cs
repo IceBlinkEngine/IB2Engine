@@ -14,8 +14,9 @@ namespace IceBlink2
     {
 	    public Module mod;
 	    public GameView gv;
-	
-	    //COMBAT STUFF
+
+        //COMBAT STUFF
+        public bool adjustCamToRangedCreature = false;
 	    private bool isPlayerTurn = true;
 	    public bool canMove = true;
 	    public int currentPlayerIndex = 0;
@@ -1406,9 +1407,23 @@ namespace IceBlink2
         		    }
                     //CHANGE FACING BASED ON ATTACK
                     doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
-	                if (crt.hp > 0)
+
+                    if (crt.hp > 0)
 	                {
-	            	    creatureToAnimate = crt;
+
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            adjustCamToRangedCreature = true;
+                            CalculateUpperLeftCreature();
+                            adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate = crt;
 	    	            playerToAnimate = null;
                         creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
                         //set attack animation and do a delay
@@ -1443,11 +1458,11 @@ namespace IceBlink2
                         animationsOn = true;
 
 
-                        
-	    	            //animationState = AnimationState.CreatureRangedAttackAnimation;
+
+                        //animationState = AnimationState.CreatureRangedAttackAnimation;
                         //gv.sf.CreateAoeSquaresList(crt, pc, AreaOfEffectShape.Circle, 0);
                         //gv.postDelayed("doAnimation", (int)(5 * (0.5f)* mod.combatAnimationSpeed));
-	                }
+                    }
 	                else
 	                {
 	                    //skip this guys turn
@@ -1538,6 +1553,19 @@ namespace IceBlink2
             if ((getDistance(pnt, new Coordinate(crt.combatLocX, crt.combatLocY)) <= gv.sf.SpellToCast.range) 
         		    && (isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY))))
             {
+
+                if (gv.mod.useManualCombatCam)
+                {
+                    adjustCamToRangedCreature = true;
+                    CalculateUpperLeftCreature();
+                    adjustCamToRangedCreature = false;
+
+                    if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                    {
+                        gv.touchEnabled = false;
+                    }
+                }
+
                 if ((pnt.X < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
     		    {
     			    crt.combatFacingLeft = true;
@@ -2214,6 +2242,7 @@ namespace IceBlink2
                                     try
                                     {
                                         animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.RemoveAt(sprt);
+                                       
                                     }
                                     catch (Exception ex)
                                     {
@@ -2250,6 +2279,7 @@ namespace IceBlink2
                     {
                         animationsOn = false;                        
                         deathAnimationLocations.Clear();
+                        
                         //remove any dead creatures                        
                         for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
                         {
@@ -2280,7 +2310,13 @@ namespace IceBlink2
                             animationState = AnimationState.None;
                             endCreatureTurn();
                         }
+  
                     }
+                    
+                }
+                if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0))
+                {
+                    gv.touchEnabled = true;
                 }
             }
             #endregion
@@ -5279,6 +5315,10 @@ namespace IceBlink2
         }
         public void addHitAnimation(AnimationStackGroup group)
         {
+            if (gv.mod.useManualCombatCam)
+            {
+                gv.touchEnabled = false;
+            }
             int ttl = 8 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
@@ -5286,18 +5326,30 @@ namespace IceBlink2
         }
         public void addMissAnimation(AnimationStackGroup group)
         {
+            if (gv.mod.useManualCombatCam)
+            {
+                gv.touchEnabled = false;
+            }
             int ttl = 8 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "miss_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
         public void addDeathAnimation(AnimationStackGroup group, Coordinate Loc)
         {
+            if (gv.mod.useManualCombatCam)
+            {
+                gv.touchEnabled = false;
+            }
             int ttl = 16 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, "death_fx", Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.SpriteGroup.Add(spr);
         }
         public void addEndingAnimation(AnimationStackGroup group, Coordinate Loc, string filename)
         {
+            if (gv.mod.useManualCombatCam)
+            {
+                gv.touchEnabled = false;
+            }
             int ttl = 16 * mod.combatAnimationSpeed;
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
@@ -5352,15 +5404,41 @@ namespace IceBlink2
             {
                 if (gv.mod.useManualCombatCam)
                 {
-                    //Player pc = mod.playerList[currentPlayerIndex];
+                    //Melee or AoO situation
                     foreach (Player p in mod.playerList)
                     {
                         if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= 1)
                         {
                             UpperLeftSquare.X = minX;
                             UpperLeftSquare.Y = minY;
+                            break;
                         }
+                        if (adjustCamToRangedCreature)
+                        {
+                            if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) < 9)
+                            {
+                                if (p.combatLocX < crt.combatLocX)
+                                {
+                                    UpperLeftSquare.X = p.combatLocX;
+                                }
+                                else
+                                {
+                                    UpperLeftSquare.X = crt.combatLocX;
+                                }
+
+                                if (p.combatLocY < crt.combatLocY)
+                                {
+                                    UpperLeftSquare.Y = p.combatLocY;
+                                }
+                                else
+                                {
+                                    UpperLeftSquare.Y = crt.combatLocY;
+                                }
+                                break;
+                            }
+                         }
                     }
+
                     //return;
                 }
                 else
