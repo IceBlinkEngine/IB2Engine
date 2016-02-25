@@ -5352,7 +5352,16 @@ namespace IceBlink2
             {
                 if (gv.mod.useManualCombatCam)
                 {
-                    return;
+                    //Player pc = mod.playerList[currentPlayerIndex];
+                    foreach (Player p in mod.playerList)
+                    {
+                        if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(crt.combatLocX, crt.combatLocY)) <= 1)
+                        {
+                            UpperLeftSquare.X = minX;
+                            UpperLeftSquare.Y = minY;
+                        }
+                    }
+                    //return;
                 }
                 else
                 {
