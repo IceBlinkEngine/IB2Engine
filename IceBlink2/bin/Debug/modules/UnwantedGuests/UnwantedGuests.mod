@@ -127,7 +127,7 @@
   "moduleVersion": 3,
   "defaultPlayerFilename": "drin.json",
   "mustUsePreMadePC": false,
-  "useRealTimeTimer": true,
+  "useRealTimeTimer": false,
   "useSmoothMovement": true,
   "useAllTileSystem": true,
   "useOrbitronFont": false,

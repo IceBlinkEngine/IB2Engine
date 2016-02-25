@@ -587,8 +587,12 @@ namespace IceBlink2
                     creatureIndex = idx;
                     //set isPlayerTurn
                     isPlayerTurn = false;
-                    
-                    gv.touchEnabled = false;
+
+                    if (!gv.mod.useManualCombatCam)
+                    {
+                        gv.touchEnabled = false;
+                    }
+
                     currentCombatMode = "info";
                     currentMoveOrderIndex++;
                     gv.Render();
@@ -5346,8 +5350,15 @@ namespace IceBlink2
 
             else
             {
-                UpperLeftSquare.X = minX;
-                UpperLeftSquare.Y = minY;
+                if (gv.mod.useManualCombatCam)
+                {
+                    return;
+                }
+                else
+                {
+                    UpperLeftSquare.X = minX;
+                    UpperLeftSquare.Y = minY;
+                }
             }
         }
         public void CenterScreenOnPC()
