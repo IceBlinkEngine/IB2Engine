@@ -15,6 +15,7 @@ namespace IceBlink2
         public Module mod;
         public GameView gv;
 
+        public IB2UILayout mainUiLayout = null;
         private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
         private IbbButton btnSettings = null;
@@ -51,10 +52,41 @@ namespace IceBlink2
             mod = m;
             gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
+            setUiLayoutStart();            
             setControlsStart();
             setToggleButtonsStart();
         }
-                
+        public void setUiLayoutStart()
+        {
+            mainUiLayout = new IB2UILayout(gv);
+
+            IB2Panel leftPanel = new IB2Panel(gv);
+            leftPanel.backgroundImageFilename = "ui_bg_log";
+            leftPanel.Height = 1000;
+            leftPanel.Width = 110;
+            leftPanel.hiddenLocX = -100;
+            leftPanel.hiddenLocY = 0;
+            leftPanel.shownLocX = 0;
+            leftPanel.shownLocY = 0;
+            leftPanel.hidingXIncrement = -1;
+            leftPanel.hidingYIncrement = 0;
+
+            IB2Button newBtn = new IB2Button(gv);
+            newBtn.ImgFilename = "btn_small";    //this is the normal button and color intensity
+            newBtn.ImgOffFilename = "btn_small_off"; //this is usually a grayed out button
+            newBtn.ImgOnFilename = "btn_small_on";  //useful for buttons that are toggled on like "Move"
+            newBtn.Img2Filename = "tr_rapidshot";   //usually used for an image on top of default button like arrows or inventory backpack image
+            newBtn.Img2OffFilename = "tr_rapidshot_off";   //usually used for turned off image on top of default button like spell not available
+            newBtn.Img3Filename = "convoplus";   //typically used for convo plus notification icon
+            newBtn.GlowFilename = "btn_small_glow";
+            newBtn.X = 10;
+            newBtn.Y = 30;
+            newBtn.name = "TEST BUTTON";
+            newBtn.Text = newBtn.name;
+
+            leftPanel.buttonList.Add(newBtn);
+            mainUiLayout.panelList.Add(leftPanel);
+    }        
         public void setControlsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -238,6 +270,8 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+            mainUiLayout.Update(elapsed);
+
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
@@ -501,6 +535,8 @@ namespace IceBlink2
             drawControls();
             drawMiniMap();
             drawPortraits();
+            //uncomment below to test
+            //drawUiLayout();
         }
         public void drawPortraits()
         {
@@ -26082,6 +26118,10 @@ namespace IceBlink2
             }
         }
                 
+        public void drawUiLayout()
+        {
+            mainUiLayout.Draw();
+        }
         /*public void doFloatyTextLoop()
         {
             //gv.postDelayed("doFloatyTextMainMap", 100);
@@ -27254,6 +27294,17 @@ namespace IceBlink2
                     {
                         //do nothing
                     }
+                }
+            }
+            if (keyData == Keys.X)
+            {
+                if (mainUiLayout.panelList[0].currentLocX < -10)
+                {
+                    mainUiLayout.panelList[0].showing = true;
+                }
+                else
+                {
+                    mainUiLayout.panelList[0].hiding = true;
                 }
             }
         }
