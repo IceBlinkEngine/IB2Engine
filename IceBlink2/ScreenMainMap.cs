@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using Color = SharpDX.Color;
+using Newtonsoft.Json;
 
 namespace IceBlink2
 {
@@ -52,9 +53,40 @@ namespace IceBlink2
             mod = m;
             gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
-            setUiLayoutStart();            
+            loadMainUILayout();
+            //setUiLayoutStart();  
+            //setupAndSaveLayout();
             setControlsStart();
-            setToggleButtonsStart();
+            setToggleButtonsStart();            
+        }
+        public void loadMainUILayout()
+        {
+            try
+            {
+                if (File.Exists(gv.cc.GetModulePath() + "\\data\\MainUILayout.json"))
+                {
+                    using (StreamReader file = File.OpenText(gv.cc.GetModulePath() + "\\data\\MainUILayout.json"))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        mainUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
+                        mainUiLayout.setupIB2UILayout(gv);
+                    }
+                }
+                else
+                {
+                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\MainUILayout.json"))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        mainUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
+                        mainUiLayout.setupIB2UILayout(gv);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading MainUILayout.json: " + ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
         }
         public void setUiLayoutStart()
         {
@@ -79,14 +111,99 @@ namespace IceBlink2
             newBtn.Img2OffFilename = "tr_rapidshot_off";   //usually used for turned off image on top of default button like spell not available
             newBtn.Img3Filename = "convoplus";   //typically used for convo plus notification icon
             newBtn.GlowFilename = "btn_small_glow";
-            newBtn.X = 10;
+            newBtn.X = 5;
             newBtn.Y = 30;
             newBtn.name = "TEST BUTTON";
             newBtn.Text = newBtn.name;
-
             leftPanel.buttonList.Add(newBtn);
+
+            IB2ToggleButton newBtnT = new IB2ToggleButton(gv);
+            newBtnT.ImgOffFilename = "tgl_sp_off"; //this is usually a grayed out button
+            newBtnT.ImgOnFilename = "tgl_sp_on";  //useful for buttons that are toggled on like "Move"
+            newBtnT.X = 20;
+            newBtnT.Y = 140;
+            newBtnT.name = "TEST TOGGLE";
+            leftPanel.toggleList.Add(newBtnT);
+
+            IB2Portrait newPtr = new IB2Portrait(gv);
+            newPtr.ImgFilename = "ptr_adela";  
+            newPtr.ImgBGFilename = "item_slot"; 
+            newPtr.ImgLUFilename = "btnLevelUpPlus"; 
+            newPtr.GlowFilename = "btn_ptr_glow"; 
+            newPtr.X = 5;
+            newPtr.Y = 200;
+            newPtr.name = "TEST PORTRAIT";
+            newPtr.TextHP = "888/888";
+            newPtr.TextSP = "999/999";
+            leftPanel.portraitList.Add(newPtr);
+
             mainUiLayout.panelList.Add(leftPanel);
-    }        
+        }   
+        public void setupAndSaveLayout()
+        {
+            mainUiLayout = new IB2UILayout(gv);
+            //left log panel
+            IB2Panel leftPanel = new IB2Panel(gv);
+            leftPanel.name = "LeftPanel";
+            IB2Button newBtn = new IB2Button(gv);
+            newBtn.ImgFilename = "btn_small";    //this is the normal button and color intensity
+            newBtn.ImgOffFilename = "btn_small_off"; //this is usually a grayed out button
+            newBtn.ImgOnFilename = "btn_small_on";  //useful for buttons that are toggled on like "Move"
+            newBtn.Img2Filename = "tr_rapidshot";   //usually used for an image on top of default button like arrows or inventory backpack image
+            newBtn.Img2OffFilename = "tr_rapidshot_off";   //usually used for turned off image on top of default button like spell not available
+            newBtn.Img3Filename = "convoplus";   //typically used for convo plus notification icon
+            newBtn.GlowFilename = "btn_small_glow";
+            newBtn.X = 5;
+            newBtn.Y = 30;
+            newBtn.name = "TEST BUTTON";
+            newBtn.Text = newBtn.name;
+            leftPanel.buttonList.Add(newBtn);
+
+            IB2ToggleButton newBtnT = new IB2ToggleButton(gv);
+            newBtnT.ImgOffFilename = "tgl_sp_off"; //this is usually a grayed out button
+            newBtnT.ImgOnFilename = "tgl_sp_on";  //useful for buttons that are toggled on like "Move"
+            newBtnT.X = 20;
+            newBtnT.Y = 140;
+            newBtnT.name = "TEST TOGGLE";
+            leftPanel.toggleList.Add(newBtnT);
+
+            IB2Portrait newPtr = new IB2Portrait(gv);
+            newPtr.ImgFilename = "ptr_adela";
+            newPtr.ImgBGFilename = "item_slot";
+            newPtr.ImgLUFilename = "btnLevelUpPlus";
+            newPtr.GlowFilename = "btn_ptr_glow";
+            newPtr.X = 5;
+            newPtr.Y = 200;
+            newPtr.name = "TEST PORTRAIT";
+            newPtr.TextHP = "888/888";
+            newPtr.TextSP = "999/999";
+            leftPanel.portraitList.Add(newPtr);
+
+            mainUiLayout.panelList.Add(leftPanel);
+            
+            //right portrait panel
+            IB2Panel rightPanel = new IB2Panel(gv);
+            rightPanel.name = "RightPanel";
+            mainUiLayout.panelList.Add(rightPanel);
+            
+            //bottom button panel
+            IB2Panel bottomPanel = new IB2Panel(gv);
+            bottomPanel.name = "BottomPanel";
+            mainUiLayout.panelList.Add(bottomPanel);
+            try
+            {
+                string filepath = gv.mainDirectory + "\\MainUILayout.json";
+                string json = JsonConvert.SerializeObject(mainUiLayout, Newtonsoft.Json.Formatting.Indented);
+                using (StreamWriter sw = new StreamWriter(filepath))
+                {
+                    sw.Write(json.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }     
         public void setControlsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
@@ -26290,6 +26407,504 @@ namespace IceBlink2
             gv.mod.moduleWeatherEffectsList.Add(we);
         }
 
+        //to test new layout system, change this to onTouchMain
+        public void onTouchMainNew(MouseEventArgs e, MouseEventType.EventType eventType)
+        {
+            switch (eventType)
+            {
+                case MouseEventType.EventType.MouseDown:
+                case MouseEventType.EventType.MouseMove:
+                    int x = (int)e.X;
+                    int y = (int)e.Y;
+
+                    //NEW SYSTEM
+                    mainUiLayout.setHover(x, y);
+
+                    //Draw Floaty Text On Mouse Over Prop
+                    int gridx = (int)e.X / gv.squareSize;
+                    int gridy = (int)e.Y / gv.squareSize;
+                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffset);
+                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffset);
+                    gv.cc.floatyText = "";
+                    if (IsTouchInMapWindow(gridx, gridy))
+                    {
+                        foreach (Prop p in mod.currentArea.Props)
+                        {
+                            if ((p.LocationX == actualX) && (p.LocationY == actualY))
+                            {
+                                if (!p.MouseOverText.Equals("none"))
+                                {
+                                    gv.cc.floatyText = p.MouseOverText;
+                                    gv.cc.floatyTextLoc = new Coordinate(gridx * gv.squareSize, gridy * gv.squareSize);
+                                }
+                            }
+                        }
+                    }
+                    break;
+
+                case MouseEventType.EventType.MouseUp:
+                    x = (int)e.X;
+                    y = (int)e.Y;
+                    int gridX = (int)e.X / gv.squareSize;
+                    int gridY = (int)e.Y / gv.squareSize;
+                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffset);
+                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffset);
+
+                    //NEW SYSTEM
+                    string rtn = mainUiLayout.getImpact(x, y);
+                    gv.cc.addLogText("lime", "mouse down: " + rtn);
+
+                    if (tglGrid.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglGrid.toggleOn)
+                        {
+                            tglGrid.toggleOn = false;
+                            mod.map_showGrid = false;
+                        }
+                        else
+                        {
+                            tglGrid.toggleOn = true;
+                            mod.map_showGrid = true;
+                        }
+                    }
+
+                    if (tglInteractionState.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglInteractionState.toggleOn)
+                        {
+                            tglInteractionState.toggleOn = false;
+                            mod.showInteractionState = false;
+                            gv.cc.addLogText("yellow", "Hide info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
+                        }
+                        else
+                        {
+                            tglInteractionState.toggleOn = true;
+                            mod.showInteractionState = true;
+                            gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
+                        }
+                    }
+
+                    if (tglAvoidConversation.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglAvoidConversation.toggleOn)
+                        {
+                            tglAvoidConversation.toggleOn = false;
+                            mod.avoidInteraction = false;
+                            gv.cc.addLogText("lime", "Normal move mode: party does all possible conversations");
+                        }
+                        else
+                        {
+                            tglAvoidConversation.toggleOn = true;
+                            mod.avoidInteraction = true;
+                            gv.cc.addLogText("yellow", "In a hurry: Party is avoiding all conversations that are not mandatory");
+                        }
+                    }
+
+
+                    if (tglClock.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglClock.toggleOn)
+                        {
+                            tglClock.toggleOn = false;
+                        }
+                        else
+                        {
+                            tglClock.toggleOn = true;
+                        }
+                    }
+                    if (gv.cc.tglSound.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (gv.cc.tglSound.toggleOn)
+                        {
+                            gv.cc.tglSound.toggleOn = false;
+                            mod.playMusic = false;
+                            mod.playSoundFx = false;
+                            gv.screenCombat.tglSoundFx.toggleOn = false;
+                            gv.stopMusic();
+                            gv.stopAmbient();
+                            gv.cc.addLogText("lime", "Music Off, SoundFX Off");
+                        }
+                        else
+                        {
+                            gv.cc.tglSound.toggleOn = true;
+                            mod.playMusic = true;
+                            mod.playSoundFx = true;
+                            gv.screenCombat.tglSoundFx.toggleOn = true;
+                            gv.startMusic();
+                            gv.startAmbient();
+                            gv.cc.addLogText("lime", "Music On, SoundFX On");
+                        }
+                    }
+                    if (tglFullParty.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglFullParty.toggleOn)
+                        {
+                            tglFullParty.toggleOn = false;
+                            gv.cc.addLogText("lime", "Show Party Leader");
+                        }
+                        else
+                        {
+                            tglFullParty.toggleOn = true;
+                            gv.cc.addLogText("lime", "Show Full Party");
+                        }
+                    }
+                    //if ((tglMiniMap.getImpact(x, y)) && (mod.currentArea.IsWorldMap))
+                    if (tglMiniMap.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (tglMiniMap.toggleOn)
+                        {
+                            tglMiniMap.toggleOn = false;
+                            gv.cc.addLogText("lime", "Hide Mini Map");
+                        }
+                        else
+                        {
+                            tglMiniMap.toggleOn = true;
+                            gv.cc.addLogText("lime", "Show Mini Map");
+                        }
+                    }
+                    if ((gv.cc.ctrlUpArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) == actualy)))
+                    {
+                        bool isTransition = gv.cc.goNorth();
+                        if (!isTransition)
+                        {
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            if (mod.PlayerLocationY > 0)
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
+                                {
+
+                                    //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY--;
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                        //else
+                        //{
+                        //gv.cc.doUpdate();
+                        //}
+                    }
+                    else if ((gv.cc.ctrlDownArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) == actualy)))
+                    {
+
+                        bool isTransition = gv.cc.goSouth();
+                        if (!isTransition)
+                        {
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            int mapheight = mod.currentArea.MapSizeY;
+                            if (mod.PlayerLocationY < (mapheight - 1))
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
+                                {
+
+                                    //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationY++;
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if ((gv.cc.ctrlLeftArrow.getImpact(x, y)) || (((mod.PlayerLocationX - 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    {
+                        bool isTransition = gv.cc.goWest();
+                        if (!isTransition)
+                        {
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            if (mod.PlayerLocationX > 0)
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
+                                {
+
+                                    //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX--;
+                                    if (!mod.playerList[0].combatFacingLeft)
+                                    {
+                                        //TODO							    //mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+                                    }
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (!pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = true;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if ((gv.cc.ctrlRightArrow.getImpact(x, y)) || (((mod.PlayerLocationX + 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    {
+                        bool isTransition = gv.cc.goEast();
+                        if (!isTransition)
+                        {
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                            int mapwidth = mod.currentArea.MapSizeX;
+                            if (mod.PlayerLocationX < (mapwidth - 1))
+                            {
+                                if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
+                                {
+
+                                    //gv.mod.blockTrigger = false;
+                                    //gv.mod.blockTriggerMovingProp = false;
+
+                                    mod.PlayerLastLocationX = mod.PlayerLocationX;
+                                    mod.PlayerLastLocationY = mod.PlayerLocationY;
+                                    mod.PlayerLocationX++;
+                                    if (mod.playerList[0].combatFacingLeft)
+                                    {
+                                        //TODO							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
+                                    }
+                                    foreach (Player pc in mod.playerList)
+                                    {
+                                        if (pc.combatFacingLeft)
+                                        {
+                                            pc.combatFacingLeft = false;
+                                        }
+                                    }
+                                    gv.cc.doUpdate();
+                                }
+                            }
+                        }
+                    }
+                    else if (btnParty.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "party";
+                        gv.cc.tutorialMessageParty(false);
+                    }
+                    else if ((gv.cc.ptrPc0.getImpact(x, y)) && (mod.playerList.Count > 0))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 0;
+                            gv.cc.partyScreenPcIndex = 0;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 0;
+                            gv.cc.partyScreenPcIndex = 0;
+                        }
+                    }
+                    else if ((gv.cc.ptrPc1.getImpact(x, y)) && (mod.playerList.Count > 1))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 1;
+                            gv.cc.partyScreenPcIndex = 1;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 1;
+                            gv.cc.partyScreenPcIndex = 1;
+                        }
+                    }
+                    else if ((gv.cc.ptrPc2.getImpact(x, y)) && (mod.playerList.Count > 2))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 2;
+                            gv.cc.partyScreenPcIndex = 2;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 2;
+                            gv.cc.partyScreenPcIndex = 2;
+                        }
+                    }
+                    else if ((gv.cc.ptrPc3.getImpact(x, y)) && (mod.playerList.Count > 3))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 3;
+                            gv.cc.partyScreenPcIndex = 3;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 3;
+                            gv.cc.partyScreenPcIndex = 3;
+                        }
+                    }
+                    else if ((gv.cc.ptrPc4.getImpact(x, y)) && (mod.playerList.Count > 4))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 4;
+                            gv.cc.partyScreenPcIndex = 4;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 4;
+                            gv.cc.partyScreenPcIndex = 4;
+                        }
+                    }
+                    else if ((gv.cc.ptrPc5.getImpact(x, y)) && (mod.playerList.Count > 5))
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            mod.selectedPartyLeader = 5;
+                            gv.cc.partyScreenPcIndex = 5;
+                            gv.screenParty.resetPartyScreen();
+                            gv.screenType = "party";
+                            gv.cc.tutorialMessageParty(false);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            mod.selectedPartyLeader = 5;
+                            gv.cc.partyScreenPcIndex = 5;
+                        }
+                    }
+                    else if (gv.cc.btnInventory.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.screenType = "inventory";
+                        gv.screenInventory.resetInventory();
+                        gv.cc.tutorialMessageInventory(false);
+                    }
+                    else if (btnJournal.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.screenType = "journal";
+                    }
+                    else if (btnSettings.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.cc.doSettingsDialogs();
+                    }
+                    else if (btnSave.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        if (mod.allowSave)
+                        {
+                            gv.cc.doSavesDialog();
+                        }
+                    }
+                    else if (btnWait.getImpact(x, y))
+                    {
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+                        gv.cc.doUpdate();
+                    }
+                    else if (btnCastOnMainMap.getImpact(x, y))
+                    {
+
+                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+
+                        List<string> pcNames = new List<string>();
+                        List<int> pcIndex = new List<int>();
+                        pcNames.Add("cancel");
+
+                        int cnt = 0;
+                        foreach (Player p in mod.playerList)
+                        {
+                            if (hasMainMapTypeSpell(p))
+                            {
+                                pcNames.Add(p.name);
+                                pcIndex.Add(cnt);
+                            }
+                            cnt++;
+                        }
+
+                        //If only one PC, do not show select PC dialog...just go to cast selector
+                        if (pcIndex.Count == 1)
+                        {
+                            try
+                            {
+                                gv.screenCastSelector.castingPlayerIndex = pcIndex[0];
+                                gv.screenCombat.spellSelectorIndex = 0;
+                                gv.screenType = "mainMapCast";
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                //print error
+                                IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                gv.errorLog(ex.ToString());
+                                return;
+                            }
+                        }
+
+                        using (ItemListSelector pcSel = new ItemListSelector(gv, pcNames, "Select Caster"))
+                        {
+                            pcSel.ShowDialog();
+
+                            if (pcSel.selectedIndex > 0)
+                            {
+                                try
+                                {
+                                    gv.screenCastSelector.castingPlayerIndex = pcIndex[pcSel.selectedIndex - 1]; // pcIndex.get(item - 1);
+                                    gv.screenCombat.spellSelectorIndex = 0;
+                                    gv.screenType = "mainMapCast";
+                                }
+                                catch (Exception ex)
+                                {
+                                    IBMessageBox.Show(gv, "error with Pc Selector screen: " + ex.ToString());
+                                    gv.errorLog(ex.ToString());
+                                    //print error
+                                }
+                            }
+                            else if (pcSel.selectedIndex == 0) // selected "cancel"
+                            {
+                                //do nothing
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+        //to test new layout system, change this to onTouchMainOld
         public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             gv.cc.ctrlUpArrow.glowOn = false;
@@ -26332,6 +26947,7 @@ namespace IceBlink2
                         }
                     }
 
+                    
 
                     if (gv.cc.ctrlUpArrow.getImpact(x, y))
                     {
@@ -26389,7 +27005,6 @@ namespace IceBlink2
                     int gridY = (int)e.Y / gv.squareSize;
                     int actualx = mod.PlayerLocationX + (gridX - gv.playerOffset);
                     int actualy = mod.PlayerLocationY + (gridY - gv.playerOffset);
-
 
                     gv.cc.ctrlUpArrow.glowOn = false;
                     gv.cc.ctrlDownArrow.glowOn = false;
@@ -27298,13 +27913,56 @@ namespace IceBlink2
             }
             if (keyData == Keys.X)
             {
-                if (mainUiLayout.panelList[0].currentLocX < -10)
+                foreach (IB2Panel pnl in mainUiLayout.panelList)
                 {
-                    mainUiLayout.panelList[0].showing = true;
-                }
-                else
-                {
-                    mainUiLayout.panelList[0].hiding = true;
+                    //hides left
+                    if (pnl.hidingXIncrement < 0)
+                    {
+                        if (pnl.currentLocX < pnl.shownLocX)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides right
+                    else if (pnl.hidingXIncrement > 0)
+                    {
+                        if (pnl.currentLocX > pnl.shownLocX)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides down
+                    else if (pnl.hidingYIncrement > 0)
+                    {
+                        if (pnl.currentLocY > pnl.shownLocY)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides up
+                    else if (pnl.hidingYIncrement < 0)
+                    {
+                        if (pnl.currentLocY < pnl.shownLocY)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
                 }
             }
         }

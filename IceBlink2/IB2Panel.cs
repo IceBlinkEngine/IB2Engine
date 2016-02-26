@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace IceBlink2
     public class IB2Panel
     {
         //this class is handled differently than Android version
+        [JsonIgnore]
         public GameView gv;
         public string name = "";
         public string backgroundImageFilename = "";
@@ -28,12 +30,83 @@ namespace IceBlink2
         public List<IB2Portrait> portraitList = new List<IB2Portrait>();
         public List<IbbHtmlLogBox> logList = new List<IbbHtmlLogBox>();
 
+        public IB2Panel()
+        {
+            
+        }
 
         public IB2Panel(GameView g)
         {
             gv = g;
             currentLocX = shownLocX;
             currentLocY = shownLocY;
+        }
+
+        public void setupIB2Panel(GameView g)
+        {
+            gv = g;
+            currentLocX = shownLocX;
+            currentLocY = shownLocY;
+            foreach (IB2Button btn in buttonList)
+            {
+                btn.setupIB2Button(gv);
+            }
+            foreach (IB2ToggleButton btn in toggleList)
+            {
+                btn.setupIB2ToggleButton(gv);
+            }
+            foreach (IB2Portrait btn in portraitList)
+            {
+                btn.setupIB2Portrait(gv);
+            }
+            foreach (IbbHtmlLogBox log in logList)
+            {
+                //
+            }
+        }
+
+        public void setHover(int x, int y)
+        {
+            //iterate over all controls and set glow on/off
+            foreach (IB2Button btn in buttonList)
+            {
+                btn.setHover(this, x, y);
+            }            
+            foreach (IB2Portrait btn in portraitList)
+            {
+                btn.setHover(this, x, y);
+            }
+        }
+
+        public string getImpact(int x, int y)
+        {
+            //iterate over all controls and get impact
+            foreach (IB2Button btn in buttonList)
+            {
+                if (btn.getImpact(this, x, y))
+                {
+                    return btn.name;
+                }
+            }
+            foreach (IB2ToggleButton btn in toggleList)
+            {
+                if (btn.getImpact(this, x, y))
+                {
+                    return btn.name;
+                }
+            }
+            foreach (IB2Portrait btn in portraitList)
+            {
+                if (btn.getImpact(this, x, y))
+                {
+                    return btn.name;
+                }
+            }
+            foreach (IbbHtmlLogBox log in logList)
+            {
+                //log.onDrawLogBox();
+            }
+            return "";
         }
 
         public void Draw()
@@ -49,11 +122,11 @@ namespace IceBlink2
             }
             foreach (IB2ToggleButton btn in toggleList)
             {
-                btn.Draw();
+                btn.Draw(this);
             }
             foreach (IB2Portrait btn in portraitList)
             {
-                btn.Draw();
+                btn.Draw(this);
             }
             foreach (IbbHtmlLogBox log in logList)
             {

@@ -35,6 +35,11 @@ namespace IceBlink2
         public int tbYloc = 10;
         public float fontHeightToWidthRatio = 1.0f;
 
+        public IbbHtmlLogBox()
+        {
+
+        }
+
         public IbbHtmlLogBox(GameView g, int locX, int locY, int width, int height)
         {
             gv = g;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,7 @@ namespace IceBlink2
 {
     public class IB2Button
     {
+        [JsonIgnore]
         public GameView gv;
         public string name = "";
         public string ImgFilename = "";    //this is the normal button and color intensity
@@ -17,6 +20,7 @@ namespace IceBlink2
         public string Img2OffFilename = "";   //usually used for turned off image on top of default button like spell not available
         public string Img3Filename = "";   //typically used for convo plus notification icon
         public string GlowFilename = "";   //typically the green border highlight when hoover over or press button
+        [JsonConverter(typeof(StringEnumConverter))]
         public buttonState btnState = buttonState.Normal;
         public bool btnNotificationOn = true; //used to determine whether Img3 is shown or not
         public bool glowOn = false;
@@ -26,14 +30,66 @@ namespace IceBlink2
         public int X = 0;
         public int Y = 0;
         public string IBScript = "none";
-        //public int Width = 0;
-        //public int Height = 0;
+        public int Width = 0;
+        public int Height = 0;
         public float scaler = 1.0f;
         public bool playedHoverSound = false;
+
+        public IB2Button()
+        {
+            
+        }
 
         public IB2Button(GameView g)
         {
             gv = g;
+        }
+
+        public void setupIB2Button(GameView g)
+        {
+            gv = g;
+        }
+
+        public void setHover(IB2Panel parentPanel, int x, int y)
+        {
+            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
+            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            glowOn = false;
+
+            if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+            {
+                if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                {
+                    if (!playedHoverSound)
+                    {
+                        playedHoverSound = true;
+                        gv.playerButtonEnter.Play();
+                    }
+                    glowOn = true;
+                }
+            }
+            playedHoverSound = false;
+        }
+
+        public bool getImpact(IB2Panel parentPanel, int x, int y)
+        {
+            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
+            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            
+            if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+            {
+                if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                {
+                    if (!playedHoverSound)
+                    {
+                        playedHoverSound = true;
+                        gv.playerButtonEnter.Play();
+                    }
+                    return true;
+                }
+            }
+            playedHoverSound = false;
+            return false;
         }
 
         public void Draw(IB2Panel parentPanel)
@@ -41,8 +97,8 @@ namespace IceBlink2
             int pH = (int)((float)gv.screenHeight / 200.0f);
             int pW = (int)((float)gv.screenHeight / 200.0f);
             float fSize = (float)(gv.squareSize / 4) * scaler;
-            int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
+            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
 
             IbRect src = new IbRect(0, 0, Width, Height);                        
             IbRect dst = new IbRect(parentPanel.currentLocX + this.X, parentPanel.currentLocY + this.Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
