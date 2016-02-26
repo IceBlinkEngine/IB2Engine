@@ -2684,7 +2684,7 @@
         "changeableByWeatherScript": true
       }
     ],
-    "tag": "newWeatherEffectTag_9487",
+    "tag": "heavyRainWithCloudsBAndLightning_9487",
     "name": "heavyRainWithCloudsBAndLightning"
   },
   {
@@ -3260,7 +3260,7 @@
         "changeableByWeatherScript": true
       }
     ],
-    "tag": "newWeatherEffectTag_9486",
+    "tag": "heavyRainWithCloudsCAndLightning_9486",
     "name": "heavyRainWithCloudsCAndLightning"
   },
   {
@@ -23550,7 +23550,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerA",
         "fullScreenAnimationSpeed": 1.0,
@@ -23562,7 +23562,7 @@
         "fullScreenEffectOrderNumber": 0,
         "cycleCounter": 0.0,
         "containEffectInsideAreaBorders": true,
-        "activateTargetChannelInParallelToThisChannel": 0,
+        "activateTargetChannelInParallelToThisChannel": 10,
         "isChanging": true,
         "changeCounter": 0.0,
         "changeLimit": 0.0,
@@ -23581,7 +23581,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerB",
         "fullScreenAnimationSpeed": 1.0,
@@ -23612,7 +23612,7 @@
         "changeableByWeatherScript": true
       }
     ],
-    "tag": "newWeatherEffectTag_9489",
+    "tag": "heavyRainWithHeavyCloudsAAndLightning_9489",
     "name": "heavyRainWithHeavyCloudsAAndLightning"
   },
   {
@@ -23742,7 +23742,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerA",
         "fullScreenAnimationSpeed": 1.0,
@@ -23754,7 +23754,7 @@
         "fullScreenEffectOrderNumber": 0,
         "cycleCounter": 0.0,
         "containEffectInsideAreaBorders": true,
-        "activateTargetChannelInParallelToThisChannel": 0,
+        "activateTargetChannelInParallelToThisChannel": 10,
         "isChanging": true,
         "changeCounter": 0.0,
         "changeLimit": 0.0,
@@ -23773,7 +23773,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerB",
         "fullScreenAnimationSpeed": 1.0,
@@ -23804,7 +23804,7 @@
         "changeableByWeatherScript": true
       }
     ],
-    "tag": "newWeatherEffectTag_9490",
+    "tag": "heavyRainWithHeavyCloudsCAndLightning_9490",
     "name": "heavyRainWithHeavyCloudsCAndLightning"
   },
   {
@@ -23934,7 +23934,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerA",
         "fullScreenAnimationSpeed": 1.0,
@@ -23946,7 +23946,7 @@
         "fullScreenEffectOrderNumber": 0,
         "cycleCounter": 0.0,
         "containEffectInsideAreaBorders": true,
-        "activateTargetChannelInParallelToThisChannel": 0,
+        "activateTargetChannelInParallelToThisChannel": 10,
         "isChanging": true,
         "changeCounter": 0.0,
         "changeLimit": 0.0,
@@ -23965,7 +23965,7 @@
         "changeableByWeatherScript": true
       },
       {
-        "useFullScreenEffectLayer": false,
+        "useFullScreenEffectLayer": true,
         "fullScreenEffectLayerIsActive": true,
         "fullScreenEffectLayerName": "lightningLayerB",
         "fullScreenAnimationSpeed": 1.0,
@@ -23996,7 +23996,7 @@
         "changeableByWeatherScript": true
       }
     ],
-    "tag": "newWeatherEffectTag_9491",
+    "tag": "heavyRainWithHeavyCloudsBAndLightning_9491",
     "name": "heavyRainWithHeavyCloudsBAndLightning"
   }
 ]
