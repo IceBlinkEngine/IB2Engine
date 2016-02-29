@@ -60,6 +60,15 @@ namespace IceBlink2
             //brush.Color = Color.Red;
         }
 
+        public void setupIbbHtmlLogBox(GameView g)
+        {
+            gv = g;
+            btn_up = gv.cc.LoadBitmap("btn_up.png");
+            btn_down = gv.cc.LoadBitmap("btn_down.png");
+            btn_scroll = gv.cc.LoadBitmap("btn_scroll.png");
+            bg_scroll = gv.cc.LoadBitmap("bg_scroll.png");
+        }
+
         public void ResetLogBoxUiBitmaps()
         {
             btn_up = gv.cc.LoadBitmap("btn_up.png");

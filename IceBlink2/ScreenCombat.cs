@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using Color = SharpDX.Color;
+using Newtonsoft.Json;
 
 namespace IceBlink2
 {
@@ -14,6 +15,11 @@ namespace IceBlink2
     {
 	    public Module mod;
 	    public GameView gv;
+        public IB2UILayout combatUiLayout = null;
+        public bool showHP = false;
+        public bool showSP = false;
+        public bool showMoveOrder = false;
+        public bool showArrows = true;
 
         //COMBAT STUFF
         public bool adjustCamToRangedCreature = false;
@@ -82,11 +88,66 @@ namespace IceBlink2
 		    mod = m;
 		    gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
+            loadMainUILayout();
 		    setControlsStart();
             setToggleButtonsStart();
 	    }
-	
-	    public void setControlsStart()
+
+        public void loadMainUILayout()
+        {
+            try
+            {
+                if (File.Exists(gv.cc.GetModulePath() + "\\data\\CombatUILayout.json"))
+                {
+                    using (StreamReader file = File.OpenText(gv.cc.GetModulePath() + "\\data\\CombatUILayout.json"))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        combatUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
+                        combatUiLayout.setupIB2UILayout(gv);
+                    }
+                }
+                else
+                {
+                    using (StreamReader file = File.OpenText(gv.mainDirectory + "\\default\\NewModule\\data\\CombatUILayout.json"))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        combatUiLayout = (IB2UILayout)serializer.Deserialize(file, typeof(IB2UILayout));
+                        combatUiLayout.setupIB2UILayout(gv);
+                    }
+                }
+
+                IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglHP");
+                if (tgl != null)
+                {
+                    showHP = tgl.toggleOn;
+                }
+                IB2ToggleButton tgl2 = combatUiLayout.GetToggleByTag("tglSP");
+                if (tgl2 != null)
+                {
+                    showSP = tgl2.toggleOn;
+                }
+                foreach (IB2Panel pnlC in combatUiLayout.panelList)
+                {
+                    if (pnlC.tag.Equals("logPanel"))
+                    {
+                        foreach (IB2Panel pnlM in gv.screenMainMap.mainUiLayout.panelList)
+                        {
+                            if (pnlM.tag.Equals("logPanel"))
+                            {
+                                pnlC.logList[0] = pnlM.logList[0];
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Loading CombatUILayout.json: " + ex.ToString());
+                gv.errorLog(ex.ToString());
+            }
+        }
+
+        public void setControlsStart()
 	    {		
 		    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -2187,6 +2248,8 @@ namespace IceBlink2
         //COMBAT SCREEN UPDATE
         public void Update(int elapsed)
         {
+            combatUiLayout.Update(elapsed);
+
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
@@ -2358,14 +2421,14 @@ namespace IceBlink2
         #region Combat Draw
         public void redrawCombat()
         {
-            if (mod.com_showGrid)
+            /*if (mod.com_showGrid)
             {
         	    tglGrid.toggleOn = true;
             }
             else
             {
         	    tglGrid.toggleOn = false;
-            }
+            }*/
     	    //gv.drawLog();
     	    drawCombatMap();
             if (gv.mod.useCombatSmoothMovement == false)
@@ -2388,17 +2451,161 @@ namespace IceBlink2
                 drawTargetHighlight();
                 drawLosTrail();
             }
-            if (mod.useUIBackground)
+            /*if (mod.useUIBackground)
             {
                 drawPanels();
-            }            
-            gv.drawLog();
+            }*/            
+            //gv.drawLog();
             drawFloatyText();
             drawHPText();
             drawSPText();
             drawFloatyTextList();
-            drawCombatControls();
-            drawPortraits();
+            //drawCombatControls();
+            //drawPortraits();
+            drawUiLayout();
+        }
+        public void drawUiLayout()
+        {
+            //SET PORTRAITS
+            foreach (IB2Panel pnl in combatUiLayout.panelList)
+            {
+                if (pnl.tag.Equals("portraitPanel"))
+                {
+                    foreach (IB2Portrait ptr in pnl.portraitList)
+                    {
+                        ptr.show = false;
+                    }
+                    int index = 0;
+                    foreach (Player pc1 in mod.playerList)
+                    {
+                        pnl.portraitList[index].show = true;
+                        pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
+                        pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
+                        pnl.portraitList[index].TextSP = pc1.sp + "/" + pc1.spMax;
+                        if (gv.mod.selectedPartyLeader == index)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else
+                        {
+                            pnl.portraitList[index].glowOn = false;
+                        }
+                        index++;
+                    }
+                    break;
+                }
+            }
+
+            //SET MOVES LEFT TEXT
+            Player pc = mod.playerList[currentPlayerIndex];
+            float movesLeft = pc.moveDistance - currentMoves;
+            if (movesLeft < 0) { movesLeft = 0; }
+            IB2Button btn = combatUiLayout.GetButtonByTag("btnMoveCounter");
+            if (btn != null)
+            {
+                btn.Text = movesLeft.ToString();
+            }
+
+            //SET KILL BUTTON
+            if (mod.debugMode)
+            {
+                IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglKill");
+                if (tgl != null)
+                {
+                    tgl.show = true;
+                }
+            }
+            else
+            {
+                IB2ToggleButton tgl = combatUiLayout.GetToggleByTag("tglKill");
+                if (tgl != null)
+                {
+                    tgl.show = false;
+                }
+            }
+
+            //SET BUTTON STATES
+            //select button
+            if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+            {
+                btn = combatUiLayout.GetButtonByTag("btnSelect");
+                if (btn != null)
+                {
+                    btn.Text = "TARGET";
+                }
+            }
+            else
+            {
+                btn = combatUiLayout.GetButtonByTag("btnSelect");
+                if (btn != null)
+                {
+                    btn.Text = "SELECT";
+                }
+            }
+            //move button
+            if (canMove)
+            {
+                if (currentCombatMode.Equals("move"))
+                {
+                    btn = combatUiLayout.GetButtonByTag("btnMove");
+                    if (btn != null)
+                    {
+                        btn.btnState = buttonState.On;
+                    }
+                }
+                else
+                {
+                    btn = combatUiLayout.GetButtonByTag("btnMove");
+                    if (btn != null)
+                    {
+                        btn.btnState = buttonState.Normal;
+                    }
+                }
+            }
+            else
+            {
+                btn = combatUiLayout.GetButtonByTag("btnMove");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.Off;
+                }
+            }
+            //attack button
+            if (currentCombatMode.Equals("attack"))
+            {
+                btn = combatUiLayout.GetButtonByTag("btnAttack");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.On;
+                }
+            }
+            else
+            {
+                btn = combatUiLayout.GetButtonByTag("btnAttack");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.Normal;
+                }
+            }
+            //cast button
+            if (currentCombatMode.Equals("cast"))
+            {
+                btn = combatUiLayout.GetButtonByTag("btnCast");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.On;
+                }
+            }
+            else
+            {
+                btn = combatUiLayout.GetButtonByTag("btnCast");
+                if (btn != null)
+                {
+                    btn.btnState = buttonState.Normal;
+                }
+            }
+
+            combatUiLayout.Draw();            
         }
         public void drawPanels()
         {
@@ -2486,7 +2693,10 @@ namespace IceBlink2
 	    }
         public void drawPortraits()
         {
-            if (mod.playerList.Count > 0)
+            
+
+            //OLD SYSTEM
+            /*if (mod.playerList.Count > 0)
             {
                 gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
                 gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
@@ -2527,7 +2737,7 @@ namespace IceBlink2
                 gv.cc.ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
                 gv.cc.ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
                 gv.cc.ptrPc5.Draw();
-            }
+            }*/
         }
         public void drawCombatMap()
 	    {
@@ -2924,8 +3134,8 @@ namespace IceBlink2
                             y,
                             UpperLeftSquare.X,
                             UpperLeftSquare.Y,
-                            gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width,
-                            gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
+                            gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width,
+                            gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height);
 
                         if (srcLyr != null)
                         {
@@ -2938,7 +3148,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
                         }
                     }
                 }
@@ -2954,8 +3164,8 @@ namespace IceBlink2
                             y,
                             UpperLeftSquare.X,
                             UpperLeftSquare.Y,
-                            gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width,
-                            gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                            gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width,
+                            gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height);
 
                         if (srcLyr != null)
                         {
@@ -2968,7 +3178,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
                         }
                     }
                 }
@@ -2984,8 +3194,8 @@ namespace IceBlink2
                             y,
                             UpperLeftSquare.X,
                             UpperLeftSquare.Y,
-                            gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width,
-                            gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                            gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width,
+                            gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height);
 
                         if (srcLyr != null)
                         {
@@ -2998,7 +3208,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
                         }
                     }
                 }
@@ -3149,7 +3359,7 @@ namespace IceBlink2
                     else { } //didn't find one
 
 
-                    if (tglMoveOrder.toggleOn)
+                    if (showMoveOrder)
                     {
                         int mo = pc.moveOrder + 1;
                         drawText(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
@@ -3235,7 +3445,7 @@ namespace IceBlink2
                 else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                 else { } //didn't find one
 
-                if (tglMoveOrder.toggleOn)
+                if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
@@ -3293,7 +3503,7 @@ namespace IceBlink2
                 else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                 else { } //didn't find one
 
-                if (tglMoveOrder.toggleOn)
+                if (showMoveOrder)
                 {
                     int mo = crt.moveOrder + 1;
                     drawText(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY) - (int)gv.drawFontRegHeight, mo.ToString(), Color.White);
@@ -3439,7 +3649,7 @@ namespace IceBlink2
 	    }
 	    public void drawHPText()
 	    {		
-		    if ((tglHP.toggleOn) && (!animationsOn))
+		    if ((showHP) && (!animationsOn))
 		    {
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
 			    {
@@ -3459,7 +3669,7 @@ namespace IceBlink2
 	    }
 	    public void drawSPText()
 	    {		
-		    if ((tglSP.toggleOn) && (!animationsOn))
+		    if ((showSP) && (!animationsOn))
 		    {
 			    int txtH = (int)gv.drawFontRegHeight;
 			    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
@@ -3641,6 +3851,64 @@ namespace IceBlink2
                     //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
                 }
             }
+            else if (keyData == Keys.X)
+            {
+                foreach (IB2Panel pnl in combatUiLayout.panelList)
+                {                    
+                    //hides left
+                    if (pnl.hidingXIncrement < 0)
+                    {
+                        if (pnl.currentLocX < pnl.shownLocX)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides right
+                    else if (pnl.hidingXIncrement > 0)
+                    {
+                        if (pnl.currentLocX > pnl.shownLocX)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides down
+                    else if (pnl.hidingYIncrement > 0)
+                    {
+                        if (pnl.currentLocY > pnl.shownLocY)
+                        {
+                            if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                            {
+                                continue;
+                            }
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                    //hides up
+                    else if (pnl.hidingYIncrement < 0)
+                    {
+                        if (pnl.currentLocY < pnl.shownLocY)
+                        {
+                            pnl.showing = true;
+                        }
+                        else
+                        {
+                            pnl.hiding = true;
+                        }
+                    }
+                }
+            }
 
             #region Move Map
             if (keyData == Keys.Up)
@@ -3779,7 +4047,7 @@ namespace IceBlink2
         #endregion
 
         #region Mouse Input
-        public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchCombatOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             switch (eventType)
             {
@@ -4802,6 +5070,408 @@ namespace IceBlink2
                     break;
             }
         }
+
+        public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
+        {
+            switch (eventType)
+            {
+                case MouseEventType.EventType.MouseDown:
+                case MouseEventType.EventType.MouseMove:
+                    int x = (int)e.X;
+                    int y = (int)e.Y;
+
+                    //NEW SYSTEM
+                    combatUiLayout.setHover(x, y);
+
+                    int gridx = (int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize;
+                    int gridy = (int)(e.Y - (gv.squareSize / 2)) / gv.squareSize;
+
+                    #region FloatyText
+                    gv.cc.floatyText = "";
+                    gv.cc.floatyText2 = "";
+                    gv.cc.floatyText3 = "";
+                    foreach (Creature crt in mod.currentEncounter.encounterCreatureList)
+                    {
+                        if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
+                        {
+                            gv.cc.floatyText = crt.cr_name;
+                            gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
+                            gv.cc.floatyText3 = "AC:" + crt.AC + " " + crt.cr_status;
+                            gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+                        }
+                    }
+                    foreach (Player pc1 in mod.playerList)
+                    {
+                        if ((pc1.combatLocX == gridx + UpperLeftSquare.X) && (pc1.combatLocY == gridy + UpperLeftSquare.Y))
+                        {
+                            string am = "";
+                            ItemRefs itr = mod.getItemRefsInInventoryByResRef(pc1.AmmoRefs.resref);
+                            if (itr != null)
+                            {
+                                am = itr.quantity + "";
+                            }
+                            else
+                            {
+                                am = "";
+                            }
+
+                            gv.cc.floatyText = pc1.name;
+                            int actext = 0;
+                            if (mod.ArmorClassAscending) { actext = pc1.AC; }
+                            else { actext = 20 - pc1.AC; }
+                            gv.cc.floatyText2 = "AC:" + actext + " " + pc1.charStatus;
+                            gv.cc.floatyText3 = "Ammo: " + am;
+                            gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc1.combatLocX), getPixelLocY(pc1.combatLocY));
+
+                        }
+                    }
+                    #endregion
+
+                    break;
+
+                case MouseEventType.EventType.MouseUp:
+                    x = (int)e.X;
+                    y = (int)e.Y;
+
+                    Player pc = mod.playerList[currentPlayerIndex];
+
+                    //NEW SYSTEM
+                    string rtn = combatUiLayout.getImpact(x, y);
+                    gv.cc.addLogText("lime", "mouse down: " + rtn);
+
+                    #region Toggles
+                    if (rtn.Equals("tglHP"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        showHP = !showHP;
+                    }
+                    if (rtn.Equals("tglSP"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        showSP = !showSP;
+                    }
+                    if (rtn.Equals("tglMoveOrder"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        showMoveOrder = !showMoveOrder;
+                    }
+                    if (rtn.Equals("tglSpeed"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+
+                        if (mod.combatAnimationSpeed == 100)
+                        {
+                            mod.combatAnimationSpeed = 50;
+                            tgl.ImgOffFilename = "tgl_speed_2";
+                            gv.cc.addLogText("lime", "combat speed: 2x");                            
+                        }
+                        else if (mod.combatAnimationSpeed == 50)
+                        {
+                            mod.combatAnimationSpeed = 25;
+                            tgl.ImgOffFilename = "tgl_speed_4";
+                            gv.cc.addLogText("lime", "combat speed: 4x");                            
+                        }
+                        else if (mod.combatAnimationSpeed == 25)
+                        {
+                            mod.combatAnimationSpeed = 10;
+                            tgl.ImgOffFilename = "tgl_speed_10";
+                            gv.cc.addLogText("lime", "combat speed: 10x");
+                        }
+                        else if (mod.combatAnimationSpeed == 10)
+                        {
+                            mod.combatAnimationSpeed = 100;
+                            tgl.ImgOffFilename = "tgl_speed_1";
+                            gv.cc.addLogText("lime", "combat speed: 1x");
+                        }
+                    }
+                    if (rtn.Equals("tglSound"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            mod.playMusic = false;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = false;
+                            gv.stopCombatMusic();
+                            gv.cc.addLogText("lime", "Music Off");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            mod.playMusic = true;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = true;
+                            gv.startCombatMusic();
+                            gv.cc.addLogText("lime", "Music On");
+                        }
+                    }
+                    if (rtn.Equals("tglSoundFx"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            mod.playSoundFx = false;
+                            gv.cc.addLogText("lime", "SoundFX Off");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            mod.playSoundFx = true;
+                            gv.cc.addLogText("lime", "SoundFX On");
+                        }
+                    }
+                    if (rtn.Equals("tglGrid"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            mod.com_showGrid = false;
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            mod.com_showGrid = true;
+                        }
+                    }
+                    if (rtn.Equals("tglHelp"))
+                    {
+                        tutorialMessageCombat(true);
+                    }
+                    if ((rtn.Equals("tglKill")) && (mod.debugMode))
+                    {
+                        mod.currentEncounter.encounterCreatureList.Clear();
+                        mod.currentEncounter.encounterCreatureRefsList.Clear();
+                        checkEndEncounter();
+                    }
+                    #endregion
+
+                    #region TOUCH ON MAP AREA
+                    gridx = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize) + UpperLeftSquare.X;
+                    gridy = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize) + UpperLeftSquare.Y;
+
+                    if (IsInVisibleCombatWindow(gridx, gridy))
+                    {
+                        gv.cc.floatyText = "";
+                        gv.cc.floatyText2 = "";
+                        gv.cc.floatyText3 = "";
+                        if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            //Check for second tap so TARGET
+                            if ((gridx == targetHighlightCenterLocation.X) && (gridy == targetHighlightCenterLocation.Y))
+                            {
+                                if (currentCombatMode.Equals("attack"))
+                                {
+                                    TargetAttackPressed(pc);
+                                }
+                                else if (currentCombatMode.Equals("cast"))
+                                {
+                                    TargetCastPressed(pc);
+                                }
+                            }
+                            targetHighlightCenterLocation.Y = gridy;
+                            targetHighlightCenterLocation.X = gridx;
+                        }                        
+                    }
+                    #endregion
+                   
+                    #region BUTTONS
+                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    {
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveUp(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(8);
+                        }                            
+                    }
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    {                       
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveDown(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(2);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveLeft(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(4);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveRight(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(6);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveUpRight(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(9);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveDownRight(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(3);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveUpLeft(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(7);
+                        }
+                    }
+                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    {                        
+                        if (currentCombatMode.Equals("move"))
+                        {
+                            MoveDownLeft(pc);
+                        }
+                        else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
+                        {
+                            MoveTargetHighlight(1);
+                        }
+                    }
+                    else if (rtn.Equals("btnSwitchWeapon"))
+                    {
+                        if (currentPlayerIndex > mod.playerList.Count - 1)
+                        {
+                            return;
+                        }
+                        gv.cc.partyScreenPcIndex = currentPlayerIndex;
+                        gv.screenParty.resetPartyScreen();
+                        gv.screenType = "combatParty";
+                    }
+                    else if (rtn.Equals("btnMove"))
+                    {
+                        if (canMove)
+                        {
+                            if (currentCombatMode.Equals("move"))
+                            {
+                                currentCombatMode = "info";
+                            }
+                            else
+                            {
+                                currentCombatMode = "move";
+                            }                            
+                            gv.screenType = "combat";
+                        }
+                    }
+                    else if (rtn.Equals("btnInventory"))
+                    {
+                        gv.screenType = "combatInventory";
+                        gv.screenInventory.resetInventory();
+                    }
+                    else if (rtn.Equals("btnAttack"))
+                    {
+                        if (currentCombatMode.Equals("attack"))
+                        {
+                            currentCombatMode = "info";
+                        }
+                        else
+                        {
+                            currentCombatMode = "attack";
+                        }                            
+                        gv.screenType = "combat";
+                        setTargetHighlightStartLocation(pc);
+                    }
+                    else if (rtn.Equals("btnCast"))
+                    {
+                        if (pc.knownSpellsTags.Count > 0)
+                        {
+                            currentCombatMode = "castSelector";
+                            gv.screenType = "combatCast";
+                            gv.screenCastSelector.castingPlayerIndex = currentPlayerIndex;
+                            spellSelectorIndex = 0;
+                            setTargetHighlightStartLocation(pc);
+                        }
+                        else
+                        {
+                            //TODO Toast.makeText(gv.gameContext, "PC has no Spells", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else if (rtn.Equals("btnSkipTurn"))
+                    {
+                        gv.screenType = "combat";
+                        endPcTurn(false);
+                    }
+                    else if (rtn.Equals("btnSelect"))
+                    {
+                        if (currentCombatMode.Equals("attack"))
+                        {
+                            TargetAttackPressed(pc);
+                        }
+                        else if (currentCombatMode.Equals("cast"))
+                        {
+                            TargetCastPressed(pc);
+                        }
+                    }
+                    else if (rtn.Equals("btnToggleArrows"))
+                    {
+                        foreach (IB2Panel pnl in combatUiLayout.panelList)
+                        {
+                            if (pnl.tag.Equals("arrowPanel"))
+                            {
+                                //hides down
+                                showArrows = !showArrows;
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                    #endregion
+            }
+        }
+
         #endregion
 
         public void doUpdate(Player pc)

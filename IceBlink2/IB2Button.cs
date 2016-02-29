@@ -12,7 +12,7 @@ namespace IceBlink2
     {
         [JsonIgnore]
         public GameView gv;
-        public string name = "";
+        public string tag = "";
         public string ImgFilename = "";    //this is the normal button and color intensity
         public string ImgOffFilename = ""; //this is usually a grayed out button
         public string ImgOnFilename = "";  //useful for buttons that are toggled on like "Move"
@@ -34,6 +34,7 @@ namespace IceBlink2
         public int Height = 0;
         public float scaler = 1.0f;
         public bool playedHoverSound = false;
+        public bool show = true;
 
         public IB2Button()
         {
@@ -54,154 +55,162 @@ namespace IceBlink2
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
-            glowOn = false;
-
-            if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+            if (show)
             {
-                if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                glowOn = false;
+
+                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
                 {
-                    if (!playedHoverSound)
+                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
                     {
-                        playedHoverSound = true;
-                        gv.playerButtonEnter.Play();
+                        if (!playedHoverSound)
+                        {
+                            playedHoverSound = true;
+                            gv.playerButtonEnter.Play();
+                        }
+                        glowOn = true;
                     }
-                    glowOn = true;
                 }
+                playedHoverSound = false;
             }
-            playedHoverSound = false;
         }
 
         public bool getImpact(IB2Panel parentPanel, int x, int y)
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
-            
-            if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+            if (show)
             {
-                if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
                 {
-                    if (!playedHoverSound)
+                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
                     {
-                        playedHoverSound = true;
-                        gv.playerButtonEnter.Play();
+                        if (!playedHoverSound)
+                        {
+                            playedHoverSound = true;
+                            gv.playerButtonEnter.Play();
+                        }
+                        return true;
                     }
-                    return true;
                 }
+                playedHoverSound = false;
             }
-            playedHoverSound = false;
             return false;
         }
 
         public void Draw(IB2Panel parentPanel)
         {
-            int pH = (int)((float)gv.screenHeight / 200.0f);
-            int pW = (int)((float)gv.screenHeight / 200.0f);
-            float fSize = (float)(gv.squareSize / 4) * scaler;
-            //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
-            //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            if (show)
+            {
+                int pH = (int)((float)gv.screenHeight / 200.0f);
+                int pW = (int)((float)gv.screenHeight / 200.0f);
+                float fSize = (float)(gv.squareSize / 4) * scaler;
+                //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
+                //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
 
-            IbRect src = new IbRect(0, 0, Width, Height);                        
-            IbRect dst = new IbRect(parentPanel.currentLocX + this.X, parentPanel.currentLocY + this.Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect src = new IbRect(0, 0, Width, Height);
+                IbRect dst = new IbRect(parentPanel.currentLocX + this.X, parentPanel.currentLocY + this.Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
-            IbRect srcGlow = new IbRect(0, 0, Width, Height);
-            IbRect dstGlow = new IbRect(parentPanel.currentLocX + this.X - (int)(7 * gv.screenDensity),
-                                        parentPanel.currentLocY + this.Y - (int)(7 * gv.screenDensity),
-                                        (int)((float)Width) + (int)(15 * gv.screenDensity),
-                                        (int)((float)Height) + (int)(15 * gv.screenDensity));
+                IbRect srcGlow = new IbRect(0, 0, Width, Height);
+                IbRect dstGlow = new IbRect(parentPanel.currentLocX + this.X - (int)(7 * gv.screenDensity),
+                                            parentPanel.currentLocY + this.Y - (int)(7 * gv.screenDensity),
+                                            (int)((float)Width) + (int)(15 * gv.screenDensity),
+                                            (int)((float)Height) + (int)(15 * gv.screenDensity));
 
-            //draw glow first if on
-            if (glowOn)
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow);
-            }            
-            
-            //draw the proper button State
-            if (btnState == buttonState.On)
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
-            }
-            else if (btnState == buttonState.Off)
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
-            }
-            else
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst);
-            }
-            //draw the standard overlay image if has one
-            if ((btnState == buttonState.Off) && (!Img2OffFilename.Equals("")))
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst);
-            }
-            else if (!Img2Filename.Equals(""))
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst);
-            }
-            //draw the notification image if turned on (like a level up or additional convo nodes image)
-            if ((btnNotificationOn) && (!Img3Filename.Equals("")))
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst);
-            }
-
-            float thisFontHeight = gv.drawFontRegHeight;
-            if (scaler > 1.05f)
-            {
-                thisFontHeight = gv.drawFontLargeHeight;
-            }
-            else if (scaler < 0.95f)
-            {
-                thisFontHeight = gv.drawFontSmallHeight;
-            }
-
-            // DRAW TEXT
-            float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-            //place in the center
-            float ulX = ((Width) - stringSize) / 2;
-            float ulY = ((Height) - thisFontHeight) / 2;
-
-            for (int x = -2; x <= 2; x++)
-            {
-                for (int y = -2; y <= 2; y++)
+                //draw glow first if on
+                if (glowOn)
                 {
-                    gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow);
                 }
-            }
-            gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
 
-            // DRAW QUANTITY
-            stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-            //place in the bottom right quadrant
-            ulX = (((Width) - stringSize) / 8) * 7;
-            ulY = (((Height) - thisFontHeight) / 8) * 7;
-
-            for (int x = -2; x <= 2; x++)
-            {
-                for (int y = -2; y <= 2; y++)
+                //draw the proper button State
+                if (btnState == buttonState.On)
                 {
-                    gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
                 }
-            }
-            gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
+                else if (btnState == buttonState.Off)
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
+                }
+                else
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst);
+                }
+                //draw the standard overlay image if has one
+                if ((btnState == buttonState.Off) && (!Img2OffFilename.Equals("")))
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst);
+                }
+                else if (!Img2Filename.Equals(""))
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst);
+                }
+                //draw the notification image if turned on (like a level up or additional convo nodes image)
+                if ((btnNotificationOn) && (!Img3Filename.Equals("")))
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst);
+                }
 
-            // DRAW HOTKEY
-            if (gv.showHotKeys)
-            {
-                stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+                float thisFontHeight = gv.drawFontRegHeight;
+                if (scaler > 1.05f)
+                {
+                    thisFontHeight = gv.drawFontLargeHeight;
+                }
+                else if (scaler < 0.95f)
+                {
+                    thisFontHeight = gv.drawFontSmallHeight;
+                }
 
-                //place in the bottom center
-                ulX = ((Width) - stringSize) / 2;
-                ulY = (((Height) - thisFontHeight) / 4) * 3;
+                // DRAW TEXT
+                float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
+                //place in the center
+                float ulX = ((Width) - stringSize) / 2;
+                float ulY = ((Height) - thisFontHeight) / 2;
 
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                        gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
                     }
                 }
-                gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.Red);
+                gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
+
+                // DRAW QUANTITY
+                stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
+                //place in the bottom right quadrant
+                ulX = (((Width) - stringSize) / 8) * 7;
+                ulY = (((Height) - thisFontHeight) / 8) * 7;
+
+                for (int x = -2; x <= 2; x++)
+                {
+                    for (int y = -2; y <= 2; y++)
+                    {
+                        gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                    }
+                }
+                gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
+
+                // DRAW HOTKEY
+                if (gv.showHotKeys)
+                {
+                    stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
+
+                    //place in the bottom center
+                    ulX = ((Width) - stringSize) / 2;
+                    ulY = (((Height) - thisFontHeight) / 4) * 3;
+
+                    for (int x = -2; x <= 2; x++)
+                    {
+                        for (int y = -2; y <= 2; y++)
+                        {
+                            gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                        }
+                    }
+                    gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.Red);
+                }
             }
         }
 

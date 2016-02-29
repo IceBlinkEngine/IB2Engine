@@ -84,7 +84,7 @@ namespace IceBlink2
         public int triggerIndex = 0;
         public int triggerPropIndex = 0;
 
-        public IbbHtmlLogBox log;
+        public IB2HtmlLogBox log;
         public CommonCode cc;
         public Module mod;
         public ScriptFunctions sf;
@@ -228,7 +228,7 @@ namespace IceBlink2
             //cc = new CommonCode(this);            
             //mod = new Module();
 
-            log = new IbbHtmlLogBox(this, oXshift + (int)(3 * screenDensity), oYshift, 6 * squareSize - (int)(12 * screenDensity) - pS, 6 * squareSize + squareSize / 2);
+            log = new IB2HtmlLogBox(this);
             log.numberOfLinesToShow = 20;
             cc.addLogText("red", "screenDensity: " + screenDensity);
             cc.addLogText("fuchsia", "screenWidth: " + screenWidth);
@@ -279,10 +279,10 @@ namespace IceBlink2
 		    screenJournal = new ScreenJournal(mod, this);	
 		    screenShop = new ScreenShop(mod, this);
 		    screenCastSelector = new ScreenCastSelector(mod, this);
-		    screenConvo = new ScreenConvo(mod, this);
-		    screenCombat = new ScreenCombat(mod, this);
+		    screenConvo = new ScreenConvo(mod, this);		    
 		    screenMainMap = new ScreenMainMap(mod, this);
-		    screenTitle = new ScreenTitle(mod, this);
+            screenCombat = new ScreenCombat(mod, this);
+            screenTitle = new ScreenTitle(mod, this);
 		    screenPcCreation = new ScreenPcCreation(mod, this);
 		    screenSpellLevelUp = new ScreenSpellLevelUp(mod, this);
 		    screenTraitLevelUp = new ScreenTraitLevelUp(mod, this);		
@@ -418,7 +418,7 @@ namespace IceBlink2
 		    cc.setControlsStart();
             cc.setPortraitsStart();
 		    cc.setToggleButtonsStart();
-            log.ResetLogBoxUiBitmaps();
+            //TODO log.ResetLogBoxUiBitmaps();
 
 		    createScreens();
 		    initializeSounds();
@@ -1264,7 +1264,7 @@ namespace IceBlink2
         public void drawLog()
         {
             //log.updateLog();
-            log.onDrawLogBox();            
+            //TODO log.onDrawLogBox();            
         }
         public void onTouchLog()
         {
@@ -2072,7 +2072,7 @@ namespace IceBlink2
         {
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
-                log.onMouseDown(sender, e);
+                //TODO log.onMouseDown(sender, e);
             }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseDown);
         }
@@ -2080,7 +2080,7 @@ namespace IceBlink2
         {
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
-                log.onMouseUp(sender, e);
+                //TODO log.onMouseUp(sender, e);
             }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseUp);
         }
@@ -2089,7 +2089,7 @@ namespace IceBlink2
             //Render();
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
-                log.onMouseMove(sender, e);
+                //TODO log.onMouseMove(sender, e);
             }
             onMouseEvent(sender, e, MouseEventType.EventType.MouseMove);
         }

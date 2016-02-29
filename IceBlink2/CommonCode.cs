@@ -1265,6 +1265,7 @@ namespace IceBlink2
         //note: this method is only used if (!mod.useAllTileSystem)
         public void LoadTileBitmapList()
         {
+            /*No longer using this
             //probably just load what is needed for each area upon area load
             tileBitmapList.Clear();
             tileGDIBitmapList.Clear();
@@ -1330,6 +1331,7 @@ namespace IceBlink2
                 MessageBox.Show(ex.ToString());
                 gv.errorLog(ex.ToString());
             }
+            */
         }        
         public string GetModulePath()
         {
@@ -6920,6 +6922,10 @@ namespace IceBlink2
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".png");
                 }
+                else if ((mdl.currentArea.sourceBitmapName != "") && (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".PNG")))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".PNG");
+                }
                 else if ((mdl.currentArea.sourceBitmapName != "") && (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".jpg")))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + mdl.currentArea.sourceBitmapName + "\\" + filename + ".jpg");
@@ -6928,6 +6934,10 @@ namespace IceBlink2
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".png");
                 }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename + ".PNG");
+                }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\tiles\\" + filename);
@@ -6935,6 +6945,10 @@ namespace IceBlink2
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".PNG");
                 }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\graphics\\" + filename + ".jpg"))
                 {
@@ -6948,6 +6962,10 @@ namespace IceBlink2
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".png");
                 }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename + ".PNG");
+                }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\ui\\" + filename);
@@ -6956,20 +6974,27 @@ namespace IceBlink2
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".png");
                 }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename + ".PNG");
+                }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\pctokens\\" + filename);
-                }
-                
+                }                
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".png");
+                }
+                else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".PNG"))
+                {
+                    bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename + ".PNG");
                 }
                 else if (File.Exists(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\modules\\" + mdl.moduleName + "\\portraits\\" + filename);
                 }
-
+                //NewModule folders
                 else if (File.Exists(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png"))
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\" + filename + ".png");
@@ -7237,6 +7262,34 @@ namespace IceBlink2
             {
                 commonBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
                 return commonBitmapList[fileNameWithOutExt];
+            }
+        }
+        public SharpDX.Direct2D1.Bitmap GetFromTileBitmapList(string fileNameWithOutExt)
+        {
+            //check to see if in list already and return bitmap it if found
+            if (tileBitmapList.ContainsKey(fileNameWithOutExt))
+            {
+                return tileBitmapList[fileNameWithOutExt];
+            }
+            //try loading and adding to list and return bitmap
+            else
+            {
+                tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
+                return tileBitmapList[fileNameWithOutExt];
+            }
+        }
+        public System.Drawing.Bitmap GetFromTileGDIBitmapList(string fileNameWithOutExt)
+        {
+            //check to see if in list already and return bitmap it if found
+            if (tileGDIBitmapList.ContainsKey(fileNameWithOutExt))
+            {
+                return tileGDIBitmapList[fileNameWithOutExt];
+            }
+            //try loading and adding to list and return bitmap
+            else
+            {
+                tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
+                return tileGDIBitmapList[fileNameWithOutExt];
             }
         }
         public void DisposeOfBitmap(ref SharpDX.Direct2D1.Bitmap bmp)

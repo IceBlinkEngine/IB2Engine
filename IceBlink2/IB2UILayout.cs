@@ -71,5 +71,35 @@ namespace IceBlink2
                 pnl.Update(elapsed);
             }
         }
+
+        public IB2Button GetButtonByTag(string tag)
+        {
+            foreach (IB2Panel pnl in panelList)
+            {
+                foreach (IB2Button btn in pnl.buttonList)
+                {
+                    if (btn.tag.Equals(tag))
+                    {
+                        return btn;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public IB2ToggleButton GetToggleByTag(string tag)
+        {
+            foreach (IB2Panel pnl in panelList)
+            {
+                foreach (IB2ToggleButton btn in pnl.toggleList)
+                {
+                    if (btn.tag.Equals(tag))
+                    {
+                        return btn;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

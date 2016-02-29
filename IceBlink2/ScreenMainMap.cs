@@ -17,6 +17,11 @@ namespace IceBlink2
         public GameView gv;
 
         public IB2UILayout mainUiLayout = null;
+        public bool showMiniMap = false;
+        public bool showClock = false;
+        public bool showFullParty = false;
+        public bool showArrows = true;
+
         private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
         private IbbButton btnSettings = null;
@@ -54,8 +59,6 @@ namespace IceBlink2
             gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
             loadMainUILayout();
-            //setUiLayoutStart();  
-            //setupAndSaveLayout();
             setControlsStart();
             setToggleButtonsStart();            
         }
@@ -81,6 +84,28 @@ namespace IceBlink2
                         mainUiLayout.setupIB2UILayout(gv);
                     }
                 }
+                IB2ToggleButton tgl = mainUiLayout.GetToggleByTag("tglMiniMap");
+                if (tgl != null)
+                {
+                    showMiniMap = tgl.toggleOn;
+                }
+                IB2ToggleButton tgl2 = mainUiLayout.GetToggleByTag("tglClock");
+                if (tgl2 != null)
+                {
+                    showClock = tgl2.toggleOn;
+                }
+                IB2ToggleButton tgl3 = mainUiLayout.GetToggleByTag("tglFullParty");
+                if (tgl3 != null)
+                {
+                    showFullParty = tgl3.toggleOn;
+                }
+                foreach (IB2Panel pnl in mainUiLayout.panelList)
+                {
+                    if (pnl.tag.Equals("logPanel"))
+                    {
+                        gv.log = pnl.logList[0];
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -88,108 +113,8 @@ namespace IceBlink2
                 gv.errorLog(ex.ToString());
             }
         }
-        public void setUiLayoutStart()
-        {
-            mainUiLayout = new IB2UILayout(gv);
-
-            IB2Panel leftPanel = new IB2Panel(gv);
-            leftPanel.backgroundImageFilename = "ui_bg_log";
-            leftPanel.Height = 1000;
-            leftPanel.Width = 110;
-            leftPanel.hiddenLocX = -100;
-            leftPanel.hiddenLocY = 0;
-            leftPanel.shownLocX = 0;
-            leftPanel.shownLocY = 0;
-            leftPanel.hidingXIncrement = -1;
-            leftPanel.hidingYIncrement = 0;
-
-            IB2Button newBtn = new IB2Button(gv);
-            newBtn.ImgFilename = "btn_small";    //this is the normal button and color intensity
-            newBtn.ImgOffFilename = "btn_small_off"; //this is usually a grayed out button
-            newBtn.ImgOnFilename = "btn_small_on";  //useful for buttons that are toggled on like "Move"
-            newBtn.Img2Filename = "tr_rapidshot";   //usually used for an image on top of default button like arrows or inventory backpack image
-            newBtn.Img2OffFilename = "tr_rapidshot_off";   //usually used for turned off image on top of default button like spell not available
-            newBtn.Img3Filename = "convoplus";   //typically used for convo plus notification icon
-            newBtn.GlowFilename = "btn_small_glow";
-            newBtn.X = 5;
-            newBtn.Y = 30;
-            newBtn.name = "TEST BUTTON";
-            newBtn.Text = newBtn.name;
-            leftPanel.buttonList.Add(newBtn);
-
-            IB2ToggleButton newBtnT = new IB2ToggleButton(gv);
-            newBtnT.ImgOffFilename = "tgl_sp_off"; //this is usually a grayed out button
-            newBtnT.ImgOnFilename = "tgl_sp_on";  //useful for buttons that are toggled on like "Move"
-            newBtnT.X = 20;
-            newBtnT.Y = 140;
-            newBtnT.name = "TEST TOGGLE";
-            leftPanel.toggleList.Add(newBtnT);
-
-            IB2Portrait newPtr = new IB2Portrait(gv);
-            newPtr.ImgFilename = "ptr_adela";  
-            newPtr.ImgBGFilename = "item_slot"; 
-            newPtr.ImgLUFilename = "btnLevelUpPlus"; 
-            newPtr.GlowFilename = "btn_ptr_glow"; 
-            newPtr.X = 5;
-            newPtr.Y = 200;
-            newPtr.name = "TEST PORTRAIT";
-            newPtr.TextHP = "888/888";
-            newPtr.TextSP = "999/999";
-            leftPanel.portraitList.Add(newPtr);
-
-            mainUiLayout.panelList.Add(leftPanel);
-        }   
-        public void setupAndSaveLayout()
-        {
-            mainUiLayout = new IB2UILayout(gv);
-            //left log panel
-            IB2Panel leftPanel = new IB2Panel(gv);
-            leftPanel.name = "LeftPanel";
-            IB2Button newBtn = new IB2Button(gv);
-            newBtn.ImgFilename = "btn_small";    //this is the normal button and color intensity
-            newBtn.ImgOffFilename = "btn_small_off"; //this is usually a grayed out button
-            newBtn.ImgOnFilename = "btn_small_on";  //useful for buttons that are toggled on like "Move"
-            newBtn.Img2Filename = "tr_rapidshot";   //usually used for an image on top of default button like arrows or inventory backpack image
-            newBtn.Img2OffFilename = "tr_rapidshot_off";   //usually used for turned off image on top of default button like spell not available
-            newBtn.Img3Filename = "convoplus";   //typically used for convo plus notification icon
-            newBtn.GlowFilename = "btn_small_glow";
-            newBtn.X = 5;
-            newBtn.Y = 30;
-            newBtn.name = "TEST BUTTON";
-            newBtn.Text = newBtn.name;
-            leftPanel.buttonList.Add(newBtn);
-
-            IB2ToggleButton newBtnT = new IB2ToggleButton(gv);
-            newBtnT.ImgOffFilename = "tgl_sp_off"; //this is usually a grayed out button
-            newBtnT.ImgOnFilename = "tgl_sp_on";  //useful for buttons that are toggled on like "Move"
-            newBtnT.X = 20;
-            newBtnT.Y = 140;
-            newBtnT.name = "TEST TOGGLE";
-            leftPanel.toggleList.Add(newBtnT);
-
-            IB2Portrait newPtr = new IB2Portrait(gv);
-            newPtr.ImgFilename = "ptr_adela";
-            newPtr.ImgBGFilename = "item_slot";
-            newPtr.ImgLUFilename = "btnLevelUpPlus";
-            newPtr.GlowFilename = "btn_ptr_glow";
-            newPtr.X = 5;
-            newPtr.Y = 200;
-            newPtr.name = "TEST PORTRAIT";
-            newPtr.TextHP = "888/888";
-            newPtr.TextSP = "999/999";
-            leftPanel.portraitList.Add(newPtr);
-
-            mainUiLayout.panelList.Add(leftPanel);
-            
-            //right portrait panel
-            IB2Panel rightPanel = new IB2Panel(gv);
-            rightPanel.name = "RightPanel";
-            mainUiLayout.panelList.Add(rightPanel);
-            
-            //bottom button panel
-            IB2Panel bottomPanel = new IB2Panel(gv);
-            bottomPanel.name = "BottomPanel";
-            mainUiLayout.panelList.Add(bottomPanel);
+        public void saveUILayout()
+        {            
             try
             {
                 string filepath = gv.mainDirectory + "\\MainUILayout.json";
@@ -486,13 +411,13 @@ namespace IceBlink2
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                             {
                                 Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
-                                float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                                float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                                Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height);
+                                float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width / 100;
+                                float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height / 100;
                                 int brX = (int)(minimapSquareSizeInPixels * scalerX);
                                 int brY = (int)(minimapSquareSizeInPixels * scalerY);
                                 Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer1Filename], dst, src, GraphicsUnit.Pixel);
+                                device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile.Layer1Filename), dst, src, GraphicsUnit.Pixel);
                             }
                         }
                         #endregion
@@ -502,13 +427,13 @@ namespace IceBlink2
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                             {
                                 Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
-                                float scalerX = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width / 100;
-                                float scalerY = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height / 100;
+                                Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height);
+                                float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width / 100;
+                                float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height / 100;
                                 int brX = (int)(minimapSquareSizeInPixels * scalerX);
                                 int brY = (int)(minimapSquareSizeInPixels * scalerY);
                                 Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer2Filename], dst, src, GraphicsUnit.Pixel);
+                                device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile.Layer2Filename), dst, src, GraphicsUnit.Pixel);
                             }
                         }
                         #endregion
@@ -518,13 +443,13 @@ namespace IceBlink2
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                             {
                                 Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
-                                float scalerX = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width / 100;
-                                float scalerY = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height / 100;
+                                Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height);
+                                float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width / 100;
+                                float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height / 100;
                                 int brX = (int)(minimapSquareSizeInPixels * scalerX);
                                 int brY = (int)(minimapSquareSizeInPixels * scalerY);
                                 Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer3Filename], dst, src, GraphicsUnit.Pixel);
+                                device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile.Layer3Filename), dst, src, GraphicsUnit.Pixel);
                             }
                         }
                         #endregion
@@ -534,13 +459,13 @@ namespace IceBlink2
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                             {
                                 Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
-                                float scalerX = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width / 100;
-                                float scalerY = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height / 100;
+                                Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height);
+                                float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width / 100;
+                                float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height / 100;
                                 int brX = (int)(minimapSquareSizeInPixels * scalerX);
                                 int brY = (int)(minimapSquareSizeInPixels * scalerY);
                                 Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer4Filename], dst, src, GraphicsUnit.Pixel);
+                                device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile.Layer4Filename), dst, src, GraphicsUnit.Pixel);
                             }
                         }
                         #endregion
@@ -550,13 +475,13 @@ namespace IceBlink2
                             for (int y = 0; y < mod.currentArea.MapSizeY; y++)
                             {
                                 Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                                Rectangle src = new Rectangle(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
-                                float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100;
-                                float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100;
+                                Rectangle src = new Rectangle(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height);
+                                float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width / 100;
+                                float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height / 100;
                                 int brX = (int)(minimapSquareSizeInPixels * scalerX);
                                 int brY = (int)(minimapSquareSizeInPixels * scalerY);
                                 Rectangle dst = new Rectangle(x * minimapSquareSizeInPixels, y * minimapSquareSizeInPixels, brX, brY);
-                                device.DrawImage(gv.cc.tileGDIBitmapList[tile.Layer5Filename], dst, src, GraphicsUnit.Pixel);
+                                device.DrawImage(gv.cc.GetFromTileGDIBitmapList(tile.Layer5Filename), dst, src, GraphicsUnit.Pixel);
                             }
                         }
                         #endregion
@@ -598,12 +523,12 @@ namespace IceBlink2
                 drawProps();
                 if (mod.map_showGrid)
                 {
-                    tglGrid.toggleOn = true;
+                    //tglGrid.toggleOn = true;
                     drawGrid();
                 }
                 else
                 {
-                    tglGrid.toggleOn = false;
+                    //tglGrid.toggleOn = false;
                 }
             }
             drawPlayer();
@@ -644,20 +569,25 @@ namespace IceBlink2
             }
             drawSprites();
             drawTopFullScreenEffects();
-            if (tglClock.toggleOn)
+            
+            if (showClock)
             {
                 drawMainMapClockText();
             }
-            gv.drawLog();
-            drawControls();
-            drawMiniMap();
-            drawPortraits();
+                        
+            //gv.drawLog();
+            //drawControls();            
+            //drawPortraits();
             //uncomment below to test
-            //drawUiLayout();
+            drawUiLayout();
+            drawMiniMap();
         }
         public void drawPortraits()
         {
-            if (mod.playerList.Count > 0)
+            
+            
+            //OLD SYSTEM
+            /*if (mod.playerList.Count > 0)
             {
                 gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
                 gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
@@ -710,7 +640,7 @@ namespace IceBlink2
                 if (gv.mod.selectedPartyLeader == 5) { gv.cc.ptrPc5.glowOn = true; }
                 else { gv.cc.ptrPc5.glowOn = false; }
                 gv.cc.ptrPc5.Draw();
-            }
+            }*/
         }
         public void drawWorldMap()
         {
@@ -2249,16 +2179,16 @@ namespace IceBlink2
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
                         try
                         {
-                            IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer1Filename].PixelSize.Height);
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
                         }
                         catch { }
                     }
@@ -2272,16 +2202,16 @@ namespace IceBlink2
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
                         try
                         {
-                            IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer2Filename].PixelSize.Height);
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer2Filename], src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
                         }
                         catch { }
                     }
@@ -2295,16 +2225,16 @@ namespace IceBlink2
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
                         try
                         {
-                            IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer3Filename].PixelSize.Height);
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer3Filename], src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
                         }
                         catch { }
                     }
@@ -2318,16 +2248,16 @@ namespace IceBlink2
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
                         try
                         {
-                            IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer4Filename].PixelSize.Height);
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer4Filename], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer4Filename), src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift);
                         }
                         catch { }
                     }
@@ -2341,16 +2271,16 @@ namespace IceBlink2
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
                         int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
                         int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
-                        float scalerX = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width / 100;
-                        float scalerY = gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height / 100;
+                        float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width / 100;
+                        float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
                         int brY = (int)(gv.squareSize * scalerY);
 
                         try
                         {
-                            IbRect src = new IbRect(0, 0, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Width, gv.cc.tileBitmapList[tile.Layer5Filename].PixelSize.Height);
+                            IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer5Filename], src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer5Filename), src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift);
                         }
                         catch { }
                     }
@@ -24800,8 +24730,7 @@ namespace IceBlink2
         }
         public void drawMiniMap()
         {
-            //if ((mod.currentArea.IsWorldMap) && (tglMiniMap.toggleOn))
-            if (tglMiniMap.toggleOn)
+            if (showMiniMap)
             {
                 int pW = (int)((float)gv.screenWidth / 100.0f);
                 int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -24876,7 +24805,7 @@ namespace IceBlink2
             {
                 shift = (int)shift / 4;
             }
-                IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
+            IbRect src = new IbRect(0, 0, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width, mod.playerList[mod.selectedPartyLeader].token.PixelSize.Width);
             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
             if (mod.showPartyToken)
             {
@@ -24924,7 +24853,7 @@ namespace IceBlink2
             }
             else
             {
-                if ((tglFullParty.toggleOn) && (mod.playerList.Count > 1))
+                if ((showFullParty) && (mod.playerList.Count > 1))
                 {
                     if (mod.playerList[0].combatFacingLeft == true)
                     {
@@ -25247,7 +25176,7 @@ namespace IceBlink2
                 shift = 0;
                 if (mod.selectedPartyLeader == 0)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -25259,7 +25188,7 @@ namespace IceBlink2
                 }
                 else if (mod.selectedPartyLeader == 1)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift + shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -25271,7 +25200,7 @@ namespace IceBlink2
                 }
                 else if (mod.selectedPartyLeader == 2)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift - shift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -25283,7 +25212,7 @@ namespace IceBlink2
                 }
                 else if (mod.selectedPartyLeader == 3)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift + (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -25295,7 +25224,7 @@ namespace IceBlink2
                 }
                 else if (mod.selectedPartyLeader == 4)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift - (shift * 2) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -25307,7 +25236,7 @@ namespace IceBlink2
                 }
                 else if (mod.selectedPartyLeader == 5)
                 {
-                    if (tglFullParty.toggleOn)
+                    if (showFullParty)
                     {
                         dst = new IbRect(x + gv.oXshift - (shift * 3) + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
@@ -26053,15 +25982,15 @@ namespace IceBlink2
         }
         public void drawPanels()
         {
-            gv.cc.pnlLog.Draw();
-            gv.cc.pnlToggles.Draw();
-            gv.cc.pnlPortraits.Draw();
-            gv.cc.pnlArrows.Draw();
-            gv.cc.pnlHotkeys.Draw();
+            //gv.cc.pnlLog.Draw();
+            //gv.cc.pnlToggles.Draw();
+            //gv.cc.pnlPortraits.Draw();
+            //gv.cc.pnlArrows.Draw();
+            //gv.cc.pnlHotkeys.Draw();
         }
         public void drawControls()
         {
-            gv.cc.ctrlUpArrow.Draw();
+            /*gv.cc.ctrlUpArrow.Draw();
             gv.cc.ctrlDownArrow.Draw();
             gv.cc.ctrlLeftArrow.Draw();
             gv.cc.ctrlRightArrow.Draw();
@@ -26091,6 +26020,7 @@ namespace IceBlink2
             }
             btnSave.Draw();
             btnCastOnMainMap.Draw();
+            */
         }
         public void drawFloatyTextPool()
         {
@@ -26237,6 +26167,36 @@ namespace IceBlink2
                 
         public void drawUiLayout()
         {
+            //SET PORTRAITS
+            foreach (IB2Panel pnl in mainUiLayout.panelList)
+            {
+                if (pnl.tag.Equals("portraitPanel"))
+                {
+                    foreach (IB2Portrait ptr in pnl.portraitList)
+                    {
+                        ptr.show = false;
+                    }
+                    int index = 0;
+                    foreach (Player pc in mod.playerList)
+                    {
+                        pnl.portraitList[index].show = true;
+                        pnl.portraitList[index].ImgFilename = pc.portraitFilename;
+                        pnl.portraitList[index].TextHP = pc.hp + "/" + pc.hpMax;
+                        pnl.portraitList[index].TextSP = pc.sp + "/" + pc.spMax;
+                        if (gv.mod.selectedPartyLeader == index)
+                        {
+                            pnl.portraitList[index].glowOn = true;
+                        }
+                        else
+                        {
+                            pnl.portraitList[index].glowOn = false;
+                        }
+                        index++;
+                    }
+                    break;
+                }
+            }
+
             mainUiLayout.Draw();
         }
         /*public void doFloatyTextLoop()
@@ -26408,7 +26368,7 @@ namespace IceBlink2
         }
 
         //to test new layout system, change this to onTouchMain
-        public void onTouchMainNew(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             switch (eventType)
             {
@@ -26454,143 +26414,131 @@ namespace IceBlink2
                     string rtn = mainUiLayout.getImpact(x, y);
                     gv.cc.addLogText("lime", "mouse down: " + rtn);
 
-                    if (tglGrid.getImpact(x, y))
+                    if (rtn.Equals("tglGrid"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglGrid.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            tglGrid.toggleOn = false;
+                            tgl.toggleOn = false;
                             mod.map_showGrid = false;
                         }
                         else
                         {
-                            tglGrid.toggleOn = true;
+                            tgl.toggleOn = true;
                             mod.map_showGrid = true;
                         }
                     }
-
-                    if (tglInteractionState.getImpact(x, y))
+                    if (rtn.Equals("tglInteractionState"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglInteractionState.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            tglInteractionState.toggleOn = false;
+                            tgl.toggleOn = false;
                             mod.showInteractionState = false;
                             gv.cc.addLogText("yellow", "Hide info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
                         }
                         else
                         {
-                            tglInteractionState.toggleOn = true;
+                            tgl.toggleOn = true;
                             mod.showInteractionState = true;
                             gv.cc.addLogText("lime", "Show info about interaction state of NPC and creatures (encounter = red, mandatory conversation = orange and optional conversation = green");
                         }
                     }
-
-                    if (tglAvoidConversation.getImpact(x, y))
+                    if (rtn.Equals("tglAvoidConversation"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglAvoidConversation.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            tglAvoidConversation.toggleOn = false;
+                            tgl.toggleOn = false;
                             mod.avoidInteraction = false;
                             gv.cc.addLogText("lime", "Normal move mode: party does all possible conversations");
                         }
                         else
                         {
-                            tglAvoidConversation.toggleOn = true;
+                            tgl.toggleOn = true;
                             mod.avoidInteraction = true;
                             gv.cc.addLogText("yellow", "In a hurry: Party is avoiding all conversations that are not mandatory");
                         }
                     }
 
-
-                    if (tglClock.getImpact(x, y))
+                    if (rtn.Equals("tglClock"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglClock.toggleOn)
-                        {
-                            tglClock.toggleOn = false;
-                        }
-                        else
-                        {
-                            tglClock.toggleOn = true;
-                        }
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        tgl.toggleOn = !tgl.toggleOn;
+                        showClock = !showClock;
                     }
-                    if (gv.cc.tglSound.getImpact(x, y))
+                    if (rtn.Equals("tglSound"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (gv.cc.tglSound.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            gv.cc.tglSound.toggleOn = false;
+                            tgl.toggleOn = false;
                             mod.playMusic = false;
                             mod.playSoundFx = false;
-                            gv.screenCombat.tglSoundFx.toggleOn = false;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = false;
                             gv.stopMusic();
                             gv.stopAmbient();
                             gv.cc.addLogText("lime", "Music Off, SoundFX Off");
                         }
                         else
                         {
-                            gv.cc.tglSound.toggleOn = true;
+                            tgl.toggleOn = true;
                             mod.playMusic = true;
                             mod.playSoundFx = true;
-                            gv.screenCombat.tglSoundFx.toggleOn = true;
+                            //TODO gv.screenCombat.tglSoundFx.toggleOn = true;
                             gv.startMusic();
                             gv.startAmbient();
                             gv.cc.addLogText("lime", "Music On, SoundFX On");
                         }
                     }
-                    if (tglFullParty.getImpact(x, y))
+                    if (rtn.Equals("tglFullParty"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglFullParty.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            tglFullParty.toggleOn = false;
+                            tgl.toggleOn = false;
+                            showFullParty = false;
                             gv.cc.addLogText("lime", "Show Party Leader");
                         }
                         else
                         {
-                            tglFullParty.toggleOn = true;
+                            tgl.toggleOn = true;
+                            showFullParty = true;
                             gv.cc.addLogText("lime", "Show Full Party");
                         }
                     }
-                    //if ((tglMiniMap.getImpact(x, y)) && (mod.currentArea.IsWorldMap))
-                    if (tglMiniMap.getImpact(x, y))
+                    if (rtn.Equals("tglMiniMap"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (tglMiniMap.toggleOn)
+                        IB2ToggleButton tgl = mainUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
                         {
-                            tglMiniMap.toggleOn = false;
+                            tgl.toggleOn = false;
+                            showMiniMap = false;
                             gv.cc.addLogText("lime", "Hide Mini Map");
                         }
                         else
                         {
-                            tglMiniMap.toggleOn = true;
+                            tgl.toggleOn = true;
+                            showMiniMap = true;
                             gv.cc.addLogText("lime", "Show Mini Map");
                         }
                     }
-                    if ((gv.cc.ctrlUpArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) == actualy)))
+                    if ((rtn.Equals("ctrlUpArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY - 1) == actualy)))
                     {
                         bool isTransition = gv.cc.goNorth();
                         if (!isTransition)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             if (mod.PlayerLocationY > 0)
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
                                 {
-
-                                    //gv.mod.blockTrigger = false;
-                                    //gv.mod.blockTriggerMovingProp = false;
-
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationY--;
@@ -26598,28 +26546,18 @@ namespace IceBlink2
                                 }
                             }
                         }
-                        //else
-                        //{
-                        //gv.cc.doUpdate();
-                        //}
                     }
-                    else if ((gv.cc.ctrlDownArrow.getImpact(x, y)) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) == actualy)))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((mod.PlayerLocationX == actualx) && ((mod.PlayerLocationY + 1) == actualy)))
                     {
 
                         bool isTransition = gv.cc.goSouth();
                         if (!isTransition)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             int mapheight = mod.currentArea.MapSizeY;
                             if (mod.PlayerLocationY < (mapheight - 1))
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY + 1) == false)
                                 {
-
-                                    //gv.mod.blockTrigger = false;
-                                    //gv.mod.blockTriggerMovingProp = false;
-
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationY++;
@@ -26628,21 +26566,15 @@ namespace IceBlink2
                             }
                         }
                     }
-                    else if ((gv.cc.ctrlLeftArrow.getImpact(x, y)) || (((mod.PlayerLocationX - 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    else if ((rtn.Equals("ctrlLeftArrow")) || (((mod.PlayerLocationX - 1) == actualx) && (mod.PlayerLocationY == actualy)))
                     {
                         bool isTransition = gv.cc.goWest();
                         if (!isTransition)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             if (mod.PlayerLocationX > 0)
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                                 {
-
-                                    //gv.mod.blockTrigger = false;
-                                    //gv.mod.blockTriggerMovingProp = false;
-
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX--;
@@ -26662,22 +26594,16 @@ namespace IceBlink2
                             }
                         }
                     }
-                    else if ((gv.cc.ctrlRightArrow.getImpact(x, y)) || (((mod.PlayerLocationX + 1) == actualx) && (mod.PlayerLocationY == actualy)))
+                    else if ((rtn.Equals("ctrlRightArrow")) || (((mod.PlayerLocationX + 1) == actualx) && (mod.PlayerLocationY == actualy)))
                     {
                         bool isTransition = gv.cc.goEast();
                         if (!isTransition)
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             int mapwidth = mod.currentArea.MapSizeX;
                             if (mod.PlayerLocationX < (mapwidth - 1))
                             {
                                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
                                 {
-
-                                    //gv.mod.blockTrigger = false;
-                                    //gv.mod.blockTriggerMovingProp = false;
-
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX++;
@@ -26697,15 +26623,13 @@ namespace IceBlink2
                             }
                         }
                     }
-                    else if (btnParty.getImpact(x, y))
+                    else if (rtn.Equals("btnParty"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenParty.resetPartyScreen();
                         gv.screenType = "party";
                         gv.cc.tutorialMessageParty(false);
                     }
-                    else if ((gv.cc.ptrPc0.getImpact(x, y)) && (mod.playerList.Count > 0))
+                    else if ((rtn.Equals("port0")) && (mod.playerList.Count > 0))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26721,7 +26645,7 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 0;
                         }
                     }
-                    else if ((gv.cc.ptrPc1.getImpact(x, y)) && (mod.playerList.Count > 1))
+                    else if ((rtn.Equals("port1")) && (mod.playerList.Count > 1))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26737,7 +26661,7 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 1;
                         }
                     }
-                    else if ((gv.cc.ptrPc2.getImpact(x, y)) && (mod.playerList.Count > 2))
+                    else if ((rtn.Equals("port2")) && (mod.playerList.Count > 2))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26753,7 +26677,7 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 2;
                         }
                     }
-                    else if ((gv.cc.ptrPc3.getImpact(x, y)) && (mod.playerList.Count > 3))
+                    else if ((rtn.Equals("port3")) && (mod.playerList.Count > 3))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26769,7 +26693,7 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 3;
                         }
                     }
-                    else if ((gv.cc.ptrPc4.getImpact(x, y)) && (mod.playerList.Count > 4))
+                    else if ((rtn.Equals("port4")) && (mod.playerList.Count > 4))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26785,7 +26709,7 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 4;
                         }
                     }
-                    else if ((gv.cc.ptrPc5.getImpact(x, y)) && (mod.playerList.Count > 5))
+                    else if ((rtn.Equals("port5")) && (mod.playerList.Count > 5))
                     {
                         if (e.Button == MouseButtons.Left)
                         {
@@ -26801,46 +26725,33 @@ namespace IceBlink2
                             gv.cc.partyScreenPcIndex = 5;
                         }
                     }
-                    else if (gv.cc.btnInventory.getImpact(x, y))
+                    else if (rtn.Equals("btnInventory"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "inventory";
                         gv.screenInventory.resetInventory();
                         gv.cc.tutorialMessageInventory(false);
                     }
-                    else if (btnJournal.getImpact(x, y))
+                    else if (rtn.Equals("btnJournal"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenType = "journal";
                     }
-                    else if (btnSettings.getImpact(x, y))
+                    else if (rtn.Equals("btnSettings"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.cc.doSettingsDialogs();
                     }
-                    else if (btnSave.getImpact(x, y))
+                    else if (rtn.Equals("btnSave"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (mod.allowSave)
                         {
                             gv.cc.doSavesDialog();
                         }
                     }
-                    else if (btnWait.getImpact(x, y))
+                    else if (rtn.Equals("btnWait"))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.cc.doUpdate();
                     }
-                    else if (btnCastOnMainMap.getImpact(x, y))
+                    else if (rtn.Equals("btnCastOnMainMap"))
                     {
-
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 
                         List<string> pcNames = new List<string>();
                         List<int> pcIndex = new List<int>();
@@ -26901,11 +26812,30 @@ namespace IceBlink2
                             }
                         }
                     }
+                    else if (rtn.Equals("btnToggleArrows"))
+                    {
+                        foreach (IB2Panel pnl in mainUiLayout.panelList)
+                        {
+                            if (pnl.tag.Equals("arrowPanel"))
+                            {
+                                showArrows = !showArrows;
+                                //hides down
+                                if (pnl.currentLocY > pnl.shownLocY)
+                                {
+                                    pnl.showing = true;
+                                }
+                                else
+                                {
+                                    pnl.hiding = true;
+                                }
+                            }                            
+                        }
+                    }                    
                     break;
             }
         }
         //to test new layout system, change this to onTouchMainOld
-        public void onTouchMain(MouseEventArgs e, MouseEventType.EventType eventType)
+        public void onTouchMainOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             gv.cc.ctrlUpArrow.glowOn = false;
             gv.cc.ctrlDownArrow.glowOn = false;
@@ -27812,7 +27742,7 @@ namespace IceBlink2
                     gv.cc.addLogText("red", "No save allowed at this time.");
                 }
             }
-            if (keyData == Keys.D)
+            else if (keyData == Keys.D)
             {
                 if (gv.mod.debugMode)
                 {
@@ -27825,17 +27755,17 @@ namespace IceBlink2
                     gv.cc.addLogText("lime", "DebugMode Turned On");
                 }
             }
-            if (keyData == Keys.I)
+            else if (keyData == Keys.I)
             {
                 gv.screenType = "inventory";
                 gv.screenInventory.resetInventory();
                 gv.cc.tutorialMessageInventory(false);
             }
-            if (keyData == Keys.J)
+            else if (keyData == Keys.J)
             {
                 gv.screenType = "journal";
             }
-            if (keyData == Keys.P)
+            else if (keyData == Keys.P)
             {
                 /*int cntPCs = 0;
                 foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
@@ -27850,7 +27780,7 @@ namespace IceBlink2
                 gv.screenType = "party";
                 gv.cc.tutorialMessageParty(false);
             }
-            if (keyData == Keys.C)
+            else if (keyData == Keys.C)
             {
                 List<string> pcNames = new List<string>();
                 List<int> pcIndex = new List<int>();
@@ -27911,7 +27841,7 @@ namespace IceBlink2
                     }
                 }
             }
-            if (keyData == Keys.X)
+            else if (keyData == Keys.X)
             {
                 foreach (IB2Panel pnl in mainUiLayout.panelList)
                 {
@@ -27944,6 +27874,10 @@ namespace IceBlink2
                     {
                         if (pnl.currentLocY > pnl.shownLocY)
                         {
+                            if ((pnl.tag.Equals("arrowPanel")) && (!showArrows)) //don't show arrows
+                            {
+                                continue;
+                            }
                             pnl.showing = true;
                         }
                         else

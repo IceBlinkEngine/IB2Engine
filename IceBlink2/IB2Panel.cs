@@ -11,7 +11,7 @@ namespace IceBlink2
         //this class is handled differently than Android version
         [JsonIgnore]
         public GameView gv;
-        public string name = "";
+        public string tag = "";
         public string backgroundImageFilename = "";
         public bool hiding = false;
         public bool showing = false;
@@ -28,7 +28,7 @@ namespace IceBlink2
         public List<IB2Button> buttonList = new List<IB2Button>();
         public List<IB2ToggleButton> toggleList = new List<IB2ToggleButton>();
         public List<IB2Portrait> portraitList = new List<IB2Portrait>();
-        public List<IbbHtmlLogBox> logList = new List<IbbHtmlLogBox>();
+        public List<IB2HtmlLogBox> logList = new List<IB2HtmlLogBox>();
 
         public IB2Panel()
         {
@@ -59,9 +59,9 @@ namespace IceBlink2
             {
                 btn.setupIB2Portrait(gv);
             }
-            foreach (IbbHtmlLogBox log in logList)
+            foreach (IB2HtmlLogBox log in logList)
             {
-                //
+                log.setupIB2HtmlLogBox(gv);
             }
         }
 
@@ -85,24 +85,24 @@ namespace IceBlink2
             {
                 if (btn.getImpact(this, x, y))
                 {
-                    return btn.name;
+                    return btn.tag;
                 }
             }
             foreach (IB2ToggleButton btn in toggleList)
             {
                 if (btn.getImpact(this, x, y))
                 {
-                    return btn.name;
+                    return btn.tag;
                 }
             }
             foreach (IB2Portrait btn in portraitList)
             {
                 if (btn.getImpact(this, x, y))
                 {
-                    return btn.name;
+                    return btn.tag;
                 }
             }
-            foreach (IbbHtmlLogBox log in logList)
+            foreach (IB2HtmlLogBox log in logList)
             {
                 //log.onDrawLogBox();
             }
@@ -128,9 +128,9 @@ namespace IceBlink2
             {
                 btn.Draw(this);
             }
-            foreach (IbbHtmlLogBox log in logList)
+            foreach (IB2HtmlLogBox log in logList)
             {
-                log.onDrawLogBox();
+                log.onDrawLogBox(this);
             }
         }
 

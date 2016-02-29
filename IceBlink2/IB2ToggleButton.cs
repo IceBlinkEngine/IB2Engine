@@ -10,14 +10,15 @@ namespace IceBlink2
     {
         [JsonIgnore]
         public GameView gv;
-        public string name = "";
+        public string tag = "";
         public string ImgOnFilename = "";
         public string ImgOffFilename = "";
         public bool toggleOn = false;
         public int X = 0;
-        public int Y = 0;
-        //public int Width = 0;
-        //public int Height = 0;
+        public int Y = 0;        
+        public int Width = 0;
+        public int Height = 0;
+        public bool show = true;
 
         public IB2ToggleButton()
         {
@@ -38,14 +39,16 @@ namespace IceBlink2
 
         public bool getImpact(IB2Panel parentPanel, int x, int y)
         {
-            int Width = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width;
-            int Height = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height;
-
-            if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+            //int Width = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width;
+            //int Height = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height;
+            if (show)
             {
-                if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
                 {
-                    return true;
+                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
@@ -53,16 +56,19 @@ namespace IceBlink2
 
         public void Draw(IB2Panel parentPanel)
         {
-            IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
-            IbRect dst = new IbRect(parentPanel.currentLocX + X, parentPanel.currentLocY + Y, gv.squareSize / 2, gv.squareSize / 2);
+            if (show)
+            {
+                IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
+                IbRect dst = new IbRect(parentPanel.currentLocX + X, parentPanel.currentLocY + Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
-            if (toggleOn)
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
-            }
-            else
-            {
-                gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
+                if (toggleOn)
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst);
+                }
+                else
+                {
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst);
+                }
             }
         }
 
