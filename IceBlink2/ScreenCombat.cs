@@ -89,7 +89,8 @@ namespace IceBlink2
 		    gv = g;
             mapStartLocXinPixels = 6 * gv.squareSize;
             loadMainUILayout();
-		    setControlsStart();
+            //CalculateUpperLeft();
+            setControlsStart();
             setToggleButtonsStart();
 	    }
 
@@ -452,6 +453,7 @@ namespace IceBlink2
 
         public void doCombatSetup()
         {
+            
             if (mod.playMusic)
             {
                 gv.stopMusic();
@@ -509,6 +511,10 @@ namespace IceBlink2
             currentCombatMode = "info";
             drawDeathAnimation = false;
             encounterXP = 0;
+            if (gv.mod.useManualCombatCam)
+            {
+                CenterScreenOnPC();
+            }
             foreach (Creature crtr in mod.currentEncounter.encounterCreatureList)
             {
                 encounterXP += crtr.cr_XP;
@@ -1266,7 +1272,21 @@ namespace IceBlink2
                 playerToAnimate = null;
                 gv.Render();
                 animationState = AnimationState.CreatureThink;
-                gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                if (!gv.mod.useManualCombatCam)
+                {
+                    gv.postDelayed("doAnimation", (int)(2.5f * mod.combatAnimationSpeed));
+                }
+                else
+                {
+                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffset * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                    {
+                        gv.postDelayed("doAnimation", (int)(1.65f * mod.combatAnimationSpeed)); ;
+                    }
+                    else
+                    {
+                        gv.postDelayed("doAnimation", 1);
+                    }
+                }
 
             }
             else
@@ -6020,7 +6040,13 @@ namespace IceBlink2
             {
                 gv.touchEnabled = false;
             }
+
             int ttl = 16 * mod.combatAnimationSpeed;
+            if (gv.mod.useManualCombatCam)
+            {
+                ttl = 8 * mod.combatAnimationSpeed;
+            }
+            
             Sprite spr = new Sprite(gv, filename, Loc.X, Loc.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
             group.turnFloatyTextOn = true;
             group.SpriteGroup.Add(spr);
