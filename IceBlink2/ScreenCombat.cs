@@ -1949,9 +1949,12 @@ namespace IceBlink2
 
                 if (pc.hp <= 0)
                 {
-                    deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                     gv.cc.addLogText("<font color='red'>" + pc.name + " drops down unconsciously!" + "</font><BR>");
                     pc.charStatus = "Dead";
+                }
+                if (pc.hp <= -20)
+                {
+                    deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                 }
                 return true;
             }

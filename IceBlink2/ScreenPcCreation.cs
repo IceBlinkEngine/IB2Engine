@@ -671,57 +671,65 @@ namespace IceBlink2
                     }
                     else if (btnFinished.getImpact(x, y))
                     {
-                        gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-
-                        //if automatically learned traits or spells add them
-                        foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
+                        //hurghxxx
+                        if ((pc.name != "CharacterName") && (pc.name != ""))
                         {
-                            if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                            gv.PlaySound("btn_click");
+                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
+                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
+
+                            //if automatically learned traits or spells add them
+                            foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
                             {
-                                pc.knownTraitsTags.Add(ta.tag);
+                                if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
+                                {
+                                    pc.knownTraitsTags.Add(ta.tag);
+                                }
                             }
-                        }
-                        foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
-                        {
-                            if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                            foreach (SpellAllowed sa in pc.playerClass.spellsAllowed)
                             {
-                                pc.knownSpellsTags.Add(sa.tag);
+                                if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
+                                {
+                                    pc.knownSpellsTags.Add(sa.tag);
+                                }
                             }
-                        }
 
-                        //check to see if have any traits to learn
-                        List<string> traitTagsList = new List<string>();
-                        traitTagsList = pc.getTraitsToLearn(gv.mod);
+                            //check to see if have any traits to learn
+                            List<string> traitTagsList = new List<string>();
+                            traitTagsList = pc.getTraitsToLearn(gv.mod);
 
-                        //check to see if have any spells to learn
-                        List<string> spellTagsList = new List<string>();
-                        spellTagsList = pc.getSpellsToLearn();
+                            //check to see if have any spells to learn
+                            List<string> spellTagsList = new List<string>();
+                            spellTagsList = pc.getSpellsToLearn();
 
-                        if (traitTagsList.Count > 0)
-                        {
-                            gv.screenTraitLevelUp.resetPC(false, pc);
-                            gv.screenType = "learnTraitCreation";
-                        }
+                            if (traitTagsList.Count > 0)
+                            {
+                                gv.screenTraitLevelUp.resetPC(false, pc);
+                                gv.screenType = "learnTraitCreation";
+                            }
 
-                        else if (spellTagsList.Count > 0)
-                        {
-                            gv.screenSpellLevelUp.resetPC(false, pc);
-                            gv.screenType = "learnSpellCreation";
+                            else if (spellTagsList.Count > 0)
+                            {
+                                gv.screenSpellLevelUp.resetPC(false, pc);
+                                gv.screenType = "learnSpellCreation";
+                            }
+                            else
+                            {
+                                //no spells or traits to learn
+                                //save character, add them to the pcList of screenPartyBuild, and go back to build screen
+                                this.SaveCharacter(pc);
+                                gv.screenPartyBuild.pcList.Add(pc);
+                                gv.screenType = "partyBuild";
+
+                                /* old stuff, keep for now
+                                gv.cc.tutorialMessageMainMap();
+                                gv.screenType = "main";
+                                gv.cc.doUpdate();*/
+                            }
                         }
                         else
                         {
-                            //no spells or traits to learn
-                            //save character, add them to the pcList of screenPartyBuild, and go back to build screen
-                            this.SaveCharacter(pc);
-                            gv.screenPartyBuild.pcList.Add(pc);
-                            gv.screenType = "partyBuild";
-
-                            /* old stuff, keep for now
-                            gv.cc.tutorialMessageMainMap();
-                            gv.screenType = "main";
-                            gv.cc.doUpdate();*/
+                            gv.sf.MessageBoxHtml("Name cannot be CharacterName or blank, please choose a different one.");
                         }
                     }
                     else if (btnAbort.getImpact(x, y))
@@ -772,11 +780,11 @@ namespace IceBlink2
         }
         public void changePcName()
         {
-            using (TextInputDialog itSel = new TextInputDialog(gv, "Choose a Name for this PC."))
+            using (TextInputDialog itSel = new TextInputDialog(gv, "Choose a unique Name for this PC."))
             {
                 itSel.IceBlinkButtonClose.Visible = true;
                 itSel.IceBlinkButtonClose.Enabled = true;
-                itSel.textInput = "Type Name Here";
+                itSel.textInput = "Type unique Name Here";
 
                 var ret = itSel.ShowDialog();
 
@@ -786,6 +794,35 @@ namespace IceBlink2
                     {
                         pc.name = itSel.textInput;
                         pc.tag = itSel.textInput.ToLower();
+                        bool foundNameConflict = false;
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            if ((p.name == pc.name) || (p.tag == pc.tag))
+                            {
+                                gv.sf.MessageBoxHtml("This name already exists, please choose a different one.");
+                                //MessageBox.Show("This name already exists, please choose a different one.");
+                                pc.name = "";
+                                pc.tag = "";
+                                itSel.textInput = "Type unique Name Here";
+                                foundNameConflict = true;
+                                break;
+                            }
+                        }
+                        if (foundNameConflict == false)
+                        {
+                            foreach (Player p in gv.screenPartyBuild.pcList)
+                            {
+                                if ((p.name == pc.name) || (p.tag == pc.tag))
+                                {
+                                    gv.sf.MessageBoxHtml("This name already exists, please choose a different one.");
+                                    //MessageBox.Show("This name already exists, please choose a different one.");
+                                    pc.name = "";
+                                    pc.tag = "";
+                                    itSel.textInput = "Type unique Name Here";
+                                    break;
+                                }
+                            }
+                        }
                     }
                     else
                     {
