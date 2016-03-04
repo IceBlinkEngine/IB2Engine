@@ -112,7 +112,7 @@ namespace IceBlink2
         public void Draw()
         {
             IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
-            IbRect dst = new IbRect(currentLocX, currentLocY, Width, Height);
+            IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
             gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst);
 
             //iterate over all controls and draw

@@ -43,9 +43,9 @@ namespace IceBlink2
 
         public void DrawString(string text, float x, float y, FontWeight fw, SharpDX.DirectWrite.FontStyle fs, SharpDX.Color fontColor, float fontHeight, bool isUnderlined)
         {
-            if ((y > -2) && (y <= tbHeight - fontHeight))
+            if ((y > -2) && (y <= (int)(tbHeight * gv.screenDensity) - fontHeight))
             {
-                gv.DrawText(text, x + tbXloc + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
+                gv.DrawText(text, x + (int)(tbXloc * gv.screenDensity) + gv.pS, y, fw, fs, 1.0f, fontColor, isUnderlined);
             }
         }
 
@@ -58,7 +58,7 @@ namespace IceBlink2
 
             if ((htmlText.EndsWith("<br>")) || (htmlText.EndsWith("<BR>")))
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, tbWidth, tagStack);
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText, (int)(tbWidth * gv.screenDensity), tagStack);
                 foreach (FormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
@@ -66,7 +66,7 @@ namespace IceBlink2
             }
             else
             {
-                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", tbWidth, tagStack);
+                List<FormattedLine> linesList = gv.cc.ProcessHtmlString(htmlText + "<br>", (int)(tbWidth * gv.screenDensity), tagStack);
                 foreach (FormattedLine fl in linesList)
                 {
                     logLinesList.Add(fl);
@@ -77,7 +77,7 @@ namespace IceBlink2
         public void onDrawLogBox(IB2Panel parentPanel)
         {
             //ratio of #lines to #pixels
-            float ratio = (float)(logLinesList.Count) / (float)(tbHeight);
+            float ratio = (float)(logLinesList.Count) / (float)(tbHeight * gv.screenDensity);
             if (ratio < 1.0f) { ratio = 1.0f; }
             if (moveDeltaY != 0)
             {
@@ -112,7 +112,9 @@ namespace IceBlink2
                     {
                         gv.textLayout.SetUnderline(true, new TextRange(0, word.text.Length - 1));
                     }
-                    DrawString(word.text + " ", parentPanel.currentLocX + xLoc, parentPanel.currentLocY + yLoc + difYheight, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
+                    int xLoc2 = (int)((parentPanel.currentLocX * gv.screenDensity + xLoc));
+                    int yLoc2 = (int)((parentPanel.currentLocY * gv.screenDensity + yLoc + difYheight));
+                    DrawString(word.text + " ", xLoc2, yLoc2, word.fontWeight, word.fontStyle, word.color, word.fontSize, word.underlined);
                     xLoc += gv.textLayout.Metrics.WidthIncludingTrailingWhitespace;
                 }
                 xLoc = 0;
@@ -153,7 +155,7 @@ namespace IceBlink2
         }        
         private bool isMouseWithinTextBox(MouseEventArgs e)
         {
-            if ((e.X > tbXloc) && (e.X < tbWidth + tbXloc) && (e.Y > tbYloc) && (e.Y < tbHeight + tbYloc))
+            if ((e.X > (int)(tbXloc * gv.screenDensity)) && (e.X < (int)(tbWidth * gv.screenDensity) + (int)(tbXloc * gv.screenDensity)) && (e.Y > (int)(tbYloc * gv.screenDensity)) && (e.Y < (int)(tbHeight * gv.screenDensity) + (int)(tbYloc * gv.screenDensity)))
             {
                 return true;
             }

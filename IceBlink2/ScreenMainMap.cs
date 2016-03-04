@@ -57,7 +57,8 @@ namespace IceBlink2
         {
             mod = m;
             gv = g;
-            mapStartLocXinPixels = 6 * gv.squareSize;
+            //mapStartLocXinPixels = 6 * gv.squareSize;
+            mapStartLocXinPixels = 0 * gv.squareSize;
             loadMainUILayout();
             setControlsStart();
             setToggleButtonsStart();            
@@ -103,7 +104,19 @@ namespace IceBlink2
                 {
                     if (pnl.tag.Equals("logPanel"))
                     {
+                        float sqrW = (float)gv.screenWidth / (gv.squaresInWidth + 2f / 10f);
+                        float sqrH = (float)gv.screenHeight / (gv.squaresInHeight + 3f / 10f);
                         gv.log = pnl.logList[0];
+                        gv.cc.addLogText("red", "screenDensity: " + gv.screenDensity);
+                        gv.cc.addLogText("fuchsia", "screenWidth: " + gv.screenWidth);
+                        gv.cc.addLogText("lime", "screenHeight: " + gv.screenHeight);
+                        gv.cc.addLogText("yellow", "squareSize: " + gv.squareSize);
+                        gv.cc.addLogText("yellow", "sqrW: " + sqrW);
+                        gv.cc.addLogText("yellow", "sqrH: " + sqrH);
+                        gv.cc.addLogText("yellow", "");
+                        gv.cc.addLogText("red", "Welcome to " + mod.moduleLabelName);
+                        gv.cc.addLogText("fuchsia", "You can scroll this message log box, use mouse wheel");
+                        gv.cc.addLogText("yellow", "'x' will hide/show all UI panels");
                     }
                 }
             }
@@ -662,9 +675,9 @@ namespace IceBlink2
                 int seamlessModififierMaxY = 0;
 
                 #region neighbours
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
                 {
-                    seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -696,10 +709,10 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
-                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -731,9 +744,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
                 {
-                    seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -765,9 +778,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
-                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -801,14 +814,14 @@ namespace IceBlink2
                 #endregion
                 //foreach (Area a in gv.mod.moduleAreasObjects)
 
-                int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
-                int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
-                int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
                 if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
 
                 if (gv.mod.currentArea.sourceBitmapName != "")
@@ -995,8 +1008,8 @@ namespace IceBlink2
                                         //tile.tileBitmap0 = gv.cc.LoadBitmapSubdirectory(tile.Layer0Filename, gv.mod.currentArea);
                                         mod.currentArea.sourceBitmapName = backup;
 
-                                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                         //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                         //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                         //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
@@ -1022,8 +1035,8 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                         //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                         //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                         //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
@@ -1237,8 +1250,8 @@ namespace IceBlink2
 
                                     //tile.tileBitmap1 = gv.cc.LoadBitmap(tile.Layer1Filename);
 
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = tile.tileBitmap1.PixelSize.Width / 100;
                                     float scalerY = tile.tileBitmap1.PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1251,8 +1264,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
                                     float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1447,8 +1460,8 @@ namespace IceBlink2
                                     mod.currentArea.sourceBitmapName = backup;
                                     //tile.tileBitmap2 = gv.cc.LoadBitmap(tile.Layer2Filename);
 
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = tile.tileBitmap2.PixelSize.Width / 100;
                                     float scalerY = tile.tileBitmap2.PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1461,8 +1474,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
                                     float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1657,8 +1670,8 @@ namespace IceBlink2
                                     mod.currentArea.sourceBitmapName = backup;
                                     //tile.tileBitmap3 = gv.cc.LoadBitmap(tile.Layer3Filename);
 
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = tile.tileBitmap3.PixelSize.Width / 100;
                                     float scalerY = tile.tileBitmap3.PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1671,8 +1684,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
                                     float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1867,8 +1880,8 @@ namespace IceBlink2
                                     mod.currentArea.sourceBitmapName = backup;
                                     //tile.tileBitmap4 = gv.cc.LoadBitmap(tile.Layer4Filename);
 
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = tile.tileBitmap4.PixelSize.Width / 100;
                                     float scalerY = tile.tileBitmap4.PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -1881,8 +1894,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
                                     float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -2077,8 +2090,8 @@ namespace IceBlink2
                                     mod.currentArea.sourceBitmapName = backup;
                                     //tile.tileBitmap5 = gv.cc.LoadBitmap(tile.Layer5Filename);
 
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = tile.tileBitmap5.PixelSize.Width / 100;
                                     float scalerY = tile.tileBitmap5.PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -2091,8 +2104,8 @@ namespace IceBlink2
                                 }
                                 else
                                 {
-                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                     float scalerX = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 100;
                                     float scalerY = gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 100;
                                     int brX = (int)(gv.squareSize * scalerX);
@@ -2112,8 +2125,9 @@ namespace IceBlink2
                 #endregion
 
                 #region Draw Black Squares
+                //MAY NOT NEED THIS WITH NEW FULL SCREEN MODE
                 //draw black squares to make sure and hide any large tiles that have over drawn outside the visible map area
-                int mapStartLocationInSquares = 6;
+                /*int mapStartLocationInSquares = 6;
                 int mapSizeInSquares = gv.playerOffset + gv.playerOffset + 1;
                 int mapRightEndSquare = mapStartLocationInSquares + mapSizeInSquares;
                 if (!gv.useLargeLayout) { mapStartLocationInSquares = 4; }
@@ -2151,7 +2165,7 @@ namespace IceBlink2
                         IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
                     }
-                }
+                }*/
                 //draw black tiles over large tiles when party is near edges of map
                 //drawBlackTilesOverTints();
                 #endregion
@@ -2161,14 +2175,14 @@ namespace IceBlink2
             else //old system using single image background and no load tile images on demand
             {
                 #region old system
-                int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minX < 0) { minX = 0; }
-                int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minY < 0) { minY = 0; }
 
-                int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
                 if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
                 #region Draw Layer 1
@@ -2177,8 +2191,8 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width / 100;
                         float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
@@ -2200,8 +2214,8 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width / 100;
                         float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
@@ -2223,8 +2237,8 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width / 100;
                         float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
@@ -2246,8 +2260,8 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width / 100;
                         float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
@@ -2269,8 +2283,8 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
                         Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         float scalerX = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width / 100;
                         float scalerY = gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height / 100;
                         int brX = (int)(gv.squareSize * scalerX);
@@ -2289,7 +2303,7 @@ namespace IceBlink2
 
                 #region Draw Black Squares
                 //draw black squares to make sure and hide any large tiles that have over drawn outside the visible map area
-                int mapStartLocationInSquares = 6;
+                /*int mapStartLocationInSquares = 6;
                 int mapSizeInSquares = gv.playerOffset + gv.playerOffset + 1;
                 int mapRightEndSquare = mapStartLocationInSquares + mapSizeInSquares;
                 if (!gv.useLargeLayout) { mapStartLocationInSquares = 4; }
@@ -2328,8 +2342,9 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
                     }
                 }
+                */
                 //draw black tiles over large tiles when party is near edges of map
-                drawBlackTilesOverTints();
+                //NOT USED WITH NEW FULL SCREEN drawBlackTilesOverTints();
                 #endregion
                 #endregion
             }
@@ -2353,9 +2368,9 @@ namespace IceBlink2
             int seamlessModififierMinY = 0;
             int seamlessModififierMaxY = 0;
 
-            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
             {
-                seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -2387,10 +2402,10 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
             {
 
-                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -2422,9 +2437,9 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
             {
-                seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -2456,9 +2471,9 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
             {
-                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -2492,14 +2507,14 @@ namespace IceBlink2
            
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
-            int minX = mod.PlayerLocationX - gv.playerOffset;
+            int minX = mod.PlayerLocationX - gv.playerOffsetX;
             if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
-            int minY = mod.PlayerLocationY - gv.playerOffset;
+            int minY = mod.PlayerLocationY - gv.playerOffsetY;
             if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
-            int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+            int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
             if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
-            int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+            int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
             if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY ) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
             #endregion
             //hurgh
@@ -23511,8 +23526,8 @@ namespace IceBlink2
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer2)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
@@ -23898,50 +23913,67 @@ namespace IceBlink2
         
         public void drawMap()
         {
+            int bmpWidth = gv.cc.bmpMap.PixelSize.Width;
+            int bmpHeight = gv.cc.bmpMap.PixelSize.Height;
+            int dstX = (gv.playerOffsetX - mod.PlayerLocationX) * gv.squareSize;
+            int dstY = (gv.playerOffsetY - mod.PlayerLocationY) * gv.squareSize;
+            int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+            int dstHeight = (int)(bmpHeight * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+
+            IbRect src = new IbRect(0, 0, bmpWidth, bmpHeight);
+            IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
+            gv.DrawBitmap(gv.cc.bmpMap, src, dst);
+
+            drawColumnOfBlack(-1);
+            drawRowOfBlack(-1);
+            drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
+            //drawRowOfBlack(gv.playerOffsetY * 2 + 1);
+            drawRowOfBlack(gv.playerOffsetY * 2 + 2);
+            /*
             int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
             int dstUX = 0, dstUY = 0, dstDX = 0, dstDY = 0;
             int bmpWidth = gv.cc.bmpMap.PixelSize.Width;
             int bmpHeight = gv.cc.bmpMap.PixelSize.Height;
             int mapSquareSize = 50;
-            if (mod.PlayerLocationX < gv.playerOffset) //at left edge of map
+            if (mod.PlayerLocationX < gv.playerOffsetX) //at left edge of map
             {
                 srcUX = 0;
-                srcDX = ((mod.PlayerLocationX + 1) * mapSquareSize) + (gv.playerOffset * mapSquareSize);
-                dstUX = (gv.playerOffset * gv.squareSize) - (mod.PlayerLocationX * gv.squareSize);
+                srcDX = ((mod.PlayerLocationX + 1) * mapSquareSize) + (gv.playerOffsetX * mapSquareSize);
+                dstUX = (gv.playerOffsetX * gv.squareSize) - (mod.PlayerLocationX * gv.squareSize);
                 dstDX = dstUX + (int)(srcDX * 2 * gv.screenDensity);
             }
-            else if ((mod.PlayerLocationX >= gv.playerOffset) && (mod.PlayerLocationX < (bmpWidth / mapSquareSize) - gv.playerOffset))
+            else if ((mod.PlayerLocationX >= gv.playerOffsetX) && (mod.PlayerLocationX < (bmpWidth / mapSquareSize) - gv.playerOffsetX))
             {
-                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffset * mapSquareSize);
-                srcDX = srcUX + (mapSquareSize * ((gv.playerOffset * 2) + 1));
+                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffsetX * mapSquareSize);
+                srcDX = srcUX + (mapSquareSize * ((gv.playerOffsetX * 2) + 1));
                 dstUX = 0;
-                dstDX = gv.squareSize * ((gv.playerOffset * 2) + 1);
+                dstDX = gv.squareSize * ((gv.playerOffsetX * 2) + 1);
             }
             else //mod.PlayerLocationX >= width - 3  //at right edge of map
             {
-                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffset * mapSquareSize);
+                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffsetX * mapSquareSize);
                 srcDX = bmpWidth;
                 dstUX = 0;
                 dstDX = (int)(srcDX * 2 * gv.screenDensity) - (int)(srcUX * 2 * gv.screenDensity);
             }
 
-            if (mod.PlayerLocationY < gv.playerOffset) //at top of map
+            if (mod.PlayerLocationY < gv.playerOffsetY) //at top of map
             {
                 srcUY = 0;
-                srcDY = ((mod.PlayerLocationY + 1) * mapSquareSize) + (gv.playerOffset * mapSquareSize);
-                dstUY = (gv.playerOffset * gv.squareSize) - (mod.PlayerLocationY * gv.squareSize);
+                srcDY = ((mod.PlayerLocationY + 1) * mapSquareSize) + (gv.playerOffsetY * mapSquareSize);
+                dstUY = (gv.playerOffsetY * gv.squareSize) - (mod.PlayerLocationY * gv.squareSize);
                 dstDY = dstUY + (int)(srcDY * 2 * gv.screenDensity);
             }
-            else if ((mod.PlayerLocationY >= gv.playerOffset) && (mod.PlayerLocationY < (bmpHeight / mapSquareSize) - gv.playerOffset))
+            else if ((mod.PlayerLocationY >= gv.playerOffsetY) && (mod.PlayerLocationY < (bmpHeight / mapSquareSize) - gv.playerOffsetY))
             {
-                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffset * mapSquareSize);
-                srcDY = srcUY + (mapSquareSize * ((gv.playerOffset * 2) + 1));
+                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffsetY * mapSquareSize);
+                srcDY = srcUY + (mapSquareSize * ((gv.playerOffsetY * 2) + 1));
                 dstUY = 0;
-                dstDY = gv.squareSize * ((gv.playerOffset * 2) + 1);
+                dstDY = gv.squareSize * ((gv.playerOffsetY * 2) + 1);
             }
             else //mod.PlayerLocationY >= height - 3  //at bottom of map
             {
-                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffset * mapSquareSize);
+                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffsetY * mapSquareSize);
                 srcDY = bmpHeight;
                 dstUY = 0;
                 dstDY = (int)(srcDY * 2 * gv.screenDensity) - (int)(srcUY * 2 * gv.screenDensity);
@@ -23950,6 +23982,7 @@ namespace IceBlink2
             IbRect src = new IbRect(srcUX, srcUY, srcDX - srcUX, srcDY - srcUY);
             IbRect dst = new IbRect(dstUX + gv.oXshift + mapStartLocXinPixels, dstUY, dstDX - dstUX, dstDY - dstUY);
             gv.DrawBitmap(gv.cc.bmpMap, src, dst);
+            */
         }
 
         public void drawProps()
@@ -23975,9 +24008,9 @@ namespace IceBlink2
                 int seamlessModififierMinY = 0;
                 int seamlessModififierMaxY = 0;
 
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
                 {
-                    seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -24009,10 +24042,10 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
-                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -24044,9 +24077,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
                 {
-                    seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -24078,9 +24111,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
-                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -24275,13 +24308,13 @@ namespace IceBlink2
                             //XXXXXXXXXXXXXXXXXXXXXXXX
 
                             //distance check
-                            if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
-                                && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
+                            if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                                && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
                             {//5
                              //prop X - playerX
                              //get dst rct based on distance of prop to  palyer
-                                int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                                int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                                int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                                int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                                 int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                                 int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                                 int dstXshift = (dstW - gv.squareSize) / 2;
@@ -24351,13 +24384,13 @@ namespace IceBlink2
                     {//4
 
                         //distance check
-                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
-                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
                         {//5
                          //prop X - playerX
                          //get dst rct based on distance of prop to  palyer
-                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                             int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstXshift = (dstW - gv.squareSize) / 2;
@@ -24420,12 +24453,12 @@ namespace IceBlink2
                 {
                     if ((p.isShown) && (!p.isMover))
                     {
-                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
-                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
                         {
                             //prop X - playerX
-                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                             int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstXshift = (dstW - gv.squareSize) / 2;
@@ -24487,8 +24520,8 @@ namespace IceBlink2
                 {
                     if ((p.isShown) && (p.isMover))
                     {
-                        if ((p.LocationX + 1 >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX - 1 <= mod.PlayerLocationX + gv.playerOffset)
-                            && (p.LocationY + 1 >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY - 1 <= mod.PlayerLocationY + gv.playerOffset))
+                        if ((p.LocationX + 1 >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX - 1 <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY + 1 >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY - 1 <= mod.PlayerLocationY + gv.playerOffsetY))
                         {
                             IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
                             if (p.destinationPixelPositionXList.Count > 0)
@@ -24559,16 +24592,16 @@ namespace IceBlink2
                                 //set the currentPixel position of the props
                                 int xOffSetInSquares = p.LocationX - gv.mod.PlayerLocationX;
                                 int yOffSetInSquares = p.LocationY - gv.mod.PlayerLocationY;
-                                 playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                                playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                                 playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                                 p.currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
                                 p.currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
                             }
 
 
-                            playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                            playerPositionYInPix = gv.playerOffset * gv.squareSize + gv.oYshift;
+                            playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                            playerPositionYInPix = gv.playerOffsetY * gv.squareSize + gv.oYshift;
 
                             float floatConvertedToSquareDistanceX = (p.currentPixelPositionX - playerPositionXInPix) / gv.squareSize;
                             int ConvertedToSquareDistanceX = (int)Math.Ceiling(floatConvertedToSquareDistanceX);
@@ -24593,7 +24626,7 @@ namespace IceBlink2
                                 pixDistanceOfPropToPlayerY *= -1;
                             }
 
-                            if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffset + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffset + 1) * gv.squareSize)))
+                            if ((pixDistanceOfPropToPlayerX <= ((gv.playerOffsetX + 1) * gv.squareSize)) && (pixDistanceOfPropToPlayerY <= ((gv.playerOffsetY + 1) * gv.squareSize)))
                             {
                                 int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                                 int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
@@ -24663,13 +24696,13 @@ namespace IceBlink2
                     {
                         dist = deltaY;
                     }
-                    if ((dist == (gv.playerOffset + 1)) || (dist == (gv.playerOffset + 2)))
+                    if ((dist == (gv.playerOffsetX + 1)) || (dist == (gv.playerOffsetX + 2)))
                     {
-                        int squareInPixelsX = ((positionX - mod.PlayerLocationX) * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                        int squareInPixelsY = ((positionY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                        int squareInPixelsX = ((positionX - mod.PlayerLocationX) * gv.squareSize) + gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        int squareInPixelsY = ((positionY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                         IbRect src2 = new IbRect(0, 0, gv.squareSize, gv.squareSize);
                         IbRect dst2 = new IbRect(squareInPixelsX, squareInPixelsY, gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.black_tile, src2, dst2);
+                        //NOT USEDgv.DrawBitmap(gv.cc.black_tile, src2, dst2);
                     }
                 }
 
@@ -24680,12 +24713,12 @@ namespace IceBlink2
                 {
                     if ((p.isShown) && (p.isMover))
                     {
-                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffset) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffset)
-                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffset) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffset))
+                        if ((p.LocationX >= mod.PlayerLocationX - gv.playerOffsetX) && (p.LocationX <= mod.PlayerLocationX + gv.playerOffsetX)
+                            && (p.LocationY >= mod.PlayerLocationY - gv.playerOffsetY) && (p.LocationY <= mod.PlayerLocationY + gv.playerOffsetY))
                         {
                             //prop X - playerX
-                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
-                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffset * gv.squareSize);
+                            int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
+                            int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
                             int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                             int dstXshift = (dstW - gv.squareSize) / 2;
@@ -24794,8 +24827,8 @@ namespace IceBlink2
             {
                 mod.selectedPartyLeader = 0;
             }
-            int x = gv.playerOffset * gv.squareSize;
-            int y = gv.playerOffset * gv.squareSize;
+            int x = gv.playerOffsetX * gv.squareSize;
+            int y = gv.playerOffsetY * gv.squareSize;
             int shift = gv.squareSize / 3;
             if (mod.currentArea.useMiniProps)
             {
@@ -25281,22 +25314,22 @@ namespace IceBlink2
         }
         public void drawGrid()
         {
-            int minX = mod.PlayerLocationX - gv.playerOffset;
+            int minX = mod.PlayerLocationX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
-            int minY = mod.PlayerLocationY - gv.playerOffset;
+            int minY = mod.PlayerLocationY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
 
-            int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+            int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
             if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-            int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+            int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
             if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
             for (int x = minX; x < maxX; x++)
             {
                 for (int y = minY; y < maxY; y++)
                 {
-                    int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                    int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                    int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                    int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.walkBlocked.PixelSize.Width, gv.cc.walkBlocked.PixelSize.Height);
@@ -25338,7 +25371,7 @@ namespace IceBlink2
         public void drawOverlayTints()
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
-            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * 9), (gv.squareSize * 9));
+            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, (gv.squareSize * (gv.playerOffsetX * 2 + 1)), (gv.squareSize * (gv.playerOffsetY * 2 + 2)));
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -25441,14 +25474,15 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + mapStartLocXinPixels, 9 * gv.squareSize - txtH + y, 100, 100), 1.0f, Color.Black);
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + 4 * gv.squareSize, 9 * gv.squareSize - txtH + y, 100, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + mapStartLocXinPixels, 9 * gv.squareSize - txtH, 100, 100), 1.0f, Color.White);
+            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + 4 * gv.squareSize, 9 * gv.squareSize - txtH, 100, 100), 1.0f, Color.White);
 
         }
         public void drawFogOfWar()
         {
+            #region new system
             if (mod.useAllTileSystem)
             {
                 int indexOfNorthernNeighbour = -1;
@@ -25465,9 +25499,9 @@ namespace IceBlink2
                 int seamlessModififierMinY = 0;
                 int seamlessModififierMaxY = 0;
 
-                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+                if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
                 {
-                    seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -25499,10 +25533,10 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
-                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -25534,9 +25568,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+                if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
                 {
-                    seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -25568,9 +25602,9 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
-                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -25602,14 +25636,14 @@ namespace IceBlink2
                     }
                 }
 
-                int minX = mod.PlayerLocationX - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minX < seamlessModififierMinX) { minX = -seamlessModififierMinX; }
-                int minY = mod.PlayerLocationY - gv.playerOffset - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (minY < seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
-                int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
                 if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
 
                 #region go through tiles
@@ -25762,8 +25796,8 @@ namespace IceBlink2
                         {
                             try
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                                 //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
                                 //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
                                 //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
@@ -25790,24 +25824,26 @@ namespace IceBlink2
                 #endregion
 
             }
+            #endregion
+            #region old system
             else //old system using single image background and no load tile images on demand
             {
-                int minX = mod.PlayerLocationX - gv.playerOffset;
+                int minX = mod.PlayerLocationX - gv.playerOffsetX;
                 if (minX < 0) { minX = 0; }
-                int minY = mod.PlayerLocationY - gv.playerOffset;
+                int minY = mod.PlayerLocationY - gv.playerOffsetY;
                 if (minY < 0) { minY = 0; }
 
-                int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+                int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 2;
                 if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
                 for (int x = minX; x < maxX; x++)
                 {
                     for (int y = minY; y < maxY; y++)
                     {
-                        int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                        int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                        int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                        int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
                         int brX = gv.squareSize;
                         int brY = gv.squareSize;
                         IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
@@ -25819,166 +25855,82 @@ namespace IceBlink2
                     }
                 }
             }
+            #endregion
         }
         public void drawBlackTilesOverTints()
         {
+            #region new system
             if (mod.useAllTileSystem)
             {
+                int width = gv.playerOffsetX * 2 + 1;
+                int height = gv.playerOffsetY * 2 + 1;
+
                 if (mod.currentArea.westernNeighbourArea == "")
                 {
                     //at left edge
-                    if (mod.PlayerLocationX < 4)
+                    for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX; i++)
                     {
-                        drawColumnOfBlack(0);
-                    }
-                    if (mod.PlayerLocationX < 3)
-                    {
-                        drawColumnOfBlack(1);
-                    }
-                    if (mod.PlayerLocationX < 2)
-                    {
-                        drawColumnOfBlack(2);
-                    }
-                    if (mod.PlayerLocationX < 1)
-                    {
-                        drawColumnOfBlack(3);
+                        drawColumnOfBlack(i);
                     }
                 }
 
                 if (mod.currentArea.northernNeighbourArea == "")
                 {
                     //at top edge
-                    if (mod.PlayerLocationY < 4)
+                    for (int i = 0; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
                     {
-                        drawRowOfBlack(0);
-                    }
-                    if (mod.PlayerLocationY < 3)
-                    {
-                        drawRowOfBlack(1);
-                    }
-                    if (mod.PlayerLocationY < 2)
-                    {
-                        drawRowOfBlack(2);
-                    }
-                    if (mod.PlayerLocationY < 1)
-                    {
-                        drawRowOfBlack(3);
+                        drawRowOfBlack(i);
                     }
                 }
                 if (mod.currentArea.easternNeighbourArea == "")
                 {
                     //at right edge
-                    if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 5)
+                    for (int i = 1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX + 1; i++)
                     {
-                        drawColumnOfBlack(8);
-                    }
-                    if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 4)
-                    {
-                        drawColumnOfBlack(7);
-                    }
-                    if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 3)
-                    {
-                        drawColumnOfBlack(6);
-                    }
-                    if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 2)
-                    {
-                        drawColumnOfBlack(5);
+                        drawColumnOfBlack(width - i);
                     }
                 }
                 if (mod.currentArea.southernNeighbourArea == "")
                 {
                     //at bottom edge
-                    if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 5)
+                    for (int i = 1; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
                     {
-                        drawRowOfBlack(8);
-                    }
-                    if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 4)
-                    {
-                        drawRowOfBlack(7);
-                    }
-                    if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 3)
-                    {
-                        drawRowOfBlack(6);
-                    }
-                    if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 2)
-                    {
-                        drawRowOfBlack(5);
+                        drawRowOfBlack(height - i);
                     }
                 }
             }
+            #endregion
+            #region old system
             else //old system using single image background and no load tile images on demand
             {
+                int width = gv.playerOffsetX * 2 + 1;
+                int height = gv.playerOffsetY * 2 + 1;
+
                 //at left edge
-                if (mod.PlayerLocationX < 4)
+                for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX; i++)
                 {
-                    drawColumnOfBlack(0);
+                    drawColumnOfBlack(i);                    
                 }
-                if (mod.PlayerLocationX < 3)
-                {
-                    drawColumnOfBlack(1);
-                }
-                if (mod.PlayerLocationX < 2)
-                {
-                    drawColumnOfBlack(2);
-                }
-                if (mod.PlayerLocationX < 1)
-                {
-                    drawColumnOfBlack(3);
-                }
+
                 //at top edge
-                if (mod.PlayerLocationY < 4)
+                for (int i = 0; i < gv.playerOffsetY - mod.PlayerLocationY; i++)
                 {
-                    drawRowOfBlack(0);
-                }
-                if (mod.PlayerLocationY < 3)
-                {
-                    drawRowOfBlack(1);
-                }
-                if (mod.PlayerLocationY < 2)
-                {
-                    drawRowOfBlack(2);
-                }
-                if (mod.PlayerLocationY < 1)
-                {
-                    drawRowOfBlack(3);
+                    drawRowOfBlack(i);
                 }
 
                 //at right edge
-                if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 5)
+                for (int i = 0; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX + 1; i++)
                 {
-                    drawColumnOfBlack(8);
-                }
-                if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 4)
-                {
-                    drawColumnOfBlack(7);
-                }
-                if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 3)
-                {
-                    drawColumnOfBlack(6);
-                }
-                if (mod.PlayerLocationX > mod.currentArea.MapSizeX - 2)
-                {
-                    drawColumnOfBlack(5);
+                    drawColumnOfBlack(width - i);                    
                 }
 
                 //at bottom edge
-                if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 5)
+                for (int i = 0; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
                 {
-                    drawRowOfBlack(8);
+                    drawRowOfBlack(height - i);
                 }
-                if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 4)
-                {
-                    drawRowOfBlack(7);
-                }
-                if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 3)
-                {
-                    drawRowOfBlack(6);
-                }
-                if (mod.PlayerLocationY > mod.currentArea.MapSizeY - 2)
-                {
-                    drawRowOfBlack(5);
-                }
-            }         
+            }
+            #endregion
         }
         public void drawPanels()
         {
@@ -26037,8 +25989,8 @@ namespace IceBlink2
                     }
 
                     //location.X should be the the props actual map location in squares (not screen location)
-                    int xLoc = (ft.location.X + gv.playerOffset - mod.PlayerLocationX) * gv.squareSize;
-                    int yLoc = ((ft.location.Y + gv.playerOffset - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
+                    int xLoc = (ft.location.X + gv.playerOffsetX - mod.PlayerLocationX) * gv.squareSize;
+                    int yLoc = ((ft.location.Y + gv.playerOffsetY - mod.PlayerLocationY) * gv.squareSize) - (ft.z);
 
                     for (int x = -2; x <= 2; x++)
                     {
@@ -26083,8 +26035,8 @@ namespace IceBlink2
                 foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
                 {
 
-                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                    int playerPositionYInPix = gv.playerOffset * gv.squareSize + gv.oYshift;
+                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                    int playerPositionYInPix = gv.playerOffsetY * gv.squareSize + gv.oYshift;
 
                     float floatConvertedToSquareDistanceX = (ft.floatyCarrier2.currentPixelPositionX - playerPositionXInPix) / gv.squareSize;
                     int ConvertedToSquareDistanceX = (int)Math.Ceiling(floatConvertedToSquareDistanceX);
@@ -26140,7 +26092,7 @@ namespace IceBlink2
 
         public void drawColumnOfBlack(int col)
         {
-            for (int y = 0; y < 9; y++)
+            for (int y = -1; y < gv.playerOffsetY * 2 + 1 + 2; y++)
             {
                 int tlX = col * gv.squareSize;
                 int tlY = y * gv.squareSize;
@@ -26153,7 +26105,7 @@ namespace IceBlink2
         }
         public void drawRowOfBlack(int row)
         {
-            for (int x = 0; x < 9; x++)
+            for (int x = -1; x < gv.playerOffsetX * 2 + 1 + 2; x++)
             {
                 int tlX = x * gv.squareSize;
                 int tlY = row * gv.squareSize;
@@ -26383,8 +26335,8 @@ namespace IceBlink2
                     //Draw Floaty Text On Mouse Over Prop
                     int gridx = (int)e.X / gv.squareSize;
                     int gridy = (int)e.Y / gv.squareSize;
-                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffset);
-                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffset);
+                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX);
+                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
                     gv.cc.floatyText = "";
                     if (IsTouchInMapWindow(gridx, gridy))
                     {
@@ -26407,12 +26359,26 @@ namespace IceBlink2
                     y = (int)e.Y;
                     int gridX = (int)e.X / gv.squareSize;
                     int gridY = (int)e.Y / gv.squareSize;
-                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffset);
-                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffset);
+                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
 
                     //NEW SYSTEM
                     string rtn = mainUiLayout.getImpact(x, y);
-                    gv.cc.addLogText("lime", "mouse down: " + rtn);
+                    //gv.cc.addLogText("lime", "mouse down: " + rtn);
+
+                    //check to see if toggle or button is using IBScript and do script
+                    IB2Button btnScript = mainUiLayout.GetButtonByTag(rtn);
+                    if (btnScript != null)
+                    {
+                        if ((btnScript.IBScript.Equals("none")) || (btnScript.IBScript.Equals("")))
+                        {
+                            //no IBScript so move on
+                        }
+                        else
+                        {
+                            gv.cc.doIBScriptBasedOnFilename(btnScript.IBScript, "");
+                        }
+                    }
 
                     if (rtn.Equals("tglGrid"))
                     {
@@ -26859,8 +26825,8 @@ namespace IceBlink2
                     //Draw Floaty Text On Mouse Over Prop
                     int gridx = (int)e.X / gv.squareSize;
                     int gridy = (int)e.Y / gv.squareSize;
-                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffset);
-                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffset);
+                    int actualX = mod.PlayerLocationX + (gridx - gv.playerOffsetX);
+                    int actualY = mod.PlayerLocationY + (gridy - gv.playerOffsetY);
                     gv.cc.floatyText = "";
                     if (IsTouchInMapWindow(gridx, gridy))
                     {
@@ -26933,8 +26899,8 @@ namespace IceBlink2
                     y = (int)e.Y;
                     int gridX = (int)e.X / gv.squareSize;
                     int gridY = (int)e.Y / gv.squareSize;
-                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffset);
-                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffset);
+                    int actualx = mod.PlayerLocationX + (gridX - gv.playerOffsetX);
+                    int actualy = mod.PlayerLocationY + (gridY - gv.playerOffsetY);
 
                     gv.cc.ctrlUpArrow.glowOn = false;
                     gv.cc.ctrlDownArrow.glowOn = false;
@@ -28060,6 +28026,7 @@ namespace IceBlink2
         {
             if (mod.useAllTileSystem)
             {
+                #region New System
                 //XXXXXXXXXXXXXXXXXXXXXXXXX
                 int indexOfNorthernNeighbour = -1;
                 int indexOfSouthernNeighbour = -1;
@@ -28989,9 +28956,11 @@ namespace IceBlink2
                         }
                     }
                 }
+                #endregion
             }
             else
             {
+                #region Old System
                 //old way
                 int minX = mod.PlayerLocationX - 1;
                 if (minX < 0) { minX = 0; }
@@ -29071,6 +29040,7 @@ namespace IceBlink2
                         mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
                     }
                 }
+                #endregion
             }
         }
         public bool IsTouchInMapWindow(int sqrX, int sqrY)

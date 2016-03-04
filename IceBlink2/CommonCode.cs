@@ -1356,7 +1356,7 @@ namespace IceBlink2
         }        
         public void setPanelsStart()
         {
-            int mapSize = gv.playerOffset + gv.playerOffset + 1;
+            int mapSize = gv.playerOffsetY + gv.playerOffsetY + 1;
             int topPanelHeight = mapSize - 2;
             int leftPanelWidth = gv.squaresInWidth - mapSize - 4;
 
@@ -4509,8 +4509,8 @@ namespace IceBlink2
                 //set the currentPixel position of the props
                 int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
                 int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
-                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                 gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
                 gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
@@ -5183,8 +5183,8 @@ namespace IceBlink2
                                 {
                                     yOffSetInSquares = prp.LocationY - gv.mod.PlayerLocationY;
                                 }
-                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                                int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                                 if ((xOffSetInSquares <= 10) && (xOffSetInSquares >= -10) && (yOffSetInSquares <= 10) && (yOffSetInSquares >= -10))
                                 {
@@ -5225,8 +5225,8 @@ namespace IceBlink2
                                     {
                                         yOffSetInSquares = prp.LocationY - gv.mod.PlayerLocationY;
                                     }
-                                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                                    int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                                    int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                    int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                                     if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
                                     {
@@ -5283,8 +5283,8 @@ namespace IceBlink2
                         {
                             yOffSetInSquares = prp.LocationY - gv.mod.PlayerLocationY;
                         }
-                        int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                        int playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                        int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                         if ((xOffSetInSquares <= 5) && (xOffSetInSquares >= -5) && (yOffSetInSquares <= 5) && (yOffSetInSquares >= -5))
                         {

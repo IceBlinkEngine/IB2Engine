@@ -46,6 +46,8 @@ namespace IceBlink2
         public int ibpwidth = 110;
         public int ibpheight = 170;
         public int playerOffset = 4;
+        public int playerOffsetX = 9;
+        public int playerOffsetY = 4;
         public int oXshift = 0;
         public int oYshift = 35;
         public string mainDirectory;
@@ -194,9 +196,7 @@ namespace IceBlink2
 
             screenWidth = this.Width; //getResources().getDisplayMetrics().widthPixels;
             screenHeight = this.Height; //getResources().getDisplayMetrics().heightPixels;
-            //float sqrW = (float)screenWidth / (float)squaresInWidth;
             float sqrW = (float)screenWidth / (squaresInWidth + 2f/10f);
-            //float sqrH = (float)screenHeight / (float)squaresInHeight;
             float sqrH = (float)screenHeight / (squaresInHeight + 3f/10f);
             if (sqrW > sqrH)
             {

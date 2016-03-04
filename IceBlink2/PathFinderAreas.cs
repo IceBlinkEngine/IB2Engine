@@ -195,8 +195,8 @@ namespace IceBlink2
                         {
                             yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
                         }
-                        playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                        playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                        playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                        playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
                         
                         callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                         callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));
@@ -231,8 +231,8 @@ namespace IceBlink2
                     {
                         yOffSetInSquares = pathNodes[pathNodes.Count - 1].Y - mod.PlayerLocationY;
                     }
-                    playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffset * gv.squareSize);
-                    playerPositionYInPix = gv.playerOffset * gv.squareSize;
+                    playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                    playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
 
                     callingProp.destinationPixelPositionXList.Add(playerPositionXInPix + (xOffSetInSquares * gv.squareSize));
                     callingProp.destinationPixelPositionYList.Add(playerPositionYInPix + (yOffSetInSquares * gv.squareSize));

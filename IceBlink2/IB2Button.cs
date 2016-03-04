@@ -59,9 +59,9 @@ namespace IceBlink2
             {
                 glowOn = false;
 
-                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
                 {
-                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
                     {
                         if (!playedHoverSound)
                         {
@@ -81,9 +81,9 @@ namespace IceBlink2
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             if (show)
             {
-                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
                 {
-                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
                     {
                         if (!playedHoverSound)
                         {
@@ -109,13 +109,13 @@ namespace IceBlink2
                 //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
 
                 IbRect src = new IbRect(0, 0, Width, Height);
-                IbRect dst = new IbRect(parentPanel.currentLocX + this.X, parentPanel.currentLocY + this.Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
                 IbRect srcGlow = new IbRect(0, 0, Width, Height);
-                IbRect dstGlow = new IbRect(parentPanel.currentLocX + this.X - (int)(7 * gv.screenDensity),
-                                            parentPanel.currentLocY + this.Y - (int)(7 * gv.screenDensity),
-                                            (int)((float)Width) + (int)(15 * gv.screenDensity),
-                                            (int)((float)Height) + (int)(15 * gv.screenDensity));
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(7 * gv.screenDensity),
+                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(7 * gv.screenDensity),
+                                            (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
+                                            (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
 
                 //draw glow first if on
                 if (glowOn)
@@ -165,33 +165,41 @@ namespace IceBlink2
                 float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the center
-                float ulX = ((Width) - stringSize) / 2;
-                float ulY = ((Height) - thisFontHeight) / 2;
+                float ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                float ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
 
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
-                gv.DrawText(Text, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                gv.DrawText(Text, xLoc1, yLoc1, scaler, Color.White);
 
                 // DRAW QUANTITY
                 stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the bottom right quadrant
-                ulX = (((Width) - stringSize) / 8) * 7;
-                ulY = (((Height) - thisFontHeight) / 8) * 7;
+                ulX = (((Width * gv.screenDensity) - stringSize) / 8) * 7;
+                ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
 
                 for (int x = -2; x <= 2; x++)
                 {
                     for (int y = -2; y <= 2; y++)
                     {
-                        gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                        int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                        int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                        gv.DrawText(Quantity, xLoc, yLoc, scaler, Color.Black);
                     }
                 }
-                gv.DrawText(Quantity, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.White);
+                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                gv.DrawText(Quantity, xLoc2, yLoc2, scaler, Color.White);
 
                 // DRAW HOTKEY
                 if (gv.showHotKeys)
@@ -199,17 +207,21 @@ namespace IceBlink2
                     stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                     //place in the bottom center
-                    ulX = ((Width) - stringSize) / 2;
-                    ulY = (((Height) - thisFontHeight) / 4) * 3;
+                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                    ulY = (((Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
 
                     for (int x = -2; x <= 2; x++)
                     {
                         for (int y = -2; y <= 2; y++)
                         {
-                            gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX + x, parentPanel.currentLocY + this.Y + ulY + y, scaler, Color.Black);
+                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
+                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
+                            gv.DrawText(HotKey, xLoc, yLoc, scaler, Color.Black);
                         }
                     }
-                    gv.DrawText(HotKey, parentPanel.currentLocX + this.X + ulX, parentPanel.currentLocY + this.Y + ulY, scaler, Color.Red);
+                    int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                    int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    gv.DrawText(HotKey, xLoc3, yLoc3, scaler, Color.Red);
                 }
             }
         }

@@ -314,6 +314,18 @@ namespace IceBlink2
             {
                 selectedLine(5);
             }
+            else if (((KeyCode == Keys.D7) || (KeyCode == Keys.NumPad7)) && (7 <= nodeIndexList.Count))
+            {
+                selectedLine(6);
+            }
+            else if (((KeyCode == Keys.D8) || (KeyCode == Keys.NumPad8)) && (8 <= nodeIndexList.Count))
+            {
+                selectedLine(7);
+            }
+            else if (((KeyCode == Keys.D9) || (KeyCode == Keys.NumPad9)) && (9 <= nodeIndexList.Count))
+            {
+                selectedLine(8);
+            }
         }
 
 	    //methods

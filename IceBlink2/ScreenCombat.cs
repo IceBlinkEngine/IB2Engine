@@ -87,7 +87,7 @@ namespace IceBlink2
 	    {
 		    mod = m;
 		    gv = g;
-            mapStartLocXinPixels = 6 * gv.squareSize;
+            mapStartLocXinPixels = 0 * gv.squareSize;
             loadMainUILayout();
 		    setControlsStart();
             setToggleButtonsStart();
@@ -2798,9 +2798,9 @@ namespace IceBlink2
                     if (minX < 0) { minX = 0; }
                     int minY = UpperLeftSquare.Y - 5;
                     if (minY < 0) { minY = 0; }
-                    int maxX = UpperLeftSquare.X + gv.playerOffset + gv.playerOffset + 1;
+                    int maxX = UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1;
                     if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
-                    int maxY = UpperLeftSquare.Y + gv.playerOffset + gv.playerOffset + 1;
+                    int maxY = UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 1;
                     if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
 
                     #region Draw Layer1
@@ -3106,21 +3106,39 @@ namespace IceBlink2
                 if (mod.currentEncounter.UseMapImage)
                 {
                     #region background image
+                    int bmpWidth = mapBitmap.PixelSize.Width;
+                    int bmpHeight = mapBitmap.PixelSize.Height;
                     int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
                     int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
-                    IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * (gv.playerOffset + gv.playerOffset + 1), sqrsizeH * (gv.playerOffset + gv.playerOffset + 1));
-                    IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffset + gv.playerOffset + 1), gv.squareSize * (gv.playerOffset + gv.playerOffset + 1));
-                    gv.DrawBitmap(mapBitmap, src, dst);                    
+                    int dstX = -(UpperLeftSquare.X * gv.squareSize);
+                    int dstY = -(UpperLeftSquare.Y * gv.squareSize);
+                    int dstWidth = (int)(bmpWidth * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+                    int dstHeight = (int)(bmpHeight * 2 * gv.screenDensity); //assumes squares are 50x50 in this image
+                    
+                    IbRect src = new IbRect(0, 0, bmpWidth, bmpHeight);
+                    IbRect dst = new IbRect(dstX + gv.oXshift + mapStartLocXinPixels, dstY, dstWidth, dstHeight);
+                    gv.DrawBitmap(mapBitmap, src, dst);
+
+                    gv.screenMainMap.drawColumnOfBlack(-1);
+                    gv.screenMainMap.drawRowOfBlack(-1);
+                    gv.screenMainMap.drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
+                    gv.screenMainMap.drawRowOfBlack(gv.playerOffsetY * 2 + 2);
+
+                    //int sqrsizeW = mapBitmap.PixelSize.Width / this.mod.currentEncounter.MapSizeX;
+                    //int sqrsizeH = mapBitmap.PixelSize.Height / this.mod.currentEncounter.MapSizeY;
+                    //IbRect src = new IbRect(UpperLeftSquare.X * sqrsizeW, UpperLeftSquare.Y * sqrsizeH, sqrsizeW * (gv.playerOffsetX + gv.playerOffsetX + 1), sqrsizeH * (gv.playerOffsetY + gv.playerOffsetY + 1));
+                    //IbRect dst = new IbRect(0 + gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffsetX + gv.playerOffsetX + 1), gv.squareSize * (gv.playerOffsetY + gv.playerOffsetY + 1));
+                    //gv.DrawBitmap(mapBitmap, src, dst);                    
                     #endregion
                 }
                 
-                int minX = UpperLeftSquare.X - (gv.playerOffset + 1);
+                int minX = UpperLeftSquare.X - (gv.playerOffsetX + 1);
                 if (minX < 0) { minX = 0; }
-                int minY = UpperLeftSquare.Y - (gv.playerOffset + 1);
+                int minY = UpperLeftSquare.Y - (gv.playerOffsetY + 1);
                 if (minY < 0) { minY = 0; }
-                int maxX = UpperLeftSquare.X + gv.playerOffset + gv.playerOffset + 1;
+                int maxX = UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentEncounter.MapSizeX) { maxX = this.mod.currentEncounter.MapSizeX; }
-                int maxY = UpperLeftSquare.Y + gv.playerOffset + gv.playerOffset + 1;
+                int maxY = UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2;
                 if (maxY > this.mod.currentEncounter.MapSizeY) { maxY = this.mod.currentEncounter.MapSizeY; }
 
                 #region Draw Layer1
@@ -3275,8 +3293,8 @@ namespace IceBlink2
 
             int tileWsqrs = tileWinPixels / gv.squareSizeInPixels;
             int tileHsqrs = tileHinPixels / gv.squareSizeInPixels;
-            int BottomRightX = UpperLeftXsqr + gv.playerOffset + gv.playerOffset + 1;
-            int BottomRightY = UpperLeftYsqr + gv.playerOffset + gv.playerOffset + 1;
+            int BottomRightX = UpperLeftXsqr + gv.playerOffsetX + gv.playerOffsetX + 1;
+            int BottomRightY = UpperLeftYsqr + gv.playerOffsetY + gv.playerOffsetY + 2;
 
             //left side
             int startX = UpperLeftXsqr - xSqr;
@@ -3740,7 +3758,7 @@ namespace IceBlink2
         public void drawOverlayTints()
         {
             IbRect src = new IbRect(0, 0, gv.cc.tint_sunset.PixelSize.Width, gv.cc.tint_sunset.PixelSize.Height);
-            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffset + gv.playerOffset + 1), gv.squareSize * (gv.playerOffset + gv.playerOffset + 1));
+            IbRect dst = new IbRect(gv.oXshift + mapStartLocXinPixels, 0, gv.squareSize * (gv.playerOffsetX + gv.playerOffsetX + 1), gv.squareSize * (gv.playerOffsetY + gv.playerOffsetY + 2));
             int dawn = 5 * 60;
             int sunrise = 6 * 60;
             int day = 7 * 60;
@@ -3929,7 +3947,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Down)
             {
-                if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffset - gv.playerOffset - 1)
+                if (UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - gv.playerOffsetY - gv.playerOffsetY - 1)
                 {
                     UpperLeftSquare.Y++;
                 }
@@ -3937,7 +3955,7 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Right)
             {
-                if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffset - gv.playerOffset - 1)
+                if (UpperLeftSquare.X < mod.currentEncounter.MapSizeX - gv.playerOffsetX - gv.playerOffsetX - 1)
                 {
                     UpperLeftSquare.X++;
                 }
@@ -5137,7 +5155,7 @@ namespace IceBlink2
 
                     //NEW SYSTEM
                     string rtn = combatUiLayout.getImpact(x, y);
-                    gv.cc.addLogText("lime", "mouse down: " + rtn);
+                    //gv.cc.addLogText("lime", "mouse down: " + rtn);
 
                     #region Toggles
                     if (rtn.Equals("tglHP"))
@@ -6034,9 +6052,9 @@ namespace IceBlink2
         public void CalculateUpperLeft()
         {
             Player pc = mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffset;
+            int minX = pc.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
-            int minY = pc.combatLocY - gv.playerOffset;
+            int minY = pc.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
 
             /*mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
@@ -6059,13 +6077,13 @@ namespace IceBlink2
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
             //mod.combatAnimationSpeed = 10;
-            int minX = crt.combatLocX - gv.playerOffset;
+            int minX = crt.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
-            int minY = crt.combatLocY - gv.playerOffset;
+            int minY = crt.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
 
             //do not adjust view port if creature is on screen already and ends move at least one square away from border
-            if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffset * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffset * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
+            if (((crt.combatLocX + 2) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2) >= (UpperLeftSquare.Y)))
             {
                 return;
             }
@@ -6121,9 +6139,9 @@ namespace IceBlink2
         public void CenterScreenOnPC()
         {
             Player pc = mod.playerList[currentPlayerIndex];
-            int minX = pc.combatLocX - gv.playerOffset;
+            int minX = pc.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
-            int minY = pc.combatLocY - gv.playerOffset;
+            int minY = pc.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
 
             UpperLeftSquare.X = minX;
@@ -6136,8 +6154,8 @@ namespace IceBlink2
             {
                 return false;
             }
-            if ((sqrX >= UpperLeftSquare.X + gv.playerOffset + gv.playerOffset + 1)
-                || (sqrY >= UpperLeftSquare.Y + gv.playerOffset + gv.playerOffset + 1))
+            if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
+                || (sqrY >= UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2))
             {
                 return false;
             }
@@ -6150,8 +6168,8 @@ namespace IceBlink2
             {
                 return false;
             }
-            if ((sqrX >= UpperLeftSquare.X + gv.playerOffset + gv.playerOffset + 1)
-                || (sqrY >= UpperLeftSquare.Y + gv.playerOffset + gv.playerOffset + 1))
+            if ((sqrX >= UpperLeftSquare.X + gv.playerOffsetX + gv.playerOffsetX + 1)
+                || (sqrY >= UpperLeftSquare.Y + gv.playerOffsetY + gv.playerOffsetY + 2))
             {
                 return false;
             }

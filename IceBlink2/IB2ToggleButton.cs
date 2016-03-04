@@ -43,9 +43,9 @@ namespace IceBlink2
             //int Height = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height;
             if (show)
             {
-                if ((x >= parentPanel.currentLocX + X) && (x <= (parentPanel.currentLocX + X + Width)))
+                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
                 {
-                    if ((y >= parentPanel.currentLocY + Y + gv.oYshift) && (y <= (parentPanel.currentLocY + Y + gv.oYshift + Height)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
                     {
                         return true;
                     }
@@ -59,7 +59,7 @@ namespace IceBlink2
             if (show)
             {
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height);
-                IbRect dst = new IbRect(parentPanel.currentLocX + X, parentPanel.currentLocY + Y, (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
 
                 if (toggleOn)
                 {
