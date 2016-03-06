@@ -242,7 +242,7 @@
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "",
+  "NpcPortraitBitmap": "prp_blob_portrait.png",
   "DefaultNpcName": "",
   "NextIdNum": 11
 }

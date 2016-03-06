@@ -18,7 +18,20 @@
   "moduleTraitsList": [],
   "moduleEffectsList": [],
   "moduleAreasList": [
-    "sword_and_dragon01"
+    "anselm_house_01",
+    "asterchord_01",
+    "drawn_swords",
+    "flamestone",
+    "flamestone2",
+    "hamfast_house",
+    "hillholler_01",
+    "northdark_01",
+    "northdark_fin",
+    "swordskeep_01",
+    "swordskeep_02",
+    "swordskeep_b",
+    "sword_and_dragon01",
+    "sword_and_dragon02"
   ],
   "moduleConvosList": [
     "anselm2_con",
@@ -164,7 +177,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Harp & Chrysanthemum",
   "moduleCredits": "<big><b>Harp & Chrysanthemum by Zachary Holbrook</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 15519,
+  "nextIdNumber": 15546,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 300,

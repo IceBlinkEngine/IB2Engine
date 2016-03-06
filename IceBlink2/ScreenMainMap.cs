@@ -2182,7 +2182,7 @@ namespace IceBlink2
 
                 int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
                 if (maxX > this.mod.currentArea.MapSizeX) { maxX = this.mod.currentArea.MapSizeX; }
-                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
+                int maxY = mod.PlayerLocationY + gv.playerOffsetY + 2; // use 2 so that extends down to bottom of screen
                 if (maxY > this.mod.currentArea.MapSizeY) { maxY = this.mod.currentArea.MapSizeY; }
 
                 #region Draw Layer 1
@@ -25351,22 +25351,17 @@ namespace IceBlink2
         }
         public void drawMainMapFloatyText()
         {
-            /*TODO
-		    int txtH = (int)gv.floatyTextPaint.getTextSize();
-		
-		    gv.floatyTextPaint.setStyle(Paint.Style.FILL);
-		    gv.floatyTextPaint.setColor(Color.BLACK);
-		    for (int x = -2; x <= 2; x++)
-		    {
-			    for (int y = -2; y <= 2; y++)
-			    {
-				    canvas.drawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift + x, gv.cc.floatyTextLoc.Y + txtH + y, gv.floatyTextPaint);				
-			    }
-		    }		
-		    gv.floatyTextPaint.setStyle(Paint.Style.FILL);
-		    gv.floatyTextPaint.setColor(Color.WHITE);
-		    canvas.drawText(gv.cc.floatyText, gv.cc.floatyTextLoc.X + gv.oXshift, gv.cc.floatyTextLoc.Y + txtH, gv.floatyTextPaint);	
-	        */
+            int txtH = (int)gv.drawFontRegHeight;
+
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    gv.DrawText(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + x + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.Black);
+                }
+            }
+            
+            gv.DrawText(gv.cc.floatyText, new IbRect(gv.cc.floatyTextLoc.X + gv.oXshift + mapStartLocXinPixels, gv.cc.floatyTextLoc.Y + txtH, gv.squareSize * 2, 1000), 0.8f, Color.White);
         }
         public void drawOverlayTints()
         {
@@ -29046,11 +29041,11 @@ namespace IceBlink2
         public bool IsTouchInMapWindow(int sqrX, int sqrY)
         {
             //all input coordinates are in Screen Location, not Map Location
-            if ((sqrX < 6) || (sqrY < 0))
+            if ((sqrX < 0) || (sqrY < 0))
             {
                 return false;
             }
-            if ((sqrX >= 15) || (sqrY >= 9))
+            if ((sqrX > 19) || (sqrY > 10))
             {
                 return false;
             }
@@ -29227,6 +29222,5 @@ namespace IceBlink2
             }
             return false;
         }
-        
     }
 }
