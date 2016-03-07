@@ -1979,7 +1979,7 @@ namespace IceBlink2
                 }
                 */
                 //cull all down if too high value is reached (last resort)
-                if (gv.mod.loadedTileBitmaps.Count > 250)
+                if (gv.mod.loadedTileBitmaps.Count > 400)
                 {
                     try
                     {
@@ -1999,10 +1999,10 @@ namespace IceBlink2
 
                 }
 
-                if (gv.mod.loadedTileBitmaps.Count > 140)
+                if (gv.mod.loadedTileBitmaps.Count > 250)
                 {
                     //addLogText("yellow", "Disposing tiles.");
-                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) - 5);
+                    int cullNumber = ((gv.mod.loadedTileBitmaps.Count / 10) + 2);
                     try
                     {
                         if (gv.mod.loadedTileBitmaps != null)
