@@ -587,7 +587,7 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
-                        
+            setExplored();
             //gv.drawLog();
             //drawControls();            
             //drawPortraits();
@@ -28956,6 +28956,45 @@ namespace IceBlink2
             else
             {
                 #region Old System
+
+                // set current position to visible
+                mod.currentArea.Tiles[mod.PlayerLocationY * mod.currentArea.MapSizeX + mod.PlayerLocationX].Visible = true;
+                // set tiles to visible around the PC
+                for (int x = mod.PlayerLocationX - mod.currentArea.AreaVisibleDistance; x <= mod.PlayerLocationX + mod.currentArea.AreaVisibleDistance; x++)
+                {
+                    for (int y = mod.PlayerLocationY - mod.currentArea.AreaVisibleDistance; y <= mod.PlayerLocationY + mod.currentArea.AreaVisibleDistance; y++)
+                    {
+                        int xx = x;
+                        int yy = y;
+                        if (xx < 1) { xx = 0; }
+                        if (xx > (mod.currentArea.MapSizeX - 1)) { xx = (mod.currentArea.MapSizeX - 1); }
+                        if (yy < 1) { yy = 0; }
+                        if (yy > (mod.currentArea.MapSizeY - 1)) { yy = (mod.currentArea.MapSizeY - 1); }
+                        if (IsLineOfSightForEachCorner(new Coordinate(mod.PlayerLocationX, mod.PlayerLocationY), new Coordinate(xx, yy)))
+                        {
+                            mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                        }
+                    }
+                }
+                //make all adjacent squares visible
+                int minX = mod.PlayerLocationX - 1;
+                if (minX < 0) { minX = 0; }
+                int minY = mod.PlayerLocationY - 1;
+                if (minY < 0) { minY = 0; }
+
+                int maxX = mod.PlayerLocationX + 1;
+                if (maxX > this.mod.currentArea.MapSizeX - 1) { maxX = this.mod.currentArea.MapSizeX - 1; }
+                int maxY = mod.PlayerLocationY + 1;
+                if (maxY > this.mod.currentArea.MapSizeY - 1) { maxY = this.mod.currentArea.MapSizeY - 1; }
+
+                for (int xx = minX; xx <= maxX; xx++)
+                {
+                    for (int yy = minY; yy <= maxY; yy++)
+                    {
+                        mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                    }
+                }
+                /*
                 //old way
                 int minX = mod.PlayerLocationX - 1;
                 if (minX < 0) { minX = 0; }
@@ -29034,7 +29073,7 @@ namespace IceBlink2
                     {
                         mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
                     }
-                }
+                }*/
                 #endregion
             }
         }
@@ -29051,7 +29090,7 @@ namespace IceBlink2
             }
             return true;
         }
-        public bool IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
+        public bool IsLineOfSightForEachCornerOld(Coordinate s, Coordinate e)
         {
             int spacer = 5;
             Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
@@ -29078,7 +29117,7 @@ namespace IceBlink2
 
             return false;
         }
-        public bool IsVisibleLineOfSight(Coordinate s, Coordinate e, Coordinate endSquare)
+        public bool IsVisibleLineOfSightOld(Coordinate s, Coordinate e, Coordinate endSquare)
         {
             // Bresenham Line algorithm
             // Creates a line from Begin to End starting at (x0,y0) and ending at (x1,y1)
@@ -29210,6 +29249,238 @@ namespace IceBlink2
 
             return true;
         }
+
+        private void setExploredNew()
+        {
+            // set current position to visible
+            mod.currentArea.Tiles[mod.PlayerLocationY * mod.currentArea.MapSizeX + mod.PlayerLocationX].Visible = true;
+            // set tiles to visible around the PC
+            for (int x = mod.PlayerLocationX - mod.currentArea.AreaVisibleDistance; x <= mod.PlayerLocationX + mod.currentArea.AreaVisibleDistance; x++)
+            {
+                for (int y = mod.PlayerLocationY - mod.currentArea.AreaVisibleDistance; y <= mod.PlayerLocationY + mod.currentArea.AreaVisibleDistance; y++)
+                {
+                    int xx = x;
+                    int yy = y;
+                    if (xx < 1) { xx = 0; }
+                    if (xx > (mod.currentArea.MapSizeX - 1)) { xx = (mod.currentArea.MapSizeX - 1); }
+                    if (yy < 1) { yy = 0; }
+                    if (yy > (mod.currentArea.MapSizeY - 1)) { yy = (mod.currentArea.MapSizeY - 1); }
+                    if (IsLineOfSightForEachCorner(new Coordinate(mod.PlayerLastLocationX, mod.PlayerLastLocationY), new Coordinate(xx, yy)))
+                    {
+                        mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                    }
+                }
+            }
+        }
+        public bool IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
+        {
+            int spacer = 5;
+            //start is at the center of party location square
+            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
+            //check center of all four sides of the end square
+            int halfSquare = (gv.squareSize / 2);
+            //left side center
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+            /*
+            // top left
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
+            // top right
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
+            // bottom left
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
+            // bottom right
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
+            */
+            return false;
+        }
+        public bool IsVisibleLineOfSight(Coordinate s, Coordinate e, Coordinate endSquare)
+        {
+            // Bresenham Line algorithm
+            Coordinate start = s;
+            Coordinate end = e;
+            int deltax = Math.Abs(end.X - start.X);
+            int deltay = Math.Abs(end.Y - start.Y);
+            int ystep = 10;
+            int xstep = 10;
+            int gridx = 0;
+            int gridy = 0;
+            int gridXdelayed = s.X;
+            int gridYdelayed = s.Y;
+
+            //gv.DrawLine(end.X + gv.oXshift, end.Y + gv.oYshift, start.X + gv.oXshift, start.Y + gv.oYshift, Color.Lime, 1);
+            
+            #region low angle version
+            if (deltax > deltay) //Low Angle line
+            {
+                Coordinate nextPoint = start;
+                int error = deltax / 2;
+
+                if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
+
+                if (end.X > start.X) //down and right
+                {
+                    for (int x = start.X; x <= end.X; x += xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (mod.currentArea.MapSizeY - 1)) { gridy = (mod.currentArea.MapSizeY - 1); }
+                        if (mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else //down and left
+                {
+                    for (int x = start.X; x >= end.X; x -= xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (mod.currentArea.MapSizeY - 1)) { gridy = (mod.currentArea.MapSizeY - 1); }
+                        if (mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            #region steep version
+            else //Low Angle line
+            {
+                Coordinate nextPoint = start;
+                int error = deltay / 2;
+
+                if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
+
+                if (end.Y > start.Y) //up and right
+                {
+                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (mod.currentArea.MapSizeY - 1)) { gridy = (mod.currentArea.MapSizeY - 1); }
+                        if (mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else //up and right
+                {
+                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (mod.currentArea.MapSizeX - 1)) { gridx = (mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (mod.currentArea.MapSizeY - 1)) { gridy = (mod.currentArea.MapSizeY - 1); }
+                        if (mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            return true;
+        }
+
         public bool hasMainMapTypeSpell(Player pc)
         {
             foreach (string s in pc.knownSpellsTags)
