@@ -3193,17 +3193,18 @@ namespace IceBlink2
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
-                                
+
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
                                 int modX = x;
@@ -3295,8 +3296,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -3306,10 +3307,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -3381,7 +3382,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -3389,8 +3390,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -3404,9 +3405,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -3421,8 +3422,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -3436,10 +3437,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -3458,16 +3459,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -3481,9 +3482,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -3501,16 +3502,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -3525,9 +3526,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -3549,19 +3550,23 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource1 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
+
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -3579,6 +3584,7 @@ namespace IceBlink2
             }
             #endregion
             #endregion
+
             #region Draw full screen layer 2
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
             //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
@@ -4253,15 +4259,16 @@ namespace IceBlink2
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer2)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -4352,8 +4359,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -4363,10 +4370,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -4438,7 +4445,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -4446,8 +4453,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -4461,9 +4468,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -4478,8 +4485,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -4493,10 +4500,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -4515,16 +4522,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -4538,9 +4545,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -4558,16 +4565,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -4582,9 +4589,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -4606,19 +4613,22 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -5309,17 +5319,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer3)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -5410,8 +5421,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -5421,10 +5432,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -5496,7 +5507,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -5504,8 +5515,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -5513,15 +5524,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -5529,15 +5540,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -5545,16 +5556,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -5562,7 +5573,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -5573,16 +5584,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -5590,15 +5601,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -5606,7 +5617,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5616,16 +5627,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -5633,16 +5644,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -5650,7 +5661,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -5664,23 +5675,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource3 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -6368,17 +6383,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer4)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -6469,8 +6485,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -6480,10 +6496,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -6555,7 +6571,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -6563,8 +6579,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -6572,15 +6588,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -6588,15 +6604,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -6604,16 +6620,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -6632,16 +6648,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -6649,15 +6665,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -6675,16 +6691,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -6699,9 +6715,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -6723,23 +6739,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource4 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -7431,17 +7451,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer5)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -7532,8 +7553,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -7543,10 +7564,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -7618,7 +7639,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -7626,8 +7647,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -7641,9 +7662,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -7658,8 +7679,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -7673,10 +7694,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -7695,16 +7716,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -7718,9 +7739,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -7738,16 +7759,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -7762,9 +7783,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -7786,23 +7807,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource5 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -8493,17 +8518,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer6)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -8594,8 +8620,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -8605,10 +8631,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -8680,7 +8706,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -8688,8 +8714,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -8703,9 +8729,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -8720,8 +8746,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -8735,10 +8761,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -8757,16 +8783,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -8780,9 +8806,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -8800,16 +8826,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -8824,9 +8850,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -8845,22 +8871,24 @@ namespace IceBlink2
                                 //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
                                 else
                                 {
-
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource6 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -9555,17 +9583,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer7)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -9656,8 +9685,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -9667,10 +9696,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -9742,7 +9771,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -9750,8 +9779,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -9765,9 +9794,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -9782,8 +9811,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -9797,10 +9826,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -9819,16 +9848,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -9842,9 +9871,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -9862,16 +9891,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -9886,9 +9915,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -9910,23 +9939,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource7 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -10618,17 +10651,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer8)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -10719,8 +10753,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -10730,10 +10764,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -10805,7 +10839,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -10813,8 +10847,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -10828,9 +10862,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -10845,8 +10879,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -10860,10 +10894,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -10882,16 +10916,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -10905,9 +10939,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -10925,16 +10959,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -10949,9 +10983,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -10970,22 +11004,24 @@ namespace IceBlink2
                                 //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
                                 else
                                 {
-
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource8 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -11681,17 +11717,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer9)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -11782,8 +11819,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -11793,10 +11830,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -11868,7 +11905,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -11876,8 +11913,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -11891,9 +11928,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -11908,8 +11945,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -11923,10 +11960,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -11945,16 +11982,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -11968,9 +12005,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -11988,16 +12025,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -12012,9 +12049,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -12034,21 +12071,25 @@ namespace IceBlink2
                                 else
                                 {
 
+
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource9 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -12744,17 +12785,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer10)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -12845,8 +12887,8 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
                                 #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
@@ -12856,10 +12898,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -12931,7 +12973,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -12939,8 +12981,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -12954,9 +12996,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -12971,8 +13013,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -12986,10 +13028,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -13008,16 +13050,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -13031,9 +13073,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -13051,16 +13093,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -13075,9 +13117,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -13097,21 +13139,25 @@ namespace IceBlink2
                                 else
                                 {
 
+
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource10 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -13130,9 +13176,10 @@ namespace IceBlink2
             #endregion
             #endregion   
         }
+
         public void drawBottomFullScreenEffects()
         {
-            #region dst tile preparation (min and max)
+            #region dst tile preparation (min and max)  
 
             int indexOfNorthernNeighbour = -1;
             int indexOfSouthernNeighbour = -1;
@@ -13148,9 +13195,9 @@ namespace IceBlink2
             int seamlessModififierMinY = 0;
             int seamlessModififierMaxY = 0;
 
-            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffset))
+            if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
             {
-                seamlessModififierMinY = gv.playerOffset - gv.mod.PlayerLocationY;
+                seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
@@ -13182,10 +13229,10 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1)))
+            if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
             {
 
-                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffset - 1);
+                seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
@@ -13217,9 +13264,9 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffset))
+            if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
             {
-                seamlessModififierMinX = gv.playerOffset - gv.mod.PlayerLocationX;
+                seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
@@ -13251,9 +13298,9 @@ namespace IceBlink2
                 }
             }
 
-            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1)))
+            if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
             {
-                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffset - 1);
+                seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
                     if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
@@ -13287,14 +13334,14 @@ namespace IceBlink2
 
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             //set up teh min and max dst tiles to iterate through, ie draw on into the map area and that on a tile by tile basis 
-            int minX = mod.PlayerLocationX - gv.playerOffset;
+            int minX = mod.PlayerLocationX - gv.playerOffsetX;
             if (minX < -seamlessModififierMinX) { minX = -seamlessModififierMinX; }
-            int minY = mod.PlayerLocationY - gv.playerOffset;
+            int minY = mod.PlayerLocationY - gv.playerOffsetY;
             if (minY < -seamlessModififierMinY) { minY = -seamlessModififierMinY; }
 
-            int maxX = mod.PlayerLocationX + gv.playerOffset + 1;
+            int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
             if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
-            int maxY = mod.PlayerLocationY + gv.playerOffset + 1;
+            int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
             if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
             #endregion
             //hurgh
@@ -13973,15 +14020,16 @@ namespace IceBlink2
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer1)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
 
                                 #region is effect contained inside borders or always centered on party?
@@ -14075,10 +14123,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource1 == "True")
@@ -14086,10 +14134,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -14161,7 +14209,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -14169,8 +14217,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -14184,9 +14232,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -14201,8 +14249,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -14216,10 +14264,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -14238,16 +14286,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -14261,9 +14309,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -14281,16 +14329,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource1 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -14305,9 +14353,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -14329,19 +14377,23 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource1 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
+
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect1, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -14354,11 +14406,12 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
             #endregion
+            #endregion
+
             #region Draw full screen layer 2
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
             //I would guess that combined about 60.000 pix are ok for performance,so like 6 x 100x100 source bitmaps or fewer, but with higer resolution
@@ -15033,15 +15086,16 @@ namespace IceBlink2
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
                             if (!tile.blockFullScreenEffectLayer2)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -15132,10 +15186,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource2 == "True")
@@ -15143,10 +15197,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -15218,7 +15272,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -15226,8 +15280,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -15241,9 +15295,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -15258,8 +15312,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -15273,10 +15327,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -15295,16 +15349,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -15318,9 +15372,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -15338,16 +15392,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource2 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -15362,9 +15416,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -15386,19 +15440,22 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource2 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -15411,10 +15468,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 3
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -16089,17 +16146,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer3)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -16190,10 +16248,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource3 == "True")
@@ -16201,10 +16259,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -16276,7 +16334,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -16284,8 +16342,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -16293,15 +16351,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -16309,15 +16367,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -16325,16 +16383,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -16342,7 +16400,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY + oldHeight, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
@@ -16353,16 +16411,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -16370,15 +16428,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -16386,7 +16444,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * (dstScalerX))), (brY * (dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -16396,16 +16454,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource3 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -16413,16 +16471,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -16430,7 +16488,7 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldLength, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
                                     continue;
@@ -16444,23 +16502,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource3 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect3, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -16469,10 +16531,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 4
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -17148,17 +17210,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer4)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -17249,10 +17312,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource4 == "True")
@@ -17260,10 +17323,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -17335,7 +17398,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -17343,8 +17406,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -17352,15 +17415,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -17368,15 +17431,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels + oldWidth, tlY, (brX - (brX * dstScalerX)), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -17384,16 +17447,16 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY + oldHeight, (brX * dstScalerX), (brY - (brY * dstScalerY)));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -17412,16 +17475,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -17429,15 +17492,15 @@ namespace IceBlink2
                                     {
                                         IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, availableLengthX, availableLengthY);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (brX * dstScalerX), (brY * dstScalerY));
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -17455,16 +17518,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource4 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -17479,9 +17542,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -17503,23 +17566,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource4 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                                        gv.DrawBitmap(fullScreenEffect2, src, dst, false, fullScreenEffectOpacity);
+                                        gv.DrawBitmap(fullScreenEffect4, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -17528,10 +17595,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 5
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -18211,17 +18278,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer5)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -18312,10 +18380,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource5 == "True")
@@ -18323,10 +18391,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -18398,7 +18466,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -18406,8 +18474,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -18421,9 +18489,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -18438,8 +18506,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -18453,10 +18521,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -18475,16 +18543,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -18498,9 +18566,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -18518,16 +18586,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource5 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -18542,9 +18610,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -18566,23 +18634,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource5 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect5, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -18591,10 +18663,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 6
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -19273,17 +19345,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer6)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -19374,10 +19447,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource6 == "True")
@@ -19385,10 +19458,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -19460,7 +19533,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -19468,8 +19541,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -19483,9 +19556,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -19500,8 +19573,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -19515,10 +19588,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -19537,16 +19610,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -19560,9 +19633,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -19580,16 +19653,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource6 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -19604,9 +19677,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -19625,22 +19698,24 @@ namespace IceBlink2
                                 //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
                                 else
                                 {
-
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource6 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect6, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -19653,10 +19728,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 7
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -20335,17 +20410,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer7)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -20436,10 +20512,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource7 == "True")
@@ -20447,10 +20523,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -20522,7 +20598,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -20530,8 +20606,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -20545,9 +20621,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -20562,8 +20638,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -20577,10 +20653,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -20599,16 +20675,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -20622,9 +20698,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -20642,16 +20718,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource7 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -20666,9 +20742,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -20690,23 +20766,27 @@ namespace IceBlink2
 
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource7 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect7, src, dst, false, fullScreenEffectOpacity);
                                     }
                                     catch { }
+
 
                                 }
                                 #endregion
@@ -20715,10 +20795,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 8
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -21398,17 +21478,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer8)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -21499,10 +21580,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource8 == "True")
@@ -21510,10 +21591,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -21585,7 +21666,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -21593,8 +21674,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -21608,9 +21689,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -21625,8 +21706,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -21640,10 +21721,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -21662,16 +21743,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -21685,9 +21766,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -21705,16 +21786,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource8 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -21729,9 +21810,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -21750,22 +21831,24 @@ namespace IceBlink2
                                 //Situation 4: the default situation, x and y are sufficiently distant from bottom and right border
                                 else
                                 {
-
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource8 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect8, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -21778,10 +21861,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 9
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -22461,17 +22544,18 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer9)
                             {
-                                int tlX = (x - mod.PlayerLocationX + gv.playerOffset) * gv.squareSize;
-                                int tlY = (y - mod.PlayerLocationY + gv.playerOffset) * gv.squareSize;
+                                int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
+                                int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
 
                                 float scalerX = 100 / 100f;
                                 float scalerY = 100 / 100f;
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -22562,10 +22646,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource9 == "True")
@@ -22573,10 +22657,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -22648,7 +22732,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -22656,8 +22740,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -22671,9 +22755,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -22688,8 +22772,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -22703,10 +22787,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -22725,16 +22809,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -22748,9 +22832,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -22768,16 +22852,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource9 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -22792,9 +22876,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -22814,21 +22898,25 @@ namespace IceBlink2
                                 else
                                 {
 
+
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource9 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect9, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -22841,10 +22929,10 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
+            #endregion
             #endregion
             #region Draw full screen layer 10
             //there will be six layers for effects usable by either the top (eg.sky) or bottom (eg sea) full scren draw methods 
@@ -23524,7 +23612,7 @@ namespace IceBlink2
                             //Tile tile = mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x];
 
                             //each tile can block the effects run on the six effect channels, each e.g. simualting shelter from rain
-                            if (!tile.blockFullScreenEffectLayer2)
+                            if (!tile.blockFullScreenEffectLayer10)
                             {
                                 int tlX = (x - mod.PlayerLocationX + gv.playerOffsetX) * gv.squareSize;
                                 int tlY = (y - mod.PlayerLocationY + gv.playerOffsetY) * gv.squareSize;
@@ -23534,7 +23622,8 @@ namespace IceBlink2
                                 float brX = gv.squareSize * scalerX;
                                 float brY = gv.squareSize * scalerY;
 
-                                float numberOfPictureParts = gv.playerOffset * 2 + 1;
+                                float numberOfPicturePartsX = gv.playerOffsetX * 2 + 1;
+                                float numberOfPicturePartsY = gv.playerOffsetY * 2 + 1;
 
                                 #region is effect contained inside borders or always centered on party?
                                 //code section for handling borders of the area
@@ -23625,10 +23714,10 @@ namespace IceBlink2
 
                                 //get the correct chunk on source
                                 //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                float floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                float floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                #region handle border situations on source (bottom and right)
+                                #region handle border situations on source (bottom and right)     
                                 //the following four sections help to set the top left x,y of our square incase we ae close to bottom or right border of source
 
                                 if (gv.mod.currentArea.overrideIsNoScrollSource10 == "True")
@@ -23636,10 +23725,10 @@ namespace IceBlink2
                                     sizeOfWholeSource = 0.5f * sizeOfWholeSource;
                                     //get the correct chunk on source
                                     //subject to movement of the animation expressed by pixShiftOnThisFrameX/Y
-                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameX;
-                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPictureParts) * sizeOfWholeSource + pixShiftOnThisFrameY;
+                                    floatSourceChunkCoordX = ((float)(modX - modMinX) / numberOfPicturePartsX) * sizeOfWholeSource + pixShiftOnThisFrameX;
+                                    floatSourceChunkCoordY = ((float)(modY - modMinY) / numberOfPicturePartsY) * sizeOfWholeSource + pixShiftOnThisFrameY;
 
-                                    float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
+                                    //float smallSourceChunk = sizeOfWholeSource / numberOfPictureParts;
                                     sizeOfWholeSource = 2.0f * sizeOfWholeSource;
                                     /*
                                     //stop at border
@@ -23711,7 +23800,7 @@ namespace IceBlink2
                                 //Situation 1 (most complex): touching four source squares, we are in the far low right corner
                                 //there will be two more 2 source square situations, one for x and one for y direction
                                 //also there's of course the standard situation that we just need one coherent source
-                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && ((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts four source chunks from four different source squares and draw them onto the dst square
@@ -23719,8 +23808,8 @@ namespace IceBlink2
                                     //first: top left corner
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -23734,9 +23823,9 @@ namespace IceBlink2
 
                                     //second: top right corner
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -23751,8 +23840,8 @@ namespace IceBlink2
                                     //third: bottom left corner
                                     float oldHeight = (brY * dstScalerY);
                                     availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -23766,10 +23855,10 @@ namespace IceBlink2
 
                                     //fourth: bottom right corner
                                     oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
                                     availableLengthY = availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = 0;
 
@@ -23788,16 +23877,16 @@ namespace IceBlink2
 
                                 #region Situation 2 (2 to 1, x near border)
                                 //Situation 2: only x is near right border, y is high/small enough
-                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                else if (((floatSourceChunkCoordX + (sizeOfWholeSource / numberOfPicturePartsX)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: left hand side
                                     float availableLengthX = sizeOfWholeSource - floatSourceChunkCoordX;
-                                    float availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -23811,9 +23900,9 @@ namespace IceBlink2
 
                                     //second: right hand side
                                     float oldWidth = (brX * dstScalerX);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts) - availableLengthX;
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts);
-                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX) - availableLengthX;
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY);
+                                    dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     srcCoordY2 = floatSourceChunkCoordY;
                                     srcCoordX2 = 0;
 
@@ -23831,16 +23920,16 @@ namespace IceBlink2
 
                                 #region Situation 3 (2 to 1, y near border)
                                 //Situation 3: only y is near bottom border, x is left/small enough WIP
-                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPictureParts)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
+                                else if (((floatSourceChunkCoordY + (sizeOfWholeSource / numberOfPicturePartsY)) >= sizeOfWholeSource) && (gv.mod.currentArea.overrideIsNoScrollSource10 != "True"))
                                 {
 
                                     //need to use parts of two source chunks from two different source squares and draw them onto the dst square
 
                                     //first: top square
-                                    float availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
+                                    float availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
                                     float availableLengthY = sizeOfWholeSource - floatSourceChunkCoordY;
-                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
-                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPictureParts);
+                                    float dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
+                                    float dstScalerY = availableLengthY / (sizeOfWholeSource / numberOfPicturePartsY);
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
 
@@ -23855,9 +23944,9 @@ namespace IceBlink2
                                     //second: bottom square
                                     float oldLength = 0;
                                     oldLength = (float)(brY * dstScalerY);
-                                    availableLengthX = (sizeOfWholeSource / numberOfPictureParts);
-                                    availableLengthY = (sizeOfWholeSource / numberOfPictureParts) - availableLengthY;
-                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPictureParts);
+                                    availableLengthX = (sizeOfWholeSource / numberOfPicturePartsX);
+                                    availableLengthY = (sizeOfWholeSource / numberOfPicturePartsY) - availableLengthY;
+                                    dstScalerX = availableLengthX / (sizeOfWholeSource / numberOfPicturePartsX);
                                     srcCoordY2 = 0;
                                     srcCoordX2 = floatSourceChunkCoordX;
 
@@ -23877,21 +23966,25 @@ namespace IceBlink2
                                 else
                                 {
 
+
                                     float srcCoordY2 = floatSourceChunkCoordY;
                                     float srcCoordX2 = floatSourceChunkCoordX;
-                                    float sizeOfSourceChunk2 = 0;
+                                    float sizeOfSourceChunk2X = 0;
+                                    float sizeOfSourceChunk2Y = 0;
                                     if (gv.mod.currentArea.overrideIsNoScrollSource10 != "True")
                                     {
-                                        sizeOfSourceChunk2 = (sizeOfWholeSource / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = (sizeOfWholeSource / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = (sizeOfWholeSource / numberOfPicturePartsY);
                                     }
                                     else
                                     {
-                                        sizeOfSourceChunk2 = ((sizeOfWholeSource * 0.5f) / numberOfPictureParts);
+                                        sizeOfSourceChunk2X = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsX);
+                                        sizeOfSourceChunk2Y = ((sizeOfWholeSource * 0.5f) / numberOfPicturePartsY);
                                     }
 
                                     try
                                     {
-                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2, sizeOfSourceChunk2);
+                                        IbRectF src = new IbRectF(srcCoordX2, srcCoordY2, sizeOfSourceChunk2X, sizeOfSourceChunk2Y);
                                         IbRectF dst = new IbRectF(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         gv.DrawBitmap(fullScreenEffect10, src, dst, false, fullScreenEffectOpacity);
                                     }
@@ -23904,13 +23997,13 @@ namespace IceBlink2
                         }
                     }
                 }
-                                #endregion
+                #endregion
 
             }
-                    #endregion
             #endregion
+            #endregion   
         }
-        
+
         public void drawMap()
         {
             int bmpWidth = gv.cc.bmpMap.PixelSize.Width;
