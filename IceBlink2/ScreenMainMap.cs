@@ -550,6 +550,11 @@ namespace IceBlink2
                 drawMovingProps();
             }
             drawMainMapFloatyText();
+            drawFloatyTextPool();
+            if (gv.mod.useSmoothMovement)
+            {
+                drawFloatyTextByPixelPool();
+            }
             if (!mod.currentArea.areaDark)
             {
                 bool hideOverlayNeeded = false;
@@ -566,11 +571,7 @@ namespace IceBlink2
                 }
                 drawFogOfWar();
             }            
-            drawFloatyTextPool();
-            if (gv.mod.useSmoothMovement)
-            {
-                drawFloatyTextByPixelPool();
-            }
+            
 
             //if (tglClock.toggleOn)
             //{
@@ -587,7 +588,6 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
-            setExplored();
             //gv.drawLog();
             //drawControls();            
             //drawPortraits();
