@@ -18,13 +18,44 @@ namespace IceBlink2
         public int timeToLiveInMilliseconds = 1000;   // The 'time to live' of the sprite in milliseconds after the startTimeInMilliseconds
         public int millisecondsPerFrame = 100;        // The amount of time (ms) before switching to next frame  
         public bool permanent = false;
+        
+        //new stuff yet to add into the calculations
+        public float opacity = 1.0f;                  //The transparency of the sprite, at 1.0f it's totally solid, at 0 it's invisible
+        public string movementMethod = "linear";      //They way the sprite is moved across screen (i.e. how the velocities are used to determine new position)
+        public float mass = 0;                        //Might be used later for determining the effects of collission
+        public string spriteType = "normalSprite";    //to make different types of srpites identifiable for the calculations in update(elapsed)
+        
+        //more ideas for later: isShadowCaster, extend vector and position by z-coordinate, hardness (simulate shatter on impact as well as speed loss on collision due energy going into deformation)
 
         //mostly internal to this class only
         public int currentFrameIndex = 0;
         public int numberOfFrames = 1;
         public int frameHeight = 0;
         public int totalElapsedTime = 0;
-        
+
+        //overloaded constructor: complexSprite 
+        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod)
+        {
+            this.bitmap = bitmap;
+            this.position = new Vector2(positionX, positionY);
+            this.velocity = new Vector2(velocityX, velocityY);
+            this.angle = angle;
+            this.angularVelocity = angularVelocity;
+            this.scale = scale;
+            this.timeToLiveInMilliseconds = timeToLiveInMilliseconds;
+            this.millisecondsPerFrame = msPerFrame;
+            this.permanent = permanent;
+            this.opacity = opacity;
+            this.mass = mass;
+            this.movementMethod = movementMethod;
+            this.spriteType = "complexSprite";
+
+            if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }
+            frameHeight = gv.cc.GetFromBitmapList(bitmap).PixelSize.Height;
+            numberOfFrames = gv.cc.GetFromBitmapList(bitmap).PixelSize.Width / frameHeight;
+        }
+
+        //lean constructor: normal Sprite
         public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame)
         {
             this.bitmap = bitmap;
@@ -36,18 +67,22 @@ namespace IceBlink2
             this.timeToLiveInMilliseconds = timeToLiveInMilliseconds;
             this.millisecondsPerFrame = msPerFrame;
             this.permanent = permanent;
+            this.spriteType = "normalSprite";
 
             if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }
             frameHeight = gv.cc.GetFromBitmapList(bitmap).PixelSize.Height;
             numberOfFrames = gv.cc.GetFromBitmapList(bitmap).PixelSize.Width / frameHeight;
         }
-        
+
         public void Update(int elapsed)
         {
             timeToLiveInMilliseconds -= elapsed;
             totalElapsedTime += elapsed;
-            position += velocity * elapsed;
-            angle += angularVelocity * elapsed;
+            if (movementMethod == "linear")
+            {
+                position += velocity * elapsed;
+                angle += angularVelocity * elapsed;
+            }
             int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
             currentFrameIndex = x / millisecondsPerFrame;            
         }
@@ -55,7 +90,7 @@ namespace IceBlink2
         public void Draw(GameView gv)
         {            
             IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
-            IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, gv.squareSize, gv.squareSize);
+            IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scale), (int)(gv.squareSize*this.scale));
             gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);            
         }
     }    

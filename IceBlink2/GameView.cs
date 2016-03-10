@@ -151,6 +151,8 @@ namespace IceBlink2
         //public int realTimeTimerLengthInMilliSeconds = 2500;
         public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
+        public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+        public string rainType = "";
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
         //public bool useSmoothMovement = true;
@@ -1167,6 +1169,21 @@ namespace IceBlink2
                     realTimeTimerMilliSecondsEllapsed = 0;
                 }
             }
+
+            //rain test (particle)
+            
+            if ((screenType.Equals("main")) && (mod.isRaining == true))
+            {
+                fullScreenEffectTimerMilliSecondsElapsedRain += elapsed;
+                float rainChance2 = sf.RandInt(200) + 150;
+                if (fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
+                {
+                    cc.rainTest(rainType);
+                    fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+                }
+            }
+           
+
             //iterate through spriteList and handle any sprite location and animation frame calculations
             if (screenType.Equals("main"))
             {
