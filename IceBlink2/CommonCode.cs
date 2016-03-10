@@ -2020,7 +2020,7 @@ namespace IceBlink2
 
                         }
 
-                        //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
+                        //these two lists keep an exact order so each bitmap stored in one corresponds with a name in the other
                     }
                     catch
                     {
@@ -3594,6 +3594,17 @@ namespace IceBlink2
                             {
                                 gv.mod.isRaining = false;
                             }
+
+                            if ((gv.mod.currentWeatherName.Contains("cloud")) || (gv.mod.currentWeatherName.Contains("Cloud")))
+                            {
+                                gv.mod.isCloudy = true;
+                            }
+                            else
+                            {
+                                gv.mod.isCloudy = false;
+                            }
+
+
                             for (int j = 0; j < gv.mod.moduleWeatherEffectsList[i].WeatherLayers.Count; j++)
                             {
                                 if (j == 0)
@@ -3613,6 +3624,51 @@ namespace IceBlink2
                                     {
                                         gv.mod.currentArea.useFullScreenEffectLayer5 = false;
                                         gv.rainType = "rain";
+                                    }                                   
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer5 = false;
+                                        gv.cloudType = "cloudLayerC";
                                     }
                                     else
                                     {
@@ -3685,6 +3741,51 @@ namespace IceBlink2
                                         gv.mod.currentArea.useFullScreenEffectLayer6 = false;
                                         gv.rainType = "rain";
                                     }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer6 = false;
+                                        gv.cloudType = "cloudLayerC";
+                                    }
                                     else
                                     {
                                         //full screen effect layer 6
@@ -3754,6 +3855,51 @@ namespace IceBlink2
                                     {
                                         gv.mod.currentArea.useFullScreenEffectLayer7 = false;
                                         gv.rainType = "rain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer7 = false;
+                                        gv.cloudType = "cloudLayerC";
                                     }
                                     else
                                     {
@@ -3826,6 +3972,51 @@ namespace IceBlink2
                                         gv.mod.currentArea.useFullScreenEffectLayer8 = false;
                                         gv.rainType = "rain";
                                     }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer8 = false;
+                                        gv.cloudType = "cloudLayerC";
+                                    }
                                     else
                                     {
                                         //full screen effect layer 8
@@ -3881,104 +4072,231 @@ namespace IceBlink2
                                 if (j == 4)
                                 {
                                     #region full screen effect layer 9
-                                    //full screen effect layer 9
-                                    gv.mod.currentArea.useFullScreenEffectLayer9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
-                                    //gv.mod.currentArea.fullScreenEffectLayerIsActive9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
-                                    //public string fullScreenEffectLayerName9 = "full_screen_effect_layer1x";
-                                    //public string fullScreenEffectLayerName9 = "fogLayerB";
-                                    gv.mod.currentArea.fullScreenEffectLayerName9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
-                                    //public string fullScreenEffectLayerName9 = "rainLayerB";
-                                    //public string fullScreenEffectLayerName9 = "testAnim1";
-                                    //gv.mod.currentArea.fullScreenAnimationSpeed9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
-                                    //gv.mod.currentArea.fullScreenAnimationSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
-                                    //gv.mod.currentArea.fullScreenAnimationSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
-                                    gv.mod.currentArea.FullScreenEffectLayer9IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
-                                    gv.mod.currentArea.fullScreenEffectChanceToOccur9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
-                                    //zero signifies an endlessly running animation
-                                    gv.mod.currentArea.numberOfCyclesPerOccurence9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
-                                    //gv.mod.cycleCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
-                                    gv.mod.currentArea.containEffectInsideAreaBorders9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
-                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
 
-                                    gv.mod.currentArea.isChanging9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
-                                    //gv.mod.currentArea.changeCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
-                                    gv.mod.currentArea.changeLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
-                                    //gv.mod.currentArea.changeFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
-                                    gv.mod.currentArea.changeNumberOfFrames9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+                                    if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightRain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.rainType = "lightRain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyRain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.rainType = "heavyRain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("rain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.rainType = "rain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = false;
+                                        gv.cloudType = "cloudLayerC";
+                                    }
+                                    else
+                                    {
+                                        //full screen effect layer 9
+                                        gv.mod.currentArea.useFullScreenEffectLayer9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                        //gv.mod.currentArea.fullScreenEffectLayerIsActive9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                        //public string fullScreenEffectLayerName9 = "full_screen_effect_layer1x";
+                                        //public string fullScreenEffectLayerName9 = "fogLayerB";
+                                        gv.mod.currentArea.fullScreenEffectLayerName9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                        //public string fullScreenEffectLayerName9 = "rainLayerB";
+                                        //public string fullScreenEffectLayerName9 = "testAnim1";
+                                        //gv.mod.currentArea.fullScreenAnimationSpeed9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                        //gv.mod.currentArea.fullScreenAnimationSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                        //gv.mod.currentArea.fullScreenAnimationSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                        gv.mod.currentArea.FullScreenEffectLayer9IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                        gv.mod.currentArea.fullScreenEffectChanceToOccur9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                        //zero signifies an endlessly running animation
+                                        gv.mod.currentArea.numberOfCyclesPerOccurence9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                        //gv.mod.cycleCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                        gv.mod.currentArea.containEffectInsideAreaBorders9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                        gv.mod.currentArea.activateTargetChannelInParallelToThisChannel9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
 
-                                    gv.mod.currentArea.useCyclicFade9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+                                        gv.mod.currentArea.isChanging9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                        //gv.mod.currentArea.changeCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                        gv.mod.currentArea.changeLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                        //gv.mod.currentArea.changeFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                        gv.mod.currentArea.changeNumberOfFrames9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
 
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+                                        gv.mod.currentArea.useCyclicFade9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
 
-                                    //setting up the override movement patterns
-                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
-                                    //so far existing directional overrides: 
-                                    //rain (9 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
-                                    //clouds (1 layer recommended; defaults at 0.9y, 0.9x, 790 delay)
-                                    //snow (9 layers recommended; make one layer's y speed a little faster than default -0.99, like -0.69, mayhaps slower for x (default: 0.49 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
-                                    //fog (9 layers recommended, make one layer's overrideDelayLimit1 a little less than default 129, like 110)
-                                    gv.mod.currentArea.directionalOverride9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
-                                    gv.mod.currentArea.overrideSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
-                                    gv.mod.currentArea.overrideSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
-                                    gv.mod.currentArea.overrideDelayLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
-                                    //gv.mod.currentArea.overrideDelayCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
-                                    gv.mod.currentArea.overrideIsNoScrollSource9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounterX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounterY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
 
-                                    //gv.mod.currentArea.changeableByWeatherScript9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+                                        //setting up the override movement patterns
+                                        //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                        //so far existing directional overrides: 
+                                        //rain (9 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                        //clouds (1 layer recommended; defaults at 0.9y, 0.9x, 790 delay)
+                                        //snow (9 layers recommended; make one layer's y speed a little faster than default -0.99, like -0.69, mayhaps slower for x (default: 0.49 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                        //fog (9 layers recommended, make one layer's overrideDelayLimit1 a little less than default 129, like 110)
+                                        gv.mod.currentArea.directionalOverride9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                        gv.mod.currentArea.overrideSpeedX9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                        gv.mod.currentArea.overrideSpeedY9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                        gv.mod.currentArea.overrideDelayLimit9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                        //gv.mod.currentArea.overrideDelayCounter9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                        gv.mod.currentArea.overrideIsNoScrollSource9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+
+                                        //gv.mod.currentArea.changeableByWeatherScript9 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+                                    }
                                     #endregion
                                 }
 
                                 if (j == 5)
                                 {
                                     #region full screen effect layer 10
-                                    //full screen effect layer 10
-                                    gv.mod.currentArea.useFullScreenEffectLayer10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
-                                    //gv.mod.currentArea.fullScreenEffectLayerIsActive10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
-                                    //public string fullScreenEffectLayerName10 = "full_screen_effect_layer1x";
-                                    //public string fullScreenEffectLayerName10 = "fogLayerB";
-                                    gv.mod.currentArea.fullScreenEffectLayerName10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
-                                    //public string fullScreenEffectLayerName10 = "rainLayerB";
-                                    //public string fullScreenEffectLayerName10 = "testAnim1";
-                                    //gv.mod.currentArea.fullScreenAnimationSpeed10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
-                                    //gv.mod.currentArea.fullScreenAnimationSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
-                                    //gv.mod.currentArea.fullScreenAnimationSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
-                                    gv.mod.currentArea.FullScreenEffectLayer10IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
-                                    gv.mod.currentArea.fullScreenEffectChanceToOccur10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
-                                    //zero signifies an endlessly running animation
-                                    gv.mod.currentArea.numberOfCyclesPerOccurence10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
-                                    //gv.mod.cycleCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
-                                    gv.mod.currentArea.containEffectInsideAreaBorders10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
-                                    gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
+                                    if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightRain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.rainType = "lightRain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyRain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.rainType = "heavyRain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("rain"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.rainType = "rain";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "lightCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "lightCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("lightCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "lightCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "heavyCloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "heavyCloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("heavyCloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "heavyCloudLayerC";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerA"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "cloudLayerA";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerB"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "cloudLayerB";
+                                    }
+                                    else if (gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName.Contains("cloudLayerC"))
+                                    {
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = false;
+                                        gv.cloudType = "cloudLayerC";
+                                    }
+                                    else
+                                    {
+                                        //full screen effect layer 10
+                                        gv.mod.currentArea.useFullScreenEffectLayer10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useFullScreenEffectLayer;
+                                        //gv.mod.currentArea.fullScreenEffectLayerIsActive10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsActive;
+                                        //public string fullScreenEffectLayerName10 = "full_screen_effect_layer1x";
+                                        //public string fullScreenEffectLayerName10 = "fogLayerB";
+                                        gv.mod.currentArea.fullScreenEffectLayerName10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerName;
+                                        //public string fullScreenEffectLayerName10 = "rainLayerB";
+                                        //public string fullScreenEffectLayerName10 = "testAnim1";
+                                        //gv.mod.currentArea.fullScreenAnimationSpeed10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeed;
+                                        //gv.mod.currentArea.fullScreenAnimationSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedX;
+                                        //gv.mod.currentArea.fullScreenAnimationSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationSpeedY;
+                                        gv.mod.currentArea.FullScreenEffectLayer10IsTop = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectLayerIsTop;
+                                        gv.mod.currentArea.fullScreenEffectChanceToOccur10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenEffectChanceToOccur;
+                                        //zero signifies an endlessly running animation
+                                        gv.mod.currentArea.numberOfCyclesPerOccurence10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].numberOfCyclesPerOccurence;
+                                        //gv.mod.cycleCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].cycleCounter;
+                                        gv.mod.currentArea.containEffectInsideAreaBorders10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].containEffectInsideAreaBorders;
+                                        gv.mod.currentArea.activateTargetChannelInParallelToThisChannel10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].activateTargetChannelInParallelToThisChannel;
 
-                                    gv.mod.currentArea.isChanging10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
-                                    //gv.mod.currentArea.changeCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
-                                    gv.mod.currentArea.changeLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
-                                    //gv.mod.currentArea.changeFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
-                                    gv.mod.currentArea.changeNumberOfFrames10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
+                                        gv.mod.currentArea.isChanging10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].isChanging;
+                                        //gv.mod.currentArea.changeCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeCounter;
+                                        gv.mod.currentArea.changeLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeLimit;
+                                        //gv.mod.currentArea.changeFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeFrameCounter;
+                                        gv.mod.currentArea.changeNumberOfFrames10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeNumberOfFrames;
 
-                                    gv.mod.currentArea.useCyclicFade10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
+                                        gv.mod.currentArea.useCyclicFade10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].useCyclicFade;
 
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
-                                    //gv.mod.currentArea.fullScreenAnimationFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounterX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterX;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounterY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounterY;
+                                        //gv.mod.currentArea.fullScreenAnimationFrameCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].fullScreenAnimationFrameCounter;
 
-                                    //setting up the override movement patterns
-                                    //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
-                                    //so far existing directional overrides: 
-                                    //rain (10 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
-                                    //clouds (1 layer recommended; defaults at 0.10y, 0.10x, 7100 delay)
-                                    //snow (10 layers recommended; make one layer's y speed a little faster than default -0.1010, like -0.610, mayhaps slower for x (default: 0.410 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
-                                    //fog (10 layers recommended, make one layer's overrideDelayLimit1 a little less than default 1210, like 110)
-                                    gv.mod.currentArea.directionalOverride10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
-                                    gv.mod.currentArea.overrideSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
-                                    gv.mod.currentArea.overrideSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
-                                    gv.mod.currentArea.overrideDelayLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
-                                    //gv.mod.currentArea.overrideDelayCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
-                                    gv.mod.currentArea.overrideIsNoScrollSource10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
+                                        //setting up the override movement patterns
+                                        //a value of -100 ("" in case of overrideIsNoScrollSource2) means that the default setting of the overide animation pattern for this parameter shall be used
+                                        //so far existing directional overrides: 
+                                        //rain (10 layers recommended; make one layer's y speed a little slower than default -2.8, like -2.4) 
+                                        //clouds (1 layer recommended; defaults at 0.10y, 0.10x, 7100 delay)
+                                        //snow (10 layers recommended; make one layer's y speed a little faster than default -0.1010, like -0.610, mayhaps slower for x (default: 0.410 to e.g. 0.4), and overrideDelayLimit1 a little less than defaut 470, like 380) 
+                                        //fog (10 layers recommended, make one layer's overrideDelayLimit1 a little less than default 1210, like 110)
+                                        gv.mod.currentArea.directionalOverride10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].directionalOverride;
+                                        gv.mod.currentArea.overrideSpeedX10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedX;
+                                        gv.mod.currentArea.overrideSpeedY10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideSpeedY;
+                                        gv.mod.currentArea.overrideDelayLimit10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayLimit;
+                                        //gv.mod.currentArea.overrideDelayCounter10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideDelayCounter;
+                                        gv.mod.currentArea.overrideIsNoScrollSource10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].overrideIsNoScrollSource;
 
-                                    //gv.mod.currentArea.changeableByWeatherScript10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+                                        //gv.mod.currentArea.changeableByWeatherScript10 = gv.mod.moduleWeatherEffectsList[i].WeatherLayers[j].changeableByWeatherScript;
+                                    }
                                     #endregion
                                 }
                             }
@@ -7002,10 +7320,48 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize / 2), (float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 75) / 1000f, (float)(gv.sf.RandInt(80) + 170) / 1000f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), (float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 1000f, (float)(gv.sf.RandInt(80) + 170) / 1000f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
+            }
+        }
+
+
+        //test rain
+        public void cloudTest(string cloudType)
+        {
+            if (gv.mod.isCloudy == true)
+            {
+                Sprite spr = new Sprite(gv, cloudType, gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 2000f, -(float)(gv.sf.RandInt(5) + 35) / 2000f, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100);
+                gv.screenMainMap.spriteList.Add(spr);
+                /*
+                float rainChance = 0;
+                if (density == "lightRain")
+                {
+                    rainChance = gv.sf.RandInt(10) + 10;
+                }
+                else if (density == "heavyRain")
+                {
+                    rainChance = gv.sf.RandInt(40) + 25;
+                }
+                else if (density == "rain")
+                {
+                    rainChance = gv.sf.RandInt(20) + 15;
+                }
+
+                float storedIncrement = 0;
+                for (int i = 1; i < 61; i++)
+                {
+                    float increment = gv.screenWidth / 60;
+                    storedIncrement += increment;
+                    if (gv.sf.RandInt(100) < rainChance)
+                    {
+                        Sprite spr = new Sprite(gv, "cloudLayerB", gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 1000f, -(float)(gv.sf.RandInt(5) + 35) / 1000f, 0, 0, 8f, gv.sf.RandInt(10000) + 6000, false, 100);
+                        gv.screenMainMap.spriteList.Add(spr);
+                    }
+                }
+                */
             }
         }
 

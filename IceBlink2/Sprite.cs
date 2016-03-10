@@ -24,7 +24,9 @@ namespace IceBlink2
         public string movementMethod = "linear";      //They way the sprite is moved across screen (i.e. how the velocities are used to determine new position)
         public float mass = 0;                        //Might be used later for determining the effects of collission
         public string spriteType = "normalSprite";    //to make different types of srpites identifiable for the calculations in update(elapsed)
-        
+        public float screenWidth = 0;
+        public float screenHeight = 0;
+
         //more ideas for later: isShadowCaster, extend vector and position by z-coordinate, hardness (simulate shatter on impact as well as speed loss on collision due energy going into deformation)
 
         //mostly internal to this class only
@@ -49,6 +51,9 @@ namespace IceBlink2
             this.mass = mass;
             this.movementMethod = movementMethod;
             this.spriteType = "complexSprite";
+            this.screenHeight = gv.screenHeight;
+            this.screenWidth = gv.screenWidth;
+
 
             if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }
             frameHeight = gv.cc.GetFromBitmapList(bitmap).PixelSize.Height;
@@ -83,6 +88,14 @@ namespace IceBlink2
                 position += velocity * elapsed;
                 angle += angularVelocity * elapsed;
             }
+            /*
+            else if (movementMethod == "clouds")
+            {
+                position += velocity * elapsed;
+                if (position.X < )
+
+            }
+            */
             int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
             currentFrameIndex = x / millisecondsPerFrame;            
         }
