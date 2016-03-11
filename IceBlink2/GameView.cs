@@ -146,7 +146,9 @@ namespace IceBlink2
         public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+        public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
         public string rainType = "";
+        public string cloudType = "";
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
                 
@@ -852,7 +854,18 @@ namespace IceBlink2
                     fullScreenEffectTimerMilliSecondsElapsedRain = 0;
                 }
             }
-           
+
+            if ((screenType.Equals("main")) && (mod.isCloudy == true))
+            {
+                fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
+                float cloudChance = sf.RandInt(20000) + 15000;
+                if (fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                {
+                    cc.cloudTest(cloudType);
+                    fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                }
+            }
+
 
             //iterate through spriteList and handle any sprite location and animation frame calculations
             if (screenType.Equals("main"))

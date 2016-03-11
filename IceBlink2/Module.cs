@@ -15,6 +15,7 @@ namespace IceBlink2
     {
         //public GameView gv;
         public bool isRaining = false;
+        public bool isCloudy = false;
         public bool useManualCombatCam = true;
         public string moduleName = "none";
         public string moduleLabelName = "none";

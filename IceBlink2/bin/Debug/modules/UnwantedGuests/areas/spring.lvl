@@ -10,7 +10,7 @@
   "westernNeighbourArea": "",
   "northernNeighbourArea": "summer",
   "southernNeighbourArea": "",
-  "effectChannelScript1": "Channel1NormalOcean",
+  "effectChannelScript1": "deactivateChannel1",
   "effectChannelScript2": "deactivateChannel2",
   "effectChannelScript3": "deactivateChannel3",
   "effectChannelScript4": "deactivateChannel4",

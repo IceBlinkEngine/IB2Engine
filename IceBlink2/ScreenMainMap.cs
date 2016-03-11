@@ -24139,14 +24139,44 @@ namespace IceBlink2
                         }
 
                         if ((p.isShown) && (nonTimeDriven == true))
-                        {//4 hurgh27
+                        {//hurghkarl
+
+                            //try
+                            //{
+                            //gv.cc.DisposeOfBitmap(ref p.token);
+                            //}
+                            //catch { }
+
+                            //p.token = gv.cc.LoadBitmap(p.ImageFileName);
+
                             try
                             {
-                                gv.cc.DisposeOfBitmap(ref p.token);
-                            }
-                            catch { }
+                                //insert1                        
+                                bool tileBitmapIsLoadedAlready = false;
+                                int indexOfLoadedTile = -1;
+                                for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                {
+                                    if (gv.mod.loadedTileBitmapsNames[i] == p.ImageFileName)
+                                    {
+                                        tileBitmapIsLoadedAlready = true;
+                                        indexOfLoadedTile = i;
+                                        break;
+                                    }
+                                }
 
-                            p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                //insert2
+                                if (!tileBitmapIsLoadedAlready)
+                                {
+                                    gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
+                                    p.token = gv.cc.LoadBitmap(p.ImageFileName);
+                                    gv.mod.loadedTileBitmaps.Add(p.token);
+                                }
+                            }
+                            catch
+                            { }
+
+
+
                             backupLocationX = p.LocationX;
                             backupLocationY = p.LocationY;
 
