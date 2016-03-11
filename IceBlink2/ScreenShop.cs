@@ -182,26 +182,21 @@ namespace IceBlink2
         public void redrawShop()
         {
     	    this.doItemStackingParty();
-    	    //this.doItemStackingShop();
-    	
+    	    
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
     	    int tabX = pW * 4;
     	    int tabX2 = 5 * gv.squareSize + pW * 2;
     	    int leftStartY = pH * 4;
     	    int tabStartY = 9 * gv.squareSize + pH * 2;
     	    int tabShopStartY = 4 * gv.squareSize + pH * 2;
     	
-    	    //canvas.drawColor(Color.DKGRAY);
-    	    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-		    gv.DrawText(currentShop.shopName, 7 * gv.squareSize, locY, 1.4f, Color.DarkGray);
+    	    gv.DrawText(currentShop.shopName, 7 * gv.squareSize, locY, 1.4f, Color.DarkGray);
 		
 	
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX of SHOP
@@ -235,7 +230,6 @@ namespace IceBlink2
     				    btn.Text = "" + total;
     			    }
 				
-				    //btn.Quantity = itrs.quantity + "";
 				    if (itrs.quantity > 1)
 				    {
 					    btn.Quantity = itrs.quantity + "";
@@ -278,11 +272,8 @@ namespace IceBlink2
 	            else if (it.category.Equals("General"))
 	            {
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	    //textToSpan += it.desc;
 	            }
-                //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-
+                
                 description.tbXloc = 12 * gv.squareSize;
                 description.tbYloc = 2 * gv.squareSize;
                 description.tbWidth = pW * 40;
@@ -299,12 +290,10 @@ namespace IceBlink2
 		
 		    //DRAW TEXT		
 		    locY = (5 * gv.squareSize) + (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
 		    gv.DrawText("Party", locX + gv.squareSize * 4, locY, 1.0f, Color.DarkGray);
             gv.DrawText("Inventory", locX + gv.squareSize * 4, locY += spacing, 1.0f, Color.DarkGray);
 		    locY = (5 * gv.squareSize) + (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.YELLOW);
-            gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, 1.0f, Color.Yellow);
+		    gv.DrawText("Party", tabX2 + gv.squareSize * 5, locY, 1.0f, Color.Yellow);
             gv.DrawText(mod.goldLabelPlural + ": " + mod.partyGold, tabX2 + gv.squareSize * 5, locY += spacing, 1.0f, Color.Yellow);
 		
 		    //DRAW ALL INVENTORY SLOTS		
@@ -332,7 +321,6 @@ namespace IceBlink2
     				    int total = full + part;
     				    btn.Text = "" + total;
     			    }				
-				    //btn.Quantity = itr.quantity + "";
 				    if (itr.quantity > 1)
 				    {
 					    btn.Quantity = itr.quantity + "";
@@ -358,13 +346,7 @@ namespace IceBlink2
 		    {
 			    ItemRefs itr = mod.partyInventoryRefsList[inventorySlotIndex + (inventoryPageIndex * 10)];
 			    Item it = mod.getItemByResRefForInfo(itr.resref);
-			    //TextPaint tp = new TextPaint();
-	            //tp.setColor(Color.WHITE);
-	            //tp.setTextSize(gv.mSheetTextPaint.getTextSize());
-	            //tp.setTextAlign(Align.LEFT);
-	            //tp.setAntiAlias(true);
-	            //tp.setTypeface(gv.uiFont);	        
-	            string textToSpan = "<b><i><big>" + it.name + "</big></i></b><BR>";
+			    string textToSpan = "<b><i><big>" + it.name + "</big></i></b><BR>";
 	            if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
 	            {
 	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<br>";
@@ -382,9 +364,7 @@ namespace IceBlink2
 	            {
 	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
 	            }
-                //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-
+                
                 description.tbXloc = 12 * gv.squareSize;
                 description.tbYloc = 6 * gv.squareSize;
                 description.tbWidth = pW * 40;
@@ -463,7 +443,6 @@ namespace IceBlink2
 		    btnShopLeft.glowOn = false;
 		    btnShopRight.glowOn = false;	
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -511,8 +490,6 @@ namespace IceBlink2
 			    {
 				    if (btnInventorySlot[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    if (inventorySlotIndex == j)
 					    {
 						    doInventoryActions();
@@ -524,8 +501,6 @@ namespace IceBlink2
 			    {
 				    if (btnShopSlot[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    if (shopSlotIndex == j)
 					    {
 						    doShopActions();
@@ -535,8 +510,6 @@ namespace IceBlink2
 			    }
 			    if (btnInventoryLeft.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex > 0)
 				    {
 					    inventoryPageIndex--;
@@ -545,8 +518,6 @@ namespace IceBlink2
 			    }
 			    else if (btnInventoryRight.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex < 9)
 				    {
 					    inventoryPageIndex++;
@@ -555,8 +526,6 @@ namespace IceBlink2
 			    }
 			    else if (btnShopLeft.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (shopPageIndex > 0)
 				    {
 					    shopPageIndex--;
@@ -565,8 +534,6 @@ namespace IceBlink2
 			    }
 			    else if (btnShopRight.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (shopPageIndex < 9)
 				    {
 					    shopPageIndex++;
@@ -575,14 +542,10 @@ namespace IceBlink2
 			    }
 			    else if (btnHelp.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    tutorialMessageShop();
 			    }
 			    else if (btnReturn.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.screenType = "main";	
 			    }
 			    break;		
@@ -633,132 +596,6 @@ namespace IceBlink2
                 {
                     //do nothing
                 }
-                /*
-			    // Strings to Show In Dialog with Radio Buttons
-			    final CharSequence[] items = {" Sell Item "," View Item Description "};				            
-	            // Creating and Building the Dialog 
-	            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	            builder.setTitle("Party Item Action");
-	            builder.setItems(items, new DialogInterface.OnClickListener() 
-	            {
-	                public void onClick(DialogInterface dialog, int item) 
-	                {
-	            	    if (item == 0)
-	            	    {	      
-	            		    // selected to SELL ITEM
-	            		    final CharSequence[] items = {" YES "," NO "};				            
-	                        AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	                        builder.setTitle("Are you sure you wish to sell the item?");
-	                        builder.setItems(items, new DialogInterface.OnClickListener() 
-	                        {
-	    	                    public void onClick(DialogInterface dialog, int item) 
-	    	                    {
-	    	                	    if (item == 0) // selected YES
-	    	                	    {		    	                		
-	    	                		    //sell item
-	    	                		    ItemRefs itr = mod.partyInventoryRefsList.get(inventorySlotIndex + (inventoryPageIndex * 10));
-	    	                		    Item it = mod.getItemByResRef(itr.resref);
-	    	                		    if (it != null)
-	    	                		    {
-		    	                		    if (!it.plotItem)
-		    	                		    {
-		    	                			    if (itr.quantity < it.groupSizeForSellingStackableItems)
-		    	                			    {
-		    	                				    //less than the stack size for selling
-		    	                				    mod.partyGold += (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
-		    	                				    ItemRefs itrCopy = itr.DeepCopy();
-				    	                		    itrCopy.quantity = itr.quantity;
-				    	                		    currentShop.shopItemRefs.add(itrCopy);
-				    	                		    //remove item and tag from party inventory
-				    	                		    gv.sf.RemoveItemFromInventory(itr, itr.quantity);
-		    	                			    }
-		    	                			    else //have more than the stack size for selling
-		    	                			    {
-		    	                				    mod.partyGold += it.value;
-		    	                				    ItemRefs itrCopy = itr.DeepCopy();
-				    	                		    itrCopy.quantity = it.groupSizeForSellingStackableItems;
-				    	                		    currentShop.shopItemRefs.add(itrCopy);
-				    	                		    //remove item and tag from party inventory
-				    	                		    gv.sf.RemoveItemFromInventory(itr, it.groupSizeForSellingStackableItems);
-		    	                			    }
-		    	                		    }
-		    	                		    else
-		    	                		    {
-		    	                			    gv.sf.MessageBoxHtml("You can't sell this item.");
-		    	                		    }
-	    	                		    }
-	    	                	    }
-	    	                	    else if (item == 1) // selected NO
-	    	                	    {	                		
-	    	                		    //do nothing
-	    	                	    }
-	    	                        gv.ActionDialog.dismiss();
-	    	                        gv.invalidate();
-	    	                    }
-	                        });
-	                        gv.ActionDialog = builder.create();
-	                        gv.ActionDialog.show();
-	            	    }
-	            	    else if (item == 1) // selected to VIEW ITEM
-	            	    {	           
-	            		    ItemRefs itr = mod.partyInventoryRefsList.get(inventorySlotIndex + (inventoryPageIndex * 10));
-	            		    Item it = mod.getItemByResRefForInfo(itr.resref);
-	            		    String textToSpan = "<u>Description</u>" + "<BR>";
-	        	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
-	        	            if ((it.category.equals("Melee")) || (it.category.equals("Ranged")))
-	        	            {
-	        	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-	        	                textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
-	        	                textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-	        	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                //textToSpan += "Area of Effect: " + it.AreaOfEffect + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	                if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }    
-	        	            else if (!it.category.equals("General"))
-	        	            {
-	        	        	    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
-	        	                textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
-	        	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	                if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }
-	        	            else if (it.category.equals("General"))
-	        	            {
-	        	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	        	    if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }
-	        	            gv.sf.MessageBoxHtml(textToSpan);
-	            	    }
-	                    gv.ItemDialog.dismiss();
-	                    gv.invalidate();
-	                }
-	            });
-	            gv.ItemDialog = builder.create();
-	            gv.ItemDialog.show();
-                */
 		    }
 	    }
 	
@@ -790,7 +627,6 @@ namespace IceBlink2
                             mod.partyGold -= (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
                             //add item and tag to party inventory
                             mod.partyInventoryRefsList.Add(itr.DeepCopy());
-                            //mod.partyInventoryTagList.add(it.tag);
                             //remove tag from shop list
                             currentShop.shopItemRefs.Remove(itr);
                         }
@@ -800,7 +636,6 @@ namespace IceBlink2
                             mod.partyGold -= it.value;
                             //add item and tag to party inventory
                             mod.partyInventoryRefsList.Add(itr.DeepCopy());
-                            //mod.partyInventoryTagList.add(it.tag);
                             //remove tag from shop list
                             currentShop.shopItemRefs.Remove(itr);
                         }
@@ -810,138 +645,6 @@ namespace IceBlink2
                 {
                     //do nothing
                 }
-                /*
-			    // Strings to Show In Dialog with Radio Buttons
-			    final CharSequence[] items = {" Buy Item "," View Item Description "};				            
-	            // Creating and Building the Dialog 
-	            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-	            builder.setTitle("Shop Item Action");
-	            builder.setItems(items, new DialogInterface.OnClickListener() 
-	            {
-	                public void onClick(DialogInterface dialog, int item) 
-	                {
-	            	    if (item == 0)
-	            	    {
-	            		    //check to see if have enough gold
-	            		    Item it = mod.getItemByResRef(currentShop.shopItemRefs.get(shopSlotIndex + (shopPageIndex * 10)).resref);
-	            		    if (it != null)
-	            		    {
-		            		    if (mod.partyGold >= it.value)
-		            		    {
-			            		    // selected to BUY ITEM
-			            		    final CharSequence[] items = {" YES "," NO "};				            
-			                        AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-			                        builder.setTitle("Are you sure you wish to buy the item?");
-			                        builder.setItems(items, new DialogInterface.OnClickListener() 
-			                        {
-			    	                    public void onClick(DialogInterface dialog, int item) 
-			    	                    {
-			    	                	    if (item == 0) // selected YES
-			    	                	    {	                		
-			    	                		    //buy item
-			    	                		    ItemRefs itr = currentShop.shopItemRefs.get(shopSlotIndex + (shopPageIndex * 10));
-			    	                		    Item it = mod.getItemByResRef(itr.resref);
-			    	                		    if (it != null)
-			    	                		    {
-			    	                			    if (itr.quantity < it.groupSizeForSellingStackableItems)
-			    	                			    {
-			    	                				    //less than the stack size for selling
-			    	                				    mod.partyGold -= (itr.quantity * it.value) / it.groupSizeForSellingStackableItems;
-			    	                				    //add item and tag to party inventory
-					    	                		    mod.partyInventoryRefsList.add(itr.DeepCopy());
-					    	                            //mod.partyInventoryTagList.add(it.tag);
-					    	                            //remove tag from shop list
-					    	                		    currentShop.shopItemRefs.remove(itr);
-			    	                			    }
-			    	                			    else //have more than the stack size for selling
-			    	                			    {
-			    	                				    //subtract gold from party
-					    	                		    mod.partyGold -= it.value;		    	                		
-					    	                		    //add item and tag to party inventory
-					    	                		    mod.partyInventoryRefsList.add(itr.DeepCopy());
-					    	                            //mod.partyInventoryTagList.add(it.tag);
-					    	                            //remove tag from shop list
-					    	                		    currentShop.shopItemRefs.remove(itr);
-			    	                			    }
-				    	                		
-			    	                		    }
-			    	                	    }
-			    	                	    else if (item == 1) // selected NO
-			    	                	    {	                		
-			    	                		    //do nothing
-			    	                	    }
-			    	                        gv.ActionDialog.dismiss();
-			    	                        gv.invalidate();
-			    	                    }
-			                        });
-			                        gv.ActionDialog = builder.create();
-			                        gv.ActionDialog.show();
-		            		    }
-		            		    else
-		            		    {
-		            			    gv.sf.MessageBoxHtml("Your party does not have enough gold to purchase this item.");	
-		            		    }
-	            		    }
-	            	    }
-	            	    else if (item == 1) // selected to VIEW ITEM
-	            	    {	           
-	            		    Item it = mod.getItemByResRef(currentShop.shopItemRefs.get(shopSlotIndex + (shopPageIndex * 10)).resref);
-	            		    String textToSpan = "<u>Description</u>" + "<BR>";
-	        	            textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
-	        	            if ((it.category.equals("Melee")) || (it.category.equals("Ranged")))
-	        	            {
-	        	        	    textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
-	        	                textToSpan += "Attack Bonus: " + it.attackBonus + "<BR>";
-	        	                textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-	        	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                //textToSpan += "Area of Effect: " + it.AreaOfEffect + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	                if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }    
-	        	            else if (!it.category.equals("General"))
-	        	            {
-	        	        	    textToSpan += "AC Bonus: " + it.armorBonus + "<BR>";
-	        	                textToSpan += "Max Dex Bonus: " + it.maxDexBonus + "<BR>";
-	        	                textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	                if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }
-	        	            else if (it.category.equals("General"))
-	        	            {
-	        	        	    textToSpan += "Useable By: " + isUseableBy(it) + "<BR>";
-	        	                textToSpan += "<BR>";
-	        	        	    if (!it.descFull.equals(""))
-	        	                {
-	        	            	    textToSpan += it.descFull;
-	        	                }
-	        	                else
-	        	                {
-	        	            	    textToSpan += it.desc;
-	        	                }
-	        	            }
-	        	            gv.sf.MessageBoxHtml(textToSpan);
-	            	    }
-	                    gv.ItemDialog.dismiss();
-	                    gv.invalidate();
-	                }
-	            });
-	            gv.ItemDialog = builder.create();
-	            gv.ItemDialog.show();
-                */
 		    }
 	    }
 	

@@ -156,9 +156,7 @@ namespace IceBlink2
 			
 	    	        if (btnLeft.getImpact(x, y))
 			        {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				        if (moduleIndex > 0)
+                        if (moduleIndex > 0)
 				        {
 					        moduleIndex--;
 					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
@@ -166,9 +164,7 @@ namespace IceBlink2
 			        }
 			        else if (btnRight.getImpact(x, y))
 			        {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-				        if (moduleIndex < moduleList.Count-1)
+                        if (moduleIndex < moduleList.Count-1)
 				        {
 					        moduleIndex++;
 					        btnModuleName.Text = moduleList[moduleIndex].moduleName;
@@ -176,8 +172,6 @@ namespace IceBlink2
 			        }	    	
 			        else if (btnModuleName.getImpact(x, y))
 			        {
-				        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				        gv.mod = moduleList[moduleIndex];
 				        gv.resetGame();
 				        gv.cc.LoadSaveListItems();

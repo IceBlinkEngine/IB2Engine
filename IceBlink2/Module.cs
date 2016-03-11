@@ -122,8 +122,6 @@ namespace IceBlink2
         public bool allowAutosave = true;
         public int combatAnimationSpeed = 100;
         public float soundVolume = 1.0f;
-        //public string OnHeartBeatLogicTree = "none";
-        //public string OnHeartBeatParms = "";
         public string OnHeartBeatIBScript = "none";
         public string OnHeartBeatIBScriptParms = "";
         public bool showInteractionState = false;

@@ -332,8 +332,6 @@ namespace IceBlink2
 			    {
 				    if (btnInventorySlot[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    if (inventorySlotIndex == j)
 					    {
 						    if (inCombat)
@@ -356,8 +354,6 @@ namespace IceBlink2
 			    }
 			    if (btnInventoryLeft.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex > 0)
 				    {
 					    inventoryPageIndex--;
@@ -367,8 +363,6 @@ namespace IceBlink2
 			    }
 			    else if (btnInventoryRight.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex < 9)
 				    {
 					    inventoryPageIndex++;
@@ -378,8 +372,6 @@ namespace IceBlink2
 			    }
 			    else if (btnHelp.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    tutorialMessageInventory(true);
 			    }
 			    else if (btnInfo.getImpact(x, y))
@@ -395,11 +387,8 @@ namespace IceBlink2
 			    }
 			    else if (btnReturn.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inCombat)
 				    {
-					    //gv.currentCombatMode = "info";
 					    if (gv.screenCombat.canMove)
 					    {
 						    gv.screenCombat.currentCombatMode = "move";
@@ -408,7 +397,6 @@ namespace IceBlink2
 					    {
 						    gv.screenCombat.currentCombatMode = "attack";
 					    }
-					    //gv.screenCombat.currentCombatMode = "move";
 					    gv.screenType = "combat";
 					    doCleanUp();
 				    }

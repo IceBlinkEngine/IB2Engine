@@ -115,39 +115,28 @@ namespace IceBlink2
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int textH = (int)gv.drawFontRegHeight;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-            int spacing = textH;
+    	    int spacing = textH;
             int tabX = 5 * gv.squareSize + pW * 3;
             int noticeX = 5 * gv.squareSize + pW * 3;
     	    int noticeY = pH * 1 + spacing;
-    	    //int tabX2 = 5 * gv.squareSize + pW * 2;
-    	    //int leftStartY = pH * 3;
     	    int tabStartY = 4 * gv.squareSize + pW * 10;
-
-            //canvas.drawColor(Color.DKGRAY);
 
             if (!infoOnly)
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-                //canvas.drawText("Select One Trait to Learn", noticeX, pH * 3, gv.mSheetTextPaint);
                 gv.DrawText("Select One Trait to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
 
                 //DRAW NOTIFICATIONS
                 if (isSelectedTraitSlotInKnownTraitsRange())
                 {
                     Trait tr = GetCurrentlySelectedTrait();
-                    //Player pc = getCastingPlayer();	
-
+                    
                     //check to see if already known
                     if (pc.knownTraitsTags.Contains(tr.tag))
                     {
                         //say that you already know this one
-                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                        //canvas.drawText("Already Known", noticeX, noticeY, gv.mSheetTextPaint);
                         gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
                     }
                     else //trait not known
@@ -155,14 +144,10 @@ namespace IceBlink2
                         //check if available to learn
                         if (isAvailableToLearn(tr.tag))
                         {
-                            //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            //canvas.drawText("Available to Learn", noticeX, noticeY, gv.mSheetTextPaint);
                             gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
                         }
                         else //not available yet
                         {
-                            //gv.mSheetTextPaint.setColor(Color.RED);
-                            //canvas.drawText("Trait Not Available to Learn Yet", noticeX, noticeY, gv.mSheetTextPaint);
                             gv.DrawText("Trait Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
                         }
                     }
@@ -244,16 +229,7 @@ namespace IceBlink2
 		    if (isSelectedTraitSlotInKnownTraitsRange())
 		    {
                 Trait tr = GetCurrentlySelectedTrait();
-                /*string textToSpan = "";
-                textToSpan = "Description:" + Environment.NewLine;
-                //textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
-                textToSpan += tr.name + Environment.NewLine;
-                textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + Environment.NewLine;
-                textToSpan += Environment.NewLine;
-                textToSpan += tr.description;
-                IbRect rect = new IbRect(tabX, locY, pW * 40, pH * 100);
-                gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-                */
+                
                 string textToSpan = "<u>Description</u>" + "<BR>";
                 textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
                 textToSpan += "Available at Level: " + getLevelAvailable(tr.tag) + "<BR>";
@@ -288,7 +264,6 @@ namespace IceBlink2
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -322,8 +297,6 @@ namespace IceBlink2
 				    if (btnTraitSlots[j].getImpact(x, y))
 				    {
                         gv.PlaySound("btn_click");
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    traitSlotIndex = j;
 				    }
 			    }
@@ -332,16 +305,12 @@ namespace IceBlink2
                     if (!infoOnly)
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         tutorialMessageTraitScreen();
                     }
 			    }
 			    else if (btnSelect.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                     if (infoOnly)
                     {
                         gv.screenType = "party";
@@ -356,8 +325,6 @@ namespace IceBlink2
                     if (!infoOnly)
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (inPcCreation)
                         {
                             gv.screenType = "pcCreation";
@@ -399,11 +366,6 @@ namespace IceBlink2
 				    	    gv.screenPcCreation.SaveCharacter(pc);
 				    	    gv.screenPartyBuild.pcList.Add(pc);
 				    	    gv.screenType = "partyBuild";
-				    	
-				    	    /* old stuff, keep for now
-				    	    gv.cc.tutorialMessageMainMap();
-				    	    gv.screenType = "main";
-				    	    gv.cc.doUpdate();*/
 				        }
 				    }			    
 				    else
@@ -415,8 +377,6 @@ namespace IceBlink2
  	        	        {
 						    gv.screenSpellLevelUp.resetPC(false, pc);
  	        		        gv.screenType = "learnSpellLevelUp";
-                            //gv.Invalidate();
-//                            gv.Render();
  	        	        }
  	        	        else //no spells or traits to learn
  	        	        {

@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
-//using IceBlink;
 using System.ComponentModel;
 using Newtonsoft.Json;
 
@@ -30,13 +29,7 @@ namespace IceBlink2
 	    public string AreaMusic = "none";
 	    public int AreaMusicDelay = 0;
 	    public int AreaMusicDelayRandomAdder = 0;
-	    //public string OnStartCombatRoundLogicTree = "none";
-	    //public string OnStartCombatRoundParms = "";
-	    //public string OnStartCombatTurnLogicTree = "none";
-	    //public string OnStartCombatTurnParms = "";
-	    //public string OnEndCombatLogicTree = "none";
-	    //public string OnEndCombatParms = "";
-        public string OnSetupCombatIBScript = "none";
+	    public string OnSetupCombatIBScript = "none";
         public string OnSetupCombatIBScriptParms = "";
         public string OnStartCombatRoundIBScript = "none";
         public string OnStartCombatRoundIBScriptParms = "";

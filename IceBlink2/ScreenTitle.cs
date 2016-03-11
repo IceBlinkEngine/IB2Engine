@@ -134,8 +134,6 @@ namespace IceBlink2
 			    if (btnNewGame.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (gv.mod.mustUsePreMadePC)
 				    {
 					    //no spell selection offered
@@ -152,9 +150,7 @@ namespace IceBlink2
 			    else if (btnLoadSavedGame.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    if (gv.cc.slot5.Equals(""))
+				    if (gv.cc.slot5.Equals(""))
 				    {
 					    //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
 				    }
@@ -166,22 +162,16 @@ namespace IceBlink2
 			    else if (btnPlayerGuide.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.cc.tutorialPlayersGuide();
 			    }
 			    else if (btnBeginnerGuide.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.cc.tutorialBeginnersGuide();
 			    }
 			    else if (btnAbout.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.cc.doAboutDialog();
 			    }						
 			    break;

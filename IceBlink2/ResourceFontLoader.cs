@@ -71,33 +71,7 @@ namespace IceBlink2
             _factory.RegisterFontFileLoader(this);
             _factory.RegisterFontCollectionLoader(this);
         }
-        /*public ResourceFontLoaderOld(Factory factory)
-        {
-            _factory = factory;
-            foreach (var name in typeof(ResourceFontLoader).Assembly.GetManifestResourceNames())
-            {
-                if (name.EndsWith(".ttf"))
-                {
-                    var fontBytes = Utilities.ReadStream(typeof(ResourceFontLoader).Assembly.GetManifestResourceStream(name));
-                    var stream = new DataStream(fontBytes.Length, true, true);
-                    stream.Write(fontBytes, 0, fontBytes.Length);
-                    stream.Position = 0;
-                    _fontStreams.Add(new ResourceFontFileStream(stream));
-                }
-            }
-
-            // Build a Key storage that stores the index of the font
-            _keyStream = new DataStream(sizeof(int) * _fontStreams.Count, true, true);
-            for (int i = 0; i < _fontStreams.Count; i++)
-                _keyStream.Write((int)i);
-            _keyStream.Position = 0;
-
-            // Register the 
-            _factory.RegisterFontFileLoader(this);
-            _factory.RegisterFontCollectionLoader(this);
-        }*/
-
-
+        
         /// <summary>
         /// Gets the key used to identify the FontCollection as well as storing index for fonts.
         /// </summary>

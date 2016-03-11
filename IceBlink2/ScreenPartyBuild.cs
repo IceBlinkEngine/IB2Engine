@@ -65,12 +65,10 @@ namespace IceBlink2
             if (Directory.Exists(gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\characters"))
             {
                 files = Directory.GetFiles(gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\characters", "*.json");
-                //directory.mkdirs(); 
                 foreach (string file in files)
                 {
                     try
                     {
-                        //string filename = Path.GetFileName(file); //drin.json
                         AddCharacterToList(file);
                     }
                     catch (Exception ex)
@@ -269,27 +267,18 @@ namespace IceBlink2
             int padH = gv.squareSize / 6;
             int locY = 0;
             int locX = 2 * gv.squareSize + gv.oXshift;
-            //int spacing = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int spacing = (int)gv.drawFontRegHeight;
             int tabX = pW * 50;
             int tabX2 = pW * 60;
             int leftStartY = 5 * gv.squareSize + (pH * 6);
-            //int rightStartY = pH * 40;
-
-            //canvas.drawColor(Color.DKGRAY);
-
+            
             //Draw screen title name
             string text = "Party Members [" + mod.numberOfPlayerMadePcsAllowed + " player made PC(s) Allowed]";
             // Measure string.
-            //SizeF stringSize = gv.cc.MeasureString(text, gv.drawFontReg, gv.Width);
             float stringSize = gv.cc.MeasureString(text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
-            //Rect bounds = new Rect();
-            //gv.mSheetTextPaint.getTextBounds(text, 0, text.length(), bounds);
             int ulX = (gv.screenWidth / 2) - ((int)stringSize / 2);
-            //gv.mSheetTextPaint.setColor(Color.LTGRAY);
             gv.DrawText(text, ulX, pH * 3, 1.0f, Color.White);
-            //canvas.drawText(text, ulX, pH * 3, gv.mSheetTextPaint);
-
+            
             //DRAW EACH PC BUTTON
             this.refreshPlayerTokens();
 
@@ -328,29 +317,19 @@ namespace IceBlink2
             {
 
                 //DRAW LEFT STATS
-                //gv.mSheetTextPaint.setColor(Color.WHITE);
-                //canvas.drawText("Name: " + pc.name, locX, locY += leftStartY, gv.mSheetTextPaint);
                 gv.DrawText("Name: " + pc.name, locX, locY += leftStartY);
-                //gv.mSheetTextPaint.setColor(Color.WHITE);
-                //canvas.drawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing);
                 if (pc.isMale)
                 {
-                    //canvas.drawText("Gender: Male", locX, locY += spacing, gv.mSheetTextPaint);
                     gv.DrawText("Gender: Male", locX, locY += spacing);
                 }
                 else
                 {
-                    //canvas.drawText("Gender: Female", locX, locY += spacing, gv.mSheetTextPaint);
                     gv.DrawText("Gender: Female", locX, locY += spacing);
                 }
-                //canvas.drawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("Class: " + mod.getPlayerClass(pc.classTag).name, locX, locY += spacing);
-                //canvas.drawText("Level: " + pc.classLevel, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("Level: " + pc.classLevel, locX, locY += spacing);
-                //canvas.drawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("XP: " + pc.XP + "/" + pc.XPNeeded, locX, locY += spacing);
-                //canvas.drawText("---------------", locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("---------------", locX, locY += spacing);
 
                 //draw spells known list
@@ -360,7 +339,6 @@ namespace IceBlink2
                     Spell sp = mod.getSpellByTag(s);
                     allSpells += sp.name + ", ";
                 }
-                //TODOcanvas.drawText("Spells: " + allSpells, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText(mod.spellLabelPlural + ": " + allSpells, locX, locY += spacing);
 
                 //draw traits known list
@@ -370,7 +348,6 @@ namespace IceBlink2
                     Trait tr = mod.getTraitByTag(s);
                     allTraits += tr.name + ", ";
                 }
-                //TODOcanvas.drawText("Traits: " + allTraits, locX, locY += spacing, gv.mSheetTextPaint);
                 gv.DrawText("Traits: " + allTraits, locX, locY += spacing);
 
                 //DRAW RIGHT STATS
@@ -389,7 +366,6 @@ namespace IceBlink2
                     gv.DrawText("CON: " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
                     gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
                     gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
-                    //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
                     gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
                     gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
                     gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
@@ -410,7 +386,6 @@ namespace IceBlink2
                     gv.DrawText("CON:  " + pc.baseCon + " + " + (pc.constitution - pc.baseCon) + " = " + pc.constitution + " (" + ((pc.constitution - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
                     gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY2 += spacing);
                     gv.DrawText("INT:   " + pc.baseInt + " + " + (pc.intelligence - pc.baseInt) + " = " + pc.intelligence + " (" + ((pc.intelligence - 10) / 2) + ")", tabX - 3 * gv.squareSize, locY += spacing);
-                    //gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY2+=spacing);
                     gv.DrawText("FORT: " + pc.fortitude + ", Acid: " + pc.damageTypeResistanceTotalAcid + "%" + ", Cold: " + pc.damageTypeResistanceTotalCold + "%" + ", Normal: " + pc.damageTypeResistanceTotalNormal + "%", tabX2, locY2 += spacing);
                     gv.DrawText("REF:   " + pc.reflex + ", Electricity: " + pc.damageTypeResistanceTotalElectricity + "%" + ", Fire: " + pc.damageTypeResistanceTotalFire + "%", tabX2, locY2 += spacing);
                     gv.DrawText("WILL: " + pc.will + ", Magic: " + pc.damageTypeResistanceTotalMagic + "%" + ", Poison: " + pc.damageTypeResistanceTotalPoison + "%", tabX2, locY2 += spacing);
@@ -421,20 +396,6 @@ namespace IceBlink2
                         gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX - 3 * gv.squareSize, locY += spacing);
                     }
                 }
-
-
-
-                /*gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-                gv.DrawText("AC: " + actext, tabX2, locY);
-                gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-                gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-                gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
-                gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-                gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-                gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-                gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
-                gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);*/
-
             }
         }
         public void onTouchPartyBuild(MouseEventArgs e, MouseEventType.EventType eventType)
@@ -447,7 +408,6 @@ namespace IceBlink2
             btnHelp.glowOn = false;
             btnReturn.glowOn = false;
 
-            //int eventAction = event.getAction();
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
@@ -505,8 +465,6 @@ namespace IceBlink2
                     if (btnAdd.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //add selected PC to partyList and remove from pcList
                         if ((pcList.Count > 0) && (mod.playerList.Count < mod.numberOfPlayerMadePcsAllowed))
                         {
@@ -522,8 +480,6 @@ namespace IceBlink2
                     else if (btnRemove.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //remove selected from partyList and add to pcList
                         if (mod.playerList.Count > 0)
                         {
@@ -539,8 +495,6 @@ namespace IceBlink2
                     else if (btnLeft.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //change index of pcList
                         lastClickedPlayerList = false;
                         if (pcIndex > 0)
@@ -551,16 +505,12 @@ namespace IceBlink2
                     else if (btnPcListIndex.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //change index of pcList
                         lastClickedPlayerList = false;
                     }
                     else if (btnRight.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //change index of pcList
                         lastClickedPlayerList = false;
                         if (pcIndex < pcList.Count - 1)
@@ -571,35 +521,26 @@ namespace IceBlink2
                     else if (btnCreate.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         //switch to PcCreation screen
                         gv.screenPcCreation.CreateRaceList();
                         gv.screenPcCreation.resetPC();
                         gv.screenType = "pcCreation";
-                        //gv.cc.tutorialPcCreation();
                     }
 
                     else if (btnHelp.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         tutorialPartyBuild();
                     }
 
                     else if (btnReturn.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (mod.playerList.Count > 0)
                         {
                             gv.mod.PlayerLocationX = gv.mod.startingPlayerPositionX;
                             gv.mod.PlayerLocationY = gv.mod.startingPlayerPositionY;
                             mod.playerList[0].mainPc = true;
-                            //gv.TrackerSendEventPartyInfo("PartyStart");
-                            //gv.TrackerSendEventFullPartyInfo("PartyStart");
                             gv.cc.tutorialMessageMainMap();
                             gv.screenType = "main";
                             gv.cc.doUpdate();
@@ -610,8 +551,6 @@ namespace IceBlink2
                         if (btnPartyIndex[j].getImpact(x, y))
                         {
                             gv.PlaySound("btn_click");
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             partyScreenPcIndex = j;
                             lastClickedPlayerList = true;
                         }

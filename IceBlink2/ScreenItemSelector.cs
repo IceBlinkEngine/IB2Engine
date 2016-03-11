@@ -31,7 +31,6 @@ namespace IceBlink2
 	    {
 		    mod = m;
 		    gv = g;
-		    //setControlsStart();
 	    }
 
         public void resetItemSelector(List<ItemRefs> itemRefsList, string selectorType, string callingScreenToReturnTo)
@@ -310,7 +309,6 @@ namespace IceBlink2
                 btnAction2.glowOn = false;
             }
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -361,8 +359,6 @@ namespace IceBlink2
 			    {
 				    if (btnInventorySlot[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    if (inventorySlotIndex == j)
 					    {
 						    if (itemSelectorType.Equals("container"))
@@ -389,8 +385,6 @@ namespace IceBlink2
 			    }
 			    if (btnInventoryLeft.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex > 0)
 				    {
 					    inventoryPageIndex--;
@@ -399,8 +393,6 @@ namespace IceBlink2
 			    }
 			    else if (btnInventoryRight.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inventoryPageIndex < 9)
 				    {
 					    inventoryPageIndex++;
@@ -420,9 +412,7 @@ namespace IceBlink2
 			    }
 			    else if (btnAction.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    if (itemSelectorType.Equals("container"))
+				    if (itemSelectorType.Equals("container"))
                     {
                         //TAKE ALL                        
                         foreach (ItemRefs s in thisItemRefs)
@@ -448,8 +438,6 @@ namespace IceBlink2
 			    }
                 else if (btnExit.getImpact(x, y))
                 {
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                     if (itemSelectorType.Equals("container"))
                     {
                         gv.screenType = "main";

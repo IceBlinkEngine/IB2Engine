@@ -369,13 +369,7 @@ namespace IceBlink2
 
             //LOCATE STATS INFO BUTTONS
             locY += spacing;
-
-            /*btnSpells.Y = (int)locY + (pH * 5);
-            btnTraits.Y = (int)locY + (pH * 5);
-            btnEffects.Y = (int)locY + (pH * 5);
-            btnOthers.Y = (int)locY + (pH * 5);
-            btnPartyRoster.Y = (int)locY + (pH * 5);*/
-
+                        
             int bottomLocY = 7 * gv.squareSize + pH * 5;
             btnSpells.Y = (int)bottomLocY;
             btnTraits.Y = (int)bottomLocY;
@@ -422,20 +416,7 @@ namespace IceBlink2
                 gv.DrawText("LCK:  " + pc.baseLuck + " + " + (pc.luck - pc.baseLuck) + " = " + pc.luck, tabX, locY += spacing);
             }
 
-            /*gv.DrawText("STR: " + pc.strength, tabX, locY += leftStartY);
-            gv.DrawText("AC: " + actext, tabX2, locY);
-            gv.DrawText("DEX: " + pc.dexterity, tabX, locY += spacing);
-            gv.DrawText("HP: " + pc.hp + "/" + pc.hpMax, tabX2, locY);
-            gv.DrawText("CON: " + pc.constitution, tabX, locY += spacing);
-            gv.DrawText("SP: " + pc.sp + "/" + pc.spMax, tabX2, locY);
-            gv.DrawText("INT: " + pc.intelligence, tabX, locY += spacing);
-            gv.DrawText("BAB: " + pc.baseAttBonus, tabX2, locY);
-            gv.DrawText("WIS: " + pc.wisdom, tabX, locY += spacing);
-            gv.DrawText("CHA: " + pc.charisma, tabX, locY += spacing);*/
-
             //DRAW LEVEL UP BUTTON
-            //btnLevelUp.Y = (int)locY + (pH * 1);
-            //btnLevelUp.X = tabX - (pW * 5);
             if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
             {
                 btnLevelUp.Draw();
@@ -523,8 +504,6 @@ namespace IceBlink2
             string textToSpan = "";
             textToSpan = "<u>Description</u>" + "<BR>";
             textToSpan += "<b><i><big>" + it.name + "</big></i></b><BR>";
-            //textToSpan = "Description:<br>";
-            //textToSpan += it.name + "<br>";
             if ((it.category.Equals("Melee")) || (it.category.Equals("Ranged")))
             {
                 textToSpan += "Damage: " + it.damageNumDice + "d" + it.damageDie + "+" + it.damageAdder + "<BR>";
@@ -659,8 +638,6 @@ namespace IceBlink2
             //Description
             string textToSpan2 = "";
             textToSpan2 = "<u>Current Attack and Damage</u>" + "<BR>";
-            //textToSpan2 += "<b><i><big>" + it.name + "</big></i></b><BR>";
-            //textToSpan = "Description:<br>";
             textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
             textToSpan2 += "Attack bonus: " + attackMod + "<BR>";
             textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + damModifier + "<BR>";
@@ -673,16 +650,6 @@ namespace IceBlink2
             width = pW * 80;
             height = pH * 50;
             DrawTextLayout(attackAndDamageInfo, textToSpan2, xLoc, yLoc, width, height);
-
-            //attackAndDamageInfo.tbXloc = (1 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
-            //attackAndDamageInfo.tbYloc = startSlotsY - 2 * pH;
-            //attackAndDamageInfo.tbWidth = pW * 80;
-            //attackAndDamageInfo.tbHeight = pH * 50;
-            //attackAndDamageInfo.logLinesList.Clear();
-            //attackAndDamageInfo.AddHtmlTextToLog(textToSpan2);
-            //attackAndDamageInfo.onDrawLogBox();
-
-            //XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
         }
         public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
@@ -788,40 +755,16 @@ namespace IceBlink2
                     }
                     else if (btnSpells.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenSpellLevelUp.resetPC(true, pc);
                         gv.screenType = "learnSpellLevelUp";
-//                        gv.Render();
-                        
-                        /*string spellList = "";
-                        foreach (string s in pc.knownSpellsTags)
-                        {
-                            Spell sp = mod.getSpellByTag(s);
-                            spellList += sp.name + "<br>";
-                        }
-                        gv.sf.MessageBoxHtml("<big><b>KNOWN SPELLS</b></big><br><br>" + spellList);*/
                     }
                     else if (btnTraits.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.screenTraitLevelUp.resetPC(true, pc);
                         gv.screenType = "learnTraitLevelUp";
-//                        gv.Render();
-
-                        /*string traitList = "";
-                        foreach (string s in pc.knownTraitsTags)
-                        {
-                            Trait tr = mod.getTraitByTag(s);
-                            traitList += tr.name + "<br>";
-                        }
-                        gv.sf.MessageBoxHtml("<big><b>KNOWN TRAITS</b></big><br><br>" + traitList);*/
                     }
                     else if (btnEffects.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         string allEffects = "";
                         foreach (Effect ef in pc.effectsList)
                         {
@@ -832,8 +775,6 @@ namespace IceBlink2
                     }
                     else if (btnOthers.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.sf.MessageBoxHtml("<big><b><u>SAVING THROW MODIFIERS</u></b></big><br>" +
                                 "Fortitude: " + pc.fortitude + "<br>" +
                                 "Will: " + pc.will + "<br>" +
@@ -850,8 +791,6 @@ namespace IceBlink2
                     }
                     else if (btnMainHand.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 0)
                         {
                             switchEquipment(inCombat);
@@ -865,8 +804,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 1)
                         {
                             switchEquipment(inCombat);
@@ -880,8 +817,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 2)
                         {
                             switchEquipment(inCombat);
@@ -890,8 +825,6 @@ namespace IceBlink2
                     }
                     else if (btnOffHand.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 3)
                         {
                             switchEquipment(inCombat);
@@ -905,8 +838,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 4)
                         {
                             switchEquipment(inCombat);
@@ -920,8 +851,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 5)
                         {
                             switchEquipment(inCombat);
@@ -935,8 +864,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 6)
                         {
                             switchEquipment(inCombat);
@@ -950,8 +877,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't equip/unequip this item in combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 7)
                         {
                             switchEquipment(inCombat);
@@ -960,8 +885,6 @@ namespace IceBlink2
                     }
                     else if (btnAmmo.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (gv.cc.partyItemSlotIndex == 8)
                         {
                             switchEquipment(inCombat);
@@ -976,8 +899,6 @@ namespace IceBlink2
                             gv.sf.MessageBoxHtml("Can't Level up during combat.");
                             return;
                         }
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (mod.playerList[gv.cc.partyScreenPcIndex].IsReadyToAdvanceLevel())
                         {
                             if (mod.playerList[gv.cc.partyScreenPcIndex].isDead())
@@ -992,14 +913,10 @@ namespace IceBlink2
                     }
                     else if (btnHelp.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         tutorialMessageParty(true);
                     }
                     else if (btnInfo.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         Item it = new Item();
                         if (gv.cc.partyItemSlotIndex == 0) { it = mod.getItemByResRef(pc.MainHandRefs.resref); }
                         else if (gv.cc.partyItemSlotIndex == 1) { it = mod.getItemByResRef(pc.HeadRefs.resref); }
@@ -1017,8 +934,6 @@ namespace IceBlink2
                     }
                     else if (btnReturn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (inCombat)
                         {
                             if (gv.screenCombat.canMove)
@@ -1146,51 +1061,7 @@ namespace IceBlink2
                 return;
             }
 
-            //if (dialogOpen)
-            //{
-            //    return;
-            //}
-            //dialogOpen = true;
-
             List<ItemRefs> allowedItems = new List<ItemRefs>();
-
-            //add the currently equipped item to the allowed list
-            /*if (gv.cc.partyItemSlotIndex == 0) //Main Hand
-            {
-                allowedItems.Add(pc.MainHandRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 1) //Head
-            {
-                allowedItems.Add(pc.HeadRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 2) //Neck
-            {
-                allowedItems.Add(pc.NeckRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
-            {
-                allowedItems.Add(pc.OffHandRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 4) //Ring
-            {
-                allowedItems.Add(pc.RingRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 5) //Body
-            {
-                allowedItems.Add(pc.BodyRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 6) //Feet
-            {
-                allowedItems.Add(pc.FeetRefs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 7) //Ring2
-            {
-                allowedItems.Add(pc.Ring2Refs);
-            }
-            else if (gv.cc.partyItemSlotIndex == 8) //Ammo
-            {
-                allowedItems.Add(pc.AmmoRefs);
-            }*/
 
             //add any other allowed items to the allowed list
             foreach (ItemRefs itRef in mod.partyInventoryRefsList)
@@ -1278,314 +1149,6 @@ namespace IceBlink2
             {
                 gv.screenItemSelector.resetItemSelector(allowedItems, "equip", "party");
             }
-
-            /*List<string> listItems = new List<string>();
-        
-		    if (gv.cc.partyItemSlotIndex == 0) //Main Hand
-		    {
-			    listItems.Add("(equipped) " + pc.MainHandRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 1) //Head
-		    {
-			    listItems.Add("(equipped) " + pc.HeadRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 2) //Neck
-		    {
-			    listItems.Add("(equipped) " + pc.NeckRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
-		    {
-			    listItems.Add("(equipped) " + pc.OffHandRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 4) //Ring
-		    {
-			    listItems.Add("(equipped) " + pc.RingRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 5) //Body
-		    {
-			    listItems.Add("(equipped) " + pc.BodyRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 6) //Feet
-		    {
-			    listItems.Add("(equipped) " + pc.FeetRefs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 7) //Ring2
-		    {
-			    listItems.Add("(equipped) " + pc.Ring2Refs.name);
-		    }
-		    else if (gv.cc.partyItemSlotIndex == 8) //Ammo
-		    {
-			    listItems.Add("(equipped) " + pc.AmmoRefs.name);
-		    }
-            listItems.Add("none");
-            foreach (ItemRefs i in allowedItems)
-            {
-        	    listItems.Add(i.name);
-            }*/
-
-            /*
-            final CharSequence[] items = listItems.toArray(new CharSequence[listItems.size()]);
-            // Creating and Building the Dialog 
-            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-            builder.setTitle("Equip the following item");
-            builder.setOnCancelListener(new DialogInterface.OnCancelListener() 
-            {			
-			    @Override
-			    public void onCancel(DialogInterface dialog) 
-			    {
-				    dialogOpen = false;
-			    }
-		    });
-            builder.setItems(items, new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int item) 
-                {
-            	    Player pc = mod.playerList.get(gv.cc.partyScreenPcIndex);
-            	    if (item > 1)
-            	    {
-            		    if (gv.cc.partyItemSlotIndex == 0) //Main Hand
-            		    {
-            			    if (!pc.MainHandRefs.resref.equals("none"))
-            			    {
-            				    //move currently equipped item to the party inventory (list and taglist)
-            				    mod.partyInventoryRefsList.add(pc.MainHandRefs.DeepCopy());
-            				    //mod.partyInventoryTagList.add(mod.playerList.get(gv.cc.partyScreenPcIndex).MainHand.tag);
-            				    //place the item into the main hand
-            				    pc.MainHandRefs = allowedItems.get(item-2).DeepCopy();
-            				    //mod.playerList.get(gv.cc.partyScreenPcIndex).MainHandTag = allowedItems.get(item-2).tag;
-            				    //remove the item from the party inventory
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            				    //mod.partyInventoryTagList.remove(allowedItems.get(item-2).tag);
-            			    }
-            			    else //there was no item equipped so add item to main-hand but no need to move anything to party inventory
-            			    {
-            				    pc.MainHandRefs = allowedItems.get(item-2).DeepCopy();
-            				    //mod.playerList.get(gv.cc.partyScreenPcIndex).MainHandTag = allowedItems.get(item-2).tag;
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));	                				
-            				    //mod.partyInventoryTagList.remove(allowedItems.get(item-2).tag);
-            			    }
-            			    //if the item being equipped is a two-handed weapon, remove the item in off-hand if exists and place in inventory
-            			    if (mod.getItemByResRef(pc.MainHandRefs.resref).twoHanded)
-            			    {
-            				    if (!pc.OffHandRefs.resref.equals("none"))
-                			    {
-                				    mod.partyInventoryRefsList.add(pc.OffHandRefs.DeepCopy());
-                				    //mod.partyInventoryTagList.add(mod.playerList.get(gv.cc.partyScreenPcIndex).OffHand.tag);
-                				    pc.OffHandRefs = new ItemRefs();	                				
-                				    //mod.playerList.get(gv.cc.partyScreenPcIndex).OffHandTag = "none";
-                				
-                				    gv.sf.MessageBoxHtml("Equipping a two-handed weapon, removing item from off-hand and placing it in the party's inventory.");
-                			    }
-            			    }
-            			    //if the item is a ranged weapon that uses ammo, check ammo slot to see if need to remove ammo not this type
-            			    Item itMH = mod.getItemByResRef(pc.MainHandRefs.resref);
-            			    Item itA = mod.getItemByResRef(pc.AmmoRefs.resref);
-            			    if ((itA != null) && (itMH != null))
-            			    {
-	            			    if ((itMH.category.equals("Ranged")) && (!itMH.ammoType.equals("none")) && (itMH.ammoType.equals(itA.ammoType)))
-	            			    {
-	            				    //compatible ammo so leave as is
-	            			    }
-	            			    else //ammo not compatible so remove ItemRefs
-	            			    {
-	            				    pc.AmmoRefs = new ItemRefs();	                				
-	            				    gv.sf.MessageBoxHtml("Currently assigned ammo is not compatible with this weapon, unassigning ammo.");
-	            			    }
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 1) //Head
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.HeadRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.HeadRefs.DeepCopy());
-            				    pc.HeadRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else //equip slot was empty
-            			    {
-            				    pc.HeadRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 2) //Neck
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.NeckRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.NeckRefs.DeepCopy());
-            				    pc.NeckRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else //equip slot was empty
-            			    {
-            				    pc.NeckRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
-            		    {
-            			    if (!pc.OffHandRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.OffHandRefs.DeepCopy());
-            				    pc.OffHandRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else
-            			    {
-            				    pc.OffHandRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 4)//Ring
-            		    {
-            			    if (!pc.RingRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.RingRefs.DeepCopy());
-            				    pc.RingRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else
-            			    {
-            				    pc.RingRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 5) //Body
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.BodyRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.BodyRefs.DeepCopy());
-            				    pc.BodyRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else //equip slot was empty
-            			    {
-            				    pc.BodyRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 6) //Feet
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.FeetRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.FeetRefs.DeepCopy());
-            				    pc.FeetRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else //equip slot was empty
-            			    {
-            				    pc.FeetRefs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 7) //Ring2
-            		    {
-            			    if (!pc.Ring2Refs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.Ring2Refs.DeepCopy());
-            				    pc.Ring2Refs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            			    else
-            			    {
-            				    pc.Ring2Refs = allowedItems.get(item-2).DeepCopy();
-            				    mod.partyInventoryRefsList.remove(allowedItems.get(item-2));
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 8) //Ammo
-            		    {
-            			    // if equip slot has an ammo, no need to move it to inventory since it is only a ref            			
-        				    pc.AmmoRefs = allowedItems.get(item-2).DeepCopy();
-            		    }
-            	    }
-            	    else if (item == 1) //selected "none"
-            	    {
-            		    if (gv.cc.partyItemSlotIndex == 0) //Main Hand
-            		    {
-            			    // if equip slot has an item, move it to inventory            		
-                		    if (!pc.MainHandRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.MainHandRefs.DeepCopy());
-            				    pc.MainHandRefs = new ItemRefs();
-            			    }
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 1) //Head
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.HeadRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.HeadRefs.DeepCopy());
-            				    pc.HeadRefs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 2) //Neck
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.NeckRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.NeckRefs.DeepCopy());
-            				    pc.NeckRefs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
-            		    {
-            			    if (!pc.OffHandRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.OffHandRefs.DeepCopy());
-            				    pc.OffHandRefs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 4) //Ring
-            		    {
-            			    if (!pc.RingRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.RingRefs.DeepCopy());
-            				    pc.RingRefs = new ItemRefs();
-            			    }	                			
-            		    }	 
-            		    else if (gv.cc.partyItemSlotIndex == 5) //Body
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.BodyRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.BodyRefs.DeepCopy());
-            				    pc.BodyRefs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 6) //Feet
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    if (!pc.FeetRefs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.FeetRefs.DeepCopy());
-            				    pc.FeetRefs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 7) //Ring2
-            		    {
-            			    if (!pc.Ring2Refs.resref.equals("none"))
-            			    {
-            				    mod.partyInventoryRefsList.add(pc.Ring2Refs.DeepCopy());
-            				    pc.Ring2Refs = new ItemRefs();
-            			    }	                			
-            		    }
-            		    else if (gv.cc.partyItemSlotIndex == 8) //Ammo
-            		    {
-            			    // if equip slot has an item, move it to inventory first
-            			    pc.AmmoRefs = new ItemRefs();            			                			
-            		    }
-            	    }
-            	    dialogOpen = false;
-            	    gv.ItemDialog.dismiss();
-            	    gv.invalidate();
-                }
-            });
-            gv.ItemDialog = builder.create();
-            gv.ItemDialog.show();
-            */
         }
         public void doLevelUp()
         {
@@ -1629,11 +1192,11 @@ namespace IceBlink2
                     }
 
                     //check to see if have any traits to learn
-                    List<String> traitTagsList = new List<string>();
+                    List<string> traitTagsList = new List<string>();
                     traitTagsList = pc.getTraitsToLearn(gv.mod);
 
                     //check to see if have any spells to learn
-                    List<String> spellTagsList = new List<string>();
+                    List<string> spellTagsList = new List<string>();
                     spellTagsList = pc.getSpellsToLearn();
 
                     //if so then ask which one
@@ -1641,15 +1204,11 @@ namespace IceBlink2
                     {
                         gv.screenTraitLevelUp.resetPC(false, pc);
                         gv.screenType = "learnTraitLevelUp";
-//                        gv.Render();
-                        //gv.invalidate();
                     }
                     else if (spellTagsList.Count > 0)
                     {
                         gv.screenSpellLevelUp.resetPC(false, pc);
                         gv.screenType = "learnSpellLevelUp";
-//                        gv.Render();
-                        //gv.invalidate();
                     }
                     else //no spells or traits to learn
                     {
@@ -1657,70 +1216,6 @@ namespace IceBlink2
                     }
                 }
             }
-
-            /*
-    	    AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-    	    builder.setMessage(pc.name + " has gained enough experience to advance a level!")
-    	           .setCancelable(false)
-    	           .setPositiveButton("LEVEL UP", new DialogInterface.OnClickListener() 
-    	           {
-    	               public void onClick(DialogInterface dialog, int id) 
-    	               {    	 
-					       Player pc = mod.playerList.get(gv.cc.partyScreenPcIndex);    	        	   
-					       //LEVEL UP ALL STATS AND UPDATE STATS
-					       pc.LevelUp();
-					       gv.sf.UpdateStats(pc);
-					       traitGained = "Trait Gained: ";
-					       spellGained = "Spell Gained: ";
-					   
-					       //if automatically learned traits or spells add them
-					       for (TraitAllowed ta : pc.playerClass.traitsAllowed)
-					       {
-						       if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel))
-						       {
-							       traitGained += ta.name + ", ";
-							       pc.knownTraitsTags.add(ta.tag);
-						       }
-					       }
-					       for (SpellAllowed sa : pc.playerClass.spellsAllowed)
-					       {
-						       if ((sa.automaticallyLearned) && (sa.atWhatLevelIsAvailable == pc.classLevel))
-						       {
-							       spellGained += sa.name + ", ";
-							       pc.knownSpellsTags.add(sa.tag);
-						       }
-					       }
-    				   
-					       //check to see if have any traits to learn
-					       List<String> traitTagsList = new ArrayList<String>();
-					       traitTagsList = pc.getTraitsToLearn(gv.mod);
-						
-					       //check to see if have any spells to learn
-					       List<String> spellTagsList = new ArrayList<String>();
-					       spellTagsList = pc.getSpellsToLearn();
-	   			    
-    	        	       //if so then ask which one
-    	        	       if (traitTagsList.size() > 0)
-    	        	       {
-    	        		       gv.screenTraitLevelUp.resetPC(pc);
-    	        		       gv.screenType = "learnTraitLevelUp";
-    	        		       gv.invalidate();
-    	        	       }
-    	        	       else if (spellTagsList.size() > 0)
-    	        	       {
-    	        		       gv.screenSpellLevelUp.resetPC(pc);
-    	        		       gv.screenType = "learnSpellLevelUp";
-    	        		       gv.invalidate();
-    	        	       }
-    	        	       else //no spells or traits to learn
-    	        	       {
-    	        		       doLevelUpSummary();
-    	        	       }
-    	               }
-    	           });
-    	    AlertDialog alert = builder.create();
-    	    alert.show();
-            */
         }
         public void doLevelUpSummary()
         {
@@ -1734,31 +1229,6 @@ namespace IceBlink2
                    + traitGained + "<br>"
                    + spellGained;
             gv.sf.MessageBoxHtml(text);
-
-            //gv.TrackerSendEventOnePlayerInfo(pc,"LevelUp:"+pc.name);
-
-            /*
-    	    // Creating and Building the Dialog 
- 	   	    AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-            builder.setTitle("Level Up Summary");
-            builder.setMessage(pc.name + " has gained:\n"
-     		       + "HP: +" + pc.playerClass.hpPerLevelUp + "\n"
-     		       + "SP: +" + pc.playerClass.spPerLevelUp + "\n"
-     		       + "BAB: +" + babGained + "\n"
-     		       + traitGained + "\n"
-     		       + spellGained);
-	        builder.setCancelable(false);
-            builder.setPositiveButton("Done", new DialogInterface.OnClickListener() 
-		           {
-		               public void onClick(DialogInterface dialog, int id) 
-		               {    	 
-		        	       //close dialog
-		        	       gv.invalidate();
-		               }
-		           });
-            AlertDialog alert = builder.create();
-    	    alert.show();
-            */
         }
         public void tutorialMessageParty(bool helpCall)
         {

@@ -31,8 +31,8 @@ namespace IceBlink2
 
         private Bitmap blankItemSlot;
         private int pcCreationIndex = 0;
-        private int pcTokenSelectionIndex = 0;
-        private int pcPortraitSelectionIndex = 0;
+        //private int pcTokenSelectionIndex = 0;
+        //private int pcPortraitSelectionIndex = 0;
         private int pcRaceSelectionIndex = 0;
         private int pcClassSelectionIndex = 0;
         public List<string> playerTokenList = new List<string>();
@@ -105,7 +105,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\pctokens", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -137,7 +136,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\PlayerTokens"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\PlayerTokens", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -176,7 +174,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -208,7 +205,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\PlayerPortraits"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\PlayerPortraits", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -372,7 +368,6 @@ namespace IceBlink2
             int pH = (int)((float)gv.screenHeight / 100.0f);
 
             int locX = 6 * gv.squareSize;
-            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
             int locY = 4 * gv.squareSize + gv.squareSize / 4;
@@ -475,7 +470,6 @@ namespace IceBlink2
             if (pcCreationIndex == 2)
             {
                 textToSpan = "Description:" + Environment.NewLine;
-                //textToSpan = "<u>Description</u>" + "<BR>";
                 textToSpan += pc.race.description;
             }
             else if (pcCreationIndex == 4)
@@ -515,12 +509,6 @@ namespace IceBlink2
         }
         public void onTouchPcCreation(MouseEventArgs e, MouseEventType.EventType eventType)
         {
-            //Player pc = mod.playerList.get(0);
-
-            //ctrlUpArrow.glowOn = false;
-            //ctrlDownArrow.glowOn = false;
-            //ctrlLeftArrow.glowOn = false;
-            //ctrlRightArrow.glowOn = false;
             btnRollStats.glowOn = false;
             btnFinished.glowOn = false;
             btnAbort.glowOn = false;
@@ -528,29 +516,12 @@ namespace IceBlink2
             btnPlayerGuideOnPcCreation.glowOn = false;
             btnBeginnerGuideOnPcCreation.glowOn = false;
 
-            //int eventAction = event.getAction();
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
                 case MouseEventType.EventType.MouseMove:
                     int x = (int)e.X;
                     int y = (int)e.Y;
-                    /*if (ctrlUpArrow.getImpact(x, y))
-                    {
-                        ctrlUpArrow.glowOn = true;
-                    }
-                    else if (ctrlDownArrow.getImpact(x, y))
-                    {
-                        ctrlDownArrow.glowOn = true;
-                    }
-                    else if (ctrlLeftArrow.getImpact(x, y))
-                    {
-                        ctrlLeftArrow.glowOn = true;
-                    }
-                    else if (ctrlRightArrow.getImpact(x, y))
-                    {
-                        ctrlRightArrow.glowOn = true;
-                    }*/
                     if (btnRollStats.getImpact(x, y))
                     {
                         btnRollStats.glowOn = true;
@@ -581,10 +552,6 @@ namespace IceBlink2
                     x = (int)e.X;
                     y = (int)e.Y;
 
-                    //ctrlUpArrow.glowOn = false;
-                    //ctrlDownArrow.glowOn = false;
-                    //ctrlLeftArrow.glowOn = false;
-                    //ctrlRightArrow.glowOn = false;
                     btnRollStats.glowOn = false;
                     btnFinished.glowOn = false;
                     btnAbort.glowOn = false;
@@ -595,16 +562,12 @@ namespace IceBlink2
                     if (btnName.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         pcCreationIndex = 1;
                         changePcName();
                     }
                     else if (btnRace.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         pcCreationIndex = 2;
                         pcRaceSelectionIndex++;
                         if (pcRaceSelectionIndex >= this.playerRaces.Count)
@@ -621,8 +584,6 @@ namespace IceBlink2
                     else if (btnGender.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         pcCreationIndex = 3;
                         if (pc.isMale)
                         {
@@ -636,8 +597,6 @@ namespace IceBlink2
                     else if (btnClass.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         pcCreationIndex = 4;
                         pcClassSelectionIndex++;
                         if (pcClassSelectionIndex >= pc.race.classesAllowed.Count)
@@ -665,8 +624,6 @@ namespace IceBlink2
                     else if (btnRollStats.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         reRollStats(pc);
                     }
                     else if (btnFinished.getImpact(x, y))
@@ -675,9 +632,7 @@ namespace IceBlink2
                         if ((pc.name != "CharacterName") && (pc.name != ""))
                         {
                             gv.PlaySound("btn_click");
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-
+                            
                             //if automatically learned traits or spells add them
                             foreach (TraitAllowed ta in pc.playerClass.traitsAllowed)
                             {
@@ -720,11 +675,6 @@ namespace IceBlink2
                                 this.SaveCharacter(pc);
                                 gv.screenPartyBuild.pcList.Add(pc);
                                 gv.screenType = "partyBuild";
-
-                                /* old stuff, keep for now
-                                gv.cc.tutorialMessageMainMap();
-                                gv.screenType = "main";
-                                gv.cc.doUpdate();*/
                             }
                         }
                         else
@@ -735,31 +685,21 @@ namespace IceBlink2
                     else if (btnAbort.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}				
                         gv.screenType = "partyBuild";
                     }
                     else if (gv.cc.btnHelp.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         gv.cc.tutorialPcCreation();
                     }
                     else if (btnPlayerGuideOnPcCreation.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        //doPlayersGuideDialog();
                         gv.cc.tutorialPlayersGuide();
                     }
                     else if (btnBeginnerGuideOnPcCreation.getImpact(x, y))
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        //doPlayersGuideDialog();
                         gv.cc.tutorialBeginnersGuide();
                     }
                     break;
@@ -768,13 +708,11 @@ namespace IceBlink2
 
         public void tokenLoad(Player p)
         {
-            //p.tokenFilename = playerTokenList[pcTokenSelectionIndex];
             p.token = gv.cc.LoadBitmap(p.tokenFilename);
             btnToken.Img2 = p.token;
         }
         public void portraitLoad(Player p)
         {
-            //p.portraitFilename = playerPortraitList[pcPortraitSelectionIndex];
             p.portrait = gv.cc.LoadBitmap(p.portraitFilename);
             btnPortrait.Img = p.portrait;
         }
@@ -800,7 +738,6 @@ namespace IceBlink2
                             if ((p.name == pc.name) || (p.tag == pc.tag))
                             {
                                 gv.sf.MessageBoxHtml("This name already exists, please choose a different one.");
-                                //MessageBox.Show("This name already exists, please choose a different one.");
                                 pc.name = "";
                                 pc.tag = "";
                                 itSel.textInput = "Type unique Name Here";
@@ -815,7 +752,6 @@ namespace IceBlink2
                                 if ((p.name == pc.name) || (p.tag == pc.tag))
                                 {
                                     gv.sf.MessageBoxHtml("This name already exists, please choose a different one.");
-                                    //MessageBox.Show("This name already exists, please choose a different one.");
                                     pc.name = "";
                                     pc.tag = "";
                                     itSel.textInput = "Type unique Name Here";
@@ -830,45 +766,6 @@ namespace IceBlink2
                     }
                 }
             }
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-            builder.setTitle("Enter Character's Name");
-
-            // Set up the input
-            final EditText input = new EditText(gv.gameContext);
-            // Specify the type of input expected
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
-
-            // Set up the buttons
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() 
-            { 
-                @Override
-                public void onClick(DialogInterface dialog, int which) 
-                {
-                    if (input.getText().toString().length() > 0)
-                    {
-                        //Player pc = mod.playerList.get(0);
-                        pc.name = input.getText().toString();
-                        pc.tag = pc.name.toLowerCase(Locale.ENGLISH);
-                    }
-                    else
-                    {
-                        Toast.makeText(gv.gameContext, "Entering a blank name is not allowed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-    	
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which) 
-                {
-                    dialog.cancel();
-                }
-            });
-    	
-            builder.show();
-            */
         }
         public void reRollStats(Player p)
         {

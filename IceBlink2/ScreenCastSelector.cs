@@ -238,43 +238,7 @@ namespace IceBlink2
 			    if (cntSlot == spellSlotIndex) {btn.glowOn = true;}
 			    else {btn.glowOn = false;}
 			
-			    /*//show only spells for the PC class
-			    if (cntSlot < pc.playerClass.spellsAllowed.Count)
-			    {
-				    SpellAllowed sa = pc.playerClass.spellsAllowed[cntSlot];
-				    Spell sp = mod.getSpellByTag(sa.tag);
-				
-				
-				    if (pc.knownSpellsTags.Contains(sp.tag))
-				    {
-					    if (inCombat) //all spells can be used in combat
-					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);	
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);                            
-					    }
-					    //not in combat so check if spell can be used on adventure maps
-					    else if ((sp.useableInSituation.Equals("Always")) || (sp.useableInSituation.Equals("OutOfCombat")))
-					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small);
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage);
-					    }
-					    else //can't be used on adventure map
-					    {
-						    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-						    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
-					    }					
-				    }
-				    else //spell not known
-				    {
-					    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);				
-					    btn.Img2 = gv.cc.LoadBitmap(sp.spellImage + "_off");
-				    }				
-			    }
-			    else //slot is not in spells allowed index range
-			    {
-				    btn.Img = gv.cc.LoadBitmap("btn_small_off"); // BitmapFactory.decodeResource(gv.getResources(), R.drawable.btn_small_off);
-				    btn.Img2 = null;
-			    }*/			
+			    		
 			    btn.Draw();
 			    cntSlot++;
 		    }
@@ -284,13 +248,7 @@ namespace IceBlink2
 		    if (isSelectedSpellSlotInKnownSpellsRange())
 		    {
 			    Spell sp = GetCurrentlySelectedSpell();
-			    //TextPaint tp = new TextPaint();
-	            //tp.setColor(Color.WHITE);
-	            //tp.setTextSize(gv.mSheetTextPaint.getTextSize());
-	            //tp.setTextAlign(Align.LEFT);
-	            //tp.setAntiAlias(true);
-	            //tp.setTypeface(gv.uiFont);	        
-	            string textToSpan = "<u>Description</u>" + "<BR>";
+			    string textToSpan = "<u>Description</u>" + "<BR>";
 	            textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
 	            textToSpan += "SP Cost: " + sp.costSP + "<BR>";
 	            textToSpan += "Target Range: " + sp.range + "<BR>";
@@ -298,9 +256,6 @@ namespace IceBlink2
 	            textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
 	            textToSpan += "<BR>";
 	            textToSpan += sp.description;
-
-                //IbRect rect = new IbRect(tabX, locY, pW * 80, pH * 50);
-                //gv.DrawText(textToSpan, rect, 1.0f, Color.White);
 
                 description.tbXloc = 11 * gv.squareSize;
                 description.tbYloc = 1 * gv.squareSize;
@@ -318,11 +273,9 @@ namespace IceBlink2
         public void onTouchCastSelector(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
 	    {
 		    btnHelp.glowOn = false;
-		    //btnInfo.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -356,27 +309,19 @@ namespace IceBlink2
 			    {
 				    if (btnSpellSlots[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    spellSlotIndex = j;
 				    }
 			    }
 			    if (btnHelp.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    tutorialMessageCastingScreen();
 			    }
 			    else if (btnSelect.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    doSelectedSpell(inCombat);
 			    }
 			    else if (btnExit.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (inCombat)
 				    {
 					    if (gv.screenCombat.canMove)
@@ -387,7 +332,6 @@ namespace IceBlink2
 					    {
 						    gv.screenCombat.currentCombatMode = "attack";
 					    }
-					    //gv.screenCombat.currentCombatMode = "move";
 					    gv.screenType = "combat";
 					    doCleanUp();
 				    }
@@ -455,8 +399,7 @@ namespace IceBlink2
 			        			    try
 			                        {
 			        				    Player target = mod.playerList[0];
-		            				    //gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, target, target);
-                                        gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
+		            				    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target);
                                         gv.screenType = "main";
 		        					    doCleanUp();
 			        				    return;
@@ -476,8 +419,7 @@ namespace IceBlink2
 				            			try
 				                        {
 				            				Player target = mod.playerList[pcSel.selectedIndex - 1];
-				            				//gv.cc.doSpellBasedOnTag(gv.cc.currentSelectedSpell.tag, pc, target);
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
+				            				gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target);
                                             gv.screenType = "main";
 				        					doCleanUp();
 				                        }

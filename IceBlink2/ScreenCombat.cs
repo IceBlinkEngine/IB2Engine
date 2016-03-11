@@ -39,14 +39,14 @@ namespace IceBlink2
 	    private int encounterXP = 0;
 	    private Creature creatureToAnimate = null;
 	    private Player playerToAnimate = null;
-	    private bool drawHitAnimation = false;
-	    private bool drawMissAnimation = false;
+	    //private bool drawHitAnimation = false;
+	    //private bool drawMissAnimation = false;
 	    private Coordinate hitAnimationLocation = new Coordinate();
 	    public int spellSelectorIndex = 0;
 	    public List<string> spellSelectorSpellTagList = new List<string>();
-	    private bool drawProjectileAnimation = false;
+	    //private bool drawProjectileAnimation = false;
 	    private Coordinate projectileAnimationLocation = new Coordinate();
-	    private bool drawEndingAnimation = false;
+	    //private bool drawEndingAnimation = false;
 	    private Coordinate endingAnimationLocation = new Coordinate();
         public bool drawDeathAnimation = true;
         public List<Coordinate> deathAnimationLocations = new List<Coordinate>();
@@ -54,12 +54,12 @@ namespace IceBlink2
 	    public PathFinderEncounters pf;
 	    public bool floatyTextOn = false;
 	    public AnimationState animationState = AnimationState.None;
-	    private Bitmap projectile;
-        private bool projectileFacingUp = true;
-	    private Bitmap ending_fx;
+	    //private Bitmap projectile;
+        //private bool projectileFacingUp = true;
+	    //private Bitmap ending_fx;
         private Bitmap mapBitmap;
 
-        private IbbButton btnSelect = null;
+        /*private IbbButton btnSelect = null;
 	    private IbbButton btnMove = null;
 	    private IbbButton btnAttack = null;
 	    private IbbButton btnCast = null;
@@ -73,10 +73,9 @@ namespace IceBlink2
 	    public IbbToggleButton tglSoundFx = null;
 	    public IbbToggleButton tglKill = null;
 	    public IbbToggleButton tglHelp = null;
-	    public IbbToggleButton tglGrid = null;
+	    public IbbToggleButton tglGrid = null;*/
         public int mapStartLocXinPixels;
         public float moveCost = 1.0f;
-        //public float diagonalMoveCost = 1.5f; //using the property from module instead
         public List<Sprite> spriteList = new List<Sprite>();
         public List<AnimationSequence> animationSeqStack = new List<AnimationSequence>();
         public bool animationsOn = false;
@@ -90,8 +89,8 @@ namespace IceBlink2
             mapStartLocXinPixels = 0 * gv.squareSize;
             loadMainUILayout();
             //CalculateUpperLeft();
-            setControlsStart();
-            setToggleButtonsStart();
+            //setControlsStart();
+            //setToggleButtonsStart();
 	    }
 
         public void loadMainUILayout()
@@ -148,7 +147,7 @@ namespace IceBlink2
             }
         }
 
-        public void setControlsStart()
+        /*public void setControlsStart()
 	    {		
 		    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -249,8 +248,8 @@ namespace IceBlink2
                 btnSwitchWeapon.Width = (int)(gv.ibbwidthR * gv.screenDensity);			
 					
 		    }
-	    }
-        public void setToggleButtonsStart()
+	    }*/
+        /*public void setToggleButtonsStart()
         {
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -337,8 +336,8 @@ namespace IceBlink2
                 tglKill.Height = (int)(gv.ibbheight / 2 * gv.screenDensity);
                 tglKill.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
 		    }
-        }
-        public void resetToggleButtons()
+        }*/
+        /*public void resetToggleButtons()
         {
             if (mod.combatAnimationSpeed == 100)
             {
@@ -378,7 +377,7 @@ namespace IceBlink2
             {
                 tglSoundFx.toggleOn = false;
             }
-        }
+        }*/
 	    public void tutorialMessageCombat(bool helpCall)
         {
     	    if ((mod.showTutorialCombat) || (helpCall))
@@ -446,11 +445,7 @@ namespace IceBlink2
                 doCreatureNextAction();
             }
         }
-        /*public void doFloatyTextLoop()
-	    {
-		    gv.postDelayed("doFloatyText", 200);
-	    }*/
-
+        
         public void doCombatSetup()
         {
             
@@ -461,7 +456,7 @@ namespace IceBlink2
                 gv.startCombatMusic();
             }
             gv.screenType = "combat";
-            resetToggleButtons();
+            //resetToggleButtons();
             //Load map if used
             if (mod.currentEncounter.UseMapImage)
             {
@@ -529,7 +524,6 @@ namespace IceBlink2
             calcualteMoveOrder();
             //do turn controller
             turnController();
-            //startPcTurn();
         }
         public void calcualteMoveOrder()
         {
@@ -1053,9 +1047,7 @@ namespace IceBlink2
                                     {
                                         crtLocX = crt2.combatLocX;
                                         crtLocY = crt2.combatLocY;
-//                                        floatyTextOn = true;
                                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-//                                        gv.postDelayed("doFloatyText", 100);
                                         attResult = doActualCombatAttack(pc, crt2, i);
                                     }
                                     break; //do not try and attack same creature that was just killed
@@ -1146,9 +1138,7 @@ namespace IceBlink2
                 //Draw floaty text showing damage above Creature
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
-//                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), damage + "", shiftUp);
-//                gv.postDelayed("doFloatyText", 100);
 
                 if (crt.hp <= 0)
                 {
@@ -1537,12 +1527,6 @@ namespace IceBlink2
                             addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
                         }
                         animationsOn = true;
-
-
-
-                        //animationState = AnimationState.CreatureRangedAttackAnimation;
-                        //gv.sf.CreateAoeSquaresList(crt, pc, AreaOfEffectShape.Circle, 0);
-                        //gv.postDelayed("doAnimation", (int)(5 * (0.5f)* mod.combatAnimationSpeed));
                     }
 	                else
 	                {
@@ -1584,11 +1568,6 @@ namespace IceBlink2
                             addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
                         }
                         animationsOn = true;
-
-
-                        //gv.Render();
-	    	            //animationState = AnimationState.CreatureMeleeAttackAnimation;
-                        //gv.postDelayed("doAnimation", (int)(5 * (0.5f) * mod.combatAnimationSpeed));
 	                }
 	                else
 	                {
@@ -1711,25 +1690,6 @@ namespace IceBlink2
                 gv.sf.CombatTarget = pc;	                
                 CreatureDoesAttack(crt);
             }
-        }
-        public void doCreatureSpell()
-        {
-    	    /*Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-    	    //gv.cc.doSpellBasedOnTag(gv.sf.SpellToCast.tag, crt, gv.sf.CombatTarget);
-            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget);
-            if (deathAnimationLocations.Count > 0)
-            {
-                drawDeathAnimation = true;
-                animationFrameIndex = 0;
-                animationState = AnimationState.DeathAnimation;
-                gv.postDelayed("doAnimation", (mod.combatAnimationSpeed));
-                //play death ending sound
-                //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-            }
-            else
-            {
-                endCreatureTurn();
-            }*/
         }
 	    public void doCreatureAI(Creature crt)
 	    {
@@ -1892,27 +1852,19 @@ namespace IceBlink2
 
             if (hit)
             {
-                //drawHitAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //new system
                 AnimationStackGroup newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
                 addHitAnimation(newGroup);
-                //gv.Render();
-                //animationState = AnimationState.PcHitAnimation;
-                //gv.postDelayed("doAnimation", (int)(4 * (0.5f) * mod.combatAnimationSpeed));
             }
             else
             {
-                //drawMissAnimation = true;
                 hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
                 //new system
                 AnimationStackGroup newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
                 addMissAnimation(newGroup);
-                //gv.Render();
-                //animationState = AnimationState.PcMissedAnimation;
-                //gv.postDelayed("doAnimation", (int)(4 * (0.5f) * mod.combatAnimationSpeed));
             }
         }
         public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber)
@@ -1943,9 +1895,7 @@ namespace IceBlink2
                 //Draw floaty text showing damage above PC
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
-//                floatyTextOn = true;
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
-//                gv.postDelayed("doFloatyText", 100);
 
                 if (pc.hp <= 0)
                 {
@@ -2050,7 +2000,6 @@ namespace IceBlink2
 
                         //attempt to hold PC
                         int saveChkRoll = gv.sf.RandInt(20);
-                        //int saveChk = saveChkRoll + target.Will;
                         int saveChk = saveChkRoll + pc.fortitude;
                         int DC = 10;
                         if (saveChk >= DC) //passed save check
@@ -2219,7 +2168,7 @@ namespace IceBlink2
                 {
                     givePcXp.XP = givePcXp.XP + giveEachXP;
                 }
-                btnSelect.Text = "SELECT";
+                //btnSelect.Text = "SELECT";
                 gv.screenType = "main";
                 if (mod.playMusic)
                 {
@@ -2444,16 +2393,7 @@ namespace IceBlink2
         #region Combat Draw
         public void redrawCombat()
         {
-            /*if (mod.com_showGrid)
-            {
-        	    tglGrid.toggleOn = true;
-            }
-            else
-            {
-        	    tglGrid.toggleOn = false;
-            }*/
-    	    //gv.drawLog();
-    	    drawCombatMap();
+            drawCombatMap();
             if (gv.mod.useCombatSmoothMovement == false)
             {
                 drawCombatCreatures();
@@ -2468,23 +2408,15 @@ namespace IceBlink2
             {
                 drawOverlayTints();
             }
-            //if ((!drawProjectileAnimation) && (!drawEndingAnimation) && (!drawHitAnimation) && (!drawMissAnimation) && (!drawDeathAnimation))
             if (!animationsOn)
             {
                 drawTargetHighlight();
                 drawLosTrail();
             }
-            /*if (mod.useUIBackground)
-            {
-                drawPanels();
-            }*/            
-            //gv.drawLog();
             drawFloatyText();
             drawHPText();
             drawSPText();
             drawFloatyTextList();
-            //drawCombatControls();
-            //drawPortraits();
             drawUiLayout();
         }
         public void drawUiLayout()
@@ -2629,138 +2561,6 @@ namespace IceBlink2
             }
 
             combatUiLayout.Draw();            
-        }
-        public void drawPanels()
-        {
-            gv.cc.pnlLog.Draw();
-            gv.cc.pnlToggles.Draw();
-            gv.cc.pnlPortraits.Draw();
-            gv.cc.pnlArrows.Draw();
-            gv.cc.pnlHotkeys.Draw();
-        }
-        public void drawCombatControls()
-	    {
-		    gv.cc.ctrlUpArrow.Draw();
-		    gv.cc.ctrlDownArrow.Draw();
-		    gv.cc.ctrlLeftArrow.Draw();
-		    gv.cc.ctrlRightArrow.Draw();
-		    gv.cc.ctrlUpRightArrow.Draw();
-		    gv.cc.ctrlDownLeftArrow.Draw();
-		    gv.cc.ctrlUpLeftArrow.Draw();
-		    gv.cc.ctrlDownRightArrow.Draw();
-		    tglHP.Draw();
-		    tglSP.Draw();
-            tglMoveOrder.Draw();
-		    tglSpeed.Draw();
-		    tglSoundFx.Draw();
-		    tglHelp.Draw();
-		    tglGrid.Draw();
-		    if (mod.debugMode)
-            {
-			    tglKill.Draw();
-            }
-		    gv.cc.tglSound.Draw();		
-		    btnSwitchWeapon.Draw();
-		
-		    if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
-		    {
-			    btnSelect.Text = "TARGET";
-		    }
-		    else
-		    {
-			    btnSelect.Text = "SELECT";
-		    }
-		    btnSelect.Draw();
-		
-		    if (canMove)
-		    {
-			    if (currentCombatMode.Equals("move"))
-			    {
-                    btnMove.btnState = buttonState.On;
-			    }
-			    else
-			    {
-                    btnMove.btnState = buttonState.Normal;
-			    }
-		    }
-		    else
-		    {
-                btnMove.btnState = buttonState.Off;
-		    }
-		    btnMove.Draw();
-		    gv.cc.btnInventory.Draw();
-		    if (currentCombatMode.Equals("attack"))
-		    {
-                btnAttack.btnState = buttonState.On;
-		    }
-		    else
-		    {
-                btnAttack.btnState = buttonState.Normal;
-		    }
-		    btnAttack.Draw();
-		    if (currentCombatMode.Equals("cast"))
-		    {
-                btnCast.btnState = buttonState.On;
-		    }
-		    else
-		    {
-                btnCast.btnState = buttonState.Normal;
-		    }
-		    btnCast.Draw();
-		    btnSkipTurn.Draw();
-            Player pc = mod.playerList[currentPlayerIndex];
-            float movesLeft = pc.moveDistance - currentMoves;
-            if (movesLeft < 0) { movesLeft = 0; }
-            btnMoveCounter.Text = movesLeft.ToString();
-            btnMoveCounter.Draw();
-	    }
-        public void drawPortraits()
-        {
-            
-
-            //OLD SYSTEM
-            /*if (mod.playerList.Count > 0)
-            {
-                gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
-                gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
-                gv.cc.ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
-                gv.cc.ptrPc0.Draw();
-            }
-            if (mod.playerList.Count > 1)
-            {
-                gv.cc.ptrPc1.Img = mod.playerList[1].portrait;
-                gv.cc.ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
-                gv.cc.ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
-                gv.cc.ptrPc1.Draw();
-            }
-            if (mod.playerList.Count > 2)
-            {
-                gv.cc.ptrPc2.Img = mod.playerList[2].portrait;
-                gv.cc.ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
-                gv.cc.ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
-                gv.cc.ptrPc2.Draw();
-            }
-            if (mod.playerList.Count > 3)
-            {
-                gv.cc.ptrPc3.Img = mod.playerList[3].portrait;
-                gv.cc.ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
-                gv.cc.ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
-                gv.cc.ptrPc3.Draw();
-            }
-            if (mod.playerList.Count > 4)
-            {
-                gv.cc.ptrPc4.Img = mod.playerList[4].portrait;
-                gv.cc.ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
-                gv.cc.ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
-                gv.cc.ptrPc4.Draw();
-            }
-            if (mod.playerList.Count > 5)
-            {
-                gv.cc.ptrPc5.Img = mod.playerList[5].portrait;
-                gv.cc.ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
-                gv.cc.ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
-                gv.cc.ptrPc5.Draw();
-            }*/
         }
         public void drawCombatMap()
 	    {
@@ -4088,7 +3888,7 @@ namespace IceBlink2
         #endregion
 
         #region Mouse Input
-        public void onTouchCombatOld(MouseEventArgs e, MouseEventType.EventType eventType)
+        /*public void onTouchCombatOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             switch (eventType)
             {
@@ -4322,8 +4122,8 @@ namespace IceBlink2
             {
                 //info mode
             }
-        }
-        public void onTouchCombatInfo(MouseEventArgs e, MouseEventType.EventType eventType)
+        }*/
+        /*public void onTouchCombatInfo(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //TODOgv.cc.onTouchLog();
             Player pc = mod.playerList[currentPlayerIndex];
@@ -4429,8 +4229,8 @@ namespace IceBlink2
                     }
                     break;
             }
-        }
-        public void onTouchCombatMove(MouseEventArgs e, MouseEventType.EventType eventType)
+        }*/
+        /*public void onTouchCombatMove(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //gv.cc.onTouchLog();
             Player pc = mod.playerList[currentPlayerIndex];
@@ -4646,8 +4446,8 @@ namespace IceBlink2
                     }
                     break;
             }
-        }
-        public void onTouchCombatAttack(MouseEventArgs e, MouseEventType.EventType eventType)
+        }*/
+        /*public void onTouchCombatAttack(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             Player pc = mod.playerList[currentPlayerIndex];
 
@@ -4877,8 +4677,8 @@ namespace IceBlink2
                     }
                     break;
             }
-        }
-        public void onTouchCombatCast(MouseEventArgs e, MouseEventType.EventType eventType)
+        }*/
+        /*public void onTouchCombatCast(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             //gv.cc.onTouchLog();
             Player pc = mod.playerList[currentPlayerIndex];
@@ -5110,7 +4910,7 @@ namespace IceBlink2
                     }
                     break;
             }
-        }
+        }*/
 
         public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
         {
@@ -6085,13 +5885,7 @@ namespace IceBlink2
             if (minX < 0) { minX = 0; }
             int minY = pc.combatLocY - gv.playerOffsetY;
             if (minY < 0) { minY = 0; }
-
-            /*mod.combatAnimationSpeed = gv.sf.GetGlobalInt("animationSpeed");
-            if (mod.combatAnimationSpeed < 1)
-            {
-                mod.combatAnimationSpeed = 50;
-            }*/
-
+                        
             if ((pc.combatLocX <= (UpperLeftSquare.X + 7)) && (pc.combatLocX >= UpperLeftSquare.X + 2) && (pc.combatLocY <= (UpperLeftSquare.Y + 7)) && (pc.combatLocY >= UpperLeftSquare.Y + 2))
             { 
                 return; 
@@ -6105,7 +5899,6 @@ namespace IceBlink2
         public void CalculateUpperLeftCreature()
         {
             Creature crt = mod.currentEncounter.encounterCreatureList[creatureIndex];
-            //mod.combatAnimationSpeed = 10;
             int minX = crt.combatLocX - gv.playerOffsetX;
             if (minX < 0) { minX = 0; }
             int minY = crt.combatLocY - gv.playerOffsetY;
@@ -6766,33 +6559,6 @@ namespace IceBlink2
             }
         }
 	            		
-	    public Coordinate GetNextProjectileCoordinate(Coordinate startCoor, Coordinate target)
-	    {
-		    Coordinate nextPoint = new Coordinate();
-		    float divider = ((float)animationFrameIndex) / 4.0f;
-		    nextPoint.X = getViewportSquareLocX(startCoor.X) * gv.squareSize - (int)((getViewportSquareLocX(startCoor.X) * gv.squareSize - getViewportSquareLocX(target.X) * gv.squareSize) * divider);
-            //shift to map viewport location
-            nextPoint.X += gv.oXshift + mapStartLocXinPixels;
-            if (startCoor.X < target.X)
-		    {
-                if (nextPoint.X > getPixelLocX(target.X)) { nextPoint.X = getPixelLocX(target.X); }
-		    }
-		    else
-		    {
-                if (nextPoint.X < getPixelLocX(target.X)) { nextPoint.X = getPixelLocX(target.X); }
-		    }
-            nextPoint.Y = getViewportSquareLocY(startCoor.Y) * gv.squareSize - (int)((getViewportSquareLocY(startCoor.Y) * gv.squareSize - getViewportSquareLocY(target.Y) * gv.squareSize) * divider); 
-		    if (startCoor.Y < target.Y)
-		    {
-                if (nextPoint.Y > getPixelLocY(target.Y)) { nextPoint.Y = getPixelLocY(target.Y); }
-		    }
-		    else
-		    {
-                if (nextPoint.Y < getPixelLocY(target.Y)) { nextPoint.Y = getPixelLocY(target.Y); }
-		    }
-		    return nextPoint;
-	    }
-
 	    public int CalcPcAttackModifier(Player pc, Creature crt)
         {
             int modifier = 0;
@@ -6846,9 +6612,7 @@ namespace IceBlink2
 	            	    modifier -= 4;
 	            	    gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
 	            	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
-//	            	    gv.cc.floatyTextOn = true;
 	            	    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
-//	            	    gv.postDelayed("doFloatyText", 100);
             	    }
                 }
                 if (gv.sf.hasTrait(pc, "preciseshot2"))
@@ -7008,9 +6772,7 @@ namespace IceBlink2
         			    "<BR>");
         	    gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font>" +
         			    "<BR>");
-//        	    gv.cc.floatyTextOn = true;
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
-//        	    gv.postDelayed("doFloatyText", 100);
         	    return crt.cr_att - 4; 
             }
             else //melee weapon used
@@ -7027,8 +6789,7 @@ namespace IceBlink2
         }
 	    public int CalcPcDefense(Player pc, Creature crt)
         {
-            //pc.UpdateStats(this);
-		    int defense = pc.AC;
+            int defense = pc.AC;
             if (pc.isHeld())
             {
         	    defense -= 4;

@@ -80,11 +80,6 @@ namespace IceBlink2
         public Bitmap tint_sunset;
         public Bitmap tint_dusk;
         public Bitmap tint_night;
-        //public Bitmap ui_bg_portraits;
-        //public Bitmap ui_bg_arrows;
-        //public Bitmap ui_bg_hotkeys;
-        //public Bitmap ui_bg_toggles;
-        //public Bitmap ui_bg_log;
         public Bitmap ui_bg_fullscreen;
         public Bitmap ui_portrait_frame;
         public Bitmap facing1;
@@ -136,7 +131,6 @@ namespace IceBlink2
             gv.sf.AddCharacterToParty(gv.mod.defaultPlayerFilename); //drin.json is default
             gv.mod.partyTokenFilename = "prp_party";
             gv.mod.partyTokenBitmap = this.LoadBitmap(gv.mod.partyTokenFilename);
-            //gv.sf.GiveItem("firebomb", 1);
         }
         public Player LoadPlayer(string filename)
         {
@@ -150,20 +144,6 @@ namespace IceBlink2
             }
             return toReturn;
         }
-        /*public void LoadCurrentArea(string filename)
-        {
-            //TODO This may not be the method that is actually used
-            using (StreamReader file = File.OpenText(filename))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                gv.mod.currentArea = (Area)serializer.Deserialize(file, typeof(Area));
-                bmpMap = LoadBitmap(gv.mod.currentArea.ImageFileName);
-                foreach (Prop p in gv.mod.currentArea.Props)
-                {
-                    p.token = LoadBitmap(p.ImageFileName);
-                }
-            }
-        }*/
         public void LoadCurrentConvo(string filename)
         {
             using (StreamReader file = File.OpenText(GetModulePath() + "\\dialog\\" + filename + ".json"))
@@ -201,18 +181,6 @@ namespace IceBlink2
             {
                 sw.Write(json.ToString());
             }
-
-            /*
-            //was just temporary just for creting weathereffects
-            //hurghxxxx
-            string filepath2 = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\" + filename + "x";
-            MakeDirectoryIfDoesntExist(filepath2);
-            string json2 = JsonConvert.SerializeObject(gv.mod.moduleWeatherEffectsList, Newtonsoft.Json.Formatting.Indented);
-            using (StreamWriter sw = new StreamWriter(filepath2))
-            {
-                sw.Write(json2.ToString());
-            }
-            */
         }
         public void SaveGameInfo(string filename)
         {
@@ -331,109 +299,6 @@ namespace IceBlink2
                     }
                 }
             }
-
-            /*TODO
-		    final CharSequence[] items = {slot0,slot1,slot2,slot3,slot4,slot5};
-            // Creating and Building the Dialog 
-            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-            builder.setTitle("Choose a save slot to overwrite and save your game.");
-            builder.setItems(items, new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int item) 
-                {            	
-            	    if (item == 0)
-            	    {
-            		    try
-            		    {
-            			    QuickSave();
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }
-            	    else if (item == 1)
-            	    {
-            		    Player pc = gv.mod.playerList.get(0);
-            		    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
-            		    slot1 = gv.mod.saveName;
-            		    try
-            		    {
-            			    SaveGame("slot1.json");        
-            			    SaveGameInfo("slot1info.json");
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }
-            	    else if (item == 2)
-            	    {
-            		    Player pc = gv.mod.playerList.get(0);
-            		    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
-            		    slot2 = gv.mod.saveName;
-            		    try
-            		    {
-            			    SaveGame("slot2.json");
-            			    SaveGameInfo("slot2info.json");
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }
-            	    else if (item == 3)
-            	    {
-            		    Player pc = gv.mod.playerList.get(0);
-            		    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
-            		    slot3 = gv.mod.saveName;
-            		    try
-            		    {
-            			    SaveGame("slot3.json");
-            			    SaveGameInfo("slot3info.json");
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }
-            	    else if (item == 4)
-            	    {
-            		    Player pc = gv.mod.playerList.get(0);
-            		    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
-            		    slot4 = gv.mod.saveName;
-            		    try
-            		    {
-            			    SaveGame("slot4.json");
-            			    SaveGameInfo("slot4info.json");
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }
-            	    else if (item == 5)
-            	    {
-            		    Player pc = gv.mod.playerList.get(0);
-            		    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
-            		    slot5 = gv.mod.saveName;
-            		    try
-            		    {
-            			    SaveGame("slot5.json");
-            			    SaveGameInfo("slot5info.json");
-            		    }
-            		    catch (Exception e)
-            		    {
-            			    gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
-            		    }
-            	    }            	
-            	    gv.ActionDialog.dismiss();
-            	    gv.invalidate();
-                }
-            });
-            gv.ActionDialog = builder.create();
-            gv.ActionDialog.show();
-            */
         }
         public void doLoadSaveGameDialog()
         {
@@ -537,113 +402,6 @@ namespace IceBlink2
                     }
                 }
             }
-            /*
-		    final CharSequence[] items = {slotA,slot0,slot1,slot2,slot3,slot4,slot5};
-            // Creating and Building the Dialog 
-            AlertDialog.Builder builder = new AlertDialog.Builder(gv.gameContext);
-            builder.setTitle("Choose a Saved Game to Load.");
-            builder.setItems(items, new DialogInterface.OnClickListener() 
-            {
-                public void onClick(DialogInterface dialog, int item) 
-                {       
-            	    if (item == 0)
-            	    {
-            		    boolean result = LoadSave("autosave.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 1)
-            	    {
-            		    boolean result = LoadSave("quicksave.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 2)
-            	    {
-            		    boolean result = LoadSave("slot1.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();    
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 3)
-            	    {
-            		    boolean result = LoadSave("slot2.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 4)
-            	    {
-            		    boolean result = LoadSave("slot3.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 5)
-            	    {
-            		    boolean result = LoadSave("slot4.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }
-            	    else if (item == 6)
-            	    {
-            		    boolean result = LoadSave("slot5.json");
-            		    if (result)
-            		    {
-            			    gv.screenType = "main";
-            			    doUpdate();
-            		    }
-            		    else
-            		    {
-            			    Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
-            		    }
-            	    }            	
-            	    gv.ActionDialog.dismiss();
-            	    gv.invalidate();
-                }
-            });
-            gv.ActionDialog = builder.create();
-            gv.ActionDialog.show();
-            */
         }
         public ModuleInfo LoadModuleInfo(string filename)
         {
@@ -657,27 +415,6 @@ namespace IceBlink2
                 }
             }
             catch { }
-
-            /*
-            string qs = readFromFile(filename);
-		    GsonBuilder gsonb = new GsonBuilder();
-		    Gson gson = gsonb.create();  
-		    try 
-		    {
-			    if (qs.length() > 0)
-			    {
-				    m = gson.fromJson(qs, new TypeToken<ModuleInfo>() {}.getType());	
-			    }
-		    } 
-		    catch (JsonSyntaxException e) 
-		    {
-			    e.printStackTrace();
-		    } 
-		    catch (JsonIOException e) 
-		    {
-			    e.printStackTrace();
-		    }
-            */
             return m;
         }
         public void LoadSaveListItems()
@@ -1044,26 +781,7 @@ namespace IceBlink2
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
-                //may not need this as it is not used anywhere, only knownspellstags is used
-                /*pc.knownSpellsList = new List<Spell>();
-                try
-                {
-                    foreach (string s in pc.knownSpellsTags)
-                    {
-                        pc.knownSpellsList.Add(gv.mod.getSpellByTag(s).DeepCopy());
-                    }
-                }
-                catch (Exception ex) { }*/
-                //may not be needed as it is not used anywhere
-                /*pc.knownTraitsList = new List<Trait>();
-                try
-                {
-                    foreach (string t in pc.knownTraitsTags)
-                    {
-                        pc.knownTraitsList.Add(gv.mod.getTraitByTag(t).DeepCopy());
-                    }
-                }
-                catch (Exception ex) { }*/
+                //may not need this(deleted already) as it is not used anywhere, only knownspellstags is used
             }
         }
         public void updatePartyRosterPlayers()
@@ -1080,25 +798,6 @@ namespace IceBlink2
                 try { pc.playerClass = gv.mod.getPlayerClass(pc.classTag).DeepCopy(); }
                 catch (Exception ex) { gv.errorLog(ex.ToString()); }
                 //may not need this as it is not used anywhere, only knownspellstags is used
-                /*pc.knownSpellsList = new List<Spell>();
-                try
-                {
-                    foreach (string s in pc.knownSpellsTags)
-                    {
-                        pc.knownSpellsList.Add(gv.mod.getSpellByTag(s).DeepCopy());
-                    }
-                }
-                catch (Exception ex) { }*/
-                //may not be needed as it is not used anywhere
-                /*pc.knownTraitsList = new List<Trait>();
-                try
-                {
-                    foreach (string t in pc.knownTraitsTags)
-                    {
-                        pc.knownTraitsList.Add(gv.mod.getTraitByTag(t).DeepCopy());
-                    }
-                }
-                catch (Exception ex) { }*/
             }
         }
         public void setMainPc()
@@ -1262,77 +961,6 @@ namespace IceBlink2
             }
         }
 
-        //note: this method is only used if (!mod.useAllTileSystem)
-        public void LoadTileBitmapList()
-        {
-            /*No longer using this
-            //probably just load what is needed for each area upon area load
-            tileBitmapList.Clear();
-            tileGDIBitmapList.Clear();
-            try
-            {
-                //Load from module folder first
-                string[] files;
-                if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles"))
-                {
-                    files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\tiles", "*.png");
-                    foreach (string file in files)
-                    {
-                        try
-                        {
-                            string filename = Path.GetFileName(file);
-                            if (filename.EndsWith(".png"))
-                            {
-                                string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                {
-                                    tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                    tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            gv.errorLog(ex.ToString());
-                        }
-                    }
-                }                
-                else
-                {
-                    if (Directory.Exists(gv.mainDirectory + "\\default\\NewModule\\tiles"))
-                    {
-                        files = Directory.GetFiles(gv.mainDirectory + "\\default\\NewModule\\tiles", "*.png");
-                        foreach (string file in files)
-                        {
-                            try
-                            {
-                                string filename = Path.GetFileName(file);
-                                if (filename.EndsWith(".png"))
-                                {
-                                    string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
-                                    if (!tileBitmapList.ContainsKey(fileNameWithOutExt))
-                                    {
-                                        tileBitmapList.Add(fileNameWithOutExt, LoadBitmap(fileNameWithOutExt));
-                                        tileGDIBitmapList.Add(fileNameWithOutExt, LoadBitmapGDI(fileNameWithOutExt));
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.ToString());
-                                gv.errorLog(ex.ToString());
-                            }
-                        }
-                    }
-                }                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                gv.errorLog(ex.ToString());
-            }
-            */
-        }        
         public string GetModulePath()
         {
             return gv.mainDirectory + "\\modules\\" + gv.mod.moduleName;
@@ -1677,12 +1305,10 @@ namespace IceBlink2
         }
         public void tutorialPlayersGuide()
         {
-            //gv.TrackerSendScreenView("ViewPlayersGuide");
             gv.sf.MessageBoxHtml(this.stringPlayersGuide);
         }
         public void tutorialBeginnersGuide()
         {
-            //gv.TrackerSendScreenView("ViewBeginnersGuide");
             gv.sf.MessageBoxHtml(this.stringBeginnersGuide);
         }
 
@@ -1716,8 +1342,6 @@ namespace IceBlink2
             {
                 gv.log.AddHtmlTextToLog("<font color='white'>" + text + "</font>");
             }
-            //gv.log.updateLog();
-
             /*
             <?xml version="1.0" encoding="utf-8"?>
             <resources>
@@ -1742,8 +1366,7 @@ namespace IceBlink2
         }
         public void addLogText(string text)
         {
-            gv.log.AddHtmlTextToLog(text);
-            //gv.log.updateLog();		
+            gv.log.AddHtmlTextToLog(text);		
         }
         public void addFloatyText(Coordinate coorInSquares, string value)
         {
@@ -2533,8 +2156,8 @@ namespace IceBlink2
             }
             #endregion
            
-                //CLEAN UP START SCREENS IF DONE WITH THEM
-                if (gv.screenLauncher != null)
+            //CLEAN UP START SCREENS IF DONE WITH THEM
+            if (gv.screenLauncher != null)
             {
                 gv.screenLauncher = null;
                 gv.screenPartyBuild = null;
@@ -2551,7 +2174,6 @@ namespace IceBlink2
             }
        
 
-            //gv.logUpdated = false;
             gv.sf.dsWorldTime();
             //IBScript Module heartbeat
             gv.cc.doIBScriptBasedOnFilename(gv.mod.OnHeartBeatIBScript, gv.mod.OnHeartBeatIBScriptParms);
@@ -2577,20 +2199,9 @@ namespace IceBlink2
             doPropMoves();
             //do Conversation and/or Encounter if on Prop
             gv.triggerPropIndex = 0;
-            gv.triggerIndex = 0;
+            gv.triggerIndex = 0;            
+            doPropTriggers();
             
-                doPropTriggers();
-            
-            //gv.mod.noTriggerLocX = gv.mod.PlayerLocationX;
-            //gv.mod.noTriggerLocY = gv.mod.PlayerLocationY;
-            /*if (gv.screenMainMap.floatyTextPool.Count > 0)
-            {
-                gv.screenMainMap.doFloatyTextLoop();
-            }
-            if (gv.screenMainMap.floatyTextByPixelPool.Count > 0)
-            {
-                gv.screenMainMap.doFloatyTextByPixelLoop();
-            }*/
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
         }
@@ -2627,25 +2238,6 @@ namespace IceBlink2
                 if (gv.mod.playerList[5].IsReadyToAdvanceLevel()) { gv.cc.ptrPc5.levelUpOn = true; }
                 else { gv.cc.ptrPc5.levelUpOn = false; }
             }
-            
-            /*bool levelup = false;
-            foreach (Player pc in gv.mod.playerList)
-            {
-                if (pc.IsReadyToAdvanceLevel())
-                {
-                    levelup = true;
-                }
-            }
-            if (levelup)
-            {
-                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
-                btnParty.Img2 = gv.cc.LoadBitmap("btnpartyplus");
-            }
-            else
-            {
-                gv.cc.DisposeOfBitmap(ref btnParty.Img2);
-                btnParty.Img2 = gv.cc.LoadBitmap("btnparty");
-            }*/
         }
 
         public void doWeatherSound()
@@ -5092,7 +4684,6 @@ namespace IceBlink2
         {
             if (gv.sf.RandInt(100) <= prp.ChanceToMove2Squares)
             {
-                //gv.screenMainMap.addFloatyText(prp, "Double move", "yellow", 1500);
                 return 2;
             }
             else if (gv.sf.RandInt(100) <= prp.ChanceToMove0Squares)
@@ -5702,29 +5293,7 @@ namespace IceBlink2
                             doNotTriggerProp = true;
                         }
                     }
-                    
-                    /*
-                    bool doPropTrigger = true;
-                    if ((gv.mod.noTriggerLocX == gv.mod.PlayerLocationX) && (gv.mod.noTriggerLocY == gv.mod.PlayerLocationY))
-                    {
-                        doPropTrigger = false;
-                    }
-                    if ((prp.lastLocationX != prp.LocationX) || (prp.lastLocationY != prp.LocationY))
-                    {
-                        doPropTrigger = true;
-                    }
-                    */
-                    /*
-                    prp.blockTrigger = false;
-                    if (prp.wasTriggeredLastUpdate == true)
-                    {
-                        prp.blockTrigger = true;
-                        if (gv.mod.isRecursiveCall == false)
-                        {
-                            prp.wasTriggeredLastUpdate = false;
-                        }
-                    }
-                    */
+                                        
                     if ((prp.LocationX == gv.mod.PlayerLocationX) && (prp.LocationY == gv.mod.PlayerLocationY) && (prp.isActive) && (doNotTriggerProp == false))
                     {
                         //prp.wasTriggeredLastUpdate = true;
@@ -6036,86 +5605,6 @@ namespace IceBlink2
                 //gv.mod.doConvo = true;
             //}
         }
-        /*public void doSpellBasedOnTag(string spellTag, object source, object target)
-        {
-            gv.sf.AoeTargetsList.Clear();
-
-            //WIZARD SPELLS
-            if (spellTag.Equals("flameFingers"))
-            {
-                gv.sf.spFlameFingers(source, target);
-            }
-            else if (spellTag.Equals("mageBolt"))
-            {
-                gv.sf.spMageBolt(source, target);
-            }
-            else if (spellTag.Equals("sleep"))
-            {
-                gv.sf.spSleep(source, target);
-            }
-            else if (spellTag.Equals("mageArmor"))
-            {
-                gv.sf.spMageArmor(source, target);
-            }
-            else if (spellTag.Equals("minorRegen"))
-            {
-                gv.sf.spMinorRegen(source, target);
-            }
-            else if (spellTag.Equals("web"))
-            {
-                gv.sf.spWeb(source, target);
-            }
-            else if (spellTag.Equals("iceStorm"))
-            {
-                gv.sf.spIceStorm(source, target);
-            }
-            else if (spellTag.Equals("fireball"))
-            {
-                gv.sf.spFireball(source, target);
-            }
-            else if (spellTag.Equals("lightning"))
-            {
-                gv.sf.spLightning(source, target);
-            }
-            else if (spellTag.Equals("breatheFire"))
-            {
-                gv.sf.spBlastOfLight(source, target);
-            }
-            else if (spellTag.Equals("explosiveFireball"))
-            {
-                gv.sf.spFireball(source, target);
-            }
-
-            //CLERIC SPELLS
-            else if (spellTag.Equals("minorHealing"))
-            {
-                gv.sf.spHeal(source, target, 8);
-            }
-            else if (spellTag.Equals("moderateHealing"))
-            {
-                gv.sf.spHeal(source, target, 16);
-            }
-            else if (spellTag.Equals("massMinorHealing"))
-            {
-                gv.sf.spMassHeal(source, target, 8);
-            }
-            else if (spellTag.Equals("bless"))
-            {
-                gv.sf.spBless(source, target);
-            }
-            else if (spellTag.Equals("magicStone"))
-            {
-                gv.sf.spMagicStone(source, target);
-            }
-            else if (spellTag.Equals("blastOfLight"))
-            {
-                gv.sf.spBlastOfLight(source, target);
-            }
-            else if (spellTag.Equals("hold"))
-            {
-                gv.sf.spHold(source, target);
-            }
-        }*/
         public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target)
         {
             gv.sf.AoeTargetsList.Clear();
@@ -6231,139 +5720,6 @@ namespace IceBlink2
                 gv.sf.MessageBox("failed to run IBScript: " + filename);
             }
         }
-        /*public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
-        {
-            if (!filename.Equals("none"))
-            {
-                try
-                {
-                    if (filename.Equals("onHitBeetleFire.cs"))
-                    {
-                        float resist = (float)(1f - ((float)pc.damageTypeResistanceTotalFire / 100f));
-                        float damage = (1 * gv.sf.RandInt(2)) + 0;
-                        int fireDam = (int)(damage * resist);
-
-                        if (gv.mod.debugMode)
-                        {
-                            addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                        + " fireDam = " + fireDam + "</font>" +
-                                        "<BR>");
-                        }
-                        addLogText("<font color='aqua'>" + pc.name + "</font>" +
-                                "<font color='white'>" + " is burned for " + "</font>" +
-                                "<font color='red'>" + fireDam + "</font>" +
-                                "<font color='white'>" + " hit point(s)" + "</font>" +
-                                "<BR>");
-                        pc.hp -= fireDam;
-                    }
-                    else if (filename.Equals("onHitOneFire.cs"))
-                    {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-                        float damage = 1.0f;
-                        int fireDam = (int)(damage * resist);
-
-                        if (gv.mod.debugMode)
-                        {
-                            addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                        + " fireDam = " + fireDam + "</font>" +
-                                        "<BR>");
-                        }
-                        addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
-                                "<font color='white'>" + " is burned for " + "</font>" +
-                                "<font color='red'>" + fireDam + "</font>" +
-                                "<font color='white'>" + " hit point(s)" + "</font>" +
-                                "<BR>");
-                        crt.hp -= fireDam;
-                    }
-                    else if (filename.Equals("onHitOneTwoFire.cs"))
-                    {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-                        float damage = (1 * gv.sf.RandInt(2)) + 0;
-                        int fireDam = (int)(damage * resist);
-
-                        if (gv.mod.debugMode)
-                        {
-                            addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                        + " fireDam = " + fireDam + "</font>" +
-                                        "<BR>");
-                        }
-                        addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
-                                "<font color='white'>" + " is burned for " + "</font>" +
-                                "<font color='red'>" + fireDam + "</font>" +
-                                "<font color='white'>" + " hit point(s)" + "</font>" +
-                                "<BR>");
-                        crt.hp -= fireDam;
-                    }
-                    else if (filename.Equals("onHitTwoThreeFire.cs"))
-                    {
-                        float resist = (float)(1f - ((float)crt.damageTypeResistanceValueFire / 100f));
-                        float damage = (1 * gv.sf.RandInt(2)) + 1;
-                        int fireDam = (int)(damage * resist);
-
-                        if (gv.mod.debugMode)
-                        {
-                            addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
-                                        + " fireDam = " + fireDam + "</font>" +
-                                        "<BR>");
-                        }
-                        addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
-                                "<font color='white'>" + " is burned for " + "</font>" +
-                                "<font color='red'>" + fireDam + "</font>" +
-                                "<font color='white'>" + " hit point(s)" + "</font>" +
-                                "<BR>");
-                        crt.hp -= fireDam;
-                    }
-                    else if (filename.Equals("onHitPcPoisonedLight.cs"))
-                    {
-                        int saveChkRoll = gv.sf.RandInt(20);
-                        int saveChk = saveChkRoll + pc.reflex;
-                        int DC = 13;
-                        if (saveChk >= DC) //passed save check
-                        {
-                            addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
-                                    "<BR>");
-                            if (gv.mod.debugMode)
-                            {
-                                addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
-                                            "<BR>");
-                            }
-                        }
-                        else //failed check
-                        {
-                            addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = gv.mod.getEffectByTag("poisonedLight");
-                            pc.AddEffectByObject(ef, gv.mod.WorldTime);
-                        }
-                    }
-                    else if (filename.Equals("onHitPcPoisonedMedium.cs"))
-                    {
-                        int saveChkRoll = gv.sf.RandInt(20);
-                        int saveChk = saveChkRoll + pc.reflex;
-                        int DC = 16;
-                        if (saveChk >= DC) //passed save check
-                        {
-                            addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
-                                    "<BR>");
-                            if (gv.mod.debugMode)
-                            {
-                                addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
-                                            "<BR>");
-                            }
-                        }
-                        else //failed check
-                        {
-                            addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
-                            Effect ef = gv.mod.getEffectByTag("poisonedMedium");
-                            pc.AddEffectByObject(ef, gv.mod.WorldTime);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //IBMessageBox.Show(game, "failed to run script");
-                }
-            }
-        }*/
         public void doEncounterBasedOnTag(string name)
         {
             try
@@ -6636,7 +5992,6 @@ namespace IceBlink2
                     if (gv.mod.allowImmediateRetransition == true)
                     {
                         gv.mod.allowImmediateRetransition = false;
-                        //doUpdate();
                     }
                 
                     storeCurrentWeatherSettings();
@@ -7159,11 +6514,7 @@ namespace IceBlink2
                 else
                 {
                     bm = new System.Drawing.Bitmap(gv.mainDirectory + "\\default\\NewModule\\graphics\\missingtexture.png");
-                }
-                //if (bm == null)
-                //{
-                //    bm = BitmapFactory.decodeResource(gv.getResources(), R.drawable.ui_missingtexture);
-                //}			
+                }		
             }
             catch (Exception ex)
             {
@@ -7177,93 +6528,7 @@ namespace IceBlink2
 
             return bm;
         }
-        public string loadJSONFromAsset(string filename)
-        {
 
-            string json = null;
-            /*
-            try 
-            {
-        	    //This will get the SD Card directory and create a folder named MyFiles in it.
-			    File sdCard = Environment.getExternalStorageDirectory();
-			    File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG/" + gv.mod.moduleName);
-			    File file = new File(directory, filename);
-			    if (file.exists())
-			    {
-				    FileInputStream fIn = new FileInputStream(file);
-				
-				    BufferedReader r = new BufferedReader(new InputStreamReader(fIn));
-				    StringBuilder total = new StringBuilder();
-				    String line;
-				    while ((line = r.readLine()) != null)
-				    {
-				        total.append(line);
-				    }
-				    json = total.toString();
-				    r.close();
-				    //Toast.makeText(gameContext, "found " + filename + " in folder", Toast.LENGTH_SHORT).show();
-				    //sf.MessageBox("found " + filename + " in folder");
-			    }
-			    else //file not on external so try from internal assets folder
-			    {		
-				    //Toast.makeText(gv.gameContext, "didn't find " + filename + " in folder, try assets", Toast.LENGTH_SHORT).show();
-	                InputStream is = gv.gameContext.getAssets().open(filename);
-	                int size = is.available();
-	                byte[] buffer = new byte[size];
-	                is.read(buffer);
-	                is.close();
-	                json = new String(buffer, "UTF-8");
-			    }
-            } 
-            catch (IOException ex) 
-            {
-                ex.printStackTrace();
-                return null;
-            }*/
-            return json;
-        }
-        public string loadJSONFromFolder(string foldersAndFilename)
-        {
-            string data = "";
-            /*try
-            {
-                //This will get the SD Card directory and create a folder named MyFiles in it.
-                File sdCard = Environment.getExternalStorageDirectory();
-                File directory = new File (sdCard.getAbsolutePath() + "/IceBlinkRPG");
-                File file = new File(directory, foldersAndFilename);
-                if (file.exists())
-                {
-                    FileInputStream fIn = new FileInputStream(file);
-				
-                    BufferedReader r = new BufferedReader(new InputStreamReader(fIn));
-                    StringBuilder total = new StringBuilder();
-                    String line;
-                    while ((line = r.readLine()) != null)
-                    {
-                        total.append(line);
-                    }
-                    data = total.toString();
-                    r.close();
-                }
-                else //file not on external so try from internal assets folder
-                {		
-                    //Toast.makeText(gv.gameContext, "didn't find " + foldersAndFilename + " in folder, try assets", Toast.LENGTH_SHORT).show();
-                    InputStream is = gv.gameContext.getAssets().open(foldersAndFilename);
-                    int size = is.available();
-                    byte[] buffer = new byte[size];
-                    is.read(buffer);
-                    is.close();
-                    data = new String(buffer, "UTF-8");
-                }
-            }
-            catch (IOException e) 
-            {
-                e.printStackTrace();
-                return null;
-            }
-            */
-            return data;
-        }
         public string loadTextToString(string filename)
         {
             string txt = null;
@@ -7325,34 +6590,6 @@ namespace IceBlink2
         {
             System.IO.FileInfo file = new System.IO.FileInfo(filenameAndFullPath);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
-        }
-        public string removeExtension(string s)
-        {
-            return "";
-            /*TODO may not be used anywhere
-	        string separator = System.getProperty("file.separator");
-	        string filename;
-
-	        // Remove the path upto the filename.
-	        int lastSeparatorIndex = s.lastIndexOf(separator);
-	        if (lastSeparatorIndex == -1) 
-	        {
-	            filename = s;
-	        } 
-	        else 
-	        {
-	            filename = s.substring(lastSeparatorIndex + 1);
-	        }
-
-	        // Remove the extension.
-	        int extensionIndex = filename.lastIndexOf(".");
-	        if (extensionIndex == -1)
-	        {
-	            return filename;
-	        }
-
-	        return filename.substring(0, extensionIndex);
-            */
         }
         public System.Drawing.Bitmap flip(System.Drawing.Bitmap src)
         {

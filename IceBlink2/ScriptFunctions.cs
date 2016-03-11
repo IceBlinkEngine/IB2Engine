@@ -29,19 +29,7 @@ namespace IceBlink2
 
         public void MessageBox(string message)
         {
-            /*TODO
-		    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(gv.gameContext);
-		    dlgAlert.setMessage(message);
-		    //dlgAlert.setTitle("App Title");
-		    dlgAlert.setPositiveButton("Ok",
-			        new DialogInterface.OnClickListener() {
-			            public void onClick(DialogInterface dialog, int which) {
-			              //dismiss the dialog  
-			            }
-			        });
-		    dlgAlert.setCancelable(true);
-		    dlgAlert.create().show();
-            */
+            //MessageBoxHtml(message);
         }
 
         public void ShowFullDescription(Item it)
@@ -143,21 +131,6 @@ namespace IceBlink2
             {
                 gv.errorLog(ex.ToString());
             }
-            /*
-            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(gv.gameContext);
-		    dlgAlert.setMessage(Html.fromHtml(message));
-		    //dlgAlert.setTitle("App Title");
-		    dlgAlert.setPositiveButton("Ok",
-			        new DialogInterface.OnClickListener() 
-				    {
-			            public void onClick(DialogInterface dialog, int which) 
-			            {
-			              //dismiss the dialog  
-			            }
-			        });
-		    dlgAlert.setCancelable(true);
-		    dlgAlert.create().show();
-            */
         }
 
         /// <summary>

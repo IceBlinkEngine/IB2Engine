@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+//using System.ComponentModel;
+//using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+//using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
-using System.Text;
+//using System.Linq;
+//using System.Text;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
+//using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using System.Media;
 using SharpDX.DXGI;
@@ -19,10 +19,9 @@ using SharpDX.Direct3D;
 using SharpDX;
 using FontFamily = System.Drawing.FontFamily;
 using Font = System.Drawing.Font;
-//using Bitmap = System.Drawing.Bitmap;
 using Message = System.Windows.Forms.Message;
 using Color = System.Drawing.Color;
-using Point = System.Drawing.Point;
+//using Point = System.Drawing.Point;
 using RectangleF = System.Drawing.RectangleF;
 using Rectangle = System.Drawing.Rectangle;
 using System.Diagnostics;
@@ -122,8 +121,6 @@ namespace IceBlink2
         public System.Media.SoundPlayer playerButtonEnter = new System.Media.SoundPlayer();
         public System.Media.SoundPlayer playerButtonClick = new System.Media.SoundPlayer();
        
-        //public SoundPool sounds;
-        //public Map<String, Integer> soundsList = new HashMap<String, Integer>();
         public string currentMainMusic = "";
         public string currentAmbientMusic = "";
         public string currentCombatMusic = "";
@@ -137,29 +134,22 @@ namespace IceBlink2
         public int reportFPScount = 0;
 
         public Timer animationTimer = new Timer();
-        public Timer floatyTextTimer = new Timer();
-        public Timer floatyTextMainMapTimer = new Timer();
+        //public Timer floatyTextTimer = new Timer();
+        //public Timer floatyTextMainMapTimer = new Timer();
         public Timer areaMusicTimer = new Timer();
         public Timer areaSoundsTimer = new Timer();
         public Timer weatherSounds1Timer = new Timer();
         public Timer weatherSounds2Timer = new Timer();
         public Timer weatherSounds3Timer = new Timer();
-        //public Timer realTimeTimer = new Timer();
-        //public Timer smoothMoveTimer = new Timer();
-
+        
         public float floatPixMovedPerTick = 4f;
-        //public int realTimeTimerLengthInMilliSeconds = 2500;
         public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
         public string rainType = "";
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
-        //public bool useSmoothMovement = true;
-        //public bool useRealTimeTimer = false; 
-
-        //public bool logUpdated = false;
-        
+                
         public GameView()
         {
             InitializeComponent();
@@ -224,11 +214,6 @@ namespace IceBlink2
             ResetDirect2DFont();
             
             animationTimer.Tick += new System.EventHandler(this.AnimationTimer_Tick);
-            floatyTextTimer.Tick += new System.EventHandler(this.FloatyTextTimer_Tick);
-            floatyTextMainMapTimer.Tick += new System.EventHandler(this.FloatyTextMainMapTimer_Tick);
-
-            //cc = new CommonCode(this);            
-            //mod = new Module();
 
             log = new IB2HtmlLogBox(this);
             log.numberOfLinesToShow = 20;
@@ -260,7 +245,6 @@ namespace IceBlink2
                 cc.LoadSaveListItems();
                 screenType = "title";
             }
-            //SharpDX.Windows.RenderLoop.Run(this, RenderCallback); //this creates a game loop for the renderer only, but seems to block keyboard inputs (mouse events still work)
             gameTimer.Interval = 16; //~60 fps
             gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             gameTimerStopwatch.Start();
@@ -313,12 +297,7 @@ namespace IceBlink2
             cc.tint_night = cc.LoadBitmap("tint_night");
             //off for now
             //cc.tint_rain = cc.LoadBitmap("tint_rain");
-            //cc.ui_bg_portraits = cc.LoadBitmap("ui_bg_portraits");
             cc.ui_portrait_frame = cc.LoadBitmap("ui_portrait_frame");
-            //cc.ui_bg_arrows = cc.LoadBitmap("ui_bg_arrows");
-            //cc.ui_bg_hotkeys = cc.LoadBitmap("ui_bg_hotkeys");
-            //cc.ui_bg_toggles = cc.LoadBitmap("ui_bg_toggles");
-            //cc.ui_bg_log = cc.LoadBitmap("ui_bg_log");
             cc.ui_bg_fullscreen = cc.LoadBitmap("ui_bg_fullscreen");
             cc.facing1 = cc.LoadBitmap("facing1");
             cc.facing2 = cc.LoadBitmap("facing2");
@@ -333,16 +312,10 @@ namespace IceBlink2
 	    {
 		    //mod = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
-            //if (mod.useRealTimeTimer == true)
-            //{
-                //realTimeTimer.Interval = realTimeTimerLengthInMilliSeconds;
-                //realTimeTimer.Tick += new System.EventHandler(this.realTimeTimer_Tick);
-            //}
             if (mod.useSmoothMovement == true)
             {
                 //16 milliseconds a tick, equals - theoretically - about 60 FPS
-                //smoothMoveTimer.Interval = smoothMoveTimerLengthInMilliSeconds;
-
+                
                 //these are the pix moved per tick, designed so that a square is traversed within realTimeTimerLengthInMilliSeconds 
                 //update: actually as the 60 FPS are never reached, we will see little stops between prop moves with realtime timer on
                 floatPixMovedPerTick = ((float)squareSize / 90f) * mod.allAnimationSpeedMultiplier;
@@ -351,11 +324,6 @@ namespace IceBlink2
                 floatPixMovedPerTick = floatPixMovedPerTick / (((float)mod.realTimeTimerLengthInMilliSeconds / 1000f * 2f / 3f)) * 6.675f;
                 //IBMessageBox.Show(this, "floatPixMovedPerTick after second is is:" + floatPixMovedPerTick.ToString());
                 //IBMessageBox.Show(this, "real time timer length is:" + realTimeTimerLengthInMilliSeconds.ToString());
-                
-
-
-                //smoothMoveTimer.Tick += new System.EventHandler(this.smoothMoveTimer_Tick);
-                //smoothMoveTimer.Start();
             }
 
             //reset fonts
@@ -385,10 +353,10 @@ namespace IceBlink2
 		    cc.LoadEncounters();
 		    cc.LoadJournal();
             //hurghj
-            if (!mod.useAllTileSystem)
-            {
-                cc.LoadTileBitmapList();
-            }
+            //if (!mod.useAllTileSystem)
+            //{
+            //    cc.LoadTileBitmapList();
+            //}
 				
 		    foreach (Container c in mod.moduleContainersList)
             {
@@ -425,8 +393,7 @@ namespace IceBlink2
 		    createScreens();
 		    initializeSounds();
 		
-		    cc.LoadTestParty();		
-		    //LogText.clear();
+		    cc.LoadTestParty();
 		
 		    //load all the message box helps/tutorials
 		    cc.stringBeginnersGuide = cc.loadTextToString("MessageBeginnersGuide.txt");
@@ -478,33 +445,6 @@ namespace IceBlink2
             CurrentFontCollection = new SharpDX.DirectWrite.FontCollection(factoryDWrite, CurrentResourceFontLoader, CurrentResourceFontLoader.Key);
             FontFamilyName = mod.fontName;
         }
-
-	    //MUSIC AND SOUNDS	    
-	    /*public Runnable doMusicDelay = new Runnable()
-	    {
-		    @Override
-		    public void run()
-		    {
-			    startMusic();
-		    }
-	    };*/	
-	    /*public Runnable doAmbientDelay = new Runnable()
-	    {
-		    @Override
-		    public void run()
-		    {
-			    startAmbient();
-		    }
-	    };*/	
-	    /*public Runnable doCombatMusicDelay = new Runnable()
-	    {
-		    @Override
-		    public void run()
-		    {
-			    startCombatMusic();
-		    }
-	    };
-	    */
 
         #region Area Music/Sounds
         public void setupMusicPlayers()
@@ -802,244 +742,7 @@ namespace IceBlink2
             }
         }
         #endregion
-
-	    public void startMusicOld()
-	    {            
-		    /*if ((currentMainMusic.equals(mod.currentArea.AreaMusic)) && (playerMain != null))
-		    {
-			    playerMain.start();
-		    }
-		    else
-		    {
-			    String filename = mod.currentArea.AreaMusic;
-			    currentMainMusic = filename;
-			    playerMain = new MediaPlayer();
-			    playerMain.setOnPreparedListener(new OnPreparedListener() 
-			    {
-	        	    public void onPrepared(MediaPlayer playerMain) 
-	        	    {
-	        		    playerMain.start();
-	        	    }
-			    });
-			    playerMain.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
-			    {
-			        public void onCompletion(MediaPlayer playerMain) 
-			        {
-			            //start the delay timer
-			    	    try
-		                {
-		                    int rand = sf.RandInt(mod.currentArea.AreaMusicDelayRandomAdder);
-		                    int delay = mod.currentArea.AreaMusicDelay + rand;
-		                    postDelayed(doMusicDelay, delay);
-		                }
-		                catch (Exception ex)
-		                {
-		                    //game.errorLog("Failed on delayMusic()" + ex.ToString());
-		                }
-			        }
-			    });
-			
-			    AssetFileDescriptor afd = null;
-			    try 
-			    {
-				    afd = this.gameContext.getAssets().openFd("music/" + filename + ".mp3");
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			    try 
-			    {
-				    playerMain.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			
-			    if (afd == null)
-		        {
-				    File sdCard = Environment.getExternalStorageDirectory();
-				    Uri currentMusic = Uri.parse(sdCard.getAbsolutePath() + "/IceBlinkRPG/" + mod.moduleName + "/music/" + filename + ".mp3");
-				    playerMain.setAudioStreamType(AudioManager.STREAM_MUSIC);
-				    try 
-				    {
-					    playerMain.setDataSource(gameContext, currentMusic);
-				    } 
-				    catch (Exception e) 
-				    {
-					    e.printStackTrace();
-				    }
-		        }
-			
-			    try 
-			    {
-				    playerMain.prepare();
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-		    }*/
-	    }		
-	    public void startAmbientOld()
-	    {
-		    /*if ((currentAmbientMusic.equals(mod.currentArea.AreaSounds)) && (playerAmbient != null))
-		    {
-			    playerAmbient.start();
-		    }
-		    else
-		    {
-			    String filename = mod.currentArea.AreaSounds;
-			    currentAmbientMusic = filename;
-			    playerAmbient = new MediaPlayer();
-			    playerAmbient.setOnPreparedListener(new OnPreparedListener() 
-			    {
-	        	    public void onPrepared(MediaPlayer playerAmbient) 
-	        	    {
-	        		    playerAmbient.start();
-	        	    }
-			    });
-			    playerAmbient.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
-			    {
-			        public void onCompletion(MediaPlayer playerAmbient) 
-			        {
-			            //start the delay timer
-			    	    try
-		                {
-		                    int rand = sf.RandInt(mod.currentArea.AreaSoundsDelayRandomAdder);
-		                    int delay = mod.currentArea.AreaSoundsDelayRandomAdder + rand;
-		                    postDelayed(doAmbientDelay, delay);
-		                }
-		                catch (Exception ex)
-		                {
-		                    //game.errorLog("Failed on delayMusic()" + ex.ToString());
-		                }
-			        }
-			    });
-			
-			    AssetFileDescriptor afd = null;
-			    try 
-			    {
-				    afd = this.gameContext.getAssets().openFd("music/" + filename + ".mp3");
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			    try 
-			    {
-				    playerAmbient.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			
-		        if (afd == null)
-		        {
-				    File sdCard = Environment.getExternalStorageDirectory();
-				    Uri currentMusic = Uri.parse(sdCard.getAbsolutePath() + "/IceBlinkRPG/" + mod.moduleName + "/music/" + filename + ".mp3");
-				    playerAmbient.setAudioStreamType(AudioManager.STREAM_MUSIC);
-				    try 
-				    {
-					    playerAmbient.setDataSource(gameContext, currentMusic);
-				    } 
-				    catch (Exception e) 
-				    {
-					    e.printStackTrace();
-				    }
-		        }
-		    
-			    try 
-			    {
-				    playerAmbient.prepare();
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-		    }*/
-	    }
-	    public void startCombatMusicOld()
-	    {
-		    /*if ((currentCombatMusic.equals(mod.currentEncounter.AreaMusic)) && (playerCombat != null))
-		    {
-			    playerCombat.start();
-		    }
-		    else
-		    {
-			    String filename = mod.currentEncounter.AreaMusic;
-			    currentCombatMusic = filename;
-			    playerCombat = new MediaPlayer();
-			    playerCombat.setOnPreparedListener(new OnPreparedListener() 
-			    {
-	        	    public void onPrepared(MediaPlayer playerCombat) 
-	        	    {
-	        		    playerCombat.start();
-	        	    }
-			    });
-			    playerCombat.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
-			    {
-			        public void onCompletion(MediaPlayer playerCombat) 
-			        {
-			            //start the delay timer
-			    	    try
-		                {
-		                    int rand = sf.RandInt(mod.currentEncounter.AreaMusicDelayRandomAdder);
-		                    int delay = mod.currentEncounter.AreaMusicDelay + rand;
-		                    postDelayed(doCombatMusicDelay, delay);
-		                }
-		                catch (Exception ex)
-		                {
-		                    //game.errorLog("Failed on delayMusic()" + ex.ToString());
-		                }
-			        }
-			    });
-			
-			    AssetFileDescriptor afd = null;
-			    try 
-			    {
-				    afd = this.gameContext.getAssets().openFd("music/" + filename + ".mp3");
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			    try 
-			    {
-				    playerCombat.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-			
-			    if (afd == null)
-		        {
-				    File sdCard = Environment.getExternalStorageDirectory();
-				    Uri currentMusic = Uri.parse(sdCard.getAbsolutePath() + "/IceBlinkRPG/" + mod.moduleName + "/music/" + filename + ".mp3");
-				    playerCombat.setAudioStreamType(AudioManager.STREAM_MUSIC);
-				    try 
-				    {
-					    playerCombat.setDataSource(gameContext, currentMusic);
-				    } 
-				    catch (Exception e) 
-				    {
-					    e.printStackTrace();
-				    }
-		        }
-			
-			    try 
-			    {
-				    playerCombat.prepare();
-			    } 
-			    catch (Exception e) 
-			    {
-				    e.printStackTrace();
-			    }
-		    }*/
-	    }
+        
 	    public void stopMusic()
 	    {
             areaMusic.controls.pause();
@@ -1091,53 +794,20 @@ namespace IceBlink2
         //Animation Timer Stuff
         public void postDelayed(string type, int delay)
         {
-            //gv.postDelayed("doAnimation", 2 * mod.combatAnimationSpeed);
             if (type.Equals("doAnimation"))
             {
                 animationTimer.Enabled = true;
                 animationTimer.Interval = delay;
                 animationTimer.Start();
             }
-            /*else if (type.Equals("doFloatyText"))
-            {
-                floatyTextTimer.Enabled = true;
-                floatyTextTimer.Interval = delay;
-                floatyTextTimer.Start();
-            }*/
-            /*else if (type.Equals("doFloatyTextMainMap"))
-            {
-                floatyTextMainMapTimer.Enabled = true;
-                floatyTextMainMapTimer.Interval = delay;
-                floatyTextMainMapTimer.Start();
-            }*/
         }
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
             animationTimer.Enabled = false;
             animationTimer.Stop();
-//            Render();
             screenCombat.doAnimationController();
         }
-        /*private void realTimeTimer_Tick(object sender, EventArgs e)
-        {
-            if (screenType.Equals("main"))
-            {
-                realTimeTimer.Stop();
-                cc.doUpdate();
-                realTimeTimer.Start();
-            }
-        }*/
-        /*private void smoothMoveTimer_Tick(object sender, EventArgs e)
-        {
-            if (screenType.Equals("main"))
-            {
-                
-                smoothMoveTimer.Stop();
-                Render();
-                smoothMoveTimer.Start();
-
-            }
-        }*/
+        
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             if (!stillProcessingGameLoop)
@@ -1194,123 +864,8 @@ namespace IceBlink2
                 screenCombat.Update(elapsed);
             }
         }
-        private void FloatyTextTimer_Tick(object sender, EventArgs e)
-        {
-            /*floatyTextTimer.Enabled = false;
-            floatyTextTimer.Stop();
-            //Invalidate();
-//            Render();
-
-            int pH = (int)((float)screenHeight / 200.0f);
-            //move all floaty text up one %pixel
-            if (this.cc.floatyTextCounter < 10)
-            {
-                foreach (FloatyText ft in this.cc.floatyTextList)
-                {
-                    ft.location.Y -= pH;
-                }
-                //call again until counter hits 10
-                this.cc.floatyTextCounter++;
-                screenCombat.doFloatyTextLoop();
-            }
-            else
-            {
-                this.cc.floatyTextCounter = 0;
-                screenCombat.floatyTextOn = false;
-                this.cc.floatyTextList.Clear();
-            }*/
-//            Render();
-        }
-        private void FloatyTextMainMapTimer_Tick(object sender, EventArgs e)
-        {
-            /*floatyTextMainMapTimer.Enabled = false;
-            floatyTextMainMapTimer.Stop();
-            //likely remove this render here
-            //Render();
-
-            if (mod.useSmoothMovement)
-            {
-
-                if (screenMainMap.floatyTextByPixelPool.Count > 0)
-                {
-                    for (int i = screenMainMap.floatyTextByPixelPool.Count - 1; i >= 0; i--)
-                    {
-                        if (screenMainMap.floatyTextByPixelPool[i].timer > screenMainMap.floatyTextByPixelPool[i].timerLength)
-                        {
-                            screenMainMap.floatyTextByPixelPool.RemoveAt(i);
-                        }
-                        else
-                        {
-                            screenMainMap.floatyTextByPixelPool[i].z++; //increase float height multiplier
-                            screenMainMap.floatyTextByPixelPool[i].timer += 400;
-                        }
-                    }
-                    screenMainMap.doFloatyTextByPixelLoop();
-                }
-            }
-
-            if (screenMainMap.floatyTextPool.Count > 0)
-            {
-                for (int i = screenMainMap.floatyTextPool.Count - 1; i >= 0; i--)
-                {
-                    if (screenMainMap.floatyTextPool[i].timer > screenMainMap.floatyTextPool[i].timerLength)
-                    {
-                        screenMainMap.floatyTextPool.RemoveAt(i);
-                    }
-                    else
-                    {
-                        screenMainMap.floatyTextPool[i].z++; //increase float height multiplier
-                        screenMainMap.floatyTextPool[i].timer += 400;
-                    }
-                }
-                screenMainMap.doFloatyTextLoop();
-            }*/
-        }
 
         //DRAW ROUTINES
-        public void drawBlackMap()
-        {
-            /*android only
-            Paint paint = new Paint();
-            Rect r = new Rect(0, 0, 7 * gv.squareSize, (8 * gv.squareSize) + (int)(10 * gv.screenDensity));
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(Color.BLACK);
-            canvas.drawRect(r, paint);
-            */
-        }
-        public void drawLog()
-        {
-            //log.updateLog();
-            //TODO log.onDrawLogBox();            
-        }
-        public void onTouchLog()
-        {
-            //int eventAction = event.getAction();
-            /*TODOswitch (eventAction)
-            {
-                case MotionEvent.ACTION_DOWN:
-                    //int x = (int) event.getX();
-                    //int y = (int) event.getY();
-
-                    if ((x > topleftLog.X) && (x < bottomrightLog.X) && (y > topleftLog.Y) && (y < bottomrightLog.Y))
-                    {
-                        touchDownY = y;
-                        logLocYatTouchDownY = logLocY;
-                    }
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-                    //x = (int) event.getX();
-                    //y = (int) event.getY();
-
-                    if ((x > topleftLog.X) && (x < bottomrightLog.X) && (y > topleftLog.Y) && (y < bottomrightLog.Y))
-                    {
-                        logLocY = logLocYatTouchDownY - (touchDownY - y);
-                    }
-                    break;
-            }*/
-        }
-        
         public void CleanUpDrawTextResources()
         {
             if (textFormat != null)
@@ -1355,7 +910,6 @@ namespace IceBlink2
             RectangleF rectF = new RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
-                //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, rect.Width, rect.Height);
                 renderTarget2D.DrawTextLayout(new Vector2(rect.Left, rect.Top + oYshift), textLayout, scb, DrawTextOptions.None);
@@ -1375,7 +929,6 @@ namespace IceBlink2
             }
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, fontColor))
             {
-                //textFormat = new TextFormat(factoryDWrite, thisFont.FontFamily.Name, fw, fs, FontStretch.Normal, thisFont.Height) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
                 textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);
                 if (isUnderlined)
@@ -1398,15 +951,11 @@ namespace IceBlink2
         }   
         public void DrawRectangle(IbRect rect, SharpDX.Color penColor, int penWidth)
         {
-            //Pen p = new Pen(penColor, penWidth);
             SharpDX.RectangleF r = new SharpDX.RectangleF(rect.Left, rect.Top + oYshift, rect.Width, rect.Height);
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
             {
                 renderTarget2D.DrawRectangle(r, scb, penWidth);
             }
-            
-            //gCanvas.DrawRectangle(p, r);
-            //p.Dispose();
         }
         public void DrawLine(int lastX, int lastY, int nextX, int nextY, SharpDX.Color penColor, int penWidth)
         {
@@ -1414,9 +963,6 @@ namespace IceBlink2
             {
                 renderTarget2D.DrawLine(new Vector2(lastX,lastY), new Vector2(nextX, nextY), scb, penWidth);
             }
-            //Pen p = new Pen(penColor, penWidth);
-            //gCanvas.DrawLine(p, lastX, lastY, nextX, nextY);
-            //p.Dispose();
         }
         public void DrawBitmapGDI(System.Drawing.Bitmap bitmap, IbRect source, IbRect target)
         {
@@ -1480,117 +1026,6 @@ namespace IceBlink2
             SharpDX.Rectangle src = new SharpDX.Rectangle(source.Left, source.Top, source.Width, source.Height);
             //calling new overloaded draw that takes in opacity, too
             DrawD2DBitmap(bitmap, src, tar, mirror, opac, NearestNeighbourInterpolation);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-	    {
-//            Render();
-            //base.OnPaint(e);
-            //gCanvas = e.Graphics;
-            /*BeginDraw(); //uncomment this for DIRECT2D ADDITIONS
-            renderTarget2D.Clear(Color4.Black); //uncomment this for DIRECT2D ADDITIONS
-            
-            if (screenType.Equals("title"))
-		    {
-    		    screenTitle.redrawTitle();
-		    }
-    	    else if (screenType.Equals("launcher"))
-		    {
-    		    screenLauncher.redrawLauncher();
-		    }
-    	    else if (screenType.Equals("pcCreation"))
-		    {
-			    screenPcCreation.redrawPcCreation();
-		    }
-    	    else if (screenType.Equals("learnSpellCreation"))
-    	    {
-    		    screenSpellLevelUp.redrawSpellLevelUp(true);    	
-    	    }
-    	    else if (screenType.Equals("learnSpellLevelUp"))
-    	    {
-    		    screenSpellLevelUp.redrawSpellLevelUp(false);    	
-    	    }
-    	    else if (screenType.Equals("learnTraitCreation"))
-    	    {
-    		    screenTraitLevelUp.redrawTraitLevelUp(true);    	
-    	    }
-    	    else if (screenType.Equals("learnTraitLevelUp"))
-    	    {
-    		    screenTraitLevelUp.redrawTraitLevelUp(false);    	
-    	    }
-    	    else if (screenType.Equals("main"))
-		    {
-			    screenMainMap.redrawMain();
-		    }
-		    else if (screenType.Equals("party"))
-		    {
-			    screenParty.redrawParty();
-		    }
-		    else if (screenType.Equals("combatParty"))
-		    {
-			    screenParty.redrawParty();
-		    }
-		    else if (screenType.Equals("inventory"))
-		    {
-			    screenInventory.redrawInventory();
-		    }
-            else if (screenType.Equals("itemSelector"))
-            {
-                screenItemSelector.redrawItemSelector();
-            }
-            else if (screenType.Equals("portraitSelector"))
-            {
-                screenPortraitSelector.redrawPortraitSelector();
-            }
-            else if (screenType.Equals("tokenSelector"))
-            {
-                screenTokenSelector.redrawTokenSelector();
-            }
-            else if (screenType.Equals("pcSelector"))
-            {
-                screenPcSelector.redrawPcSelector();
-            }
-		    else if (screenType.Equals("combatInventory"))
-		    {
-			    screenInventory.redrawInventory();
-		    }
-		    else if (screenType.Equals("journal"))
-		    {
-			    screenJournal.redrawJournal();
-		    }
-		    else if (screenType.Equals("shop"))
-		    {
-			    screenShop.redrawShop();
-		    }
-		    else if (screenType.Equals("combat"))
-		    {
-			    screenCombat.redrawCombat();
-		    }
-		    else if (screenType.Equals("combatCast"))
-		    {
-			    screenCastSelector.redrawCastSelector(true);
-		    }
-		    else if (screenType.Equals("mainMapCast"))
-		    {
-			    screenCastSelector.redrawCastSelector(false);
-		    }
-		    else if (screenType.Equals("convo"))
-		    {
-                //if (mod.avoidInteraction == false)
-                //{
-                    screenConvo.redrawConvo();
-                //}
-		    }
-		    else if (screenType.Equals("partyBuild"))
-		    {
-			    screenPartyBuild.redrawPartyBuild();
-		    }
-            else if (screenType.Equals("partyRoster"))
-            {
-                screenPartyRoster.redrawPartyRoster();
-            }
-            EndDraw(); //uncomment this for DIRECT2D ADDITIONS
-            */
         }
 
         //DIRECT2D STUFF
@@ -1670,53 +1105,13 @@ namespace IceBlink2
                 MessageBox.Show("SharpDX error message appended to IB2ErrorLog.txt");
                 this.errorLog(state + "<--->" + ex.ToString());
             }
-
-            // ##### This app specific #########
-            // Load D2D1Bitmap
-            //newBus.busBitmap = LoadFromFile(renderTarget2D, "sharpdx.png");
-            // Initialize a TextFormat
-            //textFormat = new TextFormat(factoryDWrite, "Calibri", 20) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };            
-            // Initialize a TextLayout
-            //textLayout = new TextLayout(factoryDWrite, "load: " + timer1 + "  process: " + timer2, textFormat, this.Width, this.Height);
         }
         public void BeginDraw()
         {
             _device.ImmediateContext.Rasterizer.SetViewport(new Viewport(0, 0, this.Width, this.Height));
             _device.ImmediateContext.OutputMerger.SetTargets(_backBufferView);
             renderTarget2D.BeginDraw();
-        }
-        public void Draw()
-        {
-            /*
-            renderTarget2D.Clear(Color4.Black);
-            // Draw the TextLayout
-            //int locX = 100;
-            if (mirror == -1)
-            {
-                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), true, false);
-            }
-            else if (flip == -1)
-            {
-                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), false, true);
-            }
-            else
-            {
-                DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), false, false);
-            }
-            //renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
-            for (int j = 0; j < 40; j++)
-            {
-                for (int x = 0; x < 20; x++)
-                {
-                    for (int y = 0; y < 10; y++)
-                    {
-                        DrawBitmap(newBus.busBitmap, new SharpDX.RectangleF(0, 0, newBus.busBitmap.PixelSize.Width, newBus.busBitmap.PixelSize.Height), new SharpDX.RectangleF(x * 50 + shift, y * 50 + shift, 50, 50));
-                    }
-                }
-            }
-            renderTarget2D.DrawTextLayout(new Vector2(0, 0), textLayout, sceneColorBrush, DrawTextOptions.None); // ##### This app specific
-            */
-        }
+        }        
         public void EndDraw()
         {
             renderTarget2D.EndDraw();
@@ -1762,20 +1157,6 @@ namespace IceBlink2
             }
             else if (screenType.Equals("main"))
             {
-                /*
-                if (mod.justTransitioned == true)
-                {
-                    if (mod.secondUpdateAfterTransition == true)
-                    {
-                        mod.justTransitioned = false;
-                    }
-                    mod.secondUpdateAfterTransition = true;
-                }
-                else
-                {
-                    mod.secondUpdateAfterTransition = false;
-                }
-                */
                 screenMainMap.redrawMain();
             }
             else if (screenType.Equals("party"))
@@ -1832,10 +1213,7 @@ namespace IceBlink2
             }
             else if (screenType.Equals("convo"))
             {
-                //if (mod.avoidInteraction == false)
-                //{
                 screenConvo.redrawConvo();
-                //}
             }
             else if (screenType.Equals("partyBuild"))
             {
@@ -1859,31 +1237,6 @@ namespace IceBlink2
             }
 
             EndDraw(); //uncomment this for DIRECT2D ADDITIONS
-
-            /*
-            //code for dispsoing all tile graphics used at the end of render
-            if (mod.loadedTileBitmaps.Count > 100)
-            {
-                cc.addLogText("yellow", "Disposing tiles.");
-            
-            try
-                {
-                    if (mod.loadedTileBitmaps != null)
-                    {
-                        foreach (SharpDX.Direct2D1.Bitmap bm in mod.loadedTileBitmaps)
-                        {
-                            bm.Dispose();
-                        }
-                    }
-
-                    //these two lists keep an exact order so each bitmap stored in one corrsponds with a name in the other
-
-                    mod.loadedTileBitmaps.Clear();
-                    mod.loadedTileBitmapsNames.Clear();
-                }
-                catch { }
-            }
-            */
         }
         private void RenderCallback()
         {
@@ -1961,121 +1314,6 @@ namespace IceBlink2
             renderTarget2D.Transform = Matrix3x2.Identity;            
         }
 
-        //new overload with opacity added
-        /*public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac)
-        {
-            if ((mirror) && (flip))
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, 0, 0, 0);
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
-                                                (target.Top + bitmap.PixelSize.Height) * -1,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.Linear,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else if (flip)
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, 0, 0, 0);
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF(target.Left,
-                                                (target.Top + bitmap.PixelSize.Height) * -1,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.Linear,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else if (mirror)
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
-
-                //left shift for rendering right facing party and combat cretures, those were shifted about half a square too far in right direction on my laptop
-                float leftShiftAdjustment = (screenWidth / 1920f) * bitmap.PixelSize.Width;
-                renderTarget2D.DrawBitmap(bitmap,
-                                                //new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
-                                                new SharpDX.RectangleF((target.Left + leftShiftAdjustment) * -1,
-                                                target.Top,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.Linear,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else
-            {
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF(target.Left,
-                                                target.Top,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.Linear,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            //return transform back to original
-            renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
-            
-        }*/
-
-        /*public void DrawD2DBitmapNeighbour(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.Rectangle source, SharpDX.Rectangle target, bool mirror, float opac)
-        {
-            if ((mirror) && (flip))
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, -1, 0, 0, 0);
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width) * -1,
-                                                (target.Top + bitmap.PixelSize.Height) * -1,
-                                                target.Width,
-                                                target.Height),
-                                            opac, BitmapInterpolationMode.NearestNeighbor, new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else if (flip)
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(1, -1, 0, 0, 0);
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF(target.Left,
-                                                (target.Top + bitmap.PixelSize.Height) * -1,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.NearestNeighbor,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else if (mirror)
-            {
-                renderTarget2D.Transform = Matrix3x2.Transformation(-1, 1, 0, 0, 0);
-
-                //left shift for rendering right facing party and combat cretures, those were shifted about half a square too far in right direction on my laptop
-                float leftShiftAdjustment = (screenWidth / 1920f) * bitmap.PixelSize.Width;
-                renderTarget2D.DrawBitmap(bitmap,
-                    //new SharpDX.RectangleF((target.Left + bitmap.PixelSize.Width - squareSize/2) * -1,
-                                                new SharpDX.RectangleF((target.Left + leftShiftAdjustment) * -1,
-                                                target.Top,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.NearestNeighbor,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            else
-            {
-                renderTarget2D.DrawBitmap(bitmap,
-                                            new SharpDX.RectangleF(target.Left,
-                                                target.Top,
-                                                target.Width,
-                                                target.Height),
-                                            opac,
-                                            BitmapInterpolationMode.NearestNeighbor,
-                                            new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height));
-            }
-            //return transform back to original
-            renderTarget2D.Transform = Matrix3x2.Transformation(1, 1, 0, 0, 0);
-            
-        }*/
-
         //INPUT STUFF
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -2103,7 +1341,6 @@ namespace IceBlink2
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
         {
-            //Render();
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseMove(sender, e);
@@ -2118,7 +1355,6 @@ namespace IceBlink2
         {
             try 
             {
-                //mouseCount++;
                 if (touchEnabled)
                 {
                     if (screenType.Equals("main"))
@@ -2217,7 +1453,6 @@ namespace IceBlink2
                     {
                         screenPartyRoster.onTouchPartyRoster(e, eventType);
                     }
-                    //this.Invalidate();
                 }
             }
             catch (Exception ex) 
@@ -2240,20 +1475,14 @@ namespace IceBlink2
                     if (screenType.Equals("main"))
                     {
                         screenMainMap.onKeyUp(keyData);
-//                        Render();
-                        //this.Invalidate();
                     }
                     else if (screenType.Equals("combat"))
                     {
                         screenCombat.onKeyUp(keyData);
-//                        Render();
-                        //this.Invalidate();
                     }
                     else if (screenType.Equals("convo"))
                     {
                         screenConvo.onKeyUp(keyData);
-//                        Render();
-                        //this.Invalidate();
                     }
                 }
             }

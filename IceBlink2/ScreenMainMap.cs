@@ -22,7 +22,7 @@ namespace IceBlink2
         public bool showFullParty = false;
         public bool showArrows = true;
 
-        private IbbButton btnParty = null;
+        /*private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
         private IbbButton btnSettings = null;
         private IbbButton btnSave = null;
@@ -33,7 +33,7 @@ namespace IceBlink2
         public IbbToggleButton tglGrid = null;
         public IbbToggleButton tglInteractionState = null;
         public IbbToggleButton tglAvoidConversation = null;
-        public IbbToggleButton tglClock = null;
+        public IbbToggleButton tglClock = null;*/
         public List<FloatyText> floatyTextPool = new List<FloatyText>();
         public List<FloatyTextByPixel> floatyTextByPixelPool = new List<FloatyTextByPixel>();
         public int mapStartLocXinPixels;
@@ -57,11 +57,10 @@ namespace IceBlink2
         {
             mod = m;
             gv = g;
-            //mapStartLocXinPixels = 6 * gv.squareSize;
             mapStartLocXinPixels = 0 * gv.squareSize;
             loadMainUILayout();
-            setControlsStart();
-            setToggleButtonsStart();            
+            //setControlsStart();
+            //setToggleButtonsStart();            
         }
         public void loadMainUILayout()
         {
@@ -142,7 +141,7 @@ namespace IceBlink2
                 MessageBox.Show(ex.ToString());
             }
         }     
-        public void setControlsStart()
+        /*public void setControlsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -236,8 +235,8 @@ namespace IceBlink2
                 btnSave.Height = (int)(gv.ibbheight * gv.screenDensity);
                 btnSave.Width = (int)(gv.ibbwidthR * gv.screenDensity);
             }
-        }
-        public void setToggleButtonsStart()
+        }*/
+        /*public void setToggleButtonsStart()
         {
             int pW = (int)((float)gv.screenWidth / 100.0f);
             int pH = (int)((float)gv.screenHeight / 100.0f);
@@ -321,7 +320,7 @@ namespace IceBlink2
                 tglAvoidConversation.Width = (int)(gv.ibbwidthR / 2 * gv.screenDensity);
                 tglAvoidConversation.toggleOn = false;
             }
-        }
+        }*/
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
@@ -525,23 +524,10 @@ namespace IceBlink2
                
                 //CommonCode.addLogText("red", "Failed to setup Music Player...Audio will be disabled. Most likely due to not having Windows Media Player installed or having an incompatible version.");
 
-                /*if (mod.currentArea.IsWorldMap)
-                {
-                    drawWorldMap();
-                }
-                else
-                {
-                    drawMap();
-                }*/
                 drawProps();
                 if (mod.map_showGrid)
                 {
-                    //tglGrid.toggleOn = true;
                     drawGrid();
-                }
-                else
-                {
-                    //tglGrid.toggleOn = false;
                 }
             }
             drawPlayer();
@@ -571,16 +557,7 @@ namespace IceBlink2
                 }
                 drawFogOfWar();
             }            
-            
 
-            //if (tglClock.toggleOn)
-            //{
-                //drawMainMapClockText();
-            //}
-            if (mod.useUIBackground)
-            {
-                drawPanels();
-            }
             drawSprites();
             drawTopFullScreenEffects();
             
@@ -588,72 +565,8 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
-            //gv.drawLog();
-            //drawControls();            
-            //drawPortraits();
-            //uncomment below to test
             drawUiLayout();
             drawMiniMap();
-        }
-        public void drawPortraits()
-        {
-            
-            
-            //OLD SYSTEM
-            /*if (mod.playerList.Count > 0)
-            {
-                gv.cc.ptrPc0.Img = mod.playerList[0].portrait;
-                gv.cc.ptrPc0.TextHP = mod.playerList[0].hp + "/" + mod.playerList[0].hpMax;
-                gv.cc.ptrPc0.TextSP = mod.playerList[0].sp + "/" + mod.playerList[0].spMax;
-                if (gv.mod.selectedPartyLeader == 0) { gv.cc.ptrPc0.glowOn = true; }
-                else { gv.cc.ptrPc0.glowOn = false; }
-                gv.cc.ptrPc0.Draw();
-            }
-            if (mod.playerList.Count > 1)
-            {
-                gv.cc.ptrPc1.Img = mod.playerList[1].portrait;
-                gv.cc.ptrPc1.TextHP = mod.playerList[1].hp + "/" + mod.playerList[1].hpMax;
-                gv.cc.ptrPc1.TextSP = mod.playerList[1].sp + "/" + mod.playerList[1].spMax;
-                if (gv.mod.selectedPartyLeader == 1) { gv.cc.ptrPc1.glowOn = true; }
-                else { gv.cc.ptrPc1.glowOn = false; }
-                gv.cc.ptrPc1.Draw();
-            }
-            if (mod.playerList.Count > 2)
-            {
-                gv.cc.ptrPc2.Img = mod.playerList[2].portrait;
-                gv.cc.ptrPc2.TextHP = mod.playerList[2].hp + "/" + mod.playerList[2].hpMax;
-                gv.cc.ptrPc2.TextSP = mod.playerList[2].sp + "/" + mod.playerList[2].spMax;
-                if (gv.mod.selectedPartyLeader == 2) { gv.cc.ptrPc2.glowOn = true; }
-                else { gv.cc.ptrPc2.glowOn = false; }
-                gv.cc.ptrPc2.Draw();
-            }
-            if (mod.playerList.Count > 3)
-            {
-                gv.cc.ptrPc3.Img = mod.playerList[3].portrait;
-                gv.cc.ptrPc3.TextHP = mod.playerList[3].hp + "/" + mod.playerList[3].hpMax;
-                gv.cc.ptrPc3.TextSP = mod.playerList[3].sp + "/" + mod.playerList[3].spMax;
-                if (gv.mod.selectedPartyLeader == 3) { gv.cc.ptrPc3.glowOn = true; }
-                else { gv.cc.ptrPc3.glowOn = false; }
-                gv.cc.ptrPc3.Draw();
-            }
-            if (mod.playerList.Count > 4)
-            {
-                gv.cc.ptrPc4.Img = mod.playerList[4].portrait;
-                gv.cc.ptrPc4.TextHP = mod.playerList[4].hp + "/" + mod.playerList[4].hpMax;
-                gv.cc.ptrPc4.TextSP = mod.playerList[4].sp + "/" + mod.playerList[4].spMax;
-                if (gv.mod.selectedPartyLeader == 4) { gv.cc.ptrPc4.glowOn = true; }
-                else { gv.cc.ptrPc4.glowOn = false; }
-                gv.cc.ptrPc4.Draw();
-            }
-            if (mod.playerList.Count > 5)
-            {
-                gv.cc.ptrPc5.Img = mod.playerList[5].portrait;
-                gv.cc.ptrPc5.TextHP = mod.playerList[5].hp + "/" + mod.playerList[5].hpMax;
-                gv.cc.ptrPc5.TextSP = mod.playerList[5].sp + "/" + mod.playerList[5].spMax;
-                if (gv.mod.selectedPartyLeader == 5) { gv.cc.ptrPc5.glowOn = true; }
-                else { gv.cc.ptrPc5.glowOn = false; }
-                gv.cc.ptrPc5.Draw();
-            }*/
         }
         public void drawWorldMap()
         {
@@ -2301,51 +2214,6 @@ namespace IceBlink2
                 }
                 #endregion
 
-                #region Draw Black Squares
-                //draw black squares to make sure and hide any large tiles that have over drawn outside the visible map area
-                /*int mapStartLocationInSquares = 6;
-                int mapSizeInSquares = gv.playerOffset + gv.playerOffset + 1;
-                int mapRightEndSquare = mapStartLocationInSquares + mapSizeInSquares;
-                if (!gv.useLargeLayout) { mapStartLocationInSquares = 4; }
-                IbRect srcBlackTile = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-
-                //draw left side squares
-                for (int x = mapStartLocationInSquares - 2; x < mapStartLocationInSquares; x++)
-                {
-                    for (int y = 0; y < mapSizeInSquares; y++)
-                    {
-                        IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
-                    }
-                }
-                //draw right side squares
-                for (int x = mapRightEndSquare; x < mapRightEndSquare + 2; x++)
-                {
-                    for (int y = 0; y < mapSizeInSquares; y++)
-                    {
-                        IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
-                    }
-                }
-                //draw top squares
-                for (int x = mapStartLocationInSquares - 2; x < mapRightEndSquare + 2; x++)
-                {
-                    IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, -1 * gv.squareSize, gv.squareSize, gv.squareSize);
-                    gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
-                }
-                //draw bottom squares
-                for (int x = mapStartLocationInSquares - 2; x < mapRightEndSquare + 2; x++)
-                {
-                    for (int y = mapSizeInSquares; y < mapSizeInSquares + 2; y++)
-                    {
-                        IbRect dst = new IbRect(x * gv.squareSize + gv.oXshift, y * gv.squareSize, gv.squareSize, gv.squareSize);
-                        gv.DrawBitmap(gv.cc.black_tile, srcBlackTile, dst);
-                    }
-                }
-                */
-                //draw black tiles over large tiles when party is near edges of map
-                //NOT USED WITH NEW FULL SCREEN drawBlackTilesOverTints();
-                #endregion
                 #endregion
             }
         }
@@ -24020,62 +23888,7 @@ namespace IceBlink2
             drawColumnOfBlack(-1);
             drawRowOfBlack(-1);
             drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
-            //drawRowOfBlack(gv.playerOffsetY * 2 + 1);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
-            /*
-            int srcUX = 0, srcUY = 0, srcDX = 0, srcDY = 0;
-            int dstUX = 0, dstUY = 0, dstDX = 0, dstDY = 0;
-            int bmpWidth = gv.cc.bmpMap.PixelSize.Width;
-            int bmpHeight = gv.cc.bmpMap.PixelSize.Height;
-            int mapSquareSize = 50;
-            if (mod.PlayerLocationX < gv.playerOffsetX) //at left edge of map
-            {
-                srcUX = 0;
-                srcDX = ((mod.PlayerLocationX + 1) * mapSquareSize) + (gv.playerOffsetX * mapSquareSize);
-                dstUX = (gv.playerOffsetX * gv.squareSize) - (mod.PlayerLocationX * gv.squareSize);
-                dstDX = dstUX + (int)(srcDX * 2 * gv.screenDensity);
-            }
-            else if ((mod.PlayerLocationX >= gv.playerOffsetX) && (mod.PlayerLocationX < (bmpWidth / mapSquareSize) - gv.playerOffsetX))
-            {
-                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffsetX * mapSquareSize);
-                srcDX = srcUX + (mapSquareSize * ((gv.playerOffsetX * 2) + 1));
-                dstUX = 0;
-                dstDX = gv.squareSize * ((gv.playerOffsetX * 2) + 1);
-            }
-            else //mod.PlayerLocationX >= width - 3  //at right edge of map
-            {
-                srcUX = (mod.PlayerLocationX * mapSquareSize) - (gv.playerOffsetX * mapSquareSize);
-                srcDX = bmpWidth;
-                dstUX = 0;
-                dstDX = (int)(srcDX * 2 * gv.screenDensity) - (int)(srcUX * 2 * gv.screenDensity);
-            }
-
-            if (mod.PlayerLocationY < gv.playerOffsetY) //at top of map
-            {
-                srcUY = 0;
-                srcDY = ((mod.PlayerLocationY + 1) * mapSquareSize) + (gv.playerOffsetY * mapSquareSize);
-                dstUY = (gv.playerOffsetY * gv.squareSize) - (mod.PlayerLocationY * gv.squareSize);
-                dstDY = dstUY + (int)(srcDY * 2 * gv.screenDensity);
-            }
-            else if ((mod.PlayerLocationY >= gv.playerOffsetY) && (mod.PlayerLocationY < (bmpHeight / mapSquareSize) - gv.playerOffsetY))
-            {
-                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffsetY * mapSquareSize);
-                srcDY = srcUY + (mapSquareSize * ((gv.playerOffsetY * 2) + 1));
-                dstUY = 0;
-                dstDY = gv.squareSize * ((gv.playerOffsetY * 2) + 1);
-            }
-            else //mod.PlayerLocationY >= height - 3  //at bottom of map
-            {
-                srcUY = (mod.PlayerLocationY * mapSquareSize) - (gv.playerOffsetY * mapSquareSize);
-                srcDY = bmpHeight;
-                dstUY = 0;
-                dstDY = (int)(srcDY * 2 * gv.screenDensity) - (int)(srcUY * 2 * gv.screenDensity);
-            }
-
-            IbRect src = new IbRect(srcUX, srcUY, srcDX - srcUX, srcDY - srcUY);
-            IbRect dst = new IbRect(dstUX + gv.oXshift + mapStartLocXinPixels, dstUY, dstDX - dstUX, dstDY - dstUY);
-            gv.DrawBitmap(gv.cc.bmpMap, src, dst);
-            */
         }
 
         public void drawProps()
@@ -24861,17 +24674,12 @@ namespace IceBlink2
                 int pW = (int)((float)gv.screenWidth / 100.0f);
                 int pH = (int)((float)gv.screenHeight / 100.0f);
                 int shift = pW;
-                //Bitmap minimap = gv.cc.LoadBitmap(mod.currentArea.Filename);
-
+                
                 //minimap should be 4 squares wide
                 int minimapSquareSizeInPixels = 4 * gv.squareSize / mod.currentArea.MapSizeX;
                 int drawW = minimapSquareSizeInPixels * mod.currentArea.MapSizeX;
                 int drawH = minimapSquareSizeInPixels * mod.currentArea.MapSizeY;
 
-                //int mapSqrX = minimap.PixelSize.Width / 5;
-                //int mapSqrY = minimap.PixelSize.Height / 5;
-                //int drawW = mapSqrX * pW / 2;
-                //int drawH = mapSqrY * pW / 2;
                 /*TODO
                     //draw a dark border
                     Paint pnt = new Paint();
@@ -24949,11 +24757,6 @@ namespace IceBlink2
                     }
                     dst.Height -= (int)(dst.Height / 2);
                     dst.Width -= (int)(dst.Width / 2);
-
-                    /*dst.Top += (int)(gv.squareSize / 4);
-                    dst.Left += (int)(gv.squareSize / 4);
-                    dst.Height -= (int)(dst.Height / 2);
-                    dst.Width -= (int)(dst.Width / 2);*/
                 }
                 else if (mod.currentArea.useSuperTinyProps)
                 {
@@ -24968,11 +24771,6 @@ namespace IceBlink2
                     }
                     dst.Height -= (int)(dst.Height * 3 / 4);
                     dst.Width -= (int)(dst.Width * 3 / 4);
-
-                    /*dst.Top += (int)(gv.squareSize * 3 / 8);
-                    dst.Left += (int)(gv.squareSize * 3 / 8);
-                    dst.Height -= (int)(dst.Height / 4);
-                    dst.Width -= (int)(dst.Width / 4);*/
                 }
 
                 gv.DrawBitmap(mod.partyTokenBitmap, src, dst, !mod.playerList[0].combatFacingLeft);
@@ -24989,7 +24787,6 @@ namespace IceBlink2
                     {
                         gv.oXshift = gv.oXshift - shift / 2;
                     }
-                    //gv.squareSize = gv.squareSize * 2 / 3;
                     int reducedSquareSize = gv.squareSize * 2 / 3;
                     for (int i = mod.playerList.Count - 1; i >= 0; i--)
                     {
@@ -25275,8 +25072,7 @@ namespace IceBlink2
                             gv.DrawBitmap(mod.playerList[i].token, src, dst, !mod.playerList[i].combatFacingLeft);
                         }
                     }
-                    //gv.squareSize = gv.squareSize * 3 / 2;
-
+                    
                     if (mod.playerList[0].combatFacingLeft == true)
                     {
                         gv.oXshift = gv.oXshift - shift / 2;
@@ -25284,18 +25080,7 @@ namespace IceBlink2
                     else
                     {
                         gv.oXshift = gv.oXshift + shift / 2;
-                        //if (mod.currentArea.useMiniProps)
-                        //{
-                        //gv.oXshift -= gv.squareSize;
-                        //}
-                        //else if (mod.currentArea.useSuperTinyProps)
-                        //{
-
-                        //}
-
                     }
-
-                    //gv.oXshift = gv.oXshift + shift / 2;
                 }
                 //always draw party leader on top
                 int storeShift = shift;
@@ -25310,7 +25095,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 1)
                 {
@@ -25322,7 +25106,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 2)
                 {
@@ -25334,7 +25117,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 3)
                 {
@@ -25346,7 +25128,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 4)
                 {
@@ -25358,7 +25139,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
                 else if (mod.selectedPartyLeader == 5)
                 {
@@ -25370,7 +25150,6 @@ namespace IceBlink2
                     {
                         dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels, y, gv.squareSize, gv.squareSize);
                     }
-                    //gv.DrawBitmap(mod.playerList[mod.selectedPartyLeader].token, src, dst, !mod.playerList[mod.selectedPartyLeader].combatFacingLeft, false);
                 }
 
                 if (mod.currentArea.useMiniProps)
@@ -26020,48 +25799,6 @@ namespace IceBlink2
             }
             #endregion
         }
-        public void drawPanels()
-        {
-            //gv.cc.pnlLog.Draw();
-            //gv.cc.pnlToggles.Draw();
-            //gv.cc.pnlPortraits.Draw();
-            //gv.cc.pnlArrows.Draw();
-            //gv.cc.pnlHotkeys.Draw();
-        }
-        public void drawControls()
-        {
-            /*gv.cc.ctrlUpArrow.Draw();
-            gv.cc.ctrlDownArrow.Draw();
-            gv.cc.ctrlLeftArrow.Draw();
-            gv.cc.ctrlRightArrow.Draw();
-            btnWait.Draw();
-            gv.cc.tglSound.Draw();
-            tglFullParty.Draw();
-            //if (mod.currentArea.IsWorldMap)
-            //{
-                tglMiniMap.Draw();
-            //}
-            tglGrid.Draw();
-            tglInteractionState.Draw();
-            tglAvoidConversation.Draw();
-            tglClock.Draw();            
-
-            btnParty.Draw();
-            gv.cc.btnInventory.Draw();
-            btnJournal.Draw();
-            btnSettings.Draw();
-            if (mod.allowSave)
-            {
-                btnSave.btnState = buttonState.Normal;
-            }
-            else
-            {
-                btnSave.btnState = buttonState.Off;
-            }
-            btnSave.Draw();
-            btnCastOnMainMap.Draw();
-            */
-        }
         public void drawFloatyTextPool()
         {
             if (floatyTextPool.Count > 0)
@@ -26118,7 +25855,6 @@ namespace IceBlink2
             if (floatyTextByPixelPool.Count > 0)
             {
                 int txtH = (int)gv.drawFontRegHeight;
-                //int pH = (int)((float)gv.screenHeight / 200.0f);
 
                 foreach (FloatyTextByPixel ft in floatyTextByPixelPool)
                 {
@@ -26239,14 +25975,7 @@ namespace IceBlink2
 
             mainUiLayout.Draw();
         }
-        /*public void doFloatyTextLoop()
-        {
-            //gv.postDelayed("doFloatyTextMainMap", 100);
-        }*/
-        /*public void doFloatyTextByPixelLoop()
-        {
-            //gv.postDelayed("doFloatyTextMainMap", 100);
-        }*/
+
         public void addFloatyText(int sqrX, int sqrY, String value, String color, int length)
         {
             floatyTextPool.Add(new FloatyText(sqrX, sqrY, value, color, length));
@@ -26452,7 +26181,6 @@ namespace IceBlink2
 
                     //NEW SYSTEM
                     string rtn = mainUiLayout.getImpact(x, y);
-                    //gv.cc.addLogText("lime", "mouse down: " + rtn);
 
                     //check to see if toggle or button is using IBScript and do script
                     IB2Button btnScript = mainUiLayout.GetButtonByTag(rtn);
@@ -26632,10 +26360,6 @@ namespace IceBlink2
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX--;
-                                    if (!mod.playerList[0].combatFacingLeft)
-                                    {
-                                        //TODO							    //mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                                    }
                                     foreach (Player pc in mod.playerList)
                                     {
                                         if (!pc.combatFacingLeft)
@@ -26661,10 +26385,6 @@ namespace IceBlink2
                                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                                     mod.PlayerLocationX++;
-                                    if (mod.playerList[0].combatFacingLeft)
-                                    {
-                                        //TODO							    mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                                    }
                                     foreach (Player pc in mod.playerList)
                                     {
                                         if (pc.combatFacingLeft)
@@ -26889,7 +26609,7 @@ namespace IceBlink2
             }
         }
         //to test new layout system, change this to onTouchMainOld
-        public void onTouchMainOld(MouseEventArgs e, MouseEventType.EventType eventType)
+        /*public void onTouchMainOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             gv.cc.ctrlUpArrow.glowOn = false;
             gv.cc.ctrlDownArrow.glowOn = false;
@@ -27531,7 +27251,7 @@ namespace IceBlink2
                         
                         //temporara end
                         */
-
+/*
                         gv.screenParty.resetPartyScreen();
                         gv.screenType = "party";
                         gv.cc.tutorialMessageParty(false);
@@ -27734,14 +27454,11 @@ namespace IceBlink2
                     }
                     break;
             }
-        }
+        }*/
         public void onKeyUp(Keys keyData)
         {
             if ((moveDelay()) && (finishedMove))
             {
-                //game.lastPlayerLocation = new Point(game.playerPosition.X, game.playerPosition.Y);
-                //int mapwidth = game.currentArea.MapSizeInSquares.Width;
-                //int mapheight = game.currentArea.MapSizeInSquares.Height;
                 if (keyData == Keys.Left | keyData == Keys.D4 | keyData == Keys.NumPad4)
                 {
                     bool isTransition = gv.cc.goWest();
@@ -27749,7 +27466,6 @@ namespace IceBlink2
                     {
                         moveLeft();
                     }
-                    //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Right | keyData == Keys.D6 | keyData == Keys.NumPad6)
                 {
@@ -27758,7 +27474,6 @@ namespace IceBlink2
                     {
                         moveRight();
                     }
-                    //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Up | keyData == Keys.D8 | keyData == Keys.NumPad8)
                 {
@@ -27767,11 +27482,6 @@ namespace IceBlink2
                     {
                         moveUp();
                     }
-                    //else
-                    //{
-                        //gv.cc.doUpdate();
-                    //}
-                    //return true; //for the active control to see the keypress, return false 
                 }
                 else if (keyData == Keys.Down | keyData == Keys.D2 | keyData == Keys.NumPad2)
                 {
@@ -27780,7 +27490,6 @@ namespace IceBlink2
                     {
                         moveDown();
                     }
-                    //return true; //for the active control to see the keypress, return false 
                 }
                 else { }
             }
@@ -27821,15 +27530,6 @@ namespace IceBlink2
             }
             else if (keyData == Keys.P)
             {
-                /*int cntPCs = 0;
-                foreach (IbbButton btn in gv.screenParty.btnPartyIndex)
-                {
-                    if (cntPCs < mod.playerList.Count)
-                    {
-                        btn.Img2 = gv.cc.LoadBitmap(mod.playerList[cntPCs].tokenFilename);
-                    }
-                    cntPCs++;
-                }*/
                 gv.screenParty.resetPartyScreen();
                 gv.screenType = "party";
                 gv.cc.tutorialMessageParty(false);
@@ -27971,21 +27671,16 @@ namespace IceBlink2
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX - 1, mod.PlayerLocationY) == false)
                 {
                    
-                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
 
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationX--;
-                    if (!mod.playerList[0].combatFacingLeft)
-                    {
-                        //TODO                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                    }
                     foreach (Player pc in mod.playerList)
                     {
                         if (!pc.combatFacingLeft)
                         {
-                            //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = true;
                         }
                     }
@@ -28001,21 +27696,16 @@ namespace IceBlink2
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX + 1, mod.PlayerLocationY) == false)
                 {
                     
-                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
                    
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
                     mod.PlayerLastLocationY = mod.PlayerLocationY;
                     mod.PlayerLocationX++;
-                    if (mod.playerList[0].combatFacingLeft)
-                    {
-                        //TODO                        mod.partyTokenBitmap = gv.cc.flip(mod.partyTokenBitmap);
-                    }
                     foreach (Player pc in mod.playerList)
                     {
                         if (pc.combatFacingLeft)
                         {
-                            //TODO                            pc.token = gv.cc.flip(pc.token);
                             pc.combatFacingLeft = false;
                         }
                     }
@@ -28030,7 +27720,7 @@ namespace IceBlink2
                 if (mod.currentArea.GetBlocked(mod.PlayerLocationX, mod.PlayerLocationY - 1) == false)
                 {
 
-                        //gv.mod.blockTrigger = false;
+                    //gv.mod.blockTrigger = false;
                     //gv.mod.blockTriggerMovingProp = false;
 
                     mod.PlayerLastLocationX = mod.PlayerLocationX;
@@ -29087,86 +28777,6 @@ namespace IceBlink2
                         mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
                     }
                 }
-                /*
-                //old way
-                int minX = mod.PlayerLocationX - 1;
-                if (minX < 0) { minX = 0; }
-                int minY = mod.PlayerLocationY - 1;
-                if (minY < 0) { minY = 0; }
-
-                int maxX = mod.PlayerLocationX + 1;
-                if (maxX > this.mod.currentArea.MapSizeX - 1) { maxX = this.mod.currentArea.MapSizeX - 1; }
-                int maxY = mod.PlayerLocationY + 1;
-                if (maxY > this.mod.currentArea.MapSizeY - 1) { maxY = this.mod.currentArea.MapSizeY - 1; }
-
-                for (int xx = minX; xx <= maxX; xx++)
-                {
-                    for (int yy = minY; yy <= maxY; yy++)
-                    {
-                        mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
-                    }
-                }
-
-                //check left
-                int x = mod.PlayerLocationX - 1;
-                int y = mod.PlayerLocationY;
-                if ((x - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    if (y > 0)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                    mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    if (y < this.mod.currentArea.MapSizeY - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                }
-                //check right
-                x = mod.PlayerLocationX + 1;
-                y = mod.PlayerLocationY;
-                if ((x + 1 < this.mod.currentArea.MapSizeX) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    if (y > 0)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    if (y < this.mod.currentArea.MapSizeY - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                }
-                //check up
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY - 1;
-                if ((y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    if (x < this.mod.currentArea.MapSizeX - 1)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 0)].Visible = true;
-                    if (x > 0)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                }
-                //check down
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY + 1;
-                if ((y + 1 < this.mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    if (x < this.mod.currentArea.MapSizeX - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 0)].Visible = true;
-                    if (x > 0)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                }*/
                 #endregion
             }
         }
@@ -29183,191 +28793,8 @@ namespace IceBlink2
             }
             return true;
         }
-        public bool IsLineOfSightForEachCornerOld(Coordinate s, Coordinate e)
-        {
-            int spacer = 5;
-            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
-            // top left
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            // top right
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            // bottom left
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            // bottom right
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-
-            return false;
-        }
-        public bool IsVisibleLineOfSightOld(Coordinate s, Coordinate e, Coordinate endSquare)
-        {
-            // Bresenham Line algorithm
-            // Creates a line from Begin to End starting at (x0,y0) and ending at (x1,y1)
-            // where x0 less than x1 and y0 less than y1
-            // AND line is less steep than it is wide (dx less than dy)    
-            //Point start = new Point((s.X * _squareSize) + (_squareSize / 2), (s.Y * _squareSize) + (_squareSize / 2));
-            //Point end = new Point((e.X * _squareSize) + (_squareSize / 2), (e.Y * _squareSize) + (_squareSize / 2));
-            Coordinate start = s;
-            Coordinate end = e;
-            int deltax = Math.Abs(end.X - start.X);
-            int deltay = Math.Abs(end.Y - start.Y);
-            int ystep = 10;
-            int xstep = 10;
-            int gridx = 0;
-            int gridy = 0;
-            int gridXdelayed = s.X;
-            int gridYdelayed = s.Y;
-
-            //#region low angle version
-            if (deltax > deltay) //Low Angle line
-            {
-                Coordinate nextPoint = start;
-                int error = deltax / 2;
-
-                if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
-
-                if (end.X > start.X) //down and right
-                {
-                    for (int x = start.X; x <= end.X; x += xstep)
-                    {
-                        nextPoint.X = x;
-                        error -= deltay;
-                        if (error < 0)
-                        {
-                            nextPoint.Y += ystep;
-                            error += deltax;
-                        }
-                        //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-
-                        if ((mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked) || (new Coordinate(gridXdelayed, gridYdelayed) == endSquare))
-                        {
-                            return false;
-                        }
-                        gridXdelayed = gridx;
-                        gridYdelayed = gridy;
-                    }
-                }
-                else //down and left
-                {
-                    for (int x = start.X; x >= end.X; x -= xstep)
-                    {
-                        nextPoint.X = x;
-                        error -= deltay;
-                        if (error < 0)
-                        {
-                            nextPoint.Y += ystep;
-                            error += deltax;
-                        }
-                        //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-                        if ((mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked) || (new Coordinate(gridXdelayed, gridYdelayed) == endSquare))
-                        {
-                            return false;
-                        }
-                        gridXdelayed = gridx;
-                        gridYdelayed = gridy;
-                    }
-                }
-            }
-            //#endregion
-
-            //#region steep version
-            else //Low Angle line
-            {
-                Coordinate nextPoint = start;
-                int error = deltay / 2;
-
-                if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
-
-                if (end.Y > start.Y) //up and right
-                {
-                    for (int y = start.Y; y <= end.Y; y += ystep)
-                    {
-                        nextPoint.Y = y;
-                        error -= deltax;
-                        if (error < 0)
-                        {
-                            nextPoint.X += xstep;
-                            error += deltay;
-                        }
-                        //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-                        if ((mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked) || (new Coordinate(gridXdelayed, gridYdelayed) == endSquare))
-                        {
-                            return false;
-                        }
-                        gridXdelayed = gridx;
-                        gridYdelayed = gridy;
-                    }
-                }
-                else //up and right
-                {
-                    for (int y = start.Y; y >= end.Y; y -= ystep)
-                    {
-                        nextPoint.Y = y;
-                        error -= deltax;
-                        if (error < 0)
-                        {
-                            nextPoint.X += xstep;
-                            error += deltay;
-                        }
-                        //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-                        if ((mod.currentArea.Tiles[gridy * mod.currentArea.MapSizeX + gridx].LoSBlocked) || (new Coordinate(gridXdelayed, gridYdelayed) == endSquare))
-                        {
-                            return false;
-                        }
-                        gridXdelayed = gridx;
-                        gridYdelayed = gridy;
-                    }
-                }
-            }
-            //#endregion
-
-            return true;
-        }
-
-        private void setExploredNew()
-        {
-            // set current position to visible
-            mod.currentArea.Tiles[mod.PlayerLocationY * mod.currentArea.MapSizeX + mod.PlayerLocationX].Visible = true;
-            // set tiles to visible around the PC
-            for (int x = mod.PlayerLocationX - mod.currentArea.AreaVisibleDistance; x <= mod.PlayerLocationX + mod.currentArea.AreaVisibleDistance; x++)
-            {
-                for (int y = mod.PlayerLocationY - mod.currentArea.AreaVisibleDistance; y <= mod.PlayerLocationY + mod.currentArea.AreaVisibleDistance; y++)
-                {
-                    int xx = x;
-                    int yy = y;
-                    if (xx < 1) { xx = 0; }
-                    if (xx > (mod.currentArea.MapSizeX - 1)) { xx = (mod.currentArea.MapSizeX - 1); }
-                    if (yy < 1) { yy = 0; }
-                    if (yy > (mod.currentArea.MapSizeY - 1)) { yy = (mod.currentArea.MapSizeY - 1); }
-                    if (IsLineOfSightForEachCorner(new Coordinate(mod.PlayerLastLocationX, mod.PlayerLastLocationY), new Coordinate(xx, yy)))
-                    {
-                        mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
-                    }
-                }
-            }
-        }
         public bool IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
         {
-            int spacer = 5;
             //start is at the center of party location square
             Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
             //check center of all four sides of the end square
@@ -29381,28 +28808,6 @@ namespace IceBlink2
             //bottom side center
             if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
 
-            /*
-            // top left
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            // top right
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + spacer), e)) { return true; }
-            // bottom left
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            // bottom right
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize - spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize - spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize + spacer, e.Y * gv.squareSize + gv.squareSize + spacer), e)) { return true; }
-            */
             return false;
         }
         public bool IsVisibleLineOfSight(Coordinate s, Coordinate e, Coordinate endSquare)

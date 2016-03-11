@@ -123,7 +123,6 @@ namespace IceBlink2
     	
     	    //DRAW BACKGROUND IMAGE
             IbRect src = new IbRect(0, 0, journalBack.PixelSize.Width, journalBack.PixelSize.Height);
-            //IbRect dst = new IbRect(6 * gv.squareSize, 0, 7 * gv.squareSize, 9 * gv.squareSize);
             IbRect dst = new IbRect(2 * gv.squareSize, 0, (gv.squaresInWidth - 4) * gv.squareSize, (gv.squaresInHeight - 1) * gv.squareSize);
             gv.DrawBitmap(journalBack, src, dst);
         
@@ -142,7 +141,6 @@ namespace IceBlink2
 			
     	    //DRAW QUESTS
             Color color = Color.Black;
-		    //gv.mSheetTextPaint.setColor(Color.BLACK);
 		    gv.DrawText("Active Quests:", locX, locY += leftStartY, 1.0f, color);
 		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, color);
 		    if (mod.partyJournalQuests.Count > 0)
@@ -159,7 +157,6 @@ namespace IceBlink2
 		
 		    //DRAW QUEST ENTRIES
 		    locY = tabStartY;
-		    //gv.mSheetTextPaint.setColor(Color.BLACK);
 		    gv.DrawText("Quest Entry:", locX, locY, 1.0f, Color.Black);
 		    gv.DrawText("--------------", locX, locY += spacing, 1.0f, Color.Black);	
 		    if (mod.partyJournalQuests.Count > 0)
@@ -195,7 +192,6 @@ namespace IceBlink2
 		    ctrlRightArrow.glowOn = false;
 		    btnReturnJournal.glowOn = false;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -237,8 +233,6 @@ namespace IceBlink2
 			
 			    if (ctrlUpArrow.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (journalScreenQuestIndex > 0)
 				    {
 					    journalScreenQuestIndex--;
@@ -247,8 +241,6 @@ namespace IceBlink2
 			    }
 			    else if (ctrlDownArrow.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (journalScreenQuestIndex < mod.partyJournalQuests.Count - 1)
 				    {
 					    journalScreenQuestIndex++;
@@ -257,8 +249,6 @@ namespace IceBlink2
 			    }
 			    else if (ctrlLeftArrow.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (journalScreenEntryIndex > 0)
 				    {
 					    journalScreenEntryIndex--;
@@ -266,8 +256,6 @@ namespace IceBlink2
 			    }
 			    else if (ctrlRightArrow.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (journalScreenEntryIndex < mod.partyJournalQuests[journalScreenQuestIndex].Entries.Count - 1)
 				    {
 					    journalScreenEntryIndex++;
@@ -275,8 +263,6 @@ namespace IceBlink2
 			    }	
 			    else if (btnReturnJournal.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    gv.screenType = "main";
 				    journalBack = null;
 				    btnReturnJournal = null;

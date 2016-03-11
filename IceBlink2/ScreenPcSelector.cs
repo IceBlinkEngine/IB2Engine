@@ -75,7 +75,6 @@ namespace IceBlink2
             int padH = gv.squareSize / 6;
             int locY = 0;
             int locX = pW * 4;
-            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
             int tabX = pW * 50;
@@ -140,7 +139,6 @@ namespace IceBlink2
         {
             btnReturn.glowOn = false;
 
-            //int eventAction = event.getAction();
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
@@ -164,8 +162,6 @@ namespace IceBlink2
 
                     if (btnReturn.getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (pcSelectorType.Equals("spellcaster"))
                         {
                             gv.screenType = "main";
@@ -175,8 +171,6 @@ namespace IceBlink2
                     {
                         if (btnPartyIndex[j].getImpact(x, y))
                         {
-                            //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                            //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                             pcSelectorPcIndex = j;
                         }
                     }                    

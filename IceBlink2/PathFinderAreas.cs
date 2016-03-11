@@ -19,43 +19,6 @@ namespace IceBlink2
             mod = m;
         }
 
-        //called from outside to get next move location
-        /*public Coordinate findNewPoint(Coordinate start, Coordinate end)
-    {
-    	foundEnd = false;
-    	Coordinate newPoint = new Coordinate(-1,-1);
-        //set start location value to 0
-        values[start.X,start.Y] = 0;
-        //find all props that have collision and set there square to 1
-        foreach (Prop prp in mod.currentArea.Props)
-        {
-        	//if  ( ((prp.HasCollision) && (prp.isActive)) || ((prp.isMover) && (prp.isActive)) )
-            if  ((prp.HasCollision) && (prp.isActive))
-        	{
-        		grid[prp.LocationX,prp.LocationY] = 1;
-        	}
-        }
-        grid[start.X,start.Y] = 2; //2 marks the start point in the grid
-		grid[end.X,end.Y] = 3; //3 marks the end point in the grid
-        buildPath(start);
-        
-        if (!foundEnd)
-        {
-            //do not build path for now so return (-1,-1), later add code for picking a spot to move
-        }
-        else
-        {
-            pathNodes.Add(new Coordinate(end.X, end.Y));
-            for (int i = 0; i < values[end.X,end.Y]; i++)
-            {
-                pathNodes.Add(getLowestNeighbor(pathNodes[pathNodes.Count - 1]));
-            }
-            //build list of path points
-            newPoint = pathNodes[pathNodes.Count - 2];
-        }
-        return newPoint;
-    }*/
-
         public Coordinate findNewPoint(Coordinate start, Coordinate end, Prop callingProp)
         {
             foundEnd = false;

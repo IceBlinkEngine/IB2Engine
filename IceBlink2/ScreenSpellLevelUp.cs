@@ -113,28 +113,18 @@ namespace IceBlink2
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-            //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
             int textH = (int)gv.drawFontRegHeight;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-            int spacing = textH;
+    	    int spacing = textH;
             int tabX = 5 * gv.squareSize + pW * 3;
             int noticeX = 5 * gv.squareSize + pW * 3;
             int noticeY = pH * 1 + spacing;
-    	    //int tabX2 = 5 * gv.squareSize + pW * 2;
-    	    //int leftStartY = pH * 3;
     	    int tabStartY = 4 * gv.squareSize + pW * 10;
-
-            //canvas.drawColor(Color.DKGRAY);
 
             if (!infoOnly)
             {
                 //DRAW TEXT		
                 locY = (gv.squareSize * 0) + (pH * 2);
-                //gv.mSheetTextPaint.setColor(Color.LTGRAY);
-                //canvas.drawText("Select One Spell to Learn", noticeX, pH * 3, gv.mSheetTextPaint);
                 gv.DrawText("Select One " + mod.spellLabelSingular + " to Learn", noticeX, pH * 1, 1.0f, Color.Gray);
-                //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                //canvas.drawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 55, leftStartY, gv.mSheetTextPaint);
                 gv.DrawText(getCastingPlayer().name + " SP: " + getCastingPlayer().sp + "/" + getCastingPlayer().spMax, pW * 50, pH * 1, 1.0f, Color.Yellow);
 
                 //DRAW NOTIFICATIONS
@@ -147,8 +137,6 @@ namespace IceBlink2
                     if (pc.knownSpellsTags.Contains(sp.tag))
                     {
                         //say that you already know this one
-                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                        //canvas.drawText("Already Known", noticeX, noticeY, gv.mSheetTextPaint);
                         gv.DrawText("Already Known", noticeX, noticeY, 1.0f, Color.Yellow);
                     }
                     else //spell not known
@@ -156,14 +144,10 @@ namespace IceBlink2
                         //check if available to learn
                         if (isAvailableToLearn(sp.tag))
                         {
-                            //gv.mSheetTextPaint.setColor(Color.GREEN);
-                            //canvas.drawText("Available to Learn", noticeX, noticeY, gv.mSheetTextPaint);
                             gv.DrawText("Available to Learn", noticeX, noticeY, 1.0f, Color.Lime);
                         }
                         else //not available yet
                         {
-                            //gv.mSheetTextPaint.setColor(Color.RED);
-                            //canvas.drawText("Spell Not Available to Learn Yet", noticeX, noticeY, gv.mSheetTextPaint);
                             gv.DrawText(mod.spellLabelSingular + " Not Available to Learn Yet", noticeX, noticeY, 1.0f, Color.Red);
                         }
                     }
@@ -245,19 +229,7 @@ namespace IceBlink2
             if (isSelectedSpellSlotInKnownSpellsRange())
             {
                 Spell sp = GetCurrentlySelectedSpell();
-                /*string textToSpan = "";
-                textToSpan = "Description:" + Environment.NewLine;
-                //textToSpan += "<b><i><big>" + tr.name + "</big></i></b><BR>";
-                textToSpan += sp.name + Environment.NewLine;
-                textToSpan += "SP Cost: " + sp.costSP + Environment.NewLine;
-                textToSpan += "Target Range: " + sp.range + Environment.NewLine;
-                textToSpan += "Area of Effect Radius: " + sp.aoeRadius + Environment.NewLine;
-                textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + Environment.NewLine;
-                textToSpan += Environment.NewLine;
-                textToSpan += sp.description;
-                IbRect rect = new IbRect(tabX, locY, pW * 40, pH * 100);
-                gv.DrawText(textToSpan, rect, 1.0f, Color.White);
-                */
+                
                 string textToSpan = "<u>Description</u>" + "<BR>";
                 textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
                 textToSpan += "SP Cost: " + sp.costSP + "<BR>";
@@ -275,33 +247,6 @@ namespace IceBlink2
                 description.AddHtmlTextToLog(textToSpan);
                 description.onDrawLogBox();
             }
-
-            /*OLD WAY //DRAW DESCRIPTION BOX
-		    locY = tabStartY;		
-		    if (isSelectedSpellSlotInKnownSpellsRange())
-		    {
-			    Spell sp = GetCurrentlySelectedSpell();
-			    TextPaint tp = new TextPaint();
-	            tp.setColor(Color.WHITE);
-	            tp.setTextSize(gv.mSheetTextPaint.getTextSize());
-	            tp.setTextAlign(Align.LEFT);
-	            tp.setAntiAlias(true);
-	            tp.setTypeface(gv.uiFont);	        
-	            String textToSpan = "<u>Description</u>" + "<BR>";
-	            textToSpan += "<b><i><big>" + sp.name + "</big></i></b><BR>";
-	            textToSpan += "SP Cost: " + sp.costSP + "<BR>";
-	            textToSpan += "Target Range: " + sp.range + "<BR>";
-	            textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
-	            textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
-	            textToSpan += "<BR>";
-	            textToSpan += sp.description;
-	            Spanned htmlText = Html.fromHtml(textToSpan);
-	            StaticLayout sl = new StaticLayout(htmlText, tp, pW*90, Layout.Alignment.ALIGN_NORMAL, 1, 0, false);
-	            //locY += spacing;
-	            canvas.translate(tabX, locY);
-	            sl.draw(canvas);
-	            canvas.translate(-tabX, -locY);
-		    }*/
 
             if (infoOnly)
             {
@@ -322,7 +267,6 @@ namespace IceBlink2
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -356,8 +300,6 @@ namespace IceBlink2
 				    if (btnSpellSlots[j].getImpact(x, y))
 				    {
                         gv.PlaySound("btn_click");
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    spellSlotIndex = j;
 				    }
 			    }
@@ -366,16 +308,12 @@ namespace IceBlink2
                     if (!infoOnly)
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         tutorialMessageCastingScreen();
                     }
 			    }
 			    else if (btnSelect.getImpact(x, y))
 			    {
                     gv.PlaySound("btn_click");
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                     if (infoOnly)
                     {
                         gv.screenType = "party";
@@ -390,8 +328,6 @@ namespace IceBlink2
                     if (!infoOnly)
                     {
                         gv.PlaySound("btn_click");
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         if (inPcCreation)
                         {
                             gv.screenType = "pcCreation";
@@ -469,7 +405,6 @@ namespace IceBlink2
 	    }
 	    public Player getCastingPlayer()
 	    {
-		    //return mod.playerList.get(gv.cc.partyScreenPcIndex);
 		    return pc;
 	    }
 	    public void tutorialMessageCastingScreen()

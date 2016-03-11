@@ -100,7 +100,6 @@
     <Compile Include="Effect.cs" />
     <Compile Include="EffectTagForDropDownList.cs" />
     <Compile Include="Encounter.cs" />
-    <Compile Include="EventObjEditorReturnObject.cs" />
     <Compile Include="FloatyText.cs" />
     <Compile Include="FloatyTextByPixel.cs" />
     <Compile Include="FormattedLineGDI.cs" />
@@ -174,9 +173,6 @@
     <Compile Include="JournalQuest.cs" />
     <Compile Include="LocalInt.cs" />
     <Compile Include="LocalString.cs" />
-    <Compile Include="LogicTree.cs" />
-    <Compile Include="LogicTreeNode.cs" />
-    <Compile Include="LogicTreeRun.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="ModuleInfo.cs" />
     <Compile Include="MouseEventType.cs" />

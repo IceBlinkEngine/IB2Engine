@@ -262,8 +262,6 @@ namespace IceBlink2
 				    {
 					    if ((y >= r.Top) && (y <= r.Top + r.Height))
 					    {
-						    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-						    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 						    selectedLine(cnt);
 					    }
 				    }
@@ -276,8 +274,6 @@ namespace IceBlink2
 				    {
 					    if (btnPartyIndex[j].getImpact(x, y))
 					    {
-						    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-						    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 						    mod.selectedPartyLeader = j;
 						    doActions = false;
 			                doConvo(parentIdNum);

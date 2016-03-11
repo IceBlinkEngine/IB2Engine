@@ -189,20 +189,14 @@ namespace IceBlink2
 		    int padH = gv.squareSize/6;
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
-    	    //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
     	    int tabX = pW * 50;
     	    int tabX2 = pW * 70;
     	    int leftStartY = 5 * gv.squareSize + (pH * 6);
-    	    //int rightStartY = pH * 40;
-		
-		    //canvas.drawColor(Color.DKGRAY);
-		
-		    //Draw screen title name
-		    //int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", gv.drawFontReg, gv.Width).Width;
-            int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+    	    
+            //Draw screen title name
+		    int textWidth = (int)gv.cc.MeasureString("Current Party Members [" + mod.MaxPartySize + " Maximum]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             int ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Current Party Members [" + mod.MaxPartySize + " Maximum]", ulX, pH * 3, 1.0f, Color.Gray);
 		    		    
@@ -222,7 +216,6 @@ namespace IceBlink2
 		    }
 
             //Draw screen title name
-            //textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", gv.drawFontReg, gv.Width).Width;
             textWidth = (int)gv.cc.MeasureString("Party Roster [Players in Reserve]", SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
             ulX = (gv.screenWidth / 2) - (textWidth / 2);
 		    gv.DrawText("Party Roster [Players in Reserve]", ulX, 3 * gv.squareSize + (pH * 0), 1.0f, Color.Gray);
@@ -250,9 +243,7 @@ namespace IceBlink2
 		    if (pc != null)
 		    {
 			    //DRAW LEFT STATS
-			    //gv.mSheetTextPaint.setColor(Color.WHITE);
 			    gv.DrawText("Name: " + pc.name, locX, locY += leftStartY);
-			    //gv.mSheetTextPaint.setColor(Color.WHITE);
 			    gv.DrawText("Race: " + mod.getRace(pc.raceTag).name, locX, locY += spacing);
 			    if (pc.isMale)
 			    {
@@ -309,7 +300,6 @@ namespace IceBlink2
 		    btnHelp.glowOn = false;
 		    btnReturn.glowOn = false;
 		
-		    //int eventAction = event.getAction();
 		    switch (eventType)
 		    {
 		    case MouseEventType.EventType.MouseDown:
@@ -346,8 +336,6 @@ namespace IceBlink2
 			
 			    if (btnUp.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    //add selected PC to partyList and remove from pcList
 				    if ((mod.partyRosterList.Count > 0) && (mod.playerList.Count < mod.MaxPartySize))
 				    {
@@ -365,8 +353,6 @@ namespace IceBlink2
 			    }
 			    else if (btnDown.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    //remove selected from partyList and add to pcList
 				    if (mod.playerList.Count > 0)
 				    {
@@ -377,21 +363,16 @@ namespace IceBlink2
                         copyPC.portrait = gv.cc.LoadBitmap(copyPC.portraitFilename);
 					    copyPC.playerClass = mod.getPlayerClass(copyPC.classTag);
 					    copyPC.race = mod.getRace(copyPC.raceTag);
-                        //Player copyPC = mod.partyRosterList[partyRosterPcIndex];
                         mod.partyRosterList.Add(copyPC);
 					    mod.playerList.RemoveAt(partyScreenPcIndex);
 				    }
 			    }
 			    else if (btnHelp.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    tutorialPartyRoster();
 			    }
 			    else if (btnReturn.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (mod.playerList.Count > 0)
 				    {
                         //check to see if any non-removeable PCs are in roster
@@ -403,7 +384,6 @@ namespace IceBlink2
                         if (checkForMainPc())
                         {
                             gv.screenType = "main";
-                            //gv.TrackerSendEventPartyRoster("Close");
                         }
                         else
                         {
@@ -415,8 +395,6 @@ namespace IceBlink2
 			    {
 				    if (btnPartyIndex[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 					    partyScreenPcIndex = j;
 					    lastClickedPlayerList = true;
 				    }
@@ -425,8 +403,6 @@ namespace IceBlink2
                 {
                     if (btnPartyRosterIndex[j].getImpact(x, y))
                     {
-                        //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                        //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
                         partyRosterPcIndex = j;
                         lastClickedPlayerList = false;
                     }

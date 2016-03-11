@@ -49,7 +49,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\modules\\" + gv.mod.moduleName + "\\portraits", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -81,7 +80,6 @@ namespace IceBlink2
                 if (Directory.Exists(gv.mainDirectory + "\\PlayerPortraits"))
                 {
                     files = Directory.GetFiles(gv.mainDirectory + "\\PlayerPortraits", "*.png");
-                    //directory.mkdirs(); 
                     foreach (string file in files)
                     {
                         try
@@ -213,28 +211,20 @@ namespace IceBlink2
     		    setControlsStart();
     	    }
     	
-    	    //doItemStacking();
-    	
     	    int pW = (int)((float)gv.screenWidth / 100.0f);
 		    int pH = (int)((float)gv.screenHeight / 100.0f);
 		
     	    int locY = 0;
     	    int locX = pW * 4;
-    	    //int textH = (int)gv.cc.MeasureString("GetHeight", gv.drawFontReg, gv.Width).Height;
-            int textH = (int)gv.drawFontRegHeight;
+    	    int textH = (int)gv.drawFontRegHeight;
             int spacing = textH;
-            //int spacing = (int)gv.mSheetTextPaint.getTextSize() + pH;
-    	    int tabX = pW * 4;
+            int tabX = pW * 4;
     	    int tabX2 = 5 * gv.squareSize + pW * 2;
     	    int leftStartY = pH * 4;
     	    int tabStartY = 5 * gv.squareSize + pW * 10;
     	
-            //gv.gCanvas.Clear(Color.Black);
-    	    //canvas.drawColor(Color.DKGRAY);
-		    
-		    //DRAW TEXT		
+            //DRAW TEXT		
 		    locY = (pH * 2);
-		    //gv.mSheetTextPaint.setColor(Color.LTGRAY);
 		    gv.DrawText("Portrait Selection", locX + (gv.squareSize * 8), locY);
 		    
 		    //DRAW LEFT/RIGHT ARROWS and PAGE INDEX
@@ -308,9 +298,7 @@ namespace IceBlink2
 			    {
 				    if (btnPortraitSlot[j].getImpact(x, y))
 				    {
-					    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-					    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                        if (ptrSlotIndex == j)
+					    if (ptrSlotIndex == j)
                         {
                             //return to calling screen
                             if (callingScreen.Equals("party"))
@@ -333,8 +321,6 @@ namespace IceBlink2
 			    }
 			    if (btnPortraitsLeft.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (ptrPageIndex > 0)
 				    {
 					    ptrPageIndex--;
@@ -343,8 +329,6 @@ namespace IceBlink2
 			    }
 			    else if (btnPortraitsRight.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
 				    if (ptrPageIndex < maxPages)
 				    {
 					    ptrPageIndex++;
@@ -353,10 +337,7 @@ namespace IceBlink2
 			    }
 			    else if (btnAction.getImpact(x, y))
 			    {
-				    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-				    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                                        
-                    //return to calling screen
+				    //return to calling screen
                     if (callingScreen.Equals("party"))
                     {
                         gv.screenParty.mod.playerList[gv.cc.partyScreenPcIndex].portraitFilename = playerPortraitList[GetIndex()];
@@ -374,9 +355,6 @@ namespace IceBlink2
 			    }
                 else if (btnExit.getImpact(x, y))
                 {
-                    //if (mod.playButtonSounds) {gv.playSoundEffect(android.view.SoundEffectConstants.CLICK);}
-                    //if (mod.playButtonHaptic) {gv.performHapticFeedback(android.view.HapticFeedbackConstants.VIRTUAL_KEY);}
-                    
                     //do nothing, return to calling screen
                     if (callingScreen.Equals("party"))
                     {
