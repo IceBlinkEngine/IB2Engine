@@ -831,40 +831,7 @@ namespace IceBlink2
         }
         private void Update(int elapsed)
         {
-            //handle RealTime Timer events if module uses this system
-            if ((mod.useRealTimeTimer) && (screenType.Equals("main")))
-            {
-                realTimeTimerMilliSecondsEllapsed += elapsed;
-                if (realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
-                {
-                    cc.doUpdate();
-                    realTimeTimerMilliSecondsEllapsed = 0;
-                }
-            }
-
-            //rain test (particle)
             
-            if ((screenType.Equals("main")) && (mod.isRaining == true))
-            {
-                fullScreenEffectTimerMilliSecondsElapsedRain += elapsed;
-                float rainChance2 = sf.RandInt(200) + 150;
-                if (fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
-                {
-                    cc.rainTest(rainType);
-                    fullScreenEffectTimerMilliSecondsElapsedRain = 0;
-                }
-            }
-
-            if ((screenType.Equals("main")) && (mod.isCloudy == true))
-            {
-                fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
-                float cloudChance = sf.RandInt(20000) + 15000;
-                if (fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
-                {
-                    cc.cloudTest(cloudType);
-                    fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
-                }
-            }
 
 
             //iterate through spriteList and handle any sprite location and animation frame calculations

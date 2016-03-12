@@ -326,6 +326,40 @@ namespace IceBlink2
         {
             mainUiLayout.Update(elapsed);
 
+            //handle RealTime Timer events if module uses this system
+            if (mod.useRealTimeTimer)
+            {
+                gv.realTimeTimerMilliSecondsEllapsed += elapsed;
+                if (gv.realTimeTimerMilliSecondsEllapsed >= mod.realTimeTimerLengthInMilliSeconds)
+                {
+                    gv.cc.doUpdate();
+                    gv.realTimeTimerMilliSecondsEllapsed = 0;
+                }
+            }
+
+            //rain test (particle)
+            if (mod.isRaining)
+            {
+                gv.fullScreenEffectTimerMilliSecondsElapsedRain += elapsed;
+                float rainChance2 = gv.sf.RandInt(200) + 150;
+                if (gv.fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
+                {
+                    gv.cc.rainTest(gv.rainType);
+                    gv.fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+                }
+            }
+
+            if (mod.isCloudy)
+            {
+                gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
+                float cloudChance = gv.sf.RandInt(20000) + 15000;
+                if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                {
+                    gv.cc.cloudTest(gv.cloudType);
+                    gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                }
+            }
+
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
