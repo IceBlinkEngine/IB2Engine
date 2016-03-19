@@ -177,7 +177,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Harp & Chrysanthemum",
   "moduleCredits": "<big><b>Harp & Chrysanthemum by Zachary Holbrook</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 15546,
+  "nextIdNumber": 15548,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 300,

@@ -6947,16 +6947,16 @@ namespace IceBlink2
             System.IO.FileInfo file = new System.IO.FileInfo(filenameAndFullPath);
             file.Directory.Create(); // If the directory already exists, this method does nothing.
         }
-        public System.Drawing.Bitmap flip(System.Drawing.Bitmap src)
+        /*public System.Drawing.Bitmap flip(System.Drawing.Bitmap src)
         {
             src.RotateFlip(RotateFlipType.RotateNoneFlipX);
             return src;
-        }
-        public System.Drawing.Bitmap FlipHorz(System.Drawing.Bitmap src)
+        }*/
+        /*public System.Drawing.Bitmap FlipHorz(System.Drawing.Bitmap src)
         {
             src.RotateFlip(RotateFlipType.RotateNoneFlipY);
             return src;
-        }
+        }*/
 
         //DIRECT2D STUFF
         public SharpDX.Direct2D1.Bitmap GetFromBitmapList(string fileNameWithOutExt)
@@ -7009,12 +7009,6 @@ namespace IceBlink2
                 bmp = null;
             }
         }
-        /// <summary>
-        /// Loads a Direct2D Bitmap from a file using System.Drawing.Image.FromFile(...)
-        /// </summary>
-        /// <param name="renderTarget">The render target.</param>
-        /// <param name="file">The file.</param>
-        /// <returns>A D2D1 Bitmap</returns>
         public SharpDX.Direct2D1.Bitmap LoadBitmap(string file, Module mdl) //change this to LoadBitmap
         {
             // Loads from file using System.Drawing.Image

@@ -1,0 +1,8 @@
+ptr_Darstin
+ptr_Suna
+ptr_Melia
+ptr_Snowball
+ptr_Elos
+ptr_Adwen
+ptr_Jadis
+ptr_CharnGuard_Captain

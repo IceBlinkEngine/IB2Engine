@@ -19,7 +19,7 @@ namespace IceBlink2
         public int lastLocationX = 0;
         public int lastLocationY = 0;
 	    public string ImageFileName = "blank";
-        [JsonIgnore]
+        //[JsonIgnore]
 	    public bool PropFacingLeft = true;
 	    public string MouseOverText = "none";
 	    public bool HasCollision = false;
