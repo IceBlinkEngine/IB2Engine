@@ -43,7 +43,7 @@
         },
         {
           "idNum": 2,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -155,7 +155,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Continue",
+                                          "conversationText": "What would you like to know?",
                                           "IsExpanded": true,
                                           "subNodes": [],
                                           "actions": [],
@@ -169,7 +169,7 @@
                                     },
                                     {
                                       "idNum": 11,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 0,
                                       "ShowOnlyOnce": false,
@@ -206,7 +206,7 @@
                     },
                     {
                       "idNum": 12,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -279,7 +279,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Continue",
+                                          "conversationText": "What would you like to know?",
                                           "IsExpanded": true,
                                           "subNodes": [],
                                           "actions": [],
@@ -293,7 +293,7 @@
                                     },
                                     {
                                       "idNum": 18,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 0,
                                       "ShowOnlyOnce": false,
@@ -330,7 +330,7 @@
                     },
                     {
                       "idNum": 19,
-                      "orderNum": 0,
+                      "orderNum": 2,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -357,7 +357,7 @@
             },
             {
               "idNum": 20,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -390,7 +390,7 @@
         },
         {
           "idNum": 21,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -526,7 +526,7 @@
         },
         {
           "idNum": 26,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -547,7 +547,7 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "snowball.json",
+  "ConvoFileName": "snowball",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,

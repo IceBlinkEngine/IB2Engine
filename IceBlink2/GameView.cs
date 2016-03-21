@@ -978,13 +978,25 @@ namespace IceBlink2
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift);
+            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, 0, 0);
         }
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, int Xshift, int Yshift)
         {
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, Xshift, Yshift);
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, Xshift, Yshift, 0, 0);
+        }
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angleInDegrees, mirror, Xshift, Yshift, Xscale, Yscale);
+        }
+        public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
+        {
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, Xshift, Yshift, Xscale, Yscale);
         }
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, bool mirror, float opac)
         {
@@ -1240,47 +1252,49 @@ namespace IceBlink2
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, 1.0f, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, 0, mirror, 1.0f, 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac)
         {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror, float opac, bool NearestNeighbourInterpolation)
         {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, NearestNeighbourInterpolation);
+            DrawD2DBitmap(bitmap, source, target, 0, mirror, opac, 0, 0, 0, 0, NearestNeighbourInterpolation);
         }
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, int Xshift, int Yshift)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
         {
-            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, Xshift, Yshift, false);
+            DrawD2DBitmap(bitmap, source, target, angleInDegrees, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
         }
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, int Xshift, int Yshift)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, int Xshift, int Yshift, int Xscale, int Yscale)
         {
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, false);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, 1.0f, Xshift, Yshift, Xscale, Yscale, false);
         }
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, bool NearestNeighbourInterpolation)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             //convert degrees to radians
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
-            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, false);
+            DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, Xscale, Yscale, false);
         }
-        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, bool NearestNeighbourInterpolation)
+        public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation)
         {
             int mir = 1;
             if (mirror) { mir = -1; }
             float xshf = (float)Xshift * 2 * screenDensity;
             float yshf = (float)Yshift * 2 * screenDensity;
+            float xscl = 1f + (((float)Xscale * 2 * screenDensity) / squareSize);
+            float yscl = 1f + (((float)Yscale * 2 * screenDensity) / squareSize);
 
             Vector2 center = new Vector2(target.Left + (target.Width / 2), target.Top + (target.Height / 2));
-            renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir, 1), center, angleInRadians, new Vector2(xshf, yshf));
+            renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
             SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             if (NearestNeighbourInterpolation)

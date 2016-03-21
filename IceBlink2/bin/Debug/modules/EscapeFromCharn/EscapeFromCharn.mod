@@ -147,7 +147,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Welcome to Escape from Charn",
   "moduleCredits": "<big><b>Chronicles of Charnia - Escape from Charn by slowdive_fan</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 15239,
+  "nextIdNumber": 15243,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 300,

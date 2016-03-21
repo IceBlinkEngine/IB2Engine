@@ -2989,7 +2989,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), srcLyr, dstLyr, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
                         }
                     }
                 }
@@ -3019,7 +3019,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), srcLyr, dstLyr, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
                         }
                     }
                 }
@@ -3049,7 +3049,7 @@ namespace IceBlink2
                             int brX = (int)(gv.squareSize * scalerX);
                             int brY = (int)(gv.squareSize * scalerY);
                             IbRect dstLyr = new IbRect(tlX, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), srcLyr, dstLyr, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
                         }
                     }
                 }

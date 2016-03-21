@@ -43,7 +43,7 @@
         },
         {
           "idNum": 2,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -52,7 +52,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Yes <FirstName>,  is there something you need?|***chk_melia_joined-->NOT::False    |",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 3,
@@ -155,7 +155,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Continue",
+                                          "conversationText": "What would you like to know?",
                                           "IsExpanded": true,
                                           "subNodes": [],
                                           "actions": [],
@@ -169,7 +169,7 @@
                                     },
                                     {
                                       "idNum": 11,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 0,
                                       "ShowOnlyOnce": false,
@@ -206,7 +206,7 @@
                     },
                     {
                       "idNum": 12,
-                      "orderNum": 0,
+                      "orderNum": 1,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -279,7 +279,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Continue",
+                                          "conversationText": "What would you like to know?",
                                           "IsExpanded": true,
                                           "subNodes": [],
                                           "actions": [],
@@ -293,7 +293,7 @@
                                     },
                                     {
                                       "idNum": 18,
-                                      "orderNum": 0,
+                                      "orderNum": 1,
                                       "pcNode": true,
                                       "linkTo": 0,
                                       "ShowOnlyOnce": false,
@@ -330,7 +330,7 @@
                     },
                     {
                       "idNum": 19,
-                      "orderNum": 0,
+                      "orderNum": 2,
                       "pcNode": true,
                       "linkTo": 0,
                       "ShowOnlyOnce": false,
@@ -357,7 +357,7 @@
             },
             {
               "idNum": 20,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -390,7 +390,7 @@
         },
         {
           "idNum": 21,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -399,7 +399,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Have you spoken with my father?|***chk_drk_tsk_gvn-->NOT::False    |",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 22,
@@ -624,7 +624,7 @@
         },
         {
           "idNum": 31,
-          "orderNum": 0,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -633,7 +633,7 @@
           "NodeNpcName": "",
           "NodeSound": "none",
           "conversationText": "Have you spoken with my father?|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 32,
@@ -670,7 +670,7 @@
         },
         {
           "idNum": 33,
-          "orderNum": 0,
+          "orderNum": 4,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -824,7 +824,7 @@
             },
             {
               "idNum": 41,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -885,7 +885,7 @@
             },
             {
               "idNum": 44,
-              "orderNum": 0,
+              "orderNum": 2,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -906,7 +906,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Continue",
+                  "conversationText": "I believe he is inside our home.",
                   "IsExpanded": true,
                   "subNodes": [],
                   "actions": [],
@@ -929,7 +929,7 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "melia.json",
+  "ConvoFileName": "melia",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,

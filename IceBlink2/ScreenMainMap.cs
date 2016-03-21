@@ -2149,7 +2149,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer1Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer1Filename), src, dst, tile.Layer1Rotate, tile.Layer1Mirror, tile.Layer1Xshift, tile.Layer1Yshift, tile.Layer1Xscale, tile.Layer1Yscale);
                         }
                         catch { }
                     }
@@ -2172,7 +2172,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer2Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer2Filename), src, dst, tile.Layer2Rotate, tile.Layer2Mirror, tile.Layer2Xshift, tile.Layer2Yshift, tile.Layer2Xscale, tile.Layer2Yscale);
                         }
                         catch { }
                     }
@@ -2195,7 +2195,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer3Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer3Filename), src, dst, tile.Layer3Rotate, tile.Layer3Mirror, tile.Layer3Xshift, tile.Layer3Yshift, tile.Layer3Xscale, tile.Layer3Yscale);
                         }
                         catch { }
                     }
@@ -2218,7 +2218,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer4Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer4Filename), src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer4Filename), src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale);
                         }
                         catch { }
                     }
@@ -2241,7 +2241,7 @@ namespace IceBlink2
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Width, gv.cc.GetFromTileBitmapList(tile.Layer5Filename).PixelSize.Height);
                             IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer5Filename), src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift);
+                            gv.DrawBitmap(gv.cc.GetFromTileBitmapList(tile.Layer5Filename), src, dst, tile.Layer5Rotate, tile.Layer5Mirror, tile.Layer5Xshift, tile.Layer5Yshift, tile.Layer5Xscale, tile.Layer5Yscale);
                         }
                         catch { }
                     }

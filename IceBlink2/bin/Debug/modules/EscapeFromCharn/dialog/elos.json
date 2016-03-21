@@ -140,18 +140,10 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "[Wake Up]|***end_dream-->|",
+                                              "conversationText": "[Wake Up]",
                                               "IsExpanded": true,
                                               "subNodes": [],
-                                              "actions": [
-                                                {
-                                                  "a_script": "end_dream(nonIBscript)",
-                                                  "a_parameter_1": null,
-                                                  "a_parameter_2": null,
-                                                  "a_parameter_3": null,
-                                                  "a_parameter_4": null
-                                                }
-                                              ],
+                                              "actions": [],
                                               "conditions": [],
                                               "isLink": false
                                             }
@@ -206,7 +198,7 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "elos.json",
+  "ConvoFileName": "elos",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
