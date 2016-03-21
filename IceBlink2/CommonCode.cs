@@ -5909,6 +5909,7 @@ namespace IceBlink2
             //{
                 try
                 {
+                    gv.mod.allowImmediateRetransition = true;
                     LoadCurrentConvo(tag);
                     gv.screenType = "convo";
                     gv.screenConvo.startConvo();
