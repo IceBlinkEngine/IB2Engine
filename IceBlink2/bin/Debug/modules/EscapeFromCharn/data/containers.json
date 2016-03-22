@@ -1,1 +1,96 @@
-[]
+[
+  {
+    "containerTag": "bedroom_chest01",
+    "containerItemRefs": [
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_15251",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "myjournal",
+        "tag": "MyJournal_15252",
+        "name": "My Journal",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_15253",
+        "name": "Long Bow",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_15254",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_15255",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "quantity": 20
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_15256",
+        "name": "Long Sword",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_15257",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_15258",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_15259",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "containerTag": "bedroom_chest02",
+    "containerItemRefs": [
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_15260",
+        "name": "Minor Healing Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "antidote",
+        "tag": "antidote_15261",
+        "name": "Antidote Potion",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      },
+      {
+        "resref": "firebomb",
+        "tag": "firebomb_15262",
+        "name": "Fire Flask Bomb",
+        "canNotBeUnequipped": false,
+        "quantity": 1
+      }
+    ]
+  }
+]

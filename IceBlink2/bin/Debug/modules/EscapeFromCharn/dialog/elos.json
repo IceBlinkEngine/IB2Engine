@@ -202,7 +202,7 @@
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
-  "NpcPortraitBitmap": "ptr_elos",
+  "NpcPortraitBitmap": "ptr_elos.png",
   "DefaultNpcName": "elos",
   "NextIdNum": 11
 }

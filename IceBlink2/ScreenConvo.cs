@@ -385,35 +385,53 @@ namespace IceBlink2
                 if ((currentConvo.GetContentNodeById(parentIdNum).NodePortraitBitmap.Equals("")) 
                     || (currentConvo.GetContentNodeById(parentIdNum).NodePortraitBitmap == null))
                 {
-            	    string filename = currentConvo.NpcPortraitBitmap;
-                    int lastPeriodPos = filename.LastIndexOf('.');
-                    string filenameNoExt = filename.Substring(0, lastPeriodPos);
-                    gv.cc.DisposeOfBitmap(ref convoBitmap);
-                    convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
-                    if (convoBitmap == null)
+                    if (currentConvo.NpcPortraitBitmap.Equals(""))
                     {
-                        gv.cc.DisposeOfBitmap(ref convoBitmap);
-                        convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                        convoBitmap = gv.cc.GetFromBitmapList("npc_blob_portrait");
+                    }
+                    else
+                    {
+                        string filename = currentConvo.NpcPortraitBitmap;
+                        string filenameNoExt = filename;
+                        if (filename.Contains("."))
+                        {
+                            int lastPeriodPos = filename.LastIndexOf('.');
+                            filenameNoExt = filename.Substring(0, lastPeriodPos);
+                        }
+                        //gv.cc.DisposeOfBitmap(ref convoBitmap);
+                        //convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
+                        //if (convoBitmap == null)
+                        //{
+                        //    gv.cc.DisposeOfBitmap(ref convoBitmap);
+                        //    convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                        //}
+                        convoBitmap = gv.cc.GetFromBitmapList(filenameNoExt);
                     }
                 }
                 else
                 {
                     string filename = currentConvo.GetContentNodeById(parentIdNum).NodePortraitBitmap;
-                    int lastPeriodPos = filename.LastIndexOf('.');
-                    string filenameNoExt = filename.Substring(0, lastPeriodPos);
-                    gv.cc.DisposeOfBitmap(ref convoBitmap);
-                    convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
-                    if (convoBitmap == null)
+                    string filenameNoExt = filename;
+                    if (filename.Contains("."))
                     {
-                        gv.cc.DisposeOfBitmap(ref convoBitmap);
-                        convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                        int lastPeriodPos = filename.LastIndexOf('.');
+                        filenameNoExt = filename.Substring(0, lastPeriodPos);
                     }
+                    //gv.cc.DisposeOfBitmap(ref convoBitmap);
+                    //convoBitmap = gv.cc.LoadBitmap(filenameNoExt);
+                    //if (convoBitmap == null)
+                    //{
+                    //    gv.cc.DisposeOfBitmap(ref convoBitmap);
+                    //    convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                    //}
+                    convoBitmap = gv.cc.GetFromBitmapList(filenameNoExt);
                 }
             }
             catch (Exception ex)
             {
-                gv.cc.DisposeOfBitmap(ref convoBitmap);
-                convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                //gv.cc.DisposeOfBitmap(ref convoBitmap);
+                //convoBitmap = gv.cc.LoadBitmap("npc_blob_portrait");
+                convoBitmap = gv.cc.GetFromBitmapList("npc_blob_portrait");
                 gv.errorLog(ex.ToString());
             }
         }
