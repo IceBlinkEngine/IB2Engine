@@ -14,82 +14,11 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "I hope you are enjoying your visit, <FirstName>.  Would you like to buy or sell something?|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 2,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Yes, please.|***ga_open_store-->String::sasha_store    Int::0    Int::0    |",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [
-                {
-                  "a_script": "gaOpenShopByTag.cs",
-                  "a_parameter_1": "sasha_store",
-                  "a_parameter_2": "0",
-                  "a_parameter_3": "0",
-                  "a_parameter_4": null
-                }
-              ],
-              "conditions": [],
-              "isLink": false
-            },
-            {
-              "idNum": 3,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "No, thank you.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 4,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -159,7 +88,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "I'm just passing through for a few days.|***set_talk_times_1-->|",
+                              "conversationText": "I'm just passing through for a few days.",
                               "IsExpanded": true,
                               "subNodes": [
                                 {
@@ -198,21 +127,13 @@
                                   "isLink": false
                                 }
                               ],
-                              "actions": [
-                                {
-                                  "a_script": "set_talk_times_1(nonIBscript)",
-                                  "a_parameter_1": null,
-                                  "a_parameter_2": null,
-                                  "a_parameter_3": null,
-                                  "a_parameter_4": null
-                                }
-                              ],
+                              "actions": [],
                               "conditions": [],
                               "isLink": false
                             },
                             {
                               "idNum": 12,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -220,7 +141,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "Do you sell anything else?|***set_talk_times_1-->|",
+                              "conversationText": "Do you sell anything else?",
                               "IsExpanded": true,
                               "subNodes": [
                                 {
@@ -246,7 +167,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "Yes, please.|***ga_open_store-->String::sasha_store    Int::0    Int::0    |",
+                                      "conversationText": "Yes, please.",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [
@@ -267,15 +188,7 @@
                                   "isLink": false
                                 }
                               ],
-                              "actions": [
-                                {
-                                  "a_script": "set_talk_times_1(nonIBscript)",
-                                  "a_parameter_1": null,
-                                  "a_parameter_2": null,
-                                  "a_parameter_3": null,
-                                  "a_parameter_4": null
-                                }
-                              ],
+                              "actions": [],
                               "conditions": [],
                               "isLink": false
                             }
@@ -303,6 +216,66 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I hope you are enjoying your visit, <FirstName>.  Would you like to buy or sell something?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 2,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes, please.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [
+                {
+                  "a_script": "gaOpenShopByTag.cs",
+                  "a_parameter_1": "sasha_store",
+                  "a_parameter_2": "0",
+                  "a_parameter_3": "0",
+                  "a_parameter_4": null
+                }
+              ],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 3,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, thank you.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -310,7 +283,7 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "sasha.json",
+  "ConvoFileName": "sasha",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,

@@ -23,19 +23,37 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Melia, you have returned.  Thank you, <FirstName>, for taking care of my daughter.  Let us go now and meet with Elos.|***chk_adwn_ant_rm-->NOT::False    |",
+          "conversationText": "Melia, you have returned.  Thank you, <FirstName>, for taking care of my daughter.  Let us go now and meet with Elos.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 22,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "adwn_ant_rm",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -43,7 +61,7 @@
         },
         {
           "idNum": 2,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -51,19 +69,37 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Safe journey, son.|***chk_drk_tsk_gvn-->NOT::False    |",
+          "conversationText": "Safe journey, son.",
           "IsExpanded": true,
-          "subNodes": [],
+          "subNodes": [
+            {
+              "idNum": 23,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_drk_tsk_gvn(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "drk_tsk_gvn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -71,7 +107,7 @@
         },
         {
           "idNum": 3,
-          "orderNum": 0,
+          "orderNum": 2,
           "pcNode": false,
           "linkTo": 0,
           "ShowOnlyOnce": false,
@@ -118,7 +154,7 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "Yes, sir.|***ga_give_quest_xp-->String::adwens_tasks    |",
+                      "conversationText": "Yes, sir.",
                       "IsExpanded": true,
                       "subNodes": [
                         {
@@ -287,7 +323,7 @@
                                                                           "NodePortraitBitmap": "",
                                                                           "NodeNpcName": "",
                                                                           "NodeSound": "none",
-                                                                          "conversationText": "I know son.  When you have retrieved the Eyes, meet us at the Cave of Knowledge.  Melia knows where it is.  Take care, and be mindful.|***set_drk_tsk_gvn-->|",
+                                                                          "conversationText": "I know son.  When you have retrieved the Eyes, meet us at the Cave of Knowledge.  Melia knows where it is.  Take care, and be mindful.",
                                                                           "IsExpanded": true,
                                                                           "subNodes": [
                                                                             {
@@ -300,7 +336,7 @@
                                                                               "NodePortraitBitmap": "",
                                                                               "NodeNpcName": "",
                                                                               "NodeSound": "none",
-                                                                              "conversationText": "Continue",
+                                                                              "conversationText": "End Dialog",
                                                                               "IsExpanded": true,
                                                                               "subNodes": [],
                                                                               "actions": [],
@@ -310,9 +346,9 @@
                                                                           ],
                                                                           "actions": [
                                                                             {
-                                                                              "a_script": "set_drk_tsk_gvn(nonIBscript)",
-                                                                              "a_parameter_1": null,
-                                                                              "a_parameter_2": null,
+                                                                              "a_script": "gaSetGlobalInt.cs",
+                                                                              "a_parameter_1": "drk_tsk_gvn",
+                                                                              "a_parameter_2": "1",
                                                                               "a_parameter_3": null,
                                                                               "a_parameter_4": null
                                                                             }
@@ -383,9 +419,16 @@
                       ],
                       "actions": [
                         {
-                          "a_script": "ga_give_quest_xp(nonIBscript)",
-                          "a_parameter_1": "adwens_tasks",
+                          "a_script": "gaGiveXP.cs",
+                          "a_parameter_1": "40",
                           "a_parameter_2": null,
+                          "a_parameter_3": null,
+                          "a_parameter_4": null
+                        },
+                        {
+                          "a_script": "gaAddJournalEntryByTag.cs",
+                          "a_parameter_1": "adwens_tasks",
+                          "a_parameter_2": "20",
                           "a_parameter_3": null,
                           "a_parameter_4": null
                         }
@@ -414,11 +457,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "derik.json",
+  "ConvoFileName": "derik",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_derik",
   "DefaultNpcName": "derik",
-  "NextIdNum": 21
+  "NextIdNum": 23
 }

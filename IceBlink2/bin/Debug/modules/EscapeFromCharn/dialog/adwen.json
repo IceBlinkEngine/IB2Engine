@@ -14,260 +14,17 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
+          "idNum": 12,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Elos is waiting.|***chk_adwn_ant_rm-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 2,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Continue",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 3,
-          "orderNum": 1,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "You have returned safely.  How is everyone?|***chk_have_eye-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 4,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "We are doing well, father.  We retrieved the Eyes of Knowledge as was required.",
-              "IsExpanded": true,
-              "subNodes": [
-                {
-                  "idNum": 5,
-                  "orderNum": 0,
-                  "pcNode": false,
-                  "linkTo": 0,
-                  "ShowOnlyOnce": false,
-                  "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
-                  "NodeNpcName": "",
-                  "NodeSound": "none",
-                  "conversationText": "Excellent!  Now we must meet with Elos in the Ancient Room.|***set_adwn_ant_rm-->***ga_give_quest_xp-->String::deriks_instructions    |",
-                  "IsExpanded": true,
-                  "subNodes": [
-                    {
-                      "idNum": 6,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Continue",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 7,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "<StartHighlight>[to everyone]</Start> Sons, daughters...we now go to meet with Elos and leave this doomed world to those who would destroy it.",
-                          "IsExpanded": true,
-                          "subNodes": [
-                            {
-                              "idNum": 8,
-                              "orderNum": 0,
-                              "pcNode": true,
-                              "linkTo": 0,
-                              "ShowOnlyOnce": false,
-                              "NodeIsActive": true,
-                              "NodePortraitBitmap": "",
-                              "NodeNpcName": "",
-                              "NodeSound": "none",
-                              "conversationText": "Continue",
-                              "IsExpanded": true,
-                              "subNodes": [
-                                {
-                                  "idNum": 9,
-                                  "orderNum": 0,
-                                  "pcNode": false,
-                                  "linkTo": 0,
-                                  "ShowOnlyOnce": false,
-                                  "NodeIsActive": true,
-                                  "NodePortraitBitmap": "",
-                                  "NodeNpcName": "",
-                                  "NodeSound": "none",
-                                  "conversationText": "<FirstName>, since you, Melia, and Snowball completed Elos' task, you shall lead us to him.  Let us go now...",
-                                  "IsExpanded": true,
-                                  "subNodes": [
-                                    {
-                                      "idNum": 10,
-                                      "orderNum": 0,
-                                      "pcNode": true,
-                                      "linkTo": 0,
-                                      "ShowOnlyOnce": false,
-                                      "NodeIsActive": true,
-                                      "NodePortraitBitmap": "",
-                                      "NodeNpcName": "",
-                                      "NodeSound": "none",
-                                      "conversationText": "Continue",
-                                      "IsExpanded": true,
-                                      "subNodes": [],
-                                      "actions": [],
-                                      "conditions": [],
-                                      "isLink": false
-                                    }
-                                  ],
-                                  "actions": [],
-                                  "conditions": [],
-                                  "isLink": false
-                                }
-                              ],
-                              "actions": [],
-                              "conditions": [],
-                              "isLink": false
-                            }
-                          ],
-                          "actions": [],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [],
-                      "conditions": [],
-                      "isLink": false
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "a_script": "set_adwn_ant_rm(nonIBscript)",
-                      "a_parameter_1": null,
-                      "a_parameter_2": null,
-                      "a_parameter_3": null,
-                      "a_parameter_4": null
-                    },
-                    {
-                      "a_script": "ga_give_quest_xp(nonIBscript)",
-                      "a_parameter_1": "deriks_instructions",
-                      "a_parameter_2": null,
-                      "a_parameter_3": null,
-                      "a_parameter_4": null
-                    }
-                  ],
-                  "conditions": [],
-                  "isLink": false
-                }
-              ],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_have_eye(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 11,
-          "orderNum": 2,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Be careful on your jouney.|***chk_adwn_tsk_gvn-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_adwn_tsk_gvn(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 12,
-          "orderNum": 3,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Good morning Son.  Did you sleep well?|***ga_give_quest_xp-->String::elos_instructions    |",
-          "IsExpanded": true,
+          "conversationText": "Good morning Son.  Did you sleep well?",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 13,
@@ -474,7 +231,7 @@
                                                                           "NodePortraitBitmap": "",
                                                                           "NodeNpcName": "",
                                                                           "NodeSound": "none",
-                                                                          "conversationText": "Go now, and take these with you.  I have here a map that shows where a secret entrance to the castle is located.  It was built for emergencies, but your mother and I, fortunately, never had use for it.  Good luck, my son.|***adwn_tsk_items-->|",
+                                                                          "conversationText": "Go now, and take these with you.  I have here a map that shows where a secret entrance to the castle is located.  It was built for emergencies, but your mother and I, fortunately, never had use for it.  Good luck, my son.",
                                                                           "IsExpanded": true,
                                                                           "subNodes": [
                                                                             {
@@ -487,14 +244,14 @@
                                                                               "NodePortraitBitmap": "",
                                                                               "NodeNpcName": "",
                                                                               "NodeSound": "none",
-                                                                              "conversationText": "Thank you father.|***set_adwn_tsk_gvn-->|",
+                                                                              "conversationText": "Thank you father.",
                                                                               "IsExpanded": true,
                                                                               "subNodes": [],
                                                                               "actions": [
                                                                                 {
-                                                                                  "a_script": "set_adwn_tsk_gvn(nonIBscript)",
-                                                                                  "a_parameter_1": null,
-                                                                                  "a_parameter_2": null,
+                                                                                  "a_script": "gaSetGlobalInt.cs",
+                                                                                  "a_parameter_1": "adwn_tsk_gvn",
+                                                                                  "a_parameter_2": "1",
                                                                                   "a_parameter_3": null,
                                                                                   "a_parameter_4": null
                                                                                 }
@@ -505,9 +262,16 @@
                                                                           ],
                                                                           "actions": [
                                                                             {
-                                                                              "a_script": "adwn_tsk_items(nonIBscript)",
-                                                                              "a_parameter_1": null,
-                                                                              "a_parameter_2": null,
+                                                                              "a_script": "gaGiveItem.cs",
+                                                                              "a_parameter_1": "framestotheeyeso",
+                                                                              "a_parameter_2": "1",
+                                                                              "a_parameter_3": null,
+                                                                              "a_parameter_4": null
+                                                                            },
+                                                                            {
+                                                                              "a_script": "gaGiveItem.cs",
+                                                                              "a_parameter_1": "mapofsecretentra",
+                                                                              "a_parameter_2": "1",
                                                                               "a_parameter_3": null,
                                                                               "a_parameter_4": null
                                                                             }
@@ -531,7 +295,15 @@
                                                               "isLink": false
                                                             }
                                                           ],
-                                                          "actions": [],
+                                                          "actions": [
+                                                            {
+                                                              "a_script": "gaAddJournalEntryByTag.cs",
+                                                              "a_parameter_1": "adwens_tasks",
+                                                              "a_parameter_2": "10",
+                                                              "a_parameter_3": null,
+                                                              "a_parameter_4": null
+                                                            }
+                                                          ],
                                                           "conditions": [],
                                                           "isLink": false
                                                         }
@@ -682,13 +454,210 @@
           ],
           "actions": [
             {
-              "a_script": "ga_give_quest_xp(nonIBscript)",
-              "a_parameter_1": "elos_instructions",
+              "a_script": "gaGiveXP.cs",
+              "a_parameter_1": "40",
               "a_parameter_2": null,
               "a_parameter_3": null,
               "a_parameter_4": null
             }
           ],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "You have returned safely.  How is everyone?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 4,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "We are doing well, father.  We retrieved the Eyes of Knowledge as was required.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 5,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Excellent!  Now we must meet with Elos in the Ancient Room.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 6,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "Continue",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 7,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "<StartHighlight>[to everyone]</Start> Sons, daughters...we now go to meet with Elos and leave this doomed world to those who would destroy it.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 8,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Continue",
+                              "IsExpanded": true,
+                              "subNodes": [
+                                {
+                                  "idNum": 9,
+                                  "orderNum": 0,
+                                  "pcNode": false,
+                                  "linkTo": 0,
+                                  "ShowOnlyOnce": false,
+                                  "NodeIsActive": true,
+                                  "NodePortraitBitmap": "",
+                                  "NodeNpcName": "",
+                                  "NodeSound": "none",
+                                  "conversationText": "<FirstName>, since you, Melia, and Snowball completed Elos' task, you shall lead us to him.  Let us go now...",
+                                  "IsExpanded": true,
+                                  "subNodes": [
+                                    {
+                                      "idNum": 10,
+                                      "orderNum": 0,
+                                      "pcNode": true,
+                                      "linkTo": 0,
+                                      "ShowOnlyOnce": false,
+                                      "NodeIsActive": true,
+                                      "NodePortraitBitmap": "",
+                                      "NodeNpcName": "",
+                                      "NodeSound": "none",
+                                      "conversationText": "Continue",
+                                      "IsExpanded": true,
+                                      "subNodes": [],
+                                      "actions": [],
+                                      "conditions": [],
+                                      "isLink": false
+                                    }
+                                  ],
+                                  "actions": [],
+                                  "conditions": [],
+                                  "isLink": false
+                                }
+                              ],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "a_script": "gaGiveXP.cs",
+                      "a_parameter_1": "100",
+                      "a_parameter_2": null,
+                      "a_parameter_3": null,
+                      "a_parameter_4": null
+                    }
+                  ],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckForItem.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "eyeofknowledge",
+              "c_parameter_2": "1",
+              "c_parameter_3": null,
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 11,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Be careful on your jouney.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 35,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
           "conditions": [],
           "isLink": false
         }
@@ -704,5 +673,5 @@
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_adwen",
   "DefaultNpcName": "adwen",
-  "NextIdNum": 34
+  "NextIdNum": 35
 }

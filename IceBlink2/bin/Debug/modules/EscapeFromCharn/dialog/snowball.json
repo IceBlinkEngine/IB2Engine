@@ -23,19 +23,37 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Let us not tarry here any longer.  There is still much to do.  Come, we now go to the Ancient Room.|***chk_adwn_ant_rm-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
+          "conversationText": "Let us not tarry here any longer.  There is still much to do.  Come, we now go to the Ancient Room.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 28,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "adwn_ant_rm",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -51,8 +69,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Yes <FirstName>,  is there something you need?|***chk_snowball_joined-->NOT::False    |",
-          "IsExpanded": true,
+          "conversationText": "Yes <FirstName>,  is there something you need?",
+          "IsExpanded": false,
           "subNodes": [
             {
               "idNum": 3,
@@ -376,11 +394,11 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_snowball_joined(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
+              "c_parameter_1": "Snowball",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -398,7 +416,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "So, you are aware that I can speak.  I take it you have met with Derik.|***chk_drk_tsk_gvn-->NOT::False    |",
+          "conversationText": "So, you are aware that I can speak.  I take it you have met with Derik.",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -450,41 +468,38 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "Yes, Melia has all of the preparations.  Let us begin.|***give_forest_key-->***ga_roster_add_object-->String::Snowball    String::Snowball    ***ga_roster_selectable-->String::Snowball    Int::1    ***ga_roster_party_add-->String::Snowball    ***set_snowball_joined-->|",
+                          "conversationText": "Yes, Melia has all of the preparations.  Let us begin.",
                           "IsExpanded": true,
-                          "subNodes": [],
+                          "subNodes": [
+                            {
+                              "idNum": 29,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "End Dialog",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
                           "actions": [
                             {
-                              "a_script": "give_forest_key(nonIBscript)",
-                              "a_parameter_1": null,
-                              "a_parameter_2": null,
-                              "a_parameter_3": null,
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_roster_add_object(nonIBscript)",
-                              "a_parameter_1": "Snowball",
-                              "a_parameter_2": "Snowball",
-                              "a_parameter_3": null,
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "ga_roster_selectable(nonIBscript)",
-                              "a_parameter_1": "Snowball",
+                              "a_script": "gaGiveItem.cs",
+                              "a_parameter_1": "forest_key",
                               "a_parameter_2": "1",
                               "a_parameter_3": null,
                               "a_parameter_4": null
                             },
                             {
-                              "a_script": "ga_roster_party_add(nonIBscript)",
-                              "a_parameter_1": "Snowball",
-                              "a_parameter_2": null,
-                              "a_parameter_3": null,
-                              "a_parameter_4": null
-                            },
-                            {
-                              "a_script": "set_snowball_joined(nonIBscript)",
-                              "a_parameter_1": null,
+                              "a_script": "gaAddPartyMember.cs",
+                              "a_parameter_1": "snowball.json",
                               "a_parameter_2": null,
                               "a_parameter_3": null,
                               "a_parameter_4": null
@@ -512,13 +527,13 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_drk_tsk_gvn(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "drk_tsk_gvn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -553,5 +568,5 @@
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_snowball",
   "DefaultNpcName": "snowball",
-  "NextIdNum": 27
+  "NextIdNum": 29
 }

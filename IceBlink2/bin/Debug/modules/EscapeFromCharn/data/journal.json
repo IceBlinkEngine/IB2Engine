@@ -1,121 +1,81 @@
 [
   {
-    "Name": "Andy's Message",
-    "Tag": "AndyQuest",
+    "Name": "Adwen's Tasks",
+    "Tag": "adwens_tasks",
     "Entries": [
       {
-        "EntryTitle": "See Dalin",
-        "EntryText": "One of the towns' runners, Andy, has given you a message.  Dalin, the Chief Judge, needs to speak with you right away.  He is located in the Civic Building.",
-        "Tag": "andy1",
+        "EntryTitle": "Adwen's Tasks",
+        "EntryText": "Father has instructed you that you are to travel to Derik's home.  You should pass through the caves, being careful to stay on the main path.  You recall that there is a secret passage near a pond that takes you to behind a waterfall.  The part of the cave beyond the waterfall is often visited by the locals, but they have not discovered the hidden passage.  Only Derik has passed through.  The passage only works for some and only for those who believe it is real.  Continue on through caves to the Port Town.  Find Derik and he will have further instructions.",
+        "Tag": "10",
         "EntryId": 0,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Dalin Visited",
-        "EntryText": "You have spoken with Dalin.",
-        "Tag": "andy2",
+        "EntryTitle": "Adwen's Tasks",
+        "EntryText": "You did as your father asked and met with Derik for further instructions.",
+        "Tag": "20",
         "EntryId": 0,
-        "EndPoint": false
+        "EndPoint": true
       }
     ]
   },
   {
-    "Name": "Dalin's Task",
-    "Tag": "dalinQuest",
+    "Name": "Derik's Instuctions",
+    "Tag": "deriks_instructions",
     "Entries": [
       {
-        "EntryTitle": "Message to Verto",
-        "EntryText": "Dalin has asked you to deliver a message to Verto (he is located in the guard barracks).  Tell him that a search and rescue party is to be formed.  Verto is to lead the team as soon as possible.",
-        "Tag": "dalin1",
+        "EntryTitle": "Derik's Instuctions",
+        "EntryText": "Aslan has instructed you, Melia, and Snowball to search out the secret entrance to the Queen Jadis' castle.  Snowball knows the area and your father's map shows the exact location of the entrance.  Find the Eyes of Knowledge in the treasure room and leave without being noticed.  Your Father's map shows where the secret door to the treasure room is located.  Meet back at the Cave of Knowledge for further instructions.",
+        "Tag": "10",
         "EntryId": 0,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Message Delivered",
-        "EntryText": "You delivered Dalin's message to Verto.",
-        "Tag": "dalin2",
+        "EntryTitle": "Derik's Instuctions",
+        "EntryText": "You returned to the Cave of Knowledge with the Eyes of Knowledge.",
+        "Tag": "20",
         "EntryId": 0,
-        "EndPoint": false
+        "EndPoint": true
       }
     ]
   },
   {
-    "Name": "Find your Sister",
-    "Tag": "findSister",
+    "Name": "Elos' Insrtuctions",
+    "Tag": "elos_instructions",
     "Entries": [
       {
-        "EntryTitle": "Search for your Sister",
-        "EntryText": "Your sister and her friends have been abducted and you must find them if you can.  Their last known location was at the secret falls.  You can go it alone or travel with the search and rescue team. If you wish to question Tindra, she can be found at the Sanctuary.",
-        "Tag": "sister1",
+        "EntryTitle": "Elos' Insrtuctions",
+        "EntryText": "Elos has spoken to you in a dream.  He asked you to speak with your father, Adwen, immediately for further instructions.",
+        "Tag": "10",
         "EntryId": 0,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Found your Sister",
-        "EntryText": "You found your sister and her friends and set them free.",
-        "Tag": "sister2",
+        "EntryTitle": "Elos' Insrtuctions",
+        "EntryText": "You did as Elos commanded and spoke with your father, Adwen.",
+        "Tag": "20",
         "EntryId": 0,
-        "EndPoint": false
+        "EndPoint": true
       }
     ]
   },
   {
-    "Name": "Search and Rescue",
-    "Tag": "SaRQuest",
+    "Name": "Seth's Gift for Haley",
+    "Tag": "seth_gift",
     "Entries": [
       {
-        "EntryTitle": "Joining the Search and Rescue Team",
-        "EntryText": "Dalin has asked you to deliver a message to Verto (he is located in the guard barracks).  Tell him that a search and rescue party is to be formed.  Verto is to lead the team as soon as possible.",
-        "Tag": "sar1",
+        "EntryTitle": "Seth's Gift for Haley",
+        "EntryText": "Seth has asked you to deliver a gift  to Haley Wendur.  She can most likely be found somewhere in Port Town (maybe the Wendur's home or around the town center).",
+        "Tag": "10",
         "EntryId": 0,
         "EndPoint": false
       },
       {
-        "EntryTitle": "Joined the Search and Rescue Team",
-        "EntryText": "You have joined the Search and Rescue team.",
-        "Tag": "sar2",
+        "EntryTitle": "Seth's Gift for Haley",
+        "EntryText": "You have given Haley the gift from your brother, Seth.",
+        "Tag": "20",
         "EntryId": 0,
-        "EndPoint": false
-      }
-    ]
-  },
-  {
-    "Name": "Verto's Task",
-    "Tag": "vertoTask",
-    "Entries": [
-      {
-        "EntryTitle": "Get Search and Rescue Items",
-        "EntryText": "You have agreed to retrieve some items for Verto.  Go to the general store and present the list to Mero.",
-        "Tag": "sarItems1",
-        "EntryId": 0,
-        "EndPoint": false
-      },
-      {
-        "EntryTitle": "Have Search and Rescue Items",
-        "EntryText": "You have delivered the list to Mero and collected the items.",
-        "Tag": "sarItems2",
-        "EntryId": 0,
-        "EndPoint": false
-      },
-      {
-        "EntryTitle": "Delivered Search and Rescue Items",
-        "EntryText": "You have delivered the supplies to Verto.",
-        "Tag": "sarItems3",
-        "EntryId": 0,
-        "EndPoint": false
-      }
-    ]
-  },
-  {
-    "Name": "Warn Charn",
-    "Tag": "warnCharn",
-    "Entries": [
-      {
-        "EntryTitle": "Girls Warn Charn",
-        "EntryText": "The girls are off to warn Charn of The Exile's plans and hopefully rally support from the Wood Elves, Mountain Dwarves, and Talking Beasts.  When you are ready, head back to Charn.  Upon arriving, report to Dalin in the Civic Building.",
-        "Tag": "warn1",
-        "EntryId": 0,
-        "EndPoint": false
+        "EndPoint": true
       }
     ]
   }

@@ -23,39 +23,11 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Yeah, you made it.  I would love to hear everything, all of your adventures, but we must be going.|***chk_adwn_ant_rm-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 2,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Do you have time to visit now, <FirstName>?|***chk_talk_times_1-->NOT::False    |",
+          "conversationText": "Yeah, you made it.  I would love to hear everything, all of your adventures, but we must be going.",
           "IsExpanded": true,
           "subNodes": [
             {
-              "idNum": 3,
+              "idNum": 21,
               "orderNum": 0,
               "pcNode": true,
               "linkTo": 0,
@@ -64,7 +36,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "Sorry, Haley.  Not right now.",
+              "conversationText": "End Dialog",
               "IsExpanded": true,
               "subNodes": [],
               "actions": [],
@@ -75,13 +47,13 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_talk_times_1(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "adwn_ant_rm",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -89,15 +61,15 @@
         },
         {
           "idNum": 4,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Hello there,  it can't be...|***chk_drk_tsk_gvn-->NOT::False    |",
+          "conversationText": "Hello there,  it can't be...",
           "IsExpanded": true,
           "subNodes": [
             {
@@ -175,7 +147,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "Thank you, <FirstName>.  I hope we can visit again.|***set_talk_times_1-->|",
+                                  "conversationText": "Thank you, <FirstName>.  I hope we can visit again.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -188,7 +160,7 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "Continue",
+                                      "conversationText": "End Dialog",
                                       "IsExpanded": true,
                                       "subNodes": [],
                                       "actions": [],
@@ -196,143 +168,29 @@
                                       "isLink": false
                                     }
                                   ],
-                                  "actions": [
-                                    {
-                                      "a_script": "set_talk_times_1(nonIBscript)",
-                                      "a_parameter_1": null,
-                                      "a_parameter_2": null,
-                                      "a_parameter_3": null,
-                                      "a_parameter_4": null
-                                    }
-                                  ],
+                                  "actions": [],
                                   "conditions": [],
                                   "isLink": false
                                 }
                               ],
                               "actions": [],
-                              "conditions": [],
+                              "conditions": [
+                                {
+                                  "c_script": "gcCheckGlobalInt.cs",
+                                  "c_btnAndOr": null,
+                                  "c_and": false,
+                                  "c_not": false,
+                                  "c_parameter_1": "drk_tsk_gvn",
+                                  "c_parameter_2": "=",
+                                  "c_parameter_3": "1",
+                                  "c_parameter_4": null
+                                }
+                              ],
                               "isLink": false
-                            }
-                          ],
-                          "actions": [
+                            },
                             {
-                              "a_script": "ga_give_quest_xp(nonIBscript)",
-                              "a_parameter_1": "seth_gift",
-                              "a_parameter_2": null,
-                              "a_parameter_3": null,
-                              "a_parameter_4": null
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [
-                        {
-                          "a_script": "give_haley_gift(nonIBscript)",
-                          "a_parameter_1": null,
-                          "a_parameter_2": null,
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        }
-                      ],
-                      "conditions": [],
-                      "isLink": false
-                    }
-                  ],
-                  "actions": [],
-                  "conditions": [],
-                  "isLink": false
-                }
-              ],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_drk_tsk_gvn(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 12,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Hello there,  it can't be...",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 13,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Good <QuarterDay> Haley.  It' me, <FirstName>.  It's good to see you again.",
-              "IsExpanded": true,
-              "subNodes": [
-                {
-                  "idNum": 14,
-                  "orderNum": 0,
-                  "pcNode": false,
-                  "linkTo": 0,
-                  "ShowOnlyOnce": false,
-                  "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
-                  "NodeNpcName": "",
-                  "NodeSound": "none",
-                  "conversationText": "<FirstName>, It is you.  How are you and your family doing?",
-                  "IsExpanded": true,
-                  "subNodes": [
-                    {
-                      "idNum": 15,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Everything is well.  Seth wanted me to give you this.|***give_haley_gift-->|",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 16,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "Oh, how beautiful.  I would like to see him again.|***ga_give_quest_xp-->String::seth_gift    |",
-                          "IsExpanded": true,
-                          "subNodes": [
-                            {
-                              "idNum": 17,
-                              "orderNum": 0,
+                              "idNum": 22,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -344,7 +202,7 @@
                               "IsExpanded": true,
                               "subNodes": [
                                 {
-                                  "idNum": 18,
+                                  "idNum": 23,
                                   "orderNum": 0,
                                   "pcNode": false,
                                   "linkTo": 0,
@@ -357,7 +215,7 @@
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
-                                      "idNum": 19,
+                                      "idNum": 24,
                                       "orderNum": 0,
                                       "pcNode": true,
                                       "linkTo": 0,
@@ -366,18 +224,10 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "Thank you, Haley.  We'll talk more later.|***set_talk_times_1-->|",
+                                      "conversationText": "Thank you, Haley.  We'll talk more later.",
                                       "IsExpanded": true,
                                       "subNodes": [],
-                                      "actions": [
-                                        {
-                                          "a_script": "set_talk_times_1(nonIBscript)",
-                                          "a_parameter_1": null,
-                                          "a_parameter_2": null,
-                                          "a_parameter_3": null,
-                                          "a_parameter_4": null
-                                        }
-                                      ],
+                                      "actions": [],
                                       "conditions": [],
                                       "isLink": false
                                     }
@@ -431,6 +281,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Do you have time to visit now, <FirstName>?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 3,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Sorry, Haley.  Not right now.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -438,11 +323,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "haley.json",
+  "ConvoFileName": "haley",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_haley",
   "DefaultNpcName": "haley",
-  "NextIdNum": 20
+  "NextIdNum": 24
 }

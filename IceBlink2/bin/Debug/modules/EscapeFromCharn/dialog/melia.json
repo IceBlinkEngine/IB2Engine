@@ -23,19 +23,37 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "We made it.  I will follow you to meet with Aslan.|***chk_adwn_ant_rm-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
+          "conversationText": "We made it.  I will follow you to meet with Elos.",
+          "IsExpanded": false,
+          "subNodes": [
+            {
+              "idNum": 46,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "adwn_ant_rm",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -51,7 +69,7 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Yes <FirstName>,  is there something you need?|***chk_melia_joined-->NOT::False    |",
+          "conversationText": "Yes <FirstName>,  is there something you need?",
           "IsExpanded": false,
           "subNodes": [
             {
@@ -376,11 +394,11 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_melia_joined(nonIBscript)",
+              "c_script": "gcCheckPcInPartyByName.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
+              "c_parameter_1": "Melia",
               "c_parameter_2": null,
               "c_parameter_3": null,
               "c_parameter_4": null
@@ -398,8 +416,8 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Have you spoken with my father?|***chk_drk_tsk_gvn-->NOT::False    |",
-          "IsExpanded": false,
+          "conversationText": "Have you spoken with my father?",
+          "IsExpanded": true,
           "subNodes": [
             {
               "idNum": 22,
@@ -450,7 +468,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "Mother and I made all of the preparations.  Here are a few items we will need to bring with us.  Are you ready to go?|***melia_tsk_items-->|",
+                          "conversationText": "Mother and I made all of the preparations.  Here are a few items we will need to bring with us.  Are you ready to go?",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -502,7 +520,7 @@
                                           "NodePortraitBitmap": "",
                                           "NodeNpcName": "",
                                           "NodeSound": "none",
-                                          "conversationText": "Once snowball is with us, I will give you the key to the gate.  The gate to the forest is just behind my home.|***ga_roster_add_object-->String::Melia    String::Melia    ***ga_roster_selectable-->String::Melia    Int::1    ***ga_roster_party_add-->String::Melia    ***ga_reset_level-->String::Melia    Int::1    ***set_melia_joined-->|",
+                                          "conversationText": "Once snowball is with us, I will give you the key to the gate.  The gate to the forest is just behind my home.",
                                           "IsExpanded": true,
                                           "subNodes": [
                                             {
@@ -515,7 +533,7 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "Continue",
+                                              "conversationText": "End Dialog",
                                               "IsExpanded": true,
                                               "subNodes": [],
                                               "actions": [],
@@ -525,36 +543,8 @@
                                           ],
                                           "actions": [
                                             {
-                                              "a_script": "ga_roster_add_object(nonIBscript)",
-                                              "a_parameter_1": "Melia",
-                                              "a_parameter_2": "Melia",
-                                              "a_parameter_3": null,
-                                              "a_parameter_4": null
-                                            },
-                                            {
-                                              "a_script": "ga_roster_selectable(nonIBscript)",
-                                              "a_parameter_1": "Melia",
-                                              "a_parameter_2": "1",
-                                              "a_parameter_3": null,
-                                              "a_parameter_4": null
-                                            },
-                                            {
-                                              "a_script": "ga_roster_party_add(nonIBscript)",
-                                              "a_parameter_1": "Melia",
-                                              "a_parameter_2": null,
-                                              "a_parameter_3": null,
-                                              "a_parameter_4": null
-                                            },
-                                            {
-                                              "a_script": "ga_reset_level(nonIBscript)",
-                                              "a_parameter_1": "Melia",
-                                              "a_parameter_2": "1",
-                                              "a_parameter_3": null,
-                                              "a_parameter_4": null
-                                            },
-                                            {
-                                              "a_script": "set_melia_joined(nonIBscript)",
-                                              "a_parameter_1": null,
+                                              "a_script": "gaAddPartyMember.cs",
+                                              "a_parameter_1": "melia.json",
                                               "a_parameter_2": null,
                                               "a_parameter_3": null,
                                               "a_parameter_4": null
@@ -581,9 +571,16 @@
                           ],
                           "actions": [
                             {
-                              "a_script": "melia_tsk_items(nonIBscript)",
-                              "a_parameter_1": null,
-                              "a_parameter_2": null,
+                              "a_script": "gaGiveItem.cs",
+                              "a_parameter_1": "campingKit",
+                              "a_parameter_2": "1",
+                              "a_parameter_3": null,
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "gaGiveItem.cs",
+                              "a_parameter_1": "minorhealpotion",
+                              "a_parameter_2": "4",
                               "a_parameter_3": null,
                               "a_parameter_4": null
                             }
@@ -610,59 +607,13 @@
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_drk_tsk_gvn(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 31,
-          "orderNum": 3,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Have you spoken with my father?|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": false,
-          "subNodes": [
-            {
-              "idNum": 32,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "No, not yet.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "drk_tsk_gvn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -670,10 +621,10 @@
         },
         {
           "idNum": 33,
-          "orderNum": 4,
+          "orderNum": 3,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -691,7 +642,7 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "<StartHighlight>[confident]</Start> Hello Melia.  It has been a long time.  It appears that the years have favored you with remarkable beauty.|***melia_favor-->|",
+              "conversationText": "<StartHighlight>[confident]</Start> Hello Melia.  It has been a long time.  It appears that the years have favored you with remarkable beauty.",
               "IsExpanded": true,
               "subNodes": [
                 {
@@ -756,7 +707,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "I would enjoy that.  Farwell, for now.|***set_talk_times_1-->|",
+                                  "conversationText": "I would enjoy that.  Farwell, for now.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -777,15 +728,7 @@
                                       "isLink": false
                                     }
                                   ],
-                                  "actions": [
-                                    {
-                                      "a_script": "set_talk_times_1(nonIBscript)",
-                                      "a_parameter_1": null,
-                                      "a_parameter_2": null,
-                                      "a_parameter_3": null,
-                                      "a_parameter_4": null
-                                    }
-                                  ],
+                                  "actions": [],
                                   "conditions": [],
                                   "isLink": false
                                 }
@@ -812,9 +755,9 @@
               ],
               "actions": [
                 {
-                  "a_script": "melia_favor(nonIBscript)",
-                  "a_parameter_1": null,
-                  "a_parameter_2": null,
+                  "a_script": "gaSetGlobalInt.cs",
+                  "a_parameter_1": "melia_favor",
+                  "a_parameter_2": "++",
                   "a_parameter_3": null,
                   "a_parameter_4": null
                 }
@@ -858,18 +801,10 @@
                       "NodePortraitBitmap": "",
                       "NodeNpcName": "",
                       "NodeSound": "none",
-                      "conversationText": "Thank you, good bye.|***set_talk_times_1-->|",
+                      "conversationText": "Thank you, good bye.",
                       "IsExpanded": true,
                       "subNodes": [],
-                      "actions": [
-                        {
-                          "a_script": "set_talk_times_1(nonIBscript)",
-                          "a_parameter_1": null,
-                          "a_parameter_2": null,
-                          "a_parameter_3": null,
-                          "a_parameter_4": null
-                        }
-                      ],
+                      "actions": [],
                       "conditions": [],
                       "isLink": false
                     }
@@ -922,6 +857,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 31,
+          "orderNum": 4,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Have you spoken with my father?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 32,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, not yet.",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -935,5 +905,5 @@
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_melia",
   "DefaultNpcName": "melia",
-  "NextIdNum": 45
+  "NextIdNum": 46
 }

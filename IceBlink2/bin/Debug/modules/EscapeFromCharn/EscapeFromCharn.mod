@@ -32,6 +32,7 @@
   ],
   "moduleConvosList": [
     "adwen",
+    "adwen_end",
     "branan",
     "caveAttackEnc1",
     "containerDC15",
@@ -43,7 +44,6 @@
     "dall",
     "darstin",
     "derik",
-    "door02",
     "doorDC15",
     "doorDC20",
     "doorDC25",
@@ -58,17 +58,24 @@
     "kala",
     "kati",
     "lidnee",
+    "lidnee_end",
     "lorista",
     "melia",
     "sasha",
     "secret_convo",
     "seth",
+    "seth_end",
     "snowball",
     "tera",
     "tuldor",
+    "tuldor_end",
     "valdur",
+    "valdur_end",
     "wila",
-    "will"
+    "will",
+    "town_exit_locked",
+    "town_to_forest",
+    "cave_knowledge_door"
   ],
   "moduleLogicTreesList": [
     "doConvo",
@@ -94,7 +101,48 @@
   "moduleGlobalInts": [],
   "moduleGlobalStrings": [],
   "moduleConvoSavedValuesList": [],
-  "ModuleGlobalListItems": [],
+  "ModuleGlobalListItems": [
+    {
+      "GlobalName": "adwn_ant_rm",
+      "GlobalNotes": "0 = false; 1 = true"
+    },
+    {
+      "GlobalName": "adwn_tsk_gvn",
+      "GlobalNotes": "1 = task given; 0 = task not given yet"
+    },
+    {
+      "GlobalName": "valdur_talk_times",
+      "GlobalNotes": "2 = spoke to about adwen task"
+    },
+    {
+      "GlobalName": "tuldor_talk_times",
+      "GlobalNotes": "2 = talked to about task"
+    },
+    {
+      "GlobalName": "seth_talk_times",
+      "GlobalNotes": "2 = after talked to adwen"
+    },
+    {
+      "GlobalName": "gift_for_haley",
+      "GlobalNotes": "1 = task given"
+    },
+    {
+      "GlobalName": "drk_tsk_gvn",
+      "GlobalNotes": "0=false; 1=true;"
+    },
+    {
+      "GlobalName": "branan_lks_m",
+      "GlobalNotes": "0=not set; 1=set"
+    },
+    {
+      "GlobalName": "haley_talked_to",
+      "GlobalNotes": "0=false; 1=true"
+    },
+    {
+      "GlobalName": "melia_favor",
+      "GlobalNotes": "incremental of how melia thinks of you, reputation"
+    }
+  ],
   "ModuleLocalListItems": [],
   "playerLocationX": 0,
   "playerLocationY": 0,
@@ -147,7 +195,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "This is a spin off idea based on the Chronicles of Narnia by C.S. Lewis.  The story takes place in Charn. This module plays more like a short story than a RPG. It was designed to be more of a background story to future modules. It was meant to be played as a male, human, fighter type (fighter, ranger, paladin, cleric, etc.). Your character's age is 21 and you should be of good alignment. I know, too many restrictions, but like I said, this module is more like a short story than a true RPG.",
   "moduleCredits": "<big><b>Chronicles of Charnia - Escape from Charn by slowdive_fan</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 15283,
+  "nextIdNumber": 15393,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 300,

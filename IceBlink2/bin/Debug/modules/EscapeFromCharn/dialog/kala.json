@@ -14,39 +14,11 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Let us continue with our play, students.|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 2,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -142,18 +114,10 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "Good bye.|***set_talk_times_1-->|",
+                                      "conversationText": "Good bye.",
                                       "IsExpanded": true,
                                       "subNodes": [],
-                                      "actions": [
-                                        {
-                                          "a_script": "set_talk_times_1(nonIBscript)",
-                                          "a_parameter_1": null,
-                                          "a_parameter_2": null,
-                                          "a_parameter_3": null,
-                                          "a_parameter_4": null
-                                        }
-                                      ],
+                                      "actions": [],
                                       "conditions": [],
                                       "isLink": false
                                     }
@@ -191,6 +155,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Let us continue with our play, students.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 11,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -198,11 +197,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "kala.json",
+  "ConvoFileName": "kala",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_kala",
   "DefaultNpcName": "kala",
-  "NextIdNum": 10
+  "NextIdNum": 11
 }

@@ -14,39 +14,11 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "I see you're still here.  There's nothing for you in Port Town.  I suggest you leave soon.|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 2,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -103,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "And someday, Melia Wendur will be my wife, so you can forget about her.|***set_branan_lks_m-->|",
+                          "conversationText": "And someday, Melia Wendur will be my wife, so you can forget about her.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -168,18 +140,10 @@
                                               "NodePortraitBitmap": "",
                                               "NodeNpcName": "",
                                               "NodeSound": "none",
-                                              "conversationText": "Bye, Branan.|***set_talk_times_1-->|",
+                                              "conversationText": "Bye, Branan.",
                                               "IsExpanded": true,
                                               "subNodes": [],
-                                              "actions": [
-                                                {
-                                                  "a_script": "set_talk_times_1(nonIBscript)",
-                                                  "a_parameter_1": null,
-                                                  "a_parameter_2": null,
-                                                  "a_parameter_3": null,
-                                                  "a_parameter_4": null
-                                                }
-                                              ],
+                                              "actions": [],
                                               "conditions": [],
                                               "isLink": false
                                             }
@@ -206,9 +170,9 @@
                           ],
                           "actions": [
                             {
-                              "a_script": "set_branan_lks_m(nonIBscript)",
-                              "a_parameter_1": null,
-                              "a_parameter_2": null,
+                              "a_script": "gaSetGlobalInt.cs",
+                              "a_parameter_1": "branan_lks_m",
+                              "a_parameter_2": "1",
                               "a_parameter_3": null,
                               "a_parameter_4": null
                             }
@@ -233,7 +197,7 @@
             },
             {
               "idNum": 12,
-              "orderNum": 0,
+              "orderNum": 1,
               "pcNode": true,
               "linkTo": 0,
               "ShowOnlyOnce": false,
@@ -254,7 +218,7 @@
                   "NodePortraitBitmap": "",
                   "NodeNpcName": "",
                   "NodeSound": "none",
-                  "conversationText": "Continue",
+                  "conversationText": "I've wasted enough time talking with you.  I have many important tasks to attend to.",
                   "IsExpanded": true,
                   "subNodes": [],
                   "actions": [],
@@ -270,6 +234,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I see you're still here.  There's nothing for you in Port Town.  I suggest you leave soon.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 14,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -277,11 +276,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "branan.json",
+  "ConvoFileName": "branan",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_branan",
   "DefaultNpcName": "branan",
-  "NextIdNum": 13
+  "NextIdNum": 14
 }

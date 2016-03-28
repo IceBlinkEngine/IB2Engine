@@ -14,247 +14,11 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "I knew you could do it.|***chk_adwn_ant_rm-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 2,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Good luck <FirstName>.  Give my greetings to Derik and family.  Especially Haley, she was cute.|***chk_talk_times_2-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_2(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 3,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Have you spoken with father?|***chk_adwn_tsk_gvn-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 4,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "Yes.  Elos has an important task for us.",
-              "IsExpanded": true,
-              "subNodes": [
-                {
-                  "idNum": 5,
-                  "orderNum": 0,
-                  "pcNode": false,
-                  "linkTo": 0,
-                  "ShowOnlyOnce": false,
-                  "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
-                  "NodeNpcName": "",
-                  "NodeSound": "none",
-                  "conversationText": "I know, but father will not let me go with you.  Be safe, big brother.",
-                  "IsExpanded": true,
-                  "subNodes": [
-                    {
-                      "idNum": 6,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "I will.",
-                      "IsExpanded": true,
-                      "subNodes": [
-                        {
-                          "idNum": 7,
-                          "orderNum": 0,
-                          "pcNode": false,
-                          "linkTo": 0,
-                          "ShowOnlyOnce": false,
-                          "NodeIsActive": true,
-                          "NodePortraitBitmap": "",
-                          "NodeNpcName": "",
-                          "NodeSound": "none",
-                          "conversationText": "Can you give this to Haley?  I wanted to deliever it myself.  She was very kind to me.|***gift_for_haley-->|",
-                          "IsExpanded": true,
-                          "subNodes": [
-                            {
-                              "idNum": 8,
-                              "orderNum": 0,
-                              "pcNode": true,
-                              "linkTo": 0,
-                              "ShowOnlyOnce": false,
-                              "NodeIsActive": true,
-                              "NodePortraitBitmap": "",
-                              "NodeNpcName": "",
-                              "NodeSound": "none",
-                              "conversationText": "Yes, I will make sure she gets it.  Good bye, Seth.|***set_talk_times_2-->|",
-                              "IsExpanded": true,
-                              "subNodes": [],
-                              "actions": [
-                                {
-                                  "a_script": "set_talk_times_2(nonIBscript)",
-                                  "a_parameter_1": null,
-                                  "a_parameter_2": null,
-                                  "a_parameter_3": null,
-                                  "a_parameter_4": null
-                                }
-                              ],
-                              "conditions": [],
-                              "isLink": false
-                            }
-                          ],
-                          "actions": [
-                            {
-                              "a_script": "gift_for_haley(nonIBscript)",
-                              "a_parameter_1": null,
-                              "a_parameter_2": null,
-                              "a_parameter_3": null,
-                              "a_parameter_4": null
-                            }
-                          ],
-                          "conditions": [],
-                          "isLink": false
-                        }
-                      ],
-                      "actions": [],
-                      "conditions": [],
-                      "isLink": false
-                    }
-                  ],
-                  "actions": [],
-                  "conditions": [],
-                  "isLink": false
-                }
-              ],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_adwn_tsk_gvn(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
-          "idNum": 9,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "So, have you spoken with father yet?|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [
-            {
-              "idNum": 10,
-              "orderNum": 0,
-              "pcNode": true,
-              "linkTo": 0,
-              "ShowOnlyOnce": false,
-              "NodeIsActive": true,
-              "NodePortraitBitmap": "",
-              "NodeNpcName": "",
-              "NodeSound": "none",
-              "conversationText": "No, not yet.",
-              "IsExpanded": true,
-              "subNodes": [],
-              "actions": [],
-              "conditions": [],
-              "isLink": false
-            }
-          ],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 11,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -311,7 +75,7 @@
                           "NodePortraitBitmap": "",
                           "NodeNpcName": "",
                           "NodeSound": "none",
-                          "conversationText": "Father has be looking for you.  He's up in his study with mother, waiting for their berries.  Please come talk with me once you have met with father.|***set_talk_times_1-->|",
+                          "conversationText": "Father has be looking for you.  He's up in his study with mother, waiting for their berries.  Please come talk with me once you have met with father.",
                           "IsExpanded": true,
                           "subNodes": [
                             {
@@ -324,7 +88,7 @@
                               "NodePortraitBitmap": "",
                               "NodeNpcName": "",
                               "NodeSound": "none",
-                              "conversationText": "Continue",
+                              "conversationText": "End Dialog",
                               "IsExpanded": true,
                               "subNodes": [],
                               "actions": [],
@@ -332,11 +96,239 @@
                               "isLink": false
                             }
                           ],
+                          "actions": [],
+                          "conditions": [],
+                          "isLink": false
+                        }
+                      ],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            },
+            {
+              "idNum": 17,
+              "orderNum": 1,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "No, but I'm awake now and ready to get to work.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 18,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "Father has be looking for you.  He's up in his study with mother, waiting for their berries.  Please come talk with me once you have met with father.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 19,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "End Dialog",
+                      "IsExpanded": true,
+                      "subNodes": [],
+                      "actions": [],
+                      "conditions": [],
+                      "isLink": false
+                    }
+                  ],
+                  "actions": [],
+                  "conditions": [],
+                  "isLink": false
+                }
+              ],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Good luck <FirstName>.  Give my greetings to Derik and family.  Especially Haley, she was cute.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 21,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [
+            {
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "seth_talk_times",
+              "c_parameter_2": "=",
+              "c_parameter_3": "2",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 3,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Have you spoken with father?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 4,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "Yes.  Elos has an important task for us.",
+              "IsExpanded": true,
+              "subNodes": [
+                {
+                  "idNum": 5,
+                  "orderNum": 0,
+                  "pcNode": false,
+                  "linkTo": 0,
+                  "ShowOnlyOnce": false,
+                  "NodeIsActive": true,
+                  "NodePortraitBitmap": "",
+                  "NodeNpcName": "",
+                  "NodeSound": "none",
+                  "conversationText": "I know, but father will not let me go with you.  Be safe, big brother.",
+                  "IsExpanded": true,
+                  "subNodes": [
+                    {
+                      "idNum": 6,
+                      "orderNum": 0,
+                      "pcNode": true,
+                      "linkTo": 0,
+                      "ShowOnlyOnce": false,
+                      "NodeIsActive": true,
+                      "NodePortraitBitmap": "",
+                      "NodeNpcName": "",
+                      "NodeSound": "none",
+                      "conversationText": "I will.",
+                      "IsExpanded": true,
+                      "subNodes": [
+                        {
+                          "idNum": 7,
+                          "orderNum": 0,
+                          "pcNode": false,
+                          "linkTo": 0,
+                          "ShowOnlyOnce": false,
+                          "NodeIsActive": true,
+                          "NodePortraitBitmap": "",
+                          "NodeNpcName": "",
+                          "NodeSound": "none",
+                          "conversationText": "Can you give this to Haley?  I wanted to deliever it myself.  She was very kind to me.",
+                          "IsExpanded": true,
+                          "subNodes": [
+                            {
+                              "idNum": 8,
+                              "orderNum": 0,
+                              "pcNode": true,
+                              "linkTo": 0,
+                              "ShowOnlyOnce": false,
+                              "NodeIsActive": true,
+                              "NodePortraitBitmap": "",
+                              "NodeNpcName": "",
+                              "NodeSound": "none",
+                              "conversationText": "Yes, I will make sure she gets it.  Good bye, Seth.",
+                              "IsExpanded": true,
+                              "subNodes": [],
+                              "actions": [
+                                {
+                                  "a_script": "gaSetGlobalInt.cs",
+                                  "a_parameter_1": "seth_talk_times",
+                                  "a_parameter_2": "2",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                },
+                                {
+                                  "a_script": "gaAddJournalEntryByTag.cs",
+                                  "a_parameter_1": "seth_gift",
+                                  "a_parameter_2": "10",
+                                  "a_parameter_3": null,
+                                  "a_parameter_4": null
+                                }
+                              ],
+                              "conditions": [],
+                              "isLink": false
+                            }
+                          ],
                           "actions": [
                             {
-                              "a_script": "set_talk_times_1(nonIBscript)",
-                              "a_parameter_1": null,
-                              "a_parameter_2": null,
+                              "a_script": "gaSetGlobalInt.cs",
+                              "a_parameter_1": "gift_for_haley",
+                              "a_parameter_2": "1",
+                              "a_parameter_3": null,
+                              "a_parameter_4": null
+                            },
+                            {
+                              "a_script": "gaGiveItem.cs",
+                              "a_parameter_1": "giftforhaley",
+                              "a_parameter_2": "1",
                               "a_parameter_3": null,
                               "a_parameter_4": null
                             }
@@ -358,9 +350,38 @@
               "actions": [],
               "conditions": [],
               "isLink": false
-            },
+            }
+          ],
+          "actions": [],
+          "conditions": [
             {
-              "idNum": 17,
+              "c_script": "gcCheckGlobalInt.cs",
+              "c_btnAndOr": null,
+              "c_and": false,
+              "c_not": false,
+              "c_parameter_1": "adwn_tsk_gvn",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
+              "c_parameter_4": null
+            }
+          ],
+          "isLink": false
+        },
+        {
+          "idNum": 9,
+          "orderNum": 3,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "So, have you spoken with father yet?",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 10,
               "orderNum": 0,
               "pcNode": true,
               "linkTo": 0,
@@ -369,53 +390,9 @@
               "NodePortraitBitmap": "",
               "NodeNpcName": "",
               "NodeSound": "none",
-              "conversationText": "No, but I'm awake now and ready to get to work.",
+              "conversationText": "No, not yet.",
               "IsExpanded": true,
-              "subNodes": [
-                {
-                  "idNum": 18,
-                  "orderNum": 0,
-                  "pcNode": false,
-                  "linkTo": 0,
-                  "ShowOnlyOnce": false,
-                  "NodeIsActive": true,
-                  "NodePortraitBitmap": "",
-                  "NodeNpcName": "",
-                  "NodeSound": "none",
-                  "conversationText": "Father has be looking for you.  He's up in his study with mother, waiting for their berries.  Please come talk with me once you have met with father.|***set_talk_times_1-->|",
-                  "IsExpanded": true,
-                  "subNodes": [
-                    {
-                      "idNum": 19,
-                      "orderNum": 0,
-                      "pcNode": true,
-                      "linkTo": 0,
-                      "ShowOnlyOnce": false,
-                      "NodeIsActive": true,
-                      "NodePortraitBitmap": "",
-                      "NodeNpcName": "",
-                      "NodeSound": "none",
-                      "conversationText": "Continue",
-                      "IsExpanded": true,
-                      "subNodes": [],
-                      "actions": [],
-                      "conditions": [],
-                      "isLink": false
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "a_script": "set_talk_times_1(nonIBscript)",
-                      "a_parameter_1": null,
-                      "a_parameter_2": null,
-                      "a_parameter_3": null,
-                      "a_parameter_4": null
-                    }
-                  ],
-                  "conditions": [],
-                  "isLink": false
-                }
-              ],
+              "subNodes": [],
               "actions": [],
               "conditions": [],
               "isLink": false
@@ -431,11 +408,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "seth.json",
+  "ConvoFileName": "seth",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_seth",
   "DefaultNpcName": "seth",
-  "NextIdNum": 20
+  "NextIdNum": 21
 }

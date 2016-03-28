@@ -23,47 +23,37 @@
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
           "NodeSound": "none",
-          "conversationText": "Thank you, <FirstName>.  And you Melia, you never cease to amaze me, little sister.  Now, to this new world Elos has prepared.|***chk_adwn_ant_rm-->NOT::False    |",
+          "conversationText": "Thank you, <FirstName>.  And you Melia, you never cease to amaze me, little sister.  Now, to this new world Elos has prepared.",
           "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
+          "subNodes": [
             {
-              "c_script": "chk_adwn_ant_rm(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
+              "idNum": 12,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
             }
           ],
-          "isLink": false
-        },
-        {
-          "idNum": 2,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "Good luck on your journey.  We'll see you back here soon.|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
           "actions": [],
           "conditions": [
             {
-              "c_script": "chk_talk_times_1(nonIBscript)",
+              "c_script": "gcCheckGlobalInt.cs",
               "c_btnAndOr": null,
               "c_and": false,
               "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
+              "c_parameter_1": "adwn_ant_rm",
+              "c_parameter_2": "=",
+              "c_parameter_3": "1",
               "c_parameter_4": null
             }
           ],
@@ -71,10 +61,10 @@
         },
         {
           "idNum": 3,
-          "orderNum": 0,
+          "orderNum": 1,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -170,18 +160,10 @@
                                       "NodePortraitBitmap": "",
                                       "NodeNpcName": "",
                                       "NodeSound": "none",
-                                      "conversationText": "Thank you, Gwen.  It is good to see you again.|***set_talk_times_1-->|",
+                                      "conversationText": "Thank you, Gwen.  It is good to see you again.",
                                       "IsExpanded": true,
                                       "subNodes": [],
-                                      "actions": [
-                                        {
-                                          "a_script": "set_talk_times_1(nonIBscript)",
-                                          "a_parameter_1": null,
-                                          "a_parameter_2": null,
-                                          "a_parameter_3": null,
-                                          "a_parameter_4": null
-                                        }
-                                      ],
+                                      "actions": [],
                                       "conditions": [],
                                       "isLink": false
                                     }
@@ -219,6 +201,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 2,
+          "orderNum": 2,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "Good luck on your journey.  We'll see you back here soon.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 13,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -226,11 +243,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "gwen.json",
+  "ConvoFileName": "gwen",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_gwen",
   "DefaultNpcName": "gwen",
-  "NextIdNum": 11
+  "NextIdNum": 13
 }

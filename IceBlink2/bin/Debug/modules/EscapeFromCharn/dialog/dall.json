@@ -14,39 +14,11 @@
       "IsExpanded": true,
       "subNodes": [
         {
-          "idNum": 1,
-          "orderNum": 0,
-          "pcNode": false,
-          "linkTo": 0,
-          "ShowOnlyOnce": false,
-          "NodeIsActive": true,
-          "NodePortraitBitmap": "",
-          "NodeNpcName": "",
-          "NodeSound": "none",
-          "conversationText": "I hope you enjoy your visit, <FirstName>.|***chk_talk_times_1-->NOT::False    |",
-          "IsExpanded": true,
-          "subNodes": [],
-          "actions": [],
-          "conditions": [
-            {
-              "c_script": "chk_talk_times_1(nonIBscript)",
-              "c_btnAndOr": null,
-              "c_and": false,
-              "c_not": false,
-              "c_parameter_1": null,
-              "c_parameter_2": null,
-              "c_parameter_3": null,
-              "c_parameter_4": null
-            }
-          ],
-          "isLink": false
-        },
-        {
           "idNum": 2,
           "orderNum": 0,
           "pcNode": false,
           "linkTo": 0,
-          "ShowOnlyOnce": false,
+          "ShowOnlyOnce": true,
           "NodeIsActive": true,
           "NodePortraitBitmap": "",
           "NodeNpcName": "",
@@ -129,7 +101,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "Wonderful.  Well, I better get back to work on Westin's axe.  He needs it right away.|***set_talk_times_1-->|",
+                                  "conversationText": "Wonderful.  Well, I better get back to work on Westin's axe.  He needs it right away.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -150,15 +122,7 @@
                                       "isLink": false
                                     }
                                   ],
-                                  "actions": [
-                                    {
-                                      "a_script": "set_talk_times_1(nonIBscript)",
-                                      "a_parameter_1": null,
-                                      "a_parameter_2": null,
-                                      "a_parameter_3": null,
-                                      "a_parameter_4": null
-                                    }
-                                  ],
+                                  "actions": [],
                                   "conditions": [],
                                   "isLink": false
                                 }
@@ -169,7 +133,7 @@
                             },
                             {
                               "idNum": 10,
-                              "orderNum": 0,
+                              "orderNum": 1,
                               "pcNode": true,
                               "linkTo": 0,
                               "ShowOnlyOnce": false,
@@ -190,7 +154,7 @@
                                   "NodePortraitBitmap": "",
                                   "NodeNpcName": "",
                                   "NodeSound": "none",
-                                  "conversationText": "Wonderful.  Well, I better get back to work on Westin's axe.  He needs it right away.|***set_talk_times_1-->|",
+                                  "conversationText": "Wonderful.  Well, I better get back to work on Westin's axe.  He needs it right away.",
                                   "IsExpanded": true,
                                   "subNodes": [
                                     {
@@ -211,15 +175,7 @@
                                       "isLink": false
                                     }
                                   ],
-                                  "actions": [
-                                    {
-                                      "a_script": "set_talk_times_1(nonIBscript)",
-                                      "a_parameter_1": null,
-                                      "a_parameter_2": null,
-                                      "a_parameter_3": null,
-                                      "a_parameter_4": null
-                                    }
-                                  ],
+                                  "actions": [],
                                   "conditions": [],
                                   "isLink": false
                                 }
@@ -252,6 +208,41 @@
           "actions": [],
           "conditions": [],
           "isLink": false
+        },
+        {
+          "idNum": 1,
+          "orderNum": 1,
+          "pcNode": false,
+          "linkTo": 0,
+          "ShowOnlyOnce": false,
+          "NodeIsActive": true,
+          "NodePortraitBitmap": "",
+          "NodeNpcName": "",
+          "NodeSound": "none",
+          "conversationText": "I hope you enjoy your visit, <FirstName>.",
+          "IsExpanded": true,
+          "subNodes": [
+            {
+              "idNum": 14,
+              "orderNum": 0,
+              "pcNode": true,
+              "linkTo": 0,
+              "ShowOnlyOnce": false,
+              "NodeIsActive": true,
+              "NodePortraitBitmap": "",
+              "NodeNpcName": "",
+              "NodeSound": "none",
+              "conversationText": "End Dialog",
+              "IsExpanded": true,
+              "subNodes": [],
+              "actions": [],
+              "conditions": [],
+              "isLink": false
+            }
+          ],
+          "actions": [],
+          "conditions": [],
+          "isLink": false
         }
       ],
       "actions": [],
@@ -259,11 +250,11 @@
       "isLink": false
     }
   ],
-  "ConvoFileName": "dall.json",
+  "ConvoFileName": "dall",
   "Narration": false,
   "PartyChat": false,
   "SpeakToMainPcOnly": false,
   "NpcPortraitBitmap": "ptr_dall",
   "DefaultNpcName": "dall",
-  "NextIdNum": 13
+  "NextIdNum": 14
 }
