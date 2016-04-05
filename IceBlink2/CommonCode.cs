@@ -1590,7 +1590,7 @@ namespace IceBlink2
             #region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {
-                addLogText("yellow", "Number of tiles, before cull:" + gv.mod.loadedTileBitmaps.Count.ToString());
+                //addLogText("yellow", "Number of tiles, before cull:" + gv.mod.loadedTileBitmaps.Count.ToString());
                 /*
                 if ((gv.mod.PlayerLastLocationX == gv.mod.PlayerLocationX) && (gv.mod.PlayerLastLocationY == gv.mod.PlayerLocationY))
                 {
@@ -1651,7 +1651,7 @@ namespace IceBlink2
                     }
                 }
 
-                addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
+                //addLogText("red", "number of tiles in cache, after cull:" + gv.mod.loadedTileBitmaps.Count);
                 //normal cleanup while moving
             }
             #endregion

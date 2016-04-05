@@ -23948,6 +23948,7 @@ namespace IceBlink2
                 int seamlessModififierMinY = 0;
                 int seamlessModififierMaxY = 0;
 
+                //player near northern border
                 if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
                 {
                     seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
@@ -23982,6 +23983,7 @@ namespace IceBlink2
                     }
                 }
 
+                //player near southern  border
                 if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
@@ -24017,6 +24019,7 @@ namespace IceBlink2
                     }
                 }
 
+                //player near western border
                 if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
                 {
                     seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
@@ -24051,6 +24054,7 @@ namespace IceBlink2
                     }
                 }
 
+                //player near eastern border
                 if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
                     seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
@@ -24085,61 +24089,61 @@ namespace IceBlink2
                     }
                 }
 
-                //bool propIsOnCurrentMap = true;
                 bool situationFound = false;
-                int relevantIndex = -1;
+                //int relevantIndex = -1;
+                List<int> relevantIndices = new List<int>();
                 int northernModifier = 0;
                 int easternModifier = 0;
                 int westernModifier = 0;
                 int southernModifier = 0;
 
                 //northwest
-                if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound && (indexOfNorthWesternNeighbour != -1))
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthWesternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfNorthWesternNeighbour;
+                    relevantIndices.Add(indexOfNorthWesternNeighbour);
                 }
                 //northeast
-                if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound && (indexOfNorthEasternNeighbour != -1))
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && (indexOfNorthEasternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfNorthEasternNeighbour;
+                    relevantIndices.Add(indexOfNorthEasternNeighbour);
                 }
                 //southwest
-                if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthWesternNeighbour != -1))
+                if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthWesternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfSouthWesternNeighbour;
+                    relevantIndices.Add(indexOfSouthWesternNeighbour);
                 }
                 //southeast
-                if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthEasternNeighbour != -1))
+                if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && (indexOfSouthEasternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfSouthEasternNeighbour;
+                    relevantIndices.Add(indexOfSouthEasternNeighbour);
                 }
                 //north
-                if ((seamlessModififierMinY > 0) && !situationFound && (indexOfNorthernNeighbour != -1))
+                if ((seamlessModififierMinY > 0) && (indexOfNorthernNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfNorthernNeighbour;
+                    relevantIndices.Add(indexOfNorthernNeighbour);
                 }
                 //south
-                if ((seamlessModififierMaxY > 0) && !situationFound && (indexOfSouthernNeighbour != -1))
+                if ((seamlessModififierMaxY > 0) && (indexOfSouthernNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfSouthernNeighbour;
+                    relevantIndices.Add(indexOfSouthernNeighbour);
                 }
                 //west
-                if ((seamlessModififierMinX > 0) && !situationFound && (indexOfWesternNeighbour != -1))
+                if ((seamlessModififierMinX > 0) && (indexOfWesternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfWesternNeighbour;
+                    relevantIndices.Add(indexOfWesternNeighbour);
                 }
                 //east
-                if ((seamlessModififierMaxX > 0) && !situationFound && (indexOfEasternNeighbour != -1))
+                if ((seamlessModififierMaxX > 0) && (indexOfEasternNeighbour != -1))
                 {
                     situationFound = true;
-                    relevantIndex = indexOfEasternNeighbour;
+                    relevantIndices.Add(indexOfEasternNeighbour);
                 }
                 /*
                 //current map
@@ -24156,13 +24160,13 @@ namespace IceBlink2
                 */
 
                 //XXXXXXXXXXXXXXXXXXXXXXXX
-                if (relevantIndex != -1)
+                for (int i = 0; i < relevantIndices.Count; i++)
                 {//2
 
                     int backupLocationX = -1;
                     int backupLocationY = -1;
 
-                    foreach (Prop p in mod.moduleAreasObjects[relevantIndex].Props)
+                    foreach (Prop p in mod.moduleAreasObjects[relevantIndices[i]].Props)
                     {//3
                      //only for on-movers (the movers use drawMovingProps below)
                      //if ((p.isShown) && (!p.isMover) && (p.token != null))
@@ -24171,7 +24175,7 @@ namespace IceBlink2
                         {
                             nonTimeDriven = false;
                         }
-
+                        int indexOfLoadedTile = -1;
                         if ((p.isShown) && (nonTimeDriven == true))
                         {//hurghkarl
 
@@ -24187,13 +24191,13 @@ namespace IceBlink2
                             {
                                 //insert1                        
                                 bool tileBitmapIsLoadedAlready = false;
-                                int indexOfLoadedTile = -1;
-                                for (int i = 0; i < gv.mod.loadedTileBitmapsNames.Count; i++)
+                                //int indexOfLoadedTile = -1;
+                                for (int j = 0; j < gv.mod.loadedTileBitmapsNames.Count; j++)
                                 {
-                                    if (gv.mod.loadedTileBitmapsNames[i] == p.ImageFileName)
+                                    if ((gv.mod.loadedTileBitmapsNames[j] == p.ImageFileName) && (!gv.mod.loadedTileBitmaps[j].IsDisposed))
                                     {
                                         tileBitmapIsLoadedAlready = true;
-                                        indexOfLoadedTile = i;
+                                        indexOfLoadedTile = j;
                                         break;
                                     }
                                 }
@@ -24204,6 +24208,8 @@ namespace IceBlink2
                                     gv.mod.loadedTileBitmapsNames.Add(p.ImageFileName);
                                     p.token = gv.cc.LoadBitmap(p.ImageFileName);
                                     gv.mod.loadedTileBitmaps.Add(p.token);
+                                    indexOfLoadedTile = gv.mod.loadedTileBitmaps.Count - 1;
+
                                 }
                             }
                             catch
@@ -24216,63 +24222,110 @@ namespace IceBlink2
 
                             //XXXXXXXXXXXXXXXXXXX
                             situationFound = false;
+
                             //northwest
-                            if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                            if (indexOfNorthWesternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
-                                p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Filename))
+                                //if ((seamlessModififierMinX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
 
+                                }
                             }
+
                             //northeast
-                            if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                            if (indexOfNorthEasternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
-                                p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Filename))
 
+                                //if ((seamlessModififierMaxX > 0) && (seamlessModififierMinY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                    p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                }
                             }
+
                             //southwest
-                            if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                            if (indexOfSouthWesternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
-                                p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Filename))
 
+                                //if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                    p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                }
                             }
+
                             //southeast
-                            if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                            if (indexOfSouthEasternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
-                                p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Filename))
 
+                                //if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                }
                             }
+
                             //north
-                            if ((seamlessModififierMinY > 0) && !situationFound)
+                            if (indexOfNorthernNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndex].MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfNorthernNeighbour].Filename))
 
+                                    //if ((seamlessModififierMinY > 0) && !situationFound)
+                                    {
+                                        situationFound = true;
+                                        p.LocationY = p.LocationY - mod.moduleAreasObjects[relevantIndices[i]].MapSizeY;
+
+                                    }
                             }
+
                             //south
-                            if ((seamlessModififierMaxY > 0) && !situationFound)
+                            if (indexOfSouthernNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfSouthernNeighbour].Filename))
 
+                                //if ((seamlessModififierMaxY > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
+
+                                }
                             }
+
                             //west
-                            if ((seamlessModififierMinX > 0) && !situationFound)
+                            if (indexOfWesternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfWesternNeighbour].Filename))
+
+                                //if ((seamlessModififierMinX > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                }
                             }
+
                             //east
-                            if ((seamlessModififierMaxX > 0) && !situationFound)
+                            if (indexOfEasternNeighbour != -1)
                             {
-                                situationFound = true;
-                                p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndex].MapSizeX;
+                                if (mod.moduleAreasObjects[relevantIndices[i]].Filename.Contains(mod.moduleAreasObjects[indexOfEasternNeighbour].Filename))
+
+                                //if ((seamlessModififierMaxX > 0) && !situationFound)
+                                {
+                                    situationFound = true;
+                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                }
                             }
 
                             //XXXXXXXXXXXXXXXXXXXXXXXX
@@ -24285,11 +24338,11 @@ namespace IceBlink2
                              //get dst rct based on distance of prop to  palyer
                                 int x = ((p.LocationX - mod.PlayerLocationX) * gv.squareSize) + (gv.playerOffsetX * gv.squareSize);
                                 int y = ((p.LocationY - mod.PlayerLocationY) * gv.squareSize) + (gv.playerOffsetY * gv.squareSize);
-                                int dstW = (int)(((float)p.token.PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
-                                int dstH = (int)(((float)p.token.PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstW = (int)(((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
+                                int dstH = (int)(((float)gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / (float)gv.squareSizeInPixels) * (float)gv.squareSize);
                                 int dstXshift = (dstW - gv.squareSize) / 2;
                                 int dstYshift = (dstH - gv.squareSize) / 2;
-                                IbRect src = new IbRect(0, 0, p.token.PixelSize.Width, p.token.PixelSize.Width);
+                                IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width);
                                 IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
 
                                 //adjust size of props
@@ -24303,7 +24356,7 @@ namespace IceBlink2
                                 }
 
                                 //draw the prop
-                                gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft);
+                                gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, !p.PropFacingLeft);
 
                                 //for shwoign whetehr prop is encounte,r optional or mandatory conversation
                                 if (mod.showInteractionState == true)
