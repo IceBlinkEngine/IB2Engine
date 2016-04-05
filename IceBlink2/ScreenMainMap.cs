@@ -24258,7 +24258,7 @@ namespace IceBlink2
                                 //if ((seamlessModififierMinX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
                                 {
                                     situationFound = true;
-                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
                                     p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
 
                                 }
@@ -24272,7 +24272,7 @@ namespace IceBlink2
                                 //if ((seamlessModififierMaxX > 0) && (seamlessModififierMaxY > 0) && !situationFound)
                                 {
                                     situationFound = true;
-                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
                                     p.LocationY = p.LocationY + mod.currentArea.MapSizeY;
 
                                 }
@@ -24312,7 +24312,7 @@ namespace IceBlink2
                                 //if ((seamlessModififierMinX > 0) && !situationFound)
                                 {
                                     situationFound = true;
-                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
+                                    p.LocationX =  p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
                                 }
                             }
 
@@ -24324,7 +24324,7 @@ namespace IceBlink2
                                 //if ((seamlessModififierMaxX > 0) && !situationFound)
                                 {
                                     situationFound = true;
-                                    p.LocationX = p.LocationX - mod.moduleAreasObjects[relevantIndices[i]].MapSizeX;
+                                    p.LocationX = p.LocationX + mod.currentArea.MapSizeX;
                                 }
                             }
 
