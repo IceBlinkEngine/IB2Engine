@@ -18,7 +18,8 @@ namespace IceBlink2
         public int timeToLiveInMilliseconds = 1000;   // The 'time to live' of the sprite in milliseconds after the startTimeInMilliseconds
         public int millisecondsPerFrame = 100;        // The amount of time (ms) before switching to next frame  
         public bool permanent = false;
-        
+        public bool movesIndependentlyFromPlayerPosition = false; //when party moves sprite position is adjusted in Common Code's doUpdate function to make it move independently
+
         //new stuff yet to add into the calculations
         public float opacity = 1.0f;                  //The transparency of the sprite, at 1.0f it's totally solid, at 0 it's invisible
         public string movementMethod = "linear";      //They way the sprite is moved across screen (i.e. how the velocities are used to determine new position)
@@ -36,7 +37,7 @@ namespace IceBlink2
         public int totalElapsedTime = 0;
 
         //overloaded constructor: complexSprite 
-        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod)
+        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod, bool movesIndependentlyFromPlayerPosition)
         {
             this.bitmap = bitmap;
             this.position = new Vector2(positionX, positionY);
@@ -53,6 +54,7 @@ namespace IceBlink2
             this.spriteType = "complexSprite";
             this.screenHeight = gv.screenHeight;
             this.screenWidth = gv.screenWidth;
+            this.movesIndependentlyFromPlayerPosition = movesIndependentlyFromPlayerPosition;
 
 
             if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }

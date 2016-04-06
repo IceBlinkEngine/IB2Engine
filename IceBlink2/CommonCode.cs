@@ -2204,6 +2204,52 @@ namespace IceBlink2
             
             //check for levelup available and switch button image
             checkLevelUpAvailable(); //move this to on update and use a plus overlay in top left
+            adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer();
+        }
+
+        public void adjustSpriteMainMapPositionToMakeItMoveIdependentlyFromPlayer()
+        {
+            float horizontalAdjustment = 0;
+            float verticalAdjustment = 0;
+
+            if ((gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX) || (gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY))
+            {
+                //moved east
+                if (gv.mod.PlayerLocationX == gv.mod.PlayerLastLocationX + 1)
+                {
+                    horizontalAdjustment = -gv.squareSize;
+                }
+
+                //moved west
+                if (gv.mod.PlayerLocationX == gv.mod.PlayerLastLocationX - 1)
+                {
+                    horizontalAdjustment = gv.squareSize;
+                }
+
+                //moved south
+                if (gv.mod.PlayerLocationY == gv.mod.PlayerLastLocationY + 1)
+                {
+                    verticalAdjustment = -gv.squareSize;
+                }
+
+                //moved north
+                if (gv.mod.PlayerLocationY == gv.mod.PlayerLastLocationY - 1)
+                {
+                    verticalAdjustment = gv.squareSize;
+                }
+            }
+
+            if ((horizontalAdjustment != 0) || (verticalAdjustment != 0))
+            {
+                foreach (Sprite spr in gv.screenMainMap.spriteList)
+                {
+                    if (spr.movesIndependentlyFromPlayerPosition)
+                    {
+                        spr.position.X += horizontalAdjustment;
+                        spr.position.Y += verticalAdjustment;
+                    }
+                }
+            }
         }
 
         public void checkLevelUpAvailable()
@@ -6684,40 +6730,14 @@ namespace IceBlink2
         }
 
 
-        //test rain
+        //test cloud
         public void cloudTest(string cloudType)
         {
             if (gv.mod.isCloudy == true)
             {
-                Sprite spr = new Sprite(gv, cloudType, gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 2000f, -(float)(gv.sf.RandInt(5) + 35) / 2000f, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100);
+                Sprite spr = new Sprite(gv, cloudType, gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 2000f, -(float)(gv.sf.RandInt(5) + 35) / 2000f, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,1,0,"linear",true);
                 gv.screenMainMap.spriteList.Add(spr);
-                /*
-                float rainChance = 0;
-                if (density == "lightRain")
-                {
-                    rainChance = gv.sf.RandInt(10) + 10;
-                }
-                else if (density == "heavyRain")
-                {
-                    rainChance = gv.sf.RandInt(40) + 25;
-                }
-                else if (density == "rain")
-                {
-                    rainChance = gv.sf.RandInt(20) + 15;
-                }
-
-                float storedIncrement = 0;
-                for (int i = 1; i < 61; i++)
-                {
-                    float increment = gv.screenWidth / 60;
-                    storedIncrement += increment;
-                    if (gv.sf.RandInt(100) < rainChance)
-                    {
-                        Sprite spr = new Sprite(gv, "cloudLayerB", gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 1000f, -(float)(gv.sf.RandInt(5) + 35) / 1000f, 0, 0, 8f, gv.sf.RandInt(10000) + 6000, false, 100);
-                        gv.screenMainMap.spriteList.Add(spr);
-                    }
-                }
-                */
+                
             }
         }
 
