@@ -575,6 +575,8 @@ namespace IceBlink2
             {
                 drawFloatyTextByPixelPool();
             }
+
+
             if (!mod.currentArea.areaDark)
             {
                 bool hideOverlayNeeded = false;
@@ -591,7 +593,6 @@ namespace IceBlink2
                 }
                 drawFogOfWar();
             }            
-
             drawSprites();
             drawTopFullScreenEffects();
             
@@ -599,9 +600,18 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
+
+            finalBlackenOffMapScreen();
             drawUiLayout();
             drawMiniMap();
         }
+
+        public void finalBlackenOffMapScreen()
+        {
+            drawRowOfBlack(gv.playerOffsetY * 2 + 1);
+            drawRowOfBlack(gv.playerOffsetY * 2 + 2);
+        }
+
         public void drawWorldMap()
         {
             if (mod.useAllTileSystem)
@@ -25395,6 +25405,7 @@ namespace IceBlink2
             {
                 spr.Draw(gv);
             }
+            drawBlackTilesOverTints();
         }
         //not used for now; later :-)
         /*public void drawOverlayWeather()
@@ -25876,10 +25887,12 @@ namespace IceBlink2
                 }
                 if (mod.currentArea.southernNeighbourArea == "")
                 {
+                    bool blackenNearBorder = false;
                     //at bottom edge
-                    for (int i = 1; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
+                    for (int i = -1; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
                     {
                         drawRowOfBlack(height - i);
+                        blackenNearBorder = true;
                     }
                 }
             }
