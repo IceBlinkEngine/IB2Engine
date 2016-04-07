@@ -21,6 +21,7 @@ namespace IceBlink2
         public bool showClock = false;
         public bool showFullParty = false;
         public bool showArrows = true;
+        public bool hideClock = false;
 
         /*private IbbButton btnParty = null;
         private IbbButton btnJournal = null;
@@ -596,7 +597,7 @@ namespace IceBlink2
             drawSprites();
             drawTopFullScreenEffects();
             
-            if (showClock)
+            if ((showClock) && (!hideClock))
             {
                 drawMainMapClockText();
             }
@@ -25469,10 +25470,10 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + 4 * gv.squareSize, 9 * gv.squareSize - txtH + y, 100, 100), 1.0f, Color.Black);
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + gv.playerOffsetY * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + 4 * gv.squareSize, 9 * gv.squareSize - txtH, 100, 100), 1.0f, Color.White);
+            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + gv.playerOffsetY * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
         }
         public void drawFogOfWar()
@@ -27727,6 +27728,14 @@ namespace IceBlink2
             }
             else if (keyData == Keys.X)
             {
+                if (!hideClock)
+                {
+                    hideClock = true;
+                }
+                else
+                {
+                    hideClock = false;
+                }
                 foreach (IB2Panel pnl in mainUiLayout.panelList)
                 {
                     //hides left
