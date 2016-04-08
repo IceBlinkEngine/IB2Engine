@@ -81,7 +81,7 @@ namespace IceBlink2
             numberOfFrames = gv.cc.GetFromBitmapList(bitmap).PixelSize.Width / frameHeight;
         }
 
-        public void Update(int elapsed)
+        public void Update(int elapsed, GameView gv)
         {
             timeToLiveInMilliseconds -= elapsed;
             totalElapsedTime += elapsed;
@@ -90,14 +90,13 @@ namespace IceBlink2
                 position += velocity * elapsed;
                 angle += angularVelocity * elapsed;
             }
-            /*
             else if (movementMethod == "clouds")
             {
                 position += velocity * elapsed;
-                if (position.X < )
+                gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
 
             }
-            */
+           
             int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
             currentFrameIndex = x / millisecondsPerFrame;            
         }

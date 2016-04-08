@@ -14,6 +14,11 @@ namespace IceBlink2
     public class Module
     {
         //public GameView gv;
+        public float pixDistanceToBorderWest = 0;
+        public float pixDistanceToBorderEast = 0;
+        public float pixDistanceToBorderNorth = 0;
+        public float pixDistanceToBorderSouth = 0;
+        public string windDirection = "";
         public bool isRaining = false;
         public bool isCloudy = false;
         public bool useManualCombatCam = true;

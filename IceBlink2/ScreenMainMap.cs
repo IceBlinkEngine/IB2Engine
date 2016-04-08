@@ -364,7 +364,7 @@ namespace IceBlink2
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
-                spr.Update(elapsed);
+                spr.Update(elapsed, gv);
             }
             for (int x = spriteList.Count - 1; x >= 0; x--)
             {

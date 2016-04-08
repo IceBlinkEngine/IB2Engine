@@ -2225,7 +2225,7 @@ namespace IceBlink2
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
-                spr.Update(elapsed);
+                spr.Update(elapsed, gv);
             }
             //remove sprite if hit end of life
             for (int x = spriteList.Count - 1; x >= 0; x--)
@@ -2262,7 +2262,7 @@ namespace IceBlink2
                         foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
                         {
                             //just update the group at the top of the stack, first in first
-                            spr.Update(elapsed);
+                            spr.Update(elapsed, gv);
                         }
                     }
                     //remove sprites if hit end of life

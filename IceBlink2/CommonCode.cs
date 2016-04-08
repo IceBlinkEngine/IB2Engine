@@ -2252,6 +2252,186 @@ namespace IceBlink2
             }
         }
 
+
+        public void setToBorderPixDistancesMainMap()
+        {
+            gv.mod.pixDistanceToBorderWest = gv.playerOffsetX;
+            gv.mod.pixDistanceToBorderEast = gv.playerOffsetX;
+            gv.mod.pixDistanceToBorderNorth = gv.playerOffsetY;
+            gv.mod.pixDistanceToBorderSouth = gv.playerOffsetY;
+
+            //near eastern border
+            if ((gv.mod.currentArea.MapSizeX - 1 - gv.mod.PlayerLocationX < gv.playerOffsetX) && (gv.mod.currentArea.easternNeighbourArea.Contains("none") || string.IsNullOrEmpty(gv.mod.currentArea.easternNeighbourArea)))
+            {
+                gv.mod.pixDistanceToBorderEast = gv.mod.currentArea.MapSizeX - 1 - gv.mod.PlayerLocationX;
+            }
+
+            //near western border
+            if ((gv.mod.PlayerLocationX < gv.playerOffsetX) && (gv.mod.currentArea.westernNeighbourArea.Contains("none") || string.IsNullOrEmpty(gv.mod.currentArea.westernNeighbourArea)))
+            {
+                gv.mod.pixDistanceToBorderWest = gv.mod.PlayerLocationX;
+            }
+
+            //near southern border
+            if ((gv.mod.currentArea.MapSizeY - 1 - gv.mod.PlayerLocationY < gv.playerOffsetY) && (gv.mod.currentArea.southernNeighbourArea.Contains("none") || string.IsNullOrEmpty(gv.mod.currentArea.southernNeighbourArea)))
+            {
+                gv.mod.pixDistanceToBorderSouth = gv.mod.currentArea.MapSizeY - 1 - gv.mod.PlayerLocationY;
+            }
+
+            //near northern border
+            if ((gv.mod.PlayerLocationY < gv.playerOffsetY) && (gv.mod.currentArea.northernNeighbourArea.Contains("none") || string.IsNullOrEmpty(gv.mod.currentArea.northernNeighbourArea)))
+            {
+                gv.mod.pixDistanceToBorderNorth = gv.mod.PlayerLocationY;
+            }
+
+            //note this is measured form the outer rims (the rim next to the border we check for) of the player's current square this way
+            gv.mod.pixDistanceToBorderEast *= gv.squareSize;
+            gv.mod.pixDistanceToBorderWest *= gv.squareSize;
+            gv.mod.pixDistanceToBorderNorth *= gv.squareSize;
+            gv.mod.pixDistanceToBorderSouth *= gv.squareSize;
+        }
+
+        public void transformSpritePixelPositionOnContactWithVisibleMainMapBorders(Sprite spr, float outOffVisibleMapAllowedPercentage, bool movesOnGlobe, bool movesAsBumper, float bumpAngleVarianceInDegrees)
+        {
+            setToBorderPixDistancesMainMap();
+
+            float scaledSpriteDimension = spr.frameHeight * spr.scale;
+            float capSize = 0;
+            if (gv.screenWidth > gv.screenHeight)
+            {
+                capSize = gv.screenHeight;
+            }
+            else
+            {
+                capSize = gv.screenWidth;
+            }
+            if (scaledSpriteDimension > capSize)
+            {
+                scaledSpriteDimension = capSize;
+            }
+
+            float visibleMapWidth = (2 * gv.playerOffsetX + 1) * gv.squareSize - ((gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderWest) - ((gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderEast);
+            float visibleMapHeight = (2 * gv.playerOffsetY + 1) * gv.squareSize - ((gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderNorth) - ((gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderSouth);
+
+            float extraDistanceBeforeReappearanceOrBumpWest = (gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderEast;
+            float extraDistanceBeforeReappearanceOrBumpEast = (gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderWest;
+            float extraDistanceBeforeReappearanceOrBumpSouth = (gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderNorth;
+            float extraDistanceBeforeReappearanceOrBumpNorth = (gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderSouth;
+
+            //nullign these valus as I think they are not really needed (must test more)
+            extraDistanceBeforeReappearanceOrBumpWest = 0;
+            extraDistanceBeforeReappearanceOrBumpEast = 0;
+            extraDistanceBeforeReappearanceOrBumpSouth = 0;
+            extraDistanceBeforeReappearanceOrBumpNorth = 0;
+            
+            bool isLeavingEast = false;
+            bool isLeavingWest = false;
+            bool isLeavingNorth = false;
+            bool isLeavingSouth = false;
+
+            if (spr.position.X - (scaledSpriteDimension * outOffVisibleMapAllowedPercentage) + scaledSpriteDimension - extraDistanceBeforeReappearanceOrBumpEast > (gv.screenWidth / 2 + gv.mod.pixDistanceToBorderEast))
+            {
+                isLeavingEast = true;
+            }
+            if (spr.position.X + (scaledSpriteDimension * outOffVisibleMapAllowedPercentage) + extraDistanceBeforeReappearanceOrBumpWest < (gv.screenWidth / 2 - gv.mod.pixDistanceToBorderWest))
+            {
+                isLeavingWest = true;
+            }
+            if (spr.position.Y + (scaledSpriteDimension * outOffVisibleMapAllowedPercentage) + extraDistanceBeforeReappearanceOrBumpNorth < (gv.screenHeight / 2 - gv.mod.pixDistanceToBorderNorth))
+            {
+                isLeavingNorth = true;
+            }
+            if (spr.position.Y - (scaledSpriteDimension * outOffVisibleMapAllowedPercentage) + scaledSpriteDimension - extraDistanceBeforeReappearanceOrBumpSouth > (gv.screenHeight / 2 + gv.mod.pixDistanceToBorderSouth))
+            {
+                isLeavingSouth = true;
+            }
+
+            if (isLeavingEast || isLeavingWest || isLeavingNorth || isLeavingSouth)
+            {
+                //like clouds
+                if (movesOnGlobe)
+                {
+                    float randomizerVertical = gv.sf.RandInt(gv.screenHeight / 3);
+                    float randomizerHorizontal = gv.sf.RandInt(gv.screenWidth / 3);
+                    float directionDecider = gv.sf.RandInt(2);
+                    if (directionDecider == 1)
+                    {
+                        randomizerVertical = randomizerVertical * -1;
+                    }
+                    directionDecider = gv.sf.RandInt(2);
+                    if (directionDecider == 1)
+                    {
+                        randomizerHorizontal = randomizerHorizontal * -1;
+                    }
+
+                    float diagonalRandomizer = gv.sf.RandInt(gv.screenHeight / 3);
+                    float axisDecider = gv.sf.RandInt(2);
+                    float diagonalRandomizerHorizontal = 0;
+                    float diagonalRandomizerVertical = 0;
+                    if (axisDecider == 1)
+                    {
+                        diagonalRandomizerHorizontal = diagonalRandomizer;
+                    }
+                    else
+                    {
+                        diagonalRandomizerVertical = diagonalRandomizer;
+                    }
+
+
+                    if (gv.mod.windDirection.Contains("North"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 - scaledSpriteDimension / 2 + randomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 + gv.mod.pixDistanceToBorderSouth - 1;
+                    }
+                    if (gv.mod.windDirection.Contains("NE"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 - gv.mod.pixDistanceToBorderWest - scaledSpriteDimension + 1 + diagonalRandomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 + gv.mod.pixDistanceToBorderSouth - 1 - diagonalRandomizerVertical;
+                    }
+                    if (gv.mod.windDirection.Contains("East"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 - gv.mod.pixDistanceToBorderWest - scaledSpriteDimension + 1;
+                        spr.position.Y = gv.screenHeight / 2 - scaledSpriteDimension / 2 + randomizerVertical;
+                    }
+                    if (gv.mod.windDirection.Contains("SE"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 - gv.mod.pixDistanceToBorderWest - scaledSpriteDimension + 1 + diagonalRandomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 - gv.mod.pixDistanceToBorderNorth - scaledSpriteDimension + 1 + diagonalRandomizerVertical;
+                    }
+                    if (gv.mod.windDirection.Contains("South"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 - scaledSpriteDimension / 2 + randomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 - gv.mod.pixDistanceToBorderNorth - scaledSpriteDimension + 1;
+                    }
+                    if (gv.mod.windDirection.Contains("SW"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 + gv.mod.pixDistanceToBorderEast - 1 - diagonalRandomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 - gv.mod.pixDistanceToBorderNorth - scaledSpriteDimension + 1 + diagonalRandomizerVertical;
+                    }
+                    if (gv.mod.windDirection.Contains("West"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 + gv.mod.pixDistanceToBorderEast - 1;
+                        spr.position.Y = gv.screenHeight / 2 - scaledSpriteDimension / 2 + randomizerVertical;
+                    }
+                    if (gv.mod.windDirection.Contains("NW"))
+                    {
+                        spr.position.X = gv.screenWidth / 2 + gv.mod.pixDistanceToBorderEast - 1 - diagonalRandomizerHorizontal;
+                        spr.position.Y = gv.screenHeight / 2 + gv.mod.pixDistanceToBorderSouth - 1 - diagonalRandomizerVertical;
+                    }
+                }
+
+                //like fog
+                if (movesAsBumper)
+                {
+                    spr.velocity.X = -spr.velocity.X;
+                    spr.velocity.Y = -spr.velocity.Y;
+                    spr.position.X += spr.velocity.X;
+                    spr.position.Y += spr.velocity.Y;
+                    //to do: modifiy angle of speed vector randomly after bump 
+                }
+            }
+        }
+
         public void checkLevelUpAvailable()
         {            
             if (gv.mod.playerList.Count > 0)
