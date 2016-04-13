@@ -13,7 +13,11 @@ namespace IceBlink2
 {
     public class Area 
     {
-	    public string Filename = "newArea";
+        //public string rememberedWeatherName = "";
+        //public float rememberedWeatherDuration = 0;
+        //public float skyCoverCloudsChance = 0;
+        //public float skyCoverSeveriy
+        public string Filename = "newArea";
         public int AreaVisibleDistance = 4;
         public bool RestingAllowed = false;
         public bool UseMiniMapFogOfWar = true;

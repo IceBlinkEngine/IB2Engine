@@ -13,7 +13,11 @@ namespace IceBlink2
 {
     public class Module
     {
-        //public GameView gv;
+        //vues used for 
+        //public float fullScreenEffectOpacityWeatherOld = 0;
+        public string oldWeatherName = "";
+        public float maintainWeatherFromLastAreaTimer = 0;
+
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
         public float pixDistanceToBorderNorth = 0;
@@ -301,7 +305,7 @@ namespace IceBlink2
         public float fullScreenAnimationFrameCounterX10 = 0;
         public float fullScreenAnimationFrameCounterY10 = 0;
 
-        public int maintainWeatherFromLastAreaTimer = 0;
+        //public int maintainWeatherFromLastAreaTimer = 0;
         //public bool secondUpdateAfterTransition = false;
         //public bool blockTrigger = false;
         //public bool blockTriggerMovingProp = false;

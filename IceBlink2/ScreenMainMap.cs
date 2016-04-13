@@ -338,29 +338,43 @@ namespace IceBlink2
                 }
             }
 
-            //rain test (particle)
-            if (mod.isRaining)
-            {
-                gv.fullScreenEffectTimerMilliSecondsElapsedRain += elapsed;
-                float rainChance2 = gv.sf.RandInt(200) + 150;
-                if (gv.fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
+                //weather effects
+                if (mod.isRaining)
                 {
-                    gv.cc.rainTest(gv.rainType);
-                    gv.fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+                    gv.fullScreenEffectTimerMilliSecondsElapsedRain += elapsed;
+                    float rainChance2 = gv.sf.RandInt(200) + 150;
+                    if (gv.fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
+                    {
+                        gv.cc.rainTest(gv.rainType);
+                        gv.fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+                    }
                 }
-            }
 
-            if (mod.isCloudy)
-            {
-                gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
-                float cloudChance = gv.sf.RandInt(20000) + 15000;
-                if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                if (mod.isCloudy)
                 {
-                    gv.cc.cloudTest(gv.cloudType);
-                    gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                    gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
+                    float cloudChance = gv.sf.RandInt(10000) + 7500;
+                    if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                    {
+                        int decider = gv.sf.RandInt(3);
+                        string layerType = "";
+                        if (decider == 1)
+                        {
+                            layerType = "LayerA";
+                        }
+                        if (decider == 2)
+                        {
+                            layerType = "LayerB";
+                        }
+                        if (decider == 3)
+                        {
+                            layerType = "LayerC";
+                        }
+                        gv.cc.cloudTest(gv.cloudType + layerType);
+                        gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                    }
                 }
-            }
-
+            
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
@@ -372,7 +386,24 @@ namespace IceBlink2
                 {
                     try
                     {
-                        spriteList.RemoveAt(x);
+                        if (!spriteList[x].movementMethod.Contains("clouds"))
+                        {
+                            spriteList.RemoveAt(x);
+                            continue;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+
+                if (!mod.isCloudy && spriteList[x].movementMethod.Contains("clouds"))
+                {
+                    try
+                    {
+                            spriteList.RemoveAt(x);
+                            continue;
                     }
                     catch (Exception ex)
                     {
