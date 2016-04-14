@@ -94,9 +94,16 @@ namespace IceBlink2
             {
                 position += velocity * elapsed;
                 gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
+                opacity = gv.mod.fullScreenEffectOpacityWeather;
 
             }
-           
+            else if (movementMethod == "rain")
+            {
+                position += velocity * elapsed;
+                gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
+                opacity = gv.mod.fullScreenEffectOpacityWeather;
+            }
+
             int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
             currentFrameIndex = x / millisecondsPerFrame;            
         }
@@ -105,7 +112,7 @@ namespace IceBlink2
         {            
             IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
             IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scale), (int)(gv.squareSize*this.scale));
-            gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false);            
+            gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity);            
         }
     }    
 }
