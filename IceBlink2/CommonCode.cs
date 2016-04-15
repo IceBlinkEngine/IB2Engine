@@ -5915,7 +5915,7 @@ namespace IceBlink2
         }
 
         //test rain
-        public void rainTest(string density)
+        public void createRain(string density)
         {
             if (gv.mod.isRaining == true)
             {
@@ -5940,7 +5940,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 1000f, (float)(gv.sf.RandInt(80) + 170) / 1000f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }

@@ -345,7 +345,7 @@ namespace IceBlink2
                     float rainChance2 = gv.sf.RandInt(200) + 150;
                     if (gv.fullScreenEffectTimerMilliSecondsElapsedRain > rainChance2)
                     {
-                        gv.cc.rainTest(gv.rainType);
+                        gv.cc.createRain(gv.rainType);
                         gv.fullScreenEffectTimerMilliSecondsElapsedRain = 0;
                     }
                 }
@@ -456,6 +456,19 @@ namespace IceBlink2
                     {
                             spriteList.RemoveAt(x);
                             continue;
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+
+                if (!mod.isRaining && spriteList[x].movementMethod.Contains("rain"))
+                {
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                        continue;
                     }
                     catch (Exception ex)
                     {
@@ -25487,8 +25500,20 @@ namespace IceBlink2
         {
             foreach (Sprite spr in spriteList)
             {
-                spr.Draw(gv);
+                if (spr.movementMethod.Contains("rain"))
+                {
+                    spr.Draw(gv);
+                }
             }
+
+            foreach (Sprite spr in spriteList)
+            {
+                if (spr.movementMethod.Contains("cloud"))
+                {
+                    spr.Draw(gv);
+                }
+            }
+
             drawBlackTilesOverTints();
         }
         //not used for now; later :-)
