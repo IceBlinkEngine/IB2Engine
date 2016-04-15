@@ -350,29 +350,80 @@ namespace IceBlink2
                     }
                 }
 
-                if (mod.isCloudy)
+                if ((mod.isCloudy) && (!mod.blockCloudCreation))
                 {
-                    gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
-                    float cloudChance = gv.sf.RandInt(10000) + 7500;
-                    if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                //gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
+                //float cloudChance = gv.sf.RandInt(10000) + 7500;
+                //if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
+                //{
+                int decider2 = gv.sf.RandInt(8);
+                if (decider2 == 1)
+                {
+                    gv.mod.windDirection = "SE";
+                }
+                if (decider2 == 2)
+                {
+                    gv.mod.windDirection = "NE";
+                }
+                if (decider2 == 3)
+                {
+                    gv.mod.windDirection = "SW";
+                }
+                if (decider2 == 4)
+                {
+                    gv.mod.windDirection = "NW";
+                }
+                if (decider2 == 5)
+                {
+                    gv.mod.windDirection = "South";
+                }
+                if (decider2 == 6)
+                {
+                    gv.mod.windDirection = "North";
+                }
+                if (decider2 == 7)
+                {
+                    gv.mod.windDirection = "West";
+                }
+                if (decider2 == 8)
+                {
+                    gv.mod.windDirection = "East";
+                }
+
+                float speedMultiplier = 0;
+                float positionModifierX = 0;
+                float positionModifierY = 0;
+
+                for (int i = 0; i < 7; i++)
+                {
+                    int decider = gv.sf.RandInt(3);
+                    string layerType = "";
+                    if (decider == 1)
                     {
-                        int decider = gv.sf.RandInt(3);
-                        string layerType = "";
-                        if (decider == 1)
-                        {
-                            layerType = "LayerA";
-                        }
-                        if (decider == 2)
-                        {
-                            layerType = "LayerB";
-                        }
-                        if (decider == 3)
-                        {
-                            layerType = "LayerC";
-                        }
-                        gv.cc.cloudTest(gv.cloudType + layerType);
-                        gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                        layerType = "LayerA";
                     }
+                    if (decider == 2)
+                    {
+                        layerType = "LayerB";
+                    }
+                    if (decider == 3)
+                    {
+                        layerType = "LayerC";
+                    }
+                    decider = gv.sf.RandInt(75);
+                    speedMultiplier = 0.63f + (decider / 100f);
+                    decider = gv.sf.RandInt(15);
+                    positionModifierX = (-7 + decider) * gv.squareSize;
+                    decider = gv.sf.RandInt(9);
+                    positionModifierY = (-4 + decider) * gv.squareSize;
+                    gv.cc.createClouds(gv.cloudType + layerType, speedMultiplier, positionModifierX, positionModifierY);
+                    if (i == 2)
+                    {
+                        gv.mod.blockCloudCreation = true;
+                    }
+                }
+                        //gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
+                    //}
                 }
             
             #region PROP AMBIENT SPRITES
@@ -400,6 +451,7 @@ namespace IceBlink2
 
                 if (!mod.isCloudy && spriteList[x].movementMethod.Contains("clouds"))
                 {
+                    gv.mod.blockCloudCreation = false;
                     try
                     {
                             spriteList.RemoveAt(x);

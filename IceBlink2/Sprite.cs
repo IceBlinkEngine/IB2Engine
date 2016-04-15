@@ -100,7 +100,7 @@ namespace IceBlink2
             else if (movementMethod == "rain")
             {
                 position += velocity * elapsed;
-                gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
+                //gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, false, false, 0);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 

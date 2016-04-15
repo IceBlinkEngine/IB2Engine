@@ -2351,8 +2351,8 @@ namespace IceBlink2
                 //like clouds
                 if (spr.movementMethod.Contains("clouds"))
                 {
-                    float randomizerVertical = gv.sf.RandInt(gv.screenHeight / 3);
-                    float randomizerHorizontal = gv.sf.RandInt(gv.screenWidth / 3);
+                    float randomizerVertical = gv.sf.RandInt(gv.screenHeight / 2);
+                    float randomizerHorizontal = gv.sf.RandInt(gv.screenWidth / 2);
                     float directionDecider = gv.sf.RandInt(2);
                     if (directionDecider == 1)
                     {
@@ -2364,7 +2364,7 @@ namespace IceBlink2
                         randomizerHorizontal = randomizerHorizontal * -1;
                     }
 
-                    float diagonalRandomizer = gv.sf.RandInt(gv.screenHeight / 3);
+                    float diagonalRandomizer = gv.sf.RandInt(gv.screenHeight / 2);
                     float axisDecider = gv.sf.RandInt(2);
                     float diagonalRandomizerHorizontal = 0;
                     float diagonalRandomizerVertical = 0;
@@ -2376,7 +2376,11 @@ namespace IceBlink2
                     {
                         diagonalRandomizerVertical = diagonalRandomizer;
                     }
-
+                    if (directionDecider == 1)
+                    {
+                        diagonalRandomizerHorizontal = diagonalRandomizerHorizontal * -1;
+                        diagonalRandomizerVertical = diagonalRandomizerVertical * -1;
+                    }
 
                     if (gv.mod.windDirection.Contains("North"))
                     {
@@ -5944,11 +5948,54 @@ namespace IceBlink2
         }
 
 
-        //test cloud
-        public void cloudTest(string cloudType)
+        //create clouds
+        public void createClouds(string cloudType, float speedMultiplier, float positionModifierX, float positionModifierY)
         {
-                Sprite spr = new Sprite(gv, cloudType, gv.screenWidth, gv.screenHeight, -(float)(gv.sf.RandInt(5) + 35) / 2000f, -(float)(gv.sf.RandInt(5) + 35) / 2000f, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true);
-                gv.screenMainMap.spriteList.Add(spr);   
+                float veloX = 0;
+                float veloY = 0;
+                if (gv.mod.windDirection.Contains("North"))
+                {
+                    veloX = 0;
+                    veloY = -1f / 50f;
+                }
+                if (gv.mod.windDirection.Contains("South"))
+                {
+                    veloX = 0;
+                    veloY = 1f / 50f;
+                }
+            if (gv.mod.windDirection.Contains("East"))
+            {
+                veloX = 1f / 50f;
+                veloY = 0;
+            }
+            if (gv.mod.windDirection.Contains("West"))
+            {
+                veloX = -1f / 50f;
+                veloY = 0;
+            }
+            if (gv.mod.windDirection.Contains("NE"))
+            {
+                veloX = 1f / 50f;
+                veloY = -1f / 50f;
+            }
+            if (gv.mod.windDirection.Contains("SW"))
+            {
+                veloX = -1f / 50f;
+                veloY = 1f / 50f;
+            }
+            if (gv.mod.windDirection.Contains("SE"))
+            {
+                veloX = 1f / 50f;
+                veloY = 1f / 50f; 
+            }
+            if (gv.mod.windDirection.Contains("NW"))
+            {
+                veloX = -1f / 50f;
+                veloY = -1f / 50f;
+            }
+
+            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true);
+            gv.screenMainMap.spriteList.Add(spr);   
         }
 
         //MISC FUNCTIONS

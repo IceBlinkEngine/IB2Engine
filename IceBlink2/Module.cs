@@ -17,6 +17,7 @@ namespace IceBlink2
         //public float fullScreenEffectOpacityWeatherOld = 0;
         public string oldWeatherName = "";
         public float maintainWeatherFromLastAreaTimer = 0;
+        public bool blockCloudCreation = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
