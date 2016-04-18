@@ -426,33 +426,51 @@ namespace IceBlink2
 
                 if ((mod.isFoggy) && (!mod.blockFogCreation))
                 {
-
+                //gv.fogType
                 float speedMultiplier = 0;
                 float positionModifierX = 0;
                 float positionModifierY = 0;
                 string layerType = "";
                 int decider = 0;
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     if (i == 0)
                     {
-                        layerType = "LayerA";
+                        layerType = "fog1";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier = 0.75f + (decider / 100f);
-                        positionModifierX = (-3) * gv.squareSize;
+                        positionModifierX = (-4) * gv.squareSize;
                     }
                         
                     if (i == 1)
                     {
-                        layerType = "LayerB";
+                        layerType = "fog2";
                         decider = gv.sf.RandInt(50);
                         speedMultiplier += 0.2f;
-                        positionModifierX = (3) * gv.squareSize;
+                        positionModifierX = (4) * gv.squareSize;
                     }
 
-                    gv.cc.createFog(gv.fogType + layerType, speedMultiplier, positionModifierX, positionModifierY);
-                        if (i == 1)
+                    if (i == 2)
+                    {
+                        layerType = "fog3";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.2f;
+                        positionModifierX = (2) * gv.squareSize;
+                        positionModifierY = (2) * gv.squareSize;
+                    }
+
+                    if (i == 3)
+                    {
+                        layerType = "fog4";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.2f;
+                        positionModifierX = (-2) * gv.squareSize;
+                        positionModifierY = (-2) * gv.squareSize;
+                    }
+
+                    gv.cc.createFog(layerType, speedMultiplier, positionModifierX, positionModifierY);
+                        if (i == 3)
                         {
                             gv.mod.blockFogCreation = true;
                         }

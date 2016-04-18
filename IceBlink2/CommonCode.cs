@@ -2432,8 +2432,8 @@ namespace IceBlink2
                 {
                     spr.velocity.X = -spr.velocity.X;
                     spr.velocity.Y = -spr.velocity.Y;
-                    spr.position.X += spr.velocity.X;
-                    spr.position.Y += spr.velocity.Y;
+                    spr.position.X += 2*spr.velocity.X;
+                    spr.position.Y += 2*spr.velocity.Y;
                     //to do: modifiy angle of speed vector randomly after bump 
                 }
             }
