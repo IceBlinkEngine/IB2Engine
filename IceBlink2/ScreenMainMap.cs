@@ -350,8 +350,8 @@ namespace IceBlink2
                     }
                 }
 
-                if ((mod.isCloudy) && (!mod.blockCloudCreation))
-                {
+            if ((mod.isCloudy) && (!mod.blockCloudCreation))
+            {
                 //gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
                 //float cloudChance = gv.sf.RandInt(10000) + 7500;
                 //if (gv.fullScreenEffectTimerMilliSecondsElapsedClouds > cloudChance)
@@ -422,8 +422,41 @@ namespace IceBlink2
                         gv.mod.blockCloudCreation = true;
                     }
                 }
-                        //gv.fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
-                    //}
+            }
+
+                if ((mod.isFoggy) && (!mod.blockFogCreation))
+                {
+
+                float speedMultiplier = 0;
+                float positionModifierX = 0;
+                float positionModifierY = 0;
+                string layerType = "";
+                int decider = 0;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    if (i == 0)
+                    {
+                        layerType = "LayerA";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier = 0.75f + (decider / 100f);
+                        positionModifierX = (-3) * gv.squareSize;
+                    }
+                        
+                    if (i == 1)
+                    {
+                        layerType = "LayerB";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.2f;
+                        positionModifierX = (3) * gv.squareSize;
+                    }
+
+                    gv.cc.createFog(gv.fogType + layerType, speedMultiplier, positionModifierX, positionModifierY);
+                        if (i == 1)
+                        {
+                            gv.mod.blockFogCreation = true;
+                        }
+                    }
                 }
             
             #region PROP AMBIENT SPRITES
@@ -437,7 +470,7 @@ namespace IceBlink2
                 {
                     try
                     {
-                        if (!spriteList[x].movementMethod.Contains("clouds"))
+                        if (!spriteList[x].movementMethod.Contains("clouds") && !spriteList[x].movementMethod.Contains("fog"))
                         {
                             spriteList.RemoveAt(x);
                             continue;
@@ -456,6 +489,20 @@ namespace IceBlink2
                     {
                             spriteList.RemoveAt(x);
                             continue;
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+
+                if (!mod.isFoggy && spriteList[x].movementMethod.Contains("fog"))
+                {
+                    gv.mod.blockFogCreation = false;
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                        continue;
                     }
                     catch (Exception ex)
                     {
@@ -25508,7 +25555,7 @@ namespace IceBlink2
 
             foreach (Sprite spr in spriteList)
             {
-                if (spr.movementMethod.Contains("cloud"))
+                if (!spr.movementMethod.Contains("rain"))
                 {
                     spr.Draw(gv);
                 }

@@ -149,6 +149,7 @@ namespace IceBlink2
         public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
         public string rainType = "";
         public string cloudType = "";
+        public string fogType = "";
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
                 

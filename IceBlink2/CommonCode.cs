@@ -2296,19 +2296,22 @@ namespace IceBlink2
             setToBorderPixDistancesMainMap();
 
             float scaledSpriteDimension = spr.frameHeight * spr.scale;
-            float capSize = 0;
-            if (gv.screenWidth > gv.screenHeight)
-            {
-                capSize = gv.screenHeight;
-            }
-            else
-            {
-                capSize = gv.screenWidth;
-            }
-            if (scaledSpriteDimension > capSize)
-            {
-                scaledSpriteDimension = capSize;
-            }
+            //if (!spr.movementMethod.Contains("fog"))
+            //{
+                float capSize = 0;
+                if (gv.screenWidth > gv.screenHeight)
+                {
+                    capSize = gv.screenHeight;
+                }
+                else
+                {
+                    capSize = gv.screenWidth;
+                }
+                if (scaledSpriteDimension > capSize)
+                {
+                    scaledSpriteDimension = capSize;
+                }
+            //}
 
             float visibleMapWidth = (2 * gv.playerOffsetX + 1) * gv.squareSize - ((gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderWest) - ((gv.playerOffsetX * gv.squareSize) - gv.mod.pixDistanceToBorderEast);
             float visibleMapHeight = (2 * gv.playerOffsetY + 1) * gv.squareSize - ((gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderNorth) - ((gv.playerOffsetY * gv.squareSize) - gv.mod.pixDistanceToBorderSouth);
@@ -3240,6 +3243,7 @@ namespace IceBlink2
 
             gv.mod.isRaining = false;
             gv.mod.isCloudy = false;
+            gv.mod.isFoggy = false;
 
             if (gv.mod.currentArea.areaWeatherName != "")
             {
@@ -3273,6 +3277,22 @@ namespace IceBlink2
                 {
                     gv.mod.isCloudy = true;
                     gv.cloudType = "cloud";
+                }
+
+                if (gv.mod.currentWeatherName.Contains("heavyFog") || gv.mod.currentWeatherName.Contains("HeavyFog"))
+                {
+                    gv.mod.isFoggy = true;
+                    gv.fogType = "heavyFog";
+                }
+                else if (gv.mod.currentWeatherName.Contains("lightFog") || gv.mod.currentWeatherName.Contains("LightFog"))
+                {
+                    gv.mod.isFoggy = true;
+                    gv.fogType = "lightFog";
+                }
+                else if (gv.mod.currentWeatherName.Contains("fog") || gv.mod.currentWeatherName.Contains("Fog"))
+                {
+                    gv.mod.isFoggy = true;
+                    gv.fogType = "fog";
                 }
             }
 
@@ -5996,6 +6016,28 @@ namespace IceBlink2
 
             Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true);
             gv.screenMainMap.spriteList.Add(spr);   
+        }
+
+        //create fog
+        public void createFog(string fogType, float speedMultiplier, float positionModifierX, float positionModifierY)
+        {
+            float veloX = 0.01f + gv.sf.RandInt(40)/40000f;
+            float veloY = 0.01f + gv.sf.RandInt(40)/40000f;
+
+            int decider = gv.sf.RandInt(2);
+            if (decider == 1)
+            {
+                veloX = veloX * -1;
+            }
+
+            decider = gv.sf.RandInt(2);
+            if (decider == 1)
+            {
+                veloY = veloY * -1;
+            }
+
+            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false);
+            gv.screenMainMap.spriteList.Add(spr);
         }
 
         //MISC FUNCTIONS

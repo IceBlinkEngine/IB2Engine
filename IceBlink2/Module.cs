@@ -18,6 +18,8 @@ namespace IceBlink2
         public string oldWeatherName = "";
         public float maintainWeatherFromLastAreaTimer = 0;
         public bool blockCloudCreation = false;
+        public bool isFoggy = false;
+        public bool blockFogCreation = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;
