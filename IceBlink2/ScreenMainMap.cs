@@ -426,20 +426,34 @@ namespace IceBlink2
 
                 if ((mod.isFoggy) && (!mod.blockFogCreation))
                 {
-                //gv.fogType
+
+                gv.mod.blockFogCreation = true;
                 float speedMultiplier = 0;
                 float positionModifierX = 0;
                 float positionModifierY = 0;
                 string layerType = "";
                 int decider = 0;
+                int iLimit = 0;
+                if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
+                {
+                    iLimit = 2;
+                }
+                else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
+                {
+                    iLimit = 8;
+                }
+                else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
+                {
+                    iLimit = 4;
+                }
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < iLimit; i++)
                 {
                     if (i == 0)
                     {
                         layerType = "fog1";
-                        decider = gv.sf.RandInt(50);
-                        speedMultiplier = 0.75f + (decider / 100f);
+                        decider = gv.sf.RandInt(20);
+                        speedMultiplier = 0.55f + (decider / 100f);
                         positionModifierX = (-4) * gv.squareSize;
                     }
                         
@@ -447,7 +461,7 @@ namespace IceBlink2
                     {
                         layerType = "fog2";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.2f;
+                        speedMultiplier += 0.05f;
                         positionModifierX = (4) * gv.squareSize;
                     }
 
@@ -455,7 +469,7 @@ namespace IceBlink2
                     {
                         layerType = "fog3";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.2f;
+                        speedMultiplier += 0.05f;
                         positionModifierX = (2) * gv.squareSize;
                         positionModifierY = (2) * gv.squareSize;
                     }
@@ -464,16 +478,48 @@ namespace IceBlink2
                     {
                         layerType = "fog4";
                         decider = gv.sf.RandInt(50);
-                        speedMultiplier += 0.2f;
+                        speedMultiplier += 0.05f;
                         positionModifierX = (-2) * gv.squareSize;
                         positionModifierY = (-2) * gv.squareSize;
                     }
 
+                    if (i == 4)
+                    {
+                        layerType = "fog5";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.05f;
+                        positionModifierX = (-6) * gv.squareSize;
+                       
+                    }
+
+                    if (i == 5)
+                    {
+                        layerType = "fog6";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.05f;
+                        positionModifierX = 6 * gv.squareSize;
+
+                    }
+                    if (i == 6)
+                    {
+                        layerType = "fog5";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.05f;
+                        positionModifierX = (-1) * gv.squareSize;
+                        positionModifierY = (-1) * gv.squareSize;
+
+                    }
+
+                    if (i == 7)
+                    {
+                        layerType = "fog6";
+                        decider = gv.sf.RandInt(50);
+                        speedMultiplier += 0.05f;
+                        positionModifierX = gv.squareSize;
+                        positionModifierY = gv.squareSize;
+                    }
+
                     gv.cc.createFog(layerType, speedMultiplier, positionModifierX, positionModifierY);
-                        if (i == 3)
-                        {
-                            gv.mod.blockFogCreation = true;
-                        }
                     }
                 }
             
