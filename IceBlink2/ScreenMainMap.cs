@@ -436,7 +436,7 @@ namespace IceBlink2
                 int iLimit = 0;
                 if (gv.fogType.Contains("lightFog") || gv.fogType.Contains("LightFog"))
                 {
-                    iLimit = 2;
+                    iLimit = 4;
                 }
                 else if (gv.fogType.Contains("heavyFog") || gv.fogType.Contains("HeavyFog"))
                 {
@@ -444,7 +444,7 @@ namespace IceBlink2
                 }
                 else if (gv.fogType.Contains("fog") || gv.fogType.Contains("Fog"))
                 {
-                    iLimit = 4;
+                    iLimit = 6;
                 }
 
                 for (int i = 0; i < iLimit; i++)
