@@ -109,6 +109,11 @@ namespace IceBlink2
                 position += velocity * elapsed;
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
+            else if (movementMethod == "snow")
+            {
+                position += velocity * elapsed;
+                opacity = gv.mod.fullScreenEffectOpacityWeather;
+            }
 
             int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
             currentFrameIndex = x / millisecondsPerFrame;            

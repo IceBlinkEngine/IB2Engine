@@ -146,10 +146,12 @@ namespace IceBlink2
         public int realTimeTimerMilliSecondsEllapsed = 0;
         public int smoothMoveTimerLengthInMilliSeconds = 16;
         public int fullScreenEffectTimerMilliSecondsElapsedRain = 0;
+        public int fullScreenEffectTimerMilliSecondsElapsedSnow = 0;
         public int fullScreenEffectTimerMilliSecondsElapsedClouds = 0;
         public string rainType = "";
         public string cloudType = "";
         public string fogType = "";
+        public string snowType = "";
         public int smoothMoveCounter = 0;
         public bool useLargeLayout = true;
                 

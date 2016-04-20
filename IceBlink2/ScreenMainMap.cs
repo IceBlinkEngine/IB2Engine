@@ -350,6 +350,19 @@ namespace IceBlink2
                     }
                 }
 
+            
+            if (mod.isSnowing)
+            {
+                gv.fullScreenEffectTimerMilliSecondsElapsedSnow += elapsed;
+                float snowChance2 = gv.sf.RandInt(200) + 150;
+                if (gv.fullScreenEffectTimerMilliSecondsElapsedSnow > snowChance2)
+                {
+                    gv.cc.createSnow(gv.snowType);
+                    gv.fullScreenEffectTimerMilliSecondsElapsedSnow  = 0;
+                }
+            }
+            
+
             if ((mod.isCloudy) && (!mod.blockCloudCreation))
             {
                 //gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
@@ -574,7 +587,7 @@ namespace IceBlink2
                     }
                 }
 
-                if (!mod.isRaining && spriteList[x].movementMethod.Contains("rain"))
+                if ((!mod.isRaining && spriteList[x].movementMethod.Contains("rain")) || (!mod.isSnowing && spriteList[x].movementMethod.Contains("snow")))
                 {
                     try
                     {
@@ -25611,7 +25624,7 @@ namespace IceBlink2
         {
             foreach (Sprite spr in spriteList)
             {
-                if (spr.movementMethod.Contains("rain"))
+                if (spr.movementMethod.Contains("rain") || spr.movementMethod.Contains("snow"))
                 {
                     spr.Draw(gv);
                 }
@@ -25619,7 +25632,7 @@ namespace IceBlink2
 
             foreach (Sprite spr in spriteList)
             {
-                if (!spr.movementMethod.Contains("rain"))
+                if (!spr.movementMethod.Contains("rain") && !spr.movementMethod.Contains("snow"))
                 {
                     spr.Draw(gv);
                 }

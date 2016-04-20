@@ -20,6 +20,7 @@ namespace IceBlink2
         public bool blockCloudCreation = false;
         public bool isFoggy = false;
         public bool blockFogCreation = false;
+        public bool isSnowing = false;
 
         public float pixDistanceToBorderWest = 0;
         public float pixDistanceToBorderEast = 0;

@@ -3244,6 +3244,8 @@ namespace IceBlink2
             gv.mod.isRaining = false;
             gv.mod.isCloudy = false;
             gv.mod.isFoggy = false;
+            gv.mod.isSnowing = false;
+
 
             if (gv.mod.currentArea.areaWeatherName != "")
             {
@@ -3261,6 +3263,22 @@ namespace IceBlink2
                 {
                     gv.mod.isRaining = true;
                     gv.rainType = "rain";
+                }
+
+                if (gv.mod.currentWeatherName.Contains("lightSnow") || gv.mod.currentWeatherName.Contains("LightSnow"))
+                {
+                    gv.mod.isSnowing = true;
+                    gv.snowType = "lightSnow";
+                }
+                else if (gv.mod.currentWeatherName.Contains("heavySnow") || gv.mod.currentWeatherName.Contains("HeavySnow"))
+                {
+                    gv.mod.isSnowing = true;
+                    gv.snowType = "heavySnow";
+                }
+                else if (gv.mod.currentWeatherName.Contains("snow") || gv.mod.currentWeatherName.Contains("Snow"))
+                {
+                    gv.mod.isSnowing = true;
+                    gv.snowType = "snow";
                 }
 
                 if (gv.mod.currentWeatherName.Contains("heavyClouds") || gv.mod.currentWeatherName.Contains("HeavyClouds"))
@@ -5934,7 +5952,6 @@ namespace IceBlink2
             }            
         }
 
-        //test rain
         public void createRain(string density)
         {
             if (gv.mod.isRaining == true)
@@ -5967,8 +5984,38 @@ namespace IceBlink2
             }
         }
 
+        public void createSnow(string density)
+        {
+            if (gv.mod.isSnowing == true)
+            {
+                float snowChance = 0;
+                if (density == "lightSnow")
+                {
+                    snowChance = gv.sf.RandInt(10) + 10;
+                }
+                else if (density == "heavySnow")
+                {
+                    snowChance = gv.sf.RandInt(40) + 25;
+                }
+                else if (density == "snow")
+                {
+                    snowChance = gv.sf.RandInt(20) + 15;
+                }
 
-        //create clouds
+                float storedIncrement = 0;
+                for (int i = 1; i < 61; i++)
+                {
+                    float increment = gv.screenWidth / 60;
+                    storedIncrement += increment;
+                    if (gv.sf.RandInt(100) < snowChance)
+                    {
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
+                        gv.screenMainMap.spriteList.Add(spr);
+                    }
+                }
+            }
+        }
+
         public void createClouds(string cloudType, float speedMultiplier, float positionModifierX, float positionModifierY)
         {
                 float veloX = 0;
