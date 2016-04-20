@@ -5991,15 +5991,15 @@ namespace IceBlink2
                 float snowChance = 0;
                 if (density == "lightSnow")
                 {
-                    snowChance = gv.sf.RandInt(10) + 10;
+                    snowChance = gv.sf.RandInt(5) + 7;
                 }
                 else if (density == "heavySnow")
                 {
-                    snowChance = gv.sf.RandInt(40) + 25;
+                    snowChance = gv.sf.RandInt(30) + 15;
                 }
                 else if (density == "snow")
                 {
-                    snowChance = gv.sf.RandInt(20) + 15;
+                    snowChance = gv.sf.RandInt(12) + 7;
                 }
 
                 float storedIncrement = 0;
@@ -6010,7 +6010,7 @@ namespace IceBlink2
                     if (gv.sf.RandInt(100) < snowChance)
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 1300f, (float)(gv.sf.RandInt(80) + 170) / 1300f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6021,7 +6021,10 @@ namespace IceBlink2
         {
                 float veloX = 0;
                 float veloY = 0;
-                if (gv.mod.windDirection.Contains("North"))
+                //float randX = gv.sf.RandInt(100);
+                //float randY = gv.sf.RandInt(100);
+
+            if (gv.mod.windDirection.Contains("North"))
                 {
                     veloX = 0;
                     veloY = -1f / 50f;
@@ -6061,6 +6064,9 @@ namespace IceBlink2
                 veloX = -1f / 50f;
                 veloY = -1f / 50f;
             }
+
+            //veloX = veloX * (95 + randX/10)/100 * 1.1f;
+            //veloY = veloY * (95 + randY/10)/100 * 1.1f;
 
             Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true);
             gv.screenMainMap.spriteList.Add(spr);   

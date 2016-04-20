@@ -27,6 +27,8 @@ namespace IceBlink2
         public string spriteType = "normalSprite";    //to make different types of srpites identifiable for the calculations in update(elapsed)
         public float screenWidth = 0;
         public float screenHeight = 0;
+        public float xShift = 0;
+        public bool reverseXShift = false;
 
         //more ideas for later: isShadowCaster, extend vector and position by z-coordinate, hardness (simulate shatter on impact as well as speed loss on collision due energy going into deformation)
 
@@ -55,6 +57,8 @@ namespace IceBlink2
             this.screenHeight = gv.screenHeight;
             this.screenWidth = gv.screenWidth;
             this.movesIndependentlyFromPlayerPosition = movesIndependentlyFromPlayerPosition;
+            this.xShift = xShift;
+            this.reverseXShift = reverseXShift;
 
 
             if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }
@@ -112,7 +116,28 @@ namespace IceBlink2
             else if (movementMethod == "snow")
             {
                 position += velocity * elapsed;
-                position.X += (float)Math.Sin(position.Y);
+                float shiftAdder = gv.sf.RandInt(300);
+                float limitAdder = gv.sf.RandInt(300);
+
+                if (!reverseXShift)
+                {
+                    xShift = xShift + 0.02f - 0.005f + (shiftAdder/10000);
+                }
+                if (xShift >= (0.85 + (limitAdder / 1000)))
+                {
+                    reverseXShift = true;
+                }
+                if (reverseXShift)
+                {
+                    xShift = xShift - 0.02f + 0.005f - (shiftAdder / 10000);
+                }
+                if (xShift <= (-0.85 - (limitAdder / 1000)))
+                {
+                    reverseXShift = false;
+                }
+
+                position.X += (xShift*0.75f);
+                //position.X += (float)Math.Sin(position.Y);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 

@@ -423,17 +423,14 @@ namespace IceBlink2
                     {
                         layerType = "LayerC";
                     }
-                    decider = gv.sf.RandInt(75);
-                    speedMultiplier = 0.63f + (decider / 100f);
+                    speedMultiplier = 0.5f + (i*0.09f);
                     decider = gv.sf.RandInt(15);
                     positionModifierX = (-7 + decider) * gv.squareSize;
                     decider = gv.sf.RandInt(9);
                     positionModifierY = (-4 + decider) * gv.squareSize;
                     gv.cc.createClouds(gv.cloudType + layerType, speedMultiplier, positionModifierX, positionModifierY);
-                    if (i == 2)
-                    {
-                        gv.mod.blockCloudCreation = true;
-                    }
+                    gv.mod.blockCloudCreation = true;
+                    
                 }
             }
 
