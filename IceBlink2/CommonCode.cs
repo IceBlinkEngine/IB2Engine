@@ -6009,7 +6009,8 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < snowChance)
                     {
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
+                        int scaleMulti = gv.sf.RandInt(50) + 75;
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 1300f, (float)(gv.sf.RandInt(80) + 170) / 1300f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }

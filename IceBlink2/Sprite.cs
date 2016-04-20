@@ -112,6 +112,7 @@ namespace IceBlink2
             else if (movementMethod == "snow")
             {
                 position += velocity * elapsed;
+                position.X += (float)Math.Sin(position.Y);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 
