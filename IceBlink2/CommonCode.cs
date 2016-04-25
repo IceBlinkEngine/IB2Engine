@@ -3245,6 +3245,7 @@ namespace IceBlink2
             gv.mod.isCloudy = false;
             gv.mod.isFoggy = false;
             gv.mod.isSnowing = false;
+            gv.mod.isLightning = false;
 
 
             if (gv.mod.currentArea.areaWeatherName != "")
@@ -3312,12 +3313,20 @@ namespace IceBlink2
                     gv.mod.isFoggy = true;
                     gv.fogType = "fog";
                 }
+
+                if (gv.mod.currentWeatherName.Contains("lightning") || gv.mod.currentWeatherName.Contains("Lightning"))
+                {
+                    gv.mod.isLightning = true;
+                }
             }
 
             if (gv.mod.debugMode)
             {
                 gv.cc.addLogText("lime", gv.mod.currentWeatherName);
             }
+
+            //gv.mod.currentWeatherName = "heavyRainWithHeavyCloudsBAndLightning";
+            //gv.mod.isLightning = true;
         }
                
         public void SetUpEntryLists(string str)
@@ -5977,7 +5986,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6010,7 +6019,7 @@ namespace IceBlink2
                     if (gv.sf.RandInt(100) < snowChance)
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true);
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6068,11 +6077,10 @@ namespace IceBlink2
             //veloX = veloX * (95 + randX/10)/100 * 1.1f;
             //veloY = veloY * (95 + randY/10)/100 * 1.1f;
 
-            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true);
+            Sprite spr = new Sprite(gv, cloudType, gv.screenWidth/2 - gv.screenHeight/2 + positionModifierX, gv.screenHeight/2 - gv.screenHeight/2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100,gv.mod.fullScreenEffectOpacityWeather,0,"clouds",true,0);
             gv.screenMainMap.spriteList.Add(spr);   
         }
 
-        //create fog
         public void createFog(string fogType, float speedMultiplier, float positionModifierX, float positionModifierY)
         {
             float veloX = 0.01f + gv.sf.RandInt(40)/40000f;
@@ -6090,7 +6098,13 @@ namespace IceBlink2
                 veloY = veloY * -1;
             }
 
-            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false);
+            Sprite spr = new Sprite(gv, fogType, gv.screenWidth / 2 - gv.screenHeight / 2 + positionModifierX, gv.screenHeight / 2 - gv.screenHeight / 2 + positionModifierY, veloX * speedMultiplier, veloY * speedMultiplier, 0, 0, 10f, gv.sf.RandInt(80000) + 48000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "fog", false, 0);
+            gv.screenMainMap.spriteList.Add(spr);
+        }
+
+        public void createLightning(string lightningType, float posX, float posY, float scaleMod)
+        {
+            Sprite spr = new Sprite(gv, lightningType, posX, posY, 0, 0, 0, 0, 5.0f * scaleMod, 4000, false, 45, 1.0f, 0, "lightning", false, 8);
             gv.screenMainMap.spriteList.Add(spr);
         }
 

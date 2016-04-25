@@ -362,7 +362,6 @@ namespace IceBlink2
                 }
             }
             
-
             if ((mod.isCloudy) && (!mod.blockCloudCreation))
             {
                 //gv.fullScreenEffectTimerMilliSecondsElapsedClouds += elapsed;
@@ -532,7 +531,57 @@ namespace IceBlink2
                     gv.cc.createFog(layerType, speedMultiplier, positionModifierX, positionModifierY);
                     }
                 }
-            
+
+            if (mod.isLightning)
+            {
+                string lightningType = "";
+                float posX = 0;
+                float posY = 0;
+                float scaleMod = 0;
+                int lightningChance = 60;
+                if (gv.sf.RandInt(lightningChance) == 1)
+                {
+                    gv.cc.setToBorderPixDistancesMainMap();
+                    int deciderWestEast = gv.sf.RandInt((int)gv.mod.pixDistanceToBorderWest + (int)gv.mod.pixDistanceToBorderEast);
+                    int deciderNorthSouth = gv.sf.RandInt((int)gv.mod.pixDistanceToBorderNorth + (int)gv.mod.pixDistanceToBorderSouth);
+
+                    if (deciderWestEast <= (int)gv.mod.pixDistanceToBorderWest)
+                    {
+                        posX = -gv.sf.RandInt((int)gv.mod.pixDistanceToBorderWest) + gv.screenWidth / 2;
+                    }
+                    else
+                    {
+                        //the -3 modifiier makes sure that at significant part of the lightning is onscreen
+                        posX = gv.sf.RandInt((int)gv.mod.pixDistanceToBorderEast) - (3 * gv.squareSize) + gv.screenWidth / 2;
+                    }
+
+                    if (deciderNorthSouth <= (int)gv.mod.pixDistanceToBorderNorth)
+                    {
+                        posY = -gv.sf.RandInt((int)gv.mod.pixDistanceToBorderNorth) + gv.screenHeight / 2;
+                    }
+                    else
+                    {
+                        //the -3 modifiier makes sure that at significant part of the lightning is onscreen
+                        posY = gv.sf.RandInt((int)gv.mod.pixDistanceToBorderSouth) - (3 * gv.squareSize) + gv.screenHeight / 2;
+                    }
+
+                    int lightningTypeDecider = gv.sf.RandInt(2);
+
+                    if (lightningTypeDecider == 1)
+                    {
+                        lightningType = "lightningLayerA";
+                    }
+
+                    else
+                    {
+                        lightningType = "lightningLayerB";
+                    }
+
+                    scaleMod = (gv.sf.RandInt(70) + 65) / 100;
+                    gv.cc.createLightning(lightningType, posX, posY, scaleMod);
+                }
+            }
+
             #region PROP AMBIENT SPRITES
             foreach (Sprite spr in spriteList)
             {
@@ -544,7 +593,7 @@ namespace IceBlink2
                 {
                     try
                     {
-                        if (!spriteList[x].movementMethod.Contains("clouds") && !spriteList[x].movementMethod.Contains("fog"))
+                        if (!spriteList[x].movementMethod.Contains("clouds") && !spriteList[x].movementMethod.Contains("fog") && !spriteList[x].movementMethod.Contains("lightning"))
                         {
                             spriteList.RemoveAt(x);
                             continue;
@@ -585,6 +634,19 @@ namespace IceBlink2
                 }
 
                 if ((!mod.isRaining && spriteList[x].movementMethod.Contains("rain")) || (!mod.isSnowing && spriteList[x].movementMethod.Contains("snow")))
+                {
+                    try
+                    {
+                        spriteList.RemoveAt(x);
+                        continue;
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.errorLog(ex.ToString());
+                    }
+                }
+
+                if ( spriteList[x].movementMethod.Contains("lightning") && (spriteList[x].totalElapsedTime >= (spriteList[x].numberOFFramesForAnimationsMadeFromSeveralBitmaps * spriteList[x].millisecondsPerFrame)))
                 {
                     try
                     {

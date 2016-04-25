@@ -29,6 +29,11 @@ namespace IceBlink2
         public float screenHeight = 0;
         public float xShift = 0;
         public bool reverseXShift = false;
+        //This is an alterntive frame counter for animations stitched together from several separate bitmaps (vs. a horizintal sprite sheet)
+        //a value of 0 inidcates that no sprite chnaging animations is called for
+        //a value of 1 or more is the number of the current frame starting with 1, the number is always added to the end of the bitmap(s) name
+        //like flame1.bmp, flame2.bmp, flame3.bmp and so forth 
+        public int numberOFFramesForAnimationsMadeFromSeveralBitmaps = 0;
 
         //more ideas for later: isShadowCaster, extend vector and position by z-coordinate, hardness (simulate shatter on impact as well as speed loss on collision due energy going into deformation)
 
@@ -39,7 +44,7 @@ namespace IceBlink2
         public int totalElapsedTime = 0;
 
         //overloaded constructor: complexSprite 
-        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod, bool movesIndependentlyFromPlayerPosition)
+        public Sprite(GameView gv, string bitmap, float positionX, float positionY, float velocityX, float velocityY, float angle, float angularVelocity, float scale, int timeToLiveInMilliseconds, bool permanent, int msPerFrame, float opacity, float mass, string movementMethod, bool movesIndependentlyFromPlayerPosition, int numberOFFramesForAnimationsMadeFromSeveralBitmaps)
         {
             this.bitmap = bitmap;
             this.position = new Vector2(positionX, positionY);
@@ -59,7 +64,7 @@ namespace IceBlink2
             this.movesIndependentlyFromPlayerPosition = movesIndependentlyFromPlayerPosition;
             this.xShift = xShift;
             this.reverseXShift = reverseXShift;
-
+            this.numberOFFramesForAnimationsMadeFromSeveralBitmaps = numberOFFramesForAnimationsMadeFromSeveralBitmaps;
 
             if (millisecondsPerFrame == 0) { millisecondsPerFrame = 100; }
             frameHeight = gv.cc.GetFromBitmapList(bitmap).PixelSize.Height;
@@ -137,19 +142,56 @@ namespace IceBlink2
                 }
 
                 position.X += (xShift*0.75f);
+                //old approach with sin, doing it via customized values like above for now
                 //position.X += (float)Math.Sin(position.Y);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 
-            int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
-            currentFrameIndex = x / millisecondsPerFrame;            
+            if (this.numberOFFramesForAnimationsMadeFromSeveralBitmaps > 0)
+            {
+                numberOfFrames = this.numberOFFramesForAnimationsMadeFromSeveralBitmaps;
+            }
+
+            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
+            {
+                int x = totalElapsedTime % (numberOfFrames * millisecondsPerFrame);
+                currentFrameIndex = x / millisecondsPerFrame;
+            }
+            else
+            {
+                int x = (totalElapsedTime % (numberOfFrames * millisecondsPerFrame)) ;
+                currentFrameIndex = (x / millisecondsPerFrame) + 1;
+            }
+            //if ((this.movementMethod == "lightning") && (currentFrameIndex == 1))
+                    
+                    //{
+                //int stop = 0;
+                    //}
         }
 
         public void Draw(GameView gv)
-        {            
+        {  
             IbRect src = new IbRect(currentFrameIndex * frameHeight, 0, frameHeight, frameHeight);
+
+            //assumes frames of equal proportions
+            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps != 0)
+            {
+                src = new IbRect(0, 0, 150, 150);
+            }
+
             IbRect dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scale), (int)(gv.squareSize*this.scale));
-            gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity);            
+
+            if (numberOFFramesForAnimationsMadeFromSeveralBitmaps == 0)
+            {
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap), src, dst, angle, false, this.opacity);
+            }
+            else
+            {
+                gv.cc.addLogText("red", currentFrameIndex.ToString());
+
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false, this.opacity);
+
+            }   
         }
     }    
 }
