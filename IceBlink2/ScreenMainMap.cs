@@ -880,16 +880,18 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
-
-            finalBlackenOffMapScreen();
+            //zug1
+            //finalBlackenOffMapScreen();
             drawUiLayout();
             drawMiniMap();
         }
-
+        
         public void finalBlackenOffMapScreen()
         {
             drawRowOfBlack(gv.playerOffsetY * 2 + 1);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
+            //zug1
+            gv.cc.setToBorderPixDistancesMainMap();
         }
 
         public void drawWorldMap()
@@ -24211,6 +24213,7 @@ namespace IceBlink2
 
             drawColumnOfBlack(-1);
             drawRowOfBlack(-1);
+            //zug1
             drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
         }
@@ -26180,6 +26183,7 @@ namespace IceBlink2
                 if (mod.currentArea.southernNeighbourArea == "")
                 {
                     bool blackenNearBorder = false;
+
                     //at bottom edge
                     for (int i = -1; i <= gv.playerOffsetY + mod.PlayerLocationY - mod.currentArea.MapSizeY + 1; i++)
                     {
@@ -26338,6 +26342,7 @@ namespace IceBlink2
 
         public void drawColumnOfBlack(int col)
         {
+            
             for (int y = -1; y < gv.playerOffsetY * 2 + 1 + 2; y++)
             {
                 int tlX = col * gv.squareSize;
@@ -26348,9 +26353,11 @@ namespace IceBlink2
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
             }
+            
         }
         public void drawRowOfBlack(int row)
         {
+            
             for (int x = -1; x < gv.playerOffsetX * 2 + 1 + 2; x++)
             {
                 int tlX = x * gv.squareSize;
@@ -26361,6 +26368,7 @@ namespace IceBlink2
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
             }
+            
         }
                 
         public void drawUiLayout()

@@ -46,7 +46,8 @@ namespace IceBlink2
         public int ibpheight = 170;
         public int playerOffset = 4;
         public int playerOffsetX = 9;
-        public int playerOffsetY = 4;
+        //changed playerOffsetY from 4 to 5 in order to show map full screen (i.e. underneath UI, too)
+        public int playerOffsetY = 5;
         public int oXshift = 0;
         public int oYshift = 35;
         public string mainDirectory;
