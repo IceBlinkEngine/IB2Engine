@@ -880,18 +880,17 @@ namespace IceBlink2
             {
                 drawMainMapClockText();
             }
-            //zug1
             //finalBlackenOffMapScreen();
             drawUiLayout();
             drawMiniMap();
         }
         
+        //not used anymore (With extended playerOffsetY)
         public void finalBlackenOffMapScreen()
         {
             drawRowOfBlack(gv.playerOffsetY * 2 + 1);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
-            //zug1
-            gv.cc.setToBorderPixDistancesMainMap();
+            //gv.cc.setToBorderPixDistancesMainMap();
         }
 
         public void drawWorldMap()
@@ -24212,9 +24211,11 @@ namespace IceBlink2
             gv.DrawBitmap(gv.cc.bmpMap, src, dst);
 
             drawColumnOfBlack(-1);
+            drawColumnOfBlack(-2);
             drawRowOfBlack(-1);
             //zug1
             drawColumnOfBlack(gv.playerOffsetX * 2 + 1);
+            drawColumnOfBlack(gv.playerOffsetX * 2 + 2);
             drawRowOfBlack(gv.playerOffsetY * 2 + 2);
         }
 
@@ -26100,10 +26101,14 @@ namespace IceBlink2
 
                                 if (tile.Visible == false)
                                 {
-                                    gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,0.8f);
                                 }
 
-
+                                else if ((tile.Visible == true) && (tile.opacity > 0))
+                                {
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 0.8f * tile.opacity);
+                                    tile.opacity = tile.opacity - 0.0715f;
+                                }
 
                                 //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
                             }
@@ -26352,6 +26357,7 @@ namespace IceBlink2
                 IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                //gv.DrawBitmap(gv.cc.offScreen, src, dst);
             }
             
         }
@@ -26367,6 +26373,7 @@ namespace IceBlink2
                 IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
                 IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                 gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                //gv.DrawBitmap(gv.cc.offScreen, src, dst);
             }
             
         }

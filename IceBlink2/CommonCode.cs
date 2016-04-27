@@ -74,6 +74,8 @@ namespace IceBlink2
         public Bitmap turn_marker;
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
+        public Bitmap offScreen;
+        public Bitmap offScreenTrans;
         public Bitmap death_fx;
         public Bitmap tint_dawn;
         public Bitmap tint_sunrise;
@@ -1587,6 +1589,7 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            setToBorderPixDistancesMainMap();
             #region tile loading on demand
             if (gv.mod.useAllTileSystem)
             {

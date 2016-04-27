@@ -291,6 +291,8 @@ namespace IceBlink2
             cc.turn_marker = cc.LoadBitmap("turn_marker");
             cc.pc_dead = cc.LoadBitmap("pc_dead");
             cc.pc_stealth = cc.LoadBitmap("pc_stealth");
+            cc.offScreen = cc.LoadBitmap("offScreen");
+            cc.offScreenTrans = cc.LoadBitmap("offScreenTrans");
             cc.death_fx = cc.LoadBitmap("death_fx");
             cc.hitSymbol = cc.LoadBitmap("hit_symbol");
             cc.missSymbol = cc.LoadBitmap("miss_symbol");
@@ -980,6 +982,7 @@ namespace IceBlink2
         }
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
         {
+            //test
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
@@ -1262,7 +1265,7 @@ namespace IceBlink2
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, bool mirror)
         {
-            DrawD2DBitmap(bitmap, source, target, 0, mirror, 1.0f, 0, 0, 0, 0, false);
+            DrawD2DBitmap(bitmap, source, target, 0, mirror, 1.0f , 0, 0, 0, 0, false);
         }
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror)
         {
@@ -1311,6 +1314,17 @@ namespace IceBlink2
             renderTarget2D.Transform = SharpDX.Matrix.Transformation2D(center, 0, new Vector2(mir * xscl, yscl), center, angleInRadians, new Vector2(xshf, yshf));
             SharpDX.RectangleF trg = new SharpDX.RectangleF(target.Left, target.Top, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+
+            /*
+            if (bitmap == cc.offScreen)
+            {
+                if ((target.Left <= (screenWidth / 2 - mod.pixDistanceToBorderWest)) && (target.Left >= (screenWidth / 2 - mod.pixDistanceToBorderWest - squareSize)))
+                {
+                    bitmap = cc.offScreenTrans;
+                }
+            }
+            */
+
             if (NearestNeighbourInterpolation)
             {
                 renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.NearestNeighbor, src);
@@ -1319,7 +1333,7 @@ namespace IceBlink2
             {
                 renderTarget2D.DrawBitmap(bitmap, trg, opac, BitmapInterpolationMode.Linear, src);
             }            
-            renderTarget2D.Transform = Matrix3x2.Identity;            
+            renderTarget2D.Transform = Matrix3x2.Identity;
         }
 
         //INPUT STUFF
