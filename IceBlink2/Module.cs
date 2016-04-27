@@ -13,7 +13,23 @@ namespace IceBlink2
 {
     public class Module
     {
-        //vues used for 
+
+        
+        public int indexOfNorthernNeighbour = -1;
+        public int indexOfSouthernNeighbour = -1;
+        public int indexOfEasternNeighbour = -1;
+        public int indexOfWesternNeighbour = -1;
+        public int indexOfNorthEasternNeighbour = -1;
+        public int indexOfNorthWesternNeighbour = -1;
+        public int indexOfSouthEasternNeighbour = -1;
+        public int indexOfSouthWesternNeighbour = -1;
+
+        public int seamlessModififierMinX = 0;
+        public int seamlessModififierMaxX = 0;
+        public int seamlessModififierMinY = 0;
+        public int seamlessModififierMaxY = 0;
+
+
         //public float fullScreenEffectOpacityWeatherOld = 0;
         public string oldWeatherName = "";
         public float maintainWeatherFromLastAreaTimer = 0;
