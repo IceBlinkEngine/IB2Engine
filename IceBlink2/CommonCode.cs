@@ -71,6 +71,7 @@ namespace IceBlink2
         public Bitmap highlight_green;
         public Bitmap highlight_red;
         public Bitmap black_tile;
+        public Bitmap black_tile2;
         public Bitmap turn_marker;
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
@@ -5989,7 +5990,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.425f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true, 0);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.525f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }

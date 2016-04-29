@@ -25802,10 +25802,10 @@ namespace IceBlink2
             {
                 for (int y = -2; y <= 2; y++)
                 {
-                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + gv.playerOffsetY * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
+                    gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + x + (gv.playerOffsetY-1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH + y - gv.pS, 100, 100), 1.0f, Color.Black);
                 }
             }
-            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + gv.playerOffsetY * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
+            gv.DrawText(hour + ":" + sMinute, new IbRect(gv.oXshift + (gv.playerOffsetY-1) * gv.squareSize, gv.playerOffsetX * gv.squareSize - txtH - gv.pS, 100, 100), 1.0f, Color.White);
 
         }
         public void drawFogOfWar()
@@ -26134,7 +26134,7 @@ namespace IceBlink2
                                 int brX = (int)(gv.squareSize * scalerX);
                                 int brY = (int)(gv.squareSize * scalerY);
                                 IbRect src = new IbRect(0, 0, 100, 100);
-                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.05f), tlY - (int)(brY * 0.05f), (int)(brX*1.1f), (int)(brY*1.1f));
 
                                 if (tile.Visible == false)
                                 {
@@ -26143,7 +26143,7 @@ namespace IceBlink2
 
                                 else if ((tile.Visible == true) && (tile.opacity > 0))
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 0.8f * tile.opacity);
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 0.85f * tile.opacity);
                                     tile.opacity = tile.opacity - 0.0715f;
                                 }
 
@@ -26200,7 +26200,7 @@ namespace IceBlink2
                 if (mod.currentArea.westernNeighbourArea == "")
                 {
                     //at left edge
-                    for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX; i++)
+                    for (int i = 0; i < gv.playerOffsetX - mod.PlayerLocationX + 1; i++)
                     {
                         drawColumnOfBlack(i);
                     }
@@ -26217,7 +26217,7 @@ namespace IceBlink2
                 if (mod.currentArea.easternNeighbourArea == "")
                 {
                     //at right edge
-                    for (int i = 1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX + 1; i++)
+                    for (int i = 1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX; i++)
                     {
                         drawColumnOfBlack(width - i);
                     }
@@ -26397,16 +26397,13 @@ namespace IceBlink2
                 int brX = gv.squareSize;
                 int brY = gv.squareSize;
                 IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                gv.DrawBitmap(gv.cc.black_tile, src, dst);
-                //gv.DrawBitmap(gv.cc.offScreen, src, dst);
+                IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.1f), tlY - (int)(brY * 1.1f), (int)(brX *1.4f), (int)(brY*1.4f));
+                gv.DrawBitmap(gv.cc.black_tile2, src, dst);
             }
             
         }
         public void drawRowOfBlack(int row)
         {
-            
-            
             for (int x = -1; x < gv.playerOffsetX * 2 + 1 + 2; x++)
             {
                 int tlX = x * gv.squareSize;
@@ -26414,9 +26411,8 @@ namespace IceBlink2
                 int brX = gv.squareSize;
                 int brY = gv.squareSize;
                 IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
-                gv.DrawBitmap(gv.cc.black_tile, src, dst);
-                //gv.DrawBitmap(gv.cc.offScreen, src, dst);
+                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
+                gv.DrawBitmap(gv.cc.black_tile2, src, dst);
             }
             
         }

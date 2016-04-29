@@ -288,6 +288,7 @@ namespace IceBlink2
             cc.walkBlocked = cc.LoadBitmap("walk_block");
             cc.losBlocked = cc.LoadBitmap("los_block");
             cc.black_tile = cc.LoadBitmap("black_tile");
+            cc.black_tile2 = cc.LoadBitmap("black_tile2");
             cc.turn_marker = cc.LoadBitmap("turn_marker");
             cc.pc_dead = cc.LoadBitmap("pc_dead");
             cc.pc_stealth = cc.LoadBitmap("pc_stealth");
