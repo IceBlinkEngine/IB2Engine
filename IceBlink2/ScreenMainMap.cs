@@ -25827,35 +25827,49 @@ namespace IceBlink2
                 int seamlessModififierMinY = 0;
                 int seamlessModififierMaxY = 0;
 
+
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                #region neighbours
                 if ((gv.mod.currentArea.northernNeighbourArea != "") && (gv.mod.PlayerLocationY < gv.playerOffsetY))
                 {
-                    seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                    gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
                         {
-                            indexOfNorthernNeighbour = i;
+                            gv.mod.indexOfNorthernNeighbour = i;
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].easternNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea)
                             {
-                                indexOfNorthEasternNeighbour = i;
+                                gv.mod.indexOfNorthEasternNeighbour = i;
                             }
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationX < gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
+
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfNorthernNeighbour].westernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea)
                             {
-                                indexOfNorthWesternNeighbour = i;
+                                gv.mod.indexOfNorthWesternNeighbour = i;
                             }
                         }
                     }
@@ -25864,33 +25878,41 @@ namespace IceBlink2
                 if ((gv.mod.currentArea.southernNeighbourArea != "") && (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
                 {
 
-                    seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                    gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
                         {
-                            indexOfSouthernNeighbour = i;
+                            gv.mod.indexOfSouthernNeighbour = i;
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].easternNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea)
                             {
-                                indexOfSouthEasternNeighbour = i;
+                                gv.mod.indexOfSouthEasternNeighbour = i;
                             }
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationX < gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfSouthernNeighbour].westernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea)
                             {
-                                indexOfSouthWesternNeighbour = i;
+                                gv.mod.indexOfSouthWesternNeighbour = i;
                             }
                         }
                     }
@@ -25898,33 +25920,45 @@ namespace IceBlink2
 
                 if ((gv.mod.currentArea.westernNeighbourArea != "") && (gv.mod.PlayerLocationX < gv.playerOffsetX))
                 {
-                    seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                    gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
                         {
-                            indexOfWesternNeighbour = i;
+                            gv.mod.indexOfWesternNeighbour = i;
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "")
                     {
+
+                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].northernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea)
                             {
-                                indexOfNorthWesternNeighbour = i;
+                                gv.mod.indexOfNorthWesternNeighbour = i;
                             }
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "")
                     {
+
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
+
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfWesternNeighbour].southernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea)
                             {
-                                indexOfSouthWesternNeighbour = i;
+                                gv.mod.indexOfSouthWesternNeighbour = i;
                             }
                         }
                     }
@@ -25932,47 +25966,57 @@ namespace IceBlink2
 
                 if ((gv.mod.currentArea.easternNeighbourArea != "") && (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
                 {
-                    seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                    gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                     {
                         if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
                         {
-                            indexOfEasternNeighbour = i;
+                            gv.mod.indexOfEasternNeighbour = i;
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationY < gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].northernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea)
                             {
-                                indexOfNorthEasternNeighbour = i;
+                                gv.mod.indexOfNorthEasternNeighbour = i;
                             }
                         }
                     }
 
-                    if (gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea != "")
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "")
                     {
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
                         for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                         {
-                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[indexOfEasternNeighbour].southernNeighbourArea)
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea)
                             {
-                                indexOfSouthEasternNeighbour = i;
+                                gv.mod.indexOfSouthEasternNeighbour = i;
                             }
                         }
                     }
                 }
+                #endregion
 
                 int minX = mod.PlayerLocationX - gv.playerOffsetX - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minX < seamlessModififierMinX) { minX = -seamlessModififierMinX; }
+                if (minX < -gv.mod.seamlessModififierMinX) { minX = -gv.mod.seamlessModififierMinX; }
                 int minY = mod.PlayerLocationY - gv.playerOffsetY - 2; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < seamlessModififierMinY) { minY = -seamlessModififierMinY; }
+                if (minY < -gv.mod.seamlessModififierMinY) { minY = -gv.mod.seamlessModififierMinY; }
 
                 int maxX = mod.PlayerLocationX + gv.playerOffsetX + 1;
-                if (maxX > this.mod.currentArea.MapSizeX + seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + seamlessModififierMaxX; }
+                if (maxX > this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX) { maxX = this.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX; }
                 int maxY = mod.PlayerLocationY + gv.playerOffsetY + 1;
-                if (maxY > this.mod.currentArea.MapSizeY + seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + seamlessModififierMaxY; }
+                if (maxY > this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY) { maxY = this.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY; }
 
                 #region go through tiles
                 for (int x = minX; x < maxX; x++)
@@ -25990,12 +26034,12 @@ namespace IceBlink2
                         if ((x < 0) && (y < 0) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfNorthWesternNeighbour != -1)
+                            if (gv.mod.indexOfNorthWesternNeighbour != -1)
                             {
-                                int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + x;
-                                int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY + y;
-                                tile = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX];
-                                index = indexOfNorthWesternNeighbour;
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + x;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthWesternNeighbour;
                             }
                             else
                             {
@@ -26006,12 +26050,12 @@ namespace IceBlink2
                         if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfSouthWesternNeighbour != -1)
+                            if (gv.mod.indexOfSouthWesternNeighbour != -1)
                             {
-                                int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + x;
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + x;
                                 int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                tile = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX];
-                                index = indexOfSouthWesternNeighbour;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthWesternNeighbour;
                             }
                             else
                             {
@@ -26022,12 +26066,12 @@ namespace IceBlink2
                         if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfSouthEasternNeighbour != -1)
+                            if (gv.mod.indexOfSouthEasternNeighbour != -1)
                             {
                                 int transformedX = x - gv.mod.currentArea.MapSizeX;
                                 int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                tile = mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX];
-                                index = indexOfSouthEasternNeighbour;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthEasternNeighbour;
                             }
                             else
                             {
@@ -26038,12 +26082,12 @@ namespace IceBlink2
                         if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfNorthEasternNeighbour != -1)
+                            if (gv.mod.indexOfNorthEasternNeighbour != -1)
                             {
                                 int transformedX = x - gv.mod.currentArea.MapSizeX;
-                                int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY + y;
-                                tile = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX];
-                                index = indexOfNorthEasternNeighbour;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthEasternNeighbour;
                             }
                             else
                             {
@@ -26054,12 +26098,12 @@ namespace IceBlink2
                         if ((x < 0) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfWesternNeighbour != -1)
+                            if (gv.mod.indexOfWesternNeighbour != -1)
                             {
-                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + x;
+                                int transformedX = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + x;
                                 int transformedY = y;
-                                tile = mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX];
-                                index = indexOfWesternNeighbour;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfWesternNeighbour;
                             }
                             else
                             {
@@ -26070,12 +26114,12 @@ namespace IceBlink2
                         if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfSouthernNeighbour != -1)
+                            if (gv.mod.indexOfSouthernNeighbour != -1)
                             {
                                 int transformedX = x;
                                 int transformedY = y - gv.mod.currentArea.MapSizeY;
-                                tile = mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX];
-                                index = indexOfSouthernNeighbour;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthernNeighbour;
                             }
                             else
                             {
@@ -26086,12 +26130,12 @@ namespace IceBlink2
                         if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfEasternNeighbour != -1)
+                            if (gv.mod.indexOfEasternNeighbour != -1)
                             {
                                 int transformedX = x - gv.mod.currentArea.MapSizeX;
                                 int transformedY = y;
-                                tile = mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX];
-                                index = indexOfEasternNeighbour;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfEasternNeighbour;
                             }
                             else
                             {
@@ -26102,12 +26146,12 @@ namespace IceBlink2
                         if ((y < 0) && (!situationFound))
                         {
                             situationFound = true;
-                            if (indexOfNorthernNeighbour != -1)
+                            if (gv.mod.indexOfNorthernNeighbour != -1)
                             {
                                 int transformedX = x;
-                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + y;
-                                tile = mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX];
-                                index = indexOfNorthernNeighbour;
+                                int transformedY = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
+                                tile = mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthernNeighbour;
                             }
                             else
                             {
@@ -26217,7 +26261,7 @@ namespace IceBlink2
                 if (mod.currentArea.easternNeighbourArea == "")
                 {
                     //at right edge
-                    for (int i = 1; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX; i++)
+                    for (int i = 0; i <= gv.playerOffsetX + mod.PlayerLocationX - mod.currentArea.MapSizeX; i++)
                     {
                         drawColumnOfBlack(width - i);
                     }
@@ -26387,7 +26431,7 @@ namespace IceBlink2
             int lateStartY = 0;
             if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
             {
-                lateStartY = gv.mod.seamlessModififierMinY+1; 
+                lateStartY = gv.mod.seamlessModififierMinY+2; 
             }
             
             for (int y = -1 + lateStartY; y < gv.playerOffsetY * 2 + 1 + 2; y++)
