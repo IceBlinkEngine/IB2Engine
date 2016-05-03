@@ -58,7 +58,11 @@ namespace IceBlink2
         public bool blockFullScreenEffectLayer8 = false;
         public bool blockFullScreenEffectLayer9 = false;
         public bool blockFullScreenEffectLayer10 = false;
+        public int fadeMode = 0;
         public float opacity = 1;
+        public float opacity5 = 1;
+        public float opacity6 = 1;
+        public float opacity7 = 1;
         [JsonIgnore]
         public Bitmap tileBitmap0;
         [JsonIgnore]

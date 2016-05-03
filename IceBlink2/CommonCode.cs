@@ -76,6 +76,9 @@ namespace IceBlink2
         public Bitmap pc_dead;
         public Bitmap pc_stealth;
         public Bitmap offScreen;
+        public Bitmap offScreen5;
+        public Bitmap offScreen6;
+        public Bitmap offScreen7;
         public Bitmap offScreenTrans;
         public Bitmap death_fx;
         public Bitmap tint_dawn;

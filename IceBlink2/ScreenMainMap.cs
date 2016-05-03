@@ -26184,16 +26184,62 @@ namespace IceBlink2
 
                                 if (tile.Visible == false)
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,0.8f);
+                                    gv.DrawBitmap(gv.cc.offScreen, src, dst,0,false,0.9f);
                                 }
 
-                                else if ((tile.Visible == true) && (tile.opacity > 0))
+                                else if ((tile.Visible == true) && ( (tile.opacity > 0) ) )
                                 {
-                                    gv.DrawBitmap(gv.cc.offScreen, src, dst, 0, false, 0.85f * tile.opacity);
-                                    tile.opacity = tile.opacity - 0.0715f;
-                                }
 
-                                //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
+                                    if (tile.fadeMode == 0)
+                                    {
+                                        tile.fadeMode = gv.sf.RandInt(3);
+                                    }
+
+                                    int chance = gv.sf.RandInt(100);
+                                    if (tile.fadeMode == 1)
+                                    {
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity5 = tile.opacity5 - 0.12f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity6 = tile.opacity6 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 1.0f * tile.opacity5);
+                                        gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 0.5f * tile.opacity6);
+                                    }
+                                    if (tile.fadeMode == 2)
+                                    {
+                                        chance = gv.sf.RandInt(100);
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity6 = tile.opacity6 - 0.12f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity7 = tile.opacity7 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 1.0f * tile.opacity6);
+                                        gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 0.5f * tile.opacity7);
+                                    }
+
+                                    if (tile.fadeMode == 3)
+                                    {
+                                        chance = gv.sf.RandInt(100);
+                                        if (chance > 50)
+                                        {
+                                            tile.opacity7 = tile.opacity7 - 0.12f;
+                                        }
+                                        if (chance > 30)
+                                        {
+                                            tile.opacity5 = tile.opacity5 - 0.1f;
+                                        }
+                                        gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 1.0f * tile.opacity7);
+                                        gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 0.5f * tile.opacity5);
+                                    }
+                                    tile.opacity = tile.opacity - 0.06f;
+                                }
                             }
                             catch { }
                         }
