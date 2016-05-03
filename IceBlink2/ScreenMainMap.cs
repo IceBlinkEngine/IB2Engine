@@ -26200,7 +26200,7 @@ namespace IceBlink2
                                     {
                                         if (chance > 50)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.12f;
+                                            tile.opacity5 = tile.opacity5 - 0.14f;
                                         }
                                         if (chance > 30)
                                         {
@@ -26214,7 +26214,7 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(100);
                                         if (chance > 50)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.12f;
+                                            tile.opacity6 = tile.opacity6 - 0.14f;
                                         }
                                         if (chance > 30)
                                         {
@@ -26229,7 +26229,7 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(100);
                                         if (chance > 50)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.12f;
+                                            tile.opacity7 = tile.opacity7 - 0.14f;
                                         }
                                         if (chance > 30)
                                         {
@@ -26238,7 +26238,7 @@ namespace IceBlink2
                                         gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 1.0f * tile.opacity7);
                                         gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 0.5f * tile.opacity5);
                                     }
-                                    tile.opacity = tile.opacity - 0.06f;
+                                    tile.opacity = tile.opacity - 0.07f;
                                 }
                             }
                             catch { }
@@ -26473,52 +26473,54 @@ namespace IceBlink2
 
         public void drawColumnOfBlack(int col)
         {
-            int delayedStart = 0;
-            int earlyEnd  = 0;
-            bool isLeftCall = false;
-            bool isRightCall = false;
-
-            //left side
-            if (mod.PlayerLocationX < gv.playerOffsetX + 1)
+            if (mod.useAllTileSystem)
             {
-                isLeftCall = true;
-                if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
-                {
-                    delayedStart = gv.mod.seamlessModififierMinY + 2;
-                }
-                
-                if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMinX > 0))
-                {
-                    earlyEnd = gv.mod.seamlessModififierMaxY + 1;
-                }
-            }
+                int delayedStart = 0;
+                int earlyEnd = 0;
+                bool isLeftCall = false;
+                bool isRightCall = false;
 
-            //right side
-            if (mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
-            {
-                isRightCall = true;
-                if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMaxX > 0))
-                 {
-                    delayedStart = gv.mod.seamlessModififierMinY + 2;
-                }
-
-                if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                //left side
+                if (mod.PlayerLocationX < gv.playerOffsetX + 1)
                 {
-                    earlyEnd = gv.mod.seamlessModififierMaxY + 1;
+                    isLeftCall = true;
+                    if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    {
+                        delayedStart = gv.mod.seamlessModififierMinY + 2;
+                    }
+
+                    if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    {
+                        earlyEnd = gv.mod.seamlessModififierMaxY + 1;
+                    }
                 }
 
-            }
-            
- 
-            for (int y = -1 + delayedStart; y < gv.playerOffsetY * 2 + 1 + 2 - earlyEnd; y++)
+                //right side
+                if (mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                {
+                    isRightCall = true;
+                    if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    {
+                        delayedStart = gv.mod.seamlessModififierMinY + 2;
+                    }
+
+                    if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    {
+                        earlyEnd = gv.mod.seamlessModififierMaxY + 1;
+                    }
+
+                }
+
+
+                for (int y = -1 + delayedStart; y < gv.playerOffsetY * 2 + 1 + 2 - earlyEnd; y++)
                 {
                     int tlX = col * gv.squareSize;
                     int tlY = y * gv.squareSize;
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.1f), tlY - (int)(brY * 1.1f), (int)(brX * 1.4f), (int)(brY * 1.4f));
-                    
+                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.0f), (int)(brX * 1.2f), (int)(brY * 1.1));
+
                     bool skipDraw = false;
 
                     float pixDistanceToBorderOfThisAreaNorth = gv.mod.PlayerLocationY;
@@ -26537,7 +26539,7 @@ namespace IceBlink2
 
                     if ((isLeftCall) && (gv.mod.indexOfWesternNeighbour != -1))
                     {
-                        if (((y-2) * gv.squareSize >= ((gv.playerOffsetY * gv.squareSize) - pixDistanceToBorderOfThisAreaNorth)) && (y * gv.squareSize <= gv.screenHeight / 2 + pixDistanceToBorderOfThisAreaSouth))
+                        if (((y - 2) * gv.squareSize >= ((gv.playerOffsetY * gv.squareSize) - pixDistanceToBorderOfThisAreaNorth)) && (y * gv.squareSize <= gv.screenHeight / 2 + pixDistanceToBorderOfThisAreaSouth))
                         {
                             if (col <= gv.playerOffsetX)
                             {
@@ -26548,7 +26550,7 @@ namespace IceBlink2
 
                     if ((isRightCall) && (gv.mod.indexOfEasternNeighbour != -1))
                     {
-                        if (((y-2) * gv.squareSize >= ((gv.playerOffsetY * gv.squareSize) - pixDistanceToBorderOfThisAreaNorth)) && (y * gv.squareSize <= gv.screenHeight / 2 + pixDistanceToBorderOfThisAreaSouth))
+                        if (((y - 2) * gv.squareSize >= ((gv.playerOffsetY * gv.squareSize) - pixDistanceToBorderOfThisAreaNorth)) && (y * gv.squareSize <= gv.screenHeight / 2 + pixDistanceToBorderOfThisAreaSouth))
                         {
                             if (col > gv.playerOffsetX)
                             {
@@ -26556,82 +26558,97 @@ namespace IceBlink2
                             }
                         }
                     }
- 
+
                     if (!skipDraw)
                     {
                         gv.DrawBitmap(gv.cc.black_tile2, src, dst);
                         //gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
                     }
                 }
-            
+            }
+            else
+            {
+                for (int y = -1; y < gv.playerOffsetY * 2 + 1 + 2; y++)
+                {
+                    int tlX = col * gv.squareSize;
+                    int tlY = y * gv.squareSize;
+                    int brX = gv.squareSize;
+                    int brY = gv.squareSize;
+                    IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels, tlY, brX, brY);
+
+                    gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                }
+            }
             
         }
         public void drawRowOfBlack(int row)
         {
-           
-            int delayedStart = 0;
-            int earlyEnd = 0;
-            bool isTopCall = false;
-            bool isDownCall = false;
-
-            //top side
-            if (mod.PlayerLocationY < gv.playerOffsetY + 1)
+            if (mod.useAllTileSystem)
             {
-                isTopCall = true;
-                if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                int delayedStart = 0;
+                int earlyEnd = 0;
+                bool isTopCall = false;
+                bool isDownCall = false;
+
+                //top side
+                if (mod.PlayerLocationY < gv.playerOffsetY + 1)
                 {
-                    delayedStart = gv.mod.seamlessModififierMinX + 1;
+                    isTopCall = true;
+                    if ((gv.mod.indexOfNorthWesternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    {
+                        delayedStart = gv.mod.seamlessModififierMinX + 1;
+                    }
+
+                    if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    {
+                        earlyEnd = gv.mod.seamlessModififierMaxX + 2;
+                    }
+
                 }
 
-                if ((gv.mod.indexOfNorthEasternNeighbour != -1) && (gv.mod.seamlessModififierMinY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                //down side
+                else if (mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
                 {
-                    earlyEnd = gv.mod.seamlessModififierMaxX + 2;
+                    isDownCall = true;
+                    if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                    {
+                        delayedStart = gv.mod.seamlessModififierMinX + 1;
+                    }
+
+                    if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMaxX > 0))
+                    {
+                        earlyEnd = gv.mod.seamlessModififierMaxX + 2;
+                    }
+
                 }
 
-            }
-
-            //down side
-            else if (mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
-            {
-                isDownCall = true;
-                if ((gv.mod.indexOfSouthWesternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMinX > 0))
+                for (int x = -1 + delayedStart; x < gv.playerOffsetX * 2 + 1 + 2 - earlyEnd; x++)
                 {
-                    delayedStart = gv.mod.seamlessModififierMinX + 1;
-                }
+                    int tlX = x * gv.squareSize;
+                    int tlY = row * gv.squareSize;
+                    int brX = gv.squareSize;
+                    int brY = gv.squareSize;
+                    IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
+                    bool skipDraw = false;
 
-                if ((gv.mod.indexOfSouthEasternNeighbour != -1) && (gv.mod.seamlessModififierMaxY > 0) && (gv.mod.seamlessModififierMaxX > 0))
-                {
-                    earlyEnd = gv.mod.seamlessModififierMaxX + 2;
-                }
+                    float pixDistanceToBorderOfThisAreaWest = gv.mod.PlayerLocationX;
+                    if (pixDistanceToBorderOfThisAreaWest > gv.playerOffsetX)
+                    {
+                        pixDistanceToBorderOfThisAreaWest = gv.playerOffsetX;
+                    }
+                    pixDistanceToBorderOfThisAreaWest = (pixDistanceToBorderOfThisAreaWest + 1.5f) * gv.squareSize;
 
-            }
-
-            for (int x = -1 + delayedStart; x < gv.playerOffsetX * 2 + 1 + 2 - earlyEnd; x++)
-            {
-                int tlX = x * gv.squareSize;
-                int tlY = row * gv.squareSize;
-                int brX = gv.squareSize;
-                int brY = gv.squareSize;
-                IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
-                bool skipDraw = false;
-
-                float pixDistanceToBorderOfThisAreaWest = gv.mod.PlayerLocationX;
-                if (pixDistanceToBorderOfThisAreaWest > gv.playerOffsetX)
-                {
-                    pixDistanceToBorderOfThisAreaWest = gv.playerOffsetX;
-                }
-                pixDistanceToBorderOfThisAreaWest = (pixDistanceToBorderOfThisAreaWest + 1.5f) * gv.squareSize;
-
-                float pixDistanceToBorderOfThisAreaEast = (gv.mod.currentArea.MapSizeX - 1) - gv.mod.PlayerLocationX;
-                if (pixDistanceToBorderOfThisAreaEast > gv.playerOffsetX)
-                {
-                    pixDistanceToBorderOfThisAreaEast = gv.playerOffsetX;
-                }
-                pixDistanceToBorderOfThisAreaEast = (pixDistanceToBorderOfThisAreaEast + 1.5f) * gv.squareSize;
+                    float pixDistanceToBorderOfThisAreaEast = (gv.mod.currentArea.MapSizeX - 1) - gv.mod.PlayerLocationX;
+                    if (pixDistanceToBorderOfThisAreaEast > gv.playerOffsetX)
+                    {
+                        pixDistanceToBorderOfThisAreaEast = gv.playerOffsetX;
+                    }
+                    pixDistanceToBorderOfThisAreaEast = (pixDistanceToBorderOfThisAreaEast + 1.5f) * gv.squareSize;
 
 
-                    if  ((isTopCall) && (gv.mod.indexOfNorthernNeighbour != -1))
+                    if ((isTopCall) && (gv.mod.indexOfNorthernNeighbour != -1))
                     {
                         if ((x * gv.squareSize >= ((gv.playerOffsetX * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
@@ -26658,8 +26675,21 @@ namespace IceBlink2
                         gv.DrawBitmap(gv.cc.black_tile2, src, dst);
                         //gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
                     }
+                }
             }
-            
+            else
+            {
+                for (int x = -1; x < gv.playerOffsetX * 2 + 1 + 2; x++)
+                {
+                    int tlX = x * gv.squareSize;
+                    int tlY = row * gv.squareSize;
+                    int brX = gv.squareSize;
+                    int brY = gv.squareSize;
+                    IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
+                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                    gv.DrawBitmap(gv.cc.black_tile, src, dst);
+                }
+            }
         }
                 
         public void drawUiLayout()
