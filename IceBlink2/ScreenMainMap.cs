@@ -26561,8 +26561,8 @@ namespace IceBlink2
 
                     if (!skipDraw)
                     {
-                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
-                        //gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
+                        //gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                        gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
                     }
                 }
             }
@@ -26650,7 +26650,7 @@ namespace IceBlink2
 
                     if ((isTopCall) && (gv.mod.indexOfNorthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= ((gv.playerOffsetX * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row <= gv.playerOffsetY)
                             {
@@ -26661,7 +26661,7 @@ namespace IceBlink2
 
                     if ((isDownCall) && (gv.mod.indexOfSouthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= ((gv.playerOffsetX * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row > gv.playerOffsetY)
                             {
