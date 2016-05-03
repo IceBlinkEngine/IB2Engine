@@ -26561,8 +26561,8 @@ namespace IceBlink2
 
                     if (!skipDraw)
                     {
-                        //gv.DrawBitmap(gv.cc.black_tile2, src, dst);
-                        gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
+                        gv.DrawBitmap(gv.cc.black_tile2, src, dst);
+                        //gv.DrawBitmap(gv.cc.hitSymbol, src, dst);
                     }
                 }
             }
