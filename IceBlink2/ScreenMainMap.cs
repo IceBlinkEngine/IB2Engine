@@ -26519,7 +26519,7 @@ namespace IceBlink2
                     int brX = gv.squareSize;
                     int brY = gv.squareSize;
                     IbRect src = new IbRect(0, 0, gv.cc.black_tile.PixelSize.Width, gv.cc.black_tile.PixelSize.Height);
-                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.0f), (int)(brX * 1.2f), (int)(brY * 1.1));
+                    IbRect dst = new IbRect(tlX + mapStartLocXinPixels - (int)(brX * 1.0f), tlY - (int)(brY * 1.1f), (int)(brX * 1.2f), (int)(brY * 1.1));
 
                     bool skipDraw = false;
 
@@ -26650,7 +26650,7 @@ namespace IceBlink2
 
                     if ((isTopCall) && (gv.mod.indexOfNorthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row <= gv.playerOffsetY)
                             {
@@ -26661,7 +26661,7 @@ namespace IceBlink2
 
                     if ((isDownCall) && (gv.mod.indexOfSouthernNeighbour != -1))
                     {
-                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && (x * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
+                        if ((x * gv.squareSize >= (((gv.playerOffsetX+1) * gv.squareSize) - pixDistanceToBorderOfThisAreaWest)) && ((x+2) * gv.squareSize <= gv.screenWidth / 2 + pixDistanceToBorderOfThisAreaEast))
                         {
                             if (row > gv.playerOffsetY)
                             {
