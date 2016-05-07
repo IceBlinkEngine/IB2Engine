@@ -28902,528 +28902,344 @@ namespace IceBlink2
                         //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
                     }
                 }
-                
-                //1. check left-top (current, west, north, nortwest)
-                int x = mod.PlayerLocationX - 1;
-                int y = mod.PlayerLocationY - 1;
 
-                //current the second tier diagonal (NW) tile is on current map 
-                if ((x - 1 >= 0) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                int x = 0;
+                int y = 0;
+
+                if (mod.currentArea.AreaVisibleDistance >= 3)
                 {
-                    mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                }
-                
-                //west (inside check left top)
-                //the second tier diagonal (NW) tile is ONE square in western map
-                if (indexOfWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -1) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
 
-                //the second tier diagonal (NW) tile is TWO squares in western map
-                if (indexOfWesternNeighbour != -1)
-                {
-                if ((x - 1 == -2) && (y - 1 >= 0) && (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX -1)].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
+                    //1. check left-top (current, west, north, nortwest)
+                    x = mod.PlayerLocationX - 1;
+                    y = mod.PlayerLocationY - 1;
 
-                //north (inside check left top)
-                //the second tier diagonal (NW) tile is ONE square in northern map
-                if (indexOfNorthernNeighbour != -1)
-                {
-                    if ((x - 1 >= 0) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (NW) tile is TWO squares in northern map
-                if (indexOfNorthernNeighbour != -1)
-                {
-                    if ((x - 1 >= 0) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
-                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
-                    }
-                }
-
-                //northwest (inside check left top)
-                //the second tier diagonal (NW) tile is ONE square in northwestern map
-                if (indexOfNorthWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -1) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
-                        mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (NW) tile is TWO squares in northwestern map
-                if (indexOfNorthWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -2) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX-1].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 2;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 2;
-                        mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-                //2. check left-bottom (current, west, south, southwest)
-                x = mod.PlayerLocationX - 1;
-                y = mod.PlayerLocationY + 1;
-
-                //current the second tier diagonal (SW) tile is on current map 
-                if ((x - 1 >= 0) && (y + 1 <= mod.currentArea.MapSizeY-1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                }
-
-                //west (inside check left bottom)
-                //the second tier diagonal (SW) tile is ONE square in western map
-                if (indexOfWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -1) && (y + 1 < mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SW) tile is TWO squares in western map
-                if (indexOfWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -2) && (y + 1 < mod.currentArea.MapSizeY) && (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //south (inside check left bottom)
-                //the second tier diagonal (SW) tile is ONE square in southern map
-                if (indexOfSouthernNeighbour != -1)
-                {
-                    if ((x - 1 >= 0) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SW) tile is TWO squares in southern map
-                if (indexOfSouthernNeighbour != -1)
-                {
-                    if ((x - 1 >= 0) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = 1;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
-                    }
-                }
-
-                //southwest (inside check left top)
-                //the second tier diagonal (SW) tile is ONE square in southwestern map
-                if (indexOfSouthWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -1) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SW) tile is TWO squares in southwestern map
-                if (indexOfSouthWesternNeighbour != -1)
-                {
-                    if ((x - 1 == -2) && (y + 1 == mod.currentArea.MapSizeY+1) && (!mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(0) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1].LoSBlocked))
-                    {
-                        int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 2;
-                        int transformedY = 1;
-                        mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-                //3. check right-bottom (current, east, south, southeast)
-                x = mod.PlayerLocationX + 1;
-                y = mod.PlayerLocationY + 1;
-
-                //current the second tier diagonal (SE) tile is on current map 
-                if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                }
-
-                //east (inside check right bottom)
-                //the second tier diagonal (SE) tile is ONE square in eastern map
-                if (indexOfEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = 0;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SE) tile is TWO squares in eastern map
-                if (indexOfEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked))
-                    {
-                        int transformedX = 1;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //south (inside check right bottom)
-                //the second tier diagonal (SE) tile is ONE square in southern map
-                if (indexOfSouthernNeighbour != -1)
-                {
-                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SE) tile is TWO squares in southern map
-                if (indexOfSouthernNeighbour != -1)
-                {
-                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = 1;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
-                    }
-                }
-
-                //southeast (inside check right bottom)
-                //the second tier diagonal (SE) tile is ONE square in southeastern map
-                if (indexOfSouthEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = 0;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (SE) tile is TWO squares in southeastern map
-                if (indexOfSouthEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(0) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + 0].LoSBlocked))
-                    {
-                        int transformedX = 1;
-                        int transformedY = 1;
-                        mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-                //4.check right-top (current, east, north, northeast)
-                x = mod.PlayerLocationX + 1;
-                y = mod.PlayerLocationY - 1;
-
-                //current: the second tier diagonal (NE) tile is on current map 
-                if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                }
-
-                //east (inside check right top)
-                //the second tier diagonal (NE) tile is ONE square in eastern map
-                if (indexOfEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = 0;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (NE) tile is TWO squares in eastern map
-                if (indexOfEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y - 1 >= 0) && (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked))
-                    {
-                        int transformedX = 1;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //north (inside check right top)
-                //the second tier diagonal (NE) tile is ONE square in northern map
-                if (indexOfNorthernNeighbour != -1)
-                {
-                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (NE) tile is TWO squares in northern map
-                if (indexOfNorthernNeighbour != -1)
-                {
-                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = x;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
-                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
-                    }
-                }
-
-                //northeast (inside check right top)
-                //the second tier diagonal (NE) tile is ONE square in northeastern map
-                if (indexOfNorthEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX) && (y - 1 == -1) && (!mod.currentArea.Tiles[0 * mod.currentArea.MapSizeX + x].LoSBlocked))
-                    {
-                        int transformedX = 0;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
-                        mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //the second tier diagonal (NE) tile is TWO squares in northeastern map
-                if (indexOfNorthEasternNeighbour != -1)
-                {
-                    if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + 0].LoSBlocked))
-                    {
-                        int transformedX = 1;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 2;
-                        mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                    }
-                }
-
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //check left
-                x = mod.PlayerLocationX - 1;
-                y = mod.PlayerLocationY;
-                //the second tier row is not on western map (|210)
-                if ((x - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier north tile is on current map
-                    if (y > 0)
+                    //current the second tier diagonal (NW) tile is on current map 
+                    if ((x - 1 >= 0) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                     {
                         mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
                     }
-                    //the second tier north tile is on norhtern map
-                    else if (y == 0)
-                    {
-                        if (indexOfNorthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                        }
-                    }
 
-                    //draw the base tile on this map
-                    mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-
-                    //the second tier south tile is on current map
-                    if (y < mod.currentArea.MapSizeY - 1)
+                    //west (inside check left top)
+                    //the second tier diagonal (NW) tile is ONE square in western map
+                    if (indexOfWesternNeighbour != -1)
                     {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                    //the second tier south tile is on southern map
-                    else if (y == mod.currentArea.MapSizeY - 1)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile is on western map, but the potential LoS blocker still on current map (2|10)
-                else if ((x - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier north tile is on western map
-                    if (y > 0)
-                    {
-                        if (indexOfWesternNeighbour != -1)
+                        if ((x - 1 == -1) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                         {
                             int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
                             int transformedY = y;
                             mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
                         }
                     }
-                    //the second tier north tile is on north-western map
-                    else if (y == 0)
+
+                    //the second tier diagonal (NW) tile is TWO squares in western map
+                    if (indexOfWesternNeighbour != -1)
                     {
-                        if (indexOfNorthWesternNeighbour != -1)
+                        if ((x - 1 == -2) && (y - 1 >= 0) && (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)].LoSBlocked))
+                        {
+                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //north (inside check left top)
+                    //the second tier diagonal (NW) tile is ONE square in northern map
+                    if (indexOfNorthernNeighbour != -1)
+                    {
+                        if ((x - 1 >= 0) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (NW) tile is TWO squares in northern map
+                    if (indexOfNorthernNeighbour != -1)
+                    {
+                        if ((x - 1 >= 0) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
+                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
+                        }
+                    }
+
+                    //northwest (inside check left top)
+                    //the second tier diagonal (NW) tile is ONE square in northwestern map
+                    if (indexOfNorthWesternNeighbour != -1)
+                    {
+                        if ((x - 1 == -1) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                         {
                             int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
                             int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
                             mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                         }
                     }
-                    //draw the second tier base tile on western map
+
+                    //the second tier diagonal (NW) tile is TWO squares in northwestern map
+                    if (indexOfNorthWesternNeighbour != -1)
+                    {
+                        if ((x - 1 == -2) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1].LoSBlocked))
+                        {
+                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 2;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 2;
+                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                    //2. check left-bottom (current, west, south, southwest)
+                    x = mod.PlayerLocationX - 1;
+                    y = mod.PlayerLocationY + 1;
+
+                    //current the second tier diagonal (SW) tile is on current map 
+                    if ((x - 1 >= 0) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                    {
+                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+                    }
+
+                    //west (inside check left bottom)
+                    //the second tier diagonal (SW) tile is ONE square in western map
                     if (indexOfWesternNeighbour != -1)
                     {
-                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                    }
-                    //the second tier south tile is on western map
-                    if (y < mod.currentArea.MapSizeY - 1)
-                    {
-                        if (indexOfWesternNeighbour != -1)
+                        if ((x - 1 == -1) && (y + 1 < mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                         {
                             int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
                             int transformedY = y;
-                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
                         }
                     }
-                    //the second tier south tile is on south-western map
-                    else if (y == mod.currentArea.MapSizeY - 1)
+
+                    //the second tier diagonal (SW) tile is TWO squares in western map
+                    if (indexOfWesternNeighbour != -1)
                     {
-                        if (indexOfSouthWesternNeighbour != -1)
+                        if ((x - 1 == -2) && (y + 1 < mod.currentArea.MapSizeY) && (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)].LoSBlocked))
+                        {
+                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //south (inside check left bottom)
+                    //the second tier diagonal (SW) tile is ONE square in southern map
+                    if (indexOfSouthernNeighbour != -1)
+                    {
+                        if ((x - 1 >= 0) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = 0;
+                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (SW) tile is TWO squares in southern map
+                    if (indexOfSouthernNeighbour != -1)
+                    {
+                        if ((x - 1 >= 0) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = 1;
+                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX - 1].Visible = true;
+                        }
+                    }
+
+                    //southwest (inside check left top)
+                    //the second tier diagonal (SW) tile is ONE square in southwestern map
+                    if (indexOfSouthWesternNeighbour != -1)
+                    {
+                        if ((x - 1 == -1) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                         {
                             int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
                             int transformedY = 0;
                             mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                         }
                     }
-                }
-                //the second tier base tile and the potential LoS blocker are on western map, but the party is still on current map (21|0)
-                else if (x - 1 == -2)
-                {
-                    if (indexOfWesternNeighbour != -1)
+
+                    //the second tier diagonal (SW) tile is TWO squares in southwestern map
+                    if (indexOfSouthWesternNeighbour != -1)
                     {
-                        if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)].LoSBlocked)
+                        if ((x - 1 == -2) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(0) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1].LoSBlocked))
                         {
-                            //the second tier north tile is on western map
-                            if (y > 0)
-                            {
-                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
-                                int transformedY = y;
-                                mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                            }
-                            //the second tier north tile is on north-western map
-                            else if (y == 0)
-                            {
-                                if (indexOfNorthWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 2;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
-                                    mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                            //draw the second tier base tile on western map
-                            if (indexOfWesternNeighbour != -1)
-                            {
-                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
-                                int transformedY = y;
-                                mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                            }
-                            //the second tier south tile is on western map
-                            if (y < mod.currentArea.MapSizeY - 1)
-                            {
-                                if (indexOfWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
-                                    int transformedY = y;
-                                    mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                                }
-                            }
-                            //the second tier south tile is on south-western map
-                            else if (y == mod.currentArea.MapSizeY - 1)
-                            {
-                                if (indexOfSouthWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 2;
-                                    int transformedY = 0;
-                                    mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
+                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 2;
+                            int transformedY = 1;
+                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                         }
                     }
-                }
 
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+                    //3. check right-bottom (current, east, south, southeast)
+                    x = mod.PlayerLocationX + 1;
+                    y = mod.PlayerLocationY + 1;
 
-                //check left of left
-                x = mod.PlayerLocationX - 2;
-                y = mod.PlayerLocationY;
-                bool loSCheck1 = false;
-                bool loSCheck2 = false;
-                int tempX = 0;
-
-                //loSCheck1
-                tempX = x + 1;
-                if (((tempX) < 0) && (indexOfWesternNeighbour != -1))
-                {
-                    tempX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX;
-                    if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX].LoSBlocked)
+                    //current the second tier diagonal (SE) tile is on current map 
+                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                     {
-                        loSCheck1 = true;
+                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
                     }
-                }
 
-                if ((x + 1) >= 0)
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x + 1].LoSBlocked)
+                    //east (inside check right bottom)
+                    //the second tier diagonal (SE) tile is ONE square in eastern map
+                    if (indexOfEasternNeighbour != -1)
                     {
-                        loSCheck1 = true;
+                        if ((x + 1 == mod.currentArea.MapSizeX) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = 0;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
                     }
-                }
 
-                //loSCheck2
-                tempX = x;
-                if ((tempX < 0) && (indexOfWesternNeighbour != -1))
-                {
-                    tempX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX;
-                    if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX].LoSBlocked)
+                    //the second tier diagonal (SE) tile is TWO squares in eastern map
+                    if (indexOfEasternNeighbour != -1)
                     {
-                        loSCheck2 = true;
+                        if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked))
+                        {
+                            int transformedX = 1;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
                     }
-                }
 
-                if (x >= 0)
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
+                    //south (inside check right bottom)
+                    //the second tier diagonal (SE) tile is ONE square in southern map
+                    if (indexOfSouthernNeighbour != -1)
                     {
-                        loSCheck2 = true;
+                        if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = 0;
+                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
+                        }
                     }
-                }
 
-                if (loSCheck1 && loSCheck2)
+                    //the second tier diagonal (SE) tile is TWO squares in southern map
+                    if (indexOfSouthernNeighbour != -1)
+                    {
+                        if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = 1;
+                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
+                        }
+                    }
+
+                    //southeast (inside check right bottom)
+                    //the second tier diagonal (SE) tile is ONE square in southeastern map
+                    if (indexOfSouthEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX) && (y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = 0;
+                            int transformedY = 0;
+                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (SE) tile is TWO squares in southeastern map
+                    if (indexOfSouthEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y + 1 == mod.currentArea.MapSizeY + 1) && (!mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(0) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + 0].LoSBlocked))
+                        {
+                            int transformedX = 1;
+                            int transformedY = 1;
+                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+                    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                    //4.check right-top (current, east, north, northeast)
+                    x = mod.PlayerLocationX + 1;
+                    y = mod.PlayerLocationY - 1;
+
+                    //current: the second tier diagonal (NE) tile is on current map 
+                    if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                    {
+                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                    }
+
+                    //east (inside check right top)
+                    //the second tier diagonal (NE) tile is ONE square in eastern map
+                    if (indexOfEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX) && (y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = 0;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (NE) tile is TWO squares in eastern map
+                    if (indexOfEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y - 1 >= 0) && (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked))
+                        {
+                            int transformedX = 1;
+                            int transformedY = y;
+                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //north (inside check right top)
+                    //the second tier diagonal (NE) tile is ONE square in northern map
+                    if (indexOfNorthernNeighbour != -1)
+                    {
+                        if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (NE) tile is TWO squares in northern map
+                    if (indexOfNorthernNeighbour != -1)
+                    {
+                        if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = x;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
+                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + transformedX + 1].Visible = true;
+                        }
+                    }
+
+                    //northeast (inside check right top)
+                    //the second tier diagonal (NE) tile is ONE square in northeastern map
+                    if (indexOfNorthEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX) && (y - 1 == -1) && (!mod.currentArea.Tiles[0 * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            int transformedX = 0;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
+                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+
+                    //the second tier diagonal (NE) tile is TWO squares in northeastern map
+                    if (indexOfNorthEasternNeighbour != -1)
+                    {
+                        if ((x + 1 == mod.currentArea.MapSizeX + 1) && (y - 1 == -2) && (!mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + 0].LoSBlocked))
+                        {
+                            int transformedX = 1;
+                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 2;
+                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                        }
+                    }
+                } 
+
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                if (mod.currentArea.AreaVisibleDistance >= 2)
                 {
+                    //check left
+                    x = mod.PlayerLocationX - 1;
+                    y = mod.PlayerLocationY;
                     //the second tier row is not on western map (|210)
                     if ((x - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                     {
@@ -29567,264 +29383,272 @@ namespace IceBlink2
                             }
                         }
                     }
-                    //utmost left situation (321|0)
-                    else if (x - 1 == -3)
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                bool loSCheck1 = false;
+                bool loSCheck2 = false;
+                int tempX = 0;
+                int tempY = 0;
+
+                if (mod.currentArea.AreaVisibleDistance >= 3)
+                {
+                    //check left of left
+                    x = mod.PlayerLocationX - 2;
+                    y = mod.PlayerLocationY;
+                    loSCheck1 = false;
+                    loSCheck2 = false;
+                    tempX = 0;
+
+                    //loSCheck1
+                    tempX = x + 1;
+                    if (((tempX) < 0) && (indexOfWesternNeighbour != -1))
                     {
-                        if (indexOfWesternNeighbour != -1)
+                        tempX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX;
+                        if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX].LoSBlocked)
                         {
-                            if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2)].LoSBlocked)
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    if ((x + 1) >= 0)
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x + 1].LoSBlocked)
+                        {
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    //loSCheck2
+                    tempX = x;
+                    if ((tempX < 0) && (indexOfWesternNeighbour != -1))
+                    {
+                        tempX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX;
+                        if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + tempX].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (x >= 0)
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (loSCheck1 && loSCheck2)
+                    {
+                        //the second tier row is not on western map (|210)
+                        if ((x - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier north tile is on current map
+                            if (y > 0)
                             {
-                                //the second tier north tile is on western map
-                                if (y > 0)
+                                mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+                            }
+                            //the second tier north tile is on norhtern map
+                            else if (y == 0)
+                            {
+                                if (indexOfNorthernNeighbour != -1)
                                 {
-                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 3;
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                }
+                            }
+
+                            //draw the base tile on this map
+                            mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+
+                            //the second tier south tile is on current map
+                            if (y < mod.currentArea.MapSizeY - 1)
+                            {
+                                mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+                            }
+                            //the second tier south tile is on southern map
+                            else if (y == mod.currentArea.MapSizeY - 1)
+                            {
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile is on western map, but the potential LoS blocker still on current map (2|10)
+                        else if ((x - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier north tile is on western map
+                            if (y > 0)
+                            {
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
                                     int transformedY = y;
                                     mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
                                 }
-                                //the second tier north tile is on north-western map
-                                else if (y == 0)
+                            }
+                            //the second tier north tile is on north-western map
+                            else if (y == 0)
+                            {
+                                if (indexOfNorthWesternNeighbour != -1)
                                 {
-                                    if (indexOfNorthWesternNeighbour != -1)
-                                    {
-                                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 3;
-                                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
-                                        mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                    }
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                                 }
-                                //draw the second tier base tile on western map
+                            }
+                            //draw the second tier base tile on western map
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
+                                int transformedY = y;
+                                mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            }
+                            //the second tier south tile is on western map
+                            if (y < mod.currentArea.MapSizeY - 1)
+                            {
                                 if (indexOfWesternNeighbour != -1)
                                 {
-                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 3;
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
                                     int transformedY = y;
-                                    mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                 }
-                                //the second tier south tile is on western map
-                                if (y < mod.currentArea.MapSizeY - 1)
+                            }
+                            //the second tier south tile is on south-western map
+                            else if (y == mod.currentArea.MapSizeY - 1)
+                            {
+                                if (indexOfSouthWesternNeighbour != -1)
                                 {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile and the potential LoS blocker are on western map, but the party is still on current map (21|0)
+                        else if (x - 1 == -2)
+                        {
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1)].LoSBlocked)
+                                {
+                                    //the second tier north tile is on western map
+                                    if (y > 0)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                    }
+                                    //the second tier north tile is on north-western map
+                                    else if (y == 0)
+                                    {
+                                        if (indexOfNorthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 2;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
+                                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on western map
+                                    if (indexOfWesternNeighbour != -1)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    }
+                                    //the second tier south tile is on western map
+                                    if (y < mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2;
+                                            int transformedY = y;
+                                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier south tile is on south-western map
+                                    else if (y == mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfSouthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 2;
+                                            int transformedY = 0;
+                                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //utmost left situation (321|0)
+                        else if (x - 1 == -3)
+                        {
+                            if (indexOfWesternNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 2)].LoSBlocked)
+                                {
+                                    //the second tier north tile is on western map
+                                    if (y > 0)
+                                    {
+                                        int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 3;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                    }
+                                    //the second tier north tile is on north-western map
+                                    else if (y == 0)
+                                    {
+                                        if (indexOfNorthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 3;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
+                                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on western map
                                     if (indexOfWesternNeighbour != -1)
                                     {
                                         int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 3;
                                         int transformedY = y;
-                                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                     }
-                                }
-                                //the second tier south tile is on south-western map
-                                else if (y == mod.currentArea.MapSizeY - 1)
-                                {
-                                    if (indexOfSouthWesternNeighbour != -1)
+                                    //the second tier south tile is on western map
+                                    if (y < mod.currentArea.MapSizeY - 1)
                                     {
-                                        int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 3;
-                                        int transformedY = 0;
-                                        mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        if (indexOfWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 3;
+                                            int transformedY = y;
+                                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier south tile is on south-western map
+                                    else if (y == mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfSouthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 3;
+                                            int transformedY = 0;
+                                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-
 
 
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-                //check right
-                x = mod.PlayerLocationX + 1;
-                y = mod.PlayerLocationY;
-                //the second tier row is not on eastern map (012|)
-                if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                if (mod.currentArea.AreaVisibleDistance >= 2)
                 {
-                    //the second tier north tile is on current map
-                    if (y > 0)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    //the second tier north tile is on norhtern map
-                    else if (y == 0)
-                    {
-                        if (indexOfNorthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                        }
-                    }
-
-                    //draw the base tile on this map
-                    mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-
-                    //the second tier south tile is on current map
-                    if (y < mod.currentArea.MapSizeY - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    //the second tier south tile is on southern map
-                    else if (y == mod.currentArea.MapSizeY - 1)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile is on eastern map, but the potential LoS blocker still on current map (01|2)
-                else if ((x + 1 == mod.currentArea.MapSizeX) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier north tile is on eastern map
-                    if (y > 0)
-                    {
-                        if (indexOfEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                    //the second tier north tile is on north-eastern map
-                    else if (y == 0)
-                    {
-                        if (indexOfNorthEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                    //draw the second tier base tile on eastern map
-                    if (indexOfEasternNeighbour != -1)
-                    {
-                        int transformedX = 0;
-                        int transformedY = y;
-                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                    }
-                    //the second tier south tile is on eastern map
-                    if (y < mod.currentArea.MapSizeY - 1)
-                    {
-                        if (indexOfEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
-                    //the second tier south tile is on south-eastern map
-                    else if (y == mod.currentArea.MapSizeY - 1)
-                    {
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile and the potential LoS blocker are on eastern map, but the party is still on current map (0|12)
-                else if (x + 1 == mod.currentArea.MapSizeX + 1)
-                {
-                    if (indexOfEasternNeighbour != -1)
-                    {
-                        if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked)
-                        {
-                            //the second tier north tile is on eastern map
-                            if (y > 0)
-                            {
-                                int transformedX = 1;
-                                int transformedY = y;
-                                mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                            }
-                            //the second tier north tile is on north-eastern map
-                            else if (y == 0)
-                            {
-                                if (indexOfNorthEasternNeighbour != -1)
-                                {
-                                    int transformedX = 1;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
-                                    mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                            // the second tier base tile on eastern map
-                            if (indexOfEasternNeighbour != -1)
-                            {
-                                int transformedX = 1;
-                                int transformedY = y;
-                                mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                            }
-                            //the second tier south tile is on eastern map
-                            if (y < mod.currentArea.MapSizeY - 1)
-                            {
-                                if (indexOfEasternNeighbour != -1)
-                                {
-                                    int transformedX = 1;
-                                    int transformedY = y;
-                                    mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                                }
-                            }
-                            //the second tier south tile is on south-eastern map
-                            else if (y == mod.currentArea.MapSizeY - 1)
-                            {
-                                if (indexOfSouthEasternNeighbour != -1)
-                                {
-                                    int transformedX = 1;
-                                    int transformedY = 0;
-                                    mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
-                //check right of right
-                x = mod.PlayerLocationX + 2;
-                y = mod.PlayerLocationY;
-                loSCheck1 = false;
-                loSCheck2 = false;
-                tempX = 0;
-
-                //loSCheck1
-                tempX = x - 1;
-                if ((tempX > (mod.currentArea.MapSizeX - 1)) && (indexOfEasternNeighbour != -1))
-                {
-                    tempX = 0;
-                    if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + tempX].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                if ((x - 1) <= (mod.currentArea.MapSizeX - 1))
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x - 1].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                //loSCheck2
-                tempX = x;
-                if ((tempX > (mod.currentArea.MapSizeX - 1)) && (indexOfEasternNeighbour != -1))
-                {
-                    tempX = 1;
-                    if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + tempX].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (x <= (mod.currentArea.MapSizeX - 1))
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (loSCheck1 && loSCheck2)
-                {
+                    //check right
+                    x = mod.PlayerLocationX + 1;
+                    y = mod.PlayerLocationY;
                     //the second tier row is not on eastern map (012|)
                     if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                     {
@@ -29968,56 +29792,253 @@ namespace IceBlink2
                             }
                         }
                     }
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-                    //utmost right situation (0|123)
-                    else if (x + 1 == mod.currentArea.MapSizeX + 2)
+
+                if (mod.currentArea.AreaVisibleDistance >= 3)
+                {
+                    //check right of right
+                    x = mod.PlayerLocationX + 2;
+                    y = mod.PlayerLocationY;
+                    loSCheck1 = false;
+                    loSCheck2 = false;
+                    tempX = 0;
+
+                    //loSCheck1
+                    tempX = x - 1;
+                    if ((tempX > (mod.currentArea.MapSizeX - 1)) && (indexOfEasternNeighbour != -1))
                     {
-                        if (indexOfEasternNeighbour != -1)
+                        tempX = 0;
+                        if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + tempX].LoSBlocked)
                         {
-                            if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 1].LoSBlocked)
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    if ((x - 1) <= (mod.currentArea.MapSizeX - 1))
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x - 1].LoSBlocked)
+                        {
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    //loSCheck2
+                    tempX = x;
+                    if ((tempX > (mod.currentArea.MapSizeX - 1)) && (indexOfEasternNeighbour != -1))
+                    {
+                        tempX = 1;
+                        if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + tempX].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (x <= (mod.currentArea.MapSizeX - 1))
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (loSCheck1 && loSCheck2)
+                    {
+                        //the second tier row is not on eastern map (012|)
+                        if ((x + 1 <= mod.currentArea.MapSizeX - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier north tile is on current map
+                            if (y > 0)
                             {
-                                //the second tier north tile is on eastern map
-                                if (y > 0)
+                                mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                            }
+                            //the second tier north tile is on norhtern map
+                            else if (y == 0)
+                            {
+                                if (indexOfNorthernNeighbour != -1)
                                 {
-                                    int transformedX = 2;
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                }
+                            }
+
+                            //draw the base tile on this map
+                            mod.currentArea.Tiles[(y + 0) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+
+                            //the second tier south tile is on current map
+                            if (y < mod.currentArea.MapSizeY - 1)
+                            {
+                                mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                            }
+                            //the second tier south tile is on southern map
+                            else if (y == mod.currentArea.MapSizeY - 1)
+                            {
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile is on eastern map, but the potential LoS blocker still on current map (01|2)
+                        else if ((x + 1 == mod.currentArea.MapSizeX) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier north tile is on eastern map
+                            if (y > 0)
+                            {
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = 0;
                                     int transformedY = y;
                                     mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
                                 }
-                                //the second tier north tile is on north-eastern map
-                                else if (y == 0)
+                            }
+                            //the second tier north tile is on north-eastern map
+                            else if (y == 0)
+                            {
+                                if (indexOfNorthEasternNeighbour != -1)
                                 {
-                                    if (indexOfNorthEasternNeighbour != -1)
-                                    {
-                                        int transformedX = 2;
-                                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
-                                        mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                    }
+                                    int transformedX = 0;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
                                 }
-                                // the second tier base tile on eastern map
+                            }
+                            //draw the second tier base tile on eastern map
+                            if (indexOfEasternNeighbour != -1)
+                            {
+                                int transformedX = 0;
+                                int transformedY = y;
+                                mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            }
+                            //the second tier south tile is on eastern map
+                            if (y < mod.currentArea.MapSizeY - 1)
+                            {
                                 if (indexOfEasternNeighbour != -1)
                                 {
-                                    int transformedX = 2;
+                                    int transformedX = 0;
                                     int transformedY = y;
-                                    mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                 }
-                                //the second tier south tile is on eastern map
-                                if (y < mod.currentArea.MapSizeY - 1)
+                            }
+                            //the second tier south tile is on south-eastern map
+                            else if (y == mod.currentArea.MapSizeY - 1)
+                            {
+                                if (indexOfSouthEasternNeighbour != -1)
                                 {
+                                    int transformedX = 0;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile and the potential LoS blocker are on eastern map, but the party is still on current map (0|12)
+                        else if (x + 1 == mod.currentArea.MapSizeX + 1)
+                        {
+                            if (indexOfEasternNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 0].LoSBlocked)
+                                {
+                                    //the second tier north tile is on eastern map
+                                    if (y > 0)
+                                    {
+                                        int transformedX = 1;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                    }
+                                    //the second tier north tile is on north-eastern map
+                                    else if (y == 0)
+                                    {
+                                        if (indexOfNorthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 1;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
+                                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    // the second tier base tile on eastern map
+                                    if (indexOfEasternNeighbour != -1)
+                                    {
+                                        int transformedX = 1;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    }
+                                    //the second tier south tile is on eastern map
+                                    if (y < mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 1;
+                                            int transformedY = y;
+                                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier south tile is on south-eastern map
+                                    else if (y == mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfSouthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 1;
+                                            int transformedY = 0;
+                                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //utmost right situation (0|123)
+                        else if (x + 1 == mod.currentArea.MapSizeX + 2)
+                        {
+                            if (indexOfEasternNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[y * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + 1].LoSBlocked)
+                                {
+                                    //the second tier north tile is on eastern map
+                                    if (y > 0)
+                                    {
+                                        int transformedX = 2;
+                                        int transformedY = y;
+                                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                    }
+                                    //the second tier north tile is on north-eastern map
+                                    else if (y == 0)
+                                    {
+                                        if (indexOfNorthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 2;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
+                                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    // the second tier base tile on eastern map
                                     if (indexOfEasternNeighbour != -1)
                                     {
                                         int transformedX = 2;
                                         int transformedY = y;
-                                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                     }
-                                }
-                                //the second tier south tile is on south-eastern map
-                                else if (y == mod.currentArea.MapSizeY - 1)
-                                {
-                                    if (indexOfSouthEasternNeighbour != -1)
+                                    //the second tier south tile is on eastern map
+                                    if (y < mod.currentArea.MapSizeY - 1)
                                     {
-                                        int transformedX = 2;
-                                        int transformedY = 0;
-                                        mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        if (indexOfEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 2;
+                                            int transformedY = y;
+                                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier south tile is on south-eastern map
+                                    else if (y == mod.currentArea.MapSizeY - 1)
+                                    {
+                                        if (indexOfSouthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 2;
+                                            int transformedY = 0;
+                                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
                                     }
                                 }
                             }
@@ -30027,202 +30048,13 @@ namespace IceBlink2
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //check up
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY - 1;
-                //the second tier row is not on northern map (|210, turn 90degree clockwise)
-                if ((y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier west tile is on current map
-                    if (x > 0)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                    //the second tier west tile is on western map
-                    else if (x == 0)
-                    {
-                        if (indexOfWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
 
-                    //draw the base tile on this map
-                    mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
 
-                    //the second tier eastern tile is on current map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    //the second tier eastern tile is on eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfEasternNeighbour != -1)
-                        {
-                            //hrmmmpf
-                            int transformedX = 0;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree clockwise)
-                else if ((y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                if (mod.currentArea.AreaVisibleDistance >= 2)
                 {
-                    //the second tier west tile is on northern map
-                    if (x > 0)
-                    {
-                        if (indexOfNorthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                        }
-                    }
-                    //the second tier west tile is on north-western map
-                    else if (x == 0)
-                    {
-                        if (indexOfNorthWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                    //draw the second tier base tile on northern map
-                    if (indexOfNorthernNeighbour != -1)
-                    {
-                        int transformedX = x;
-                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
-                    }
-                    //the second tier eastern tile is on northern map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfNorthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                        }
-                    }
-                    //the second tier eastern tile is on north-eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfNorthEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
-                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree clockwise)
-                else if (y - 1 == -2)
-                {
-                    if (indexOfNorthernNeighbour != -1)
-                    {
-                        if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
-                        {
-                            //the second tier west tile is on northern map
-                            if (x > 0)
-                            {
-                                int transformedX = x;
-                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2; ;
-                                mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                            }
-                            //the second tier west tile is on north-western map
-                            else if (x == 0)
-                            {
-                                if (indexOfNorthWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 2;
-                                    mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                            //draw the second tier base tile on northern map
-                            if (indexOfNorthernNeighbour != -1)
-                            {
-                                int transformedX = x;
-                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
-                                mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
-                            }
-                            //the second tier east tile is on northern map
-                            if (x < mod.currentArea.MapSizeX - 1)
-                            {
-                                if (indexOfNorthernNeighbour != -1)
-                                {
-                                    int transformedX = x;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
-                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                                }
-                            }
-                            //the second tier east tile is on north-eastern map
-                            else if (x == mod.currentArea.MapSizeX - 1)
-                            {
-                                if (indexOfNorthEasternNeighbour != -1)
-                                {
-                                    int transformedX = 0;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 2;
-                                    mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-                //check up of up
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY - 2;
-                loSCheck1 = false;
-                loSCheck2 = false;
-                int tempY = 0;
-
-                //loSCheck1
-                tempY = y + 1;
-                if (((tempY) < 0) && (indexOfNorthernNeighbour != -1))
-                {
-                    tempY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + tempY;
-                    if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                if ((y + 1) >= 0)
-                {
-                    if (!mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                //loSCheck2
-                tempY = y;
-                if ((tempY < 0) && (indexOfNorthernNeighbour != -1))
-                {
-                    tempY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + tempY;
-                    if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (y >= 0)
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (loSCheck1 && loSCheck2)
-                {
+                    //check up
+                    x = mod.PlayerLocationX;
+                    y = mod.PlayerLocationY - 1;
                     //the second tier row is not on northern map (|210, turn 90degree clockwise)
                     if ((y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
                     {
@@ -30318,7 +30150,7 @@ namespace IceBlink2
                     {
                         if (indexOfNorthernNeighbour != -1)
                         {
-                            if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY-1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
+                            if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
                             {
                                 //the second tier west tile is on northern map
                                 if (x > 0)
@@ -30367,55 +30199,253 @@ namespace IceBlink2
                             }
                         }
                     }
-                    //utmost up(321|0, turn 90 degree clockwise)
-                    else if (y - 1 == -3)
+                }
+                //XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+                if (mod.currentArea.AreaVisibleDistance >= 3)
+                {
+                    //check up of up
+                    x = mod.PlayerLocationX;
+                    y = mod.PlayerLocationY - 2;
+                    loSCheck1 = false;
+                    loSCheck2 = false;
+                    tempY = 0;
+
+                    //loSCheck1
+                    tempY = y + 1;
+                    if (((tempY) < 0) && (indexOfNorthernNeighbour != -1))
                     {
-                        if (indexOfNorthernNeighbour != -1)
+                        tempY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + tempY;
+                        if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
                         {
-                            if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY-2) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    if ((y + 1) >= 0)
+                    {
+                        if (!mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    //loSCheck2
+                    tempY = y;
+                    if ((tempY < 0) && (indexOfNorthernNeighbour != -1))
+                    {
+                        tempY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY + tempY;
+                        if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (y >= 0)
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (loSCheck1 && loSCheck2)
+                    {
+                        //the second tier row is not on northern map (|210, turn 90degree clockwise)
+                        if ((y - 1 >= 0) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier west tile is on current map
+                            if (x > 0)
                             {
-                                //the second tier west tile is on northern map
-                                if (x > 0)
+                                mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+                            }
+                            //the second tier west tile is on western map
+                            else if (x == 0)
+                            {
+                                if (indexOfWesternNeighbour != -1)
                                 {
-                                    int transformedX = x;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 3; ;
-                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = y;
+                                    mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                 }
-                                //the second tier west tile is on north-western map
-                                else if (x == 0)
+                            }
+
+                            //draw the base tile on this map
+                            mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
+
+                            //the second tier eastern tile is on current map
+                            if (x < mod.currentArea.MapSizeX - 1)
+                            {
+                                mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                            }
+                            //the second tier eastern tile is on eastern map
+                            else if (x == mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfEasternNeighbour != -1)
                                 {
-                                    if (indexOfNorthWesternNeighbour != -1)
-                                    {
-                                        int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
-                                        int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 3;
-                                        mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                    }
+                                    //hrmmmpf
+                                    int transformedX = 0;
+                                    int transformedY = y;
+                                    mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY - 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
                                 }
-                                //draw the second tier base tile on northern map
+                            }
+                        }
+                        //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree clockwise)
+                        else if ((y - 1 == -1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier west tile is on northern map
+                            if (x > 0)
+                            {
                                 if (indexOfNorthernNeighbour != -1)
                                 {
                                     int transformedX = x;
-                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 3;
-                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
                                 }
-                                //the second tier east tile is on northern map
-                                if (x < mod.currentArea.MapSizeX - 1)
+                            }
+                            //the second tier west tile is on north-western map
+                            else if (x == 0)
+                            {
+                                if (indexOfNorthWesternNeighbour != -1)
                                 {
+                                    int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                            //draw the second tier base tile on northern map
+                            if (indexOfNorthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                                mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            }
+                            //the second tier eastern tile is on northern map
+                            if (x < mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfNorthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                }
+                            }
+                            //the second tier eastern tile is on north-eastern map
+                            else if (x == mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfNorthEasternNeighbour != -1)
+                                {
+                                    int transformedX = 0;
+                                    int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 1;
+                                    mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree clockwise)
+                        else if (y - 1 == -2)
+                        {
+                            if (indexOfNorthernNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 1) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
+                                {
+                                    //the second tier west tile is on northern map
+                                    if (x > 0)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2; ;
+                                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                    }
+                                    //the second tier west tile is on north-western map
+                                    else if (x == 0)
+                                    {
+                                        if (indexOfNorthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 2;
+                                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on northern map
+                                    if (indexOfNorthernNeighbour != -1)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
+                                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    }
+                                    //the second tier east tile is on northern map
+                                    if (x < mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfNorthernNeighbour != -1)
+                                        {
+                                            int transformedX = x;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2;
+                                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier east tile is on north-eastern map
+                                    else if (x == mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfNorthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 0;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 2;
+                                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //utmost up(321|0, turn 90 degree clockwise)
+                        else if (y - 1 == -3)
+                        {
+                            if (indexOfNorthernNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 2) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + x].LoSBlocked)
+                                {
+                                    //the second tier west tile is on northern map
+                                    if (x > 0)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 3; ;
+                                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                    }
+                                    //the second tier west tile is on north-western map
+                                    else if (x == 0)
+                                    {
+                                        if (indexOfNorthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX - 1;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeY - 3;
+                                            mod.moduleAreasObjects[indexOfNorthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on northern map
                                     if (indexOfNorthernNeighbour != -1)
                                     {
                                         int transformedX = x;
                                         int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 3;
-                                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                        mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX)].Visible = true;
                                     }
-                                }
-                                //the second tier east tile is on north-eastern map
-                                else if (x == mod.currentArea.MapSizeX - 1)
-                                {
-                                    if (indexOfNorthEasternNeighbour != -1)
+                                    //the second tier east tile is on northern map
+                                    if (x < mod.currentArea.MapSizeX - 1)
                                     {
-                                        int transformedX = 0;
-                                        int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 3;
-                                        mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        if (indexOfNorthernNeighbour != -1)
+                                        {
+                                            int transformedX = x;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeY - 3;
+                                            mod.moduleAreasObjects[indexOfNorthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier east tile is on north-eastern map
+                                    else if (x == mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfNorthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 0;
+                                            int transformedY = mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeY - 3;
+                                            mod.moduleAreasObjects[indexOfNorthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfNorthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
                                     }
                                 }
                             }
@@ -30423,357 +30453,114 @@ namespace IceBlink2
                     }
                 }
                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                //check down
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY + 1;
-                //the second tier row is not on southern map (|210, turn 90degree counterclockwise)
-                if ((y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+
+
+                if (mod.currentArea.AreaVisibleDistance >= 2)
                 {
-                    //the second tier west tile is on current map
-                    if (x > 0)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                    //the second tier west tile is on western map
-                    else if (x == 0)
-                    {
-                        if (indexOfWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
-
-                    //draw the base tile on this map
-                    mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
-
-                    //the second tier eastern tile is on current map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    //the second tier eastern tile is on eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree counterclockwise)
-                else if ((y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier west tile is on southern map
-                    if (x > 0)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                        }
-                    }
-                    //the second tier west tile is on south-western map
-                    else if (x == 0)
-                    {
-                        if (indexOfSouthWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                    //draw the second tier base tile on southern map
-                    if (indexOfSouthernNeighbour != -1)
-                    {
-                        int transformedX = x;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
-                    }
-                    //the second tier eastern tile is on southern map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                        }
-                    }
-                    //the second tier eastern tile is on south-eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
-                else if (y + 1 == mod.currentArea.MapSizeY + 1)
-                {
-                    if (indexOfSouthernNeighbour != -1)
-                    {
-                        if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
-                        {
-                            //the second tier west tile is on southern map
-                            if (x > 0)
-                            {
-                                int transformedX = x;
-                                int transformedY = 1;
-                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                            }
-                            //the second tier west tile is on south-western map
-                            else if (x == 0)
-                            {
-                                if (indexOfSouthWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                            //draw the second tier base tile on southern map
-                            if (indexOfSouthernNeighbour != -1)
-                            {
-                                int transformedX = x;
-                                int transformedY = 1;
-                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
-                            }
-                            //the second tier east tile is on southern map
-                            if (x < mod.currentArea.MapSizeX - 1)
-                            {
-                                if (indexOfSouthernNeighbour != -1)
-                                {
-                                    int transformedX = x;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                                }
-                            }
-                            //the second tier east tile is on south-eastern map
-                            else if (x == mod.currentArea.MapSizeX - 1)
-                            {
-                                if (indexOfSouthEasternNeighbour != -1)
-                                {
-                                    int transformedX = 0;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                //XXXXXXXXXXXXXXXXXXXXXXX
-
-                //check down of down
-                x = mod.PlayerLocationX;
-                y = mod.PlayerLocationY + 2;
-
-                loSCheck1 = false;
-                loSCheck2 = false;
-                tempX = 0;
-
-                //loSCheck1
-                tempY = y - 1;
-                if ((tempY > (mod.currentArea.MapSizeY - 1)) && (indexOfSouthernNeighbour != -1))
-                {
-                    tempY = 0;
-                    if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                if ((y - 1) <= (mod.currentArea.MapSizeY - 1))
-                {
-                    if (!mod.currentArea.Tiles[(y-1) * mod.currentArea.MapSizeY + x].LoSBlocked)
-                    {
-                        loSCheck1 = true;
-                    }
-                }
-
-                //loSCheck2
-                tempY = y;
-                if ((tempY > (mod.currentArea.MapSizeY - 1)) && (indexOfSouthernNeighbour != -1))
-                {
-                    tempY = 1;
-                    if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (y <= (mod.currentArea.MapSizeY - 1))
-                {
-                    if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
-                    {
-                        loSCheck2 = true;
-                    }
-                }
-
-                if (loSCheck1 && loSCheck2)
-                {
+                    //check down
+                    x = mod.PlayerLocationX;
+                    y = mod.PlayerLocationY + 1;
                     //the second tier row is not on southern map (|210, turn 90degree counterclockwise)
                     if ((y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier west tile is on current map
-                    if (x > 0)
                     {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
-                    }
-                    //the second tier west tile is on western map
-                    else if (x == 0)
-                    {
-                        if (indexOfWesternNeighbour != -1)
+                        //the second tier west tile is on current map
+                        if (x > 0)
                         {
-                            int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
                         }
-                    }
-
-                    //draw the base tile on this map
-                    mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
-
-                    //the second tier eastern tile is on current map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
-                    }
-                    //the second tier eastern tile is on eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfEasternNeighbour != -1)
+                        //the second tier west tile is on western map
+                        else if (x == 0)
                         {
-                            int transformedX = 0;
-                            int transformedY = y;
-                            mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree counterclockwise)
-                else if ((y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
-                {
-                    //the second tier west tile is on southern map
-                    if (x > 0)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
-                        }
-                    }
-                    //the second tier west tile is on south-western map
-                    else if (x == 0)
-                    {
-                        if (indexOfSouthWesternNeighbour != -1)
-                        {
-                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                    //draw the second tier base tile on southern map
-                    if (indexOfSouthernNeighbour != -1)
-                    {
-                        int transformedX = x;
-                        int transformedY = 0;
-                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
-                    }
-                    //the second tier eastern tile is on southern map
-                    if (x < mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfSouthernNeighbour != -1)
-                        {
-                            int transformedX = x;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                        }
-                    }
-                    //the second tier eastern tile is on south-eastern map
-                    else if (x == mod.currentArea.MapSizeX - 1)
-                    {
-                        if (indexOfSouthEasternNeighbour != -1)
-                        {
-                            int transformedX = 0;
-                            int transformedY = 0;
-                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                        }
-                    }
-                }
-                //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
-                else if (y + 1 == mod.currentArea.MapSizeY + 1)
-                {
-                    if (indexOfSouthernNeighbour != -1)
-                    {
-                        if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
-                        {
-                            //the second tier west tile is on southern map
-                            if (x > 0)
+                            if (indexOfWesternNeighbour != -1)
                             {
-                                int transformedX = x;
-                                int transformedY = 1;
-                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
+                                int transformedY = y;
+                                mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
                             }
-                            //the second tier west tile is on south-western map
-                            else if (x == 0)
+                        }
+
+                        //draw the base tile on this map
+                        mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
+
+                        //the second tier eastern tile is on current map
+                        if (x < mod.currentArea.MapSizeX - 1)
+                        {
+                            mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                        }
+                        //the second tier eastern tile is on eastern map
+                        else if (x == mod.currentArea.MapSizeX - 1)
+                        {
+                            if (indexOfEasternNeighbour != -1)
                             {
-                                if (indexOfSouthWesternNeighbour != -1)
-                                {
-                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
+                                int transformedX = 0;
+                                int transformedY = y;
+                                mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
                             }
-                            //draw the second tier base tile on southern map
+                        }
+                    }
+                    //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree counterclockwise)
+                    else if ((y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                    {
+                        //the second tier west tile is on southern map
+                        if (x > 0)
+                        {
                             if (indexOfSouthernNeighbour != -1)
                             {
                                 int transformedX = x;
-                                int transformedY = 1;
-                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                int transformedY = 0;
+                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
                             }
-                            //the second tier east tile is on southern map
-                            if (x < mod.currentArea.MapSizeX - 1)
+                        }
+                        //the second tier west tile is on south-western map
+                        else if (x == 0)
+                        {
+                            if (indexOfSouthWesternNeighbour != -1)
                             {
-                                if (indexOfSouthernNeighbour != -1)
-                                {
-                                    int transformedX = x;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
-                                }
+                                int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
+                                int transformedY = 0;
+                                mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                             }
-                            //the second tier east tile is on south-eastern map
-                            else if (x == mod.currentArea.MapSizeX - 1)
+                        }
+                        //draw the second tier base tile on southern map
+                        if (indexOfSouthernNeighbour != -1)
+                        {
+                            int transformedX = x;
+                            int transformedY = 0;
+                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                        }
+                        //the second tier eastern tile is on southern map
+                        if (x < mod.currentArea.MapSizeX - 1)
+                        {
+                            if (indexOfSouthernNeighbour != -1)
                             {
-                                if (indexOfSouthEasternNeighbour != -1)
-                                {
-                                    int transformedX = 0;
-                                    int transformedY = 1;
-                                    mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
-                                }
+                                int transformedX = x;
+                                int transformedY = 0;
+                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                            }
+                        }
+                        //the second tier eastern tile is on south-eastern map
+                        else if (x == mod.currentArea.MapSizeX - 1)
+                        {
+                            if (indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = 0;
+                                int transformedY = 0;
+                                mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
                             }
                         }
                     }
-                }
-                    //utmost down situation(321|0, turn 90 degree counterclockwise)
-                    else if (y + 1 == mod.currentArea.MapSizeY + 2)
+                    //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
+                    else if (y + 1 == mod.currentArea.MapSizeY + 1)
                     {
                         if (indexOfSouthernNeighbour != -1)
                         {
-                            if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[1 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
+                            if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
                             {
                                 //the second tier west tile is on southern map
                                 if (x > 0)
                                 {
                                     int transformedX = x;
-                                    int transformedY = 2;
+                                    int transformedY = 1;
                                     mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
                                 }
                                 //the second tier west tile is on south-western map
@@ -30782,7 +30569,7 @@ namespace IceBlink2
                                     if (indexOfSouthWesternNeighbour != -1)
                                     {
                                         int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
-                                        int transformedY = 2;
+                                        int transformedY = 1;
                                         mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
                                     }
                                 }
@@ -30790,7 +30577,7 @@ namespace IceBlink2
                                 if (indexOfSouthernNeighbour != -1)
                                 {
                                     int transformedX = x;
-                                    int transformedY = 2;
+                                    int transformedY = 1;
                                     mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
                                 }
                                 //the second tier east tile is on southern map
@@ -30799,7 +30586,7 @@ namespace IceBlink2
                                     if (indexOfSouthernNeighbour != -1)
                                     {
                                         int transformedX = x;
-                                        int transformedY = 2;
+                                        int transformedY = 1;
                                         mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
                                     }
                                 }
@@ -30809,7 +30596,7 @@ namespace IceBlink2
                                     if (indexOfSouthEasternNeighbour != -1)
                                     {
                                         int transformedX = 0;
-                                        int transformedY = 2;
+                                        int transformedY = 1;
                                         mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
                                     }
                                 }
@@ -30817,7 +30604,258 @@ namespace IceBlink2
                         }
                     }
                 }
+                //XXXXXXXXXXXXXXXXXXXXXXX
 
+
+                if (mod.currentArea.AreaVisibleDistance >= 3)
+                {
+                    //check down of down
+                    x = mod.PlayerLocationX;
+                    y = mod.PlayerLocationY + 2;
+
+                    loSCheck1 = false;
+                    loSCheck2 = false;
+                    tempX = 0;
+
+                    //loSCheck1
+                    tempY = y - 1;
+                    if ((tempY > (mod.currentArea.MapSizeY - 1)) && (indexOfSouthernNeighbour != -1))
+                    {
+                        tempY = 0;
+                        if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    if ((y - 1) <= (mod.currentArea.MapSizeY - 1))
+                    {
+                        if (!mod.currentArea.Tiles[(y - 1) * mod.currentArea.MapSizeY + x].LoSBlocked)
+                        {
+                            loSCheck1 = true;
+                        }
+                    }
+
+                    //loSCheck2
+                    tempY = y;
+                    if ((tempY > (mod.currentArea.MapSizeY - 1)) && (indexOfSouthernNeighbour != -1))
+                    {
+                        tempY = 1;
+                        if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[tempY * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (y <= (mod.currentArea.MapSizeY - 1))
+                    {
+                        if (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked)
+                        {
+                            loSCheck2 = true;
+                        }
+                    }
+
+                    if (loSCheck1 && loSCheck2)
+                    {
+                        //the second tier row is not on southern map (|210, turn 90degree counterclockwise)
+                        if ((y + 1 <= mod.currentArea.MapSizeY - 1) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier west tile is on current map
+                            if (x > 0)
+                            {
+                                mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x - 1)].Visible = true;
+                            }
+                            //the second tier west tile is on western map
+                            else if (x == 0)
+                            {
+                                if (indexOfWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = y;
+                                    mod.moduleAreasObjects[indexOfWesternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfWesternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                }
+                            }
+
+                            //draw the base tile on this map
+                            mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x)].Visible = true;
+
+                            //the second tier eastern tile is on current map
+                            if (x < mod.currentArea.MapSizeX - 1)
+                            {
+                                mod.currentArea.Tiles[(y + 1) * mod.currentArea.MapSizeX + (x + 1)].Visible = true;
+                            }
+                            //the second tier eastern tile is on eastern map
+                            else if (x == mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfEasternNeighbour != -1)
+                                {
+                                    int transformedX = 0;
+                                    int transformedY = y;
+                                    mod.moduleAreasObjects[indexOfEasternNeighbour].Tiles[(transformedY + 1) * mod.moduleAreasObjects[indexOfEasternNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile is on northern map, but the potential LoS blocker still on current map (2|10, turn 90degree counterclockwise)
+                        else if ((y + 1 == mod.currentArea.MapSizeY) && (!mod.currentArea.Tiles[y * mod.currentArea.MapSizeX + x].LoSBlocked))
+                        {
+                            //the second tier west tile is on southern map
+                            if (x > 0)
+                            {
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                }
+                            }
+                            //the second tier west tile is on south-western map
+                            else if (x == 0)
+                            {
+                                if (indexOfSouthWesternNeighbour != -1)
+                                {
+                                    int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                            //draw the second tier base tile on southern map
+                            if (indexOfSouthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = 0;
+                                mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                            }
+                            //the second tier eastern tile is on southern map
+                            if (x < mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfSouthernNeighbour != -1)
+                                {
+                                    int transformedX = x;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                }
+                            }
+                            //the second tier eastern tile is on south-eastern map
+                            else if (x == mod.currentArea.MapSizeX - 1)
+                            {
+                                if (indexOfSouthEasternNeighbour != -1)
+                                {
+                                    int transformedX = 0;
+                                    int transformedY = 0;
+                                    mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                }
+                            }
+                        }
+                        //the second tier base tile and the potential LoS blocker are on northern map, but the party is still on current map (21|0, turn 90 degree counterclockwise)
+                        else if (y + 1 == mod.currentArea.MapSizeY + 1)
+                        {
+                            if (indexOfSouthernNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[0 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
+                                {
+                                    //the second tier west tile is on southern map
+                                    if (x > 0)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = 1;
+                                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                    }
+                                    //the second tier west tile is on south-western map
+                                    else if (x == 0)
+                                    {
+                                        if (indexOfSouthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
+                                            int transformedY = 1;
+                                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on southern map
+                                    if (indexOfSouthernNeighbour != -1)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = 1;
+                                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    }
+                                    //the second tier east tile is on southern map
+                                    if (x < mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfSouthernNeighbour != -1)
+                                        {
+                                            int transformedX = x;
+                                            int transformedY = 1;
+                                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier east tile is on south-eastern map
+                                    else if (x == mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfSouthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 0;
+                                            int transformedY = 1;
+                                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //utmost down situation(321|0, turn 90 degree counterclockwise)
+                        else if (y + 1 == mod.currentArea.MapSizeY + 2)
+                        {
+                            if (indexOfSouthernNeighbour != -1)
+                            {
+                                if (!mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[1 * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + x].LoSBlocked)
+                                {
+                                    //the second tier west tile is on southern map
+                                    if (x > 0)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = 2;
+                                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX - 1)].Visible = true;
+                                    }
+                                    //the second tier west tile is on south-western map
+                                    else if (x == 0)
+                                    {
+                                        if (indexOfSouthWesternNeighbour != -1)
+                                        {
+                                            int transformedX = mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX - 1;
+                                            int transformedY = 2;
+                                            mod.moduleAreasObjects[indexOfSouthWesternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthWesternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                    //draw the second tier base tile on southern map
+                                    if (indexOfSouthernNeighbour != -1)
+                                    {
+                                        int transformedX = x;
+                                        int transformedY = 2;
+                                        mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY + 0) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX)].Visible = true;
+                                    }
+                                    //the second tier east tile is on southern map
+                                    if (x < mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfSouthernNeighbour != -1)
+                                        {
+                                            int transformedX = x;
+                                            int transformedY = 2;
+                                            mod.moduleAreasObjects[indexOfSouthernNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthernNeighbour].MapSizeX + (transformedX + 1)].Visible = true;
+                                        }
+                                    }
+                                    //the second tier east tile is on south-eastern map
+                                    else if (x == mod.currentArea.MapSizeX - 1)
+                                    {
+                                        if (indexOfSouthEasternNeighbour != -1)
+                                        {
+                                            int transformedX = 0;
+                                            int transformedY = 2;
+                                            mod.moduleAreasObjects[indexOfSouthEasternNeighbour].Tiles[(transformedY) * mod.moduleAreasObjects[indexOfSouthEasternNeighbour].MapSizeX + transformedX].Visible = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
                 //XXXXXXXXXXXXXXXXXXXXXXXXX
                 #endregion
