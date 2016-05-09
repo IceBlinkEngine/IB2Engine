@@ -5100,6 +5100,8 @@ namespace IceBlink2
                     #region TOUCH ON MAP AREA
                     gridx = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize) + UpperLeftSquare.X;
                     gridy = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize) + UpperLeftSquare.Y;
+                    int tappedSqrX = ((int)(e.X - gv.oXshift - mapStartLocXinPixels) / gv.squareSize);
+                    int tappedSqrY = ((int)(e.Y - (gv.squareSize / 2)) / gv.squareSize);
 
                     if (IsInVisibleCombatWindow(gridx, gridy))
                     {
@@ -5127,7 +5129,7 @@ namespace IceBlink2
                     #endregion
                    
                     #region BUTTONS
-                    if ((rtn.Equals("ctrlUpArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    if ((rtn.Equals("ctrlUpArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5135,10 +5137,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(8);
+                            if (rtn.Equals("ctrlUpArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(8);
+                            }                            
                         }                            
                     }
-                    else if ((rtn.Equals("ctrlDownArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {                       
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5146,10 +5151,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(2);
+                            if (rtn.Equals("ctrlDownArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(2);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
+                    else if ((rtn.Equals("ctrlLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5157,10 +5165,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(4);
+                            if (rtn.Equals("ctrlLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(4);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY)))
+                    else if ((rtn.Equals("ctrlRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5168,10 +5179,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(6);
+                            if (rtn.Equals("ctrlRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(6);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    else if ((rtn.Equals("ctrlUpRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5179,10 +5193,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(9);
+                            if (rtn.Equals("ctrlUpRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(9);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX + 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownRightArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX + 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5190,10 +5207,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(3);
+                            if (rtn.Equals("ctrlDownRightArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(3);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY - 1)))
+                    else if ((rtn.Equals("ctrlUpLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY - 1)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5201,10 +5221,13 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(7);
+                            if (rtn.Equals("ctrlUpLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(7);
+                            }
                         }
                     }
-                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((gridx + UpperLeftSquare.X == pc.combatLocX - 1) && (gridy + UpperLeftSquare.Y == pc.combatLocY + 1)))
+                    else if ((rtn.Equals("ctrlDownLeftArrow")) || ((tappedSqrX + UpperLeftSquare.X == pc.combatLocX - 1) && (tappedSqrY + UpperLeftSquare.Y == pc.combatLocY + 1)))
                     {                        
                         if (currentCombatMode.Equals("move"))
                         {
@@ -5212,7 +5235,10 @@ namespace IceBlink2
                         }
                         else if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
-                            MoveTargetHighlight(1);
+                            if (rtn.Equals("ctrlDownLeftArrow")) //if clicked on square, don't move the highlight...only move for arrow button
+                            {
+                                MoveTargetHighlight(1);
+                            }
                         }
                     }
                     else if (rtn.Equals("btnSwitchWeapon"))
