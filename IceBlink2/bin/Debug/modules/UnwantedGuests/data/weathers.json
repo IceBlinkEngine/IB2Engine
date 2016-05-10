@@ -5652,5 +5652,409 @@
     ],
     "tag": "newWeatherTag_9725",
     "name": "winter"
+  },
+  {
+    "weatherTypeLists": [
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9832",
+            "name": "clear",
+            "combinedInfo": "clear (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9834",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9835",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9836",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightSandStorm",
+            "tag": "newWeatherTypeListItemTag_9837",
+            "name": "lightSandStorm",
+            "combinedInfo": "lightSandStorm (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9838",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavySandStorm",
+            "tag": "newWeatherTypeListItemTag_9839",
+            "name": "heavySandStorm",
+            "combinedInfo": "heavySandStorm (5%) (100 ticks)",
+            "chance": 5,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavySandStormAndLightning",
+            "tag": "newWeatherTypeListItemTag_9840",
+            "name": "heavySandStormAndLightning",
+            "combinedInfo": "heavySandStormAndLightning (0%) (100 ticks)",
+            "chance": 0,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9830",
+        "name": "entryList"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9841",
+            "name": "clear",
+            "combinedInfo": "clear (70%) (100 ticks)",
+            "chance": 70,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9842",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9843",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9844",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9833",
+        "name": "heavySandStormAndLightning"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9847",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9848",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightSandStorm",
+            "tag": "newWeatherTypeListItemTag_9849",
+            "name": "lightSandStorm",
+            "combinedInfo": "lightSandStorm (25%) (100 ticks)",
+            "chance": 25,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9851",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (15%) (100 ticks)",
+            "chance": 15,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9852",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9846",
+        "name": "clear"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9854",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9855",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightSandStorm",
+            "tag": "newWeatherTypeListItemTag_9856",
+            "name": "lightSandStorm",
+            "combinedInfo": "lightSandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9857",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9853",
+        "name": "lightCloudsA"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9854",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9855",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightSandStorm",
+            "tag": "newWeatherTypeListItemTag_9856",
+            "name": "lightSandStorm",
+            "combinedInfo": "lightSandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9857",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9858",
+        "name": "lightCloudsB"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9854",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9855",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightSandStorm",
+            "tag": "newWeatherTypeListItemTag_9856",
+            "name": "lightSandStorm",
+            "combinedInfo": "lightSandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9857",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (30%) (100 ticks)",
+            "chance": 30,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9859",
+        "name": "lightCloudsC"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9861",
+            "name": "clear",
+            "combinedInfo": "clear (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "sandStorm",
+            "tag": "newWeatherTypeListItemTag_9862",
+            "name": "sandStorm",
+            "combinedInfo": "sandStorm (50%) (200 ticks)",
+            "chance": 50,
+            "duration": 200
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9863",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9864",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9865",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9860",
+        "name": "lightSandStorm"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9861",
+            "name": "clear",
+            "combinedInfo": "clear (20%) (100 ticks)",
+            "chance": 20,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "heavySandStorm",
+            "tag": "newWeatherTypeListItemTag_9862",
+            "name": "heavySandStorm",
+            "combinedInfo": "heavySandStorm (50%) (200 ticks)",
+            "chance": 50,
+            "duration": 200
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9863",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9864",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9865",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9866",
+        "name": "sandStorm"
+      },
+      {
+        "weatherTypeListItems": [
+          {
+            "weatherEffectName": "clear",
+            "tag": "newWeatherTypeListItemTag_9868",
+            "name": "clear",
+            "combinedInfo": "clear (70%) (100 ticks)",
+            "chance": 70,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsA",
+            "tag": "newWeatherTypeListItemTag_9869",
+            "name": "lightCloudsA",
+            "combinedInfo": "lightCloudsA (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsB",
+            "tag": "newWeatherTypeListItemTag_9870",
+            "name": "lightCloudsB",
+            "combinedInfo": "lightCloudsB (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          },
+          {
+            "weatherEffectName": "lightCloudsC",
+            "tag": "newWeatherTypeListItemTag_9871",
+            "name": "lightCloudsC",
+            "combinedInfo": "lightCloudsC (10%) (100 ticks)",
+            "chance": 10,
+            "duration": 100
+          }
+        ],
+        "tag": "newWeatherTypeListTag_9867",
+        "name": "heavySandStorm"
+      }
+    ],
+    "tag": "newWeatherTag_9829",
+    "name": "desert"
   }
 ]

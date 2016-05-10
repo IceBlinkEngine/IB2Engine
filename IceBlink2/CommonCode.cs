@@ -3253,6 +3253,7 @@ namespace IceBlink2
             gv.mod.isFoggy = false;
             gv.mod.isSnowing = false;
             gv.mod.isLightning = false;
+            gv.mod.isSandstorm = false;
 
 
             if (gv.mod.currentArea.areaWeatherName != "")
@@ -3287,6 +3288,23 @@ namespace IceBlink2
                 {
                     gv.mod.isSnowing = true;
                     gv.snowType = "snow";
+                }
+
+
+                if (gv.mod.currentWeatherName.Contains("lightSandStorm") || gv.mod.currentWeatherName.Contains("LightSandStorm"))
+                {
+                    gv.mod.isSandstorm = true;
+                    gv.sandstormType = "lightSandStorm";
+                }
+                else if (gv.mod.currentWeatherName.Contains("heavySandStorm") || gv.mod.currentWeatherName.Contains("HeavySandStorm"))
+                {
+                    gv.mod.isSandstorm = true;
+                    gv.sandstormType = "heavySandStorm";
+                }
+                else if (gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                {
+                    gv.mod.isSandstorm = true;
+                    gv.sandstormType = "sandStorm";
                 }
 
                 if (gv.mod.currentWeatherName.Contains("heavyClouds") || gv.mod.currentWeatherName.Contains("HeavyClouds"))
@@ -6027,6 +6045,40 @@ namespace IceBlink2
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
                         Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true, 0);
+                        gv.screenMainMap.spriteList.Add(spr);
+                    }
+                }
+            }
+        }
+
+        public void createSandstorm(string density)
+        {
+            if (gv.mod.isSandstorm == true)
+            {
+                float sandstormChance = 0;
+                if (density == "lightSandStorm")
+                {
+                    sandstormChance = gv.sf.RandInt(10) + 14;
+                }
+                else if (density == "heavySandStorm")
+                {
+                    sandstormChance = gv.sf.RandInt(50) + 35;
+                }
+                else if (density == "sandStorm")
+                {
+                    sandstormChance = gv.sf.RandInt(30) + 25;
+                }
+
+                float storedIncrement = 0;
+                for (int i = 1; i < 61; i++)
+                {
+                    float increment = gv.screenHeight / 60;
+                    storedIncrement += increment;
+                    if (gv.sf.RandInt(100) < sandstormChance)
+                    {
+                        int scaleMulti = gv.sf.RandInt(50) + 75;
+                        //change to sandGrain later
+                        Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), (float)(gv.sf.RandInt(80) + 170) / 600f, 0, 0, 0, 0.235f * scaleMulti / 100f, 16000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", true, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }

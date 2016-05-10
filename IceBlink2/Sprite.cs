@@ -146,6 +146,11 @@ namespace IceBlink2
                 //position.X += (float)Math.Sin(position.Y);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
+            else if (movementMethod == "sandstorm")
+            {
+                position += velocity * elapsed;
+                opacity = gv.mod.fullScreenEffectOpacityWeather;
+            }
 
             if (this.numberOFFramesForAnimationsMadeFromSeveralBitmaps > 0)
             {
@@ -187,7 +192,7 @@ namespace IceBlink2
             }
             else
             {
-                gv.cc.addLogText("red", currentFrameIndex.ToString());
+                //gv.cc.addLogText("red", currentFrameIndex.ToString());
 
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(bitmap + currentFrameIndex.ToString()), src, dst, angle, false, this.opacity);
 
