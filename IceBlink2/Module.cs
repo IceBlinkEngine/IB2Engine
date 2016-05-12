@@ -47,6 +47,9 @@ namespace IceBlink2
         public string windDirection = "";
         public bool isRaining = false;
         public bool isCloudy = false;
+        public float sandStormDirectionX = 1f;
+        public float sandStormDirectionY = 1f;
+        public string sandStormBlowingTo = "";
         public bool useManualCombatCam = true;
         public string moduleName = "none";
         public string moduleLabelName = "none";

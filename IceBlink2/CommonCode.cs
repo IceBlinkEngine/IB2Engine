@@ -3125,7 +3125,8 @@ namespace IceBlink2
                 //gv.mod.currentWeatherDuration = 0;
             //}
  
-            //initialize a fersh weather             
+            //initialize a fresh weather
+            //hurgh9             
             if ((gv.mod.currentWeatherName == "") && (gv.mod.oldWeatherName == "") && (gv.mod.currentArea.areaWeatherName != ""))
             {   
                 //determine random number between 1 and 100 for choosing entry weather type
@@ -3138,6 +3139,39 @@ namespace IceBlink2
                     if (rollRandom <= addedChances)
                     {
                         gv.mod.currentWeatherName = gv.mod.listOfEntryWeatherNames[i];
+                        if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                        {
+                            gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                            gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                            int deciderX = gv.sf.RandInt(2);
+                            if (deciderX == 1)
+                            {
+                                gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
+                            }
+                            int deciderY = gv.sf.RandInt(2);
+                            if (deciderY == 1)
+                            {
+                                gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
+                            }
+
+                            if ((deciderX == 1) && (deciderY == 1))
+                            {
+                                gv.mod.sandStormBlowingTo = "NW";
+                            }
+                            if ((deciderX == 1) && (deciderY == 2))
+                            {
+                                gv.mod.sandStormBlowingTo = "SW";
+                            }
+                            if ((deciderX == 2) && (deciderY == 1))
+                            {
+                                gv.mod.sandStormBlowingTo = "NE";
+                            }
+                            if ((deciderX == 2) && (deciderY == 2))
+                            {
+                                gv.mod.sandStormBlowingTo = "SE";
+                            }
+                        }
+
                         gv.mod.currentWeatherDuration = gv.mod.listOfEntryWeatherDurations[i];
                         float rollRandom2 = gv.sf.RandInt(100);
                         if (gv.mod.useRealTimeTimer == true)
@@ -3225,6 +3259,40 @@ namespace IceBlink2
                     if (rollRandom <= addedChances)
                     {
                         gv.mod.currentWeatherName = gv.mod.listOfExitWeatherNames[i];
+                        if (gv.mod.currentWeatherName.Contains("Sandstorm") || gv.mod.currentWeatherName.Contains("sandStorm") || gv.mod.currentWeatherName.Contains("sandstorm") || gv.mod.currentWeatherName.Contains("SandStorm"))
+                        {
+                            gv.mod.sandStormDirectionX = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                            gv.mod.sandStormDirectionY = (float)(gv.sf.RandInt(100) + 150) / 500f;
+                            int deciderX = gv.sf.RandInt(2);
+                            if (deciderX == 1)
+                            {
+                                gv.mod.sandStormDirectionX = gv.mod.sandStormDirectionX * -1;
+                            }
+                            int deciderY = gv.sf.RandInt(2);
+                            if (deciderY == 1)
+                            {
+                                gv.mod.sandStormDirectionY = gv.mod.sandStormDirectionY * -1;
+                            }
+
+                            if ((deciderX == 1) && (deciderY == 1))
+                            {
+                                gv.mod.sandStormBlowingTo = "NW";
+                            }
+                            if ((deciderX == 1) && (deciderY == 2))
+                            {
+                                gv.mod.sandStormBlowingTo = "SW";
+                            }
+                            if ((deciderX == 2) && (deciderY == 1))
+                            {
+                                gv.mod.sandStormBlowingTo = "NE";
+                            }
+                            if ((deciderX == 2) && (deciderY == 2))
+                            {
+                                gv.mod.sandStormBlowingTo = "SE";
+                            }
+
+
+                        }
                         gv.mod.currentWeatherDuration = gv.mod.listOfExitWeatherDurations[i];
                         float rollRandom2 = gv.sf.RandInt(100);
                         gv.mod.currentWeatherDuration = (int)(gv.mod.currentWeatherDuration * ((50f + rollRandom2) / 100f));
@@ -3350,8 +3418,9 @@ namespace IceBlink2
                 gv.cc.addLogText("lime", gv.mod.currentWeatherName);
             }
 
-            //gv.mod.currentWeatherName = "heavyRainWithHeavyCloudsBAndLightning";
-            //gv.mod.isLightning = true;
+            //hurgh7
+            //gv.mod.currentWeatherName = "sandStorm";
+            //gv.mod.isSandstorm = true;
         }
                
         public void SetUpEntryLists(string str)
@@ -6011,7 +6080,7 @@ namespace IceBlink2
                     storedIncrement += increment;
                     if (gv.sf.RandInt(100) < rainChance)
                     {
-                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.525f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", true, 0);
+                        Sprite spr = new Sprite(gv, "rainDrop", storedIncrement - (gv.squareSize/2), -(float)(gv.sf.RandInt(10)), (float)(gv.sf.RandInt(5) + 35) / 650f, (float)(gv.sf.RandInt(80) + 170) / 650f, 0, 0, 0.525f, gv.sf.RandInt(10000) + 6000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "rain", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6044,7 +6113,7 @@ namespace IceBlink2
                     if (gv.sf.RandInt(100) < snowChance)
                     {
                         int scaleMulti = gv.sf.RandInt(50) + 75;
-                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", true, 0);
+                        Sprite spr = new Sprite(gv, "snowFlake", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), 0, (float)(gv.sf.RandInt(80) + 170) / 6000f, 0, 0, 0.425f * scaleMulti/100f, gv.sf.RandInt(10000) + 15000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "snow", false, 0);
                         gv.screenMainMap.spriteList.Add(spr);
                     }
                 }
@@ -6070,18 +6139,141 @@ namespace IceBlink2
                 }
 
                 float storedIncrement = 0;
-                for (int i = 1; i < 61; i++)
+                if (gv.mod.sandStormBlowingTo.Contains("NE"))
                 {
-                    float increment = gv.screenHeight / 60;
-                    storedIncrement += increment;
-                    if (gv.sf.RandInt(100) < sandstormChance)
+                    for (int i = 1; i < 61; i++)
                     {
-                        int scaleMulti = gv.sf.RandInt(50) + 75;
-                        //change to sandGrain later
-                        Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), (float)(gv.sf.RandInt(80) + 170) / 600f, 0, 0, 0, 0.235f * scaleMulti / 100f, 16000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", true, 0);
-                        gv.screenMainMap.spriteList.Add(spr);
+                        float increment = (gv.screenHeight) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+
+                    storedIncrement = 0;
+
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenWidth) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
                     }
                 }
+
+                if (gv.mod.sandStormBlowingTo.Contains("NW"))
+                {
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenHeight) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+
+                    storedIncrement = 0;
+
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenWidth) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), gv.screenHeight + (float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+                }
+
+
+                if (gv.mod.sandStormBlowingTo.Contains("SW"))
+                {
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenHeight) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", gv.screenWidth + (float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+
+                    storedIncrement = 0;
+
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenWidth) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+                }
+
+                if (gv.mod.sandStormBlowingTo.Contains("SE"))
+                {
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenHeight) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", -(float)(gv.sf.RandInt(10)), storedIncrement - (gv.squareSize / 2), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+
+                    storedIncrement = 0;
+
+                    for (int i = 1; i < 61; i++)
+                    {
+                        float increment = (gv.screenWidth) / 60;
+                        storedIncrement += increment;
+                        if (gv.sf.RandInt(100) < sandstormChance)
+                        {
+                            int scaleMulti = gv.sf.RandInt(50) + 75;
+                            float thisParticleSpeed = (75f + gv.sf.RandInt(50)) / 100f;
+                            //(float)(gv.sf.RandInt(80) + 170) / 600f
+                            Sprite spr = new Sprite(gv, "sandGrain", storedIncrement - (gv.squareSize / 2), -(float)(gv.sf.RandInt(10)), thisParticleSpeed * gv.mod.sandStormDirectionX, thisParticleSpeed * gv.mod.sandStormDirectionY, 0, 0, 0.235f * scaleMulti / 100f, 4000, false, 100, gv.mod.fullScreenEffectOpacityWeather, 0, "sandstorm", false, 0);
+                            gv.screenMainMap.spriteList.Add(spr);
+                        }
+                    }
+                }
+
+
+
             }
         }
 
